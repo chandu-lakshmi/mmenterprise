@@ -6,6 +6,7 @@ and open the template in the editor.
 -->
 <!-- This is new comment line for testing SVN -->
 <!--another comment line-->
+<!-- Shiva kumar -->
 <html ng-app="app">
     <head>
         <title>MintMesh</title>
