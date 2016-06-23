@@ -23,7 +23,7 @@ hr{
 }
 /*Background Image*/
 .bg-image{
-	background: url('../images/bg-img.jpg') no-repeat;
+    background: url('../images/bg-img.jpg') no-repeat;
     background-size: cover;
     background-position: 50% 10%;
     height: 100%;
@@ -115,19 +115,19 @@ input{
 
 
 /*RESPONSIVE STYLES*/
-@media screen only and(max-height: 672px){
+@media (max-height: 672px){
     .verify-page + footer{
         position: static !important;
     }
 }
-/*@media(max-height: 760px){
-    .bg-image footer{
+@media (max-height: 756px){
+    .signin-signup + footer{
         position: static !important; 
     }
     .company-profile{
         height: auto !important;
     }
-}*/
+}
 @media(max-width: 767px){
     .signin-signup .col-xs-9{
         float: none;
@@ -165,7 +165,7 @@ input{
     color: #666
 }
 .signin-signup .logo{
-	/*width: 150px;*/
+    /*width: 150px;*/
     width: 200px;
     margin-bottom: 30px;
     padding: 12px 0 0 0;
@@ -658,12 +658,12 @@ ul > li{
 
 
 /*.form-group{
-	padding-bottom: 7px;
-	margin: 20px 0 0 0;
-	position: relative;
+    padding-bottom: 7px;
+    margin: 20px 0 0 0;
+    position: relative;
 }
 .form-group.label-floating label.control-label{
-	top: -7px;
+    top: -7px;
     font-size: 16px;
     line-height: 1.42857143;
     will-change: left,top,contents;
@@ -674,17 +674,17 @@ ul > li{
     transition: 0.3s ease all;
 }
 .form-group label.control-label{
-	font-size: 12px;
-	line-height: 1.07142857;
-	color: #bdbdbd;
-	font-weight: 400;
-	margin: 16px 0 0 0;
+    font-size: 12px;
+    line-height: 1.07142857;
+    color: #bdbdbd;
+    font-weight: 400;
+    margin: 16px 0 0 0;
 }
 .form-group .form-control{
-	margin-bottom: 7px;
+    margin-bottom: 7px;
 }
 .form-control, .form-group .form-control{
-	border: 0;
+    border: 0;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#009688), to(#009688)), -webkit-gradient(linear, left top, left bottom, from(#D2D2D2), to(#D2D2D2));
     background-image: -webkit-linear-gradient(#009688, #009688), -webkit-linear-gradient(#D2D2D2, #D2D2D2);
     background-image: -o-linear-gradient(#009688, #009688), -o-linear-gradient(#D2D2D2, #D2D2D2);
@@ -704,14 +704,14 @@ ul > li{
     border-radius: 0;
 }
 .form-control{
-	height: 38px;
+    height: 38px;
     padding: 7px 0;
     font-size: 16px;
     line-height: 1.42857143;
 }
 .form-group.is-focused .form-control{
-	outline: 0;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#009688), to(#009688)), -webkit-gradient(linear, left top, left bottom, from(#D2D2D2), to(#D2D2D2));
+    outline: 0;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#009688), to(#009688)), -webkit-gradient(linear, left top, left bottom, from(#D2D2D2), to(#D2D2D2));
     background-image: -webkit-linear-gradient(#009688, #009688), -webkit-linear-gradient(#D2D2D2, #D2D2D2);
     background-image: -o-linear-gradient(#009688, #009688), -o-linear-gradient(#D2D2D2, #D2D2D2);
     background-image: linear-gradient(#009688, #009688), linear-gradient(#D2D2D2, #D2D2D2);
@@ -723,8 +723,8 @@ ul > li{
     transition-duration: 0.3s;
 }
 .form-group.label-floating.is-focused label.control-label,.form-group.label-floating:not(.is-empty) label.control-label{
-	top: -30px;
-	left: 0;
-	font-size: 12px;
-	line-height: 1.07142857;
+    top: -30px;
+    left: 0;
+    font-size: 12px;
+    line-height: 1.07142857;
 }*/
