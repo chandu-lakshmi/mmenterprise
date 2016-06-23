@@ -1,0 +1,367 @@
+/*--------job---------*/
+.search-job{
+	margin-top: 3%;
+}
+.search-job input{
+	border:0;
+	font-size: 20px;
+	box-shadow: none;
+}
+.search-job input:focus,.search-job select:focus,.search-job{
+	border-radius: 0;
+	box-shadow: none;
+	border-color:silver !important;
+}
+.search-job .left-inner-addon {
+    position: relative;
+}
+.search-job .left-inner-addon input {
+    padding-left: 30px;
+}
+.search-job .left-inner-addon img {
+    position: absolute;
+    padding: 10px 12px;
+    pointer-events: none;
+    left: -12px;
+    top: -3px;
+    font-size: 22px;
+}
+.select-arrow + select{
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-o-appearance: none;
+	appearance: none;
+
+}
+.select-arrow + select option{
+	padding:5px 5px;
+}
+.select-arrow{
+	right: 165px;
+	top: 5px;
+	font-size: 24px;
+	pointer-events: none;
+	position: absolute;
+}
+.search-job select{
+	border-radius: 0;
+	padding-right: 48px;
+}
+.search-job button{
+	margin-left: 16px;
+	border-radius: 0;
+	background: #229A77;
+	color: #fff;
+}
+.search-job button i{
+	position: relative;
+	top:-1;
+}
+.search-job button:hover,.search-job button:focus{
+	background: #229A77;
+	color: #fff !important;
+}
+.search-job div .form-group{
+	display: inline-block;
+	float: none;
+}
+.search-job div{
+	padding: 0;
+}
+.search-job div span{
+	float:right;
+}
+.sort_g{
+	float: none !important;
+    display: inline-block;
+    padding-right: 10px;
+    color: gray;
+}
+.padZ{
+	padding: 0;
+}
+.job-search .row{
+	padding: 0 1.4%;
+	border: 1px solid silver;
+	margin-bottom: 3%;
+}
+.job-type{
+	padding: 1.5% 1%;
+	border-bottom: 1px solid silver;
+}
+.job-type img{
+	width: 28px;
+    margin-top: -10px;
+    margin-right: 5px
+}
+.job-type h3{
+	display: inline-block;
+	margin: 0;
+}
+.job-type h3 img{
+	width: 10px;
+    margin-left: 6px;
+    margin-top: 1px;
+}
+.job-type h3 span{
+	color: #219070;
+}
+.job-type h3:focus{
+	outline: 0;
+	border: 0;
+}
+.job-type h3 + span{
+	float:right;
+}
+.job-type span span{
+	margin: 0 2px;
+}
+.job-type span  img{
+	width: 18px;
+    margin: -2px 0 0;
+}
+.job-type span span:first-child,.openbox{
+	margin: 0 5px;
+    padding: 2px 7px;
+    display: inline-block;
+    background: #488C27;
+    color: white;
+    font-weight: 900;
+    border-radius: 2px;
+}
+.job_free{
+	margin: 0 5px;
+    padding: 2px 7px;
+    display: inline-block;
+    background: #666666 !important;
+    color: white;
+    font-weight: 900;
+    border-radius: 2px;
+}
+.job-type span i{
+    font-size: 18px !important;
+    color: orange !important;
+}
+.job-info_d{
+	margin: 1% 0;
+    border-right: 1px solid silver;
+    padding: 0;
+    font-size: 16px;
+}
+.job-info_d div:nth-child(even){
+	margin:3% 0;
+}
+.job-info_d div span:first-child{
+	color: silver;
+}
+.job-info_d ~ div{
+	padding: 0 2%;
+	text-align: center;
+}
+.job-info_d ~ div img{
+    margin-top: -6px;
+    margin-right: 4px;
+}
+.job-info_d ~ div span{
+	display: inline-block;
+    padding-bottom: 24px;
+    font-weight: 900;
+}
+.job-info_d ~ div div{
+	border-bottom: 2px solid #559E33;
+	color: #559E33;
+}
+.job-info_d + div div{
+	border-bottom: 2px solid #47BABD;
+	color: #47BABD;
+}
+.job-info .referal_s div{
+	border-bottom: 2px solid #FA8116;
+	color: #FA8116;
+}
+.job-info .referal_s + div div{
+	border-bottom: 2px solid #16A4FA;
+	color: #16A4FA;
+}
+.job-info h1{
+	color: #000;
+}
+.job-info i{
+	font-size: 17px;
+    margin-right: 5px;
+}
+@media (max-width: 992px) {
+ .job-info_d ~ div span{
+    font-size: 11px;
+  }
+  .job-info_d{
+  	text-align: center;
+  	border: 0;
+  }
+  .job-info_d ~ div img{
+  	margin-right: 3px;
+  }
+}
+@media (max-width: 522px){
+	.job-type h3 + span{
+		float:none;
+		display: block;
+		padding:3%;
+		margin:0 auto;
+		text-align: center;
+	}
+	.job-type{
+		text-align: center;
+	}
+}
+@media (min-width: 320px) and (max-width: 786px) {
+	.job-search .row{
+		margin:2%;
+		margin-bottom: 10%;
+	}
+	.job-info_d{
+		font-size: 14px;
+		margin-top: 3%;
+	}
+	.search-job div span {
+	    float: none;
+	    display: block;
+	    margin: 0 auto;
+	    text-align: center;
+	}
+	.sort_g{
+		display: inline !important;
+	}
+	.ct-search{
+		margin-left: 35.5%;
+	}
+	.search-job .left-inner-addon input{
+		margin-bottom: 3%;
+	}
+}
+input.search{
+	border:0;
+}
+input+.bar{
+	position: relative;
+	display: block;
+	width: 100%;
+}
+.bar:before, .bar:after     {
+ content:'';
+ height:2px; 
+ width:0;
+ bottom:1px; 
+ position:absolute;
+ background:#01b893; 
+ transition:0.2s ease all; 
+ -moz-transition:0.2s ease all; 
+ -webkit-transition:0.2s ease all;
+}
+.bar:before {
+ left:50%;
+}
+.bar:after {
+ right:50%; 
+} transition: 0.4s
+}
+/* active state */
+input:focus ~ .bar:before, input:focus ~ .bar:after {
+ width:50%;
+}
+/*Job details*/
+/*.job-details-box{
+	background: #2D3236;
+}
+.mid-nav{
+	padding: 3% 0;
+}
+.mid-nav h3{
+	display: inline-block;
+	color: #fff;
+	margin: 0;
+}
+.mid-nav h3 span{
+	padding: 0 8px 0 8px !important;
+	color: #fff;
+} 
+.mid-nav + ul{
+	text-align: left;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.mid-nav + ul li{
+	margin: 0;
+	margin-right: 3.5%;
+	display: inline-block;
+}
+.mid-nav + ul a{
+	color: gray;
+	display: inline-block;
+	padding: 12px 9px;
+	border-bottom: 4px solid #2D3236;
+}
+.mid-nav + ul li .active{
+	border-bottom: 4px solid #16A3FB;
+	color:#fff;
+}
+.mid-nav + ul a:hover,.mid-nav + ul a:focus{
+	text-decoration: none !important;		
+}
+.mid-nav + ul li a:hover{
+	border-bottom: 4px solid #16A3FB;
+}
+.mid-nav + ul li:hover a{
+	color: #fff;
+}*/
+.job_des_bo{
+	padding:2% 0;
+	border-bottom: 1px solid silver;
+}
+.job_des_info{
+	width: 35%;
+	background: red;
+	text-align: left;
+}
+.job_des_info div{
+	padding: 5px 0;
+}
+.job_des_info div:first-child{
+	color:gray;
+}
+.job-des-text p:first-child{
+	padding-bottom: 7px;
+	display: block;
+	color: gray;
+}
+/*.mid-nav h3 img{
+    position: relative;
+    top: -2px;
+    cursor: pointer;
+}*/
+/*rewards*/
+/*.rewards-info{
+	padding:4% 0;
+}
+.rewards-info p{
+	font-size: 20px;
+	display: inline-block;
+}
+.rewards-info + div{
+	color:#999999;
+	border-top: 1px solid #ccc;
+	font-weight: 900;
+}
+.ref-data{
+	padding:10px 0;
+	border-bottom:1px solid #D5D5D5;	
+}
+.ref-data div:nth-child(2)~div{
+	text-align: right;
+}
+.ref-data img{
+	width: 60px;
+	height: 60px;
+}*/
+

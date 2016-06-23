@@ -1,0 +1,54 @@
+[
+	{
+		"id" :1,
+		"job_tit":"UI/UX Designer",
+		"exp":"5-6",
+		"position":"20",
+		"loc":"Hyderabad/Telangana",
+		"invited":350,
+		"Referrals":200,
+		"applied":75,
+		"hired":15,
+		"cost":"$5/Referral",
+		"time":"07 Jun, 2016"
+	},
+	{
+		"id" :2,
+		"job_tit":"iOS Developer",
+		"exp":"5-6",
+		"position":"20",
+		"loc":"Hyderabad/Telangana",
+		"invited":150,
+		"Referrals":100,
+		"applied":54,
+		"hired":16,
+		"cost":"$10/Referral",
+		"time":"06 Jun, 2016"
+	},
+	{
+		"id" :3,
+		"job_tit":"Salesforce Architect",
+		"exp":"4-9",
+		"position":"20",
+		"loc":"Hyderabad/Telangana",
+		"invited":143,
+		"Referrals":113,
+		"applied":23,
+		"hired":2,
+		"cost":"Free",
+		"time":"03 Jun,2016"
+	},
+	{
+		"id" :4,
+		"job_tit":"Data Entry Management",
+		"exp":"5-6",
+		"position":"20",
+		"loc":"Hyderabad/Telangana",
+		"invited":75,
+		"Referrals":43,
+		"applied":12,
+		"hired":0,
+		"cost":"Free",
+		"time":"26 May, 2016"
+	}
+]

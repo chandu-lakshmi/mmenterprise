@@ -1,0 +1,38 @@
+<div  style="background:#F2F2F2">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+
+				<!-- logo -->
+				<div class="im-c-head">
+					<h3 class="mrZpdZ pull-left" style="color:#808080"><img src="public/images/back-arrow-black.svg" alt="arrowback" ng-click="ipContactListCtrl.backtoUploadCon()"> Import Contacts</h3>
+					<a href=""><img src="public/images/logo.png" alt="logo" class="import_logo"></a>
+				</div>
+
+				<!--import contacts-->
+				<div class="import_c_box">
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="" data-toggle="tab" ng-click="ipContactListCtrl.allDetails()">All contacts</a></li>
+						<li><a href="" data-toggle="tab" ng-click="ipContactListCtrl.allemp()">Employees</a></li>
+						<li><a href="" data-toggle="tab" ng-click="ipContactListCtrl.clients()">Clients</a></li>
+						<li><a href="" data-toggle="tab" ng-click="ipContactListCtrl.candidates()">Candidates</a></li>
+						<li><a href="" data-toggle="tab" ng-click="ipContactListCtrl.isoDev()">iOS Developers</a></li>
+						<li><a href="" data-toggle="tab" style="padding: 17px 49px 17px 50px;border-right: 0;" ng-click="ipContactListCtrl.architects()">Architects</a></li>
+					</ul>
+
+					<!--angular grid-->
+					<div class="col-sm-12 grid-ic" style="padding:0">
+						<div ui-grid="gridOptions" ui-grid-infinite-scroll ui-grid-selection class="grid import-con-grid"></div>
+					</div>
+
+					<!--footer-->
+					<div class="col-sm-12 im_c_foot">
+						<button class="btn btn-lg pull-right" ng-click="ipContactListCtrl.importSelect()">IMPORT SELECTED<img src="public/images/arrow-buttons_black.svg" alt="arrow"></button>
+
+						<button class="btn btn-lg pull-right" ng-click="ipContactListCtrl.importSelect()">IMPORT & INVITE SELECTED<img src="public/images/arrow-buttons.svg" alt="arrow"></button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

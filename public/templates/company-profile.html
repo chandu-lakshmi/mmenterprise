@@ -1,0 +1,194 @@
+<div class="company-profile">
+	<header class="text-center">
+		<a href=""><img src="public/images/logo.png" class="logo"></a>
+	</header>
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-8 col-sm-offset-2" style="margin-bottom: 20px;height: 680px;overflow: hidden;">
+					<form role="form" name="company_form" novalidate>
+						<div style="height: 658px;width: 1000px;position: relative;">
+							<div class="company go_0 animate same" ng-if="compCtrl.go_0"  style="width: 750px">
+								<div class="company-header">
+									<p><img src="public/images/tickmark.svg">&nbsp;&nbsp;Thank you for verifying your email.</p>
+								</div>
+								<div class="company-content">
+									<h3>Complete Your Company Profile</h3>
+									<div style="width: 60%">
+										<md-input-container class="md-block">
+											<label>COMPANY*</label>
+											<img src="public/images/cross.svg" class="feedback" ng-show="showValue">
+			  								<input type="text" name="comp_name" ng-model="compCtrl.comp_name" ng-focus="showValue=true" ng-blur="showValue=false"  ng-class="{'has-error-border':company_form.comp_name.$invalid && compCtrl.comp1_show_error}" required>
+			  								<div ng-if="company_form.comp_name.$error.required && compCtrl.comp1_show_error"  class="has-error-msg">Please Enter Company Name</div>
+										</md-input-container>
+										<md-input-container class="md-block">
+								            <label>INDUSTRY*</label>
+								            <md-select ng-model="compCtrl.industry" required name="industry" ng-class="{'has-error-border':company_form.industry.$invalid && compCtrl.comp1_show_error}">
+								              <md-option ng-repeat="industry in compCtrl.industry_list" ng-value="industry">
+								                {{industry}}
+								              </md-option>
+								            </md-select>
+								            <div ng-if="company_form.industry.$error.required && compCtrl.comp1_show_error"  class="has-error-msg">Please Select Industry</div>
+								        </md-input-container>
+									</div>
+									<div class="description">
+										<!-- <strong>DESCRIPTION</strong> -->
+										<label for="desc">DESCRIPTION</label>
+										<textarea rows="4" class="form-control" id="desc" spellcheck="false"></textarea>
+									</div>
+								</div>
+								<div class="company-footer text-center clearfix">
+									<ul class="indicators">
+										<li class="active"></li>
+										<li></li>
+										<li></li>
+									</ul>
+									<div class="pull-right">
+										<button class="btn btn-style" ng-click="compCtrl.jump(1,company_form.$valid)">NEXT	&nbsp;&nbsp;<img src="public/images/arrow-buttons.svg" style="margin-top: -2px;"></button>
+									</div>
+								</div>
+							</div>
+							<div class="company go_1 animate same" ng-if="compCtrl.go_1" style="color: #666;width: 750px">
+								<div class="company-content">
+									<h3>Complete your company profile:</h3>
+									<div style="width: 60%">
+										<md-input-container class="md-block">
+											<label>WEBSITE<span style="color: #999">(URL)*</span></label>
+											<input type="text" name="website" ng-model="compCtrl.website" required ng-class="{'has-error-border':company_form.website.$invalid && compCtrl.comp2_show_error}">			
+			  								<!-- <input  type="text" name="website" ng-model="compCtrl.website" required ng-pattern="/^(www\.)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/" ng-class="{'has-error-border':company_form.website.$invalid && compCtrl.comp2_show_error}"> -->
+			  								<div ng-if="company_form.website.$error.required && compCtrl.comp2_show_error"  class="has-error-msg">Please Enter URL</div>
+			  								<!-- <div ng-if="company_form.website.$error.pattern && compCtrl.comp2_show_error"  class="has-error-msg">Please Enter Valid URL</div> -->
+										</md-input-container>
+									</div>
+									<div class="upload">
+										<span>LOGO <small style="color: #999">(Add your company logo)</small></span>
+										<div class="row">
+											<div class="col-sm-3">
+												<!-- <label for="upload-image"> -->
+													<img src="public/images/upload-image.svg">
+												<!-- </label>
+												<input id="upload-image" type="file" style="display: none;"> -->
+											</div>
+										</div>
+									</div>
+									<div class="add-img">
+										<span>COMPANY IMAGES <small style="color: #999">(Add or Drag & Drop single or multiple images to upload)</small></span>
+										<div class="row">
+											<div ng-repeat='x in [1,2,3,4]'>
+												<div class="col-sm-4 col-xs-6 col-md-3">
+													<!-- <label for="add-image"> -->
+														<img src="public/images/add-image.svg">
+													<!-- </label>
+													<input id="add-image" type="file" style="display: none;"> -->
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="company-footer text-center clearfix">
+									<div class="pull-left">
+										<img src="public/images/arrow-back.svg" ng-click="compCtrl.prev(0)" style="margin-top: 10px;">
+									</div>
+									<ul class="indicators">
+										<li></li>
+										<li class="active"></li>
+										<li></li>
+									</ul>
+									<div class="pull-right">
+										<button class="btn btn-style" ng-click="compCtrl.jump(2,company_form.$valid)">NEXT	&nbsp;&nbsp;<img src="public/images/arrow-buttons.svg" style="margin-top: -2px;"></button>
+									</div>
+								</div>
+							</div>
+							<div class="company go_2 animate same" ng-if="compCtrl.go_2"  style="width: 750px">
+								<div class="company-content">
+									<h3>Number of Employees in your Company</h3>
+									<div class="cmp-size">
+										<ul class="row text-center">
+											<li class="col-sm-2 col-xs-3" ng-repeat="group in compCtrl.group_size">
+												<label>
+													<span ng-class="{'has-color':group == $parent.value }">{{group}}</span>
+													<input type="radio" name="r1" ng-model="$parent.value" ng-value="group"><label></label>
+												</label>
+											</li>
+											<!-- <li class="col-sm-2 col-xs-3">
+												<div>
+													<span>10-50</span>
+													<input type="radio" name="r1" ng-model="value" value="10-50"><label></label>
+												</div>
+											</li>
+											<li class="col-sm-2 col-xs-3">
+												<div>
+													<span>50-100</span>
+													<input type="radio" name="r1" ng-model="value" value="50-100"><label></label>
+												</div>
+											</li>
+											<li class="col-sm-2 col-xs-3">
+												<div>
+													<span>100-500</span>
+													<input type="radio" name="r1" ng-model="value" value="100-500"><label></label>
+												</div>
+											</li>
+											<li class="col-sm-2 col-xs-3">
+												<div>
+													<span>500-1000</span>
+													<input type="radio" name="r1" ng-model="value" value="500-1000"><label></label>
+												</div>
+											</li>
+											<li class="col-sm-2 col-xs-3">
+												<div>
+													<span>1000-5000</span>
+													<input type="radio" name="r1" ng-model="value" value="1000-5000"><label></label>
+												</div>
+											</li>
+											<li class="col-sm-2 col-xs-3">
+												<div>
+													<span>5000+</span>
+													<input type="radio" name="r1" ng-model="value" value="5000+"><label></label>
+												</div>
+											</li> -->
+										</ul>
+									</div>
+									<div style="padding: 40px 0;">
+										<h3 style="margin-bottom: 20px">Referral Bonus Policy</h3>
+										<button class="btn btn-default" style="padding: 10px 50px;">UPLOAD FILE</button>
+										<p style="color: #BDBDBD;margin: 10px 0">Supported file format: .Pdf, .doc, .docx. Max file size (10MB)</p>
+									</div>
+								</div>
+								<div class="company-footer text-center clearfix">
+									<div class="pull-left">
+										<img src="public/images/arrow-back.svg" ng-click="compCtrl.prev(1)"  style="margin-top: 10px;">
+									</div>
+									<ul class="indicators">
+										<li></li>
+										<li></li>
+										<li class="active"></li>
+									</ul>
+									<div class="pull-right">
+										<button class="btn btn-style" ng-click="compCtrl.jump(3,company_form.$valid)">CONTINUE	&nbsp;&nbsp;<img src="public/images/arrow-buttons.svg" style="margin-top: -2px;"></button>
+									</div>
+								</div>
+							</div>
+							<div class="company go_3 animate same" ng-if="compCtrl.go_3"  style="width: 750px">
+								<div class="company-content">
+									<div class="final_state row text-center">
+										<img src="public/images/tickmark.svg">
+										<h2>GREAT!</h2>
+										<p>Company profile has been created. </p>
+										<div class=" col-sm-7 hr-style" style="border-bottom: 1px solid #ccc">
+											<div class="dotted-border">
+												<p>Your MintMesh connect code is</p>
+												<input type="text" readonly value="123456">
+												<p>Share it with your contacts to get connected <a href="">WHY?</a></p>
+											</div>
+										</div>
+										<button class="btn btn-style" ng-click="compCtrl.upload_contacts()">UPLOAD CONTACTS &nbsp;&nbsp;<img src="public/images/arrow-buttons.svg" style="margin-top: -2px;"></button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>

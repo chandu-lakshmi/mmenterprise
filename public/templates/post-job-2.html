@@ -1,0 +1,142 @@
+<div class="container post-job">
+	<div class="row">
+		<div class="job-title text-center">
+			<a ui-sref="^.postJob"><img src="public/images/arrow-back.svg" alt="arrowback"></a>
+			<h2>Get Ready to Post Your Request</h2>
+		</div>
+		<div class="job-info">
+			<div>
+				<span class="company-name" style="margin:0">Enter Pi</span>
+			</div>
+			<div class="job-name">
+				<div class="col-lg-4">
+					<div>
+						<span>Job Title:</span>
+						<span>UI/UX Designer</span>
+					</div>
+					<div>
+						<span>Job function:</span>
+						<span>Design</span>
+					</div>
+					<div>
+						<span>Location:</span>
+						<span>Plano, Texas</span>
+					</div>
+					<div>
+						<span>Experience:</span>
+						<span>5 - 6 Years</span>
+					</div>
+					<div>
+						<span>Position ID:</span>
+						<span>EN234</span>
+					</div>
+				</div>
+				<div class="col-lg-8">
+					<p style="color: #9A9A9A;font-size:16px;">Job Description:</p>
+					
+					<p>Responsibilities and tasks:<br>
+Execute interaction design as part of a multidisciplinary team. Collaborate on user experience planning with internal and external teams. Researching design and technology trends to integrate into current and future applications. Create wireframes and visual design comps.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container-fluid" style="border-top:1px solid silver;padding-top:2%">
+	<h2 class="text-center" style="color: #388A73">SELECT THE DISTRIBUTION LIST </h2>
+	<div class="container" style="padding: 40px 15px">
+		<div class="row select-type row-centered">
+			<div class="col-lg-3 col-centered">
+				<div class="amount-pay" style="background: #229A77;">
+					<i class="fa fa-plus-circle" ng-click="icon = true" ng-show="!icon"></i>
+				    <i class="fa fa-check-circle-o"  ng-click="icon = false" ng-show="icon"></i>
+				    <h3>EMPLOYEES</h3>
+				</div>
+			</div>
+			<div class="col-lg-3 col-centered" >
+				<div class="amount-pay" style="background: #21A4AC;">
+					<i class="fa fa-plus-circle"  ng-click="icon_e = true" ng-show="!icon_e"></i>
+				    <i class="fa fa-check-circle-o" ng-click="icon_e = false" ng-show="icon_e"></i>
+				    <h3>CLIENTS</h3>
+				</div>
+			</div>
+			<div class="col-lg-3 col-centered">
+				<div class="amount-pay" style="background: #EE8F3B;">
+					<i class="fa fa-plus-circle"  ng-click="icon_c = true" ng-show="!icon_c"></i>
+				    <i class="fa fa-check-circle-o" ng-click="icon_c = false" ng-show="icon_c"></i>
+				    <h3>CANDIDATES</h3>
+				</div>
+			</div>
+			<div class="col-lg-3 col-centered">
+				<div class="amount-pay" style="background: #2A99E0;">
+					<i class="fa fa-plus-circle"  ng-click="icon_i = true" ng-show="!icon_i"></i>
+				    <i class="fa fa-check-circle-o" ng-click="icon_i = false" ng-show="icon_i"></i>
+				    <h3>iOS DEVELOPERS</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container-fluid reward-ref" style="padding-bottom: 100px;">
+	<h2>SELECT THE REWARD </h2>
+	<div class="container" style="padding: 40px 15px">
+		<div class="choose-pay row row-centered">
+			<div class="col-lg-3 col-centered" style="color:#D89731;">
+				<div class="amount-pay amount-s">
+					<h4>FREE</h4>
+					<h1 style="visibility: hidden;">&#36; 0</h1>
+					<h4>JUST A THANK YOU </h4>
+					<input type="radio" name="amount-ref" ng-checked="true">
+					<label></label>
+				</div>
+			</div>
+			<div class="col-lg-3 col-centered">
+				<div class="amount-pay">
+					<h4>PAY</h4>
+					<h1>&#36;10</h1>
+					<h4>PER REFERRAL</h4>
+					<input type="radio" name="amount-ref">
+					<label></label>
+				</div>
+			</div>
+			<div class="col-lg-3 col-centered">
+				<div class="amount-pay">
+					<h4>PAY</h4>
+					<h1>&#36;20</h1>
+					<h4>PER REFERRAL</h4>
+					<input type="radio" name="amount-ref">
+					<label></label>
+				</div>
+			</div>
+			<div class="col-lg-3 col-centered">
+				<div class="amount-pay">
+					<h4>PAY</h4>
+					<h1>&#36;50</h1>
+					<h4>PER REFERRAL</h4>
+					<input type="radio" name="amount-ref">
+					<label></label>
+				</div>
+			</div>
+			<div class="col-lg-3 col-centered">
+				<div class="amount-pay">
+					<h4>PAY</h4>
+					<h1>&#36;100</h1>
+					<h4>PER REFERRAL</h4>
+					<input type="radio" name="amount-ref">
+					<label></label>
+				</div>
+			</div>
+			<div class="col-lg-3 col-centered">
+				<div class="amount-pay">
+					<h4>PAY</h4>
+					<h1>&#36;500</h1>
+					<h4>PER REFERRAL</h4>
+					<input type="radio" name="amount-ref">
+					<label></label>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="text-center" style="padding: 40px 0">
+		<button class="btn btn-style" ng-click="post2Ctrl.requestSuccess()">POST REQUEST</button>
+	</div>
+</div>

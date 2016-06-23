@@ -1,0 +1,435 @@
+.grid_center{
+  float: none;
+  margin: auto;
+}
+.mrZpdZ
+{
+  margin: 0px;
+  padding: 0px;
+}
+/*----IMPORT CONTACT lIST-----*/
+.import_c_box{
+  background: #fff;
+  overflow: hidden;
+  border:1px solid #c0c0c0;
+  margin-bottom: 1%;
+}
+.import_c_box ul li{
+  margin-left:0px !important;
+}
+.import_c_box ul li:not(:last-child){
+  border-right: 1px solid #c0c0c0;
+}
+.import_c_box ul li a{
+  color: #808080;   
+  padding: 17px 55px;
+  margin:0;
+  font-size: 16px;
+}
+.import_c_box ul li a:hover{
+  background: #fff !important;
+}
+.import_c_box p{
+    color: #a6a6a6;
+    line-height: 18px;
+    font-size: 13px;
+    text-align: left;
+}
+.import_c_box div div img:first-child{
+	cursor: pointer;
+    outline: 0;
+    vertical-align: -4px;
+}
+.skip{
+	float: right;
+    margin-top: 6px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    outline: 0;
+}
+.skip img{
+    vertical-align: 0px !important; 
+}
+.tit_head{
+	border:1px solid silver;
+	border-bottom:0;
+	background: #fff;
+}
+.import_logo{
+	width: 150px;
+	padding: 12px 0px 22px;
+	cursor: pointer
+}
+.import-con-grid .ui-grid-selection-row-header-buttons.ui-grid-icon-ok.ui-grid-all-selected{
+	background: url("../images/checkbox_checked.svg");
+  background-size: cover;
+  background-position: 20px 0px;
+  border-radius: 5px;
+  outline: 0;
+}
+.import-con-grid .ui-grid-selection-row-header-buttons.ui-grid-icon-ok.ui-grid-row-selected{
+	background: url("../images/checkbox_checked.svg");
+    background-size: cover;
+    background-position: 20px 0;
+    border-radius: 4px;
+    outline: 0;
+    pointer-events: all;
+    width: 21px;
+}
+.import-con-grid .ui-grid-selection-row-header-buttons,.ui-grid-icon-ok{
+	background: url("../images/checkbox_unchecked.svg");
+	opacity: 1;
+	border:1px solid silver;
+	background-position: 22px -5px;
+	border-radius: 3px;
+  overflow: hidden;
+  pointer-events: all;
+  width: 21px;
+}
+.import-con-grid .ui-grid-icon-ok:before{
+	content: '';
+}
+.import-con-grid .ui-grid-cell-contents{
+  /*padding: 7px 1px 1px 8px;*/
+  margin-bottom: 5px;
+}
+.ui-grid-cell .ui-grid-cell-contents{
+  /*padding: 7px 0px 1px 8px;*/
+}
+.import-con-grid .ui-grid-pinned-container.ui-grid-pinned-container-left .ui-grid-header-cell:last-child{
+	border-right: 0;
+	border-bottom: 0;
+}
+.import-con-grid .ui-grid-pinned-container.ui-grid-pinned-container-left .ui-grid-cell:last-child {
+	border-right: 1;
+}
+.left{
+	margin-left: 1px !important;
+}
+.import-con-grid .ui-grid-row.ui-grid-row-selected > [ui-grid-row] > .ui-grid-cell {
+  	background-color: #FDEBDD !important;
+}
+.import-con-grid .ui-grid-row:nth-child(odd) .ui-grid-cell {
+  	background-color: #fff !important;
+  	border-bottom: 1px solid silver;
+}
+.import-con-grid .ui-grid-row:nth-child(even) .ui-grid-cell {
+  background-color: #fff;
+ 	border-bottom: 1px solid silver; 
+}
+.import-con-grid .ui-grid-top-panel{
+	background: #F3F1F2 !important;
+}
+.import-con-grid .ui-grid-cell-contents{
+	outline: 0;
+}
+.import-con-grid .ui-grid-icon-angle-down{
+  display: none;
+}
+.import-con-grid .ui-grid-header-cell{
+  background: #fff !important;
+}
+.import-con-grid .ui-grid-column-menu-button-last-col{
+    margin-right: 0px !important;
+}
+.grid-ic .ui-grid{
+  border:0 !important;
+}
+.import-con-grid .ui-grid-header-cell-label{
+  font-size: 18px;
+  color:#808080;
+}
+.import_verify .modal-footer button,.im_c_foot button,.emailbtn{
+  background: #219070;
+  border: 1px solid #ccc;
+  color: white !important;
+  outline: 0;
+  border-radius: 0;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 12px 32px;
+}
+.im_c_foot{
+  padding: 16px;
+  border-top: 1px solid silver;
+  clear: both;
+  overflow: hidden;
+  background: #fff;
+}
+.im_c_foot button{
+  padding: 14px 20px !important;
+  font-size: 16px;
+}
+.im_c_foot button:first-child{
+  background:#fff;
+  color:#000 !important;
+  opacity:0.7;
+  margin-left:20px;
+}
+.im_c_foot button img{
+	margin-left: 8px;
+  margin-bottom: 3px;
+}
+.import_verify button:active{
+  background: #219070;
+}
+.import_c_box .active a{
+  color: #000 !important;
+}
+.im-c-head{
+  position: relative;
+  text-align: center;
+}
+.im-c-head h3{
+  position: absolute;
+  top:25px;
+}
+.im-c-head h3 img{
+  padding-right: 8px;
+  margin-bottom: 3px;
+  width: 31px;
+  outline: 0;
+}
+.nav > li > a:hover, .nav > li > a:focus{
+  background: none;
+}
+.grid {
+  width: 100%;
+  height: calc(100vh - 360px);
+ /* height: 100vh;
+    margin-top: -25vw;
+    padding-top: 25vw;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  vertical-align: middle;*/
+}
+
+
+
+/*----IMPORT CONTACT-----*/
+.services_type{
+	border: 1px solid silver !important;
+	padding: 0px !important;
+	border-bottom: 0px;
+	clear: both;
+	font-weight: 900;
+	margin-top: 8%;
+}
+.services_type img{
+	padding-top: 3px;
+	float:right !important;
+}
+.services_type a{
+	border-bottom: 1px solid silver;
+    padding: 21px 17px 18px 70px;
+    display: block;
+    color: #000;
+}
+.services_type a:last-child{
+	border:0;
+}
+.services_type a:nth-child(1){
+	background: url("../images/service_provider.png") no-repeat 13px 12px;
+    background-size: 54px 252px;
+}
+.services_type a:nth-child(2){
+	background: url("../images/service_provider.png") no-repeat 11px -81px;
+	background-size: 54px 252px;
+}
+
+.upload-btn div{
+  margin-bottom: 24px;
+}
+.upload-btn div button{
+  width: 210px;
+  height: 48px;
+  text-align: left;
+  line-height: 33px;
+  border: 0;
+  padding: 4px 16px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 900;
+}
+.upload-btn div img{
+  padding-left: 10px;
+  border-left: 1px solid #fff;
+  width: 27px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 3px;
+  float: right;
+}
+.upload-btn div h6 a{
+    font-size: 12px;
+    font-weight: bolder;
+    text-decoration: underline;
+    color:silver;
+}
+.foot_next{
+  padding-top: 17px;
+  border-top: 1px solid #ccc;
+  margin-top: 12%;
+}
+.foot_next button{
+  font-size: 16px;
+  float: right;
+  border-radius: 3px;
+  outline: 0;
+}
+.foot_next button img{
+  padding-left: 7px;
+  position: relative;
+  top: -1px;
+}
+.import_verify .modal-footer img:last-child,.foot_im_c img:last-child{
+    padding-left: 10px;
+    vertical-align: 0px;
+}
+.upload-con{
+	clear: both;
+  padding-top: 3.5%;
+  text-align: center;
+  overflow: hidden
+}
+.info-upload{
+	padding: 3% 0px 7% 0px;
+  overflow: hidden;
+}
+.info-upload div:first-child{
+	width: 0px;
+	float: left;
+}
+.info-upload div:last-child{
+	width: 93%;
+	float: right;
+}
+.chos-service{
+	margin-bottom: 25px;
+}
+.chos-service h4{
+	margin-top: 32px;
+	text-align: center;	
+}
+
+
+.invited-contact .modal-footer button{
+	display: block;
+	margin:0 auto;
+}
+.import_verify .cross_close{
+    position: absolute;
+    right: -6px;
+    top: -9px;
+    z-index: 200;
+    cursor:pointer;
+    outline: 0;
+}
+.import_verify .modal {
+  text-align: center;
+  padding: 0!important;
+}
+.import_verify .modal-content{
+  width : 532px;
+  margin : 0 auto;
+  border-radius: 0;
+}
+.import_verify .modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+.import_verify .modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+.import_verify .modal-header img{
+    display:block;
+    margin:10px auto 8px;
+    padding-top:45px;
+}
+.mail_verify button,.btn_up_next{
+    display:block;
+    margin:0 auto;
+    background: #219070;
+    border: 1px solid #ccc;
+    color: white !important;
+    outline: 0;
+    padding: 12px 40px;
+    border-radius: 0;
+    font-weight: bold;
+
+}
+.mail_verify button img{
+    padding-left: 10px;
+    vertical-align: -1px;
+}
+div[window-class="pop-cre"] .modal-content{
+    width: 400px;
+}
+@media screen and (min-width: 320px) {
+    .import_verify .modal-dialog{
+        margin:0;
+        height: 0;
+        background:red;
+    }
+    .import_verify .modal:before{
+        height: 50%;
+    }
+    .import_verify .modal-content{
+        width: 348px;
+    }
+    .import_verify .modal-body{
+        padding:1%;
+    }
+}
+ @media screen and (min-width: 546px) {
+    .import_verify .modal-content{
+       width: 532px;
+    }
+    .import_verify .modal:before{
+        height: 60%;
+    }
+}
+.div-btn div{
+  float:left;
+  width: 30%;
+  margin-right: 3.3%;
+  margin-bottom: 4%;
+}
+.div-btn div div{
+  width:100%;
+  padding:50px 6px;
+  border-radius:5px;
+  color:#fff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.div-btn div h6{
+  text-align: center;
+  padding-top: 1%;
+
+}
+.div-btn div h6 a{
+  color: #808080;
+  display: inline-block;
+  padding-top: 2%;
+}
+.div-btn div img{
+  display: block;
+  margin: 0 auto;
+  padding-bottom: 13px;
+
+}
+.add-own{
+  border:1px solid #ccc;
+  text-align:center;
+  color:#808080 !important; 
+  padding: 68px 10px !important; 
+}
+

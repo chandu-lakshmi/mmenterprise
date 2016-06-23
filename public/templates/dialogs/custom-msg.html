@@ -1,0 +1,22 @@
+<div ng-if="!ctrl.successMsg" style="background:#F0F0F0">
+    <img class="cross_close" ng-click="$dismiss()" src="public/images/close-popup.svg" alt="arrow">
+     <div class="modal-header">
+        <h3 class="modal-title" style="color:#808080;padding:2px">Add a custom message to your Invitation</h3>
+    </div>
+    <div class="modal-body" style="padding: 2%;">
+        <textarea rows="4" spellcheck="false" style="font-size:16px;width:100%;padding: 15px;resize: none;" style="padding: 15px;resize: none;">We bring this powerful referral  platform to you. Please download the app and sign up. We are excited to have you be a part of our success here at Enterpi.</textarea>
+    </div>
+    <div class="modal-footer" style="background:#E3E3E3">
+     <button class="btn" type="button" ng-click="ctrl.invite()">INVITE SELECTED<img src="public/images/arrow-buttons.svg" alt="arrow"></button>
+    </div>
+</div>
+<div ng-if="ctrl.successMsg" class="invited-contact" >
+    <div class="modal-header text-center" style="border-bottom:0">
+        <img src="public/images/tickmark.svg" alt="tickmark">
+        <h2>CONTACTS INVITED!</h2>
+        <p>Thank You!</p>
+    </div>
+    <div class="modal-footer" style="border-top:0;padding-bottom:40px">
+        <a ui-sref="app.dashboard" ng-click="$dismiss()"><button class="btn" type="button">  NEXT<img src="public/images/arrow-buttons.svg" alt="arrow"></button></a>
+    </div>
+</div>

@@ -1,0 +1,174 @@
+
+<div class="post-job">
+	<!-- <header>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-2">
+					<img src="public/images/logo.png" alt="brand-logo">
+				</div>
+				<div class="menu col-lg-7">
+					<ul>
+						<li><a ui-sref="dashboard">DASHBOARD</a></li>
+						<li><a ui-sref="job" class="active">JOBS</a></li>
+						<li><a ui-sref="importContactsList">CONTACTS</a></li>
+						<li><a ui-sref="#/">SETTINGS</a></li>
+					</ul>
+				</div>
+				<div class="notifications col-lg-3 pull-right text-center">
+					<div class="row">
+						<div class="not_alert col-lg-3">
+							<span class="num">2</span>
+							<i class="fa fa-bell-o"></i>
+						</div>
+						<div class="col-lg-9">
+							<div class="user">
+								<span><img src="public/images/arrow-dropdown-white.svg"></span>
+								<span class="comp_name">Jennifer</span>
+								<span class="user_dp"><img src="public/images/Ui_Faces/Jenifer.jpg" class="image-responsive img-circle" alt="dp" style="width: 40px;border: 1px solid #ccc"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header> -->
+
+	<section>
+		<div class="container" style="padding-bottom: 80px;">
+			<div class="job-title">
+				<!-- <img src="" alt="enterpi"> -->
+				<span class="company-name">Enterpi</span>
+				<h2 class="text-center">Create Your Request</h2>
+			</div>
+
+			<div class="content">
+				<form role="form">
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="form-group">
+								<label for="job-title">Job Title*</label>
+							  	<input type="text" class="form-control" id="job-title" value="">
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="form-group">
+								<label for="job-function">Job Function*</label>
+								<i class="fa fa-angle-down fa-feedback" style="color: #F46113"></i>
+								<select class="form-control" id="job-function">
+									<option selected disabled>Please Select</option>
+									<option ng-repeat="job_func in PtJobCtrl.job_function">{{job_func}}</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="form-group">
+								<label for="location">Location*</label>
+								<i class="fa fa-angle-down fa-feedback" style="color: #F46113"></i>
+								<select class="form-control" id="location">
+									<option selected disabled>Please Select</option>
+									<option ng-repeat="loc in PtJobCtrl.location">{{loc}}</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="form-group">
+								<label for="industry">Industry*</label>
+								<i class="fa fa-angle-down fa-feedback" style="color: #F46113"></i>
+								<select class="form-control" id="industry">
+									<option selected disabled>Please Select</option>
+									<option ng-repeat="indus in PtJobCtrl.industry">{{indus}}</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="form-group">
+								<label for="emp-type">Employment Type*</label>
+								<i class="fa fa-angle-down fa-feedback" style="color: #F46113"></i>
+								<select class="form-control" id="emp-type">
+									<option selected disabled>Please Select</option>
+									<option ng-repeat="emp_type in PtJobCtrl.employment_type">{{emp_type}}</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="form-group">
+								<label for="experience">Experience*</label>
+								<i class="fa fa-angle-down fa-feedback" style="color: #F46113"></i>
+								<select class="form-control" id="experience">
+									<option selected disabled>Please Select</option>
+									<option ng-repeat="exp in PtJobCtrl.experience">{{exp}}</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="form-group">
+								<label for="pos-id">Position ID*</label>
+								<!-- <i class="fa fa-angle-down fa-feedback" style="color: #F46113"></i>
+								<select class="form-control" id="positions">
+									<option selected disabled>Please Select</option>
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+								</select> -->
+								<input type="text" class="form-control" id="pos-id" value="">
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="form-group">
+								<label for="req-id">Requistion Id*</label>
+								<!-- <i class="fa fa-angle-down fa-feedback" style="color: #F46113"></i>
+								<select class="form-control" id="sen-level">
+									<option selected disabled>Please Select</option>
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+								</select> -->
+								<input type="text" class="form-control" id="req-id" value="">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="form-group">
+								<label for="job-description">Job Description*</label>
+								<textarea class="form-control" rows="6"></textarea></div>
+						</div>
+					</div>
+					<!-- <div class="row">
+						<div class="col-lg-12">
+							<div class="form-group">
+								<label for="company-description">Company Description*</label>
+								<textarea class="form-control" rows="6" id="company-description">Lorem Ipsum is simply dummy text of  the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknow printer took a gallery of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting , remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passanges, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</textarea>
+							</div>
+						</div>
+					</div> -->
+					<div class="text-center" style="padding: 50px 0;">
+						<button class="btn btn-style" style="padding: 12px 32px;" ng-click="PtJobCtrl.postJob2()">CONTINUE&nbsp;&nbsp;<img src="public/images/arrow-buttons.svg" style="margin-top: -2px;"></button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+
+	<!-- <footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-5">
+					<p>&copy; 2016 MINTMESH&trade; INC. ALL RIGHTS RESERVED.</p>
+				</div>
+				<div class="col-sm-7">
+					<ul>
+						<li><a href="https://mintmesh.com/us/" target="_blank">ABOUT US</a></li>
+						<li><a href="https://mintmesh.com/terms-of-use/" target="_blank">TERMS & CONDITIONS</a></li>
+						<li><a href="https://mintmesh.com/privacy-policy/" target="_blank">PRIVACY POLICY</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer> -->
+
+</div>
