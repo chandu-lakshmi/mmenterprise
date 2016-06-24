@@ -108,16 +108,18 @@ Execute interaction design as part of a multidisciplinary team. Collaborate on u
 		<h2 class="text-center" style="color: #388A73;padding: 30px 15px 40px;margin:0">SELECT THE DISTRIBUTION LIST </h2>
 		<div class="row select-type row-centered">
 			<div class="col-lg-3 col-centered">
-				<div class="amount-pay" style="background: #3B8670;">
-					<i class="fa fa-plus-circle" ng-click="icon = true" ng-if="!icon"></i>
-				    <i class="fa fa-check-circle-o"  ng-click="icon = false" ng-if="icon"></i>
+				<div class="amount-pay" style="background: #3B8670;" ng-init="icon=true">{{icon}}
+					<!-- <i class="fa fa-plus-circle" ng-click="icon = true" ng-if="!icon"></i>
+				    <i class="fa fa-check-circle-o"  ng-click="icon = false" ng-if="icon"></i> -->
+				    <img src="public/images/add.svg"  ng-click="icon = false" ng-if="icon">
+				    <img src="public/images/select.svg"  ng-click="icon = true" ng-if="!icon">
 				    <h3>EMPLOYEES</h3>
 				</div>
 			</div>
 			<div class="col-lg-3 col-centered" >
 				<div class="amount-pay" style="background: #907942;">
-					<i class="fa fa-plus-circle"  ng-click="icon_e = true" ng-if="!icon_e"></i>
-				    <i class="fa fa-check-circle-o" ng-click="icon_e = false" ng-if="icon_e"></i>
+					<i class="fa fa-plus-circle"  ng-click="icon_e = true" ng-show="!icon_e"></i>
+				    <i class="fa fa-check-circle-o" ng-click="icon_e = false" ng-show="icon_e"></i>
 				    <h3>CLIENTS</h3>
 				</div>
 			</div>
