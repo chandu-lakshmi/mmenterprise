@@ -4,7 +4,7 @@
 angular.module('app.home', ['ngMaterial','ngMessages'])
 
 .controller('HomeController', ['$state','$window', '$http','CONFIG',function ($state,$window,$http, CONFIG) {    
-    
+
    	this.signup_show = false;
    	this.signin_show = true;
     this.verfication_show = false;
@@ -32,7 +32,7 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
     	}
     	else{
 
-            var data = $.param({
+           /* var data = $.param({
                     fullname: this.s_fname,
                     company: this.s_cname,
                     emailid: this.s_email,
@@ -55,8 +55,9 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
             })
             request.error(function(response){
                 console.log("Failed Registration")
-            })
-
+            })*/
+            this.signup_show = false;
+            this.verfication_show = true;
     		//$state.go('emailVerify');
     	}
     }
