@@ -38,7 +38,7 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
                     emailid: this.s_email,
                     password: this.s_pass
             });
-            
+            var scope = this;
             var request = $http({
                 headers: {
                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -49,9 +49,15 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
             })
 
             request.success(function(response){
-                this.signup_show = false;
-                this.verfication_show = true;
-                console.log("Successful Registration")
+                if(response.status_code == 200) {
+                    scope.signup_show = false;
+                    scope.verfication_show = true;
+                    console.log("Successful Registration")
+                }else if (response.status_code == 403) {
+                        alert("Email ALready Registered");
+
+                };
+                
             })
             request.error(function(response){
                 console.log("Failed Registration")
