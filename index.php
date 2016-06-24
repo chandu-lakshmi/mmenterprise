@@ -5,8 +5,7 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <!-- This is new comment line for testing SVN -->
-<!--another comment line-->
-<!-- Shiva kumar -->
+
 <html ng-app="app">
     <head>
         <title>MintMesh</title>
@@ -37,7 +36,7 @@ and open the template in the editor.
                 
                 angular.module('app.constants', [])
                 .constant('App', {
-                    base_url: 'http://<?php echo $_SERVER['SERVER_NAME']; ?>/mintmeshent/'
+                    base_url: 'http://<?php echo $_SERVER['SERVER_NAME']; ?>/mintmesh_enterprise/development/'
                 });
             }());
         </script>
