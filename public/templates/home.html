@@ -39,7 +39,7 @@
 									<span>CREATE AN ACCOUNT</span>
 									<hr>
 								</div>
-								<div class="text-center dublicate-email"><span>The EmailId has already been taken</span></div>
+								<div class="text-center dublicate-email" ng-if="homeCtrl.dublicate_email"><span>The EmailId has already been taken</span></div>
 								<div class="sign-up-box-content">
 									<form name="signup_form" novalidate ng-submit="homeCtrl.submitSignupForm(signup_form.$valid)">
 										<md-input-container class="md-block">
