@@ -193,6 +193,9 @@ input{
 .signin-signup .verification-box{
     padding: 40px 20px;
 }
+.signin-signup .sign-up-box .dublicate-email{
+    margin-top: -5px;
+}
 .signin-signup .sign-up-box .dublicate-email span{
     background: #4D6161;
     color: #fff;
@@ -575,21 +578,8 @@ ul > li{
 .animate.ng-leave.animate.ng-leave-active{
     left: -100%;
 }
-/*fade effect*/
-.fade.ng-enter {
-  transition:0.5s linear all;
-  opacity:0;
-}
-.fade.ng-enter.ng-enter-active {
-  opacity:1;
-}
-.fade.ng-leave {
-  transition:0.5s linear all;
-  opacity:1;
-}
-.fade.ng-leave.ng-leave-active {
-  opacity:0;
-}
+
+
 
 /*.company.ng-hide-add {
     -webkit-animation:slideInRight 0.5s both ease-in;

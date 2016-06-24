@@ -39,9 +39,9 @@
 									<span>CREATE AN ACCOUNT</span>
 									<hr>
 								</div>
+								<div class="text-center dublicate-email"><span>The EmailId has already been taken</span></div>
 								<div class="sign-up-box-content">
 									<form name="signup_form" novalidate ng-submit="homeCtrl.submitSignupForm(signup_form.$valid)">
-										<div class="text-center dublicate-email fade" ng-if="homeCtrl.dublicate_email"><span>The EmailId has already been taken</span></div>
 										<md-input-container class="md-block">
 											<label for="s_fname">FULL NAME*</label>
 		      								<input type="text" id="s_fname" name="s_fname" ng-model="homeCtrl.s_fname" required ng-class="{'has-error-border':signup_form.s_fname.$invalid && homeCtrl.signup_show_error}">
@@ -96,7 +96,7 @@
 							</div>
 							<div class="chart" style="border: 0">
 								<img src="public/images/Referral-Campaign.svg">
-								<p style="font-size: 16px">REFERRAL CAMPAIGNS TO GROW YOUR BUSINESS</p>
+								<p>REFERRAL CAMPAIGNS TO GROW YOUR BUSINESS</p>
 							</div>
 						</div>
 					</div>
