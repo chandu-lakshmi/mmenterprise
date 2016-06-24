@@ -5,7 +5,6 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <!-- This is new comment line for testing SVN -->
-<!--chan-->
 <html ng-app="app">
     <head>
         <title>MintMesh</title>
