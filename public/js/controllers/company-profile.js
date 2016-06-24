@@ -65,6 +65,15 @@ angular.module('app.company.profile', [])
         }
     }
     
+    this.prev = function(prev, cur){
+        var prv = 'go_'+prev;
+        this[prv] = true;
+
+        var curr = 'go_'+cur;
+        this[curr] = false;
+    }
+
+
     this.upload_contacts = function(){
         $window.scrollTo(0,0);
         $state.go('importContacts');
