@@ -32,12 +32,13 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
     	}
     	else{
 
-           /* var data = $.param({
+            var data = $.param({
                     fullname: this.s_fname,
                     company: this.s_cname,
                     emailid: this.s_email,
                     password: this.s_pass
             });
+
             var scope = this;
             var request = $http({
                 headers: {
@@ -52,18 +53,17 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
                 if(response.status_code == 200) {
                     scope.signup_show = false;
                     scope.verfication_show = true;
-                    console.log("Successful Registration")
+                    //console.log("Successful Registration")
                 }else if (response.status_code == 403) {
-                        alert("Email ALready Registered");
-
+                    scope.dublicate_email = true;
                 };
                 
             })
             request.error(function(response){
                 console.log("Failed Registration")
-            })*/
-            this.signup_show = false;
-            this.verfication_show = true;
+            })
+            /*this.signup_show = false;
+            this.verfication_show = true;*/
     		//$state.go('emailVerify');
     	}
     }
