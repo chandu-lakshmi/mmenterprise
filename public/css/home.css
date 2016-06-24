@@ -180,15 +180,33 @@ input{
 .signin-signup .briefcase img,.signin-signup .chart img{
     margin-bottom: 20px;
 }
-.signin-signup .sign-up-box,.signin-signup .sign-in-box{
+.signin-signup .sign-up-box,.signin-signup .sign-in-box,.signin-signup .verification-box{
     width: 100%;
     border: 1px solid #ccc;
     margin: 0 auto;
     padding: 15px;
     background: #fff;
 }
-.signin-signup .sign-in-box{
+.signin-signup .sign-in-box,.signin-signup .verification-box{
     margin-top: 100px;
+}
+.signin-signup .verification-box{
+    padding: 40px 20px;
+}
+.signin-signup .verification-box .verification-box-content img[alt="tick"]{
+    margin-bottom: 20px;
+    width: 75px;
+}
+.signin-signup .verification-box .verification-box-content span.thanks{
+    display: block;
+    font-size: 24px;
+}
+.signin-signup .verification-box .verification-box-content p.text{
+    font-size: 17px;
+    margin-bottom: 20px;
+}
+.signin-signup .verification-box .verification-box-content button.btn-style{
+    padding: 6px 30px;
 }
 .signin-signup .sign-up-box-content{
     margin-top: 30px;
@@ -271,6 +289,7 @@ input{
     padding-left: 20px;
     font-size: 16px;
     background: #e6f5e9;
+    border-bottom: 1px solid #ccc;
 }
 .company-header p{
     margin: 0
@@ -281,7 +300,7 @@ input{
 }
 .company-content{
     padding: 30px 26px 0px;
-    border-top: 1px solid #ccc;
+    /*border-top: 1px solid #ccc;*/
 }
 .company-content h3{
     margin-top: 0;
@@ -416,7 +435,8 @@ input{
     opacity: 0;
     float: left;
     width: 30px;
-    height: 26px;
+    height: 30px;
+    margin: 0;
     position: absolute;
     cursor: pointer;
 }

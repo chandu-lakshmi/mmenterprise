@@ -7,6 +7,7 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
     
    	this.signup_show = false;
    	this.signin_show = true;
+    this.verfication_show = false;
     this.signup = function () {
         $window.scrollTo(0,0);
         this.signin_show = false;
@@ -18,6 +19,7 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
         $window.scrollTo(0,0);
         this.signup_show = false;
         this.signin_show = true;
+        this.verfication_show = false;
         this.signup_show_error = false;
     }
 
@@ -47,6 +49,8 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
             })
 
             request.success(function(response){
+                this.signup_show = false;
+                this.verfication_show = true;
                 console.log("Successful Registration")
             })
             request.error(function(response){

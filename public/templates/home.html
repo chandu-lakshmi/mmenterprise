@@ -71,6 +71,16 @@
 									<p><img src="public/images/info.svg" style="margin-top: -3px;"> By Signing up, you agree to MintMesh's <a href="https://mintmesh.com/terms-of-use/" target="_blank">Terms of Service</a> and <a href="https://mintmesh.com/privacy-policy/" target="_blank">Privacy Policy</a></p>
 								</div>
 							</div>
+							<!-- VERIFICATION -->
+							<div class="verification-box" ng-if="homeCtrl.verfication_show">
+								<div class="verification-box-content text-center">
+									<img src="public/images/tickmark.svg" alt="tick">
+									<span class="thanks">Thanks for Sigining Up!</span>
+									<hr>
+									<p class="text">An email has been sent to your registered email address for verfication.</p>
+									<button class="btn btn-style" ng-click="homeCtrl.signin()">OK</button>
+								</div>
+							</div>
 						</div>
 					</div>
 
@@ -85,7 +95,7 @@
 							</div>
 							<div class="chart" style="border: 0">
 								<img src="public/images/Referral-Campaign.svg">
-								<p>REFERRAL CAMPAIGNS TO GROW YOUR BUSINESS</p>
+								<p style="font-size: 16px">REFERRAL CAMPAIGNS TO GROW YOUR BUSINESS</p>
 							</div>
 						</div>
 					</div>
