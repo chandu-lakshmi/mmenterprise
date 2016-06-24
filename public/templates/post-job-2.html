@@ -41,42 +41,7 @@ Execute interaction design as part of a multidisciplinary team. Collaborate on u
 		</div>
 	</div>
 </div>
-<div class="container-fluid" style="border-top:1px solid silver;padding-top:2%">
-	<h2 class="text-center" style="color: #388A73">SELECT THE DISTRIBUTION LIST </h2>
-	<div class="container" style="padding: 40px 15px">
-		<div class="row select-type row-centered">
-			<div class="col-lg-3 col-centered">
-				<div class="amount-pay" style="background: #229A77;">
-					<i class="fa fa-plus-circle" ng-click="icon = true" ng-show="!icon"></i>
-				    <i class="fa fa-check-circle-o"  ng-click="icon = false" ng-show="icon"></i>
-				    <h3>EMPLOYEES</h3>
-				</div>
-			</div>
-			<div class="col-lg-3 col-centered" >
-				<div class="amount-pay" style="background: #21A4AC;">
-					<i class="fa fa-plus-circle"  ng-click="icon_e = true" ng-show="!icon_e"></i>
-				    <i class="fa fa-check-circle-o" ng-click="icon_e = false" ng-show="icon_e"></i>
-				    <h3>CLIENTS</h3>
-				</div>
-			</div>
-			<div class="col-lg-3 col-centered">
-				<div class="amount-pay" style="background: #EE8F3B;">
-					<i class="fa fa-plus-circle"  ng-click="icon_c = true" ng-show="!icon_c"></i>
-				    <i class="fa fa-check-circle-o" ng-click="icon_c = false" ng-show="icon_c"></i>
-				    <h3>CANDIDATES</h3>
-				</div>
-			</div>
-			<div class="col-lg-3 col-centered">
-				<div class="amount-pay" style="background: #2A99E0;">
-					<i class="fa fa-plus-circle"  ng-click="icon_i = true" ng-show="!icon_i"></i>
-				    <i class="fa fa-check-circle-o" ng-click="icon_i = false" ng-show="icon_i"></i>
-				    <h3>iOS DEVELOPERS</h3>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="container-fluid reward-ref" style="padding-bottom: 100px;">
+<div class="container-fluid reward-ref"  style="border-top:1px solid silver;padding-top:2%">
 	<h2>SELECT THE REWARD </h2>
 	<div class="container" style="padding: 40px 15px">
 		<div class="choose-pay row row-centered">
@@ -136,7 +101,43 @@ Execute interaction design as part of a multidisciplinary team. Collaborate on u
 			</div>
 		</div>
 	</div>
+</div>
+
+<div class="container-fluid" style="padding-bottom: 100px;">
+	<div class="container" style="border-top:1px solid #ccc">
+		<h2 class="text-center" style="color: #388A73;padding: 30px 15px 40px;margin:0">SELECT THE DISTRIBUTION LIST </h2>
+		<div class="row select-type row-centered">
+			<div class="col-lg-3 col-centered">
+				<div class="amount-pay" style="background: #229A77;">
+					<i class="fa fa-plus-circle" ng-click="icon = true" ng-show="!icon"></i>
+				    <i class="fa fa-check-circle-o"  ng-click="icon = false" ng-show="icon"></i>
+				    <h3>EMPLOYEES</h3>
+				</div>
+			</div>
+			<div class="col-lg-3 col-centered" >
+				<div class="amount-pay" style="background: #21A4AC;">
+					<i class="fa fa-plus-circle"  ng-click="icon_e = true" ng-show="!icon_e"></i>
+				    <i class="fa fa-check-circle-o" ng-click="icon_e = false" ng-show="icon_e"></i>
+				    <h3>CLIENTS</h3>
+				</div>
+			</div>
+			<div class="col-lg-3 col-centered">
+				<div class="amount-pay" style="background: #EE8F3B;">
+					<i class="fa fa-plus-circle"  ng-click="icon_c = true" ng-show="!icon_c"></i>
+				    <i class="fa fa-check-circle-o" ng-click="icon_c = false" ng-show="icon_c"></i>
+				    <h3>CANDIDATES</h3>
+				</div>
+			</div>
+			<div class="col-lg-3 col-centered">
+				<div class="amount-pay" style="background: #2A99E0;">
+					<i class="fa fa-plus-circle"  ng-click="icon_i = true" ng-show="!icon_i"></i>
+				    <i class="fa fa-check-circle-o" ng-click="icon_i = false" ng-show="icon_i"></i>
+				    <h3>iOS DEVELOPERS</h3>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="text-center" style="padding: 40px 0">
-		<button class="btn btn-style" ng-click="post2Ctrl.requestSuccess()">POST REQUEST</button>
+		<button class="btn btn-style" ng-click="post2Ctrl.requestSuccess()" style="padding: 12px 32px;">POST REQUEST</button>
 	</div>
 </div>
