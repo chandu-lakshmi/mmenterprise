@@ -10,7 +10,7 @@ angular.module('app', [
     'APP_NAME' : 'Mintmesh Enterprise',
     'APP_VERSION' : '1',
     'APP_API_VERSION': 'v1',
-    'APP_API_DOMAIN' : 'http://my.local/mintmesh/'
+    'APP_API_DOMAIN' : 'http://192.168.33.10/mintmesh/'
 })
 
 .config(function ($stateProvider, $urlRouterProvider, $locationProvider, App) {
@@ -43,7 +43,7 @@ angular.module('app', [
         controllerAs:'ipContactListCtrl'
     })
     .state('emailVerify', {
-        url: '/email-verify',
+        url: '/email-verify?token=',
         templateUrl: App.base_url + 'public/templates/emails/verify.html',
         controller: 'EmailVerificationController',
         controllerAs:'emailCtrl'

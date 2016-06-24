@@ -6,7 +6,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-8 col-sm-offset-2" style="margin-bottom: 20px;height: 680px;overflow: hidden;">
-					<form role="form" name="company_form" novalidate>
+					<form role="form" name="company_form" novalidate  enctype="multipart/form-data">
 						<div style="height: 658px;width: 1000px;position: relative;">
 							<div class="company go_0 animate same" ng-if="compCtrl.go_0"  style="width: 750px">
 								<div class="company-header">
@@ -25,7 +25,7 @@
 								            <label>INDUSTRY*</label>
 								            <md-select ng-model="compCtrl.industry" required name="industry" ng-class="{'has-error-border':company_form.industry.$invalid && compCtrl.comp1_show_error}">
 								              <md-option ng-repeat="industry in compCtrl.industry_list" ng-value="industry">
-								                {{industry}}
+								                {{industry.industry_name}}
 								              </md-option>
 								            </md-select>
 								            <div ng-if="company_form.industry.$error.required && compCtrl.comp1_show_error"  class="has-error-msg">Please Select Industry</div>
@@ -34,7 +34,7 @@
 									<div class="description">
 										<!-- <strong>DESCRIPTION</strong> -->
 										<label for="desc">DESCRIPTION</label>
-										<textarea rows="4" class="form-control" id="desc" spellcheck="false"></textarea>
+										<textarea rows="4" class="form-control" id="desc" spellcheck="false" ng-model="compCtrl.desc"></textarea>
 									</div>
 								</div>
 								<div class="company-footer text-center clearfix">
@@ -64,10 +64,10 @@
 										<span>LOGO <small style="color: #999">(Add your company logo)</small></span>
 										<div class="row">
 											<div class="col-sm-3">
-												<!-- <label for="upload-image"> -->
+												<!-- <label for="upload-image">
 													<img src="public/images/upload-image.svg">
-												<!-- </label>
-												<input id="upload-image" type="file" style="display: none;"> -->
+												</label> -->
+												<input id="img" type="file" ng-model="compCtrl.logo" name="logo"> 
 											</div>
 										</div>
 									</div>
@@ -164,7 +164,7 @@
 										<li class="active"></li>
 									</ul>
 									<div class="pull-right">
-										<button class="btn btn-style" ng-click="compCtrl.jump(3,company_form.$valid)">CONTINUE	&nbsp;&nbsp;<img src="public/images/arrow-buttons.svg" style="margin-top: -2px;"></button>
+										<button class="btn btn-style" ng-click="compCtrl.valid()">CONTINUE	&nbsp;&nbsp;<img src="public/images/arrow-buttons.svg" style="margin-top: -2px;"></button>
 									</div>
 								</div>
 							</div>

@@ -3,17 +3,73 @@
 
 angular.module('app.company.profile', [])
 
-.controller('CompanyProfileController', ['$state','$window',function ($state,$window) {
+.controller('CompanyProfileController', ['$state','$window','$http','CONFIG','$scope','$rootScope',function ($state,$window,$http,CONFIG,$scope,$rootScope) {
+
+    var scope = this;
+    var request = $http({
+        headers: {
+           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        },
+        method: 'GET',
+        url: CONFIG.APP_API_DOMAIN+CONFIG.APP_API_VERSION+'/get_industries'
+    })
+
+    request.success(function(response){
+       scope.industry_list = response.data.industries;
+        
+    })
+    request.error(function(response){
+        scope.industry_list = [];
+    })
 
 
-    /*this.companyObj = {
-        comp_name: '',
-        industry: '',
-        website: ''
+    /*$scope.image_change = function(event){
+        console.log(event)
+       console.log(URL.createObjectURL(event.target.files[0]))
     }*/
 
-    this.industry_list = ['Banking','Computer & Network Security','Computer Networking','Computer Software','Information Technology','Real Estate','Other']
-    // this.industry_list = ['.Net Developer','Design','Finance','Information Technology','Java Developer','PHP Developer','Quality Assurance','UI Developer','Others'];
+
+    this.valid = function(){alert();
+        var comp_data_list = $.param({
+            'company':scope.comp_name,
+            'industry':scope.industry.industry_name,
+            'description':scope.desc,
+            'website':scope.website,
+            'number_of_employees':scope.value,
+            'company_logo':scope.logo,
+            'user_id':$rootScope.user_id
+        });
+
+        var request = $http({
+           headers: {
+              'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+           },
+           method: 'POST',
+           url: CONFIG.APP_API_DOMAIN+CONFIG.APP_API_VERSION+'/enterprise/create_company',                               
+           data: comp_data_list
+       })
+
+       request.success(function(response){
+        console.log(response)
+           if(response.status_code == 200) {
+                console.log(response.data)
+           }else if (response.status_code == 403) {
+
+           };
+           
+       })
+       request.error(function(response){
+           console.log("Failed Registration")
+       })
+    }
+    
+    /*if(this.go_1 == true){
+        $("#img").change(function(event){alert()
+            console.log(URL.createObjectURL(event.target.files[0]))
+           //$("#dp").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
+        })
+    }*/
+
     this.group_size = ['10-50','50-100','100-500','500-1000','1000-5000','5000+'];
 
     this.getCheckedCond = function(x){
