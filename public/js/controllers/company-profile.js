@@ -23,6 +23,7 @@ angular.module('app.company.profile', [])
     })
 
     // this.industry_list = [{'industry_name':'Banking'}]
+    //this.industry_list = [{'industry_name':'Banking'}]
 
     /*$scope.image_change = function(event){
         console.log(event)
@@ -33,7 +34,7 @@ angular.module('app.company.profile', [])
     this.valid = function(){
         var comp_data_list = $.param({
             'company':scope.comp_name,
-            'industry':scope.industry.industry_name,
+            'industry':scope.industry.industry_id,
             'description':scope.desc,
             'website':scope.website,
             'number_of_employees':scope.value,
