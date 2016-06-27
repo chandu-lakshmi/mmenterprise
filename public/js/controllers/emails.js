@@ -8,7 +8,7 @@ angular.module('app.emails', [])
  		$state.go('companyProfile');
  	}*/
         this.loadCond = true;
-        
+
  		var scope = this;
  		var tokenid = $stateParams.token;
  		var data = $.param({
@@ -24,18 +24,20 @@ angular.module('app.emails', [])
             data: data
         })
 
-        request.success(function(response){
-        	if(response.status == 1){
-                scope.loadCond = false;
-                scope.continue = function(){
-                    $state.go('companyProfile');
-                }
-                $rootScope.user_id = response.id;
-            }    
-        })
-        request.error(function(response){
-            console.log(response)
-        })
+        setTimeout(function(){
+            request.success(function(response){
+            	if(response.status == 1){
+                    scope.loadCond = false;
+                    scope.continue = function(){
+                        $state.go('companyProfile');
+                    }
+                    $rootScope.user_id = response.id;
+                }    
+            })
+            request.error(function(response){
+                console.log(response)
+            })
+        },2000);
 }])
     
 }());
