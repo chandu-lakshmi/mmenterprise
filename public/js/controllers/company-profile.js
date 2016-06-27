@@ -4,9 +4,9 @@
 angular.module('app.company.profile', [])
 
 .controller('CompanyProfileController', ['$state','$window','$http','CONFIG','$scope','$rootScope',function ($state,$window,$http,CONFIG,$scope,$rootScope) {
-
+    this.comp_name = $rootScope.company_name;
     var scope = this;
-   /* var request = $http({
+    var request = $http({
         headers: {
            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         },
@@ -20,20 +20,22 @@ angular.module('app.company.profile', [])
     })
     request.error(function(response){
         scope.industry_list = [];
-    })*/
+    })
 
-    this.industry_list = [{'industry_name':'banking'}]
+    //this.industry_list = [{'industry_name':'banking'}]
     var user_id = $rootScope.user_id;
     console.log(user_id)
     $('user-id').val(user_id);
 
-    /*this.valid = function(){
+    this.valid = function(){
         var comp_data_list = $.param({
+            'access_token':$rootScope.access_token,
             'company':scope.comp_name,
+            'code':$rootScope.company_code,
             'industry':scope.industry.industry_id,
             'description':scope.desc,
             'website':scope.website,
-            'number_of_employees':scope.value
+            'number_of_employees':scope.value,
             'user_id':$rootScope.user_id
         });
 
@@ -58,7 +60,7 @@ angular.module('app.company.profile', [])
        request.error(function(response){
            console.log("Failed Registration")
        })
-    }*/
+    }
     
     /*if(this.go_1 == true){
         $("#img").change(function(event){alert()
@@ -67,10 +69,10 @@ angular.module('app.company.profile', [])
         })
     }*/
 
-    this.valid = function(){
+    /*this.valid = function(){
         var obj = $('form').serialize();
         console.log(obj)
-    }
+    }*/
 
     this.group_size = ['10-50','50-100','100-500','500-1000','1000-5000','5000+'];
 

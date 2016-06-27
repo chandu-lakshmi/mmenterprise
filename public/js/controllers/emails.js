@@ -12,7 +12,9 @@ angular.module('app.emails', [])
  		var scope = this;
  		var tokenid = $stateParams.token;
  		var data = $.param({
-            token: tokenid
+            token: tokenid,
+            client_id : 'L13WuogUeLk8NMxq',
+            client_secret : 'FSQcJkAQA61jRKnx6ay5AT2ZlTOSfL5p'
         });
 
         var request = $http({
@@ -26,12 +28,20 @@ angular.module('app.emails', [])
 
         setTimeout(function(){
             request.success(function(response){
-            	if(response.status == 1){
+                
+            	if(response.status_code == 200){
+
                     scope.loadCond = false;
+                    $rootScope.access_token = response.data.access_token;
+                    $rootScope.company_name = response.data.company.name;
+                    $rootScope.company_code = response.data.company.code;
+                    $rootScope.user_emailid = response.data.user.emailid;
+                    $rootScope.user_id = response.data.user.id;
+       
                     scope.continue = function(){
                         $state.go('companyProfile');
                     }
-                    $rootScope.user_id = response.id;
+                    
                 }    
             })
             request.error(function(response){
