@@ -108,32 +108,33 @@ Execute interaction design as part of a multidisciplinary team. Collaborate on u
 		<h2 class="text-center" style="color: #388A73;padding: 30px 15px 40px;margin:0">SELECT THE DISTRIBUTION LIST </h2>
 		<div class="row select-type row-centered">
 			<div class="col-lg-3 col-centered">
-				<div class="amount-pay" style="background: #3B8670;" ng-init="icon=true">{{icon}}
+				<div class="amount-pay" style="background: #3B8670;" >
 					<!-- <i class="fa fa-plus-circle" ng-click="icon = true" ng-if="!icon"></i>
 				    <i class="fa fa-check-circle-o"  ng-click="icon = false" ng-if="icon"></i> -->
-				    <img src="public/images/add.svg"  ng-click="icon = false" ng-if="icon">
-				    <img src="public/images/select.svg"  ng-click="icon = true" ng-if="!icon">
+				    
+				    <img src="public/images/add.svg"  ng-click="post2Ctrl.icon = true" ng-if="!post2Ctrl.icon">
+				    <img src="public/images/select.svg"  ng-click="post2Ctrl.icon = false" ng-if="post2Ctrl.icon">
 				    <h3>EMPLOYEES</h3>
 				</div>
 			</div>
 			<div class="col-lg-3 col-centered" >
 				<div class="amount-pay" style="background: #907942;">
-					<i class="fa fa-plus-circle"  ng-click="icon_e = true" ng-show="!icon_e"></i>
-				    <i class="fa fa-check-circle-o" ng-click="icon_e = false" ng-show="icon_e"></i>
+					<img src="public/images/add.svg"  ng-click="post2Ctrl.icon_c = true" ng-if="!post2Ctrl.icon_c">
+				    <img src="public/images/select.svg"  ng-click="post2Ctrl.icon_c = false" ng-if="post2Ctrl.icon_c">
 				    <h3>CLIENTS</h3>
 				</div>
 			</div>
 			<div class="col-lg-3 col-centered">
 				<div class="amount-pay" style="background: #607D8B;">
-					<i class="fa fa-plus-circle"  ng-click="icon_c = true" ng-if="!icon_c"></i>
-				    <i class="fa fa-check-circle-o" ng-click="icon_c = false" ng-if="icon_c"></i>
+					<img src="public/images/add.svg"  ng-click="post2Ctrl.icon_s = true" ng-if="!post2Ctrl.icon_s">
+				    <img src="public/images/select.svg"  ng-click="post2Ctrl.icon_s = false" ng-if="post2Ctrl.icon_s">
 				    <h3>CANDIDATES</h3>
 				</div>
 			</div>
 			<div class="col-lg-3 col-centered">
 				<div class="amount-pay" style="background: #4574A9;">
-					<i class="fa fa-plus-circle"  ng-click="icon_i = true" ng-if="!icon_i"></i>
-				    <i class="fa fa-check-circle-o" ng-click="icon_i = false" ng-if="icon_i"></i>
+					<img src="public/images/add.svg"  ng-click="post2Ctrl.icon_i = true" ng-if="!post2Ctrl.icon_i">
+				    <img src="public/images/select.svg"  ng-click="post2Ctrl.icon_i = false" ng-if="post2Ctrl.icon_i">
 				    <h3>iOS DEVELOPERS</h3>
 				</div>
 			</div>
