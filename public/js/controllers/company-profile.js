@@ -30,7 +30,7 @@ angular.module('app.company.profile', [])
     }*/
 
 
-    this.valid = function(){alert();
+    this.valid = function(){
         var comp_data_list = $.param({
             'company':scope.comp_name,
             'industry':scope.industry.industry_name,
@@ -89,7 +89,7 @@ angular.module('app.company.profile', [])
     this.comp3_show_error = false;
     
     this.jump = function(go,isValid){
-        console.log(isValid)
+        // console.log(isValid)
         if(!isValid){
             if(go == 1)
                 this.comp1_show_error = true;
@@ -123,6 +123,7 @@ angular.module('app.company.profile', [])
     }
     
     this.prev = function(prev, cur){
+        $window.scrollTo(0,0);
         var prv = 'go_'+prev;
         this[prv] = true;
 

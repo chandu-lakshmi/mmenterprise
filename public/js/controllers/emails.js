@@ -31,7 +31,7 @@ angular.module('app.emails', [])
                 
             })
             request.error(function(response){
-                
+                console.log(response)
             })
 }])
     

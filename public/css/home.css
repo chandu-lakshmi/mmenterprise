@@ -21,6 +21,15 @@ hr{
     margin-top: 12px;
     margin-bottom: 30px;
 }
+.preloader{
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url('../images/loader/preloader.gif') 50% 50% no-repeat rgb(249,249,249);
+}
 /*Background Image*/
 .bg-image{
     background: url('../images/bg-img.jpg') no-repeat;

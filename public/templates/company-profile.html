@@ -40,7 +40,7 @@
 								<div class="company-footer text-center clearfix">
 									<ul class="indicators">
 										<li class="active"></li>
-										<li></li>
+										<li ng-click="compCtrl.jump(1,company_form.$valid)"></li>
 										<li></li>
 									</ul>
 									<div class="pull-right">
@@ -64,10 +64,10 @@
 										<span>LOGO <small style="color: #999">(Add your company logo)</small></span>
 										<div class="row">
 											<div class="col-sm-3">
-												<!-- <label for="upload-image">
+												<label for="upload-image">
 													<img src="public/images/upload-image.svg">
-												</label> -->
-												<input id="img" type="file" ng-model="compCtrl.logo" name="logo"> 
+												</label>
+												<input id="upload-image" type="file" ng-model="compCtrl.logo" name="logo" style="display: none"> 
 											</div>
 										</div>
 									</div>
@@ -90,9 +90,9 @@
 										<img src="public/images/arrow-back.svg" ng-click="compCtrl.prev(0,1)" style="margin-top: 10px;">
 									</div>
 									<ul class="indicators">
-										<li></li>
+										<li ng-click="compCtrl.prev(0,1)"></li>
 										<li class="active"></li>
-										<li></li>
+										<li ng-click="compCtrl.jump(2,company_form.$valid)"></li>
 									</ul>
 									<div class="pull-right">
 										<button class="btn btn-style" ng-click="compCtrl.jump(2,company_form.$valid)">NEXT	&nbsp;&nbsp;<img src="public/images/arrow-buttons.svg" style="margin-top: -2px;"></button>
@@ -159,8 +159,8 @@
 										<img src="public/images/arrow-back.svg" ng-click="compCtrl.prev(1,2)"  style="margin-top: 10px;">
 									</div>
 									<ul class="indicators">
-										<li></li>
-										<li></li>
+										<li ng-click="compCtrl.prev(0,1)"></li>
+										<li ng-click="compCtrl.prev(1,2)"></li>
 										<li class="active"></li>
 									</ul>
 									<div class="pull-right">
