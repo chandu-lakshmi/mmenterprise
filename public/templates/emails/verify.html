@@ -1,5 +1,5 @@
 <div class="bg-image">
-	<div class="preloader"></div>
+	<div class="preloader" ng-if="loadCond"></div>
 	<div class="verify-page">
 		<header class="text-center">
 			<a href=""><img src="public/images/logo.png" class="logo" alt="brand-logo"></a>
@@ -31,10 +31,3 @@
 		</div>
 	</footer>
 </div>
-<script type="text/javascript">
-	$(function(){
-		setTimeout(function(){
-			$(".preloader").fadeOut("slow");
-		},2000)
-	})
-</script>
