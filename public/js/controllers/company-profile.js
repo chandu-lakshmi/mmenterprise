@@ -6,7 +6,7 @@ angular.module('app.company.profile', [])
 .controller('CompanyProfileController', ['$state','$window','$http','CONFIG','$scope','$rootScope',function ($state,$window,$http,CONFIG,$scope,$rootScope) {
 
     var scope = this;
-    var request = $http({
+    /*var request = $http({
         headers: {
            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         },
@@ -20,8 +20,9 @@ angular.module('app.company.profile', [])
     })
     request.error(function(response){
         scope.industry_list = [];
-    })
+    })*/
 
+    this.industry_list = [{'industry_name':'Banking'}]
 
     /*$scope.image_change = function(event){
         console.log(event)
