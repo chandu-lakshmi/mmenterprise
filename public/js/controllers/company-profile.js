@@ -23,9 +23,6 @@ angular.module('app.company.profile', [])
     })
 
     //this.industry_list = [{'industry_name':'banking'}]
-    var user_id = $rootScope.user_id;
-    console.log(user_id)
-    $('user-id').val(user_id);
 
     this.valid = function(){
         var comp_data_list = $.param({
@@ -67,28 +64,15 @@ angular.module('app.company.profile', [])
            console.log("Failed Registration")
        })
     }
-    
-    /*if(this.go_1 == true){
-        $("#img").change(function(event){alert()
-            console.log(URL.createObjectURL(event.target.files[0]))
-           //$("#dp").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
-        })
-    }*/
-
-    /*this.valid = function(){
-        var obj = $('form').serialize();
-        console.log(obj)
-    }*/
 
     this.group_size = ['10-50','50-100','100-500','500-1000','1000-5000','5000+'];
 
-    this.getCheckedCond = function(x){
+    /*this.getCheckedCond = function(x){
         if(x == '10-50'){
             return true;
         }
-        // console.log(x)
     }
-    this.value = this.group_size[0];
+    this.value = this.group_size[0];*/
 
     this.go_0 = true;
 
@@ -131,6 +115,8 @@ angular.module('app.company.profile', [])
         }
     }
     
+
+
     this.prev = function(prev, cur){
         $window.scrollTo(0,0);
         var prv = 'go_'+prev;
