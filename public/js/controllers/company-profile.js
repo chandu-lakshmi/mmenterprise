@@ -51,7 +51,13 @@ angular.module('app.company.profile', [])
        request.success(function(response){
         console.log(response)
            if(response.status_code == 200) {
-                console.log(response.data)
+                
+            
+                scope.company_code =response.data.company_code;
+                scope.go_2 = false;
+                scope.go_3 = true;
+                    
+
            }else if (response.status_code == 403) {
 
            };
