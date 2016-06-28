@@ -22,10 +22,25 @@ angular.module('app.company.profile', [])
         scope.industry_list = [];
     })
 
-    //this.industry_list = [{'industry_name':'banking'}]
+    this.industry_list = [{'industry_name':'banking'}]
 
+    scope.form_data = {};
+    this.step1 = function(){
+        scope.form_data = {
+            company_name : scope.comp_name,
+            industry : scope.industry.industry_id,
+            description : scope.desc,
+            number_of_employees : '',
+            website : ''
+        }
+    }
+    this.radio = function(radioValue){
+        scope.form_data.number_of_employees = radioValue;
+    }
     this.valid = function(){
-        var comp_data_list = $.param({
+        var company_data = $('form').serialize();
+        // console.log(company_data)
+        /*var comp_data_list = $.param({
             'access_token':$rootScope.access_token,
             'company':scope.comp_name,
             'code':$rootScope.company_code,
@@ -62,7 +77,7 @@ angular.module('app.company.profile', [])
        })
        request.error(function(response){
            console.log("Failed Registration")
-       })
+       })*/
     }
 
     this.group_size = ['10-50','50-100','100-500','500-1000','1000-5000','5000+'];

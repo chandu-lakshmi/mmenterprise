@@ -6,7 +6,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-8 col-sm-offset-2" style="margin-bottom: 20px;height: 680px;overflow: hidden;">
-					<form role="form" name="company_form" novalidate  enctype="multipart/form-data">
+					<form role="form" name="company_form" novalidate  enctype="multipart/form-data" method="post">
 						<div style="height: 658px;width: 1000px;position: relative;">
 							<div class="company go_0 animate same" ng-if="compCtrl.go_0"  style="width: 750px">
 								<div class="company-header">
@@ -44,62 +44,12 @@
 										<li></li>
 									</ul>
 									<div class="pull-right">
-										<button class="btn btn-style" ng-click="compCtrl.jump(1,company_form.$valid)">NEXT	&nbsp;&nbsp;<img src="public/images/arrow-buttons.svg" style="margin-top: -2px;"></button>
+										<button class="btn btn-style" ng-click="compCtrl.jump(1,company_form.$valid);compCtrl.step1()">NEXT	&nbsp;&nbsp;<img src="public/images/arrow-buttons.svg" style="margin-top: -2px;"></button>
 									</div>
 								</div>
 							</div>
-							<div class="company go_1 animate same" ng-if="compCtrl.go_1" style="color: #666;width: 750px">
-								<div class="company-content">
-									<h3>Complete your company profile:</h3>
-									<div style="width: 60%">
-										<md-input-container class="md-block">
-											<label>WEBSITE<span style="color: #999">(URL)*</span></label>
-											<!-- <input type="text" name="website" ng-model="compCtrl.website" required ng-class="{'has-error-border':company_form.website.$invalid && compCtrl.comp2_show_error}"> -->			
-			  								<input  type="text" name="website" ng-model="compCtrl.website" required ng-pattern="/^(http:\/\/www\.|https:\/\/www\.|www\.|https:\/\/|http:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/" ng-class="{'has-error-border':company_form.website.$invalid && compCtrl.comp2_show_error}">
-			  								<div ng-if="company_form.website.$error.required && compCtrl.comp2_show_error"  class="has-error-msg">Please Enter URL</div>
-			  								<div ng-if="company_form.website.$error.pattern && compCtrl.comp2_show_error"  class="has-error-msg">Please Enter Valid URL</div>
-										</md-input-container>
-									</div>
-									<div class="upload">
-										<span>LOGO <small style="color: #999">(Add your company logo)</small></span>
-										<div class="row">
-											<div class="col-sm-3">
-												<label for="upload-image">
-													<img src="public/images/upload-image.svg">
-												</label>
-												<input id="upload-image" type="file" ng-model="compCtrl.logo" name="logo" style="display: none">
-											</div>
-										</div>
-									</div>
-									<div class="add-img">
-										<span>COMPANY IMAGES <small style="color: #999">(Add or Drag & Drop single or multiple images to upload)</small></span>
-										<div class="row">
-											<div ng-repeat='x in [1,2,3,4]'>
-												<div class="col-sm-4 col-xs-6 col-md-3">
-													<!-- <label for="add-image"> -->
-														<img src="public/images/add-image.svg">
-													<!-- </label> -->
-													<!-- <input id="add-image" type="file" style="display: none;"> -->
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="company-footer text-center clearfix">
-									<div class="pull-left">
-										<img src="public/images/arrow-back.svg" ng-click="compCtrl.prev(0,1)" style="margin-top: 10px;">
-									</div>
-									<ul class="indicators">
-										<li ng-click="compCtrl.prev(0,1)"></li>
-										<li class="active"></li>
-										<li ng-click="compCtrl.jump(2,company_form.$valid)"></li>
-									</ul>
-									<div class="pull-right">
-										<button class="btn btn-style" ng-click="compCtrl.jump(2,company_form.$valid)">NEXT	&nbsp;&nbsp;<img src="public/images/arrow-buttons.svg" style="margin-top: -2px;"></button>
-									</div>
-								</div>
-							</div>
-							<div class="company go_2 animate same" ng-if="compCtrl.go_2"  style="width: 750px">
+
+							<div class="company go_2 animate same" ng-if="compCtrl.go_1"  style="width: 750px">
 								<div class="company-content">
 									<h3>Number of Employees in your Company</h3>
 									<div class="cmp-size">
@@ -107,7 +57,7 @@
 											<li class="col-sm-2 col-xs-3" ng-repeat="group in compCtrl.group_size">
 												<label>
 													<span ng-class="{'has-color':group == $parent.value }">{{group}}</span>
-													<input type="radio" name="r1" ng-model="$parent.value" ng-value="group"><label></label>
+													<input type="radio" name="r1" ng-model="$parent.value" ng-value="group" ng-click="compCtrl.radio($parent.value)"><label></label>
 												</label>
 											</li>
 											<!-- <li class="col-sm-2 col-xs-3">
@@ -156,6 +106,62 @@
 								</div>
 								<div class="company-footer text-center clearfix">
 									<div class="pull-left">
+										<img src="public/images/arrow-back.svg" ng-click="compCtrl.prev(0,1)" style="margin-top: 10px;">
+									</div>
+									<ul class="indicators">
+										<li ng-click="compCtrl.prev(0,1)"></li>
+										<li class="active"></li>
+										<li ng-click="compCtrl.jump(2,company_form.$valid)"></li>
+									</ul>
+									<div class="pull-right">
+										<button class="btn btn-style" ng-click="compCtrl.jump(2,company_form.$valid)">NEXT	&nbsp;&nbsp;<img src="public/images/arrow-buttons.svg" style="margin-top: -2px;"></button>
+									</div>
+								</div>
+							</div>
+
+							<div class="company go_1 animate same" ng-if="compCtrl.go_2" style="color: #666;width: 750px">
+								<div ng-repeat="(key,val) in compCtrl.form_data">
+									<input type="hidden" name="{{key}}" value="{{val}}">
+								</div>
+
+								<div class="company-content">
+									<h3>Complete your company profile:</h3>
+									<div style="width: 60%">
+										<md-input-container class="md-block">
+											<label>WEBSITE<span style="color: #999">(URL)*</span></label>
+											<!-- <input type="text" name="website" ng-model="compCtrl.website" required ng-class="{'has-error-border':company_form.website.$invalid && compCtrl.comp2_show_error}"> -->			
+			  								<input  type="text" name="website" ng-model="compCtrl.website" required ng-pattern="/^(http:\/\/www\.|https:\/\/www\.|www\.|https:\/\/|http:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/" ng-class="{'has-error-border':company_form.website.$invalid && compCtrl.comp2_show_error}">
+			  								<div ng-if="company_form.website.$error.required && compCtrl.comp2_show_error"  class="has-error-msg">Please Enter URL</div>
+			  								<div ng-if="company_form.website.$error.pattern && compCtrl.comp2_show_error"  class="has-error-msg">Please Enter Valid URL</div>
+										</md-input-container>
+									</div>
+									<div class="upload">
+										<span>LOGO <small style="color: #999">(Add your company logo)</small></span>
+										<div class="row">
+											<div class="col-sm-3">
+												<label for="upload-image">
+													<img src="public/images/upload-image.svg">
+												</label>
+												<input id="upload-image" type="file" ng-model="compCtrl.logo" name="logo" style="display: none">
+											</div>
+										</div>
+									</div>
+									<div class="add-img">
+										<span>COMPANY IMAGES <small style="color: #999">(Add or Drag & Drop single or multiple images to upload)</small></span>
+										<div class="row">
+											<div ng-repeat='x in [1,2,3,4]'>
+												<div class="col-sm-4 col-xs-6 col-md-3">
+													<!-- <label for="add-image"> -->
+														<img src="public/images/add-image.svg">
+													<!-- </label> -->
+													<!-- <input id="add-image" type="file" style="display: none;"> -->
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="company-footer text-center clearfix">
+									<div class="pull-left">
 										<img src="public/images/arrow-back.svg" ng-click="compCtrl.prev(1,2)"  style="margin-top: 10px;">
 									</div>
 									<ul class="indicators">
@@ -164,10 +170,11 @@
 										<li class="active"></li>
 									</ul>
 									<div class="pull-right">
-										<button class="btn btn-style" ng-click="compCtrl.valid()">CONTINUE	&nbsp;&nbsp;<img src="public/images/arrow-buttons.svg" style="margin-top: -2px;"></button>
+										<button class="btn btn-style" ng-click="compCtrl.valid()" type="submit">CONTINUE	&nbsp;&nbsp;<img src="public/images/arrow-buttons.svg" style="margin-top: -2px;"></button>
 									</div>
 								</div>
 							</div>
+							
 							<div class="company go_3 animate same" ng-if="compCtrl.go_3"  style="width: 750px">
 								<div class="company-content">
 									<div class="final_state row text-center">
