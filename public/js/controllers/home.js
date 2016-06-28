@@ -7,6 +7,7 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
 
    	this.signup_show = false;
    	this.signin_show = true;
+    this.default = true;
     this.verfication_show = false;
     this.signup = function () {
         $window.scrollTo(0,0);
@@ -31,7 +32,8 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
     		this.signup_show_error = true;
     	}
     	else{
-
+            scope.load_cond = true;
+            scope.default = false;
             var data = $.param({
                     fullname: this.s_fname,
                     company: this.s_cname,
@@ -53,6 +55,8 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
                 if(response.status_code == 200) {
                     scope.signup_show = false;
                     scope.verfication_show = true;
+                    scope.default = true;
+                    scope.load_cond = false;
                     //console.log("Successful Registration")
                 }else if (response.status_code == 403) {
                     scope.dublicate_email = true;
