@@ -615,12 +615,11 @@ footer a:hover{
 .job-name .col-lg-8{
 	padding:0 3%;
 }
-.amount-pay i{
+.amount-pay img{
 	float:right;
-	color: #fff;
-	font-size: 30px;
 	cursor:pointer;
 	outline: none;
+	width: 28px;
 }
 .amount-pay h3{
 	text-align: center;

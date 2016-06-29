@@ -4,6 +4,7 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
+<!-- This is new comment line for testing SVN -->
 <html ng-app="app">
     <head>
         <title>MintMesh</title>
@@ -27,6 +28,7 @@ and open the template in the editor.
         <script type="text/javascript" src="public/js/vendor/angular-ui-router.js"></script>
         <script type="text/javascript" src="public/js/vendor/angular-ui-grid.js"></script>
         <script src="public/js/vendor/ui-bootstrap-tpls.js"></script>
+        <script type="text/javascript"></script>
         <script type="text/javascript">
             (function () {
                 "use strict";
