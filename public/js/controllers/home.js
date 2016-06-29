@@ -60,6 +60,8 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
                     scope.load_cond = false;
                     //console.log("Successful Registration")
                 }else if (response.status_code == 403) {
+                    scope.load_cond = false;
+                    scope.default = true;
                     scope.dublicate_email = true;
                 };
                 

@@ -36,6 +36,7 @@ and open the template in the editor.
                 angular.module('app.constants', [])
                 .constant('App', {
                     base_url: 'http://<?php echo $_SERVER['SERVER_NAME']; ?>/mmenterprise/'
+
                 });
             }());
         </script>
