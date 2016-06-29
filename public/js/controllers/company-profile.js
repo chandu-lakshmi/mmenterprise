@@ -22,7 +22,8 @@ angular.module('app.company.profile', [])
         scope.industry_list = [];
     })
 
-    this.industry_list = [{'industry_name':'banking'}]
+   this.industry_list = [{'industry_name':'banking'}]
+
 
     scope.form_data = {};
     this.step1 = function(){
@@ -30,16 +31,36 @@ angular.module('app.company.profile', [])
             company_name : scope.comp_name,
             industry : scope.industry.industry_id,
             description : scope.desc,
-            number_of_employees : '',
-            website : ''
+            number_of_employees : ''
         }
     }
     this.radio = function(radioValue){
         scope.form_data.number_of_employees = radioValue;
     }
+
     this.valid = function(){
+        /*$('form').attr('action','www.google.com')
+        $('form').submit();*/
         var company_data = $('form').serialize();
-        // console.log(company_data)
+        console.log(company_data)
+        var request = $http({
+            headers: {
+                'Content-Type' : false,
+                'cache' : false,
+                'processData' : false   
+            },
+            method : 'POST',
+            url : CONFIG.APP_API_DOMAIN+CONFIG.APP_API_VERSION+'/enterprise/create_company',
+            data : new FormData(this)
+        });
+        request.success(function(response){
+            console.log(response);
+        });
+
+        request.error(function(response){
+            console.log(response);
+        })
+
         /*var comp_data_list = $.param({
             'access_token':$rootScope.access_token,
             'company':scope.comp_name,
@@ -49,45 +70,13 @@ angular.module('app.company.profile', [])
             'website':scope.website,
             'number_of_employees':scope.value,
             'user_id':$rootScope.user_id
-        });
+        });*/
 
-        var request = $http({
-           headers: {
-              'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-           },
-           method: 'POST',
-           url: CONFIG.APP_API_DOMAIN+CONFIG.APP_API_VERSION+'/enterprise/create_company',                               
-           data: comp_data_list
-       })
-
-       request.success(function(response){
-        console.log(response)
-           if(response.status_code == 200) {
-                
-            
-                scope.company_code =response.data.company_code;
-                scope.go_2 = false;
-                scope.go_3 = true;
-                    
-
-           }else if (response.status_code == 403) {
-
-           };
-           
-       })
-       request.error(function(response){
-           console.log("Failed Registration")
-       })*/
     }
 
     this.group_size = ['10-50','50-100','100-500','500-1000','1000-5000','5000+'];
 
-    /*this.getCheckedCond = function(x){
-        if(x == '10-50'){
-            return true;
-        }
-    }
-    this.value = this.group_size[0];*/
+
 
     this.go_0 = true;
 
@@ -97,7 +86,6 @@ angular.module('app.company.profile', [])
     this.comp3_show_error = false;
     
     this.jump = function(go,isValid){
-        // console.log(isValid)
         if(!isValid){
             if(go == 1)
                 this.comp1_show_error = true;
@@ -129,7 +117,6 @@ angular.module('app.company.profile', [])
             this[post_2] = false;
         }
     }
-    
 
 
     this.prev = function(prev, cur){
