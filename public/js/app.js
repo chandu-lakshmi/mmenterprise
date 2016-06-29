@@ -10,7 +10,7 @@ angular.module('app', [
     'APP_NAME' : 'Mintmesh Enterprise',
     'APP_VERSION' : '1',
     'APP_API_VERSION': 'v1',
-    'APP_API_DOMAIN' : 'http://192.168.33.10/mintmesh/'
+    'APP_API_DOMAIN' : 'http://192.168.1.18/mintmesh/mintmeshapi/'
 })
 
 .config(function ($stateProvider, $urlRouterProvider, $locationProvider, App) {

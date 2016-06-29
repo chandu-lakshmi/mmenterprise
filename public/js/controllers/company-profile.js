@@ -41,20 +41,39 @@ angular.module('app.company.profile', [])
     this.valid = function(){
         /*$('form').attr('action','www.google.com')
         $('form').submit();*/
-        var company_data = $('form').serialize();
-        console.log(company_data)
+
+
+        var formData = new FormData();
+        formData.append('company',scope.comp_name);
+        formData.append('code',$rootScope.company_code);
+        formData.append('access_token',$rootScope.access_token);
+        formData.append('industry',scope.industry.industry_id);
+        formData.append('description',scope.desc);
+        formData.append('number_of_employees',scope.form_data.number_of_employees);
+        formData.append('website',scope.website);
+        formData.append('user_id',$rootScope.user_id);
+        formData.append('company_logo', $('input[type=file]#upload-image')[0].files[0]);
+
+
+        // var company_data = $('form').serialize();
+        // console.log(company_data)
         var request = $http({
             headers: {
-                'Content-Type' : false,
-                'cache' : false,
-                'processData' : false   
+                'Content-Type' : undefined
+                // 'cache' : false,
+                // 'processData' : false   
             },
             method : 'POST',
             url : CONFIG.APP_API_DOMAIN+CONFIG.APP_API_VERSION+'/enterprise/create_company',
-            data : new FormData(this)
+            data : formData
         });
         request.success(function(response){
-            console.log(response);
+            if(response.status_code == 200){
+
+                scope.company_code = response.data.company_code
+                scope.go_2 = false;
+                scope.go_3 = true;
+            }
         });
 
         request.error(function(response){

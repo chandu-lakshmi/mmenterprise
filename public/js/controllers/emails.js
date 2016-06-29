@@ -4,9 +4,7 @@
 angular.module('app.emails', [])
 
 .controller('EmailVerificationController', ['$state','$stateParams','$http','CONFIG','$rootScope', function ($state,$stateParams,$http,CONFIG,$rootScope) {
- 	/*this.continue = function(){
- 		$state.go('companyProfile');
- 	}*/
+
         this.loadCond = true;
 
  		var scope = this;
