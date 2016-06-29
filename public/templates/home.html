@@ -39,7 +39,7 @@
 									<span>CREATE AN ACCOUNT</span>
 									<hr>
 								</div>
-								<div class="text-center dublicate-email" ng-if="homeCtrl.dublicate_email"><span>The EmailId has already been taken</span></div>
+								<div class="text-center dublicate-email" ng-if="homeCtrl.dublicate_email"><span>The Email Id has already been taken</span></div>
 								<div class="sign-up-box-content">
 									<form name="signup_form" novalidate ng-submit="homeCtrl.submitSignupForm(signup_form.$valid)">
 										<md-input-container class="md-block">
@@ -64,7 +64,7 @@
 					                     	<div ng-if="signup_form.s_pass.$error.required && homeCtrl.signup_show_error" class="has-error-msg">Please Enter Password.</div>
 					                     	<div ng-if="signup_form.s_pass.$error.pattern && homeCtrl.signup_show_error" class="has-error-msg">Please Enter Atleast 6 characters.</div>
 										</md-input-container>
-										<button class="btn btn-lg btn-style btn-block">SIGN UP &nbsp;&nbsp;<img src="public/images/arrow-buttons.svg" style="margin-top: -2px;" ng-if="homeCtrl.default"><img src="public/images/loader/butt_loader.gif" ng-if="homeCtrl.load_cond"></button>
+										<button class="btn btn-lg btn-style btn-block">SIGN UP &nbsp;&nbsp;<img src="public/images/arrow-buttons.svg" style="margin-top: -2px;" ng-if="homeCtrl.default"><img src="public/images/loader/butt_loader_1.gif" ng-if="homeCtrl.load_cond" width="30px"></button>
 										<p class="text-center" style="margin-top: 15px">Already have an account? <strong><a href="" ng-click="homeCtrl.signin()">SIGN IN</a></strong></p>
 									</form>
 								</div>
@@ -76,7 +76,7 @@
 							<div class="verification-box" ng-if="homeCtrl.verfication_show">
 								<div class="verification-box-content text-center">
 									<img src="public/images/tickmark.svg" alt="tick">
-									<span class="thanks">Thank You For Signing Up!</span>
+									<span class="thanks">Thank You for Signing Up!</span>
 									<hr>
 									<p class="text">An email has been sent to your registered email address for verification.</p>
 									<button class="btn btn-style" ng-click="homeCtrl.signin()">OK</button>

@@ -42,7 +42,7 @@ angular.module('app.company.profile', [])
         /*$('form').attr('action','www.google.com')
         $('form').submit();*/
 
-
+        scope.cont_load = true;
         var formData = new FormData();
         formData.append('company',scope.comp_name);
         formData.append('code',$rootScope.company_code);
@@ -70,8 +70,10 @@ angular.module('app.company.profile', [])
         request.success(function(response){
             if(response.status_code == 200){
 
-                scope.company_code = response.data.company_code
+                scope.company_code = response.data.company_code;
                 scope.go_2 = false;
+                scope.cont_load = false;
+                $window.scrollTo(0,0);
                 scope.go_3 = true;
             }
         });
