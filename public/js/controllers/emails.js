@@ -11,8 +11,8 @@ angular.module('app.emails', [])
  		var tokenid = $stateParams.token;
  		var data = $.param({
             token: tokenid,
-            client_id : '89sloYaTPSMKhbtl',
-            client_secret : 'ssyZldw0tylSGPwy38FyFu90MeSIgbxC'
+            client_id : CONFIG.CLIENT_ID,
+            client_secret : CONFIG.CLIENT_SECRET
         });
 
         var request = $http({
