@@ -3,6 +3,17 @@
 
 angular.module('app.company.profile', [])
 
+.directive('customOnChange', function() {
+  return {
+    restrict: 'A',
+    link: function (scope, element, attrs) {
+      var onChangeFunc = scope.$eval(attrs.customOnChange);
+      element.bind('change', onChangeFunc);
+    }
+  };
+})
+
+
 .controller('CompanyProfileController', ['$state','$window','$http','CONFIG','$scope','$rootScope',function ($state,$window,$http,CONFIG,$scope,$rootScope) {
     this.comp_name = $rootScope.company_name;
     var scope = this;
@@ -38,9 +49,12 @@ angular.module('app.company.profile', [])
         scope.form_data.number_of_employees = radioValue;
     }
 
+    var upload_condition = false;
+    this.uploadFile = function(){
+        upload_condition = true;
+    };
+
     this.valid = function(){
-        /*$('form').attr('action','www.google.com')
-        $('form').submit();*/
 
         scope.cont_load = true;
         var formData = new FormData();
@@ -52,16 +66,13 @@ angular.module('app.company.profile', [])
         formData.append('number_of_employees',scope.form_data.number_of_employees);
         formData.append('website',scope.website);
         formData.append('user_id',$rootScope.user_id);
-        formData.append('company_logo', $('input[type=file]#upload-image')[0].files[0]);
+        if(upload_condition == true){
+            formData.append('company_logo', $('input[type=file]#upload-image')[0].files[0]);
+        }
 
-
-        // var company_data = $('form').serialize();
-        // console.log(company_data)
         var request = $http({
             headers: {
                 'Content-Type' : undefined
-                // 'cache' : false,
-                // 'processData' : false   
             },
             method : 'POST',
             url : CONFIG.APP_API_DOMAIN+CONFIG.APP_API_VERSION+'/enterprise/create_company',
@@ -81,17 +92,6 @@ angular.module('app.company.profile', [])
         request.error(function(response){
             console.log(response);
         })
-
-        /*var comp_data_list = $.param({
-            'access_token':$rootScope.access_token,
-            'company':scope.comp_name,
-            'code':$rootScope.company_code,
-            'industry':scope.industry.industry_id,
-            'description':scope.desc,
-            'website':scope.website,
-            'number_of_employees':scope.value,
-            'user_id':$rootScope.user_id
-        });*/
 
     }
 
@@ -155,7 +155,16 @@ angular.module('app.company.profile', [])
         $state.go('importContacts');
     }
 
-}]);
+}])
+
+
+
+.controller('myCtrl', function($scope) {
+    $scope.uploadFile = function(){
+        var filename = event.target.files[0].name;
+        alert('file was selected: ' + filename);
+    };
+});
 
     
 }());
