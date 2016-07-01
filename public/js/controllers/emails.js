@@ -37,7 +37,7 @@ angular.module('app.emails', [])
                     $rootScope.company_code = response.data.company.code;
                     $rootScope.user_emailid = response.data.user.emailid;
                     $rootScope.user_id = response.data.user.id;
-       
+                    
                     scope.continue = function(){
                         $window.scrollTo(0,0);
                         $state.go('companyProfile');
