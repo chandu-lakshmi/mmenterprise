@@ -116,7 +116,8 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
                     $rootScope.refresh_token = response.data.refresh_token;
                     $state.go('app.dashboard');
                 }
-                else{
+                else if(response.status_code == 403){
+
                     scope.dublicate_invalid = true;
                 }
             });
