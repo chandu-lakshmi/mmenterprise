@@ -213,11 +213,11 @@ input{
     margin-top: -5px;
 }
 .signin-signup .sign-up-box .dublicate-email span,.signin-signup .sign-in-box .dublicate-email span{
-    background: #a6bbbb;
+    /*background: #a6bbbb;*/
     color: #e40c0c;
-    border: 1px solid #ccc;
+    /*border: 1px solid #ccc;
     padding: 6px 10px;
-    border-radius: 7px;
+    border-radius: 7px;*/
 }
 .signin-signup .verification-box .verification-box-content img[alt="tick"]{
     margin-bottom: 20px;
