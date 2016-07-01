@@ -30,6 +30,8 @@ angular.module('app.emails', [])
             	if(response.status_code == 200){
 
                     scope.loadCond = false;
+                    scope.verified = false;
+                    scope.already_verified = true;
                     $rootScope.access_token = response.data.access_token;
                     $rootScope.company_name = response.data.company.name;
                     $rootScope.company_code = response.data.company.code;
@@ -39,7 +41,11 @@ angular.module('app.emails', [])
                     scope.continue = function(){
                         $state.go('companyProfile');
                     }
-                    
+                }
+                else{
+                    scope.loadCond = false;
+                    scope.verified = false;
+                    scope.already_verified = true;
                 }    
             })
             request.error(function(response){
