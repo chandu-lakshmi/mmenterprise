@@ -38,7 +38,8 @@
 									</div>
 									<div class="description">
 										<label for="desc">DESCRIPTION</label>
-										<textarea rows="4" class="form-control" id="desc" spellcheck="false" ng-model="compCtrl.desc"></textarea>
+										<textarea rows="4" class="form-control" id="desc" spellcheck="false" ng-model="compCtrl.desc" maxlength="250"></textarea>
+										<span class="max_length">Max. of 250 Characters</span>
 									</div>
 								</div>
 								<div class="company-footer text-center clearfix">
@@ -117,32 +118,32 @@
 											<!-- <div ng-repeat='x in [1,2,3,4]'>
 												<div class="col-sm-4 col-xs-6 col-md-3">
 													<label for="add-image-{{$index}}">
-														<img src="public/images/add-image.svg">
+														<img src="public/images/add.png">
 													</label>
 													<input id="add-image-{{$index}}" type="file" name="add-img" style="display: none;">
 												</div>
 											</div> -->
 											<div class="col-sm-4 col-xs-6 col-md-3">
 												<label for="add-image-0">
-													<img src="public/images/add-image.svg" id="dp-0" class="img-thumbnail">
+													<img src="public/images/add.png" id="dp-0" class="img-thumbnail">
 												</label>
 												<input id="add-image-0" type="file" name="add-img" style="display: none;" onchange="previewFiles('0')">
 											</div>
 											<div class="col-sm-4 col-xs-6 col-md-3">
 												<label for="add-image-1">
-													<img src="public/images/add-image.svg" id="dp-1" class="img-thumbnail">
+													<img src="public/images/add.png" id="dp-1" class="img-thumbnail">
 												</label>
 												<input id="add-image-1" type="file" name="add-img" style="display: none;" onchange="previewFiles('1')">
 											</div>
 											<div class="col-sm-4 col-xs-6 col-md-3">
 												<label for="add-image-2">
-													<img src="public/images/add-image.svg" id="dp-2" class="img-thumbnail">
+													<img src="public/images/add.png" id="dp-2" class="img-thumbnail">
 												</label>
 												<input id="add-image-2" type="file" name="add-img" style="display: none;" onchange="previewFiles('2')">
 											</div>
 											<div class="col-sm-4 col-xs-6 col-md-3">
 												<label for="add-image-3">
-													<img src="public/images/add-image.svg" id="dp-3" class="img-thumbnail">
+													<img src="public/images/add.png" id="dp-3" class="img-thumbnail">
 												</label>
 												<input id="add-image-3" type="file" name="add-img" style="display: none;" onchange="previewFiles('3')">
 											</div>

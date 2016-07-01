@@ -393,6 +393,13 @@ input{
     margin: 15px 0;
     font-size: 14px;
 }
+.company-content .description textarea + span{
+    text-align: right;
+    display: block;
+    padding: 10px 0 0;
+    font-size: 18px;
+    color: #666;
+}
 .company-content md-select.has-error-border .md-select-value{
     border-bottom-color: red !important;
 }
