@@ -3,7 +3,7 @@
 
 angular.module('app.emails', [])
 
-.controller('EmailVerificationController', ['$state','$stateParams','$http','CONFIG','$rootScope', function ($state,$stateParams,$http,CONFIG,$rootScope) {
+.controller('EmailVerificationController', ['$state','$stateParams','$http','CONFIG','$rootScope', '$window', function ($state,$stateParams,$http,CONFIG,$rootScope,$window) {
 
         this.loadCond = true;
 
@@ -30,8 +30,8 @@ angular.module('app.emails', [])
             	if(response.status_code == 200){
 
                     scope.loadCond = false;
-                    scope.verified = false;
-                    scope.already_verified = true;
+                    scope.already_verified = false;
+                    scope.verified = true;
                     $rootScope.access_token = response.data.access_token;
                     $rootScope.company_name = response.data.company.name;
                     $rootScope.company_code = response.data.company.code;
@@ -39,6 +39,7 @@ angular.module('app.emails', [])
                     $rootScope.user_id = response.data.user.id;
        
                     scope.continue = function(){
+                        $window.scrollTo(0,0);
                         $state.go('companyProfile');
                     }
                 }
@@ -52,6 +53,11 @@ angular.module('app.emails', [])
                 console.log(response)
             })
         },2000);
+        
+        this.login = function(){
+            $window.scrollTo(0,0);
+            $state.go('home');
+        }
 }])
     
 }());
