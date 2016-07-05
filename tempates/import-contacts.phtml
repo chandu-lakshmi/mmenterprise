@@ -1,0 +1,113 @@
+<div  style="background:#F2F2F2;padding:0">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-7 grid_center">
+
+				<!-- logo -->
+				<div class="text-center">
+					<a href=""><img src="public/images/logo.png" alt="logo" class="import_logo"></a>
+				</div>
+
+				<!--import contacts header-->
+				<div class="row import_c_box" style='padding-bottom: 17px;'>
+					<div class="col-sm-12" style="border-bottom:1px solid #ccc;">
+						<div style="padding:22px 0px;">
+							<img src="public/images/arrow-back.svg" alt="arrowback" class="pull-left" ng-click="importCtrl.backToCompleteProfile()">
+							<h3 class="mrZpdZ text-center" style="font-size:1.7em;color:silver">IMPORT YOUR CONTACTS</h3>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-lg-10 grid_center upload-con">
+						<h3 class="mrZpdZ">Upload Contacts</h3>
+						<div class="info-upload">
+							<div>
+								<img src="public/images/info.svg" alt="info">
+								<span style="color:gray">Organize your contacts in one of the groups below or create your own</span>
+							</div>
+						</div>
+
+						<div class="div-btn row">
+							<div ng-repeat="bucketName in importCtrl.bucketsName" class="col-lg-4"  ng-init="color=importCtrl.bucketColor[$index]">
+								<div ng-style='{"background":color}' ng-click="importCtrl.fileUploadModal(bucketName, color)">
+								<img src="public/images/upload.svg">
+								{{bucketName | uppercase}}
+								</div>
+								<h6><a href="">DOWNLOAD TEMPLATE</a></h6>
+							</div>
+							<!-- <div ng-repeat="bucketName in importCtrl.bucketsName">
+								<div style="background:#229A77">
+								<img src="public/images/upload.svg">
+								EMPLOYEES
+								</div>
+								<h6><a href="">DOWNLOAD TEMPLATE</a></h6>
+							</div>
+							<div>
+								<div style="background:#21A4AC">
+								<img src="public/images/upload.svg">
+								CLIENTS
+								</div>
+								<h6><a href="">DOWNLOAD TEMPLATE</a></h6>
+							</div>
+							<div>
+								<div style="background:#EE8F3B">
+								<img src="public/images/upload.svg">
+								CANDIDATES
+								</div>
+								<h6><a href="">DOWNLOAD TEMPLATE</a></h6>
+							</div>
+							<div>
+								<div style="background:#2A99E0">
+								<img src="public/images/upload.svg">
+								iOS DEVELOPERS
+								</div>
+								<h6><a href="">DOWNLOAD TEMPLATE</a></h6>
+							</div>
+
+							<div>
+								<div class="add-own">
+								+ Add Your Own
+								</div>
+								<h6><a href="">DOWNLOAD TEMPLATE</a></h6>
+							</div>
+
+							<div>
+								<div class="add-own">
+								+ Add Your Own
+								</div>
+								<h6><a href="">DOWNLOAD TEMPLATE</a></h6>
+							</div>
+
+							<div>
+								<div class="add-own">
+								+ Add Your Own
+								</div>
+								<h6><a href="">DOWNLOAD TEMPLATE</a></h6>
+							</div> -->
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-7 grid_center text-center" style="color:gray">
+						<sup>_________________________&nbsp;</sup> Or <sup>&nbsp;_________________________</sup>
+					</div>
+
+					<div class="col-xs-12 chos-service">
+						<h4>To import contacts choose any service provider</h4>
+					</div>
+
+					<!--mail services-->
+					<div class="col-xs-8 col-sm-5 grid_center services_type">
+						<a href="">
+							Gmail<img src="public/images/arrow-buttons_black.svg" alt="arrow">
+						</a>
+						<a>
+							Exchange <img src="public/images/arrow-buttons_black.svg" alt="arrow">
+						</a>
+					</div>
+					<div class="col-xs-12 foot_next">
+						<button class="btn btn_up_next" ng-click="importCtrl.selectFile()">NEXT<img src="public/images/arrow-buttons.svg" alt="upload"></button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

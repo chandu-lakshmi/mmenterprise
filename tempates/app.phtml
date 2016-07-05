@@ -1,0 +1,13 @@
+<link rel="stylesheet" type="text/css" href="public/css/dashboard.css">
+<link rel="stylesheet" type="text/css" href="public/css/jquery.circliful.css">
+<script type="text/javascript" src="public/js/vendor/jquery.circliful.min.js"></script>
+
+<div class="dashboard">
+
+	<header ng-include="'public/templates/header.html'" ng-controller="HeaderController as headCtrl"></header>
+
+	<div ui-view></div>
+
+	<footer ng-include="'public/templates/footer.html'" ng-controller="FooterController"></footer>
+
+</div>
