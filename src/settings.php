@@ -1,4 +1,5 @@
 <?php
+// settings for production server
 return [
     'settings' => [
         'displayErrorDetails' => true, // set to false in production

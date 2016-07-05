@@ -1,4 +1,5 @@
 <?php
+// setting for development environment
 return [
     'settings' => [
         'displayErrorDetails' => true, // set to false in production

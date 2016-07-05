@@ -1,4 +1,5 @@
 <?php
+// setting for staging AWS server
 return [
     'settings' => [
         'displayErrorDetails' => true, // set to false in production
