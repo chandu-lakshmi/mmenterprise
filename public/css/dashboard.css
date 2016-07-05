@@ -538,6 +538,12 @@ footer a:hover{
 	padding: 15px;
 	color:#222;
 }
+.post-job .easy-autocomplete{
+	width: 100% !important;
+}
+.post-job .easy-autocomplete .easy-autocomplete-container{
+	margin: 0;
+}
 .post-job section .content{
 	padding: 40px 0;
 	color: #878787;

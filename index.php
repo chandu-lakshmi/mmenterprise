@@ -28,7 +28,7 @@ and open the template in the editor.
         <script type="text/javascript" src="public/js/vendor/angular-ui-router.js"></script>
         <script type="text/javascript" src="public/js/vendor/angular-ui-grid.js"></script>
         <script src="public/js/vendor/ui-bootstrap-tpls.js"></script>
-        <script type="text/javascript"></script>
+        <script type="text/javascript" src="public/js/vendor/jquery.easy-autocomplete.js"></script>
         <script type="text/javascript">
             (function () {
                 "use strict";

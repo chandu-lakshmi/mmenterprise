@@ -5,10 +5,34 @@ angular.module('app.post.job', [])
 
 .controller('PostJobController', ['$state','$window', '$http', 'CONFIG', function($state,$window,$http,CONFIG){
 
-	this.postJob2 = function(){
+  var options = {
+        url: function(phrase) {
+          return "api/countrySearch.php";
+        },
+        getValue: function(element) {
+          return element.name;
+        },
+        ajaxSettings: {
+          dataType: "json",
+          method: "POST",
+          data: {
+              dataType: "json"
+          }
+        },
+        preparePostData: function(data) {
+          data.phrase = $("#location").val();
+          return data;
+        },
+        requestDelay: 400
+    };
+    $('#location').easyAutocomplete(options);
+
+
+
+	/*this.postJob2 = function(){
 		$window.scrollTo(0,0);
 		$state.go('^.postJob2');
-	}
+	}*/
 
 	var scope = this;
 	// Job Functions Dropdown
@@ -59,6 +83,17 @@ angular.module('app.post.job', [])
     get_experiences.success(function(response){
        scope.experience = response.data.experiences;
     })
+
+    this.job_post_error = false;
+    this.postJob = function(isValid){
+      if(!isValid){
+        this.job_post_error = true;
+      }
+      else{
+        $window.scrollTo(0,0);
+        $state.go('^.postJob2');
+      }
+    }
 
 
 

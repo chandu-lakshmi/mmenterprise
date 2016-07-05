@@ -33,7 +33,6 @@ angular.module('app.company.profile', [])
         scope.industry_list = [];
     })
 
-   this.industry_list = [{'industry_name':'banking'}]
 
 
     scope.form_data = {};
@@ -51,8 +50,15 @@ angular.module('app.company.profile', [])
 
     var upload_condition = false;
     this.uploadFile = function(){
+        /*var files = this.files[0];
+        console.log(files)*/
         upload_condition = true;
     };
+
+    this.uploadPdf = function(){
+        var files = this.files[0];
+        scope.pdfFileName = files.name;
+    }
 
     this.valid = function(){
 
