@@ -18,7 +18,7 @@ $app->get('/', function ($request, $response, $args) {
 
     $args['API_DOMAIN'] = $this->settings['APP']['API_DOMAIN'];
 
-
+    //echo "I am here";
     // Render index view
     return $this->renderer->render($response, 'index.phtml', $args);
 });

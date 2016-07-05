@@ -28,7 +28,7 @@ return [
             'API_VERSION' => 'v1',
 
             // Application API domain
-            'API_DOMAIN' => 'my.local/mmslim/',
+            'API_DOMAIN' => 'my.local/mmslimintegration/',
         ],
         
     ],
