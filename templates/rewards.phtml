@@ -1,0 +1,111 @@
+<div class="sub-header">
+	<div class="container">
+		<div class="mid-nav">
+			<h3>
+				<a ui-sref="^.job"><img src="public/images/back-arrow.svg" alt="back" style="margin-bottom: 4px;">
+				<span>UI/UX Designer</span></a>
+			</h3>
+			<span class="openbox" style="margin:0">OPEN</span>
+		</div>
+		<ul>
+			<li><a ui-sref="^.jobDetails">JOB DETAILS</a></li>
+			<li><a ui-sref="^.engagement/contacts">ENGAGEMENT/CONTACTS</a></li>
+			<li><a ui-sref="^.rewards" class="active">REWARDS</a></li>
+		</ul>
+	</div>
+</div>
+
+<div class="rewards">
+	<div class="container">
+		<div class="header clearfix">
+			<h2 class="pull-left">Total Rewards for Referrals</h2>
+			<span class="pull-right total col-lg-2 text-right text-hired">&#36; 30.00</span>
+		</div>
+		<div class="rewards-list">
+			<div class="row clearfix">
+				<div class="col-lg-12">
+					<ul>
+						<li class="t_head clearfix">
+							<div class="col-lg-4">
+								NAME
+							</div>
+							<div class="col-lg-4">
+								REFERRED
+							</div>
+							<div class="col-lg-2">
+								REWARDED ON
+							</div>
+							<div class="col-lg-2 text-right">
+								REWARDED
+							</div>
+						</li>
+						<li class="clearfix" ng-repeat="reward in RewardCtrl.rewards[0].referred" ng-if="reward.status == 'Accepted'">
+							<div class="col-lg-4">
+								<div class="pull-left">
+									<img ng-src="public/images/Ui_Faces/{{reward.referred_by}}.jpg" class="img-responsive img-circle border-default">
+								</div>
+								<div class="content pull-left">
+									<span class="text-name">{{reward.referred_by}}</span>
+									<p>{{reward.ref_designation}}</p>
+								</div>
+							</div>
+							<div class="col-lg-4">
+								<div class="pull-left">
+									<img ng-src="public/images/Ui_Faces/{{reward.name}}.jpg" class="img-responsive img-circle border-default">
+								</div>
+								<div class="content pull-left">
+									<big>{{reward.name}}</big>
+									<p>{{reward.designation}}</p>
+								</div>
+							</div>
+							<div class="col-lg-2">
+								<span class="time">{{reward.time}}&nbsp;&nbsp;<img src="public/images/time.svg" alt="clock"></span>
+							</div>
+							<div class="col-lg-2 text-right">
+								<span class="text-hired reward">&#36; {{reward.rewarded}}</span>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+					<li ng-repeat="refer in EngContCtrl.contacts[0].referred">
+						<div class="col-lg-3">
+							<div class="pull-left">
+								<img ng-src="public/images/Ui_Faces/{{refer.name}}.jpg" class="img-responsive img-circle border-{{refer.status | lowercase}}">
+							</div>
+							<div class="content pull-left">
+								<big>{{refer.name}}</big>
+								<p style="margin:0">{{refer.designation}}</p>
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div class="pull-left">
+								<img ng-src="public/images/Ui_Faces/{{refer.referred_by}}.jpg" class="img-responsive img-circle border-default">
+							</div>
+							<div class="content pull-left">
+								<big>{{refer.referred_by}}</big>
+								<p style="margin:0;">{{refer.designation}}</p>
+							</div>
+						</div>
+						<div class="col-lg-2">
+							<span style="display: inline-block;padding: 12px 0;line-height: 1.8em">{{refer.time}}&nbsp;&nbsp;<img src="public/images/time.svg"alt="clock"></span>
+						</div>
+						<div class="col-lg-2 text-right">
+							<span style="display: inline-block;padding: 12px 0;line-height: 1.8em;color: black">{{refer.name}}.pdf &nbsp;&nbsp;<img src="public/images/download.svg" alt="download_svg"></span>
+						</div>
+						<div class="col-lg-2 text-center" style="padding: 10px 0" ng-if="refer.status == 'Pending'">
+							<img src="public/images/tickmark-accept.svg" alt="response">&nbsp;&nbsp;
+							<img src="public/images/closemark-decline.svg" alt="response">
+						</div>
+						<div class="col-lg-2 text-center" style="padding: 15px 0" ng-if="refer.status != 'Pending'">
+							<span class="text-{{refer.status | lowercase}}">{{refer.status | uppercase}}</span>
+						</div>
+					</li>
+		<!-- 		</ul>
+			</div>
+		</div>
+		</div> -->
+	</div>
+</div>

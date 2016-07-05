@@ -1,0 +1,301 @@
+
+<!-- <header>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-2">
+				<img src="public/images/logo.png" alt="brand-logo">
+			</div>
+			<div class="menu col-lg-7">
+				<ul>
+					<li><a ui-sref="dashboard">DASHBOARD</a></li>
+					<li><a ui-sref="job" class="active">JOBS</a></li>
+					<li><a ui-sref="importContactsList">CONTACTS</a></li>
+					<li><a ui-sref="#/">SETTINGS</a></li>
+				</ul>
+			</div>
+			<div class="notifications col-lg-3 pull-right text-center">
+				<div class="row">
+					<div class="not_alert col-lg-3">
+						<span class="num">2</span>
+						<i class="fa fa-bell-o"></i>
+					</div>
+					<div class="col-lg-9">
+						<div class="user">
+							<span><img src="public/images/arrow-dropdown-white.svg"></span>
+							<span class="comp_name">Jennifer</span>
+							<span class="user_dp"><img src="public/images/Ui_Faces/Jenifer.jpg" class="image-responsive img-circle" alt="dp" style="width: 40px;border: 1px solid #ccc"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header> -->
+
+<div class="sub-header">
+	<div class="container">
+		<div class="mid-nav">
+			<h3>
+				<a ui-sref="^.job"><img src="public/images/back-arrow.svg" alt="back" style="margin-bottom: 4px;">
+				<span>UI/UX Designer</span></a>
+			</h3>
+			<span class="openbox" style="margin:0">OPEN</span>
+		</div>
+		<ul>
+			<li><a ui-sref="^.jobDetails">JOB DETAILS</a></li>
+			<li><a ui-sref="^.engagement/contacts">ENGAGEMENT/CONTACTS</a></li>
+			<li><a ui-sref="^.rewards">REWARDS</a></li>
+		</ul>
+	</div>
+</div>
+
+<div class="engage-contact" style="padding: 70px 0 100px 0">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4" ng-show="!EngContCtrl.referrals_show">
+				<div class="box invited">
+					<div class="box-header">
+						<span>INVITED (150)</span>
+						<i class="fa fa-expand pull-right"></i>
+					</div>
+					<div class="box-content">
+						<ul>
+							<li ng-repeat="invite in EngContCtrl.contacts[0].invited">
+								<div class="pull-left">
+									<img ng-src=public/images/Ui_Faces/{{invite.name}}.jpg class="img-responsive img-circle">
+								</div>
+								<div class="content pull-left">
+									<span class="text-name">{{invite.name}}</span>
+									<p style="margin-bottom: 5px;">{{invite.designation}}</p>
+									<div class="row">
+										<div class="col-lg-6 col-xs-6">
+											<span><big>{{invite.referrals}}</big>&nbsp;REFERRALS</span>
+										</div>
+										<div class="col-lg-6 col-xs-6">
+											<span><big>{{invite.applied}}</big>&nbsp;ACCEPTED</span>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4" ng-show="!EngContCtrl.referrals_show">
+				<div class="box referred">
+					<div class="box-header">
+						<span>REFERRALS (30)</span>
+						<i class="fa fa-expand pull-right" ng-click="EngContCtrl.fun_click()"></i>
+					</div>
+					<div class="box-content">
+						<ul>
+							<li ng-repeat="refer in EngContCtrl.contacts[0].referred">
+								<div class="pull-left" style="padding-right: 10px;position: relative;">
+									<img ng-src="public/images/Ui_Faces/{{refer.name}}.jpg" class="img-responsive img-circle border-{{refer.status | lowercase}}">
+									<img ng-src="public/images/Ui_Faces/{{refer.referred_by}}.jpg" class="img-responsive img-circle sub-img">
+								</div>
+								<div class="content">
+									<span><big>{{refer.name}}</big> got referred</span><span class="pull-right text-{{refer.status | lowercase}}">{{refer.status}}</span><br>
+									<span>by <big>{{refer.referred_by}}</big><span class="pull-right"><span class="vr"></span>{{refer.time}}&nbsp;&nbsp;<img src="public/images/time.svg"alt="clock"></span></span>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4" ng-show="!EngContCtrl.referrals_show">
+				<div class="box accepted">
+					<div class="box-header">
+						<span>ACCEPTED (10)</span>
+						<i class="fa fa-expand pull-right"></i>
+					</div>
+					<div class="box-content">
+						<ul>
+							<li ng-repeat="accept in EngContCtrl.contacts[0].accepted">
+								<div class="clearfix">
+									<div class="pull-left" style="padding-right: 10px;">
+										<img ng-src="public/images/Ui_Faces/{{accept.name}}.jpg" class="img-responsive img-circle">
+									</div>
+									<div class="content pull-left">
+										<span class="text-name">{{accept.name}}</span>
+										<p style="margin-bottom: 5px;">{{accept.designation}}</p>
+									</div>
+								</div>
+								<div class="btn-group">
+									<div ng-class="{'bg-accepted':accept.status == 'accepted'}">Accepted</div>
+									<div ng-class="{'bg-interviewed':accept.status == 'interviewed'}">Interviewed</div>
+									<div ng-class="{'bg-offerMade':accept.status == 'offerMade'}">Offer Made</div>
+									<div ng-class="{'bg-hired':accept.status == 'hired'}">Hired</div>
+								</div>
+							</li>
+							<!-- <li>
+								<div class="clearfix">
+									<div class="pull-left" style="padding-right: 10px;">
+										<img src="public/images/Ui_Faces/Kevin.jpg" class="img-responsive img-circle">
+									</div>
+									<div class="content pull-left">
+										<span class="text-name">Kevin</span>
+										<p style="margin-bottom: 5px;">Sr. Human Resource Manager</p>
+									</div>
+								</div>
+								<div class="btn-group">
+									<div>Accepted</div>
+									<div class="bg-interviewed">Interviewed</div>
+									<div>Offer Made</div>
+									<div>Hired</div>
+								</div>
+							</li>
+							<li>
+								<div class="clearfix">
+									<div class="pull-left" style="padding-right: 10px;">
+										<img src="public/images/Ui_Faces/George.jpg" class="img-responsive img-circle">
+									</div>
+									<div class="content pull-left">
+										<span class="text-name">George</span>
+										<p style="margin-bottom: 5px;">Sr. Human Resource Manager</p>
+									</div>
+								</div>
+								<div class="btn-group">
+									<div>Accepted</div>
+									<div class="bg-interviewed">Interviewed</div>
+									<div>Offer Made</div>
+									<div>Hired</div>
+								</div>
+							</li>
+							<li>
+								<div class="clearfix">
+									<div class="pull-left" style="padding-right: 10px;">
+										<img src="public/images/Ui_Faces/Kristin.jpg" class="img-responsive img-circle">
+									</div>
+									<div class="content pull-left">
+										<span class="text-name">Kristin</span>
+										<p style="margin-bottom: 5px;">UI Manager</p>
+									</div>
+								</div>
+								<div class="btn-group">
+									<div>Accepted</div>
+									<div>Interviewed</div>
+									<div>Offer Made</div>
+									<div class="bg-hired">Hired</div>
+								</div>
+							</li>
+							<li>
+								<div class="clearfix">
+									<div class="pull-left" style="padding-right: 10px;">
+										<img src="public/images/Ui_Faces/Armen Hodge.jpg" class="img-responsive img-circle">
+									</div>
+									<div class="content pull-left">
+										<span class="text-name">Armen Hodge</span>
+										<p style="margin-bottom: 5px;">Sr Software Engineer</p>
+									</div>
+								</div>
+								<div class="btn-group">
+									<div>Accepted</div>
+									<div>Interviewed</div>
+									<div class="bg-offerMade">Offer Made</div>
+									<div>Hired</div>
+								</div>
+							</li>
+							<li>
+								<div class="clearfix">
+									<div class="pull-left" style="padding-right: 10px;">
+										<img src="public/images/Ui_Faces/Watson.jpg" class="img-responsive img-circle">
+									</div>
+									<div class="content pull-left">
+										<span class="text-name">Watson</span>
+										<p style="margin-bottom: 5px;">UI/UX Designer</p>
+									</div>
+								</div>
+								<div class="btn-group">
+									<div class="bg-accepetd">Accepted</div>
+									<div>Interviewed</div>
+									<div>Offer Made</div>
+									<div>Hired</div>
+								</div>
+							</li> -->
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-12 fade" ng-if="EngContCtrl.referrals_show">
+				<div class="box referred-expand">
+					<div class="box-header">
+						<span>REFERRALS (30)</span>
+						<i class="fa fa-compress pull-right" ng-click="EngContCtrl.fun_click()"></i>
+					</div>
+					<div class="box-content" style="padding: 0">
+						<ul>
+							<li class="t_head">
+								<div class="col-lg-3">
+									NAME
+								</div>
+								<div class="col-lg-3">
+									REFERRED 
+								</div>
+								<div class="col-lg-2">
+									REFERRED ON
+								</div>
+								<div class="col-lg-2 text-right">
+									RESUME
+								</div>
+								<div class="col-lg-2 text-right">
+									AWAITING ACTION 
+								</div>
+							</li>
+							<li ng-repeat="refer in EngContCtrl.contacts[0].referred">
+								<div class="col-lg-3">
+									<div class="pull-left">
+										<img ng-src="public/images/Ui_Faces/{{refer.name}}.jpg" class="img-responsive img-circle border-{{refer.status | lowercase}}">
+									</div>
+									<div class="content pull-left">
+										<big>{{refer.name}}</big>
+										<p style="margin:0">{{refer.designation}}</p>
+									</div>
+								</div>
+								<div class="col-lg-3" style="padding: 0">
+									<div class="pull-left">
+										<img ng-src="public/images/Ui_Faces/{{refer.referred_by}}.jpg" class="img-responsive img-circle border-default">
+									</div>
+									<div class="content pull-left">
+										<big>{{refer.referred_by}}</big>
+										<p style="margin:0;">{{refer.ref_designation}}</p>
+									</div>
+								</div>
+								<div class="col-lg-2">
+									<span style="display: inline-block;padding: 12px 0;line-height: 1.8em">{{refer.time}}&nbsp;&nbsp;<img src="public/images/time.svg"alt="clock"></span>
+								</div>
+								<div class="col-lg-2 text-right">
+									<span style="display: inline-block;padding: 12px 0;line-height: 1.8em;color: black">{{refer.name}}.pdf &nbsp;&nbsp;<img src="public/images/download.svg" alt="download_svg"></span>
+								</div>
+								<div class="col-lg-2 text-center" style="padding: 10px 0" ng-if="refer.status == 'Pending'">
+									<img src="public/images/tickmark-accept.svg" alt="response">&nbsp;&nbsp;
+									<img src="public/images/closemark-decline.svg" alt="response">
+								</div>
+								<div class="col-lg-2 text-center" style="padding: 15px 0" ng-if="refer.status != 'Pending'">
+									<span class="text-{{refer.status | lowercase}}">{{refer.status | uppercase}}</span>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- <footer>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-5">
+				<p>&copy; 2016 MINTMESH&trade; INC. ALL RIGHTS RESERVED.</p>
+			</div>
+			<div class="col-sm-7">
+				<ul>
+					<li><a href="https://mintmesh.com/us/" target="_blank">ABOUT US</a></li>
+					<li><a href="https://mintmesh.com/terms-of-use/" target="_blank">TERMS & CONDITIONS</a></li>
+					<li><a href="https://mintmesh.com/privacy-policy/" target="_blank">PRIVACY POLICY</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</footer> -->
