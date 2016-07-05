@@ -3,18 +3,82 @@
 
 angular.module('app.import.contacts', ['ui.grid' ,'ui.grid.selection','ui.grid.infiniteScroll'])
 
-.controller('ImportContactsController', ['$state', '$window', function ($state, $window) {
+.controller('ImportContactsController', ['$state', '$window', '$uibModal', function ($state, $window, $uibModal) {
+  
+  this.bucketsName = ["employees", "clients", "candidates", "ios developers" ,"+add your own"];
+  this.bucketColor = ["#229A77", "#21A4AC", "#EE8F3B", "#2A99E0" ,"#999"];
+
   this.selectFile = function(){
       $window.scrollTo(0,0);
       $state.go('importContactsList');
       
   }
+
   this.backToCompleteProfile = function() {
       $window.scrollTo(0,0);
       $state.go('companyProfile');
   }
+
+  this.fileUploadModal = function  (bucketName,color) {
+      $uibModal.open({
+        animation: false,
+        templateUrl: 'public/templates/dialogs/fileUpload.html',
+        resolve: {
+          bucket: function () {
+            var bucket = {};
+              bucket.color=color;
+              bucket.name=bucketName;
+              return bucket;
+            }
+        },
+        controller: 'fileUpload',
+        controllerAs:"fileUp"
+      });
+  }
+
+
+
 }])
 
+.controller("fileUpload", ["bucket", function(bucket){
+    this.bucket = bucket;
+    var color=this.bucket.color;
+    this.obj={
+      "border":"1px solid "+color,
+      "color":color
+    }
+      // var uploader = new qq.FileUploader({
+      //   // pass the dom node (ex. $(selector)[0] for jQuery users)
+      //   element: document.getElementById('file-uploader'),
+      //   // path to server-side upload script
+      //   action: '',
+      //   dragText:"Drag Your File Here",
+      //   multiple:false,
+      //   uploadButtonText: 'Upload File !',
+      //   allowedExtensions: ['csv', 'jpg', 'png'],
+      //   params:{
+      //     "name":""
+      //   },
+      //   showMessage: function(message) {
+      //       $('#file-uploader').append('<div class="alert alert-error">' + message + '</div>');
+      //   },
+      //   onSubmit: function(id, fileName){
+      //   },
+      //   onProgress: function(id, fileName, loaded, total){
+
+      //   },
+      //   onComplete: function(id, fileName, responseJSON){
+          
+      //   },
+      //   onCancel: function(id, fileName){},
+      //   onError: function(id, fileName, xhr){
+
+      //   }
+      // }); 
+      // console.log(uploader);
+    
+
+}])
 
 .controller('ImportContactsListController', ['$rootScope','$window', '$state', '$scope', '$http', '$log', '$timeout', 'uiGridConstants','$uibModal', function ($rootScope, $window, $state, $scope, $http, $log, $timeout, uiGridConstants, $uibModal) {
 
@@ -230,7 +294,6 @@ angular.module('app.import.contacts', ['ui.grid' ,'ui.grid.selection','ui.grid.i
     $uibModal.open({
       animation: false,
       templateUrl: 'public/templates/dialogs/custom-msg.html',
-      openedClass: "import_verify",
       controller: 'modalCtrl',
       controllerAs:"ctrl"
     });

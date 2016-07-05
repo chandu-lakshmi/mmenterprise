@@ -21,9 +21,18 @@ hr{
     margin-top: 12px;
     margin-bottom: 30px;
 }
+.preloader{
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url('../images/loader/preloader.gif') 50% 50% no-repeat rgb(255,255,255);
+}
 /*Background Image*/
 .bg-image{
-	background: url('../images/bg-img.jpg') no-repeat;
+    background: url('../images/bg-img.jpg') no-repeat;
     background-size: cover;
     background-position: 50% 10%;
     height: 100%;
@@ -66,6 +75,9 @@ hr{
 /*Angular Material Styles*/
 .has-error-msg{
     color: red;
+    float: left;
+    min-height: 24px;
+    min-width: 1px;
 }
 .has-error-border{
     border-color: red !important;
@@ -115,19 +127,19 @@ input{
 
 
 /*RESPONSIVE STYLES*/
-@media screen only and(max-height: 672px){
+@media (max-height: 672px){
     .verify-page + footer{
         position: static !important;
     }
 }
-/*@media(max-height: 760px){
-    .bg-image footer{
+@media (max-height: 756px){
+    .signin-signup + footer{
         position: static !important; 
     }
     .company-profile{
         height: auto !important;
     }
-}*/
+}
 @media(max-width: 767px){
     .signin-signup .col-xs-9{
         float: none;
@@ -165,7 +177,7 @@ input{
     color: #666
 }
 .signin-signup .logo{
-	/*width: 150px;*/
+    /*width: 150px;*/
     width: 200px;
     margin-bottom: 30px;
     padding: 12px 0 0 0;
@@ -180,15 +192,47 @@ input{
 .signin-signup .briefcase img,.signin-signup .chart img{
     margin-bottom: 20px;
 }
-.signin-signup .sign-up-box,.signin-signup .sign-in-box{
+.signin-signup .sign-up-box,.signin-signup .sign-in-box,.signin-signup .verification-box{
     width: 100%;
     border: 1px solid #ccc;
     margin: 0 auto;
     padding: 15px;
     background: #fff;
 }
-.signin-signup .sign-in-box{
+.signin-signup .sign-in-box,.signin-signup .verification-box{
     margin-top: 100px;
+}
+.signin-signup .verification-box{
+    padding: 40px 20px;
+}
+.signin-signup .sign-up-box .dublicate-email{
+    margin-top: -5px;
+}
+.signin-signup .sign-in-box .dublicate-email{
+    margin-bottom: 35px;
+    margin-top: -5px;
+}
+.signin-signup .sign-up-box .dublicate-email span,.signin-signup .sign-in-box .dublicate-email span{
+    /*background: #a6bbbb;*/
+    color: #e40c0c;
+    /*border: 1px solid #ccc;
+    padding: 6px 10px;
+    border-radius: 7px;*/
+}
+.signin-signup .verification-box .verification-box-content img[alt="tick"]{
+    margin-bottom: 20px;
+    width: 75px;
+}
+.signin-signup .verification-box .verification-box-content span.thanks{
+    display: block;
+    font-size: 24px;
+}
+.signin-signup .verification-box .verification-box-content p.text{
+    font-size: 17px;
+    margin-bottom: 20px;
+}
+.signin-signup .verification-box .verification-box-content button.btn-style{
+    padding: 6px 30px;
 }
 .signin-signup .sign-up-box-content{
     margin-top: 30px;
@@ -271,6 +315,7 @@ input{
     padding-left: 20px;
     font-size: 16px;
     background: #e6f5e9;
+    border-bottom: 1px solid #ccc;
 }
 .company-header p{
     margin: 0
@@ -281,7 +326,42 @@ input{
 }
 .company-content{
     padding: 30px 26px 0px;
-    border-top: 1px solid #ccc;
+    /*border-top: 1px solid #ccc;*/
+}
+.company-content input#pdf{
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+.company-content input#pdf + label{
+    border: 1px solid #808080 ;
+    background-color: #CCC;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    color: #000 ;
+    margin: 0;
+    padding: 5px;
+    line-height: 32px;
+    font-size: 16px;
+}
+.company-content input#pdf + label span{
+    width: 160px;
+    background: #fff;
+    min-height: 2em;
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: top;
+    padding: 0px 10px;
 }
 .company-content h3{
     margin-top: 0;
@@ -313,12 +393,19 @@ input{
     margin: 15px 0;
     font-size: 14px;
 }
+.company-content .description textarea + span{
+    text-align: right;
+    display: block;
+    padding: 5px 0 0;
+    font-size: 14px;
+    color: #666;
+}
 .company-content md-select.has-error-border .md-select-value{
     border-bottom-color: red !important;
 }
 .company-footer{
     border-top: 1px solid #ccc;
-    padding: 15px;
+    padding: 10px 26px;
     background: #f5f5f5;
 }
 .company-footer ul.indicators{
@@ -341,7 +428,7 @@ input{
 .company-footer ul.indicators li.active{
     background: #01B893;
 }
-.company-footer button.btn-style{
+.company-footer button.btn-style,.company-footer input[type='button'].btn-style,.company-footer input[type='submit'].btn-style{
     padding: 10px 30px;
     /*font-size: 16px*/
 }
@@ -357,6 +444,8 @@ input{
 .company-content .feedback{
     position: absolute;
     right: 10px;
+    top: 10px;
+    width: 15px;
 }
 .add-img{
     margin-bottom: 30px;
@@ -366,11 +455,25 @@ input{
     padding: 20px 0;
 }
 .upload img,.add-img img{
-    border: 1px solid #ccc;
-    padding: 40px;
+    /*border: 1px solid #ccc;*/
+    width: 125px;
+    height: 125px;
     border-radius: 5px;
-    background: #f5f5f5;
+    /*background: #f5f5f5;*/
 }
+.upload div.hover-img{
+    position: absolute;
+    bottom: 20px;
+    right: 50%;
+}
+.upload div.hover-img img{
+    width: 30px;
+    height: 30px;
+}
+/*.upload .img,.add-img .img{
+    width: 90%;
+    margin: 0 auto;
+}*/
 .add-img .col-md-3{
     width: 20%;
     padding-right: 0;
@@ -416,7 +519,8 @@ input{
     opacity: 0;
     float: left;
     width: 30px;
-    height: 26px;
+    height: 30px;
+    margin: 0;
     position: absolute;
     cursor: pointer;
 }
@@ -486,7 +590,8 @@ input{
 }
 .btn-lg{
     padding: 10px 16px;
-    /*font-size: 14px;*/
+    font-size: 20px;
+    min-height: 52px;
 }
 a{
     color: #219070;
@@ -658,12 +763,12 @@ ul > li{
 
 
 /*.form-group{
-	padding-bottom: 7px;
-	margin: 20px 0 0 0;
-	position: relative;
+    padding-bottom: 7px;
+    margin: 20px 0 0 0;
+    position: relative;
 }
 .form-group.label-floating label.control-label{
-	top: -7px;
+    top: -7px;
     font-size: 16px;
     line-height: 1.42857143;
     will-change: left,top,contents;
@@ -674,17 +779,17 @@ ul > li{
     transition: 0.3s ease all;
 }
 .form-group label.control-label{
-	font-size: 12px;
-	line-height: 1.07142857;
-	color: #bdbdbd;
-	font-weight: 400;
-	margin: 16px 0 0 0;
+    font-size: 12px;
+    line-height: 1.07142857;
+    color: #bdbdbd;
+    font-weight: 400;
+    margin: 16px 0 0 0;
 }
 .form-group .form-control{
-	margin-bottom: 7px;
+    margin-bottom: 7px;
 }
 .form-control, .form-group .form-control{
-	border: 0;
+    border: 0;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#009688), to(#009688)), -webkit-gradient(linear, left top, left bottom, from(#D2D2D2), to(#D2D2D2));
     background-image: -webkit-linear-gradient(#009688, #009688), -webkit-linear-gradient(#D2D2D2, #D2D2D2);
     background-image: -o-linear-gradient(#009688, #009688), -o-linear-gradient(#D2D2D2, #D2D2D2);
@@ -704,14 +809,14 @@ ul > li{
     border-radius: 0;
 }
 .form-control{
-	height: 38px;
+    height: 38px;
     padding: 7px 0;
     font-size: 16px;
     line-height: 1.42857143;
 }
 .form-group.is-focused .form-control{
-	outline: 0;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#009688), to(#009688)), -webkit-gradient(linear, left top, left bottom, from(#D2D2D2), to(#D2D2D2));
+    outline: 0;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#009688), to(#009688)), -webkit-gradient(linear, left top, left bottom, from(#D2D2D2), to(#D2D2D2));
     background-image: -webkit-linear-gradient(#009688, #009688), -webkit-linear-gradient(#D2D2D2, #D2D2D2);
     background-image: -o-linear-gradient(#009688, #009688), -o-linear-gradient(#D2D2D2, #D2D2D2);
     background-image: linear-gradient(#009688, #009688), linear-gradient(#D2D2D2, #D2D2D2);
@@ -723,8 +828,8 @@ ul > li{
     transition-duration: 0.3s;
 }
 .form-group.label-floating.is-focused label.control-label,.form-group.label-floating:not(.is-empty) label.control-label{
-	top: -30px;
-	left: 0;
-	font-size: 12px;
-	line-height: 1.07142857;
+    top: -30px;
+    left: 0;
+    font-size: 12px;
+    line-height: 1.07142857;
 }*/
