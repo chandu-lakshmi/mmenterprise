@@ -21,97 +21,97 @@ angular.module('app', [
     
     $stateProvider
     .state('home', {
-        url: '/home',
-        templateUrl: App.base_url + 'public/templates/home.html',
+        url: '/login',
+        templateUrl: App.base_url + 'templates/home.phtml',
         controller: 'HomeController',
         controllerAs:'homeCtrl'
     })
     .state('companyProfile', {
         url: '/company-profile',
-        templateUrl: App.base_url + 'public/templates/company-profile.html',
+        templateUrl: App.base_url + 'templates/company-profile.phtml',
         controller: 'CompanyProfileController',
         controllerAs:'compCtrl'
     })
     .state('importContacts', {
         url: '/import-contacts',
-        templateUrl: App.base_url + 'public/templates/import-contacts.html',
+        templateUrl: App.base_url + 'templates/import-contacts.phtml',
         controller: 'ImportContactsController',
         controllerAs:'importCtrl'
     })
     .state('importContactsList',{
         url:'/import-contacts',
-        templateUrl: App.base_url + 'public/templates/import-contacts-list.html',
+        templateUrl: App.base_url + 'templates/import-contacts-list.phtml',
         controller:'ImportContactsListController',
         controllerAs:'ipContactListCtrl'
     })
     .state('emailVerify', {
         url: '/email-verify?token=',
-        templateUrl: App.base_url + 'public/templates/emails/verify.html',
+        templateUrl: App.base_url + 'templates/emails/verify.phtml',
         controller: 'EmailVerificationController',
         controllerAs:'emailCtrl'
     })
      .state('invitecontacts', {
         url: '/invite-contacts',
-        templateUrl: App.base_url + 'public/templates/invite-to-MM-contacts.html',
+        templateUrl: App.base_url + 'templates/invite-to-MM-contacts.phtml',
         controller: 'InviteContacts',
         controllerAs:'invConts'
     })
     .state('app',{
         abstract: true,
         url: '/dash',
-        templateUrl: App.base_url + 'public/templates/app.html',
+        templateUrl: App.base_url + 'templates/app.phtml',
         controller: ''
     })
     .state('app.dashboard',{
         url: '^/dashboard',
-        templateUrl: App.base_url + 'public/templates/dashboard.html',
+        templateUrl: App.base_url + 'templates/dashboard.phtml',
         controller:'DashboardController',
         controllerAs:'DashCtrl'
     })
     .state('app.engagement/contacts',{
         url: '^/job/engagement-contacts',
-        templateUrl: App.base_url + 'public/templates/engagement-contacts.html',
+        templateUrl: App.base_url + 'templates/engagement-contacts.phtml',
         controller: 'EngagementContactsController',
         controllerAs: 'EngContCtrl'
     })
     .state('app.job',{
         url: '^/job',
-        templateUrl: App.base_url + 'public/templates/job.html',
+        templateUrl: App.base_url + 'templates/job.phtml',
         controller: 'JobSearchController',
         controllerAs: 'jobSearchCtrl'
     })
     .state('app.postJob',{
         url: '^/job/post-job',
-        templateUrl: App.base_url + 'public/templates/post-job.html',
+        templateUrl: App.base_url + 'templates/post-job.phtml',
         controller: 'PostJobController',
         controllerAs: 'PtJobCtrl'
     })
      .state('app.postJob2',{
         url: '^/job/post-job-2',
-        templateUrl: App.base_url + 'public/templates/post-job-2.html',
+        templateUrl: App.base_url + 'templates/post-job-2.phtml',
         controller: 'PostJobTwoController',
         controllerAs: 'post2Ctrl'
 
     })
     .state('app.jobDetails',{
         url: '^/job/job-details',
-        templateUrl: App.base_url + 'public/templates/job-details.html',
+        templateUrl: App.base_url + 'templates/job-details.phtml',
         controller: 'JobDetailsController',
         controllerAs: 'jobDetailsCtrl'
     })
     .state('app.importContactsList',{
         url:'^/import-contacts-list',
-        templateUrl: App.base_url + 'public/templates/import-contacts-list.html',
+        templateUrl: App.base_url + 'templates/import-contacts-list.phtml',
         controller:'ImportContactsListController',
         controllerAs:'ipContactListCtrl'
     })
     .state('app.rewards',{
         url: '^/job/rewards',
-        templateUrl: App.base_url + 'public/templates/rewards.html',
+        templateUrl: App.base_url + 'templates/rewards.phtml',
         controller: 'RewardsController',
         controllerAs: 'RewardCtrl'
     })
-    $urlRouterProvider.otherwise('/home');
+    $urlRouterProvider.otherwise('/login');
     
 });
     
