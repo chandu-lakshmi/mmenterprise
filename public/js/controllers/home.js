@@ -46,10 +46,12 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
     	else{
             scope.default_signup = false;
             scope.load_cond_signup = true;
+            var email = scope.signup_form.s_email;
+            var lower_email = email.toLowerCase();
             var data = $.param({
                     fullname: scope.signup_form.s_fname,
                     company: scope.signup_form.s_cname,
-                    emailid: scope.signup_form.s_email,
+                    emailid: lower_email,
                     password: scope.signup_form.s_pass
             });
 
@@ -70,6 +72,7 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
                     scope.verfication_show = true;
                 }else if (response.status_code == 403) {
                     scope.dublicate_email = true;
+                    scope.invalid_new_user = response.message.emailid[0];
                 };
                 
             })
@@ -117,8 +120,8 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
                     $state.go('app.dashboard');
                 }
                 else if(response.status_code == 403){
-
                     scope.dublicate_invalid = true;
+                    scope.invalid_user = response.message.msg[0];
                 }
             });
 

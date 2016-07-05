@@ -22,7 +22,7 @@
 									<div style="width: 60%">
 										<md-input-container class="md-block">
 											<label>COMPANY*</label>
-											<img src="public/images/cross.svg" class="feedback" ng-show="compCtrl.comp_name.length > 1" ng-click="compCtrl.comp_name = ''">
+											<img src="public/images/cross.svg" class="feedback" ng-show="compCtrl.comp_name.length >= 1" ng-click="compCtrl.comp_name = ''">
 			  								<input type="text" name="comp_name" ng-model="compCtrl.comp_name" ng-class="{'has-error-border':company_form.comp_name.$invalid && compCtrl.comp1_show_error}" required>
 			  								<div ng-if="company_form.comp_name.$error.required && compCtrl.comp1_show_error"  class="has-error-msg">Please Enter Company Name</div>
 										</md-input-container>
@@ -38,7 +38,8 @@
 									</div>
 									<div class="description">
 										<label for="desc">DESCRIPTION</label>
-										<textarea rows="4" class="form-control" id="desc" spellcheck="false" ng-model="compCtrl.desc"></textarea>
+										<textarea rows="4" class="form-control" id="desc" spellcheck="false" ng-model="compCtrl.desc" maxlength="250"></textarea>
+										<span class="max_length">Max. of 250 Characters</span>
 									</div>
 								</div>
 								<div class="company-footer text-center clearfix">
@@ -117,32 +118,32 @@
 											<!-- <div ng-repeat='x in [1,2,3,4]'>
 												<div class="col-sm-4 col-xs-6 col-md-3">
 													<label for="add-image-{{$index}}">
-														<img src="public/images/add-image.svg">
+														<img src="public/images/add.png">
 													</label>
 													<input id="add-image-{{$index}}" type="file" name="add-img" style="display: none;">
 												</div>
 											</div> -->
 											<div class="col-sm-4 col-xs-6 col-md-3">
 												<label for="add-image-0">
-													<img src="public/images/add-image.svg" id="dp-0" class="img-thumbnail">
+													<img src="public/images/add.png" id="dp-0" class="img-thumbnail">
 												</label>
 												<input id="add-image-0" type="file" name="add-img" style="display: none;" onchange="previewFiles('0')">
 											</div>
 											<div class="col-sm-4 col-xs-6 col-md-3">
 												<label for="add-image-1">
-													<img src="public/images/add-image.svg" id="dp-1" class="img-thumbnail">
+													<img src="public/images/add.png" id="dp-1" class="img-thumbnail">
 												</label>
 												<input id="add-image-1" type="file" name="add-img" style="display: none;" onchange="previewFiles('1')">
 											</div>
 											<div class="col-sm-4 col-xs-6 col-md-3">
 												<label for="add-image-2">
-													<img src="public/images/add-image.svg" id="dp-2" class="img-thumbnail">
+													<img src="public/images/add.png" id="dp-2" class="img-thumbnail">
 												</label>
 												<input id="add-image-2" type="file" name="add-img" style="display: none;" onchange="previewFiles('2')">
 											</div>
 											<div class="col-sm-4 col-xs-6 col-md-3">
 												<label for="add-image-3">
-													<img src="public/images/add-image.svg" id="dp-3" class="img-thumbnail">
+													<img src="public/images/add.png" id="dp-3" class="img-thumbnail">
 												</label>
 												<input id="add-image-3" type="file" name="add-img" style="display: none;" onchange="previewFiles('3')">
 											</div>
@@ -150,10 +151,11 @@
 									</div>
 									<div style="padding: 20px 0;">
 										<h3 style="margin-bottom: 20px">Referral Bonus Policy</h3>
-										<!-- <label for="pdf">
+										<label for="pdf">
 											<span class="btn btn-default" style="padding: 10px 50px;">UPLOAD FILE</span>
-										</label> -->
-										<input type="file" name="file_pdf" accept=".pdf,.doc,.docx">
+										</label>
+										<span ng-bind="compCtrl.pdfFileName"></span>
+										<input type="file" name="file_pdf" id="pdf" accept=".pdf,.doc,.docx" custom-on-change="compCtrl.uploadPdf">
 										<!-- <div id="doc-name"></div> -->
 										<!-- <input type="file" id="pdf" accept=".pdf,.doc,.docx" value="UPLOAD FILE"> -->
 										<!-- <input type="file" name="file_pdf" id="pdf" accept=".pdf,.doc,.docx" onchange="pdf_fun()">
@@ -228,10 +230,6 @@
 			errorMsg.style.visibility = 'visible'
 		}
 		console.log(file)
-
-		/*var path = document.getElementById("pdf").value
-		var fileName = path.match(/[^\/\\]+$/);
-		document.getElementById("pdf_value").innerHTML=fileName[0];*/
 	}
 	function previewFile() {
 		 var preview = document.querySelector('#dp');

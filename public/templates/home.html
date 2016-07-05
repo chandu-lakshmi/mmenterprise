@@ -14,7 +14,7 @@
 									<hr>
 								</div>
 								<div class="text-center dublicate-email" ng-if="homeCtrl.dublicate_invalid">
-									<span>Email ID or password field is incorrect</span>
+									<span>{{homeCtrl.invalid_user}}</span>
 								</div>
 								<div class="sign-in-box-content">
 									<form name="signin_form" ng-submit="homeCtrl.submitLoginForm(signin_form.$valid)" novalidate>
@@ -42,7 +42,7 @@
 									<span>CREATE AN ACCOUNT</span>
 									<hr>
 								</div>
-								<div class="text-center dublicate-email" ng-if="homeCtrl.dublicate_email"><span>The Email Id has already been taken</span></div>
+								<div class="text-center dublicate-email" ng-if="homeCtrl.dublicate_email"><span ng-bind="homeCtrl.invalid_new_user"></span></div>
 								<div class="sign-up-box-content">
 									<form name="signup_form" novalidate ng-submit="homeCtrl.submitSignupForm(signup_form.$valid)">
 										<md-input-container class="md-block">
