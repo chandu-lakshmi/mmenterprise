@@ -18,6 +18,7 @@ and open the template in the editor.
         <link rel="stylesheet" type="text/css" href="public/css/angular-ui-grid.css">
         <link rel="stylesheet" type="text/css" href="public/css/home.css">
         <link rel="stylesheet" type="text/css" href="public/css/import-contacts.css">
+        <link rel="stylesheet" type="text/css" href="public/css/fileuploader.css">
         <script type="text/javascript" src="public/js/vendor/jquery.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="public/js/vendor/angular.js"></script>
@@ -29,13 +30,14 @@ and open the template in the editor.
         <script type="text/javascript" src="public/js/vendor/angular-ui-grid.js"></script>
         <script src="public/js/vendor/ui-bootstrap-tpls.js"></script>
         <script type="text/javascript" src="public/js/vendor/jquery.easy-autocomplete.js"></script>
+        <script type="text/javascript" src="public/js/vendor/fileuploader.js"></script>
         <script type="text/javascript">
             (function () {
                 "use strict";
                 
                 angular.module('app.constants', [])
                 .constant('App', {
-                    base_url: 'http://<?php echo $_SERVER['SERVER_NAME']; ?>/mmenterprise/'
+                    base_url: 'http://<?php echo $_SERVER['SERVER_NAME']; ?>/mintmesh_enterprise/development/'
 
                 });
             }());
