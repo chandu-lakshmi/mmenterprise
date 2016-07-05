@@ -538,6 +538,12 @@ footer a:hover{
 	padding: 15px;
 	color:#222;
 }
+.post-job .easy-autocomplete{
+	width: 100% !important;
+}
+.post-job .easy-autocomplete .easy-autocomplete-container{
+	margin: 0;
+}
 .post-job section .content{
 	padding: 40px 0;
 	color: #878787;
@@ -615,12 +621,11 @@ footer a:hover{
 .job-name .col-lg-8{
 	padding:0 3%;
 }
-.amount-pay i{
+.amount-pay img{
 	float:right;
-	color: #fff;
-	font-size: 30px;
 	cursor:pointer;
 	outline: none;
+	width: 28px;
 }
 .amount-pay h3{
 	text-align: center;

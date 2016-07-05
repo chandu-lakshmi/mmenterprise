@@ -396,9 +396,6 @@ div[window-class="pop-cre"] .modal-content{
     }
 }
 .div-btn div{
-  float:left;
-  width: 30%;
-  margin-right: 3.3%;
   margin-bottom: 4%;
 }
 .div-btn div div{
@@ -410,7 +407,7 @@ div[window-class="pop-cre"] .modal-content{
   font-weight: bold;
   cursor: pointer;
 }
-.div-btn div h6{
+.div-btn div h4{
   text-align: center;
   padding-top: 1%;
 
@@ -426,10 +423,3 @@ div[window-class="pop-cre"] .modal-content{
   padding-bottom: 13px;
 
 }
-.add-own{
-  border:1px solid #ccc;
-  text-align:center;
-  color:#808080 !important; 
-  padding: 68px 10px !important; 
-}
-

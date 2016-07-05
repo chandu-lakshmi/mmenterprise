@@ -13,62 +13,76 @@
 									<span>LOG IN TO YOUR ENTERPRISE ACCOUNT</span>
 									<hr>
 								</div>
+								<div class="text-center dublicate-email" ng-if="homeCtrl.dublicate_invalid">
+									<span>{{homeCtrl.invalid_user}}</span>
+								</div>
 								<div class="sign-in-box-content">
 									<form name="signin_form" ng-submit="homeCtrl.submitLoginForm(signin_form.$valid)" novalidate>
 										<md-input-container class="md-block">
 											<label for="l_email">EMAIL*</label>
-											<input type="email" id="l_email" name="l_email" ng-model="l_email" required ng-pattern="/^[a-z0-9A-Z._%+-]+@[a-zA-Z]+\.[a-z]{2,3}$/" ng-class="{'has-error-border':signin_form.l_email.$invalid && homeCtrl.login_show_error}">
+											<input type="email" id="l_email" name="l_email" ng-model="homeCtrl.signin_form.l_email" required ng-pattern="/^[a-z0-9A-Z._%+-]+@[a-zA-Z]+\.[a-z]{2,3}$/" ng-class="{'has-error-border':signin_form.l_email.$invalid && homeCtrl.login_show_error}">
 					                     	<div ng-if="signin_form.l_email.$error.required && homeCtrl.login_show_error" class="has-error-msg">Please Enter Email Address.</div>
 					                     	<div ng-if="signin_form.l_email.$error.pattern && homeCtrl.login_show_error" class="has-error-msg">Please Enter Valid Email Address.</div>
 										</md-input-container>
 										<md-input-container class="md-block">
 											<label for="l_pass">Password*</label>
-		      								<input type="password" id="l_pass" name="l_pass" ng-model="l_pass" required ng-pattern="/^(?=.*[a-zA-Z0-9]).{6,16}$/"  ng-class="{'has-error-border':signin_form.l_pass.$invalid && homeCtrl.login_show_error}">
+		      								<input type="password" id="l_pass" name="l_pass" ng-model="homeCtrl.signin_form.l_pass" required ng-pattern="/^(?=.*[a-zA-Z0-9]).{6,16}$/"  ng-class="{'has-error-border':signin_form.l_pass.$invalid && homeCtrl.login_show_error}">
 		      								<div ng-if="signin_form.l_pass.$error.required && homeCtrl.login_show_error" class="has-error-msg">Password Field is Required.</div>
 						                    <div ng-if="signin_form.l_pass.$error.pattern && homeCtrl.login_show_error" class="has-error-msg">Please Enter Atleast 6 characters.</div>
 										</md-input-container>
-										<button class="btn btn-lg btn-style btn-block">SIGN IN &nbsp;&nbsp;<img src="public/images/arrow-buttons.svg" style="margin-top: -2px;"></button>
+										<button class="btn btn-lg btn-style btn-block">SIGN IN &nbsp;&nbsp;<img src="public/images/arrow-buttons.svg" style="margin-top: -2px;" ng-if="homeCtrl.default_signin"><img src="public/images/loader/butt_loader_1.gif" ng-if="homeCtrl.load_cond_signin" width="30px"></button>
 										<p class="text-center" style="margin-top: 15px;">Don't have an account yet? <strong><a href="" ng-click="homeCtrl.signup()">SIGN UP</a></strong></p>
 									</form>
 								</div>
 							</div>
 							<!-- SIGNUP BOX -->
-							<div class="sign-up-box" ng-if="homeCtrl.signup_show">
+							<div class="sign-up-box" ng-if="homeCtrl.signup_show" id="signup_form">
 								<div class="sign-up-box-header text-center">
 									<span class="title">Join Now and Start Your Journey</span>
 									<span>CREATE AN ACCOUNT</span>
 									<hr>
 								</div>
+								<div class="text-center dublicate-email" ng-if="homeCtrl.dublicate_email"><span ng-bind="homeCtrl.invalid_new_user"></span></div>
 								<div class="sign-up-box-content">
 									<form name="signup_form" novalidate ng-submit="homeCtrl.submitSignupForm(signup_form.$valid)">
 										<md-input-container class="md-block">
 											<label for="s_fname">FULL NAME*</label>
-		      								<input type="text" id="s_fname" name="s_fname" ng-model="homeCtrl.s_fname" required ng-class="{'has-error-border':signup_form.s_fname.$invalid && homeCtrl.signup_show_error}">
+		      								<input type="text" id="s_fname" name="s_fname" ng-model="homeCtrl.signup_form.s_fname" required ng-class="{'has-error-border':signup_form.s_fname.$invalid && homeCtrl.signup_show_error}">
 					                     	<div ng-if="signup_form.s_fname.$error.required && homeCtrl.signup_show_error" class="has-error-msg">Please Enter Full Name.</div>
 										</md-input-container>
 										<md-input-container class="md-block">
 											<label for="s_cname">COMPANY*</label>
-		      								<input type="text" id="s_cname" ng-model="homeCtrl.s_cname" name="s_cname" required ng-class="{'has-error-border':signup_form.s_cname.$invalid && homeCtrl.signup_show_error}">
+		      								<input type="text" id="s_cname" ng-model="homeCtrl.signup_form.s_cname" name="s_cname" required ng-class="{'has-error-border':signup_form.s_cname.$invalid && homeCtrl.signup_show_error}">
 					                     	<div ng-if="signup_form.s_cname.$error.required && homeCtrl.signup_show_error" class="has-error-msg">Please Enter Company Name.</div>
 										</md-input-container>
 										<md-input-container class="md-block">
 											<label for="s_email">EMAIL*</label>
-		      								<input type="email" id="s_email" ng-model="homeCtrl.s_email" name="s_email" ng-pattern="/^[a-z0-9A-Z._%+-]+@[a-zA-Z]+\.[a-zA-Z]{2,3}$/" required ng-class="{'has-error-border':signup_form.s_email.$invalid && homeCtrl.signup_show_error}">
+		      								<input type="email" id="s_email" ng-model="homeCtrl.signup_form.s_email" name="s_email" ng-pattern="/^[a-z0-9A-Z._%+-]+@[a-zA-Z]+\.[a-zA-Z]{2,3}$/" required ng-class="{'has-error-border':signup_form.s_email.$invalid && homeCtrl.signup_show_error}">
 					                     	<div ng-if="signup_form.s_email.$error.required && homeCtrl.signup_show_error" class="has-error-msg">Please Enter Email Address.</div>
 					                     	<div ng-if="signup_form.s_email.$error.pattern && homeCtrl.signup_show_error" class="has-error-msg">Please Enter Valid Email Address.</div>
 										</md-input-container>
 										<md-input-container class="md-block">
 											<label for="s_pass">PASSWORD*</label>
-		      								<input type="password" id="s_pass" ng-model="homeCtrl.s_pass" name="s_pass" required ng-pattern="/^(?=.*[a-zA-Z0-9]).{6,16}$/" ng-class="{'has-error-border':signup_form.s_pass.$invalid && homeCtrl.signup_show_error}">
+		      								<input type="password" id="s_pass" ng-model="homeCtrl.signup_form.s_pass" name="s_pass" required ng-pattern="/^(?=.*[a-zA-Z0-9]).{6,16}$/" ng-class="{'has-error-border':signup_form.s_pass.$invalid && homeCtrl.signup_show_error}">
 					                     	<div ng-if="signup_form.s_pass.$error.required && homeCtrl.signup_show_error" class="has-error-msg">Please Enter Password.</div>
 					                     	<div ng-if="signup_form.s_pass.$error.pattern && homeCtrl.signup_show_error" class="has-error-msg">Please Enter Atleast 6 characters.</div>
 										</md-input-container>
-										<button class="btn btn-lg btn-style btn-block">SIGN UP &nbsp;&nbsp;<img src="public/images/arrow-buttons.svg" style="margin-top: -2px;"></button>
+										<button class="btn btn-lg btn-style btn-block">SIGN UP &nbsp;&nbsp;<img src="public/images/arrow-buttons.svg" style="margin-top: -2px;" ng-if="homeCtrl.default_signup"><img src="public/images/loader/butt_loader_1.gif" ng-if="homeCtrl.load_cond_signup" width="30px"></button>
 										<p class="text-center" style="margin-top: 15px">Already have an account? <strong><a href="" ng-click="homeCtrl.signin()">SIGN IN</a></strong></p>
 									</form>
 								</div>
 								<div class="sign-up-box-footer text-center">
 									<p><img src="public/images/info.svg" style="margin-top: -3px;"> By Signing up, you agree to MintMesh's <a href="https://mintmesh.com/terms-of-use/" target="_blank">Terms of Service</a> and <a href="https://mintmesh.com/privacy-policy/" target="_blank">Privacy Policy</a></p>
+								</div>
+							</div>
+							<!-- VERIFICATION -->
+							<div class="verification-box" ng-if="homeCtrl.verfication_show">
+								<div class="verification-box-content text-center">
+									<img src="public/images/tickmark.svg" alt="tick">
+									<span class="thanks">Thank You for Signing Up!</span>
+									<hr>
+									<p class="text">An email has been sent to your registered email address for verification.</p>
+									<button class="btn btn-style" ng-click="homeCtrl.signin()">OK</button>
 								</div>
 							</div>
 						</div>

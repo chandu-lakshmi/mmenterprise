@@ -17,7 +17,7 @@
 						</div>
 					</div>
 					
-					<div class="col-xs-12 col-sm-10 grid_center upload-con">
+					<div class="col-xs-12 col-lg-10 grid_center upload-con">
 						<h3 class="mrZpdZ">Upload Contacts</h3>
 						<div class="info-upload">
 							<div>
@@ -26,8 +26,15 @@
 							</div>
 						</div>
 
-						<div class="div-btn">
-							<div>
+						<div class="div-btn row">
+							<div ng-repeat="bucketName in importCtrl.bucketsName" class="col-lg-4"  ng-init="color=importCtrl.bucketColor[$index]">
+								<div ng-style='{"background":color}' ng-click="importCtrl.fileUploadModal(bucketName, color)">
+								<img src="public/images/upload.svg">
+								{{bucketName | uppercase}}
+								</div>
+								<h6><a href="">DOWNLOAD TEMPLATE</a></h6>
+							</div>
+							<!-- <div ng-repeat="bucketName in importCtrl.bucketsName">
 								<div style="background:#229A77">
 								<img src="public/images/upload.svg">
 								EMPLOYEES
@@ -55,58 +62,28 @@
 								</div>
 								<h6><a href="">DOWNLOAD TEMPLATE</a></h6>
 							</div>
+
 							<div>
 								<div class="add-own">
 								+ Add Your Own
 								</div>
 								<h6><a href="">DOWNLOAD TEMPLATE</a></h6>
 							</div>
-							<!-- <div style="">
-								<div style="background:#229A77">
-								<i class="fa fa-file-excel-o" style="color:#fff"></i>
-								CLIENTS
+
+							<div>
+								<div class="add-own">
+								+ Add Your Own
 								</div>
 								<h6><a href="">DOWNLOAD TEMPLATE</a></h6>
 							</div>
+
 							<div>
-								<div style="background:#229A77">
-								<i class="fa fa-file-excel-o" style="color:#fff"></i>
-								VENDORS
+								<div class="add-own">
+								+ Add Your Own
 								</div>
 								<h6><a href="">DOWNLOAD TEMPLATE</a></h6>
 							</div> -->
 						</div>
-
-						<!-- <div class="col-xs-12 upload-btn">
-							<div class="col-xs-12">
-								<button style="background: #229A77"><span>Employees</span><img src="public/images/arrow-top.svg" alt="arrow"></button>
-								<h6><a href="">DOWNLOAD SAMPLE TEMPLATE</a></h6>
-							</div>
-							<div class="col-xs-12">
-								<button style="background: #21A4AC"><span>Clients</span><img src="public/images/arrow-top.svg" alt="arrow"></button>
-								<h6><a href="">DOWNLOAD SAMPLE TEMPLATE</a></h6>
-							</div>
-							<div class="col-xs-12">
-								<button style="background: #EE8F3B"><span>Vendors</span><img src="public/images/arrow-top.svg" alt="arrow"></button>
-								<h6><a href="">DOWNLOAD SAMPLE TEMPLATE</a></h6>
-							</div>
-							<div class="col-xs-12">
-								<button style="background: #2A99E0"><span>iOS Developers</span><img src="public/images/arrow-top.svg" alt="arrow"></button>
-								<h6><a href="">DOWNLOAD SAMPLE TEMPLATE</a></h6>
-							</div>
-							<div class="col-xs-12">
-								<button style="background: #cc99ff"><span>Architects</span><img src="public/images/arrow-top.svg" alt="arrow"></button>
-								<h6><a href="">DOWNLOAD SAMPLE TEMPLATE</a></h6>
-							</div>
-							<div class="col-xs-12">
-								<button style="background: #e6ac00"><span>Candidates</span><img src="public/images/arrow-top.svg" alt="arrow"></button>
-								<h6><a href="">DOWNLOAD SAMPLE TEMPLATE</a></h6>
-							</div>
-							<div class="col-xs-12">
-							     <button style="text-align:center"><span><a style="color:#000" href="">+ Add your own</a></span></button>
-							     <h6><a href="">DOWNLOAD SAMPLE TEMPLATE</a></h6>
-							</div>
-						</div> -->
 					</div>
 					
 					<div class="col-xs-12 col-sm-7 grid_center text-center" style="color:gray">

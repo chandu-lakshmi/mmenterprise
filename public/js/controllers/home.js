@@ -3,41 +3,59 @@
 
 angular.module('app.home', ['ngMaterial','ngMessages'])
 
-.controller('HomeController', ['$state','$window', '$http','CONFIG',function ($state,$window,$http, CONFIG) {    
-    
-   	this.signup_show = false;
-   	this.signin_show = true;
-    this.signup = function () {
+.controller('HomeController', ['$state','$window', '$http', '$rootScope', 'CONFIG',function ($state,$window,$http,$rootScope,CONFIG) {    
+    var scope = this;
+    var signin_form = {};
+    var signup_form = {};
+   	scope.signup_show = false;
+   	scope.signin_show = true;
+    scope.default_signup = true;
+    scope.default_signin = true;
+    scope.verfication_show = false;
+    scope.signup = function () {
         $window.scrollTo(0,0);
-        this.signin_show = false;
-        this.signup_show = true;
-        this.login_show_error = false;
+        scope.signin_show = false;
+        if(scope.dublicate_email == true){
+            scope.dublicate_email = false;
+        }
+        scope.login_show_error = false;
+        scope.signup_show = true;
+        scope.signup_form = {};
     }
     
-    this.signin = function () {
+    scope.signin = function () {
         $window.scrollTo(0,0);
-        this.signup_show = false;
-        this.signin_show = true;
-        this.signup_show_error = false;
+        scope.signup_show = false;
+        scope.verfication_show = false;
+        scope.signup_show_error = false;
+        if(scope.dublicate_invalid == true){
+            scope.dublicate_invalid = false;
+        }
+        scope.signin_show = true;
+        scope.signin_form = {};
     }
 
     /*  Signup Form Submit  */
-    this.signup_show_error = false;
-    this.submitSignupForm = function(isValid){
-    	// console.log(isValid)
+    scope.dublicate_email = false;
+    scope.signup_show_error = false;
+    scope.submitSignupForm = function(isValid){
+
     	if(!isValid){
-    		this.signup_show_error = true;
+    		scope.signup_show_error = true;
     	}
     	else{
-
+            scope.default_signup = false;
+            scope.load_cond_signup = true;
+            var email = scope.signup_form.s_email;
+            var lower_email = email.toLowerCase();
             var data = $.param({
-                    fullname: this.s_fname,
-                    company: this.s_cname,
-                    emailid: this.s_email,
-                    password: this.s_pass
+                    fullname: scope.signup_form.s_fname,
+                    company: scope.signup_form.s_cname,
+                    emailid: lower_email,
+                    password: scope.signup_form.s_pass
             });
-            
-            var request = $http({
+
+            var signup = $http({
                 headers: {
                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                 },
@@ -46,26 +64,70 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
                 data: data
             })
 
-            request.success(function(response){
-                console.log("Successful Registration")
+            signup.success(function(response){
+                scope.load_cond_signup = false;
+                scope.default_signup = true;
+                if(response.status_code == 200) {
+                    scope.signup_show = false;
+                    scope.verfication_show = true;
+                }else if (response.status_code == 403) {
+                    scope.dublicate_email = true;
+                    scope.invalid_new_user = response.message.emailid[0];
+                };
+                
             })
-            request.error(function(response){
+            signup.error(function(response){
                 console.log("Failed Registration")
             })
-
-    		//$state.go('emailVerify');
     	}
     }
 
     /*  Login Form Submit  */
-    this.login_show_error = false;
-    this.submitLoginForm = function(isValid){
-    	// console.log(isValid)
+    scope.dublicate_invalid = false;
+    scope.login_show_error = false;
+    scope.submitLoginForm = function(isValid){
+
     	if(!isValid){
-    		this.login_show_error = true;
+    		scope.login_show_error = true;
     	}
     	else{
-    		$state.go('companyProfile');
+            scope.load_cond_signin = true;
+            scope.default_signin = false;
+            var data = $.param({
+                    username : scope.signin_form.l_email,
+                    password : scope.signin_form.l_pass,
+                    client_id : CONFIG.CLIENT_ID,
+                    client_secret : CONFIG.CLIENT_SECRET,
+                    grant_type : 'password'
+            });
+
+            console.log(data)
+            var signin = $http({
+                headers: {
+                   'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'POST',
+                url: CONFIG.APP_API_DOMAIN+CONFIG.APP_API_VERSION+'/enterprise/login',                               
+                data: data
+            })
+
+            signin.success(function(response){
+                scope.load_cond_signin = false;
+                scope.default_signin = true;
+                if(response.status_code == 200){
+                    $rootScope.access_token = response.data.access_token;
+                    $rootScope.refresh_token = response.data.refresh_token;
+                    $state.go('app.dashboard');
+                }
+                else if(response.status_code == 403){
+                    scope.dublicate_invalid = true;
+                    scope.invalid_user = response.message.msg[0];
+                }
+            });
+
+            signin.error(function(response){
+                console.log("Failed signin");
+            })
     	}
     }
     

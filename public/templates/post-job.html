@@ -1,37 +1,5 @@
 
 <div class="post-job">
-	<!-- <header>
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-2">
-					<img src="public/images/logo.png" alt="brand-logo">
-				</div>
-				<div class="menu col-lg-7">
-					<ul>
-						<li><a ui-sref="dashboard">DASHBOARD</a></li>
-						<li><a ui-sref="job" class="active">JOBS</a></li>
-						<li><a ui-sref="importContactsList">CONTACTS</a></li>
-						<li><a ui-sref="#/">SETTINGS</a></li>
-					</ul>
-				</div>
-				<div class="notifications col-lg-3 pull-right text-center">
-					<div class="row">
-						<div class="not_alert col-lg-3">
-							<span class="num">2</span>
-							<i class="fa fa-bell-o"></i>
-						</div>
-						<div class="col-lg-9">
-							<div class="user">
-								<span><img src="public/images/arrow-dropdown-white.svg"></span>
-								<span class="comp_name">Jennifer</span>
-								<span class="user_dp"><img src="public/images/Ui_Faces/Jenifer.jpg" class="image-responsive img-circle" alt="dp" style="width: 40px;border: 1px solid #ccc"></span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</header> -->
 
 	<section>
 		<div class="container" style="padding-bottom: 80px;">
@@ -42,32 +10,37 @@
 			</div>
 
 			<div class="content">
-				<form role="form">
+				<form role="form" name="post_job" ng-submit="PtJobCtrl.postJob(post_job.$valid)" novalidate>
 					<div class="row">
 						<div class="col-lg-4">
 							<div class="form-group">
-								<label for="job-title">Job Title*</label>
-							  	<input type="text" class="form-control" id="job-title" value="">
+								<label for="job_title">Job Title*</label>
+							  	<input type="text" class="form-control" id="job_title" name="job_title" ng-model="job_title" value="" required ng-class="{'has-error-border':post_job.job_title.$invalid && PtJobCtrl.job_post_error}">
+							  	<div ng-if="post_job.job_title.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Job Title Field is Required.</div>
 							</div>
 						</div>
 						<div class="col-lg-4">
 							<div class="form-group">
-								<label for="job-function">Job Function*</label>
+								<label for="job_func">Job Function*</label>
 								<i class="fa fa-angle-down fa-feedback" style="color: #F46113"></i>
-								<select class="form-control" id="job-function">
+								<select class="form-control" id="job_func" name="job_func" ng-model="job_func" ng-class="{'has-error-border':post_job.job_func.$invalid && PtJobCtrl.job_post_error}" required>
 									<option selected disabled>Please Select</option>
-									<option ng-repeat="job_func in PtJobCtrl.job_function">{{job_func}}</option>
+									<option ng-repeat="job_functions in PtJobCtrl.job_function">{{job_functions.job_function_name}}</option>
 								</select>
+								<div ng-if="post_job.job_func.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Job Function Field is Required.</div>
 							</div>
 						</div>
 						<div class="col-lg-4">
 							<div class="form-group">
 								<label for="location">Location*</label>
-								<i class="fa fa-angle-down fa-feedback" style="color: #F46113"></i>
-								<select class="form-control" id="location">
+								<!-- <i class="fa fa-angle-down fa-feedback" style="color: #F46113"></i> -->
+								<!-- <select class="form-control" id="location">
 									<option selected disabled>Please Select</option>
-									<option ng-repeat="loc in PtJobCtrl.location">{{loc}}</option>
-								</select>
+									<option ng-repeat="location in PtJobCtrl.location">{{loc}}</option>
+								</select> -->
+								<input id="location" class="form-control">
+								<!-- <input id="location" class="form-control" ng-model="location" name="location"  ng-class="{'has-error-border':post_job.location.$invalid && PtJobCtrl.job_post_error}" required class="has-error-border">
+								<div ng-if="post_job.location.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Location Field is Required.</div> -->
 							</div>
 						</div>
 					</div>
@@ -76,57 +49,46 @@
 							<div class="form-group">
 								<label for="industry">Industry*</label>
 								<i class="fa fa-angle-down fa-feedback" style="color: #F46113"></i>
-								<select class="form-control" id="industry">
+								<select class="form-control" id="industry" ng-model="industry" name="industry" ng-class="{'has-error-border':post_job.industry.$invalid && PtJobCtrl.job_post_error}" required>
 									<option selected disabled>Please Select</option>
-									<option ng-repeat="indus in PtJobCtrl.industry">{{indus}}</option>
+									<option ng-repeat="industries in PtJobCtrl.industry">{{industries.industry_name}}</option>
 								</select>
+								<div ng-if="post_job.industry.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Industry Field is Required.</div>
 							</div>
 						</div>
 						<div class="col-lg-4">
 							<div class="form-group">
-								<label for="emp-type">Employment Type*</label>
+								<label for="emp_type">Employment Type*</label>
 								<i class="fa fa-angle-down fa-feedback" style="color: #F46113"></i>
-								<select class="form-control" id="emp-type">
+								<select class="form-control" id="emp_type" ng-model="emp_type" name="emp_type" ng-class="{'has-error-border':post_job.emp_type.$invalid && PtJobCtrl.job_post_error}" required>
 									<option selected disabled>Please Select</option>
-									<option ng-repeat="emp_type in PtJobCtrl.employment_type">{{emp_type}}</option>
+									<option ng-repeat="employmentTypes in PtJobCtrl.employment_type">{{employmentTypes.employment_type_name}}</option>
 								</select>
+								<div ng-if="post_job.emp_type.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Employment Type Field is Required.</div>
 							</div>
 						</div>
 						<div class="col-lg-4">
 							<div class="form-group">
 								<label for="experience">Experience*</label>
 								<i class="fa fa-angle-down fa-feedback" style="color: #F46113"></i>
-								<select class="form-control" id="experience">
+								<select class="form-control" id="experience" ng-model="experience" name="experience" ng-class="{'has-error-border':post_job.experience.$invalid && PtJobCtrl.job_post_error}" required>
 									<option selected disabled>Please Select</option>
-									<option ng-repeat="exp in PtJobCtrl.experience">{{exp}}</option>
+									<option ng-repeat="experiences in PtJobCtrl.experience">{{experiences.experience_name}}</option>
 								</select>
+								<div ng-if="post_job.experience.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Experience Field is Required.</div>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-lg-4">
 							<div class="form-group">
-								<label for="pos-id">Position ID*</label>
-								<!-- <i class="fa fa-angle-down fa-feedback" style="color: #F46113"></i>
-								<select class="form-control" id="positions">
-									<option selected disabled>Please Select</option>
-									<option>1</option>
-									<option>2</option>
-									<option>3</option>
-								</select> -->
+								<label for="pos-id">Position ID</label>
 								<input type="text" class="form-control" id="pos-id" value="">
 							</div>
 						</div>
 						<div class="col-lg-4">
 							<div class="form-group">
-								<label for="req-id">Requistion Id*</label>
-								<!-- <i class="fa fa-angle-down fa-feedback" style="color: #F46113"></i>
-								<select class="form-control" id="sen-level">
-									<option selected disabled>Please Select</option>
-									<option>1</option>
-									<option>2</option>
-									<option>3</option>
-								</select> -->
+								<label for="req-id">Requistion Id</label>
 								<input type="text" class="form-control" id="req-id" value="">
 							</div>
 						</div>
@@ -134,8 +96,10 @@
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="form-group">
-								<label for="job-description">Job Description*</label>
-								<textarea class="form-control" rows="6"></textarea></div>
+								<label for="job_desc">Job Description*</label>
+								<textarea class="form-control" id="job_desc" rows="6" ng-model="job_desc" name="job_desc" ng-class="{'has-error-border':post_job.job_desc.$invalid && PtJobCtrl.job_post_error}" required></textarea>
+								<div ng-if="post_job.job_desc.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Job Description Field is Required.</div>
+							</div>
 						</div>
 					</div>
 					<!-- <div class="row">
@@ -147,28 +111,11 @@
 						</div>
 					</div> -->
 					<div class="text-center" style="padding: 50px 0;">
-						<button class="btn btn-style" style="padding: 12px 32px;" ng-click="PtJobCtrl.postJob2()">CONTINUE&nbsp;&nbsp;<img src="public/images/arrow-buttons.svg" style="margin-top: -2px;"></button>
+						<button class="btn btn-style" style="padding: 12px 32px;">CONTINUE&nbsp;&nbsp;<img src="public/images/arrow-buttons.svg" style="margin-top: -2px;"></button>
 					</div>
 				</form>
 			</div>
 		</div>
 	</section>
-
-	<!-- <footer>
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-5">
-					<p>&copy; 2016 MINTMESH&trade; INC. ALL RIGHTS RESERVED.</p>
-				</div>
-				<div class="col-sm-7">
-					<ul>
-						<li><a href="https://mintmesh.com/us/" target="_blank">ABOUT US</a></li>
-						<li><a href="https://mintmesh.com/terms-of-use/" target="_blank">TERMS & CONDITIONS</a></li>
-						<li><a href="https://mintmesh.com/privacy-policy/" target="_blank">PRIVACY POLICY</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</footer> -->
 
 </div>
