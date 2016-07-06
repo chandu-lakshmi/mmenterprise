@@ -10,14 +10,18 @@ angular.module('app', [
     'APP_NAME' : 'Mintmesh Enterprise',
     'APP_VERSION' : '1',
     'APP_API_VERSION': 'v1',
-    'APP_API_DOMAIN' : 'http://202.63.105.85/mintmesh/',
+    'APP_API_DOMAIN' : '',
     'CLIENT_ID' : '89sloYaTPSMKhbtl',
     'CLIENT_SECRET' : 'ssyZldw0tylSGPwy38FyFu90MeSIgbxC'
 })
 
-.config(function ($stateProvider, $urlRouterProvider, $locationProvider, App) {
+.config(function ($stateProvider, $urlRouterProvider, $locationProvider, App, CONFIG) {
     
     $locationProvider.html5Mode(false).hashPrefix('!');
+
+    // overwriting APP_API_DOMAIN constant from index.phtml
+    // JS global variable
+    CONFIG.APP_API_DOMAIN = App.API_DOMAIN;
     
     $stateProvider
     .state('home', {

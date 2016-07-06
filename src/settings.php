@@ -28,8 +28,11 @@ return [
             // Application API Version
             'API_VERSION' => 'v1',
 
+            // Angular Application domain
+            'APP_DOMAIN' => 'http://enterprise.mintmesh.com/',
+
             // Application API domain
-            'API_DOMAIN' => 'api.mintmesh.com/',
+            'API_DOMAIN' => 'http://api.mintmesh.com/'
         ],
         
     ],

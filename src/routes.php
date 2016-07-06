@@ -17,6 +17,7 @@ $app->get('/', function ($request, $response, $args) {
     //$this->logger->info("Slim-Skeleton '/' route");
 
     $args['API_DOMAIN'] = $this->settings['APP']['API_DOMAIN'];
+    $args['APP_DOMAIN'] = $this->settings['APP']['APP_DOMAIN'];
 
     //echo "I am here";
     // Render index view

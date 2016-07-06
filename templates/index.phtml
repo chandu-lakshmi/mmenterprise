@@ -37,8 +37,8 @@ and open the template in the editor.
                 
                 angular.module('app.constants', [])
                 .constant('App', {
-                    base_url: 'http://<?php echo $data['API_DOMAIN']; ?>'
-
+                    base_url   : '<?php echo $data['APP_DOMAIN']; ?>',
+                    API_DOMAIN : '<?php echo $data['API_DOMAIN']; ?>'
                 });
             }());
         </script>

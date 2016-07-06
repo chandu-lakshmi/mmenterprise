@@ -1,5 +1,5 @@
 <?php
-// setting for development environment
+// setting for staging AWS server
 return [
     'settings' => [
         'displayErrorDetails' => true, // set to false in production
@@ -16,7 +16,7 @@ return [
         ],
 
         // Mode
-        'mode'   => 'development',
+        'mode'   => 'review',
 
         'APP' => [
             // Application Name
@@ -25,11 +25,14 @@ return [
             // Application Version
             'VERSION' => '1',
 
+            // Application API Version
+            'API_VERSION' => 'v1',
+
             // Angular Application domain
-            'APP_DOMAIN' => 'http://my.local/mmslimintegration/',
+            'APP_DOMAIN' => 'http://202.63.105.85/mmenterprise/',
 
             // Application API domain
-            'API_DOMAIN' => 'http://my.local/mintmesh'
+            'API_DOMAIN' => 'http://202.63.105.85/mintmesh/'
         ],
         
     ],
