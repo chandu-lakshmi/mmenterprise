@@ -26,7 +26,7 @@ return [
             'VERSION' => '1',
 
             // Angular Application domain
-            'APP_DOMAIN' => 'http://my.local/mmslimintegration/',
+            'APP_DOMAIN' => 'http://localhost/dev_with_slim/',
 
             // Application API domain
             'API_DOMAIN' => 'http://my.local/mintmesh'

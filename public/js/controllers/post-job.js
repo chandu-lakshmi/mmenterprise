@@ -105,7 +105,7 @@ angular.module('app.post.job', [])
 	this.requestSuccess =function  () {
 	   $uibModal.open({
        animation: false,
-       templateUrl: 'public/templates/dialogs/post-success.html',
+       templateUrl: 'templates/dialogs/post-success.phtml',
        openedClass: "import_verify",
        windowClass: "pop-cre",
        controller: 'SuccessController',

@@ -22,7 +22,7 @@ angular.module('app.import.contacts', ['ui.grid' ,'ui.grid.selection','ui.grid.i
   this.fileUploadModal = function  (bucketName,color) {
       $uibModal.open({
         animation: false,
-        templateUrl: 'public/templates/dialogs/fileUpload.html',
+        templateUrl: 'templates/dialogs/fileUpload.phtml',
         resolve: {
           bucket: function () {
             var bucket = {};
@@ -293,7 +293,7 @@ angular.module('app.import.contacts', ['ui.grid' ,'ui.grid.selection','ui.grid.i
   this.importSelect = function(){
     $uibModal.open({
       animation: false,
-      templateUrl: 'public/templates/dialogs/custom-msg.html',
+      templateUrl: 'templates/dialogs/custom-msg.phtml',
       controller: 'modalCtrl',
       controllerAs:"ctrl"
     });
