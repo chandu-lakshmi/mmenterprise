@@ -57,7 +57,12 @@ angular.module('app.company.profile', [])
 
     this.uploadPdf = function(){
         var files = this.files[0];
-        scope.pdfFileName = files.name;
+        if(files.size <= (10 * 1024 *1024)){
+            $('#pdf_name').text(files.name);
+        }
+        else{
+            $('#pdf_err_name').text("Exceeds Maximum Size");
+        }
     }
 
     this.valid = function(){
