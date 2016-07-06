@@ -9,11 +9,12 @@
 		<div class="container">
 			<div class="row">
 
-				<div class="col-sm-8 col-sm-offset-2" style="margin-bottom: 20px;height: 690px;overflow: hidden;">
+				<div class="col-sm-8 col-sm-offset-2" style="margin-bottom: 20px;height: 690px;">
 					<form role="form" name="company_form" novalidate  enctype="multipart/form-data" method="post">
 
-						<div style="height: 658px;width: 1000px;position: relative;">
-							<div class="company go_0 animate same" ng-if="compCtrl.go_0"  style="width: 750px">
+						<!-- <div style="height: 658px;position: relative;"> -->
+
+							<div class="company go_0 animate same" ng-if="compCtrl.go_0">
 								<div class="company-header">
 									<p><img src="public/images/tickmark.svg">&nbsp;&nbsp;Thank you for verifying your email.</p>
 								</div>
@@ -39,8 +40,12 @@
 									<div class="description">
 										<label for="desc">DESCRIPTION</label>
 										<textarea rows="4" class="form-control" id="desc" spellcheck="false" ng-model="compCtrl.desc" maxlength="250"></textarea>
-										<span class="max_length">Max. of 250 Characters</span>
+										<span class="max_length">Remaining {{250 - compCtrl.desc.length}} / 250 left</span>
 									</div>
+									<!-- <md-input-container class="md-block">
+          								<label>Biography</label>
+          								<textarea ng-model="user.biography" md-maxlength="150" rows="5"></textarea>
+        							</md-input-container> -->
 								</div>
 								<div class="company-footer text-center clearfix">
 									<ul class="indicators">
@@ -54,7 +59,7 @@
 								</div>
 							</div>
 
-							<div class="company go_2 animate same" ng-if="compCtrl.go_1"  style="width: 750px">
+							<div class="company go_2 animate same" ng-if="compCtrl.go_1">
 								<div class="company-content">
 									<h3 style="margin:20px 0 40px 0">Complete your company profile:</h3>
 									<div style="width: 60%;margin-bottom:30px">
@@ -93,7 +98,7 @@
 								</div>
 							</div>
 
-							<div class="company go_1 animate same" ng-if="compCtrl.go_2" style="color: #666;width: 750px">
+							<div class="company go_1 animate same" ng-if="compCtrl.go_2" style="color: #666;">
 
 								<div ng-repeat="(key,val) in compCtrl.form_data">
 									<input type="hidden" name="{{key}}" value="{{val}}">
@@ -106,7 +111,7 @@
 										<div class="row">
 											<div class="col-sm-3">
 												<label for="upload-image">
-													<img src="public/images/upload-image.svg" id="dp" class="img-thumbnail">
+													<img src="public/images/icon.png" id="dp" class="img-thumbnail">
 												</label>
 												<input id="upload-image" type="file" name="logo" style="display: none" onchange="previewFile()" accept=".jpeg,.jpg,.gif,.ico" custom-on-change="compCtrl.uploadFile">
 											</div>
@@ -127,25 +132,25 @@
 												<label for="add-image-0">
 													<img src="public/images/add.png" id="dp-0" class="img-thumbnail">
 												</label>
-												<input id="add-image-0" type="file" name="add-img" style="display: none;" onchange="previewFiles('0')">
+												<input id="add-image-0" type="file" name="add-img" style="display: none;" accept=".jpeg,.jpg,.gif,.ico" onchange="previewFiles('0')">
 											</div>
 											<div class="col-sm-4 col-xs-6 col-md-3">
 												<label for="add-image-1">
 													<img src="public/images/add.png" id="dp-1" class="img-thumbnail">
 												</label>
-												<input id="add-image-1" type="file" name="add-img" style="display: none;" onchange="previewFiles('1')">
+												<input id="add-image-1" type="file" name="add-img" style="display: none;" accept=".jpeg,.jpg,.gif,.ico" onchange="previewFiles('1')">
 											</div>
 											<div class="col-sm-4 col-xs-6 col-md-3">
 												<label for="add-image-2">
 													<img src="public/images/add.png" id="dp-2" class="img-thumbnail">
 												</label>
-												<input id="add-image-2" type="file" name="add-img" style="display: none;" onchange="previewFiles('2')">
+												<input id="add-image-2" type="file" name="add-img" style="display: none;" accept=".jpeg,.jpg,.gif,.ico" onchange="previewFiles('2')">
 											</div>
 											<div class="col-sm-4 col-xs-6 col-md-3">
 												<label for="add-image-3">
 													<img src="public/images/add.png" id="dp-3" class="img-thumbnail">
 												</label>
-												<input id="add-image-3" type="file" name="add-img" style="display: none;" onchange="previewFiles('3')">
+												<input id="add-image-3" type="file" name="add-img" style="display: none;" accept=".jpeg,.jpg,.gif,.ico" onchange="previewFiles('3')">
 											</div>
 										</div>
 									</div>
@@ -154,7 +159,8 @@
 										<label for="pdf">
 											<span class="btn btn-default" style="padding: 10px 50px;">UPLOAD FILE</span>
 										</label>
-										<span ng-bind="compCtrl.pdfFileName"></span>
+										<span id="pdf_name"></span>
+										<span id="pdf_err_name" style="color:red"></span>
 										<input type="file" name="file_pdf" id="pdf" accept=".pdf,.doc,.docx" custom-on-change="compCtrl.uploadPdf">
 										<!-- <div id="doc-name"></div> -->
 										<!-- <input type="file" id="pdf" accept=".pdf,.doc,.docx" value="UPLOAD FILE"> -->
@@ -187,7 +193,7 @@
 								</div>
 							</div>
 							
-							<div class="company go_3 animate same" ng-if="compCtrl.go_3"  style="width: 750px">
+							<div class="company go_3 animate same" ng-if="compCtrl.go_3">
 								<div class="company-content">
 									<div class="final_state row text-center">
 										<img src="public/images/tickmark.svg">
@@ -205,7 +211,7 @@
 								</div>
 							</div>
 
-						</div>
+						<!-- </div> -->
 
 					</form>
 				</div>
@@ -218,7 +224,7 @@
 
 <script type="text/javascript">
 
-	function pdf_fun(){
+	/*function pdf_fun(){
 		var preview = document.querySelector('#pdf_value');
 		var file = document.querySelector('#pdf').files[0];
 		var errorMsg = document.querySelector('#errorPdf');
@@ -230,7 +236,7 @@
 			errorMsg.style.visibility = 'visible'
 		}
 		console.log(file)
-	}
+	}*/
 	function previewFile() {
 		 var preview = document.querySelector('#dp');
 		 var file    = document.querySelector('#upload-image').files[0];
