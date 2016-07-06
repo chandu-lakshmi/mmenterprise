@@ -38,9 +38,9 @@
 									<option selected disabled>Please Select</option>
 									<option ng-repeat="location in PtJobCtrl.location">{{loc}}</option>
 								</select> -->
-								<input id="location" class="form-control">
-								<!-- <input id="location" class="form-control" ng-model="location" name="location"  ng-class="{'has-error-border':post_job.location.$invalid && PtJobCtrl.job_post_error}" required class="has-error-border">
-								<div ng-if="post_job.location.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Location Field is Required.</div> -->
+								<!-- <input id="location" class="form-control"> -->
+								<input id="location" class="form-control" ng-model="location" name="location"  ng-class="{'has-error-border':post_job.location.$invalid && PtJobCtrl.job_post_error}" required class="has-error-border">
+								<div ng-if="post_job.location.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Location Field is Required.</div>
 							</div>
 						</div>
 					</div>
