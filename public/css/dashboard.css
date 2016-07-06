@@ -538,10 +538,13 @@ footer a:hover{
 	padding: 15px;
 	color:#222;
 }
+.post-job .easy-autocomplete.has-error-border input{
+	border: 1px solid red;
+}
 .post-job .easy-autocomplete{
 	width: 100% !important;
 }
-.post-job .easy-autocomplete .easy-autocomplete-container{
+.post-job .easy-autocomplete .easy-autocomplete-container ul{
 	margin: 0;
 }
 .post-job section .content{
