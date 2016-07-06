@@ -277,7 +277,8 @@ angular.module('app.import.contacts', ['ui.grid' ,'ui.grid.selection','ui.grid.i
   this.importSelect = function(){
     $uibModal.open({
       animation: false,
-      templateUrl: 'public/templates/dialogs/custom-msg.html',
+      templateUrl: 'templates/dialogs/custom-msg.phtml',
+      openedClass: "import_verify",
       controller: 'modalCtrl',
       controllerAs:"ctrl"
     });
