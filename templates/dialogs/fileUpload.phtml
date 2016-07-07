@@ -1,24 +1,40 @@
 <div  style="background:#F0F0F0" class="upload-file-bucket" ng-init="fileUp.uploadFile()">
      <div class="modal-header" ng-style="{'background':fileUp.bucket.color}">
-        <h3 class="modal-title text-center" style="color:#fff;padding:2px">{{fileUp.bucket.name | uppercase}}</h3>
+        <h4 class="modal-title text-center">{{fileUp.bucket.name | uppercase}}</h4>
     </div>
-    <div class="modal-body" style="padding: 5% 10%;">
-        <!--qq uploader-->
-
-        <div id="file-uploader" class="bucket-file">       
-        <noscript>          
-            <p>Please enable JavaScript to use file uploader.</p>
-        </noscript>         
-        </div>
-        <div style="margin-top:60px">
+    <form name="fileup" ng-submit="fileUp.onfileSubmit(fileup.$valid)" novalidate>
+        <div class="modal-body" style="padding: 4% 10% 2% 10%">
+           
+            <div ng-if="fileUp.newBucket">
+                <input placeholder="Please enter you BucketName" name="customName" ng-model="fileUp.customName" required type="text">
+                <span style="color:red;display:inline-block" ng-show="fileup.customName.$error.required && fileUp.emptyVal">The name is required with min 6 chars</span>
+                <span ng-show="fileUp.errorName" class="text-danger"><br>Choose different Name</span>
+            </div>
+            <label style="display:table;margin:14px 0 0 0">
+            <div class="customInput">
+                <input type="file" name="file" ng-model="fileUp.file" style="border:0;display:none" id="fileUploads" onchange="callFileUp(this)" accept=".csv,.xlsx">
+                Please Browse File
+            </div>
+            </label>
+            <div id="fileName" style="padding:10px;color:red"></div> 
+          
             <ul class="hints">
                 <li>Only .xls and .xlsx files are allowed.</li>
                 <li>File size must not exceed 25MB.</li>
             </ul>
         </div>
-    </div>
-    <div class="modal-footer" style="background: #e9e9e9">
-     <button class="btn btn-lg" type="button" ng-style='{{fileUp.obj}}' ng-click="$dismiss()" style="border-radius:0;background:#fff">Upload</button>
-     <button class="btn btn-link pull-left" style="font-size: 21px;line-height: 35px;outline:0" ng-style='{color:fileUp.bucket.color}' type="button" ng-click="$dismiss()">Cancel</button>
-    </div>
+        <div class="modal-footer" style="background: #e9e9e9">
+       
+            <input class="btn btn-link pull-left" style="outline:0;padding:6px 0px;text-align:left" ng-style='{color:fileUp.bucket.color}' ng-click="$dismiss()" value="Cancel">
+           <button class="btn" type="submit" ng-style='{{fileUp.obj}}'  style="border-radius:0;background:#fff">Upload</button>
+        </div>
+    </form>
 </div>
+<script type="text/javascript">
+    function callFileUp(a){
+        var files = a.files[0].name;
+        var x = document.getElementById("fileName");
+        x.innerHTML=files;
+        x.style.color="black";
+    }
+</script>

@@ -5,8 +5,10 @@ angular.module('app.import.contacts', ['ui.grid' ,'ui.grid.selection','ui.grid.i
 
 .controller('ImportContactsController', ['$state', '$window', '$uibModal', function ($state, $window, $uibModal) {
   
-  this.bucketsName = ["employees", "clients", "candidates", "ios developers" ,"+add your own"];
-  this.bucketColor = ["#229A77", "#21A4AC", "#EE8F3B", "#2A99E0" ,"#999"];
+  var _this = this;
+
+  this.bucketsName = ["employees", "clients", "candidates", "ios developers"];
+  this.bucketColor = ["#229A77", "#21A4AC", "#EE8F3B", "#2A99E0", "#154c50", "#103954", "#342158", "#5B5B29", "#49120D"];
 
   this.selectFile = function(){
       $window.scrollTo(0,0);
@@ -18,16 +20,22 @@ angular.module('app.import.contacts', ['ui.grid' ,'ui.grid.selection','ui.grid.i
       $state.go('companyProfile');
   }
 
-  this.fileUploadModal = function  (bucketName,color) {
+  this.fileUploadModal = function  (bucketName, color) {
+      
+      if(bucketName == "+Add Your Own"){
+        bucketName = "Add Your Own";
+      }
       $uibModal.open({
-        animation: true,
+        animation : true,
         backdrop: 'static',
         templateUrl: 'templates/dialogs/fileUpload.phtml',
+        openedClass: "bucket",
         resolve: {
           bucket: function () {
             var bucket = {};
               bucket.color=color;
               bucket.name=bucketName;
+              bucket.All = _this.bucketsName;
               return bucket;
             }
         },
@@ -36,50 +44,57 @@ angular.module('app.import.contacts', ['ui.grid' ,'ui.grid.selection','ui.grid.i
       });
   }
 
-
-
 }])
 
-.controller("fileUpload", ["$uibModalInstance", "$scope","bucket", function($uibModalInstance, $scope, bucket){
+.controller("fileUpload", ["$uibModalInstance", "$scope","bucket", "$rootScope", function($uibModalInstance, $scope, bucket, $rootScope){
+
+  
+
+    var _this = this;
     this.bucket = bucket;
     var color = this.bucket.color;
     var bucketName = this.bucket.name;
+    this.newBucket = false;
+    this.emptyVal = false;
 
+    if(bucketName == "Add Your Own"){
+      _this.newBucket = true;
+    }
+    
     this.obj={
       "border":"1px solid "+color,
       "color":color
     }
 
-    this.uploadFile = function(){
-        var uploader = new qq.FileUploader({
-        // pass the dom node (ex. $(selector)[0] for jQuery users)
-          element: document.getElementById('file-uploader'),
-          // path to server-side upload script
-          action: '',
-          dragText:"Drag Your File Here",
-          multiple:false,
-          uploadButtonText: 'Browse File !',
-          allowedExtensions: ['csv', 'xlxs'],
-          params:{
-            "name":bucketName
-          },
-          showMessage: function(message) {
-              $('#file-uploader').append('<div class="alert alert-error">' + "Invalid file type. Only csv, xlsx files are allowed." + '</div>');
-          },
-          onSubmit: function(id, fileName){
-          },
-          onProgress: function(id, fileName, loaded, total){
+    
 
-          },
-          onComplete: function(id, fileName, responseJSON){
-            
-          },
-          onCancel: function(id, fileName){},
-          onError: function(id, fileName, xhr){
-
-          }
-      });
+    this.onfileSubmit = function(valid){
+      if(!valid){
+        _this.emptyVal = true;
+      }else{
+        _this.emptyVal = false;
+        if($('input[type=file]').val().length < 1)
+        {
+          $("#fileName").text("Please choose file");
+          $("#fileName").css("color","red");
+          return false;
+        }
+        if(_this.newBucket){
+           if(_this.bucket.All.indexOf(_this.customName)==-1){
+              _this.errorName = false;
+              _this.bucket.All.push(_this.customName);
+               $uibModalInstance.dismiss('cancel');
+           }else{
+              _this.errorName = true;
+           } 
+        }
+        //ajax  
+      }
     }
+
+
+   
+
 
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){ 
      
