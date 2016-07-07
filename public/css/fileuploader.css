@@ -249,40 +249,10 @@
 	width: 500px;
 }
 .customInput{
-	width: 180px;
+	width: 130px;
 	height: 43px;
-	background: gray;
 	text-align: center;
 	display: table-cell;
 	vertical-align: middle;
-	background: gray;
-	color: white;
-	box-shadow: 3px 3px 4px 0px black;
-    position: relative;
-    border: none;
-    -webkit-transition-duration: 0.4s; /* Safari */
-    transition-duration: 0.4s;
-    text-decoration: none;
-    overflow: hidden;
     cursor: pointer;
-}
-
-.customInput:after {
-    content: "";
-    background: #f1f1f1;
-    display: block;
-    position: absolute;
-    padding-top: 300%;
-    padding-left: 350%;
-    margin-left: -20px !important;
-    margin-top: -120%;
-    opacity: 0;
-    transition: all 0.8s
-}
-
-.customInput:active:after {
-    padding: 0;
-    margin: 0;
-    opacity: 1;
-    transition: 0s
 }

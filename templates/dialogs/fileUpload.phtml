@@ -11,9 +11,9 @@
                 <span ng-show="fileUp.errorName" class="text-danger"><br>Choose different Name</span>
             </div>
             <label style="display:table;margin:14px 0 0 0">
-            <div class="customInput">
+            <div class="customInput" ng-style="fileUp.obj">
                 <input type="file" name="file" ng-model="fileUp.file" style="border:0;display:none" id="fileUploads" onchange="callFileUp(this)" accept=".csv,.xlsx">
-                Please Browse File
+                Browse File
             </div>
             </label>
             <div id="fileName" style="padding:10px;color:red"></div> 
