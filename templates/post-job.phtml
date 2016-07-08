@@ -33,13 +33,7 @@
 						<div class="col-lg-4">
 							<div class="form-group">
 								<label for="location">Location*</label>
-								<!-- <i class="fa fa-angle-down fa-feedback" style="color: #F46113"></i> -->
-								<!-- <select class="form-control" id="location">
-									<option selected disabled>Please Select</option>
-									<option ng-repeat="location in PtJobCtrl.location">{{loc}}</option>
-								</select> -->
-								<!-- <input id="location" class="form-control"> -->
-								<input id="location" class="form-control" ng-model="location" name="location"  ng-class="{'has-error-border':post_job.location.$invalid && PtJobCtrl.job_post_error}" required class="has-error-border">
+								<input id="location" class="form-control" ng-model="location" name="location" ng-autocomplete="PtJobCtrl.geo_location" details="PtJobCtrl.geo_details" options="PtJobCtrl.geo_options" ng-class="{'has-error-border':post_job.location.$invalid && PtJobCtrl.job_post_error}" required class="has-error-border" placeholder="">
 								<div ng-if="post_job.location.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Location Field is Required.</div>
 							</div>
 						</div>

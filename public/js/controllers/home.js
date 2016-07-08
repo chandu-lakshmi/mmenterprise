@@ -101,7 +101,6 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
                     grant_type : 'password'
             });
 
-            console.log(data)
             var signin = $http({
                 headers: {
                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'

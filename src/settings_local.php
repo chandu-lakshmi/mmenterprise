@@ -26,10 +26,10 @@ return [
             'VERSION' => '1',
 
             // Angular Application domain
-            'APP_DOMAIN' => 'http://localhost/dev_with_slim/',
+            'APP_DOMAIN' => 'http://192.168.33.10/dev_with_slim/',
 
             // Application API domain
-            'API_DOMAIN' => 'http://my.local/mintmesh'
+            'API_DOMAIN' => 'http://192.168.33.10/mintmesh/'
         ],
         
     ],

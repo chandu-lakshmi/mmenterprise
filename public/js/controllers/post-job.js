@@ -1,38 +1,13 @@
 (function () {
 "use strict";
 
-angular.module('app.post.job', [])
+angular.module('app.post.job', ['ngAutocomplete'])
 
-.controller('PostJobController', ['$state','$window', '$http', 'CONFIG', function($state,$window,$http,CONFIG){
+.controller('PostJobController', ['$state','$window', '$http', '$scope', 'CONFIG', function($state,$window,$http,$scope,CONFIG){
 
-  var options = {
-        url: function(phrase) {
-          return "api/countrySearch.php";
-        },
-        getValue: function(element) {
-          return element.name;
-        },
-        ajaxSettings: {
-          dataType: "json",
-          method: "POST",
-          data: {
-              dataType: "json"
-          }
-        },
-        preparePostData: function(data) {
-          data.phrase = $("#location").val();
-          return data;
-        },
-        requestDelay: 400
-    };
-    $('#location').easyAutocomplete(options);
-
-
-
-	/*this.postJob2 = function(){
-		$window.scrollTo(0,0);
-		$state.go('^.postJob2');
-	}*/
+  this.geo_location = '';
+  this.geo_options = null;
+  this.geo_details = '';
 
 	var scope = this;
 	// Job Functions Dropdown

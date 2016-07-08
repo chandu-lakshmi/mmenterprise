@@ -11,8 +11,8 @@ angular.module('app', [
     'APP_VERSION' : '1',
     'APP_API_VERSION': 'v1',
     'APP_API_DOMAIN' : '',
-    'CLIENT_ID' : '89sloYaTPSMKhbtl',
-    'CLIENT_SECRET' : 'ssyZldw0tylSGPwy38FyFu90MeSIgbxC'
+    'CLIENT_ID' : 'G7iLdQoeZy0Ef06C',
+    'CLIENT_SECRET' : 'Dh0pMLSV6Y82EfDpGKlWN1AyzvWvbvz4'
 })
 
 .config(function ($stateProvider, $urlRouterProvider, $locationProvider, App, CONFIG) {

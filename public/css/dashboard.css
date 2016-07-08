@@ -21,6 +21,30 @@
   right: 2px;
 }
 
+/*Google API Geo Location Styles*/
+.pac-container:after {
+    /* Disclaimer: not needed to show 'powered by Google' if also a Google Map is shown */
+    background-image: none !important;
+    height: 0px;
+}
+
+/*Footer Styles*/
+footer{
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+}
+@media (min-height: 873px){
+    footer{
+        position: static !important;
+    }
+}
+@media (max-height: 873px){
+    footer{
+        position: static !important;
+    }
+}
+
 /*Header Styles*/
  header{
 	background: #373E44;
@@ -771,6 +795,7 @@ footer a:hover{
 .rewards{
 	padding: 70px 0 100px 0;
 	color: #7F7F7F;
+	min-height: 873px;
 }
 .rewards .header .total{
 	margin: 20px 0 10px 0;

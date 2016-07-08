@@ -5,6 +5,9 @@
 input[type=text]::-ms-clear{
     display: none;
 }
+select::-ms-expand {
+    display: none;
+}
 
 @font-face{
     font-family: 'Roboto';
@@ -438,7 +441,7 @@ input{
 .company-footer ul.indicators li.active{
     background: #01B893;
 }
-.company-footer button.btn-style,.company-footer input[type='button'].btn-style,.company-footer input[type='submit'].btn-style{
+.company-footer button.btn-style,.company-footer span.btn-style,.company-footer input[type='submit'].btn-style{
     padding: 10px 30px;
     /*font-size: 16px*/
 }

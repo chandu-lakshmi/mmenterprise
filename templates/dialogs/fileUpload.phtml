@@ -7,7 +7,7 @@
            
             <div ng-if="fileUp.newBucket">
                 <input placeholder="Please enter you BucketName" name="customName" ng-model="fileUp.customName" required type="text">
-                <span style="color:red;display:inline-block" ng-show="fileup.customName.$error.required && fileUp.emptyVal">The name is required with min 6 chars</span>
+                <span style="color:red;display:inline-block" ng-show="fileup.customName.$error.required && fileUp.emptyVal">Bucket Name Field is Required</span>
                 <span ng-show="fileUp.errorName" class="text-danger"><br>Choose different Name</span>
             </div>
             <label style="display:table;margin:14px 0 0 0">
