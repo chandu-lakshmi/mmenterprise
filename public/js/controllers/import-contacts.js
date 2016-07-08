@@ -8,7 +8,11 @@ angular.module('app.import.contacts', ['ui.grid' ,'ui.grid.selection','ui.grid.i
   var _this = this;
 
   this.bucketsName = ["employees", "clients", "candidates", "ios developers"];
-  this.bucketColor = ["#229A77", "#21A4AC", "#EE8F3B", "#2A99E0", "#154c50", "#103954", "#342158", "#5B5B29", "#49120D"];
+  var bucketColor = ["#229A77", "#21A4AC", "#EE8F3B", "#2A99E0", "#154c50", "#103954", "#342158", "#5B5B29", "#004D40", "#0E0100"];
+  
+  this.getColor = function(ind){
+      return bucketColor[String(ind).slice(-1)];
+  }
 
   this.selectFile = function(){
       $window.scrollTo(0,0);
@@ -105,7 +109,8 @@ angular.module('app.import.contacts', ['ui.grid' ,'ui.grid.selection','ui.grid.i
 
 .controller('ImportContactsListController', ['$rootScope','$window', '$state', '$scope', '$http', '$log', '$timeout', 'uiGridConstants','$uibModal', function ($rootScope, $window, $state, $scope, $http, $log, $timeout, uiGridConstants, $uibModal) {
 
-  var _this = this;
+  var _this = this,
+    selectedContacts = [];
 
   var tabNames  = [
     { id : 1, label : "All" },
@@ -113,10 +118,12 @@ angular.module('app.import.contacts', ['ui.grid' ,'ui.grid.selection','ui.grid.i
     { id : 3, label : "Clients" },
     { id : 4, label : "Candidates" },
     { id : 5, label : "iOS_Developers" },
-    { id : 5, label : "Architects" }
+    { id : 6, label : "Architects" }
   ];
 
   this.tabNames = tabNames;
+
+
 
   var colNamesAll = {
     columnDefs: [
@@ -176,10 +183,12 @@ angular.module('app.import.contacts', ['ui.grid' ,'ui.grid.selection','ui.grid.i
     {id : 12, type : "ios", name : "smith hood-ios" , age : 58 }
   ];
 
-  var gridUrlAll = 'https://cdn.rawgit.com/angular-ui/ui-grid.info/gh-pages/data/10000_complex.json';
+  var gridUrlAll = '10000_complex.json';
+
+  var currentTab = "All";
 
   this.importContactGrid = function(url,  colNames, id, type){
-
+    currentTab = type;
     $scope.allContacts = colNames;
     $scope.gridOptions = {
       infiniteScrollRowsFromEnd: 60,
@@ -206,8 +215,30 @@ angular.module('app.import.contacts', ['ui.grid' ,'ui.grid.selection','ui.grid.i
     $scope.getFirstData = function() {
       return $http.get('https://cdn.rawgit.com/angular-ui/ui-grid.info/gh-pages/data/10000_complex.json')
       .then(function(response) {
-        var newData = $scope.getPage(eval(type), $scope.lastPage);
-        console.log(type)
+        var newData = $scope.getPage(eval(type), $scope.lastPage),
+          selectedCount = 0;
+
+        $scope.gridApi.grid.selection.selectAll = false;
+        if(selectedContacts.length != 0){
+          var a = selectedContacts.length;
+
+          setTimeout(function(){
+            for(var i = 0;i < a;i++ ){
+              for(var j = 0; j < newData.length; j++){
+                if(selectedContacts[i]==newData[j].id){
+                  $scope.gridApi.selection.selectRow(newData[j]);
+                  selectedCount++;
+                  break;    
+                }  
+              }
+            }
+            console.log(newData.length + " -- " + selectedCount);
+            if (newData.length == selectedCount) {
+              $scope.gridApi.grid.selection.selectAll = true;
+            } 
+          },1);
+          
+        }
         $scope.data = $scope.data.concat(newData);
       });
     };
@@ -286,8 +317,38 @@ angular.module('app.import.contacts', ['ui.grid' ,'ui.grid.selection','ui.grid.i
   _this.importContactGrid(gridUrlAll, colNamesAll, 1, "All");
 
   this.getInfo = function(id ,type){
-      _this.importContactGrid(gridUrlAll, colNamesAll, id, type);
+    //_this.getRecords();
+    _this.importContactGrid(gridUrlAll, colNamesAll, id, type);
   }
+
+ 
+
+  function updateRowSelection(row) {
+    if (row.isSelected) {
+      if(selectedContacts.indexOf(row.entity.id) == -1){
+        selectedContacts.push(row.entity.id); 
+      }
+    } else {
+      var index = selectedContacts.indexOf(row.entity.id);
+      if (index > -1) {
+        selectedContacts.splice(index, 1);
+      }
+    }
+  }
+
+  $scope.gridOptions.onRegisterApi = function(gridApi){
+      //set gridApi on scope
+      $scope.gridApi = gridApi;
+      gridApi.selection.on.rowSelectionChanged($scope,function(row){
+        updateRowSelection(row);
+      });
+ 
+      gridApi.selection.on.rowSelectionChangedBatch($scope,function(rows){
+        for (var i = 0; i < rows.length; i++) {
+          updateRowSelection(rows[i]);
+        }
+      });
+    };
 
   this.importSelect = function(){
     $uibModal.open({

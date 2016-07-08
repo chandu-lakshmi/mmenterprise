@@ -27,7 +27,7 @@
 						</div>
 
 						<div class="div-btn row">
-							<div ng-repeat="bucketName in importCtrl.bucketsName" class="col-lg-4"  ng-init="color=importCtrl.bucketColor[$index]">
+							<div ng-repeat="bucketName in importCtrl.bucketsName" class="col-lg-4"  ng-init="color=importCtrl.getColor($index)">
 								<div ng-style='{"background":color}' ng-click="importCtrl.fileUploadModal(bucketName, color)">
 								<img src="public/images/upload.svg">
 								{{bucketName | uppercase}}
