@@ -2,19 +2,19 @@
 // Global config values should be defiled here
 $hostName = gethostname();
 
-// deciding the environemt
+// deciding the environment
 switch ($hostName) {
 	case 'scotchbox':
-		$environemt = 'local';
+		$environment = '_local';
 		break;
 	case 'mintmeshstg.com':
-		$environemt = 'review';
+		$environment = '_review';
 		break;
 	case 'mintmesh.com':
-		$environemt = 'staging';
+		$environment = '_staging';
 		break;
 	default:
 		// default for production
-		$environemt = '';
+		$environment = '';
 		break;
 }

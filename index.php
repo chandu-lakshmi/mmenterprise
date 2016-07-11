@@ -7,7 +7,7 @@ session_start();
 require __DIR__ . '/src/config.php';
 
 // Instantiate the app
-$settings = require __DIR__ . '/src/settings_local.php';
+$settings = require __DIR__ . "/src/settings".$environment.".php";
 $app = new \Slim\App($settings);
 
 // Set up dependencies
