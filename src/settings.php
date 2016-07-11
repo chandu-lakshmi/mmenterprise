@@ -15,6 +15,10 @@ return [
             'path' => __DIR__ . '/../logs/app.log',
         ],
 
+        //Client keys
+        'client_id'         => "G7iLdQoeZy0Ef06C",
+        'client_secret'     => "Dh0pMLSV6Y82EfDpGKlWN1AyzvWvbvz4",
+
         // Mode
         'mode'   => 'production',
 
