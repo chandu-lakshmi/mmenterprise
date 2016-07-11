@@ -20,8 +20,11 @@ $app->post('/login', function ($request, $response, $args) use ($app) {
 
     $args = commonArgs($this->settings);
 
+    //$_POST["client_id"] = $args['CLIENT_ID'];
+    //$_POST["client_secret"] = $args['CLIENT_SECRET'];
+   
     $curl = new Curl(array(
-        'url'           => $args['API_DOMAIN']."login",
+        'url'           => $args['API_DOMAIN'].$args['VERSION'].$args['PREFIX']."/login",
         'postData'      => $_POST
     ));
     
@@ -33,8 +36,11 @@ $app->post('/create_user', function ($request, $response, $args) use ($app) {
 
     $args = commonArgs($this->settings);
     
+    //$_POST["client_id"] = $args['CLIENT_ID'];
+    //$_POST["client_secret"] = $args['CLIENT_SECRET'];
+
     $curl = new Curl(array(
-        'url'           => $args['API_DOMAIN']."create_user",
+        'url'           => $args['API_DOMAIN'].$args['VERSION'].$args['PREFIX']."/create_user",
         'postData'      => $_POST
     ));
     
