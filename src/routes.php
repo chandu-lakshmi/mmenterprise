@@ -1,43 +1,50 @@
 <?php
-// Routes
+// Set up Curl middleware
+require DIR_PATH .'/src/Curl.php';
 
-/*$app->get('/[{name}]', function ($request, $response, $args) {
-    // Sample log message
-    //$this->logger->info("Slim-Skeleton '/' route");
-
-    $args['API_DOMAIN'] = $this->settings['APP']['API_DOMAIN'];
-
-    // Render index view
-    return $this->renderer->render($response, 'index.phtml', $args);
-});*/
-
-
+//Index page
 $app->get('/', function ($request, $response, $args) {
-    // Sample log message
-    //$this->logger->info("Slim-Skeleton '/' route");
+    
+    $args = commonArgs($this->settings);
 
-    $args['API_DOMAIN'] = $this->settings['APP']['API_DOMAIN'];
-    $args['APP_DOMAIN'] = $this->settings['APP']['APP_DOMAIN'];
-
-    //echo "I am here";
+    //Check Logged - If it is login it redirects to dashboard page
+    if(empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']."dashboard");
+    }
     // Render index view
     return $this->renderer->render($response, 'index.phtml', $args);
 });
 
+//Login api
+$app->post('/login', function ($request, $response, $args) use ($app) {
 
+    $args = commonArgs($this->settings);
 
-
-$app->post('/login', function ($request, $response, $args) {
-    // Sample log message
-    //$this->logger->info("Slim-Skeleton '/' route");
-
-    print_r($_POST);
-
-    //$args['API_DOMAIN'] = $this->settings['APP']['API_DOMAIN'];
-
-    echo "<br>in loginme route";
-
-
-    // Render index view
-    //return $this->renderer->render($response, 'index.phtml', $args);
+    $curl = new Curl(array(
+        'url'           => $args['API_DOMAIN']."login",
+        'postData'      => $_POST
+    ));
+    
+    echo json_encode($curl->loadCurl());
 });
+
+//Create api
+$app->post('/create_user', function ($request, $response, $args) use ($app) {
+
+    $args = commonArgs($this->settings);
+    
+    $curl = new Curl(array(
+        'url'           => $args['API_DOMAIN']."create_user",
+        'postData'      => $_POST
+    ));
+    
+    echo json_encode($curl->loadCurl());
+ 
+});
+
+// Register routes After Login
+require __DIR__ . '/api_after_login.php';
+
+//General Apis
+require __DIR__ . '/api_general.php';
+
