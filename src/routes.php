@@ -15,17 +15,31 @@ $app->get('/', function ($request, $response, $args) {
     return $this->renderer->render($response, 'index.phtml', $args);
 });
 
+//Index page
+$app->get('/login', function ($request, $response, $args) {
+    
+    $args = commonArgs($this->settings);
+
+    //Check Logged - If it is login it redirects to dashboard page
+    if(empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']."dashboard");
+    }
+    // Render index view
+    return $this->renderer->render($response, 'index.phtml', $args);
+});
+
+
 //Login api
-$app->post('/login', function ($request, $response, $args) use ($app) {
+$app->post('/signup', function ($request, $response, $args) use ($app) {
 
     // setting up the client_id, cleint_secret & grant_type 
     // dynamically to the post params
     $this->mintmeshLoginKeyStoreService;
     $this->mintmeshLoginGrantTypeService;
-
+    
     // getting API endpoint from settings
-    $apiEndpoint = getapiEndpoint($this->settings, 'login');    
-   
+    $apiEndpoint = getapiEndpoint($this->settings, 'login');
+
     $curl = new Curl(array(
         'url'           => $apiEndpoint,
         'postData'      => $_POST
@@ -37,13 +51,11 @@ $app->post('/login', function ($request, $response, $args) use ($app) {
 //Create api
 $app->post('/create_user', function ($request, $response, $args) use ($app) {
 
-    $args = commonArgs($this->settings);
+    // getting API endpoint from settings
+    $apiEndpoint = getapiEndpoint($this->settings, 'create_user');
     
-    //$_POST["client_id"] = $args['CLIENT_ID'];
-    //$_POST["client_secret"] = $args['CLIENT_SECRET'];
-
     $curl = new Curl(array(
-        'url'           => $args['API_DOMAIN'].$args['VERSION'].$args['PREFIX']."/create_user",
+        'url'           => $apiEndpoint,
         'postData'      => $_POST
     ));
     
@@ -56,4 +68,5 @@ require __DIR__ . '/api_after_login.php';
 
 //General Apis
 require __DIR__ . '/api_general.php';
+
 

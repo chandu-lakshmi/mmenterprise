@@ -10,15 +10,8 @@ $app->get('/dashboard',function ($request, $response, $args) use ($app) {
     }
 
     // Render dashboard view
-    return $this->renderer->render($response, 'dashboard.phtml', $args);
+    return $this->renderer->render($response, 'index.phtml', $args);
 });
-
-$app->get("/logout", function ($request, $response, $args) { 
-	session_destroy(); 
-	//Arguments
-	$args       = commonArgs($this->settings);
-	return $response->withRedirect($args['APP_DOMAIN']);
-}); 
 
 //Post job Page
 $app->get('/postJob',function ($request, $response, $args) use ($app) {
@@ -30,6 +23,28 @@ $app->get('/postJob',function ($request, $response, $args) use ($app) {
       return $response->withRedirect($args['APP_DOMAIN']);
     }
     // Render dashboard view
-    return $this->renderer->render($response, 'dashboard.phtml', $args);
+    return $this->renderer->render($response, 'post-job.phtml', $args);
 });
 
+//Update Company
+$app->post('/update_company', function ($request, $response, $args) use ($app) {
+
+    // getting API endpoint from settings
+    $apiEndpoint = getapiEndpoint($this->settings, 'update_company');
+    
+    $curl = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+    ));
+    
+    echo json_encode($curl->loadCurl());
+ 
+});
+
+//Logout
+$app->get("/logout", function ($request, $response, $args) { 
+    session_destroy(); 
+    //Arguments
+    $args       = commonArgs($this->settings);
+    return $response->withRedirect($args['APP_DOMAIN']);
+}); 
