@@ -18,13 +18,16 @@ $app->get('/', function ($request, $response, $args) {
 //Login api
 $app->post('/login', function ($request, $response, $args) use ($app) {
 
-    $args = commonArgs($this->settings);
+    // setting up the client_id, cleint_secret & grant_type 
+    // dynamically to the post params
+    $this->mintmeshLoginKeyStoreService;
+    $this->mintmeshLoginGrantTypeService;
 
-    //$_POST["client_id"] = $args['CLIENT_ID'];
-    //$_POST["client_secret"] = $args['CLIENT_SECRET'];
+    // getting API endpoint from settings
+    $apiEndpoint = getapiEndpoint($this->settings, 'login');    
    
     $curl = new Curl(array(
-        'url'           => $args['API_DOMAIN'].$args['VERSION'].$args['PREFIX']."/login",
+        'url'           => $apiEndpoint,
         'postData'      => $_POST
     ));
     

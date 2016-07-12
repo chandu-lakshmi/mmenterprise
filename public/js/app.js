@@ -22,6 +22,7 @@ angular.module('app', [
     // overwriting APP_API_DOMAIN constant from index.phtml
     // JS global variable
     CONFIG.APP_API_DOMAIN = App.API_DOMAIN;
+    CONFIG.APP_DOMAIN     = App.base_url;
     
     $stateProvider
     .state('home', {

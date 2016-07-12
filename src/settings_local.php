@@ -18,6 +18,7 @@ return [
         // Mode
         'mode'   => 'development',
 
+        // Application settings
         'APP' => [
             // Application Name
             'NAME' => 'Mintmesh Enterprise',
@@ -29,14 +30,26 @@ return [
             'PREFIX' => '/enterprise',
 
             // Angular Application domain
-            'APP_DOMAIN' => 'http://192.168.33.10/mintmesh_enterprise/',
+            'APP_DOMAIN' => 'http://my.local/mmslimdev/',
 
             // Application API domain
-            'API_DOMAIN' => 'http://192.168.33.10/mintmesh/',
+            'API_DOMAIN' => 'http://my.local/mintmesh/',
 
             //Client keys
-            'CLIENT_ID'         => 'G7iLdQoeZy0Ef06C',
-            'CLIENT_SECRET'     => 'Dh0pMLSV6Y82EfDpGKlWN1AyzvWvbvz4'
+            'CLIENT_ID'         => 'dA3UFisQBLX23jHW',
+            'CLIENT_SECRET'     => '3mjo0kDSgCbsdLG7ipnhWJxC1iY6RLcX',
+
+            //Grant Types
+            'PASSWORD_GRANT'    => 'password'
+        ],
+
+        // API settings
+        'API' => [
+            'login' => [
+                'VERSION'  => 'v1',
+                'ENDPOINT' => '/enterprise/login'
+            ]
+
         ],
         
     ],

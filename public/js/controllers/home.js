@@ -95,10 +95,7 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
             scope.default_signin = false;
             var data = $.param({
                     username : scope.signin_form.l_email,
-                    password : scope.signin_form.l_pass,
-                    client_id : CONFIG.CLIENT_ID,
-                    client_secret : CONFIG.CLIENT_SECRET,
-                    grant_type : 'password'
+                    password : scope.signin_form.l_pass
             });
 
             var signin = $http({
@@ -106,7 +103,7 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                 },
                 method: 'POST',
-                url: CONFIG.APP_API_DOMAIN+CONFIG.APP_API_VERSION+'/enterprise/login',                               
+                url: CONFIG.APP_DOMAIN+'login',
                 data: data
             })
 

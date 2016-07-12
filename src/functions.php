@@ -9,6 +9,7 @@ function commonArgs ( $settings=array() ) {
 			'CLIENT_SECRET' => $settings['APP']['CLIENT_SECRET'],
 			'VERSION'		=> $settings['APP']['VERSION'],
 			'PREFIX' 		=> $settings['APP']['PREFIX'],
+			'PASSWORD_GRANT' 		=> $settings['APP']['PASSWORD_GRANT'],
 			);
 }
 
@@ -19,4 +20,14 @@ function authenticate () {
 	}
 }
 
+//API URL endpoint from settings
+function getapiEndpoint($settings=array(), $endpoint) {
+
+	$url  = $settings['APP']['API_DOMAIN'];
+	$url .= $settings['API'][$endpoint]['VERSION'];
+	$url .= $settings['API'][$endpoint]['ENDPOINT'];
+
+	return $url;
+
+}
 ?>

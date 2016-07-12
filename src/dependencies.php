@@ -17,3 +17,15 @@ $container['logger'] = function ($c) {
     $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path'], Monolog\Logger::DEBUG));
     return $logger;
 };
+
+// Defining the mintmesh login keystore service in container
+// this can be accessable across app
+$container['mintmeshLoginKeyStoreService'] = function ($c) {
+    $_POST['client_id']     = $c->get('settings')['APP']['CLIENT_ID'];
+    $_POST['client_secret'] = $c->get('settings')['APP']['CLIENT_SECRET'];    
+};
+
+// grant type service provider
+$container['mintmeshLoginGrantTypeService'] = function ($c) {
+    $_POST['grant_type']    = $c->get('settings')['APP']['PASSWORD_GRANT'];
+};
