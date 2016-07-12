@@ -29,9 +29,9 @@ $app->get('/get_employment_types',function ($request, $response, $args) use ($ap
     $apiEndpoint = getapiEndpoint($this->settings, 'get_employment_types');
 
     $getEmpTypes 	= new Curl(array(
-        'url'   => $apiEndpoint,
-     ));
-     echo json_encode( $getEmpTypes->loadCurl() );
+       'url'   => $apiEndpoint,
+    ));
+    echo json_encode( $getEmpTypes->loadCurl() );
 });
 
 //Get Experience
@@ -40,9 +40,9 @@ $app->get('/get_experiences',function ($request, $response, $args) use ($app) {
     $apiEndpoint = getapiEndpoint($this->settings, 'get_experiences');
 
     $getExp 	= new Curl(array(
-        'url'   => $apiEndpoint,
-     ));
-     echo json_encode( $getExp->loadCurl() );
+       'url'   => $apiEndpoint,
+    ));
+    echo json_encode( $getExp->loadCurl() );     
 });
 
 //verify emails
@@ -59,6 +59,7 @@ $app->post('/verify_email',function ($request, $response, $args) use ($app) {
         'url'           => $apiEndpoint,
         'postData'      => $_POST
      ));
+
      echo json_encode( $emaiVerify->loadCurl() );
 
 });

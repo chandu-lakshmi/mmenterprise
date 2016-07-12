@@ -51,7 +51,7 @@ angular.module('app', [
         controllerAs:'ipContactListCtrl'
     })
     .state('emailVerify', {
-        url: '/email-verify?token=',
+        url: '/email-verify',
         templateUrl: App.base_url + 'templates/emails/verify.phtml',
         controller: 'EmailVerificationController',
         controllerAs:'emailCtrl'

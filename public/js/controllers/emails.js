@@ -8,11 +8,9 @@ angular.module('app.emails', [])
         this.loadCond = true;
 
  		var scope = this;
- 		var tokenid = $stateParams.token;
+ 		var tokenid = document.getElementById('token').value;        
  		var data = $.param({
-            token: tokenid,
-            client_id : CONFIG.CLIENT_ID,
-            client_secret : CONFIG.CLIENT_SECRET
+            token: tokenid
         });
 
         var request = $http({
@@ -20,7 +18,7 @@ angular.module('app.emails', [])
                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
             },
             method: 'POST',
-            url: CONFIG.APP_API_DOMAIN+CONFIG.APP_API_VERSION+'/enterprise/verify_email',                               
+            url: CONFIG.APP_DOMAIN+'verify_email',                               
             data: data
         })
 

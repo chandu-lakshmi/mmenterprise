@@ -15,7 +15,7 @@ $app->get('/', function ($request, $response, $args) {
     return $this->renderer->render($response, 'index.phtml', $args);
 });
 
-//Index page
+//login controller page
 $app->get('/login', function ($request, $response, $args) {
     
     $args = commonArgs($this->settings);
@@ -28,9 +28,42 @@ $app->get('/login', function ($request, $response, $args) {
     return $this->renderer->render($response, 'index.phtml', $args);
 });
 
+//email verification page
+$app->get('/email-verify', function ($request, $response, $args) {
+
+    // need to take a look later    
+    $args = commonArgs($this->settings);
+
+    //$args['token'] = $app->request()->get('token');
+    $allGetVars = $request->getQueryParams();
+    $args['token'] = $allGetVars['token'];
+    
+    //Check Logged - If it is login it redirects to dashboard page
+    if(empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']."dashboard");
+    }
+    
+    // Render index view
+    return $this->renderer->render($response, 'index.phtml', $args);
+});
+
+//company profile page
+$app->get('/company-profile', function ($request, $response, $args) {
+
+    // need to take a look later    
+    $args = commonArgs($this->settings);
+
+    
+    //Check Logged - If it is login it redirects to dashboard page
+    if(empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']."dashboard");
+    }
+    // Render index view
+    return $this->renderer->render($response, 'index.phtml', $args);
+});
 
 //Login api
-$app->post('/signup', function ($request, $response, $args) use ($app) {
+$app->post('/signin', function ($request, $response, $args) use ($app) {
 
     // setting up the client_id, cleint_secret & grant_type 
     // dynamically to the post params

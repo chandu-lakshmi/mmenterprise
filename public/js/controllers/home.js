@@ -60,7 +60,7 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                 },
                 method: 'POST',
-                url: CONFIG.APP_API_DOMAIN+CONFIG.APP_API_VERSION+'/enterprise/create_user',                               
+                url: CONFIG.APP_DOMAIN+'create_user',                               
                 data: data
             })
 

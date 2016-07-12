@@ -16,7 +16,7 @@ angular.module('app.post.job', ['ngAutocomplete'])
            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         },
         method: 'GET',
-        url: CONFIG.APP_API_DOMAIN+CONFIG.APP_API_VERSION+'/get_job_functions'
+        url: CONFIG.APP_DOMAIN+'get_job_functions'
 	})
 	get_job_functions.success(function(response){
 		scope.job_function = response.data.job_functions;
@@ -27,7 +27,7 @@ angular.module('app.post.job', ['ngAutocomplete'])
            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         },
         method: 'GET',
-        url: CONFIG.APP_API_DOMAIN+CONFIG.APP_API_VERSION+'/get_industries'
+        url: CONFIG.APP_DOMAIN+'get_industries'
     })
 
     get_industries.success(function(response){
@@ -40,7 +40,7 @@ angular.module('app.post.job', ['ngAutocomplete'])
            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         },
         method: 'GET',
-        url: CONFIG.APP_API_DOMAIN+CONFIG.APP_API_VERSION+'/get_employment_types'
+        url: CONFIG.APP_DOMAIN+'get_employment_types'
     })
 
     get_employment_types.success(function(response){
@@ -52,7 +52,7 @@ angular.module('app.post.job', ['ngAutocomplete'])
            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         },
         method: 'GET',
-        url: CONFIG.APP_API_DOMAIN+CONFIG.APP_API_VERSION+'/get_experiences'
+        url: CONFIG.APP_DOMAIN+'get_experiences'
     })
 
     get_experiences.success(function(response){
@@ -72,7 +72,7 @@ angular.module('app.post.job', ['ngAutocomplete'])
 
 
 
-}])
+//}])
 // .controller('PostJobTwoController', ['$uibModal', function($uibModal){
 	this.enable = function(a) {
 		console.log(this)
@@ -96,5 +96,5 @@ angular.module('app.post.job', ['ngAutocomplete'])
   window.onhashchange = function() {
     $uibModalInstance.dismiss('cancel');
   }
-// }]);
+ }]);
 }());
