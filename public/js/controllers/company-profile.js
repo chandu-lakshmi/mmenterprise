@@ -25,7 +25,7 @@ angular.module('app.company.profile', [])
            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         },
         method: 'GET',
-        url: CONFIG.APP_API_DOMAIN+CONFIG.APP_API_VERSION+'/get_industries'
+        url: CONFIG.APP_DOMAIN+'get_industries'
     })
 
     get_industries.success(function(response){
@@ -86,7 +86,7 @@ angular.module('app.company.profile', [])
                 'Content-Type' : undefined
             },
             method : 'POST',
-            url : CONFIG.APP_API_DOMAIN+CONFIG.APP_API_VERSION+'/enterprise/update_company',
+            url : CONFIG.APP_DOMAIN+'update_company',
             data : formData
         });
         create_company.success(function(response){
