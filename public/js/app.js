@@ -17,8 +17,8 @@ angular.module('app', [
 
 .config(function ($stateProvider, $urlRouterProvider, $locationProvider, App, CONFIG) {
     
-    //$locationProvider.html5Mode(true);
-    $locationProvider.html5Mode(false).hashPrefix('!');
+    $locationProvider.html5Mode(true);
+    //$locationProvider.html5Mode(false).hashPrefix('!');
 
     // overwriting APP_API_DOMAIN constant from index.phtml
     // JS global variable
@@ -95,8 +95,8 @@ angular.module('app', [
      .state('app.postJob2',{
         url: '^/job/post-job-2',
         templateUrl: App.base_url + 'templates/post-job-2.phtml',
-        controller: 'PostJobTwoController',
-        controllerAs: 'post2Ctrl'
+        controller: 'PostJobController',
+        controllerAs: 'PtJobCtrl'
 
     })
     .state('app.jobDetails',{

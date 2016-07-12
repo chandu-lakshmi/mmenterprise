@@ -3,7 +3,7 @@
 
 angular.module('app.post.job', ['ngAutocomplete'])
 
-.controller('PostJobController', ['$state','$window', '$http', '$scope', 'CONFIG', function($state,$window,$http,$scope,CONFIG){
+.controller('PostJobController', ['$state','$window', '$http', '$scope', '$uibModal', 'CONFIG', function($state,$window,$http,$scope,$uibModal,CONFIG){
 
   this.geo_location = '';
   this.geo_options = null;
@@ -73,7 +73,7 @@ angular.module('app.post.job', ['ngAutocomplete'])
 
 
 }])
-.controller('PostJobTwoController', ['$uibModal', function($uibModal){
+// .controller('PostJobTwoController', ['$uibModal', function($uibModal){
 	this.enable = function(a) {
 		console.log(this)
 	};
@@ -96,5 +96,5 @@ angular.module('app.post.job', ['ngAutocomplete'])
   window.onhashchange = function() {
     $uibModalInstance.dismiss('cancel');
   }
-}]);
+// }]);
 }());

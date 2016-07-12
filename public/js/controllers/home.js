@@ -103,7 +103,7 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                 },
                 method: 'POST',
-                url: CONFIG.APP_DOMAIN+'login',
+                url: CONFIG.APP_DOMAIN+'signin',
                 data: data
             })
 
