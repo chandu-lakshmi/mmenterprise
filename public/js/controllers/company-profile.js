@@ -86,13 +86,14 @@ angular.module('app.company.profile', [])
                 'Content-Type' : undefined
             },
             method : 'POST',
-            url : CONFIG.APP_API_DOMAIN+CONFIG.APP_API_VERSION+'/enterprise/create_company',
+            url : CONFIG.APP_API_DOMAIN+CONFIG.APP_API_VERSION+'/enterprise/update_company',
             data : formData
         });
         create_company.success(function(response){
             if(response.status_code == 200){
 
-                scope.company_code = response.data.company_code;
+                $rootScope.company_code = response.data.company_code;
+                scope.company_code = $rootScope.company_code;
                 scope.go_2 = false;
                 scope.cont_load = false;
                 $window.scrollTo(0,0);

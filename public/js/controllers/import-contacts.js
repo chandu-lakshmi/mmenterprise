@@ -2,6 +2,38 @@
 "use strict";
 
 angular.module('app.import.contacts', ['ui.grid' ,'ui.grid.selection','ui.grid.infiniteScroll'])
+// Required input[type=file]
+.directive('validFile',function(){
+  return {
+    require:'ngModel',
+    link:function(scope,el,attrs,ngModel){
+      //change event is fired when file is selected
+      el.bind('change',function(){
+        scope.$apply(function(){
+          ngModel.$setViewValue(el.val());
+          ngModel.$render();
+        })
+      })
+    }
+  }
+})
+
+// Restriction for already existing bucket names
+.directive('bucketNameChk', [function () {
+    return{
+        require: 'ngModel',
+        link:function(scope, elem, attr, ctrl){
+            elem.add(attr.id).on('blur', function () {
+                scope.$apply(function () {
+                    var bkNames = scope.$eval(attr.myBucket);
+                    var v = bkNames.indexOf(attr.myName) === -1;
+                    ctrl.$setValidity('bucketmatch', v);
+                });
+            });
+        }
+    } 
+}])
+
 
 .controller('ImportContactsController', ['$state', '$window', '$uibModal', function ($state, $window, $uibModal) {
   
@@ -50,19 +82,29 @@ angular.module('app.import.contacts', ['ui.grid' ,'ui.grid.selection','ui.grid.i
 
 }])
 
-.controller("fileUpload", ["$uibModalInstance", "$scope","bucket", "$rootScope", function($uibModalInstance, $scope, bucket, $rootScope){
+.controller("fileUpload", ["$uibModalInstance", "$scope","bucket", "$rootScope", "$http", "CONFIG", function($uibModalInstance, $scope, bucket, $rootScope, $http, CONFIG){
 
   
 
-    var _this = this;
+    var scope = this;
     this.bucket = bucket;
     var color = this.bucket.color;
     var bucketName = this.bucket.name;
     this.newBucket = false;
     this.emptyVal = false;
+    this.new_bucket_flag = 0;
+    this.bucketNames = this.bucket.All;
+    if(this.bucket.All.indexOf(bucketName) == -1){
+        var bucket_id = this.bucket.All.length + 1;
+    }
+    else{
+        var bucket_id = this.bucket.All.indexOf(bucketName) + 1;
+    }
+
 
     if(bucketName == "Add Your Own"){
-      _this.newBucket = true;
+      scope.newBucket = true;
+      scope.new_bucket_flag = 1;
     }
     
     this.obj={
@@ -71,33 +113,57 @@ angular.module('app.import.contacts', ['ui.grid' ,'ui.grid.selection','ui.grid.i
     }
 
     
-
+    this.upload_load_cond = false;
     this.onfileSubmit = function(valid){
-      if(!valid){
-        _this.emptyVal = true;
-      }else{
-        _this.emptyVal = false;
-        if($('input[type=file]').val().length < 1)
-        {
-          $("#fileName").text("Please choose file");
-          $("#fileName").css("color","red");
-          return false;
+
+        if(!valid){
+            scope.upload_load_cond = false;
+            scope.error_msg_show = true;
         }
-        if(_this.newBucket){
-           if(_this.bucket.All.indexOf(_this.customName)==-1){
-              _this.errorName = false;
-              _this.bucket.All.push(_this.customName);
-               $uibModalInstance.dismiss('cancel');
-           }else{
-              _this.errorName = true;
-           } 
+        else{
+            this.upload_load_cond = true;
+            // Sending data to post call
+            var bucket_data = new FormData();
+            bucket_data.append("access_token",'oFOs2PqsK4uNpn2ioXFzYWZOERE3TLW4h0nkaZWN');
+            bucket_data.append("contacts_file",$('input[type=file]#fileUploads')[0].files[0])
+            bucket_data.append("company_id",$rootScope.company_code);
+            bucket_data.append("is_bucket_new",scope.new_bucket_flag);
+            bucket_data.append("bucket_name" , bucketName);
+            bucket_data.append("bucket_id" , bucket_id);
+
+            // Contacts Upload Ajax Call
+            var upload_contacts = $http({
+                headers: {
+                    'Content-Type' : undefined
+                },
+                method : 'POST',
+                url : CONFIG.APP_API_DOMAIN+CONFIG.APP_API_VERSION+'/enterprise/contacts_upload',
+                data : bucket_data
+            });
+            upload_contacts.success(function(response){
+                console.log(response)
+                if(response.status_code == 200){
+                    scope.upload_load_cond = false;
+                    if(scope.newBucket){
+                        scope.bucket.All.push(scope.customName);
+                    }
+                    $uibModalInstance.dismiss('cancel');  
+                }
+                else if(response.status_code == 403){
+                    scope.upload_load_cond = false;
+                    if(response.message.hasOwnProperty('contacts_file')){
+                        scope.inValidFile = response.message.contacts_file[0];
+                    }
+                    else{
+                        scope.inValidFile = response.message[0];
+                    }
+                }
+            });
+            upload_contacts.error(function(response){
+                console.log(response);
+            })
         }
-        //ajax  
-      }
     }
-
-
-   
 
 
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){ 

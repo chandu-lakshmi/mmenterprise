@@ -6,18 +6,21 @@
         <div class="modal-body" style="padding: 4% 10% 2% 10%">
            
             <div ng-if="fileUp.newBucket">
-                <input placeholder="Please enter you BucketName" name="customName" ng-model="fileUp.customName" required type="text">
-                <span style="color:red;display:inline-block" ng-show="fileup.customName.$error.required && fileUp.emptyVal">Bucket Name Field is Required</span>
-                <span ng-show="fileUp.errorName" class="text-danger"><br>Choose different Name</span>
+                <input placeholder="BucketName" bucket-name-chk my-bucket={{fileUp.bucketNames}} my-name={{fileUp.customName}} name="customName" ng-model="fileUp.customName" required type="text" id="bucketName">
+                <span style="color:red;display:inline-block" ng-show="fileup.customName.$error.required && fileUp.error_msg_show">Bucket Name Field is Required</span>
+                <span style="color:red;display:inline-block" ng-show="fileup.customName.$error.bucketmatch && fileUp.error_msg_show">Choose another name</span>
             </div>
             <label style="display:table;margin:14px 0 0 0">
-            <div class="customInput" ng-style="fileUp.obj">
-                <input type="file" name="file" ng-model="fileUp.file" style="border:0;display:none" id="fileUploads" onchange="callFileUp(this)" accept=".csv,.xlsx">
-                Browse File
-            </div>
+                <div class="customInput" ng-style="fileUp.obj">
+                    <input type="file" name="file" valid-file ng-model="fileUp.file" style="border:0;display:none" id="fileUploads" onchange="callFileUp(this)" accept=".csv,.xlsx,.xls" required>
+                    Browse File
+                </div>
+                <span id="file-name" ng-style="{'color':fileUp.bucket.color}"></span>
             </label>
-            <div id="fileName" style="padding:10px;color:red"></div> 
-          
+            <span ng-if="fileup.file.$error.required && fileUp.error_msg_show" class="error-file">Please Choose File</span>
+            <!-- Backend Errors -->
+            <span class="error-file">{{fileUp.inValidFile}}</span>
+
             <ul class="hints">
                 <li>Only .csv and .xlsx files are allowed.</li>
                 <li>File size must not exceed 25MB.</li>
@@ -26,15 +29,14 @@
         <div class="modal-footer" style="background: #e9e9e9">
        
             <input class="btn btn-link pull-left" style="outline:0;padding:6px 0px;text-align:left" ng-style='{color:fileUp.bucket.color}' ng-click="$dismiss()" value="Cancel">
-           <button class="btn" type="submit" ng-style='{{fileUp.obj}}'  style="border-radius:0;background:#fff">Upload</button>
+           <img src="public/images/loader/upload_file.gif" alt="loader" ng-if="fileUp.upload_load_cond">&nbsp;&nbsp;<button class="btn" type="submit" ng-style='{{fileUp.obj}}'  style="border-radius:0;background:#fff">Upload</button>
         </div>
     </form>
 </div>
 <script type="text/javascript">
     function callFileUp(a){
         var files = a.files[0].name;
-        var x = document.getElementById("fileName");
+        var x = document.getElementById("file-name");
         x.innerHTML=files;
-        x.style.color="black";
     }
 </script>

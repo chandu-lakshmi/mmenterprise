@@ -244,6 +244,7 @@
 	border:0px;
 	border-bottom:1px solid gray;
 	outline:0;
+	background: transparent;
 }
 .bucket .modal-dialog{
 	width: 500px;
@@ -255,4 +256,12 @@
 	display: table-cell;
 	vertical-align: middle;
     cursor: pointer;
+}
+.upload-file-bucket .error-file{
+	color: red;
+}
+.upload-file-bucket #file-name{
+	display: table-cell;
+    vertical-align: middle;
+    padding-left: 12px;
 }

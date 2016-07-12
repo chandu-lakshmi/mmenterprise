@@ -30,7 +30,7 @@
 		      								<div ng-if="signin_form.l_pass.$error.required && homeCtrl.login_show_error" class="has-error-msg">Password Field is Required.</div>
 						                    <div ng-if="signin_form.l_pass.$error.pattern && homeCtrl.login_show_error" class="has-error-msg">Please Enter Atleast 6 characters.</div>
 										</md-input-container>
-										<button class="btn btn-lg btn-style btn-block">SIGN IN &nbsp;&nbsp;<img src="public/images/arrow-buttons.svg" style="margin-top: -2px;" ng-if="homeCtrl.default_signin"><img src="public/images/loader/butt_loader_1.gif" ng-if="homeCtrl.load_cond_signin" width="30px"></button>
+										<button class="btn btn-lg btn-style btn-block">SIGN IN &nbsp;&nbsp;<img src="public/images/arrow-buttons.svg" style="margin-top: -2px;" ng-if="homeCtrl.default_signin"><img src="public/images/loader/butt_loader.gif" ng-if="homeCtrl.load_cond_signin" width="30px" style="margin-top: -2px;"></button>
 										<p class="text-center" style="margin-top: 15px;">Don't have an account yet? <strong><a href="" ng-click="homeCtrl.signup()">SIGN UP</a></strong></p>
 									</form>
 								</div>
@@ -67,7 +67,7 @@
 					                     	<div ng-if="signup_form.s_pass.$error.required && homeCtrl.signup_show_error" class="has-error-msg">Please Enter Password.</div>
 					                     	<div ng-if="signup_form.s_pass.$error.pattern && homeCtrl.signup_show_error" class="has-error-msg">Please Enter Atleast 6 characters.</div>
 										</md-input-container>
-										<button class="btn btn-lg btn-style btn-block">SIGN UP &nbsp;&nbsp;<img src="public/images/arrow-buttons.svg" style="margin-top: -2px;" ng-if="homeCtrl.default_signup"><img src="public/images/loader/butt_loader_1.gif" ng-if="homeCtrl.load_cond_signup" width="30px"></button>
+										<button class="btn btn-lg btn-style btn-block">SIGN UP &nbsp;&nbsp;<img src="public/images/arrow-buttons.svg" style="margin-top: -2px;" ng-if="homeCtrl.default_signup"><img src="public/images/loader/butt_loader.gif" ng-if="homeCtrl.load_cond_signup" width="30px"></button>
 										<p class="text-center" style="margin-top: 15px">Already have an account? <strong><a href="" ng-click="homeCtrl.signin()">SIGN IN</a></strong></p>
 									</form>
 								</div>

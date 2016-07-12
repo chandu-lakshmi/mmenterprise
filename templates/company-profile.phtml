@@ -60,13 +60,14 @@
 
 						<div class="company go_2 animate same" ng-if="compCtrl.go_1">
 							<div class="company-content">
-								<h3 style="margin:20px 0 40px 0">Complete your company profile:</h3>
+								<h3 style="margin:20px 0 50px 0">Complete your company profile:</h3>
 								<div style="width: 60%;margin-bottom:30px">
 									<md-input-container class="md-block">
 										<label>WEBSITE<span style="color: #999">(URL)*</span></label>
 		  								<input  type="text" name="website" ng-model="compCtrl.website" required ng-pattern="/^(http:\/\/www\.|https:\/\/www\.|www\.|https:\/\/|http:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/" ng-class="{'has-error-border':company_form.website.$invalid && compCtrl.comp2_show_error}">
 		  								<div ng-if="company_form.website.$error.required && compCtrl.comp2_show_error"  class="has-error-msg">Please Enter URL</div>
 		  								<div ng-if="company_form.website.$error.pattern && compCtrl.comp2_show_error"  class="has-error-msg">Please Enter Valid URL</div>
+		  								<span class="url_exmp">Example : www.example.com</span>
 									</md-input-container>
 								</div>
 								
@@ -161,7 +162,7 @@
 									<li class="active"></li>
 								</ul>
 								<div class="pull-right">
-									<button  class="btn btn-style" ng-click="compCtrl.valid()">CONTINUE&nbsp;&nbsp;<img src="public/images/loader/butt_loader_1.gif" style="margin-top: -2px;" ng-if="compCtrl.cont_load">
+									<button  class="btn btn-style" ng-click="compCtrl.valid()">CONTINUE&nbsp;&nbsp;<img src="public/images/loader/butt_loader.gif" style="margin-top: -2px;" ng-if="compCtrl.cont_load">
 								</div>
 							</div>
 						</div>

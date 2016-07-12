@@ -547,6 +547,11 @@ footer a:hover{
 .post-job input,select,textarea{
 	color: black
 }
+.post-job span.max_length{
+    float: right;
+    font-size: 14px;
+    color: #666;
+}
 .post-job label{
 	font-weight: normal;
 }

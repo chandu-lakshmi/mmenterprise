@@ -17,6 +17,7 @@ angular.module('app', [
 
 .config(function ($stateProvider, $urlRouterProvider, $locationProvider, App, CONFIG) {
     
+    //$locationProvider.html5Mode(true);
     $locationProvider.html5Mode(false).hashPrefix('!');
 
     // overwriting APP_API_DOMAIN constant from index.phtml
