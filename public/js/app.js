@@ -95,8 +95,8 @@ angular.module('app', [
      .state('app.postJob2',{
         url: '^/job/post-job-2',
         templateUrl: App.base_url + 'templates/post-job-2.phtml',
-        controller: 'PostJobController',
-        controllerAs: 'PtJobCtrl'
+        controller: 'PostJobTwoController',
+        controllerAs: 'post2Ctrl'
 
     })
     .state('app.jobDetails',{

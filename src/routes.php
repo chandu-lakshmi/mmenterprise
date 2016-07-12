@@ -14,6 +14,10 @@ $app->get('/', function ($request, $response, $args) {
     // Render index view
     return $this->renderer->render($response, 'index.phtml', $args);
 });
+//Index page
+/*$app->get('/login', function ($request, $response, $args) {
+    
+    $args = commonArgs($this->settings);*/
 
 //login controller page
 $app->get('/login', function ($request, $response, $args) {

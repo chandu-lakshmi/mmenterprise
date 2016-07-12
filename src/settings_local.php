@@ -30,7 +30,7 @@ return [
             'PREFIX' => '/enterprise',
 
             // Angular Application domain
-            'APP_DOMAIN' => 'http://192.168.33.10/mintmesh_enterprise/',
+            'APP_DOMAIN' => 'http://192.168.33.10/dev_with_slim/',
 
             // Application API domain
             'API_DOMAIN' => 'http://192.168.33.10/mintmesh/',
