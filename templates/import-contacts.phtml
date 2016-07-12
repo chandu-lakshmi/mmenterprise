@@ -21,16 +21,23 @@
 						<h3 class="mrZpdZ">Upload Contacts</h3>
 						<div class="info-upload">
 							<div>
-								<img src="public/images/info.svg" alt="info">
+								<img src="public/images/info.svg" alt="info"/>
 								<span style="color:gray">Organize your contacts in one of the groups below or create your own</span>
 							</div>
 						</div>
 
 						<div class="div-btn row">
-							<div ng-repeat="bucketName in importCtrl.bucketsName" class="col-lg-4"  ng-init="color=importCtrl.bucketColor[$index]">
+							<div ng-repeat="bucketName in importCtrl.bucketsName" class="col-lg-4"  ng-init="color=importCtrl.getColor($index)">
 								<div ng-style='{"background":color}' ng-click="importCtrl.fileUploadModal(bucketName, color)">
 								<img src="public/images/upload.svg">
 								{{bucketName | uppercase}}
+								</div>
+								<h6><a href="">DOWNLOAD TEMPLATE</a></h6>
+							</div>
+							<div  class="col-lg-4" ng-init="obj=['#999','+Add Your Own']">
+								<div  ng-click="importCtrl.fileUploadModal(obj[1], obj[0])" ng-style="{'background':obj[0]}">
+								<img src="public/images/upload.svg">
+								{{obj[1]}}
 								</div>
 								<h6><a href="">DOWNLOAD TEMPLATE</a></h6>
 							</div>

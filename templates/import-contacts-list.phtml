@@ -12,12 +12,10 @@
 				<!--import contacts-->
 				<div class="import_c_box">
 					<ul class="nav nav-tabs">
-						<li class="active"><a href="" data-toggle="tab" ng-click="ipContactListCtrl.allDetails()">All contacts</a></li>
-						<li><a href="" data-toggle="tab" ng-click="ipContactListCtrl.allemp()">Employees</a></li>
-						<li><a href="" data-toggle="tab" ng-click="ipContactListCtrl.clients()">Clients</a></li>
-						<li><a href="" data-toggle="tab" ng-click="ipContactListCtrl.candidates()">Candidates</a></li>
-						<li><a href="" data-toggle="tab" ng-click="ipContactListCtrl.isoDev()">iOS Developers</a></li>
-						<li><a href="" data-toggle="tab" style="padding: 17px 49px 17px 50px;border-right: 0;" ng-click="ipContactListCtrl.architects()">Architects</a></li>
+						<li ng-repeat="tabName in ipContactListCtrl.tabNames" ng-class='{"active":$index==0}'>
+							<a href="" data-toggle="tab" ng-click="ipContactListCtrl.getInfo(tabName.id, tabName.label)">{{tabName.label}}</a>
+						</li>
+
 					</ul>
 
 					<!--angular grid-->

@@ -8,11 +8,9 @@ angular.module('app.emails', [])
         this.loadCond = true;
 
  		var scope = this;
- 		var tokenid = $stateParams.token;
+ 		var tokenid = document.getElementById('token').value;        
  		var data = $.param({
-            token: tokenid,
-            client_id : CONFIG.CLIENT_ID,
-            client_secret : CONFIG.CLIENT_SECRET
+            token: tokenid
         });
 
         var request = $http({
@@ -20,7 +18,7 @@ angular.module('app.emails', [])
                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
             },
             method: 'POST',
-            url: CONFIG.APP_API_DOMAIN+CONFIG.APP_API_VERSION+'/enterprise/verify_email',                               
+            url: CONFIG.APP_DOMAIN+'verify_email',                               
             data: data
         })
 
@@ -31,19 +29,19 @@ angular.module('app.emails', [])
 
                     scope.loadCond = false;
                     scope.already_verified = false;
-                    //scope.verified = true;
+                    scope.verified = true;
                     $rootScope.access_token = response.data.access_token;
                     $rootScope.company_name = response.data.company.name;
                     $rootScope.company_code = response.data.company.code;
                     $rootScope.user_emailid = response.data.user.emailid;
                     $rootScope.user_id = response.data.user.id;
-                    $state.go('companyProfile');
+                    //$state.go('companyProfile');
                     
-                    /*scope.continue = function(){
+                    scope.continue = function(){
                         $window.scrollTo(0,0);
                         $window.scrollTo(0,0);
                         $state.go('companyProfile');
-                    }*/
+                    }
                 }
                 else{
                     scope.loadCond = false;

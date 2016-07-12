@@ -12,7 +12,7 @@
   background: #fff;
   overflow: hidden;
   border:1px solid #c0c0c0;
-  margin-bottom: 1%;
+  margin-bottom: 60px;
 }
 .import_c_box ul li{
   margin-left:0px !important;
@@ -149,6 +149,27 @@
   font-size: 18px;
   font-weight: bold;
   padding: 12px 32px;
+}
+.import_verify .modal-body .input_subj input[type=text]{
+  border: 0;
+  border-bottom: 1px solid #ccc;
+  display: block;
+  width: 100%;
+  margin: 0px 0px 10px 0;
+  background: transparent;
+  outline: none;
+}
+.import_verify .modal-body{
+  background: #fff;
+}
+.import_verify .modal-body .text_area textarea{
+  font-size: 16px;
+  width: 100%;
+  resize: none;
+  border: 0;
+  border-bottom: 1px solid #ccc;
+  background: transparent;
+  outline: 0;
 }
 .im_c_foot{
   padding: 16px;
@@ -422,4 +443,15 @@ div[window-class="pop-cre"] .modal-content{
   margin: 0 auto;
   padding-bottom: 13px;
 
+}
+
+
+/* Scroll Bar Visibile in all browsers*/
+.import-con-grid::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+.import-con-grid::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0,0,0,.5);
+  -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 }

@@ -18,18 +18,38 @@ return [
         // Mode
         'mode'   => 'staging',
 
+        // Application settings
         'APP' => [
             // Application Name
             'NAME' => 'Mintmesh Enterprise',
 
             // Application Version
-            'VERSION' => '1',
+            'VERSION' => 'v1',
 
-            // Application API Version
-            'API_VERSION' => 'v1',
+            //Api Prefix
+            'PREFIX' => '/enterprise',
+
+            // Angular Application domain
+            'APP_DOMAIN' => 'http://enterprisestaging.mintmesh.com/',
 
             // Application API domain
-            'API_DOMAIN' => 'staging.mintmesh.com/',
+            'API_DOMAIN' => 'http://staging.mintmesh.com/',
+
+            //Client keys
+            'CLIENT_ID'         => 'dA3UFisQBLX23jHW',
+            'CLIENT_SECRET'     => '3mjo0kDSgCbsdLG7ipnhWJxC1iY6RLcX',
+
+            //Grant Types
+            'PASSWORD_GRANT'    => 'password'
+        ],
+
+        // API settings
+        'API' => [
+            'login' => [
+                'VERSION'  => 'v1',
+                'ENDPOINT' => '/enterprise/login'
+            ]
+
         ],
         
     ],

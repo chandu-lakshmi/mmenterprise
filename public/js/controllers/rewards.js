@@ -4,7 +4,7 @@
 angular.module('app.rewards', [])
 
 .controller('RewardsController', [ '$http', function($http){
-
+	
 	var scope = this;
 	
 	$http({

@@ -1,42 +1,109 @@
 <?php
-// Routes
+// Set up Curl middleware
+require DIR_PATH .'/src/Curl.php';
 
-/*$app->get('/[{name}]', function ($request, $response, $args) {
-    // Sample log message
-    //$this->logger->info("Slim-Skeleton '/' route");
-
-    $args['API_DOMAIN'] = $this->settings['APP']['API_DOMAIN'];
-
-    // Render index view
-    return $this->renderer->render($response, 'index.phtml', $args);
-});*/
-
-
+//Index page
 $app->get('/', function ($request, $response, $args) {
-    // Sample log message
-    //$this->logger->info("Slim-Skeleton '/' route");
+    
+    $args = commonArgs($this->settings);
 
-    $args['API_DOMAIN'] = $this->settings['APP']['API_DOMAIN'];
+    //Check Logged - If it is login it redirects to dashboard page
+    if(empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']."dashboard");
+    }
+    // Render index view
+    return $this->renderer->render($response, 'index.phtml', $args);
+});
+//Index page
+/*$app->get('/login', function ($request, $response, $args) {
+    
+    $args = commonArgs($this->settings);*/
 
-    //echo "I am here";
+//login controller page
+$app->get('/login', function ($request, $response, $args) {
+    
+    $args = commonArgs($this->settings);
+
+    //Check Logged - If it is login it redirects to dashboard page
+    if(empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']."dashboard");
+    }
     // Render index view
     return $this->renderer->render($response, 'index.phtml', $args);
 });
 
+//email verification page
+$app->get('/email-verify', function ($request, $response, $args) {
 
+    // need to take a look later    
+    $args = commonArgs($this->settings);
 
-
-$app->post('/login', function ($request, $response, $args) {
-    // Sample log message
-    //$this->logger->info("Slim-Skeleton '/' route");
-
-    print_r($_POST);
-
-    //$args['API_DOMAIN'] = $this->settings['APP']['API_DOMAIN'];
-
-    echo "<br>in loginme route";
-
-
+    //$args['token'] = $app->request()->get('token');
+    $allGetVars = $request->getQueryParams();
+    $args['token'] = $allGetVars['token'];
+    
+    //Check Logged - If it is login it redirects to dashboard page
+    if(empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']."dashboard");
+    }
+    
     // Render index view
-    //return $this->renderer->render($response, 'index.phtml', $args);
+    return $this->renderer->render($response, 'index.phtml', $args);
 });
+
+//company profile page
+$app->get('/company-profile', function ($request, $response, $args) {
+
+    // need to take a look later    
+    $args = commonArgs($this->settings);
+
+    
+    //Check Logged - If it is login it redirects to dashboard page
+    if(empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']."dashboard");
+    }
+    // Render index view
+    return $this->renderer->render($response, 'index.phtml', $args);
+});
+
+//Login api
+$app->post('/signin', function ($request, $response, $args) use ($app) {
+
+    // setting up the client_id, cleint_secret & grant_type 
+    // dynamically to the post params
+    $this->mintmeshLoginKeyStoreService;
+    $this->mintmeshLoginGrantTypeService;
+    
+    // getting API endpoint from settings
+    $apiEndpoint = getapiEndpoint($this->settings, 'login');
+
+    $curl = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+    ));
+    
+    echo json_encode($curl->loadCurl());
+});
+
+//Create api
+$app->post('/create_user', function ($request, $response, $args) use ($app) {
+
+    // getting API endpoint from settings
+    $apiEndpoint = getapiEndpoint($this->settings, 'create_user');
+    
+    $curl = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+    ));
+    
+    echo json_encode($curl->loadCurl());
+ 
+});
+
+// Register routes After Login
+require __DIR__ . '/api_after_login.php';
+
+//General Apis
+require __DIR__ . '/api_general.php';
+
+

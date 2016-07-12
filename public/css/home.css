@@ -1,6 +1,14 @@
 *{
     box-sizing: border-box;
 }
+
+input[type=text]::-ms-clear{
+    display: none;
+}
+select::-ms-expand {
+    display: none;
+}
+
 @font-face{
     font-family: 'Roboto';
     font-style: normal;
@@ -328,6 +336,15 @@ input{
     padding: 30px 26px 0px;
     /*border-top: 1px solid #ccc;*/
 }
+.company-content span.url_exmp{
+    float: right;
+    color: #666;
+}
+.company-content span#pdf_name{
+    padding: 10px;
+    font-size: 15px;
+    color: #219070;
+}
 .company-content input#pdf{
     width: 0.1px;
     height: 0.1px;
@@ -373,7 +390,7 @@ input{
     color: #BDBDBD;
 }
 .company-content .description{
-    padding: 25px 0 30px 0;
+    padding: 25px 0 25px 0;
     border-bottom: 1px solid #ccc;
 }
 .company-content .description label{
@@ -428,7 +445,7 @@ input{
 .company-footer ul.indicators li.active{
     background: #01B893;
 }
-.company-footer button.btn-style,.company-footer input[type='button'].btn-style,.company-footer input[type='submit'].btn-style{
+.company-footer button.btn-style,.company-footer span.btn-style,.company-footer input[type='submit'].btn-style{
     padding: 10px 30px;
     /*font-size: 16px*/
 }
@@ -444,8 +461,9 @@ input{
 .company-content .feedback{
     position: absolute;
     right: 10px;
-    top: 10px;
-    width: 15px;
+    top: 13px;
+    width: 13px;
+    outline: none;
 }
 .add-img{
     margin-bottom: 30px;
@@ -629,7 +647,7 @@ ul > li{
 
 /* ngAnimate*/
 
-.animate.ng-enter, 
+/*.animate.ng-enter, 
 .animate.ng-leave
 { 
     -webkit-transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
@@ -652,7 +670,7 @@ ul > li{
 }
 .animate.ng-leave.animate.ng-leave-active{
     left: -100%;
-}
+}*/
 
 
 

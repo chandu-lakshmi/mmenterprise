@@ -1,5 +1,5 @@
 <?php
-// settings for production server
+// setting for staging AWS server
 return [
     'settings' => [
         'displayErrorDetails' => true, // set to false in production
@@ -15,12 +15,8 @@ return [
             'path' => __DIR__ . '/../logs/app.log',
         ],
 
-        //Client keys
-        'client_id'         => "G7iLdQoeZy0Ef06C",
-        'client_secret'     => "Dh0pMLSV6Y82EfDpGKlWN1AyzvWvbvz4",
-
         // Mode
-        'mode'   => 'production',
+        'mode'   => 'review',
 
         // Application settings
         'APP' => [
@@ -34,10 +30,10 @@ return [
             'PREFIX' => '/enterprise',
 
             // Angular Application domain
-            'APP_DOMAIN' => 'http://enterprise.mintmesh.com/',
+            'APP_DOMAIN' => 'http://202.63.105.85/mmenterprise/',
 
             // Application API domain
-            'API_DOMAIN' => 'http://api.mintmesh.com/',
+            'API_DOMAIN' => 'http://202.63.105.85/mintmesh/',
 
             //Client keys
             'CLIENT_ID'         => 'dA3UFisQBLX23jHW',

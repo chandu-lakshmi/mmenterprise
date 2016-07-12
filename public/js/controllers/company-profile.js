@@ -15,51 +15,56 @@ angular.module('app.company.profile', [])
 
 
 .controller('CompanyProfileController', ['$state','$window','$http','CONFIG','$scope','$rootScope',function ($state,$window,$http,CONFIG,$scope,$rootScope) {
-    this.comp_name = $rootScope.company_name;
+
     var scope = this;
-    var request = $http({
+    this.comp_name = $rootScope.company_name;
+
+    // GetIndustries
+    var get_industries = $http({
         headers: {
            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         },
         method: 'GET',
-        url: CONFIG.APP_API_DOMAIN+CONFIG.APP_API_VERSION+'/get_industries'
+        url: CONFIG.APP_DOMAIN+'get_industries'
     })
 
-    request.success(function(response){
+    get_industries.success(function(response){
        scope.industry_list = response.data.industries;
         
     })
-    request.error(function(response){
+    get_industries.error(function(response){
         scope.industry_list = [];
     })
 
-
-
-    scope.form_data = {};
-    this.step1 = function(){
-        scope.form_data = {
-            company_name : scope.comp_name,
-            industry : scope.industry.industry_id,
-            description : scope.desc,
-            number_of_employees : ''
-        }
-    }
-    this.radio = function(radioValue){
-        scope.form_data.number_of_employees = radioValue;
-    }
-
+    // Storing company logo from step3
     var upload_condition = false;
-    this.uploadFile = function(){
-        /*var files = this.files[0];
-        console.log(files)*/
+    this.uploadLogo = function(){
+        var preview = document.querySelector('#company_logo');
+        var files = this.files[0];
+        var reader  = new FileReader();
+
+        reader.addEventListener("load", function () {
+           preview.src = reader.result;
+         }, false);
+
+         if (files) {
+           reader.readAsDataURL(files);
+         }
+
         upload_condition = true;
     };
-
+    // Uploading Referral Bonus Pdf
     this.uploadPdf = function(){
         var files = this.files[0];
-        scope.pdfFileName = files.name;
+        if(files.size <= (10 * 1024 *1024)){
+            $('#pdf_name').text(files.name);
+        }
+        else{
+            $('#pdf_err_name').text("Exceeds Maximum Size");
+        }
     }
 
+    // Posting Data to API
     this.valid = function(){
 
         scope.cont_load = true;
@@ -69,25 +74,26 @@ angular.module('app.company.profile', [])
         formData.append('access_token',$rootScope.access_token);
         formData.append('industry',scope.industry.industry_id);
         formData.append('description',scope.desc);
-        formData.append('number_of_employees',scope.form_data.number_of_employees);
+        formData.append('number_of_employees',scope.groupSize);
         formData.append('website',scope.website);
         formData.append('user_id',$rootScope.user_id);
         if(upload_condition == true){
             formData.append('company_logo', $('input[type=file]#upload-image')[0].files[0]);
         }
 
-        var request = $http({
+        var create_company = $http({
             headers: {
                 'Content-Type' : undefined
             },
             method : 'POST',
-            url : CONFIG.APP_API_DOMAIN+CONFIG.APP_API_VERSION+'/enterprise/create_company',
+            url : CONFIG.APP_DOMAIN+'update_company',
             data : formData
         });
-        request.success(function(response){
+        create_company.success(function(response){
             if(response.status_code == 200){
 
-                scope.company_code = response.data.company_code;
+                $rootScope.company_code = response.data.company_code;
+                scope.company_code = $rootScope.company_code;
                 scope.go_2 = false;
                 scope.cont_load = false;
                 $window.scrollTo(0,0);
@@ -95,7 +101,7 @@ angular.module('app.company.profile', [])
             }
         });
 
-        request.error(function(response){
+        create_company.error(function(response){
             console.log(response);
         })
 
@@ -103,10 +109,7 @@ angular.module('app.company.profile', [])
 
     this.group_size = ['10-50','50-100','100-500','500-1000','1000-5000','5000+'];
 
-
-
     this.go_0 = true;
-
 
     this.comp1_show_error = false;
     this.comp2_show_error = false;
@@ -145,7 +148,7 @@ angular.module('app.company.profile', [])
         }
     }
 
-
+    // Previous page jumping
     this.prev = function(prev, cur){
         $window.scrollTo(0,0);
         var prv = 'go_'+prev;
@@ -162,15 +165,6 @@ angular.module('app.company.profile', [])
     }
 
 }])
-
-
-
-.controller('myCtrl', function($scope) {
-    $scope.uploadFile = function(){
-        var filename = event.target.files[0].name;
-        alert('file was selected: ' + filename);
-    };
-});
 
     
 }());

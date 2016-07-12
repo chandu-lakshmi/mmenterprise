@@ -10,14 +10,20 @@ angular.module('app', [
     'APP_NAME' : 'Mintmesh Enterprise',
     'APP_VERSION' : '1',
     'APP_API_VERSION': 'v1',
-    'APP_API_DOMAIN' : 'http://202.63.105.85/mintmesh/',
-    'CLIENT_ID' : '89sloYaTPSMKhbtl',
-    'CLIENT_SECRET' : 'ssyZldw0tylSGPwy38FyFu90MeSIgbxC'
+    'APP_API_DOMAIN' : '',
+    'CLIENT_ID' : 'G7iLdQoeZy0Ef06C',
+    'CLIENT_SECRET' : 'Dh0pMLSV6Y82EfDpGKlWN1AyzvWvbvz4'
 })
 
-.config(function ($stateProvider, $urlRouterProvider, $locationProvider, App) {
+.config(function ($stateProvider, $urlRouterProvider, $locationProvider, App, CONFIG) {
     
-    $locationProvider.html5Mode(false).hashPrefix('!');
+    $locationProvider.html5Mode(true);
+    //$locationProvider.html5Mode(false).hashPrefix('!');
+
+    // overwriting APP_API_DOMAIN constant from index.phtml
+    // JS global variable
+    CONFIG.APP_API_DOMAIN = App.API_DOMAIN;
+    CONFIG.APP_DOMAIN     = App.base_url;
     
     $stateProvider
     .state('home', {
@@ -45,7 +51,7 @@ angular.module('app', [
         controllerAs:'ipContactListCtrl'
     })
     .state('emailVerify', {
-        url: '/email-verify?token=',
+        url: '/email-verify',
         templateUrl: App.base_url + 'templates/emails/verify.phtml',
         controller: 'EmailVerificationController',
         controllerAs:'emailCtrl'
