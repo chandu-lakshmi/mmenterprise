@@ -12,8 +12,8 @@
 				<!--import contacts-->
 				<div class="import_c_box">
 					<ul class="nav nav-tabs">
-						<li ng-repeat="tabName in ipContactListCtrl.tabNames" ng-class='{"active":$index==0}'>
-							<a href="" data-toggle="tab" ng-click="ipContactListCtrl.getInfo(tabName.id, tabName.label)">{{tabName.label}}</a>
+						<li ng-repeat="bucket in ipContactListCtrl.bucket_names" ng-class='{"active":$index==0}'>
+							<a href="" data-toggle="tab" ng-click="ipContactListCtrl.getInfo(bucket.bucket_id, bucket.bucket_name)">{{bucket.bucket_name | uppercase}}</a>
 						</li>
 
 					</ul>

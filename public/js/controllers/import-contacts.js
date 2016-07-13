@@ -34,7 +34,6 @@ angular.module('app.import.contacts', ['ui.grid' ,'ui.grid.selection','ui.grid.i
     } 
 }])
 
-
 .controller('ImportContactsController', ['$state', '$window', '$uibModal', function ($state, $window, $uibModal) {
   
   var _this = this;
@@ -46,7 +45,7 @@ angular.module('app.import.contacts', ['ui.grid' ,'ui.grid.selection','ui.grid.i
       return bucketColor[String(ind).slice(-1)];
   }
 
-  this.selectFile = function(){
+  this.gridView = function(){
       $window.scrollTo(0,0);
       $state.go('importContactsList');     
   }
@@ -94,11 +93,12 @@ angular.module('app.import.contacts', ['ui.grid' ,'ui.grid.selection','ui.grid.i
     this.emptyVal = false;
     this.new_bucket_flag = 0;
     this.bucketNames = this.bucket.All;
+    var bucket_id = 0;
     if(this.bucket.All.indexOf(bucketName) == -1){
-        var bucket_id = this.bucket.All.length + 1;
+        bucket_id = this.bucket.All.length + 1;
     }
     else{
-        var bucket_id = this.bucket.All.indexOf(bucketName) + 1;
+        bucket_id = this.bucket.All.indexOf(bucketName) + 1;
     }
 
 
@@ -124,13 +124,18 @@ angular.module('app.import.contacts', ['ui.grid' ,'ui.grid.selection','ui.grid.i
             this.upload_load_cond = true;
             // Sending data to post call
             var bucket_data = new FormData();
-            bucket_data.append("access_token",'oFOs2PqsK4uNpn2ioXFzYWZOERE3TLW4h0nkaZWN');
+            bucket_data.append("access_token",$rootScope.access_token);
             bucket_data.append("contacts_file",$('input[type=file]#fileUploads')[0].files[0])
             bucket_data.append("company_id",$rootScope.company_code);
             bucket_data.append("is_bucket_new",scope.new_bucket_flag);
-            bucket_data.append("bucket_name" , bucketName);
+            if(scope.newBucket){
+              bucket_data.append("bucket_name" , scope.customName);
+            }
+            else{
+              bucket_data.append("bucket_name" , bucketName);
+            }
             bucket_data.append("bucket_id" , bucket_id);
-
+            //console.log(scope.new_bucket_flag,bucketName,bucket_id,$('input[type=file]#fileUploads')[0].files[0],$rootScope.company_code)
             // Contacts Upload Ajax Call
             var upload_contacts = $http({
                 headers: {
@@ -173,89 +178,37 @@ angular.module('app.import.contacts', ['ui.grid' ,'ui.grid.selection','ui.grid.i
     })
 }])
 
-.controller('ImportContactsListController', ['$rootScope','$window', '$state', '$scope', '$http', '$log', '$timeout', 'uiGridConstants','$uibModal', function ($rootScope, $window, $state, $scope, $http, $log, $timeout, uiGridConstants, $uibModal) {
+.controller('ImportContactsListController', ['$rootScope','$window', '$state', '$scope', '$http', '$log', '$timeout', 'uiGridConstants','$uibModal', 'CONFIG', function ($rootScope, $window, $state, $scope, $http, $log, $timeout, uiGridConstants, $uibModal, CONFIG) {
 
-  var _this = this,
-    selectedContacts = [];
+  var scope = this;
 
-  var tabNames  = [
-    { id : 1, label : "All" },
-    { id : 2, label : "Employees" },
-    { id : 3, label : "Clients" },
-    { id : 4, label : "Candidates" },
-    { id : 5, label : "iOS_Developers" },
-    { id : 6, label : "Architects" }
-  ];
+  // For getting bucket names
+  var bucket_list = $.param({
+    access_token : $rootScope.access_token,
+    company_id : $rootScope.company_code
+  });
 
-  this.tabNames = tabNames;
+  var get_buckets = $http({
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+    },
+    method: 'POST',
+    url: CONFIG.APP_API_DOMAIN+CONFIG.APP_API_VERSION+'/enterprise/buckets_list',
+    data: bucket_list
+  })
+  get_buckets.success(function(response){
+    scope.bucket_names = response.data;
+  });
+  get_buckets.error(function(response){
+    console.log("Failed signin");
+  })
 
+  var selectedContacts = [];
 
+  var API_CALL = CONFIG.APP_API_DOMAIN+CONFIG.APP_API_VERSION+'/enterprise/contacts_list'
 
-  var colNamesAll = {
-    columnDefs: [
-      { name:'id'},
-      { name:'name',displayName:'Name'},
-      { name:'age'}
-    ]
-  };
+  this.importContactGrid = function(url, id, type){
 
-  var colNamesCommon ={
-     columnDefs: [
-      { name:'id',displayName:'Employee ID', width:'15%'},
-      { name:'name', width:'25%'},
-      { name:'email', width:'25%'},
-      { name:"phoneno",displayName:'Cell Number', width:'20%'},
-      { name:'status', width:'15%'}
-    ]
-  }
-
-  var All = [
-    {id : 1, type : "emp", name : "John-emp" , age : 23 },
-    {id : 2, type : "emp", name : "John david-emp" , age : 24 },
-    {id : 3, type : "emp", name : "John mickle-emp" , age : 28 },
-    {id : 4, type : "client", name : "willam-client" , age : 32 },
-    {id : 5, type : "client", name : "willam tinker-client" , age : 35 },
-    {id : 6, type : "client", name : "willam crank-client" , age : 33 },
-    {id : 7, type : "candidate", name : "miller-candidate" , age : 44 },
-    {id : 8, type : "candidate", name : "miller killer-candidate" , age : 45 },
-    {id : 9, type : "candidate", name : "miller haddin-candidate" , age : 41 },
-    {id : 10, type : "ios", name : "smith roy-ios" , age : 53 },
-    {id : 11, type : "ios", name : "smith man-ios" , age : 54 },
-    {id : 12, type : "ios", name : "smith hood-ios" , age : 58 },
-  ];
-
-  var Clients = [
-    {id : 4, type : "client", name : "willam-client" , age : 32 },
-    {id : 5, type : "client", name : "willam tinker-client" , age : 35 },
-    {id : 6, type : "client", name : "willam crank-client" , age : 33 }
-  ];
-
-  var Employees = [
-    {id : 1, type : "emp", name : "John-emp" , age : 23 },
-    {id : 2, type : "emp", name : "John david-emp" , age : 24 },
-    {id : 3, type : "emp", name : "John mickle-emp" , age : 28 }
-  ];
-
-
-  var Candidates = [
-    {id : 7, type : "candidate", name : "miller-candidate" , age : 44 },
-    {id : 8, type : "candidate", name : "miller killer-candidate" , age : 45 },
-    {id : 9, type : "candidate", name : "miller haddin-candidate" , age : 41 }
-  ];
-
-  var iOS_Developers = [
-    {id : 10, type : "ios", name : "smith roy-ios" , age : 53 },
-    {id : 11, type : "ios", name : "smith man-ios" , age : 54 },
-    {id : 12, type : "ios", name : "smith hood-ios" , age : 58 }
-  ];
-
-  var gridUrlAll = '10000_complex.json';
-
-  var currentTab = "All";
-
-  this.importContactGrid = function(url,  colNames, id, type){
-    currentTab = type;
-    $scope.allContacts = colNames;
     $scope.gridOptions = {
       infiniteScrollRowsFromEnd: 60,
       enableFullRowSelection:true,
@@ -263,50 +216,97 @@ angular.module('app.import.contacts', ['ui.grid' ,'ui.grid.selection','ui.grid.i
       infiniteScrollDown: true,
       enableHorizontalScrollbar: 1,
       rowHeight:35,
+
+      columnDefs: [
+        {name:'record_id',displayName:'Employee ID/Other ID'},
+        {name:'firstname',displayName:'First Name'},
+        {name:'lastname',displayName:'Last Name'},
+        {name:'emailid',displayName:'Email ID '},
+        {name:'contact_number',displayName:'Cell Phone'},
+        {name:'status',displayName:'Status'},
+      ],
       data: 'data',
+
       onRegisterApi: function(gridApi){
         gridApi.infiniteScroll.on.needLoadMoreData($scope, $scope.getDataDown);
         gridApi.infiniteScroll.on.needLoadMoreDataTop($scope, $scope.getDataUp);
         $scope.gridApi = gridApi;
+        gridApi.selection.on.rowSelectionChanged($scope,function(row){
+          updateRowSelection(row);
+        });
+ 
+        gridApi.selection.on.rowSelectionChangedBatch($scope,function(rows){
+          for (var i = 0; i < rows.length; i++) {
+            updateRowSelection(rows[i]);
+          }
+        });
       }
     };
 
-    angular.extend($scope.gridOptions,  $scope.allContacts)
+    function updateRowSelection(row) {
+      if(row.isSelected){
+        if(selectedContacts.indexOf(row.entity.id) == -1){
+          selectedContacts.push(row.entity.id); 
+        }
+      }
+      else {
+        var index = selectedContacts.indexOf(row.entity.id);
+        if (index > -1) {
+          selectedContacts.splice(index, 1);
+        }
+      }
+    }
+
 
     $scope.data = [];
  
     $scope.firstPage = 0;
     $scope.lastPage = 0;
  
+    var list = $.param({
+      access_token: $rootScope.access_token,
+      company_id: $rootScope.company_code,
+      bucket_id: id
+    });
+
+
     $scope.getFirstData = function() {
-      return $http.get('https://cdn.rawgit.com/angular-ui/ui-grid.info/gh-pages/data/10000_complex.json')
-      .then(function(response) {
-        var newData = $scope.getPage(eval(type), $scope.lastPage),
-          selectedCount = 0;
 
-        $scope.gridApi.grid.selection.selectAll = false;
-        if(selectedContacts.length != 0){
-          var a = selectedContacts.length;
+      return $http({
+        headers: {
+          'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'
+        },
+        method : 'POST',
+        url : url,
+        data : list
+      })
 
-          setTimeout(function(){
-            for(var i = 0;i < a;i++ ){
-              for(var j = 0; j < newData.length; j++){
-                if(selectedContacts[i]==newData[j].id){
-                  $scope.gridApi.selection.selectRow(newData[j]);
-                  selectedCount++;
-                  break;    
-                }  
+      .then(function(response){
+        console.log(response);
+        $scope.gridOptions.data = response.data.data;
+        var newData = $scope.getPage(response.data.data,$scope.lastPage);
+
+        var selectedCount = 0;
+
+        setTimeout(function(){
+          for(var i = 0; i < selectedContacts.length; i++){
+            for(var j = 0; j < newData.length; j++){
+              if(selectedContacts[i] == newData[j].id){
+                $scope.gridApi.selection.selectRow(newData[j])
+                selectedCount++;
+                break;
               }
             }
-            console.log(newData.length + " -- " + selectedCount);
-            if (newData.length == selectedCount) {
-              $scope.gridApi.grid.selection.selectAll = true;
-            } 
-          },1);
-          
-        }
+          }
+          if(newData.length == selectedCount){
+            $scope.gridApi.grid.selection.selectAll = true;
+          }
+        })
+
+
         $scope.data = $scope.data.concat(newData);
-      });
+      })
+
     };
    
     $scope.getDataDown = function() {
@@ -380,41 +380,15 @@ angular.module('app.import.contacts', ['ui.grid' ,'ui.grid.selection','ui.grid.i
 
   }
   //default calling all contacts
-  _this.importContactGrid(gridUrlAll, colNamesAll, 1, "All");
+  scope.importContactGrid(API_CALL, 1, "employees");
 
   this.getInfo = function(id ,type){
-    //_this.getRecords();
-    _this.importContactGrid(gridUrlAll, colNamesAll, id, type);
+    scope.importContactGrid(API_CALL, id, type);
   }
 
  
 
-  function updateRowSelection(row) {
-    if (row.isSelected) {
-      if(selectedContacts.indexOf(row.entity.id) == -1){
-        selectedContacts.push(row.entity.id); 
-      }
-    } else {
-      var index = selectedContacts.indexOf(row.entity.id);
-      if (index > -1) {
-        selectedContacts.splice(index, 1);
-      }
-    }
-  }
-
-  $scope.gridOptions.onRegisterApi = function(gridApi){
-      //set gridApi on scope
-      $scope.gridApi = gridApi;
-      gridApi.selection.on.rowSelectionChanged($scope,function(row){
-        updateRowSelection(row);
-      });
- 
-      gridApi.selection.on.rowSelectionChangedBatch($scope,function(rows){
-        for (var i = 0; i < rows.length; i++) {
-          updateRowSelection(rows[i]);
-        }
-      });
-    };
+  
 
   this.importSelect = function(){
     $uibModal.open({

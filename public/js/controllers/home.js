@@ -94,8 +94,8 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
             scope.load_cond_signin = true;
             scope.default_signin = false;
             var data = $.param({
-                    username : scope.signin_form.l_email,
-                    password : scope.signin_form.l_pass
+                username : scope.signin_form.l_email,
+                password : scope.signin_form.l_pass
             });
 
             var signin = $http({
