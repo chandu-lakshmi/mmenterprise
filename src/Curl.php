@@ -12,7 +12,7 @@ class Curl
     /**
      * @var array
      */
-    public $CurlData;
+    public $CurlData = Array();
 
     /**
      * Constructor
@@ -49,7 +49,9 @@ class Curl
         curl_setopt($ch, CURLOPT_URL,$this->CurlData["url"]);
 
         //Post data Checking, if exist then posting here
-        if (!$this->CurlData["postData"]) {
+
+        if (isset($this->CurlData["postData"]) && is_array($this->CurlData["postData"])) {
+           // print_r($this->CurlData["postData"]);exit;
             curl_setopt($ch, CURLOPT_POST ,1);
             curl_setopt($ch, CURLOPT_POSTFIELDS , $this->CurlData["postData"]);
         }

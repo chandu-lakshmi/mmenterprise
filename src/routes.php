@@ -48,8 +48,9 @@ $app->post('/update_company', function ($request, $response, $args) use ($app) {
     // getting API endpoint from settings
     $apiEndpoint = getapiEndpoint($this->settings, 'update_company');
 
-   //Company logo
-   $_POST['company_logo'] = $_FILES['company_logo'];
+    //Mutliple images
+   
+   $_POST['tmp_name'] = $_FILES['company_logo']['tmp_name'];
    
     $curl = new Curl(array(
         'url'           => $apiEndpoint,
