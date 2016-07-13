@@ -12,7 +12,7 @@ class Curl
     /**
      * @var array
      */
-    public $CurlData;
+    public $CurlData = Array();
 
     /**
      * Constructor
@@ -49,7 +49,9 @@ class Curl
         curl_setopt($ch, CURLOPT_URL,$this->CurlData["url"]);
 
         //Post data Checking, if exist then posting here
-        if (!empty($this->CurlData["postData"])) {
+
+        if (isset($this->CurlData["postData"]) && is_array($this->CurlData["postData"])) {
+           // print_r($this->CurlData["postData"]);exit;
             curl_setopt($ch, CURLOPT_POST ,1);
             curl_setopt($ch, CURLOPT_POSTFIELDS , $this->CurlData["postData"]);
         }
@@ -60,6 +62,7 @@ class Curl
         curl_setopt($ch, CURLOPT_HEADER ,0);  // DO NOT RETURN HTTP HEADERS
        // echo  curl_exec($ch);exit;
         $result = json_decode(curl_exec($ch));
+        
 
         if(!empty($result->data->access_token) && !empty($result->data)){
             $_SESSION["aToken"] = $result->data->access_token;

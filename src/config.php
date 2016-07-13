@@ -7,10 +7,10 @@ switch ($hostName) {
 	case 'scotchbox':
 		$environment = '_local';
 		break;
-	case 'mintmeshstg.com':
+	case 'mintmesh.com':
 		$environment = '_review';
 		break;
-	case 'mintmesh.com':
+	case 'mintmeshstg.com':
 		$environment = '_staging';
 		break;
 	default:

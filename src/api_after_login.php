@@ -40,20 +40,6 @@ $app->get('/postJob',function ($request, $response, $args) use ($app) {
     return $this->renderer->render($response, 'post-job.phtml', $args);
 }); 
 
-//Update Company
-$app->post('/update_company', function ($request, $response, $args) use ($app) {
-
-    // getting API endpoint from settings
-    $apiEndpoint = getapiEndpoint($this->settings, 'update_company');
-    
-    $curl = new Curl(array(
-        'url'           => $apiEndpoint,
-        'postData'      => $_POST
-    ));
-    
-    echo json_encode($curl->loadCurl());
- 
-});
 
 //Logout
 $app->get("/logout", function ($request, $response, $args) { 

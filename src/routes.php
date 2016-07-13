@@ -14,10 +14,6 @@ $app->get('/', function ($request, $response, $args) {
     // Render index view
     return $this->renderer->render($response, 'index.phtml', $args);
 });
-//Index page
-/*$app->get('/login', function ($request, $response, $args) {
-    
-    $args = commonArgs($this->settings);*/
 
 //login controller page
 $app->get('/login', function ($request, $response, $args) {
@@ -39,16 +35,30 @@ $app->get('/email-verify', function ($request, $response, $args) {
     $args = commonArgs($this->settings);
 
     //$args['token'] = $app->request()->get('token');
-    $allGetVars = $request->getQueryParams();
-    $args['token'] = $allGetVars['token'];
+    $allGetVars     = $request->getQueryParams();
+    $args['token']  = $allGetVars['token'];
     
-    //Check Logged - If it is login it redirects to dashboard page
-    if(empty(authenticate())){
-      return $response->withRedirect($args['APP_DOMAIN']."dashboard");
-    }
-    
-    // Render index view
+   // Render index view
     return $this->renderer->render($response, 'index.phtml', $args);
+});
+
+//Update Company
+$app->post('/update_company', function ($request, $response, $args) use ($app) {
+
+    // getting API endpoint from settings
+    $apiEndpoint = getapiEndpoint($this->settings, 'update_company');
+
+    //Mutliple images
+   
+   $_POST['tmp_name'] = $_FILES['company_logo']['tmp_name'];
+   
+    $curl = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+    ));
+    
+    echo json_encode($curl->loadCurl());
+ 
 });
 
 //company profile page
@@ -57,7 +67,6 @@ $app->get('/company-profile', function ($request, $response, $args) {
     // need to take a look later    
     $args = commonArgs($this->settings);
 
-    
     //Check Logged - If it is login it redirects to dashboard page
     if(empty(authenticate())){
       return $response->withRedirect($args['APP_DOMAIN']."dashboard");
