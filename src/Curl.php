@@ -49,7 +49,7 @@ class Curl
         curl_setopt($ch, CURLOPT_URL,$this->CurlData["url"]);
 
         //Post data Checking, if exist then posting here
-        if (!empty($this->CurlData["postData"])) {
+        if (!$this->CurlData["postData"]) {
             curl_setopt($ch, CURLOPT_POST ,1);
             curl_setopt($ch, CURLOPT_POSTFIELDS , $this->CurlData["postData"]);
         }
@@ -60,6 +60,7 @@ class Curl
         curl_setopt($ch, CURLOPT_HEADER ,0);  // DO NOT RETURN HTTP HEADERS
        // echo  curl_exec($ch);exit;
         $result = json_decode(curl_exec($ch));
+        
 
         if(!empty($result->data->access_token) && !empty($result->data)){
             $_SESSION["aToken"] = $result->data->access_token;
