@@ -4,12 +4,12 @@ require DIR_PATH .'/src/Curl.php';
 
 //Index page
 $app->get('/', function ($request, $response, $args) {
-    
+   
     $args = commonArgs($this->settings);
 
     //Check Logged - If it is login it redirects to dashboard page
     if(empty(authenticate())){
-      return $response->withRedirect($args['APP_DOMAIN']."dashboard");
+      return $response->withRedirect($args['APP_DOMAIN']."dash/dashboard");
     }
     // Render index view
     return $this->renderer->render($response, 'index.phtml', $args);
@@ -22,7 +22,7 @@ $app->get('/login', function ($request, $response, $args) {
 
     //Check Logged - If it is login it redirects to dashboard page
     if(empty(authenticate())){
-      return $response->withRedirect($args['APP_DOMAIN']."dashboard");
+     return $response->withRedirect($args['APP_DOMAIN']."dash/dashboard");
     }
     // Render index view
     return $this->renderer->render($response, 'index.phtml', $args);
@@ -48,17 +48,14 @@ $app->post('/update_company', function ($request, $response, $args) use ($app) {
     // getting API endpoint from settings
     $apiEndpoint = getapiEndpoint($this->settings, 'update_company');
 
-    //Mutliple images
-   
-   $_POST['tmp_name'] = $_FILES['company_logo']['tmp_name'];
-   
-    $curl = new Curl(array(
+    $_POST['company_logo'] = $_FILES['company_logo'];
+  
+    $updateCompany     = new Curl(array(
         'url'           => $apiEndpoint,
         'postData'      => $_POST
-    ));
-    
-    echo json_encode($curl->loadCurl());
- 
+     ));
+
+    echo json_encode($updateCompany->loadFilesData());
 });
 
 //company profile page

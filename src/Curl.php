@@ -60,14 +60,46 @@ class Curl
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION ,1);
         curl_setopt($ch, CURLOPT_HEADER ,0);  // DO NOT RETURN HTTP HEADERS
-       // echo  curl_exec($ch);exit;
+      
         $result = json_decode(curl_exec($ch));
-        
-
+       
         if(!empty($result->data->access_token) && !empty($result->data)){
             $_SESSION["aToken"] = $result->data->access_token;
         }
+        if(isset($result->data->company->code)){
+            $_SESSION["company_code"] = $result->data->company->code;
+        }
+        if(isset($result->data->company->company_id)){
+             $_SESSION["company_id"] = $result->data->company->company_id;
+
+        }
+
         return $result;
     }
+
+    //Files Upload Curl
+    public function loadFilesData ()
+    {
+
+        //Initiate cURL.
+        $ch = curl_init($this->CurlData["url"]);
+                   
+        //Encode the array into JSON.
+        $str = http_build_query($this->CurlData["postData"]);
+
+        //Tell cURL that we want to send a POST request.
+
+        curl_setopt($ch, CURLOPT_POST, 1);
+         
+        //Attach our encoded JSON string to the POST fields.
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $str);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION ,1);
+        curl_setopt($ch, CURLOPT_HEADER ,0);
+
+        $result = curl_exec($ch);
+        return $result;   
+     }
   
 }

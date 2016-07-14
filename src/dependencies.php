@@ -29,3 +29,13 @@ $container['mintmeshLoginKeyStoreService'] = function ($c) {
 $container['mintmeshLoginGrantTypeService'] = function ($c) {
     $_POST['grant_type']    = $c->get('settings')['APP']['PASSWORD_GRANT'];
 };
+
+// grant type access token
+$container['mintmeshAccessToken'] = function ($c) {
+    $_POST['access_token']    = isset($_SESSION['aToken'])?$_SESSION['aToken']:"";
+};
+
+// grant type company
+$container['mintmeshCompanyId'] = function ($c) {
+    $_POST['company_id']    = isset($_SESSION['company_id'])?$_SESSION['company_id']:"";
+};

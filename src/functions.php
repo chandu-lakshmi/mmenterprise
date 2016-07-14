@@ -22,12 +22,10 @@ function authenticate () {
 
 //API URL endpoint from settings
 function getapiEndpoint($settings=array(), $endpoint) {
-
 	$url  = $settings['APP']['API_DOMAIN'];
 	$url .= $settings['API'][$endpoint]['VERSION'];
 	$url .= $settings['API'][$endpoint]['ENDPOINT'];
-
+	//echo $url;exit;
 	return $url;
-
 }
 ?>

@@ -30,7 +30,7 @@ return [
             'PREFIX' => '/enterprise',
 
             // Angular Application domain
-            'APP_DOMAIN' => 'http://192.168.33.10/dev_with_slim/',
+            'APP_DOMAIN' => 'http://192.168.33.10/mintmesh_enterprise/',
 
             // Application API domain
             'API_DOMAIN' => 'http://192.168.33.10/mintmesh/',
@@ -42,42 +42,6 @@ return [
             //Grant Types
             'PASSWORD_GRANT'    => 'password'
         ],
-
-        // API settings
-        'API' => [
-            'login' => [
-                'VERSION'  => 'v1',
-                'ENDPOINT' => '/enterprise/login'
-            ],
-            'create_user' => [
-                'VERSION'  => 'v1',
-                'ENDPOINT' => '/enterprise/create_user'
-            ],
-            'get_industries' => [
-                'VERSION'  => 'v1',
-                'ENDPOINT' => '/get_industries'
-            ],
-            'get_employment_types' => [
-                'VERSION'  => 'v1',
-                'ENDPOINT' => '/get_employment_types'
-            ],
-            'get_experiences' => [
-                'VERSION'  => 'v1',
-                'ENDPOINT' => '/get_experiences'
-            ],
-            'get_job_functions' => [
-                'VERSION'  => 'v1',
-                'ENDPOINT' => '/get_job_functions'
-            ],
-            'update_company' => [
-                'VERSION'  => 'v1',
-                'ENDPOINT' => '/enterprise/update_company'
-            ],
-            'verify_email' => [
-                'VERSION'  => 'v1',
-                'ENDPOINT' => '/enterprise/verify_email'
-            ],
-        ],
-        
+    
     ],
 ];

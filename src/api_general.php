@@ -61,7 +61,6 @@ $app->post('/verify_email',function ($request, $response, $args) use ($app) {
      ));
 
      echo json_encode( $emaiVerify->loadCurl() );
-
 });
 
 
