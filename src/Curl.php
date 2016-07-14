@@ -98,7 +98,7 @@ class Curl
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION ,1);
         curl_setopt($ch, CURLOPT_HEADER ,0);
 
-        $result = curl_exec($ch);
+        $result = json_decode(curl_exec($ch));
         return $result;   
      }
   
