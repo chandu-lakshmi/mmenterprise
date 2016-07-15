@@ -52,12 +52,12 @@ $app->post('/contacts_upload',function ($request, $response, $args) use ($app) {
     // getting API endpoint from settings
     $apiEndpoint = getapiEndpoint($this->settings, 'contacts_upload');
    
-    $bucketList     = new Curl(array(
+    $contactUpload     = new Curl(array(
         'url'           => $apiEndpoint,
         'postData'      => $_POST
      ));
 
-     echo $bucketList->loadFilesData();
+      echo json_encode( $contactUpload->loadFilesData() );
 });
 
 //Bucket List
@@ -112,6 +112,7 @@ $app->post('/post_job',function ($request, $response, $args) use ($app) {
 
      echo json_encode( $bucketList->loadCurl() );
 });
+
 
 //Logout
 $app->get("/logout", function ($request, $response, $args) { 
