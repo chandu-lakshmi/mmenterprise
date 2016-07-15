@@ -4,11 +4,8 @@
 angular.module('app.job.details', [])
 
 .controller('JobDetailsController', [function(){
+
  }]);
-
-
-
-
 
 
 }());

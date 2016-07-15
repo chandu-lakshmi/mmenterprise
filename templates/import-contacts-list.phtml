@@ -6,13 +6,16 @@
 				<!-- logo -->
 				<div class="im-c-head">
 					<h3 class="mrZpdZ pull-left" style="color:#808080"><img src="public/images/back-arrow-black.svg" alt="arrowback" ng-click="ipContactListCtrl.backtoUploadCon()"> Import Contacts</h3>
-					<a href=""><img src="public/images/logo.png" alt="logo" class="import_logo"></a>
+					<a href=""><img src="public/images/company_logo.svg" alt="logo" class="import_logo"></a>
 				</div>
 
 				<!--import contacts-->
 				<div class="import_c_box">
 					<ul class="nav nav-tabs">
-						<li ng-repeat="bucket in ipContactListCtrl.bucket_names" ng-class='{"active":$index==0}'>
+						<li>
+							<a href="" class="active" data-toggle="tab" ng-click="ipContactListCtrl.getInfo(0, 'all')">ALL</a>
+						</li>
+						<li ng-repeat="bucket in ipContactListCtrl.bucket_names">
 							<a href="" data-toggle="tab" ng-click="ipContactListCtrl.getInfo(bucket.bucket_id, bucket.bucket_name)">{{bucket.bucket_name | uppercase}}</a>
 						</li>
 

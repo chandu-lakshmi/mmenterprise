@@ -17,12 +17,12 @@ angular.module('app.engagement.contacts', [])
 	var scope = this;
 
 	$http({
-			method:'get',
-			url:'public/new-referrals.json'
-		}).then(function(response){
-			scope.contacts = response.data;
-			console.log(scope.contacts);
-		});
+		method:'get',
+		url:'public/new-referrals.json'
+	}).then(function(response){
+		scope.contacts = response.data;
+		// console.log(scope.contacts);
+	});
 
 }]);
 

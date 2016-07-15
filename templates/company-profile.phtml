@@ -2,7 +2,7 @@
 <div class="company-profile">
 
 	<header class="text-center">
-		<a href=""><img src="public/images/logo.png" class="logo"></a>
+		<a href=""><img src="public/images/company_logo.svg" class="logo"></a>
 	</header>
 
 	<section>
@@ -23,7 +23,7 @@
 									<md-input-container class="md-block">
 										<label>COMPANY*</label>
 										<img src="public/images/cross.svg" class="feedback" ng-show="compCtrl.comp_name.length >= 1" ng-click="compCtrl.comp_name = ''">
-		  								<input type="text" name="comp_name" ng-model="compCtrl.comp_name" ng-class="{'has-error-border':company_form.comp_name.$invalid && compCtrl.comp1_show_error}" required>
+		  								<input type="text" name="comp_name" ng-model="compCtrl.comp_name" ng-class="{'has-error-border':company_form.comp_name.$invalid && compCtrl.comp1_show_error}" required style="padding-right:42.5px">
 		  								<div ng-if="company_form.comp_name.$error.required && compCtrl.comp1_show_error"  class="has-error-msg">Please Enter Company Name</div>
 									</md-input-container>
 									<md-input-container class="md-block">
@@ -41,10 +41,6 @@
 									<textarea rows="4" class="form-control" id="desc" spellcheck="false" ng-model="compCtrl.desc" maxlength="250"></textarea>
 									<span class="max_length">Remaining {{250 - compCtrl.desc.length}} / 250 left</span>
 								</div>
-								<!-- <md-input-container class="md-block">
-      								<label>Biography</label>
-      								<textarea ng-model="user.biography" md-maxlength="150" rows="5"></textarea>
-    							</md-input-container> -->
 							</div>
 							<div class="company-footer text-center clearfix">
 								<ul class="indicators">

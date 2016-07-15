@@ -23,9 +23,8 @@
 							<div class="form-group">
 								<label for="job_func">Job Function*</label>
 								<i class="fa fa-angle-down fa-feedback" style="color: #F46113"></i>
-								<select class="form-control" id="job_func" name="job_func" ng-model="PtJobCtrl.postJob1.job_func" required>
+								<select class="form-control" id="job_func" name="job_func" ng-model="PtJobCtrl.postJob1.job_func" required ng-options="job_functions.job_function_name for job_functions in PtJobCtrl.job_function">
 									<option selected disabled>Please Select</option>
-									<option ng-repeat="job_functions in PtJobCtrl.job_function">{{job_functions.job_function_name}}</option>
 								</select>
 								<div ng-if="post_job.job_func.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Job Function Field is Required.</div>
 							</div>
@@ -43,9 +42,8 @@
 							<div class="form-group">
 								<label for="industry">Industry*</label>
 								<i class="fa fa-angle-down fa-feedback" style="color: #F46113"></i>
-								<select class="form-control" id="industry" ng-model="PtJobCtrl.postJob1.industry" name="industry" required>
+								<select class="form-control" id="industry" ng-model="PtJobCtrl.postJob1.industry" name="industry" required ng-options="industry.industry_name for industry in PtJobCtrl.industry_list">
 									<option selected disabled>Please Select</option>
-									<option ng-repeat="industries in PtJobCtrl.industry">{{industries.industry_name}}</option>
 								</select>
 								<div ng-if="post_job.industry.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Industry Field is Required.</div>
 							</div>
@@ -54,9 +52,8 @@
 							<div class="form-group">
 								<label for="emp_type">Employment Type*</label>
 								<i class="fa fa-angle-down fa-feedback" style="color: #F46113"></i>
-								<select class="form-control" id="emp_type" ng-model="PtJobCtrl.postJob1.emp_type" name="emp_type" required>
+								<select class="form-control" id="emp_type" ng-model="PtJobCtrl.postJob1.emp_type" name="emp_type" required ng-options="employmentTypes.employment_type_name for employmentTypes in PtJobCtrl.employment_type">
 									<option selected disabled>Please Select</option>
-									<option ng-repeat="employmentTypes in PtJobCtrl.employment_type">{{employmentTypes.employment_type_name}}</option>
 								</select>
 								<div ng-if="post_job.emp_type.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Employment Type Field is Required.</div>
 							</div>
@@ -65,9 +62,8 @@
 							<div class="form-group">
 								<label for="experience">Experience*</label>
 								<i class="fa fa-angle-down fa-feedback" style="color: #F46113"></i>
-								<select class="form-control" id="experience" ng-model="PtJobCtrl.postJob1.experience" name="experience" required>
+								<select class="form-control" id="experience" ng-model="PtJobCtrl.postJob1.experience" name="experience" required ng-options="experiences.experience_name for experiences in PtJobCtrl.experience">
 									<option selected disabled>Please Select</option>
-									<option ng-repeat="experiences in PtJobCtrl.experience">{{experiences.experience_name}}</option>
 								</select>
 								<div ng-if="post_job.experience.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Experience Field is Required.</div>
 							</div>
@@ -94,7 +90,7 @@
 								<textarea class="form-control" id="job_desc" rows="6" ng-model="PtJobCtrl.postJob1.job_desc" name="job_desc" required maxlength="250"></textarea>
 								<div>
 									<div ng-if="post_job.job_desc.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Job Description Field is Required.</div>
-								    <span class="max_length">Remaining {{250 - job_desc.length}} / 250 left</span>
+								    <span class="max_length">Remaining {{250 - PtJobCtrl.postJob1.job_desc.length}} / 250 left</span>
 								</div>
 							</div>
 						</div>
