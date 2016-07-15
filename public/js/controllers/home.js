@@ -49,10 +49,10 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
             var email = scope.signup_form.s_email;
             var lower_email = email.toLowerCase();
             var data = $.param({
-                    fullname: scope.signup_form.s_fname,
-                    company: scope.signup_form.s_cname,
-                    emailid: lower_email,
-                    password: scope.signup_form.s_pass
+                fullname: scope.signup_form.s_fname,
+                company: scope.signup_form.s_cname,
+                emailid: lower_email,
+                password: scope.signup_form.s_pass
             });
 
             var signup = $http({
@@ -94,8 +94,8 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
             scope.load_cond_signin = true;
             scope.default_signin = false;
             var data = $.param({
-                    username : scope.signin_form.l_email,
-                    password : scope.signin_form.l_pass
+                username : scope.signin_form.l_email,
+                password : scope.signin_form.l_pass
             });
 
             var signin = $http({

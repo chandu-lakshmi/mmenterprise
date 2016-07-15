@@ -8,18 +8,14 @@ angular.module('app.rewards', [])
 	var scope = this;
 	
 	$http({
-			method:'get',
-			url:'public/new-referrals.json'
-		}).then(function(response){
-			scope.rewards = response.data;
-			console.log(scope.contacts);
-		});
+		method:'get',
+		url:'public/new-referrals.json'
+	}).then(function(response){
+		scope.rewards = response.data;
+		console.log(scope.contacts);
+	});
+
 }]);
-
-
-
-
-
 
 
 

@@ -3,6 +3,7 @@
 
 angular.module('app.company.profile', [])
 
+// input[type=file] directive(onChange)
 .directive('customOnChange', function() {
   return {
     restrict: 'A',

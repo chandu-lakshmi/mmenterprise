@@ -57,7 +57,6 @@
 	background: #fff;
 }
 .import_logo{
-	width: 150px;
 	padding: 12px 0px 22px;
 	cursor: pointer
 }
@@ -204,7 +203,7 @@
 }
 .im-c-head h3{
   position: absolute;
-  top:25px;
+  top:45px;
 }
 .im-c-head h3 img{
   padding-right: 8px;

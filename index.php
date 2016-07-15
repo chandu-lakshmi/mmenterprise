@@ -10,6 +10,9 @@ require __DIR__ . '/src/config.php';
 
 // Instantiate the app
 $settings = require __DIR__ . "/src/settings".$environment.".php";
+//Api Settings
+$settings['settings']['API'] = require __DIR__ . "/src/api_settings.php"; 
+
 $app = new \Slim\App($settings);
 
 //Functions

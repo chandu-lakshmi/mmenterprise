@@ -185,8 +185,6 @@ input{
     color: #666
 }
 .signin-signup .logo{
-    /*width: 150px;*/
-    width: 200px;
     margin-bottom: 30px;
     padding: 12px 0 0 0;
 }
@@ -261,7 +259,6 @@ input{
     margin: 100px 0 160px 0;
 }
 .verify-page header .logo{
-    width: 150px;
     margin: 20px 0;
     /*padding: 12px 0 0 0;*/
 }

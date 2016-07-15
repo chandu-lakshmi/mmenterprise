@@ -16,7 +16,7 @@
 					</div>
 					<div>
 						<span>Job function:</span>
-						<span>{{post2Ctrl.post_job_result.job_func}}</span>
+						<span>{{post2Ctrl.post_job_result.job_func.job_function_name}}</span>
 					</div>
 					<div>
 						<span>Location:</span>
@@ -24,7 +24,7 @@
 					</div>
 					<div>
 						<span>Experience:</span>
-						<span>{{post2Ctrl.post_job_result.experience}}</span>
+						<span>{{post2Ctrl.post_job_result.experience.experience_name}}</span>
 					</div>
 					<div>
 						<span>Position ID:</span>
@@ -45,59 +45,17 @@
 	<h2>SELECT THE REWARD </h2>
 	<div class="container" style="padding: 40px 15px">
 		<div class="choose-pay row row-centered">
-			<div class="col-lg-3 col-centered" style="color:#D89731;">
-				<div class="amount-pay amount-s">
-					<h4>FREE</h4>
-					<h1 style="visibility: hidden;">&#36; 0</h1>
-					<h4>JUST A THANK YOU </h4>
-					<input type="radio" name="amount-ref" ng-checked="true">
-					<label></label>
-				</div>
-			</div>
-			<div class="col-lg-3 col-centered">
-				<div class="amount-pay">
-					<h4>PAY</h4>
-					<h1>&#36;10</h1>
-					<h4>PER REFERRAL</h4>
-					<input type="radio" name="amount-ref">
-					<label></label>
-				</div>
-			</div>
-			<div class="col-lg-3 col-centered">
-				<div class="amount-pay">
-					<h4>PAY</h4>
-					<h1>&#36;20</h1>
-					<h4>PER REFERRAL</h4>
-					<input type="radio" name="amount-ref">
-					<label></label>
-				</div>
-			</div>
-			<div class="col-lg-3 col-centered">
-				<div class="amount-pay">
-					<h4>PAY</h4>
-					<h1>&#36;50</h1>
-					<h4>PER REFERRAL</h4>
-					<input type="radio" name="amount-ref">
-					<label></label>
-				</div>
-			</div>
-			<div class="col-lg-3 col-centered">
-				<div class="amount-pay">
-					<h4>PAY</h4>
-					<h1>&#36;100</h1>
-					<h4>PER REFERRAL</h4>
-					<input type="radio" name="amount-ref">
-					<label></label>
-				</div>
-			</div>
-			<div class="col-lg-3 col-centered">
-				<div class="amount-pay">
-					<h4>PAY</h4>
-					<h1>&#36;500</h1>
-					<h4>PER REFERRAL</h4>
-					<input type="radio" name="amount-ref">
-					<label></label>
-				</div>
+			<div class="col-lg-3 col-centered" ng-repeat="rewards in post2Ctrl.rewards" ng-init="radio = 'cond'+$index" >
+				<label style="width:100%;margin-bottom:40px;">
+					<div class="amount-pay" ng-class="{'amount-s':rewards == post2Ctrl.rewardCond}">
+						<h4>{{rewards.pay_status | uppercase}}</h4>
+						<h1 ng-if="$index == 0" style="visibility: hidden;">&#36; {{rewards.amount}}</h1>
+						<h1 ng-if="$index != 0">&#36; {{rewards.amount}}</h1>
+						<h4>{{rewards.message | uppercase}}</h4>
+						<input type="radio" name="amount-ref" ng-model="post2Ctrl.rewardCond" ng-value="rewards" ng-click="post2Ctrl.payCond()">
+						<label></label>
+					</div>
+				</label>
 			</div>
 		</div>
 	</div>
@@ -107,35 +65,11 @@
 	<div class="container" style="border-top:1px solid #ccc">
 		<h2 class="text-center" style="color: #388A73;padding: 30px 15px 40px;margin:0">SELECT THE DISTRIBUTION LIST </h2>
 		<div class="row select-type row-centered">
-			<div class="col-lg-3 col-centered">
-				<div class="amount-pay" style="background: #3B8670;" >
-					<!-- <i class="fa fa-plus-circle" ng-click="icon = true" ng-if="!icon"></i>
-				    <i class="fa fa-check-circle-o"  ng-click="icon = false" ng-if="icon"></i> -->
-				    
-				    <img src="public/images/add.svg"  ng-click="post2Ctrl.icon = true" ng-if="!post2Ctrl.icon">
-				    <img src="public/images/select.svg"  ng-click="post2Ctrl.icon = false" ng-if="post2Ctrl.icon">
-				    <h3>EMPLOYEES</h3>
-				</div>
-			</div>
-			<div class="col-lg-3 col-centered" >
-				<div class="amount-pay" style="background: #907942;">
-					<img src="public/images/add.svg"  ng-click="post2Ctrl.icon_c = true" ng-if="!post2Ctrl.icon_c">
-				    <img src="public/images/select.svg"  ng-click="post2Ctrl.icon_c = false" ng-if="post2Ctrl.icon_c">
-				    <h3>CLIENTS</h3>
-				</div>
-			</div>
-			<div class="col-lg-3 col-centered">
-				<div class="amount-pay" style="background: #607D8B;">
-					<img src="public/images/add.svg"  ng-click="post2Ctrl.icon_s = true" ng-if="!post2Ctrl.icon_s">
-				    <img src="public/images/select.svg"  ng-click="post2Ctrl.icon_s = false" ng-if="post2Ctrl.icon_s">
-				    <h3>CANDIDATES</h3>
-				</div>
-			</div>
-			<div class="col-lg-3 col-centered">
-				<div class="amount-pay" style="background: #4574A9;">
-					<img src="public/images/add.svg"  ng-click="post2Ctrl.icon_i = true" ng-if="!post2Ctrl.icon_i">
-				    <img src="public/images/select.svg"  ng-click="post2Ctrl.icon_i = false" ng-if="post2Ctrl.icon_i">
-				    <h3>iOS DEVELOPERS</h3>
+			<div class="col-lg-3 col-centered" ng-repeat="buckets in post2Ctrl.bucket_names">
+				<div class="amount-pay" ng-style="{'background':post2Ctrl.bucketColor[$index]}" ng-init="icon_cond = 'icon'+$index">
+				    <img src="public/images/add.svg"  ng-click="post2Ctrl[icon_cond] = true;post2Ctrl.pushed($index+1)" ng-if="!post2Ctrl[icon_cond]">
+				    <img src="public/images/select.svg"  ng-click="post2Ctrl[icon_cond] = false;post2Ctrl.spliced($index+1)" ng-if="post2Ctrl[icon_cond]">
+				    <h3>{{buckets.bucket_name | uppercase}}</h3>
 				</div>
 			</div>
 		</div>
