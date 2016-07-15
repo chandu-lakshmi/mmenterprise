@@ -139,7 +139,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
                     'Content-Type': undefined
                 },
                 method: 'POST',
-                url: CONFIG.APP_API_DOMAIN + CONFIG.APP_API_VERSION + '/enterprise/contacts_upload',
+                url: CONFIG.APP_DOMAIN+'contacts_upload',
                 data: bucket_data
             });
             upload_contacts.success(function(response) {
@@ -186,7 +186,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         },
         method: 'POST',
-        url: CONFIG.APP_API_DOMAIN + CONFIG.APP_API_VERSION + '/enterprise/buckets_list',
+        url: CONFIG.APP_DOMAIN+'buckets_list',
         data: bucket_list
     })
     get_buckets.success(function(response) {
@@ -198,7 +198,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
 
     var selectedContacts = [];
 
-    var API_CALL = CONFIG.APP_API_DOMAIN + CONFIG.APP_API_VERSION + '/enterprise/contacts_list'
+    var API_CALL = CONFIG.APP_DOMAIN+'contact_list'
 
     this.importContactGrid = function(url, id, type) {
 
