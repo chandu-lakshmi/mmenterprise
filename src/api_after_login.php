@@ -87,7 +87,7 @@ $app->post('/contact_list',function ($request, $response, $args) use ($app) {
     $this->mintmeshCompanyId;
     
     // getting API endpoint from settings
-    $apiEndpoint = getapiEndpoint($this->settings, 'contact_list');
+    $apiEndpoint = getapiEndpoint($this->settings, 'contacts_list');
    
     $bucketList     = new Curl(array(
         'url'           => $apiEndpoint,
