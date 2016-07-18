@@ -14,6 +14,21 @@ angular.module('app.company.profile', [])
   };
 })
 
+// multiple images upload
+.directive('customOnChangeOne', function() {
+  return {
+    restrict: 'A',
+    link: function (scope, element, attrs) {
+      var onChangeFunc = scope.$eval(attrs.customOnChangeOne);
+      var index = attrs.fileIndex;
+      element.bind('change', function customeName(){
+        onChangeFunc(index)
+      });
+    }
+  };
+})
+
+
 
 .controller('CompanyProfileController', ['$state','$window','$http','CONFIG','$scope','$rootScope',function ($state,$window,$http,CONFIG,$scope,$rootScope) {
 
@@ -54,6 +69,26 @@ angular.module('app.company.profile', [])
 
         upload_condition = true;
     };
+
+    /*this.addMultiple = function(index){
+        alert(index);
+        var preview = document.querySelector('#dp-'+index);
+        var files = document.querySelector('#add-image-'+index).files[0];
+        console.log(files)
+        var reader = new FileReader();
+
+        reader.addEventListener("load", function () {
+           preview.src = reader.result;
+           console.log(reader.result)
+         }, false);
+
+         if (files) {
+           reader.readAsDataURL(files);
+         }
+
+    }*/
+
+
     // Uploading Referral Bonus Pdf
     this.uploadPdf = function(){
         var files = this.files[0];

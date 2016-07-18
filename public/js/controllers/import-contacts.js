@@ -35,12 +35,13 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
     }
 }])
 
-.controller('ImportContactsController', ['$state', '$window', '$uibModal', function($state, $window, $uibModal) {
+.controller('ImportContactsController', ['$state', '$window', '$uibModal', '$rootScope', function($state, $window, $uibModal, $rootScope) {
 
     var _this = this;
 
     this.bucketsName = ["employees", "clients", "candidates", "ios developers"];
     var bucketColor = ["#229A77", "#21A4AC", "#EE8F3B", "#2A99E0", "#154c50", "#103954", "#342158", "#5B5B29", "#004D40", "#0E0100"];
+
 
     this.getColor = function(ind) {
         return bucketColor[String(ind).slice(-1)];
@@ -51,10 +52,17 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
         $state.go('importContactsList');
     }
 
-    this.backToCompleteProfile = function() {
+    /*this.backToCompleteProfile = function() {
         $window.scrollTo(0, 0);
         $state.go('companyProfile');
+    }*/
+
+    $rootScope.successUpload = function(bucName,bol,fileName){
+        _this.index = _this.bucketsName.indexOf(bucName)
+        _this.buckMatch = bucName;
+        _this.fileName = fileName;
     }
+
 
     this.fileUploadModal = function(bucketName, color) {
 
@@ -112,6 +120,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
 
 
     this.upload_load_cond = false;
+    this.success_upload = false;
     this.onfileSubmit = function(valid) {
 
         if (!valid) {
@@ -123,13 +132,15 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
             // Sending data to post call
             var bucket_data = new FormData();
             bucket_data.append("access_token", $rootScope.access_token);
-            bucket_data.append("contacts_file", $('input[type=file]#fileUploads')[0].files[0])
-            bucket_data.append("company_id", $rootScope.company_code);
+            bucket_data.append("contacts_file", $('input[type=file]#fileUploads')[0].files[0]);
+            bucket_data.append("company_id", $rootScope.company_id);
             bucket_data.append("is_bucket_new", scope.new_bucket_flag);
             if (scope.newBucket) {
                 bucket_data.append("bucket_name", scope.customName);
+                scope.name = scope.customName;
             } else {
                 bucket_data.append("bucket_name", bucketName);
+                scope.name = bucketName;
             }
             bucket_data.append("bucket_id", bucket_id);
 
@@ -148,7 +159,11 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
                     if (scope.newBucket) {
                         scope.bucket.All.push(scope.customName);
                     }
-                    $uibModalInstance.dismiss('cancel');
+                    scope.success_upload = true;
+                    scope.success = response.message[0];
+                    console.log(bucket_data)
+                    $rootScope.successUpload(scope.name,scope.success_upload,$('input[type=file]#fileUploads')[0].files[0].name)
+                    // $uibModalInstance.dismiss('cancel');
                 } else if (response.status_code == 403) {
                     scope.upload_load_cond = false;
                     if (response.message.hasOwnProperty('contacts_file')) {
@@ -178,7 +193,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
     // For getting bucket names
     var bucket_list = $.param({
         access_token: $rootScope.access_token,
-        company_id: $rootScope.company_code
+        company_id: $rootScope.company_id
     });
 
     var get_buckets = $http({
@@ -251,11 +266,11 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
 
         function updateRowSelection(row) {
             console.log(row);
-            if (row.isSelected) {alert("if");
+            if (row.isSelected) {
                 if (selectedContacts.indexOf(row.entity.record_id) == -1) {
                     selectedContacts.push(row.entity.record_id);
                 }
-            } else {alert("else");
+            } else {
                 var index = selectedContacts.indexOf(row.entity.record_id);
                 if (index > -1) {
                     selectedContacts.splice(index, 1);
@@ -275,7 +290,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
 
             var list = $.param({
                 access_token: $rootScope.access_token,
-                company_id: $rootScope.company_code,
+                company_id: $rootScope.company_id,
                 bucket_id: id,
                 page_no: $scope.page_size
             });
@@ -420,13 +435,18 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
 
 
     this.importSelect = function() {
-        $uibModal.open({
-            animation: false,
-            templateUrl: 'templates/dialogs/custom-msg.phtml',
-            openedClass: "import_verify",
-            controller: 'modalCtrl',
-            controllerAs: "ctrl"
-        });
+        if(selectedContacts.length == 0){
+            alert("please select alteast one contact to invite")
+        }
+        else{
+            $uibModal.open({
+                animation: false,
+                templateUrl: 'templates/dialogs/custom-msg.phtml',
+                openedClass: "import_verify",
+                controller: 'modalCtrl',
+                controllerAs: "ctrl"
+            });
+        }
     }
 
     this.backtoUploadCon = function() {

@@ -387,7 +387,7 @@ input{
     color: #BDBDBD;
 }
 .company-content .description{
-    padding: 25px 0 25px 0;
+    padding: 25px 0 40px 0;
     border-bottom: 1px solid #ccc;
 }
 .company-content .description label{
@@ -517,7 +517,7 @@ input{
     margin: 0;
 }
 .go_2 .company-content{
-    min-height: 570px;
+    min-height: 613px;
 }
 .cmp-size span{
     display: block;

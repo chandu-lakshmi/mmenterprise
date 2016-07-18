@@ -20,6 +20,7 @@
             <span ng-if="fileup.file.$error.required && fileUp.error_msg_show" class="error-file">Please Choose File</span>
             <!-- Backend Errors -->
             <span class="error-file">{{fileUp.inValidFile}}</span>
+            <span ng-style="{'color':fileUp.bucket.color}">{{fileUp.success}}</span>
 
             <ul class="hints">
                 <li>Only .csv and .xlsx files are allowed.</li>
@@ -29,7 +30,8 @@
         <div class="modal-footer" style="background: #e9e9e9">
        
             <input class="btn btn-link pull-left" style="outline:0;padding:6px 0px;text-align:left" ng-style='{color:fileUp.bucket.color}' ng-click="$dismiss()" value="Cancel">
-           <img src="public/images/loader/upload_file.gif" alt="loader" ng-if="fileUp.upload_load_cond">&nbsp;&nbsp;<button class="btn" type="submit" ng-style='{{fileUp.obj}}'  style="border-radius:0;background:#fff">Upload</button>
+           <img src="public/images/loader/upload_file.gif" alt="loader" ng-if="fileUp.upload_load_cond">&nbsp;&nbsp;<button class="btn" type="submit" ng-style='{{fileUp.obj}}'  style="border-radius:0;background:#fff" ng-if="!fileUp.success_upload">Upload</button>
+           <button class="btn" ng-style='{{fileUp.obj}}'  style="border-radius:0;background:#fff" ng-click="$dismiss()" ng-if="fileUp.success_upload">OK</button>
         </div>
     </form>
 </div>
