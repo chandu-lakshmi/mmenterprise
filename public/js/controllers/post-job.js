@@ -142,7 +142,7 @@ angular.module('app.post.job', ['ngAutocomplete'])
       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
     },
     method: 'POST',
-    url: CONFIG.APP_API_DOMAIN+CONFIG.APP_API_VERSION+'/enterprise/buckets_list',
+    url: CONFIG.APP_DOMAIN+'buckets_list',
     data: bucket_list
   })
   get_buckets.success(function(response){
@@ -193,7 +193,7 @@ angular.module('app.post.job', ['ngAutocomplete'])
          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
       },
       method: 'POST',
-      url: CONFIG.APP_API_DOMAIN+CONFIG.APP_API_VERSION+'/enterprise/post_job',                               
+      url: CONFIG.APP_DOMAIN+'post_job',                               
       data: post_job
     })
 

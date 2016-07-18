@@ -38,5 +38,5 @@ $container['mintmeshAccessToken'] = function ($c) {
 // grant type company
 $container['mintmeshCompanyId'] = function ($c) {
     $_POST['company_id']    = isset($_SESSION['company_id'])?$_SESSION['company_id']:"";
-    $_POST['company_code']    = isset($_SESSION['company_code'])?$_SESSION['company_code']:"";
+   $_POST['company_code']    = isset($_SESSION['company_code'])?$_SESSION['company_code']:"";
 };

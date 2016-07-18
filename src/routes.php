@@ -9,7 +9,7 @@ $app->get('/', function ($request, $response, $args) {
 
     //Check Logged - If it is login it redirects to dashboard page
     if(empty(authenticate())){
-      return $response->withRedirect($args['APP_DOMAIN']."dash/dashboard");
+      return $response->withRedirect($args['APP_DOMAIN']."dashboard");
     }
     // Render index view
     return $this->renderer->render($response, 'index.phtml', $args);
@@ -26,7 +26,7 @@ $app->get('/login', function ($request, $response, $args) {
 
     //Check Logged - If it is login it redirects to dashboard page
     if(empty(authenticate())){
-     return $response->withRedirect($args['APP_DOMAIN']."dash/dashboard");
+     return $response->withRedirect($args['APP_DOMAIN']."dashboard");
     }
     // Render index view
     return $this->renderer->render($response, 'index.phtml', $args);
@@ -44,7 +44,7 @@ $app->get('/email-verify', function ($request, $response, $args) {
     
     //Check Logged - If it is login it redirects to dashboard page
     if(empty(authenticate())){
-      return $response->withRedirect($args['APP_DOMAIN']."dash/dashboard");
+      return $response->withRedirect($args['APP_DOMAIN']."dashboard");
     }
     
     // Render index view
@@ -81,7 +81,7 @@ $app->get('/company-profile1', function ($request, $response, $args) {
         // Render index view
          return $this->renderer->render($response, 'index.phtml', $args);
     }else{
-         return $response->withRedirect($args['APP_DOMAIN']."dash/dashboard");
+         return $response->withRedirect($args['APP_DOMAIN']."dashboard");
     }
     
 });

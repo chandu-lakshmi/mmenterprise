@@ -42,9 +42,9 @@ return [
                 'VERSION'  => 'v1',
                 'ENDPOINT' => '/enterprise/buckets_list'
             ],
-            'contact_list' => [
+            'contacts_list' => [
                 'VERSION'  => 'v1',
-                'ENDPOINT' => '/enterprise/contact_list'
+                'ENDPOINT' => '/enterprise/contacts_list'
             ],
             'contacts_upload' => [
                 'VERSION'  => 'v1',
