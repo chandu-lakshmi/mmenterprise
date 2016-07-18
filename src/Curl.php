@@ -80,10 +80,8 @@ class Curl
     //Files Upload Curl
     public function loadFilesData ()
     {
-
         //Initiate cURL.
         $ch = curl_init($this->CurlData["url"]);
-                   
         //Encode the array into JSON.
         $str = http_build_query($this->CurlData["postData"]);
 

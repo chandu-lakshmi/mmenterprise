@@ -1,14 +1,14 @@
 <?php
 //Dashboard Page
-$app->get('/dash/dashboard',function ($request, $response, $args) use ($app) {
+$app->get('/dashboard',function ($request, $response, $args) use ($app) {
     //Arguments
     $args       = commonArgs($this->settings);
-    
-    //Check Logged in or not
+   //echo $_SESSION["atoken"];exit;
+     //Check Logged in or not
     if(!empty(authenticate())){
       return $response->withRedirect($args['APP_DOMAIN']);
     }
-
+   
     // Render dashboard view
     return $this->renderer->render($response, 'index.phtml', $args);
 });
@@ -48,7 +48,8 @@ $app->post('/contacts_upload',function ($request, $response, $args) use ($app) {
     $this->mintmeshCompanyId;
     
     $_POST['contacts_file'] = $_FILES['contacts_file'];
-
+    //print_r($_POST);exit;
+   
     // getting API endpoint from settings
     $apiEndpoint = getapiEndpoint($this->settings, 'contacts_upload');
    
