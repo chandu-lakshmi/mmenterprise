@@ -220,6 +220,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
     })
 
     var selectedContacts = [];
+    var selectedContacts1 = [];
 
     var API_CALL = CONFIG.APP_DOMAIN+'contact_list';
 
@@ -277,11 +278,14 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
             if (row.isSelected) {
                 if (selectedContacts.indexOf(row.entity.other_id) == -1) {
                     selectedContacts.push(row.entity.other_id);
+                    selectedContacts1.push(row.entity.record_id);
                 }
             } else {
                 var index = selectedContacts.indexOf(row.entity.other_id);
+                var index1 = selectedContacts.indexOf(row.entity.record_id);
                 if (index > -1) {
                     selectedContacts.splice(index, 1);
+                    selectedContacts1.splice(index1,1);
                 }
             }
         }
@@ -457,7 +461,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
                 controllerAs: "ctrl",
                 resolve: {
                 listContacts: function() {
-                    return selectedContacts;
+                    return selectedContacts1;
                 }
             },
             });
@@ -542,8 +546,6 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
             email_subject : scope.subject,
             email_body :scope.body
         });
-        console.log(list);
-        console.log(paramas);
         var invite_contacts = $http({
             headers: {
                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -561,7 +563,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
         invite_contacts.error(function(response){
             console.log(response)
         })
-        
+
     };
     
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
