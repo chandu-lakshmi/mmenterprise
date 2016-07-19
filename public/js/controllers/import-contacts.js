@@ -35,7 +35,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
     }
 }])
 
-.controller('ImportContactsController', ['$state', '$window', '$uibModal', '$rootScope', function($state, $window, $uibModal, $rootScope) {
+.controller('ImportContactsController', ['$state', '$window', '$uibModal', '$rootScope', 'CONFIG', function($state, $window, $uibModal, $rootScope, CONFIG) {
 
     var _this = this;
 
@@ -52,10 +52,16 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
         $state.go('importContactsList');
     }
 
+     this.downloadSample = function(){
+        window.location.href = CONFIG.APP_DOMAIN+'downloadcsv';
+    }
+
     /*this.backToCompleteProfile = function() {
         $window.scrollTo(0, 0);
         $state.go('companyProfile');
     }*/
+
+    _this.path = CONFIG.APP_DOMAIN+'public/downloads/sample_template.xlsx';
 
     $rootScope.successUpload = function(bucName,bol,fileName){
         _this.index = _this.bucketsName.indexOf(bucName)
@@ -131,9 +137,10 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
 
             // Sending data to post call
             var bucket_data = new FormData();
-            bucket_data.append("access_token", $rootScope.access_token);
+            //bucket_data.append("access_token", $rootScope.access_token);
             bucket_data.append("contacts_file", $('input[type=file]#fileUploads')[0].files[0]);
-            bucket_data.append("company_id", $rootScope.company_id);
+            //bucket_data.append("company_id", $rootScope.company_id);
+            // bucket_data.append("company_code",$rootScope.company_code)
             bucket_data.append("is_bucket_new", scope.new_bucket_flag);
             if (scope.newBucket) {
                 bucket_data.append("bucket_name", scope.customName);
@@ -160,12 +167,13 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
                         scope.bucket.All.push(scope.customName);
                     }
                     scope.success_upload = true;
+                    scope.success = true;
                     scope.success = response.message[0];
-                    console.log(bucket_data)
                     $rootScope.successUpload(scope.name,scope.success_upload,$('input[type=file]#fileUploads')[0].files[0].name)
                     // $uibModalInstance.dismiss('cancel');
                 } else if (response.status_code == 403) {
                     scope.upload_load_cond = false;
+                    scope.success = false;
                     if (response.message.hasOwnProperty('contacts_file')) {
                         scope.inValidFile = response.message.contacts_file[0];
                     } else {
@@ -213,7 +221,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
 
     var selectedContacts = [];
 
-    var API_CALL = CONFIG.APP_DOMAIN+'contact_list'
+    var API_CALL = CONFIG.APP_DOMAIN+'contact_list';
 
     this.importContactGrid = function(url, id, type) {
 
@@ -226,7 +234,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
             rowHeight: 35,
 
             columnDefs: [{
-                name: 'record_id',
+                name: 'other_id',
                 displayName: 'Employee ID/Other ID'
             }, {
                 name: 'firstname',
@@ -265,13 +273,13 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
         };
 
         function updateRowSelection(row) {
-            console.log(row);
+
             if (row.isSelected) {
-                if (selectedContacts.indexOf(row.entity.record_id) == -1) {
-                    selectedContacts.push(row.entity.record_id);
+                if (selectedContacts.indexOf(row.entity.other_id) == -1) {
+                    selectedContacts.push(row.entity.other_id);
                 }
             } else {
-                var index = selectedContacts.indexOf(row.entity.record_id);
+                var index = selectedContacts.indexOf(row.entity.other_id);
                 if (index > -1) {
                     selectedContacts.splice(index, 1);
                 }
@@ -305,15 +313,16 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
             })
 
             .then(function(response) {
-                $scope.gridOptions.data = response.data.data;
-                var newData = $scope.getPage(response.data.data, $scope.lastPage);
+
+                //$scope.gridOptions.data = response.data.Contacts_list;
+                var newData = $scope.getPage(response.data.data.Contacts_list, $scope.lastPage);
 
                 var selectedCount = 0;
 
                 setTimeout(function() {
                     for (var i = 0; i < selectedContacts.length; i++) {
                         for (var j = 0; j < newData.length; j++) {
-                            if (selectedContacts[i] == newData[j].record_id) {
+                            if (selectedContacts[i] == newData[j].other_id) {
                                 $scope.gridApi.selection.selectRow(newData[j])
                                 selectedCount++;
                                 break;
@@ -352,7 +361,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
 
             .then(function(response) {
 
-                var newData = $scope.getPage(response.data.data, $scope.lastPage);
+                var newData = $scope.getPage(response.data.data.Contacts_list, $scope.lastPage);
                 $scope.gridApi.infiniteScroll.saveScrollPercentage();
                 $scope.data = $scope.data.concat(newData);
 
@@ -440,16 +449,23 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
         }
         else{
             $uibModal.open({
-                animation: false,
+                animation: true,
+                backdrop: 'static',
                 templateUrl: 'templates/dialogs/custom-msg.phtml',
                 openedClass: "import_verify",
                 controller: 'modalCtrl',
-                controllerAs: "ctrl"
+                controllerAs: "ctrl",
+                resolve: {
+                listContacts: function() {
+                    return selectedContacts;
+                }
+            },
             });
         }
     }
 
     this.backtoUploadCon = function() {
+        $scope.data = [];
         $window.scrollTo(0, 0);
         $state.go('importContacts');
     }
@@ -513,15 +529,46 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
 
 }])
 
-.controller('modalCtrl', ['$uibModalInstance', function($uibModalInstance) {
+.controller('modalCtrl', ['$scope', '$uibModalInstance', 'listContacts', '$http', 'CONFIG', function($scope, $uibModalInstance,listContacts,$http,CONFIG) {
 
     this.successMsg = false;
+    var scope = this;
+
     this.invite = function() {
-        this.successMsg = true;
+
+        var list = listContacts.toString();
+        var paramas = $.param({
+            invite_contacts : list,
+            email_subject : scope.subject,
+            email_body :scope.body
+        });
+        console.log(list);
+        console.log(paramas);
+        var invite_contacts = $http({
+            headers: {
+               'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
+            method: 'POST',
+            url: CONFIG.APP_DOMAIN+'email_invitation',
+            data: paramas
+        })
+        invite_contacts.success(function(response){
+            console.log(response)
+            if(response.status_code == 200){
+                scope.successMsg = true;
+            }
+        })
+        invite_contacts.error(function(response){
+            console.log(response)
+        })
+        
     };
-    window.onhashchange = function() {
+    
+    $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+
         $uibModalInstance.dismiss('cancel');
-    }
+
+    })
 
 }]);
 

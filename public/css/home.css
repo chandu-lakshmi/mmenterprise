@@ -198,14 +198,14 @@ input{
 .signin-signup .briefcase img,.signin-signup .chart img{
     margin-bottom: 20px;
 }
-.signin-signup .sign-up-box,.signin-signup .sign-in-box,.signin-signup .verification-box{
+.signin-signup .sign-up-box,.signin-signup .sign-in-box,.signin-signup .verification-box,.signin-signup .forgot-password-box{
     width: 100%;
     border: 1px solid #ccc;
     margin: 0 auto;
     padding: 15px;
     background: #fff;
 }
-.signin-signup .sign-in-box,.signin-signup .verification-box{
+.signin-signup .sign-in-box,.signin-signup .verification-box,.signin-signup .forgot-password-box{
     margin-top: 100px;
 }
 .signin-signup .verification-box{
@@ -253,6 +253,33 @@ input{
     margin-top: 20px;
     color: #797979;
 }
+/*Forgot Password*/
+.signin-signup .sign-in-box a.forgot-link{
+    display: block;
+    margin: 0px 0px 18px;
+    text-align: right;
+    color: #219070;
+}
+.signin-signup .forgot-password-box{
+    padding: 50px 15px 0px;
+}
+.signin-signup .forgot-password-box .forgot-password-header{
+    margin-bottom: 40px;
+}
+.signin-signup .forgot-password-box .forgot-password-header p{
+    font-size: 19px;
+    text-align: center;
+    padding: 0px 0px 20px;
+}
+.signin-signup .forgot-password-box .back-to-home{
+    text-align: center;
+    padding: 20px 0 35px;
+    font-size: 19px
+}
+.signin-signup .forgot-password-box .back-to-home span{
+    cursor: pointer;
+}
+
 
 /*Verify Styles*/
 .verify-page{

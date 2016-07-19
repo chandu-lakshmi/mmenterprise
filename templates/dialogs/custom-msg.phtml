@@ -6,11 +6,11 @@
     <div class="modal-body" style="padding: 4%;">
         <div class="input_subj">
             <label>Subject:</label>
-            <input type="text" value="Welcome to MintMesh Enterprise">
+            <input type="text" value="Welcome to MintMesh Enterprise" ng-model="ctrl.subject">
         </div>
         <div  class="text_area">
             <label>Message:</label>
-            <textarea rows="4" spellcheck="false">We bring this powerful referral  platform to you. Please download the app and sign up. We are excited to have you be a part of our success here at Enterpi.</textarea>
+            <textarea rows="4" spellcheck="false" ng-model="ctrl.body">We bring this powerful referral  platform to you. Please download the app and sign up. We are excited to have you be a part of our success here at Enterpi.</textarea>
         </div>
     </div>
     <div class="modal-footer" style="background:#E3E3E3">

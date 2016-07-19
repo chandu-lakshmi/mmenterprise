@@ -50,5 +50,9 @@ return [
                 'VERSION'  => 'v1',
                 'ENDPOINT' => '/enterprise/contacts_upload'
             ],
+            'email_invitation' => [
+                'VERSION'  => 'v1',
+                'ENDPOINT' => '/enterprise/email_invitation'
+            ],
     ];
         

@@ -33,7 +33,7 @@
 								{{bucketName | uppercase}}
 								</div>
 								<h6>
-									<a href="/public/downloads/sample template.xlsx" download ng-if="$index != importCtrl.index">DOWNLOAD TEMPLATE</a>
+									<a href="" ng-click="importCtrl.downloadSample()" download ng-if="$index != importCtrl.index">DOWNLOAD TEMPLATE</a>
 									<a href="" ng-if="$index == importCtrl.index">{{importCtrl.fileName}}</a>
 								</h6>
 							</div>
@@ -42,7 +42,7 @@
 								<img src="public/images/upload.svg">
 								{{obj[1]}}
 								</div>
-								<h6><a href="/public/downloads/sample template.xlsx" download>DOWNLOAD TEMPLATE</a></h6>
+								<h6><a href="" ng-click="importCtrl.downloadSample()" download>DOWNLOAD TEMPLATE</a></h6>
 							</div>
 						</div>
 					</div>

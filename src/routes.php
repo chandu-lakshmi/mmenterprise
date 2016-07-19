@@ -58,7 +58,7 @@ $app->post('/update_company', function ($request, $response, $args) use ($app) {
     $apiEndpoint = getapiEndpoint($this->settings, 'update_company');
 
     $_POST['company_logo'] = $_FILES['company_logo'];
-  
+    //print_r($_POST);exit;
     $updateCompany     = new Curl(array(
         'url'           => $apiEndpoint,
         'postData'      => $_POST
@@ -76,6 +76,7 @@ $app->get('/company-profile1', function ($request, $response, $args) {
     // dynamically Access Token, Company id
     $this->mintmeshAccessToken;
     $this->mintmeshCompanyId;
+    
     //Check Logged - If it is login it redirects to dashboard page
     if(empty(authenticate())){
         // Render index view
@@ -129,6 +130,26 @@ $app->post('/create_user', function ($request, $response, $args) use ($app) {
     
     echo json_encode($curl->loadCurl());
  
+});
+
+// download sample csv
+$app->get('/downloadcsv', function ($request, $response, $args) use ($app) {
+
+
+    $file = __DIR__ .'/../public/downloads/sample_template.xlsx';
+
+    if (file_exists($file)) {
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename="'.basename($file).'"');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize($file));
+        readfile($file);
+        exit;
+    } 
+     
 });
 
 // Register routes After Login

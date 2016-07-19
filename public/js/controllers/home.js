@@ -35,6 +35,31 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
         scope.signin_form = {};
     }
 
+    // Forgot Password
+    scope.forgot_show = function(){
+        scope.signin_show = false;
+        if(scope.dublicate_email == true){
+            scope.dublicate_email = false;
+        }
+        scope.login_show_error = false;
+        scope.forgotObj = {};
+        scope.forgot_password_show = true;
+    }
+    scope.forgot_cancel = function(){
+        if(scope.email_show_error == true){
+            scope.email_show_error = false;
+        }
+        scope.forgot_password_show = false;
+        scope.signin_show = true;
+    }
+
+    scope.email_show_error = false;
+    scope.forgotPassword = function(isValid){
+        if(!isValid){
+            scope.email_show_error = true;
+        }
+    }
+
     /*  Signup Form Submit  */
     scope.dublicate_email = false;
     scope.signup_show_error = false;

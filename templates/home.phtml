@@ -24,17 +24,37 @@
 					                     	<div ng-if="signin_form.l_email.$error.required && homeCtrl.login_show_error" class="has-error-msg">Please Enter Email Address.</div>
 					                     	<div ng-if="signin_form.l_email.$error.pattern && homeCtrl.login_show_error" class="has-error-msg">Please Enter Valid Email Address.</div>
 										</md-input-container>
-										<md-input-container class="md-block">
+										<md-input-container class="md-block" style="margin-bottom:0">
 											<label for="l_pass">Password*</label>
 		      								<input type="password" id="l_pass" name="l_pass" ng-model="homeCtrl.signin_form.l_pass" required ng-pattern="/^(?=.*[a-zA-Z0-9]).{6,16}$/"  ng-class="{'has-error-border':signin_form.l_pass.$invalid && homeCtrl.login_show_error}">
 		      								<div ng-if="signin_form.l_pass.$error.required && homeCtrl.login_show_error" class="has-error-msg">Password Field is Required.</div>
 						                    <div ng-if="signin_form.l_pass.$error.pattern && homeCtrl.login_show_error" class="has-error-msg">Please Enter Atleast 6 characters.</div>
 										</md-input-container>
+										<a href="" class="forgot-link" ng-click="homeCtrl.forgot_show()"><strong>Forgot Password</strong></a>
 										<button class="btn btn-lg btn-style btn-block">SIGN IN &nbsp;&nbsp;<img src="public/images/arrow-buttons.svg" style="margin-top: -2px;" ng-if="homeCtrl.default_signin"><img src="public/images/loader/butt_loader.gif" ng-if="homeCtrl.load_cond_signin" width="30px" style="margin-top: -2px;"></button>
 										<p class="text-center" style="margin-top: 15px;">Don't have an account yet? <strong><a href="" ng-click="homeCtrl.signup()">SIGN UP</a></strong></p>
 									</form>
 								</div>
 							</div>
+							<!-- Forgot Password -->
+							<div class="forgot-password-box" ng-if="homeCtrl.forgot_password_show">
+								<div class="forgot-password-header">
+									<p>We will send an email to your registered email id with the instructions to reset your password</p>
+								</div>
+								<div class="forgot-password-content">
+									<form name="forgot_password" ng-submit="homeCtrl.forgotPassword(forgot_password.$valid)" novalidate>
+										<md-input-container class="md-block">
+											<label for="forgot_email">Enter Email Address*</label>
+											<input type="email" id="forgot_email" name="forgot_email" ng-model="homeCtrl.forgotObj.forgot_email" required ng-pattern="/^[a-z0-9A-Z._%+-]+@[a-zA-Z]+\.[a-z]{2,3}$/" ng-class="{'has-error-border':forgot_password.forgot_email.$invalid && homeCtrl.email_show_error}">
+				                     		<div ng-if="forgot_password.forgot_email.$error.required && homeCtrl.email_show_error" class="has-error-msg">Please Enter Email Address.</div>
+				                     		<div ng-if="forgot_password.forgot_email.$error.pattern && homeCtrl.email_show_error" class="has-error-msg">Please Enter Valid Email Address.</div>
+										</md-input-container>
+										<button class="btn btn-lg btn-style btn-block">RESET NOW</button>
+									</form>
+									<div class="back-to-home"><span ng-click="homeCtrl.forgot_cancel()">Cancel</span></div>
+								</div>
+							</div>
+
 							<!-- SIGNUP BOX -->
 							<div class="sign-up-box" ng-if="homeCtrl.signup_show" id="signup_form">
 								<div class="sign-up-box-header text-center">
