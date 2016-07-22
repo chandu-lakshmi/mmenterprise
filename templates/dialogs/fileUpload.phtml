@@ -7,7 +7,7 @@
             <div ng-if="!fileUp.success_upload">
                 <div ng-if="fileUp.newBucket">
 
-                    <input placeholder="BucketName" bucket-name-chk my-bucket={{fileUp.bucketNames}} my-name={{fileUp.customName}} name="customName" ng-model="fileUp.customName" required type="text" id="bucketName">
+                    <input placeholder="Bucket Name" bucket-name-chk my-bucket={{fileUp.bucketNames}} my-name={{fileUp.customName}} name="customName" ng-model="fileUp.customName" required type="text" id="bucketName">
                     
                     <span style="color:red;display:inline-block" ng-show="fileup.customName.$error.required && fileUp.error_msg_show">Bucket Name Field is Required</span>
                     <span style="color:red;display:inline-block" ng-show="fileup.customName.$error.bucketmatch && fileUp.error_msg_show">Bucket Name Already Exists</span>
