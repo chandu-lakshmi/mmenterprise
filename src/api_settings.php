@@ -54,5 +54,9 @@ return [
                 'VERSION'  => 'v1',
                 'ENDPOINT' => '/enterprise/email_invitation'
             ],
+            'post_job' => [
+                'VERSION'  => 'v1',
+                'ENDPOINT' => '/enterprise/post_job'
+            ],
     ];
         

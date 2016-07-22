@@ -316,6 +316,11 @@ input{
 
 
 /*Company Profile Styles*/
+.company-profile .error-spacer{
+    float: right;
+    min-height: 24px;
+    min-width: 1px;
+}
 .company-profile{
     background: #f2f2f2;
     height: 100%;

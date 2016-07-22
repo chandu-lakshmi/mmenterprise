@@ -5,6 +5,9 @@ session_start();
 
 DEFINE("DIR_PATH",__DIR__);
 
+//Curl errors Flag
+DEFINE("CRUL_ERROR_FLAG",1);
+
 // for setting up global configs
 require __DIR__ . '/src/config.php';
 

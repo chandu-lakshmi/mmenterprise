@@ -51,7 +51,6 @@ class Curl
         //Post data Checking, if exist then posting here
 
         if (isset($this->CurlData["postData"]) && is_array($this->CurlData["postData"])) {
-           // print_r($this->CurlData["postData"]);exit;
             curl_setopt($ch, CURLOPT_POST ,1);
             curl_setopt($ch, CURLOPT_POSTFIELDS , $this->CurlData["postData"]);
         }
@@ -61,21 +60,25 @@ class Curl
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION ,1);
         curl_setopt($ch, CURLOPT_HEADER ,0);  // DO NOT RETURN HTTP HEADERS
       
-        $result = json_decode(curl_exec($ch));
-       
-        if(!empty($result->data->access_token) && !empty($result->data)){
-            $_SESSION["aToken"] = $result->data->access_token;
+       $result = json_decode(curl_exec($ch));
+        if(CRUL_ERROR_FLAG == 1){
+            $json_errors = array(
+                JSON_ERROR_NONE => '1',
+                JSON_ERROR_DEPTH => 'The maximum stack depth has been exceeded',
+                JSON_ERROR_CTRL_CHAR => 'Control character error, possibly incorrectly encoded',
+                JSON_ERROR_SYNTAX => 'Syntax error',
+            );
+            if($json_errors[json_last_error()] == "1"){
+                $this->sessionData($result->data);
+                return $result; 
+            }else{
+                echo curl_exec($ch);exit;
+            }
+        }else{
+           $this->sessionData($result->data);
+           return $result; 
         }
-        if(isset($result->data->company->code)){
-            $_SESSION["company_code"] = $result->data->company->code;
-        }
-        if(isset($result->data->company->company_id)){
-             $_SESSION["company_id"] = $result->data->company->company_id;
-
-        }
-
-        return $result;
-    }
+  }
 
     //Files Upload Curl
     public function loadFilesData ()
@@ -97,7 +100,44 @@ class Curl
         curl_setopt($ch, CURLOPT_HEADER ,0);
 
         $result = json_decode(curl_exec($ch));
-        return $result;   
+        if(CRUL_ERROR_FLAG == 1){
+            $json_errors = array(
+                JSON_ERROR_NONE => '1',
+                JSON_ERROR_DEPTH => 'The maximum stack depth has been exceeded',
+                JSON_ERROR_CTRL_CHAR => 'Control character error, possibly incorrectly encoded',
+                JSON_ERROR_SYNTAX => 'Syntax error',
+            );
+            if($json_errors[json_last_error()] == "1"){
+                return $result; 
+            }else{
+                echo curl_exec($ch);exit;
+            }
+        }else{
+           return $result; 
+        }
+      
+     }
+
+     //Session Data
+     public function sessionData($data){
+        
+
+        if(!empty($data->access_token) && !empty($data)){
+            $_SESSION["aToken"] = $data->access_token;
+        }
+        if(isset($data->company->code)){
+            $_SESSION["company_code"] = $data->company->code;
+        }
+        if(isset($data->company->company_id)){
+             $_SESSION["company_id"] = $data->company->company_id;
+        }
+        if(isset($data->company->name)){
+            $_SESSION["company_name"] = $data->company->name;
+        }
+        if(isset($data->company->logo)){
+             $_SESSION["company_logo"] = $data->company->logo;
+        }
+            
      }
   
 }

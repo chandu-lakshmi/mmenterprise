@@ -9,7 +9,8 @@
 				</div>
 
 				<!--import contacts header-->
-				<div class="row import_c_box" style='padding-bottom: 17px;'>
+				<div class="row import_c_box" style='padding-bottom: 17px;position:relative'>
+						
 					<div class="col-sm-12" style="border-bottom:1px solid #ccc;">
 						<div style="padding:22px 0px;">
 							<!-- <img src="public/images/arrow-back.svg" alt="arrowback" class="pull-left" ng-click="importCtrl.backToCompleteProfile()"> -->
@@ -25,12 +26,19 @@
 								<span style="color:gray">Organize your contacts in one of the groups below or create your own</span>
 							</div>
 						</div>
-
-						<div class="div-btn row">
-							<div ng-repeat="bucketName in importCtrl.bucketsName" class="col-lg-4"  ng-init="color=importCtrl.getColor($index)" id="{{bucketName}}">
-								<div ng-style='{"background":color}' ng-click="importCtrl.fileUploadModal(bucketName, color)">
+						<div class="grid-msg-overlay loader" ng-if="importCtrl.loader">
+		          			<div class="msg" style="background: transparent;border:0;top:45%">
+					            <span>
+					              <img src="public/images/loader/upload_file.gif" alt="loader">
+					            </span>
+		          			</div>
+					    </div>
+						<div class="div-btn row" ng-if="!importCtrl.loader">
+							<div ng-repeat="bucketName in importCtrl.bucketsName" class="col-lg-4"  ng-init="color=importCtrl.getColor($index)">
+								<div ng-style='{"background":color}' ng-click="importCtrl.fileUploadModal(bucketName.bucket_name, color,bucketName.bucket_id)" style="position:relative">
 								<img src="public/images/upload.svg">
-								{{bucketName | uppercase}}
+								<span class="text-alignment-bucketName" title="{{bucketName.bucket_name | uppercase}}">{{bucketName.bucket_name | uppercase}}</span>
+								<i class="file-name" title="{{importCtrl.fileNames[$index]}}">{{importCtrl.fileNames[$index]}}</i>
 								</div>
 								<h6>
 									<a href="" ng-click="importCtrl.downloadSample()" download ng-if="$index != importCtrl.index">DOWNLOAD TEMPLATE</a>
@@ -40,11 +48,12 @@
 							<div  class="col-lg-4" ng-init="obj=['#999','+Add Your Own']">
 								<div  ng-click="importCtrl.fileUploadModal(obj[1], obj[0])" ng-style="{'background':obj[0]}">
 								<img src="public/images/upload.svg">
-								{{obj[1]}}
+								{{obj[1] | uppercase}}
 								</div>
 								<h6><a href="" ng-click="importCtrl.downloadSample()" download>DOWNLOAD TEMPLATE</a></h6>
 							</div>
 						</div>
+						
 					</div>
 					
 					<div class="col-xs-12 col-sm-7 grid_center text-center" style="color:gray">

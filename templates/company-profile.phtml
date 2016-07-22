@@ -33,6 +33,7 @@
 							                {{industry.industry_name}}
 							              </md-option>
 							            </md-select>
+							            <div class="error-spacer"></div>
 							            <div ng-if="company_form.industry.$error.required && compCtrl.comp1_show_error"  class="has-error-msg">Please Select Industry</div>
 							        </md-input-container>
 								</div>
@@ -73,7 +74,7 @@
 										<li class="col-sm-2 col-xs-3" ng-repeat="group in compCtrl.group_size">
 											<label>
 												<span ng-class="{'has-color':group == compCtrl.groupSize }">{{group}}</span>
-												<input type="radio" name="r1" ng-model="compCtrl.groupSize" ng-value="group"><label></label>
+												<input type="radio" name="r1" ng-model="compCtrl.groupSize" ng-value="group" ng-init="$index==0?(compCtrl.groupSize=group):''"><label></label>
 											</label>
 										</li>
 									</ul>
@@ -95,7 +96,6 @@
 						</div>
 
 						<div class="company go_1 animate same" ng-if="compCtrl.go_2" style="color: #666;">
-
 							<div class="company-content">
 								<div class="upload">
 									<span>LOGO <small style="color: #999">(Add your company logo)</small></span>
@@ -104,12 +104,14 @@
 											<label for="upload-image">
 												<img src="public/images/icon.png" id="company_logo" class="img-thumbnail">
 											</label>
-											<input id="upload-image" type="file" name="logo" style="display: none"accept=".jpeg,.jpg,.gif,.ico" custom-on-change="compCtrl.uploadLogo">
+											<input id="upload-image" type="file" ng-model="compCtrl.companyLogo" name="logo" name="logo" style="display: none"accept=".jpeg,.jpg,.gif,.ico" custom-on-change="compCtrl.uploadLogo">
+											{{compCtrl.companyLogo}}
+											<!-- <div ng-if="company_form.logo.$error.required && compCtrl.files_error"  class="has-error-msg" style="white-space: nowrap;">Please Choose Company Logo</div> -->
 										</div>
 									</div>
 								</div>
 								<div class="add-img">
-									<span>COMPANY IMAGES <small style="color: #999">(Add or Drag & Drop single or multiple images to upload)</small></span>
+									<span>COMPANY IMAGES <!-- <small style="color: #999">(Add or Drag & Drop single or multiple images to upload)</small> --></span>
 									<div class="row">
 										<div class="col-sm-4 col-xs-6 col-md-3">
 											<label for="add-image-0">
@@ -158,7 +160,7 @@
 									<li class="active"></li>
 								</ul>
 								<div class="pull-right">
-									<button  class="btn btn-style" ng-click="compCtrl.valid()">CONTINUE&nbsp;&nbsp;<img src="public/images/loader/butt_loader.gif" style="margin-top: -2px;" ng-if="compCtrl.cont_load">
+									<button  class="btn btn-style" ng-click="compCtrl.valid(company_form.$valid)" ng-disabled="compCtrl.disabled">CONTINUE&nbsp;&nbsp;<img src="public/images/loader/butt_loader.gif" style="margin-top: -2px;" ng-if="compCtrl.cont_load"></button>
 								</div>
 							</div>
 						</div>

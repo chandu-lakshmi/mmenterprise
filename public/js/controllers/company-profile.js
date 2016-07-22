@@ -3,6 +3,23 @@
 
 angular.module('app.company.profile', [])
 
+
+// Required input[type=file]
+/*.directive('validFile', function() {
+    return {
+        require: 'ngModel',
+        link: function(scope, el, attrs, ngModel) {
+            //change event is fired when file is selected
+            el.bind('change', function() {
+                scope.$apply(function() {
+                    ngModel.$setViewValue(el.val());
+                    ngModel.$render();
+                })
+            })
+        }
+    }
+})*/
+
 // input[type=file] directive(onChange)
 .directive('customOnChange', function() {
   return {
@@ -101,46 +118,55 @@ angular.module('app.company.profile', [])
     }
 
     // Posting Data to API
-    this.valid = function(){
+    this.files_error = false;
+    scope.disabled = false;
+    this.valid = function(isValid){
 
-        scope.cont_load = true;
-        var formData = new FormData();
-        formData.append('company',scope.comp_name);
-        formData.append('code',$rootScope.company_code);
-        formData.append('access_token',$rootScope.access_token);
-        formData.append('industry',scope.industry.industry_id);
-        formData.append('description',scope.desc);
-        formData.append('number_of_employees',scope.groupSize);
-        formData.append('website',scope.website);
-        formData.append('user_id',$rootScope.user_id);
-        if(upload_condition == true){
-            formData.append('company_logo', $('input[type=file]#upload-image')[0].files[0]);
+        if(!isValid){
+            this.files_error = true;
         }
-
-        var create_company = $http({
-            headers: {
-                'Content-Type' : undefined
-            },
-            method : 'POST',
-            url : CONFIG.APP_DOMAIN+'update_company',
-            data : formData
-        });
-        create_company.success(function(response){
-            if(response.status_code == 200){
-
-                $rootScope.company_code = response.data.company_code;
-                scope.company_code = $rootScope.company_code;
-                scope.go_2 = false;
-                scope.cont_load = false;
-                $window.scrollTo(0,0);
-                scope.go_3 = true;
+        else{
+            this.files_error = false;
+            scope.disabled = true;
+            scope.cont_load = true;
+            var formData = new FormData();
+            formData.append('company',scope.comp_name);
+            //formData.append('code',$rootScope.company_code);
+            //formData.append('access_token',$rootScope.access_token);
+            formData.append('industry',scope.industry.industry_id);
+            formData.append('description',scope.desc);
+            formData.append('number_of_employees',scope.groupSize);
+            formData.append('website',scope.website);
+            //formData.append('user_id',$rootScope.user_id);
+            if(upload_condition == true){
+                formData.append('company_logo', $('input[type=file]#upload-image')[0].files[0]);
             }
-        });
 
-        create_company.error(function(response){
-            console.log(response);
-        })
+            var create_company = $http({
+                headers: {
+                    'Content-Type' : undefined
+                },
+                method : 'POST',
+                url : CONFIG.APP_DOMAIN+'update_company',
+                data : formData
+            });
+            create_company.success(function(response){
+                if(response.status_code == 200){
 
+                    $rootScope.company_code = response.data.company_code;
+                    scope.company_code = $rootScope.company_code;
+                    scope.go_2 = false;
+                    scope.cont_load = false;
+                    $window.scrollTo(0,0);
+                    scope.go_3 = true;
+                }
+            });
+
+            create_company.error(function(response){
+                scope.disabled = false;
+                console.log(response);
+            })
+        }
     }
 
     this.group_size = ['10-50','50-100','100-500','500-1000','1000-5000','5000+'];

@@ -34,7 +34,6 @@
 				<div class="col-lg-8">
 					<p style="color: #9A9A9A;font-size:16px;">Job Description:</p>
 					
-					<p>Responsibilities and tasks:</p>
 					<p>{{post2Ctrl.post_job_result.job_desc}}</p>
 				</div>
 			</div>
@@ -52,7 +51,7 @@
 						<h1 ng-if="$index == 0" style="visibility: hidden;">&#36; {{rewards.amount}}</h1>
 						<h1 ng-if="$index != 0">&#36; {{rewards.amount}}</h1>
 						<h4>{{rewards.message | uppercase}}</h4>
-						<input type="radio" name="amount-ref" ng-model="post2Ctrl.rewardCond" ng-value="rewards" ng-click="post2Ctrl.payCond()">
+						<input type="radio" name="amount-ref" ng-model="post2Ctrl.rewardCond" ng-value="rewards" ng-init="$index==0?(post2Ctrl.rewardCond=rewards):''">
 						<label></label>
 					</div>
 				</label>
@@ -64,17 +63,28 @@
 <div class="container-fluid" style="padding-bottom: 100px;">
 	<div class="container" style="border-top:1px solid #ccc">
 		<h2 class="text-center" style="color: #388A73;padding: 30px 15px 40px;margin:0">SELECT THE DISTRIBUTION LIST </h2>
+		<div class="error-spacer"></div>
+		<div ng-if="post2Ctrl.bucket_error" class="error-msg-float text-center">Please Choose Atleast One Bucket</div>
+		<div class="clearfix"></div>
+		<div class="grid-msg-overlay" ng-if="post2Ctrl.buckLoader" style="position:relative;min-height: 558px;background:transparent">
+          	<div class="msg" style="border:0">
+           		<span>
+              		Loading ... 
+              		<img src="public/images/loader/upload_file.gif" alt="loader">
+            	</span>
+          	</div>
+		</div>
 		<div class="row select-type row-centered">
 			<div class="col-lg-3 col-centered" ng-repeat="buckets in post2Ctrl.bucket_names">
-				<div class="amount-pay" ng-style="{'background':post2Ctrl.bucketColor[$index]}" ng-init="icon_cond = 'icon'+$index">
-				    <img src="public/images/add.svg"  ng-click="post2Ctrl[icon_cond] = true;post2Ctrl.pushed($index+1)" ng-if="!post2Ctrl[icon_cond]">
-				    <img src="public/images/select.svg"  ng-click="post2Ctrl[icon_cond] = false;post2Ctrl.spliced($index+1)" ng-if="post2Ctrl[icon_cond]">
-				    <h3>{{buckets.bucket_name | uppercase}}</h3>
+				<div class="amount-pay" ng-style="{'background':post2Ctrl.getColor($index)}" ng-init="icon_cond = 'icon'+$index">
+				    <img src="public/images/add.svg"  ng-click="post2Ctrl[icon_cond] = true;post2Ctrl.pushed(buckets.bucket_id)" ng-if="!post2Ctrl[icon_cond]">
+				    <img src="public/images/select.svg"  ng-click="post2Ctrl[icon_cond] = false;post2Ctrl.spliced(buckets.bucket_id)" ng-if="post2Ctrl[icon_cond]">
+				    <h3 title="{{buckets.bucket_name | uppercase}}">{{buckets.bucket_name | uppercase}}</h3>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class="text-center" style="padding: 40px 0">
-		<button class="btn btn-style" ng-click="post2Ctrl.requestSuccess()" style="padding: 12px 32px;">POST REQUEST</button>
+		<button class="btn btn-style" ng-click="post2Ctrl.requestSuccess()" style="padding: 12px 32px;" ng-disabled="post2Ctrl.success_cond">POST REQUEST&nbsp;&nbsp;<img src="public/images/loader/butt_loader.gif" style="margin-top: -2px;" ng-if="post2Ctrl.loader"></button>
 	</div>
 </div>

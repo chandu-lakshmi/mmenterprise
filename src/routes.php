@@ -14,10 +14,8 @@ $app->get('/', function ($request, $response, $args) {
     // Render index view
     return $this->renderer->render($response, 'index.phtml', $args);
 });
+
 //Index page
-/*$app->get('/login', function ($request, $response, $args) {
-    
-    $args = commonArgs($this->settings);*/
 
 //login controller page
 $app->get('/login', function ($request, $response, $args) {
@@ -30,72 +28,6 @@ $app->get('/login', function ($request, $response, $args) {
     }
     // Render index view
     return $this->renderer->render($response, 'index.phtml', $args);
-});
-
-//email verification page
-$app->get('/email-verify', function ($request, $response, $args) {
-
-    // need to take a look later    
-    $args = commonArgs($this->settings);
-
-    //$args['token'] = $app->request()->get('token');
-    $allGetVars = $request->getQueryParams();
-    $args['token'] = $allGetVars['token'];
-    
-    //Check Logged - If it is login it redirects to dashboard page
-    if(empty(authenticate())){
-      return $response->withRedirect($args['APP_DOMAIN']."dashboard");
-    }
-    
-    // Render index view
-    return $this->renderer->render($response, 'index.phtml', $args);
-});
-
-//Update Company
-$app->post('/update_company', function ($request, $response, $args) use ($app) {
-
-    // getting API endpoint from settings
-    $apiEndpoint = getapiEndpoint($this->settings, 'update_company');
-
-    $_POST['company_logo'] = $_FILES['company_logo'];
-    //print_r($_POST);exit;
-    $updateCompany     = new Curl(array(
-        'url'           => $apiEndpoint,
-        'postData'      => $_POST
-     ));
-
-   echo json_encode( $updateCompany->loadFilesData() );
-});
-
-//company profile page
-$app->get('/company-profile1', function ($request, $response, $args) {
-
-    // need to take a look later    
-    $args = commonArgs($this->settings);
-    
-    // dynamically Access Token, Company id
-    $this->mintmeshAccessToken;
-    $this->mintmeshCompanyId;
-    
-    //Check Logged - If it is login it redirects to dashboard page
-    if(empty(authenticate())){
-        // Render index view
-         return $this->renderer->render($response, 'index.phtml', $args);
-    }else{
-         return $response->withRedirect($args['APP_DOMAIN']."dashboard");
-    }
-    
-});
-
-//company profile page
-$app->get('/company-profile', function ($request, $response, $args) {
-
-    // need to take a look later    
-    $args = commonArgs($this->settings);
-    
-    // Render index view
-    return $this->renderer->render($response, 'index.phtml', $args);
-        
 });
 
 //Login api
@@ -130,6 +62,25 @@ $app->post('/create_user', function ($request, $response, $args) use ($app) {
     
     echo json_encode($curl->loadCurl());
  
+});
+
+//email verification page
+$app->get('/email-verify', function ($request, $response, $args) {
+
+    // need to take a look later    
+    $args = commonArgs($this->settings);
+
+    //$args['token'] = $app->request()->get('token');
+    $allGetVars = $request->getQueryParams();
+    $args['token'] = $allGetVars['token'];
+    
+    //Check Logged - If it is login it redirects to dashboard page
+    if(empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']."dashboard");
+    }
+    
+    // Render index view
+    return $this->renderer->render($response, 'index.phtml', $args);
 });
 
 // download sample csv

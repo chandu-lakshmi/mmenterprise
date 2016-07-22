@@ -544,6 +544,11 @@ footer a:hover{
 
 
 /*Post Job Styles*/
+.error-spacer{
+	float: right;
+    min-height: 24px;
+    min-width: 1px;
+}
 .post-job input,select,textarea{
 	color: black
 }
@@ -612,6 +617,11 @@ footer a:hover{
 }
 
 /*Post job 2 styles*/
+.error-msg-float{
+	color: red;
+	min-height: 24px;
+    min-width: 1px;
+}
 .job-title img{
 	float: left;
     margin-top: 24px;
@@ -664,6 +674,10 @@ footer a:hover{
     margin-top: 75px;
     color:#fff;
     font-size: 20px;
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 /*.reward-ref{
 	border-top: 1px solid #ccc;

@@ -40,7 +40,8 @@ return [
             'CLIENT_SECRET'     => 'Dh0pMLSV6Y82EfDpGKlWN1AyzvWvbvz4',
 
             //Grant Types
-            'PASSWORD_GRANT'    => 'password'
+            'PASSWORD_GRANT'    => 'password',
+            
         ],
     
     ],

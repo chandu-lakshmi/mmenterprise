@@ -232,6 +232,11 @@
 .upload-file-bucket .modal-header h4{
   color: #fff;
   padding: 6px;
+  max-width: 350px;
+  white-space: nowrap;
+  text-overflow:ellipsis;
+  overflow: hidden;
+  margin: 0 auto;
 }
 .upload-file-bucket .modal-footer{
   padding: 10px;

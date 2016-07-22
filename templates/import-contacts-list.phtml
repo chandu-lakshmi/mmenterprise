@@ -1,3 +1,4 @@
+<div class="preloader" ng-if="ipContactListCtrl.loadingInit || ipContactListCtrl.loadingInitGrid"></div>
 <div  style="background:#F2F2F2">
 	<div class="container">
 		<div class="row">
@@ -11,19 +12,29 @@
 
 				<!--import contacts-->
 				<div class="import_c_box">
-					<ul class="nav nav-tabs">
-						<li>
-							<a href="" class="active" data-toggle="tab" ng-click="ipContactListCtrl.getInfo(0, 'all')">ALL</a>
-						</li>
-						<li ng-repeat="bucket in ipContactListCtrl.bucket_names">
-							<a href="" data-toggle="tab" ng-click="ipContactListCtrl.getInfo(bucket.bucket_id, bucket.bucket_name)">{{bucket.bucket_name | uppercase}}</a>
-						</li>
-
-					</ul>
+						<div style="min-height:38px;overflow-x: auto;overflow-y: hidden;margin-bottom:-1px">
+           	 				<div style="white-space:nowrap" >
+                				<span class="tab-active"><a ng-click="ipContactListCtrl.getActive('all');ipContactListCtrl.getInfo(0, 'all')" ng-class="{active:(ipContactListCtrl.currentTab=='all')}">ALL</a></span><span class="tab-active" ng-repeat="bucket in ipContactListCtrl.bucket_names";><a ng-click="ipContactListCtrl.getActive(bucket.bucket_name);ipContactListCtrl.getInfo(bucket.bucket_id, bucket.bucket_name)" ng-class="{active:(ipContactListCtrl.currentTab==bucket.bucket_name)}">{{bucket.bucket_name}}</a></span>
+            				</div>
+        				</div>
+					<!-- </ul> -->
 
 					<!--angular grid-->
-					<div class="col-sm-12 grid-ic" style="padding:0">
+					<div class="col-sm-12 grid-ic" style="padding:0;border-top:1px solid #ccc;">
 						<div ui-grid="gridOptions" ui-grid-infinite-scroll ui-grid-selection class="grid import-con-grid"></div>
+						<div class="grid-msg-overlay" ng-if="ipContactListCtrl.loading">
+				          <div class="msg">
+				            <span>
+				              Loading Data... 
+				              <img src="public/images/loader/upload_file.gif" alt="loader">
+				            </span>
+				          </div>
+				        </div>	
+				        <div class="grid-msg-overlay" ng-if="ipContactListCtrl.myGridData">
+				          <div class="msg">
+				            <span>No Data Found</span>
+				          </div>
+				        </div>
 					</div>
 
 					<!--footer-->
