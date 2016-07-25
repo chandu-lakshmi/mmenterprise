@@ -12,7 +12,21 @@ $app->post('/update_company', function ($request, $response, $args) use ($app) {
     $_POST["code"] = $_POST["company_code"];
 
     if(!empty($_FILES['company_logo']['tmp_name'])){
-     $_POST['company_logo'] = $_FILES['company_logo'];
+        $_POST['company_logo'] = $_FILES['company_logo'];
+    }
+
+    if(count($_FILES['images'])>0){
+
+        foreach($_FILES['images']['tmp_name'] as $key => $tmp_name ){
+            $file['name']       = $_FILES['images']['name'][$key];
+            $file['size']       = $_FILES['images']['size'][$key];
+            $file['tmp_name']   = $_FILES['images']['tmp_name'][$key];
+            $file['type']       = $_FILES['images']['type'][$key];
+            $file['error']      = $_FILES['images']['error'][$key];
+            $storage[] = $file;
+        }
+        
+        $_POST['images'] = $storage; 
     }
    
     $updateCompany     = new Curl(array(
@@ -71,7 +85,7 @@ $app->post('/contacts_upload',function ($request, $response, $args) use ($app) {
         'postData'      => $_POST
      ));
 
-      echo json_encode( $contactUpload->loadFilesData() );
+    echo json_encode( $contactUpload->loadFilesData() );
 });
 
 //Bucket List
@@ -176,7 +190,7 @@ $app->post('/post_job',function ($request, $response, $args) use ($app) {
     // dynamically Access Token, Company id
     $this->mintmeshAccessToken;
     $this->mintmeshCompanyId;
-     
+    
     // getting API endpoint from settings
     $apiEndpoint = getapiEndpoint($this->settings, 'post_job');
    

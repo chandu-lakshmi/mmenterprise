@@ -70,6 +70,40 @@ $app->get('/email-verify', function ($request, $response, $args) {
     // need to take a look later    
     $args = commonArgs($this->settings);
 
+    $allGetVars = $request->getQueryParams();
+    $args['token'] = $allGetVars['token'];
+    
+    //Check Logged - If it is login it redirects to dashboard page
+    if(empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']."dashboard");
+    }
+    
+    // Render index view
+    return $this->renderer->render($response, 'index.phtml', $args);
+});
+
+//Forgot password
+$app->get('/forgot_password', function ($request, $response, $args) {
+
+    // need to take a look later    
+    $args = commonArgs($this->settings);
+
+    $apiEndpoint = getapiEndpoint($this->settings, 'forgot_password');
+    
+    $contactUpload     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+
+    echo json_encode( $contactUpload->loadCurl() );
+});
+
+//email verification page
+$app->get('/email-password', function ($request, $response, $args) {
+
+    // need to take a look later    
+    $args = commonArgs($this->settings);
+
     //$args['token'] = $app->request()->get('token');
     $allGetVars = $request->getQueryParams();
     $args['token'] = $allGetVars['token'];
@@ -81,6 +115,25 @@ $app->get('/email-verify', function ($request, $response, $args) {
     
     // Render index view
     return $this->renderer->render($response, 'index.phtml', $args);
+});
+
+//Change password
+$app->get('/updatepassword', function ($request, $response, $args) {
+
+    // dynamically Access Token
+    $this->mintmeshAccessToken;
+
+    // need to take a look later    
+    $args = commonArgs($this->settings);
+
+    $apiEndpoint = getapiEndpoint($this->settings, 'updatepassword');
+    
+    $contactUpload     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+
+    echo json_encode( $contactUpload->loadCurl() );
 });
 
 // download sample csv
