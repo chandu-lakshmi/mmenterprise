@@ -105,7 +105,7 @@
 												<img src="public/images/icon.png" id="company_logo" class="img-thumbnail">
 											</label>
 											<input id="upload-image" type="file" ng-model="compCtrl.companyLogo" name="logo" name="logo" style="display: none"accept=".jpeg,.jpg,.gif,.ico" custom-on-change="compCtrl.uploadLogo">
-											{{compCtrl.companyLogo}}
+
 											<!-- <div ng-if="company_form.logo.$error.required && compCtrl.files_error"  class="has-error-msg" style="white-space: nowrap;">Please Choose Company Logo</div> -->
 										</div>
 									</div>
@@ -113,13 +113,13 @@
 								<div class="add-img">
 									<span>COMPANY IMAGES <!-- <small style="color: #999">(Add or Drag & Drop single or multiple images to upload)</small> --></span>
 									<div class="row">
-										<div class="col-sm-4 col-xs-6 col-md-3">
-											<label for="add-image-0">
-												<img src="public/images/add.png" id="dp-0" class="img-thumbnail">
+										<div class="col-sm-4 col-xs-6 col-md-3" ng-repeat="x in [1,2,3,4]">
+											<label for="add-image-{{x}}">
+												<img src="public/images/add.png" id="dp-{{x}}" class="img-thumbnail">
 											</label>
-											<input id="add-image-0" type="file" name="add-img" style="display: none;" accept=".jpeg,.jpg,.gif,.ico" onchange="previewFiles('0')">
+											<input id="add-image-{{x}}" type="file" name="add-img" style="display: none;" accept=".jpeg,.jpg,.gif,.ico" onchange="angular.element(this).scope().compCtrl.multipleFiles(this,angular.element(this).scope().x)">
 										</div>
-										<div class="col-sm-4 col-xs-6 col-md-3">
+										<!-- <div class="col-sm-4 col-xs-6 col-md-3">
 											<label for="add-image-1">
 												<img src="public/images/add.png" id="dp-1" class="img-thumbnail">
 											</label>
@@ -136,7 +136,7 @@
 												<img src="public/images/add.png" id="dp-3" class="img-thumbnail">
 											</label>
 											<input id="add-image-3" type="file" name="add-img" style="display: none;" accept=".jpeg,.jpg,.gif,.ico" onchange="previewFiles('3')">
-										</div>
+										</div> -->
 									</div>
 								</div>
 								<div style="padding: 20px 0;">
@@ -191,21 +191,3 @@
 
 	</section>
 </div>
-
-<script type="text/javascript">
-
-	function previewFiles(id) {
-		 var preview = document.querySelector('#dp-'+id);
-		 var file    = document.querySelector('#add-image-'+id).files[0];
-		 var reader  = new FileReader();
-
-		 reader.addEventListener("load", function () {
-		   preview.src = reader.result;
-		 }, false);
-
-		 if (file) {
-		   reader.readAsDataURL(file);
-		 }
-	}
-
-</script>

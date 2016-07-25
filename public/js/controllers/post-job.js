@@ -169,14 +169,18 @@ angular.module('app.post.job', ['ngAutocomplete'])
   })
 
   var bucket_count = [];
-  this.pushed = function(id){
-    bucket_count.push(id);
+
+  this.getDataUpdate = function(src,ind,bucketId){
+    if(src == "public/images/add.svg"){
+      bucket_count.push(bucketId);
+      scope.bucket_names[ind].src = "public/images/select.svg";
+    }
+    else{
+      var index = bucket_count.indexOf(bucketId);
+      bucket_count.splice(index,1);
+      scope.bucket_names[ind].src="public/images/add.svg";
+    }
   }
-  this.spliced = function(id){
-    var index = bucket_count.indexOf(id);
-    bucket_count.splice(index,1);
-  }
-  
 
   scope.success_cond = false;
 	this.requestSuccess =function  () {
@@ -223,6 +227,8 @@ angular.module('app.post.job', ['ngAutocomplete'])
         gettingData.setData({});
         $uibModal.open({
           animation: false,
+          keyboard: false,
+          backdrop: 'static',
           templateUrl: 'templates/dialogs/post-success.phtml',
           openedClass: "import_verify",
           windowClass: "pop-cre",

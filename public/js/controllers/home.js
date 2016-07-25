@@ -58,6 +58,32 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
         if(!isValid){
             scope.email_show_error = true;
         }
+        else{
+            scope.load_cond_forgot = true;
+            var forgot_params = $.param({
+                email_id : scope.forgotObj.forgot_email
+            })
+
+            var forgot_password = $http({
+                headers: {
+                   'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'POST',
+                url: CONFIG.APP_DOMAIN+'forgot_password',                               
+                data: forgot_params
+            })
+            forgot_password.success(function(response){
+                scope.load_cond_forgot = false;
+                if(response.status_code == 200){
+
+                }
+            })
+            forgot_password.error(function(response){
+                scope.load_cond_forgot = false;
+                console.log(response)
+            })
+
+        }
     }
 
     /*  Signup Form Submit  */
@@ -102,6 +128,7 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
                 
             })
             signup.error(function(response){
+                scope.load_cond_signup = false;
                 console.log("Failed Registration")
             })
     	}
@@ -147,6 +174,7 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
             });
 
             signin.error(function(response){
+                scope.load_cond_signin = false;
                 console.log("Failed signin");
             })
     	}

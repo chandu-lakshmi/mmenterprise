@@ -263,10 +263,11 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
 .controller('ImportContactsListController', ['$rootScope', '$window', '$state', '$scope', '$http', '$log', '$timeout', 'uiGridConstants', '$uibModal', 'CONFIG', function($rootScope, $window, $state, $scope, $http, $log, $timeout, uiGridConstants, $uibModal, CONFIG) {
 
     var scope = this;
-    scope.loadingInit = true;
-    scope.loadingInitGrid = true;
+    scope.loadingTabs = true;
+
+    //scope.loadingInitGrid = true;
     this.currentTab = 'all';
-    this.getActive = function(param){
+    this.getActive = function(param){   
         scope.currentTab = param;
     }
 
@@ -280,7 +281,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
     })
     get_buckets.success(function(response) {
         scope.bucket_names = response.data;
-        scope.loadingInit = false;
+        scope.loadingTabs = false;
     });
     get_buckets.error(function(response) {
         console.log(response);
@@ -291,9 +292,9 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
 
     var API_CALL = CONFIG.APP_DOMAIN+'contact_list';
 
-
     this.importContactGrid = function(url, id, type) {
-        scope.myGridData = false;
+        scope.gridNoData = false;
+        scope.loading = true;
 
         $scope.gridOptions = {
             infiniteScrollRowsFromEnd: 25,
@@ -386,18 +387,22 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
             .then(function(response) {
                 scope.totalRows = response.data.data.total_records[0].total_count;
                 scope.total_pages = Math.ceil(scope.totalRows / 50);
-
+               
                 //$scope.gridOptions.data = response.data.Contacts_list;
                 var newData = $scope.getPage(response.data.data.Contacts_list);
+                console.log(newData.length+"ln", scope.loading,scope.gridNoData)
                 if(newData.length==0){
-                    scope.myGridData = true;
+                    scope.loading = false;
+                    scope.gridNoData = true;
+                    document.getElementById("disablePointer").style.pointerEvents = "auto";
                     return false;
                 }
+                
 
                 var selectedCount = 0;
                 $scope.gridApi.grid.selection.selectAll = false;
                 scope.loading = false;
-                scope.loadingInitGrid = false;
+                
                 setTimeout(function() {
                     for (var i = 0; i < selectedContacts.length; i++) {
                         for (var j = 0; j < newData.length; j++) {
@@ -414,6 +419,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
                 })
                 
                 $scope.data = $scope.data.concat(newData);
+                document.getElementById("disablePointer").style.pointerEvents = "auto";
                 //console.log($scope.data+"first")
                 
             })
@@ -533,11 +539,12 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
     scope.importContactGrid(API_CALL, 0, "all");
 
     this.getInfo = function(id, type) {
+        document.getElementById("disablePointer").style.pointerEvents = "none";
         scope.loading = true;
         scope.importContactGrid(API_CALL, id, type);
     }
 
-
+   
 
 
     this.importSelect = function() {
@@ -576,6 +583,8 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
         $window.scrollTo(0, 0);
         $state.go('importContacts');
     }
+
+    
 
 }])
 .controller('InviteZero',["$scope", "$uibModalInstance", function($scope, $uibModalInstance){

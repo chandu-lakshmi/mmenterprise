@@ -172,6 +172,12 @@ input{
 .signin-signup{
     padding: 80px 0;
 }
+.signin-signup button.btn-loader span{
+    display: inline-block;
+}
+.signin-signup button.btn-loader img[alt=loader]{
+    float: right;
+}
 .signin-signup .m_left{
     width: 84%;
     margin: 0 auto;

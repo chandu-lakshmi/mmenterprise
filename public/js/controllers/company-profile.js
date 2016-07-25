@@ -37,7 +37,8 @@ angular.module('app.company.profile', [])
     restrict: 'A',
     link: function (scope, element, attrs) {
       var onChangeFunc = scope.$eval(attrs.customOnChangeOne);
-      var index = attrs.fileIndex;
+      var index = attrs.customPara;
+      console.log(attrs)
       element.bind('change', function customeName(){
         onChangeFunc(index)
       });
@@ -71,9 +72,11 @@ angular.module('app.company.profile', [])
 
     // Storing company logo from step3
     var upload_condition = false;
+    var logo;
     this.uploadLogo = function(){
         var preview = document.querySelector('#company_logo');
         var files = this.files[0];
+        logo = files;
         var reader  = new FileReader();
 
         reader.addEventListener("load", function () {
@@ -87,28 +90,28 @@ angular.module('app.company.profile', [])
         upload_condition = true;
     };
 
-    /*this.addMultiple = function(index){
-        alert(index);
+    var multipleImages = [];
+    this.multipleFiles = function(event,index){
         var preview = document.querySelector('#dp-'+index);
         var files = document.querySelector('#add-image-'+index).files[0];
-        console.log(files)
+        multipleImages[index-1] = files;
         var reader = new FileReader();
 
         reader.addEventListener("load", function () {
            preview.src = reader.result;
-           console.log(reader.result)
          }, false);
 
          if (files) {
            reader.readAsDataURL(files);
          }
-
-    }*/
+    }
 
 
     // Uploading Referral Bonus Pdf
+    var referralBonus;
     this.uploadPdf = function(){
         var files = this.files[0];
+        referralBonus = files;
         if(files.size <= (10 * 1024 *1024)){
             $('#pdf_name').text(files.name);
         }
@@ -139,8 +142,13 @@ angular.module('app.company.profile', [])
             formData.append('website',scope.website);
             //formData.append('user_id',$rootScope.user_id);
             if(upload_condition == true){
-                formData.append('company_logo', $('input[type=file]#upload-image')[0].files[0]);
+                formData.append('company_logo', logo);
             }
+
+            for(var i = 0; i < multipleImages.length; i++){
+                formData.append('images['+i+']',multipleImages[i]);
+            }
+            
 
             var create_company = $http({
                 headers: {
@@ -154,6 +162,7 @@ angular.module('app.company.profile', [])
                 if(response.status_code == 200){
 
                     $rootScope.company_code = response.data.company_code;
+                    $rootScope.company_logo = response.data.company_logo;
                     scope.company_code = $rootScope.company_code;
                     scope.go_2 = false;
                     scope.cont_load = false;

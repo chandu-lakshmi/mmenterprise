@@ -76,9 +76,8 @@
 		</div>
 		<div class="row select-type row-centered">
 			<div class="col-lg-3 col-centered" ng-repeat="buckets in post2Ctrl.bucket_names">
-				<div class="amount-pay" ng-style="{'background':post2Ctrl.getColor($index)}" ng-init="icon_cond = 'icon'+$index">
-				    <img src="public/images/add.svg"  ng-click="post2Ctrl[icon_cond] = true;post2Ctrl.pushed(buckets.bucket_id)" ng-if="!post2Ctrl[icon_cond]">
-				    <img src="public/images/select.svg"  ng-click="post2Ctrl[icon_cond] = false;post2Ctrl.spliced(buckets.bucket_id)" ng-if="post2Ctrl[icon_cond]">
+				<div class="amount-pay" ng-style="{'background':post2Ctrl.getColor($index)}" ng-init="post2Ctrl.bucket_names[$index].src='public/images/add.svg'" ng-click="post2Ctrl.getDataUpdate(buckets.src,$index,buckets.bucket_id)">
+				    <img ng-src="{{buckets.src}}">
 				    <h3 title="{{buckets.bucket_name | uppercase}}">{{buckets.bucket_name | uppercase}}</h3>
 				</div>
 			</div>
