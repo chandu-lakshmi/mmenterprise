@@ -30,10 +30,6 @@ return [
                 'VERSION'  => 'v1',
                 'ENDPOINT' => '/enterprise/update_company'
             ],
-            'test' => [
-                'VERSION'  => 'v1',
-                'ENDPOINT' => '/enterprise/test'
-            ],
             'verify_email' => [
                 'VERSION'  => 'v1',
                 'ENDPOINT' => '/enterprise/verify_email'

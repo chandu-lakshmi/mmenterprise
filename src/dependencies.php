@@ -35,10 +35,18 @@ $container['mintmeshAccessToken'] = function ($c) {
     $_POST['access_token']    = isset($_SESSION['aToken'])?$_SESSION['aToken']:"";
 };
 
-// grant type company details
+// grant type company id
 $container['mintmeshCompanyId'] = function ($c) {
+    $_POST['company_id']    = isset($_SESSION['company_id'])?$_SESSION['company_id']:"";
+    $_POST['company_code']    = isset($_SESSION['company_code'])?$_SESSION['company_code']:"";
+ 
+};
+
+//Company Details
+$container['mintmeshCompanyDetails'] = function ($c) {
     $_POST['company_id']    = isset($_SESSION['company_id'])?$_SESSION['company_id']:"";
     $_POST['company_code']    = isset($_SESSION['company_code'])?$_SESSION['company_code']:"";
     $_POST['company_name']    = isset($_SESSION['company_name'])?$_SESSION['company_name']:"";
     $_POST['company_logo']    = isset($_SESSION['company_logo'])?$_SESSION['company_logo']:"";
 };
+

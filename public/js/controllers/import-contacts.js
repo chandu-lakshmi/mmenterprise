@@ -390,7 +390,6 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
                
                 //$scope.gridOptions.data = response.data.Contacts_list;
                 var newData = $scope.getPage(response.data.data.Contacts_list);
-                console.log(newData.length+"ln", scope.loading,scope.gridNoData)
                 if(newData.length==0){
                     scope.loading = false;
                     scope.gridNoData = true;

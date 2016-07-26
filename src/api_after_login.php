@@ -11,11 +11,11 @@ $app->post('/update_company', function ($request, $response, $args) use ($app) {
 
     $_POST["code"] = $_POST["company_code"];
 
-    if(!empty($_FILES['company_logo']['tmp_name'])){
+    if(isset($_FILES['company_logo']['tmp_name']) && !empty($_FILES['company_logo']['tmp_name'])){
         $_POST['company_logo'] = $_FILES['company_logo'];
     }
 
-    if(count($_FILES['images'])>0){
+    if(isset($_FILES['images']) && count($_FILES['images'])>0  && !empty($_FILES['images'])){
 
         foreach($_FILES['images']['tmp_name'] as $key => $tmp_name ){
             $file['name']       = $_FILES['images']['name'][$key];
@@ -28,7 +28,8 @@ $app->post('/update_company', function ($request, $response, $args) use ($app) {
         
         $_POST['images'] = $storage; 
     }
-   
+
+      
     $updateCompany     = new Curl(array(
         'url'           => $apiEndpoint,
         'postData'      => $_POST
@@ -189,7 +190,7 @@ $app->post('/post_job',function ($request, $response, $args) use ($app) {
     
     // dynamically Access Token, Company id
     $this->mintmeshAccessToken;
-    $this->mintmeshCompanyId;
+    $this->mintmeshCompanyDetails;
     
     // getting API endpoint from settings
     $apiEndpoint = getapiEndpoint($this->settings, 'post_job');
