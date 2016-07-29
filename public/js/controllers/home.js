@@ -26,6 +26,8 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
     scope.signin = function () {
         $window.scrollTo(0,0);
         scope.signup_show = false;
+        scope.forgot_password_show = false;
+        scope.forgot_password_success_show = false;
         scope.verfication_show = false;
         scope.signup_show_error = false;
         if(scope.dublicate_invalid == true){
@@ -38,6 +40,8 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
     // Forgot Password
     scope.forgot_show = function(){
         scope.signin_show = false;
+        scope.backend_error = false;
+        scope.email_show_error = false;
         if(scope.dublicate_email == true){
             scope.dublicate_email = false;
         }
@@ -61,7 +65,7 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
         else{
             scope.load_cond_forgot = true;
             var forgot_params = $.param({
-                email_id : scope.forgotObj.forgot_email
+                emailid : scope.forgotObj.forgot_email
             })
 
             var forgot_password = $http({
@@ -75,7 +79,17 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
             forgot_password.success(function(response){
                 scope.load_cond_forgot = false;
                 if(response.status_code == 200){
-
+                    scope.forgot_password_show = false;
+                    scope.forgot_password_success_show = true;
+                }
+                if(response.status_code == 403){
+                    scope.backend_error = true;
+                    if(response.message.hasOwnProperty('emailid')){
+                        scope.invalid_error = response.message.emailid[0];
+                    }
+                    else{
+                        scope.invalid_error = response.message.msg[0];
+                    }
                 }
             })
             forgot_password.error(function(response){
@@ -163,9 +177,12 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
                 scope.load_cond_signin = false;
                 scope.default_signin = true;
                 if(response.status_code == 200){
-                    $rootScope.access_token = response.data.access_token;
+                    window.location = CONFIG.APP_DOMAIN+'dashboard';
+                    /*$rootScope.access_token = response.data.access_token;
                     $rootScope.refresh_token = response.data.refresh_token;
-                    $state.go('app.dashboard');
+                    $rootScope.company_name = response.data.company.name;
+                    $rootScope.client_name = response.data.user.firstname;
+                    $state.go('app.dashboard');*/
                 }
                 else if(response.status_code == 403){
                     scope.dublicate_invalid = true;

@@ -73,14 +73,31 @@ angular.module('app.company.profile', [])
     // Storing company logo from step3
     var upload_condition = false;
     var logo;
+    var logo_cond = false;
     this.uploadLogo = function(){
         var preview = document.querySelector('#company_logo');
         var files = this.files[0];
+        var type = files.type.split('/')[0];
         logo = files;
         var reader  = new FileReader();
 
         reader.addEventListener("load", function () {
-           preview.src = reader.result;
+            if(type == 'image'){
+                if(files.size <= (1 * 1024 *1024)){
+                    preview.src = reader.result;
+                    $('#img_err_name').text("");
+                    logo_cond = false;
+                }
+                else{
+                    $('#img_err_name').text("Exceeds Maximum Size");
+                    logo_cond = true;
+                }   
+            }
+            else{
+                preview.src = "public/images/icon.png";
+                $('#img_err_name').text("Invalid Format");
+                logo_cond = true;
+            }
          }, false);
 
          if (files) {
@@ -91,14 +108,31 @@ angular.module('app.company.profile', [])
     };
 
     var multipleImages = [];
+    var multiple_img_cond = false;
     this.multipleFiles = function(event,index){
         var preview = document.querySelector('#dp-'+index);
         var files = document.querySelector('#add-image-'+index).files[0];
         multipleImages[index-1] = files;
+        var type = files.type.split('/')[0];
         var reader = new FileReader();
-
+        
         reader.addEventListener("load", function () {
-           preview.src = reader.result;
+            if(type == "image"){
+                if(files.size <= (1 * 1024 *1024)){
+                    preview.src = reader.result;
+                    $('#multiple_img_error_'+index).text("");
+                    multiple_img_cond = false;
+                }
+                else{
+                    $('#multiple_img_error_'+index).text("Exceeds Maximum Size");
+                    multiple_img_cond = true;
+                }
+            }
+            else{
+                preview.src = "public/images/add.png";
+                $('#multiple_img_error_'+index).text("Invalid Format");
+                multiple_img_cond = true;
+            }
          }, false);
 
          if (files) {
@@ -123,9 +157,9 @@ angular.module('app.company.profile', [])
     // Posting Data to API
     this.files_error = false;
     scope.disabled = false;
-    this.valid = function(isValid){
+    this.valid = function(){
 
-        if(!isValid){
+        if(multiple_img_cond || logo_cond){
             this.files_error = true;
         }
         else{

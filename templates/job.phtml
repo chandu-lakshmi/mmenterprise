@@ -1,46 +1,12 @@
 <link rel="stylesheet" type="text/css" href="public/css/job_style.css">
 
-<!-- <header>
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-2">
-				<img src="public/images/logo.png" alt="brand-logo">
-			</div>
-			<div class="menu col-lg-7">
-				<ul>
-					<li><a ui-sref="dashboard">DASHBOARD</a></li>
-					<li><a ui-sref="job" class="active">JOBS</a></li>
-					<li><a ui-sref="importContactsList">CONTACTS</a></li>
-					<li><a ui-sref="#/">SETTINGS</a></li>
-				</ul>
-			</div>
-			<div class="notifications col-lg-3 pull-right text-center">
-				<div class="row">
-					<div class="not_alert col-lg-3">
-						<span class="num">2</span>
-						<i class="fa fa-bell-o"></i>
-					</div>
-					<div class="col-lg-9">
-						<div class="user">
-							<span><img src="public/images/arrow-dropdown-white.svg"></span>
-							<span class="comp_name">Jennifer</span>
-							<span class="user_dp"><img src="public/images/Ui_Faces/Jenifer.jpg" class="image-responsive img-circle" alt="dp" style="width: 40px;border: 1px solid #ccc"></span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</header>
- -->
+
 <div class="job-search container padZ" style="padding-bottom:10%;min-height:1000px">
 	<!--Search sort-->
 	<div class="row search-job" style="padding:0;border:0;margin-bottom:1%">
 		<div class="left-inner-addon col-xs-12 col-sm-4 ct-search">
     		<img src="public/images/search.svg" alt="search">
-    		<input type="text"
-           class="form-control search" 
-           placeholder="Search Jobs" />
+    		<input type="text" ng-model="jobSearchCtrl.search_value" class="form-control search" placeholder="Search Jobs" ng-keyup="jobSearchCtrl.searchFilter(jobSearchCtrl.pay_status,jobSearchCtrl.search_value)"/>
            <span class="bar"></span>
 		</div>
 		<div class="col-xs-12 col-sm-6 col-sm-offset-2">
@@ -48,90 +14,80 @@
 				<span class="sort_g">Sort by</span>
 				<div class="form-group">
 					<i class="fa fa-angle-down fa-feedback select-arrow" style="color:#000"></i>
-				  <select class="form-control" style="display:inline-block">
-				    <option>All</option>
-				    <option>Paid</option>
-				    <option>Free</option>
+				  <select class="form-control" style="display:inline-block" ng-model="jobSearchCtrl.pay_status" ng-change="jobSearchCtrl.selectFilter(jobSearchCtrl.pay_status,jobSearchCtrl.search_value)">
+				    <option value="2">All</option>
+				    <option value="1">Paid</option>
+				    <option value="0">Free</option>
 				  </select>
 				</div>
 				<a ui-sref="^.postJob"><button class="btn"><img src="public/images/arrow-top.svg" alt="uparrow" style="margin-top:-3px"> POST REQUEST</button></a>
 			</span>
 		</div>	
 	</div>
-	<!--Typeof Job -->
-	<div class="row" ng-repeat="jd in jobSearchCtrl.jobDetails">
-		<div class="job-type">
-			<img src="public/images/breifcase_gray.svg" alt="briefcase">
-			<h3 ng-click="jobSearchCtrl.jumpPage(jd.job_tit,jd.exp,jd.loc)">
-				<span>{{jd.job_tit}}</span>
-				<img src="public/images/arrow-buttons_green.svg">
-			</h3>
-			<span>
-				<span ng-class="{'job_free':jd.cost=='Free'}">
-					{{jd.cost}}
+	<div class="total_record" ng-if="jobSearchCtrl.post_count">
+		Total items : {{jobSearchCtrl.post_count}}
+	</div>
+	<!-- infinite scroll -->
+	<div infinite-scroll='jobSearchCtrl.nextPage()' infinite-scroll-disabled='jobSearchCtrl.busy' infinite-scroll-distance='1'>
+		<!--Typeof Job -->
+		<div class="row" ng-repeat="jobList in jobSearchCtrl.jobDetails">
+			<div class="job-type">
+				<img src="public/images/breifcase_gray.svg" alt="briefcase">
+				<h3 ng-click="jobSearchCtrl.job_details(jobList.id)">
+					<span>{{jobList.job_title}}</span>
+					<img src="public/images/arrow-buttons_green.svg">
+				</h3>
+				<span ng-init="sc=jobList.service_cost;jobList.cost = jobList.free_service == '0' ? 'FREE' : (jobList.service_currency =='DLR' ? '$'+sc+'/Referral' : '&#8377;'+sc+'/Referral')">
+					<span ng-class="{'job_free':jobList.free_service == '0'}">
+						{{jobList.cost}}
+					</span>
+					<span>
+						{{jobList.created_at | myDate | date:'dd MMM, yyyy'}}
+					</span>
+					<img src="public/images/time.svg" title="{{jobList.created_at | limitTo:8:11}}" alt="search">
 				</span>
-				<span>
-					{{jd.time}}
-				</span>
-				<img src="public/images/time.svg" alt="search">
-			</span>
-		</div>
-		<div class="job-info">
-			<div class="col-lg-4 col-sm-4 col-xs-12 job-info_d">
-				<div>
-					<span>Experience: </span>
-					<span>{{jd.exp}} Years</span>
-				</div>
-				<div>
-					<span>Positions: </span>
-					<span>{{jd.position}}</span>
-				</div>
-				<div>
-					<span>Location: </span>
-					<span>{{jd.loc}}</span>
-				</div>
 			</div>
-			<div class="col-lg-2 col-sm-2 col-xs-6">
-				<div>
-					<h1>{{jd.invited}}</h1>
-					<span><img src="public/images/invited.svg" alt="invited">INVITED</span>
+			<div class="job-info">
+				<div class="col-sm-4 col-xs-12 job-info_d">
+					<div>
+						<span>Experience: </span>
+						<span>{{jobList.experience.name}}</span>
+					</div>
+					<div>
+						<span>Employment Type: </span>
+						<span>{{jobList.employment.name}}</span>
+					</div>
+					<div>
+						<span>Location: </span>
+						<span title="{{jobList.location}}">{{jobList.location}}</span>
+					</div>
 				</div>
-			</div>
-			<div class="col-lg-2 col-sm-2 referal_s col-xs-6">
-				<div>
-					<h1>{{jd.Referrals}}</h1>
-					<span><img src="public/images/referrals.svg" alt="invited">REFERRALS</span>
+				<div class="col-sm-2 col-xs-6">
+					<div>
+						<h1>{{jobList.invited_count}}</h1>
+						<span><img src="public/images/invited.svg" alt="invited">INVITED</span>
+					</div>
 				</div>
-			</div>
-			<div class="col-lg-2 col-sm-2 col-xs-6">
-				<div>
-					<h1>{{jd.applied}}</h1>
-					<span><img src="public/images/Applied.svg" alt="invited"></i>ACCEPTED</span>
+				<div class="col-sm-2 referal_s col-xs-6">
+					<div>
+						<h1>{{jobList.referral_count}}</h1>
+						<span><img src="public/images/referrals.svg" alt="invited">REFERRALS</span>
+					</div>
 				</div>
-			</div>
-			<div class="col-lg-2 col-sm-2 col-xs-6">
-				<div>
-					<h1>{{jd.hired}}</h1>
-					<span><img src="public/images/hired.svg">HIRED</span>
+				<div class="col-sm-2 col-xs-6">
+					<div>
+						<h1>{{jobList.accepted_count}}</h1>
+						<span><img src="public/images/Applied.svg" alt="invited"></i>ACCEPTED</span>
+					</div>
+				</div>
+				<div class="col-sm-2 col-xs-6">
+					<div>
+						<h1>{{jobList.hired_count}}</h1>
+						<span><img src="public/images/hired.svg">HIRED</span>
+					</div>
 				</div>
 			</div>
 		</div>
+		<div ng-show='jobSearchCtrl.busy'>Loading data...</div>
 	</div>
 </div>
-
-<!-- <footer>
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-5">
-				<p>&copy; 2016 MINTMESH&trade; INC. ALL RIGHTS RESERVED.</p>
-			</div>
-			<div class="col-sm-7">
-				<ul>
-					<li><a href="https://mintmesh.com/us/" target="_blank">ABOUT US</a></li>
-					<li><a href="https://mintmesh.com/terms-of-use/" target="_blank">TERMS & CONDITIONS</a></li>
-					<li><a href="https://mintmesh.com/privacy-policy/" target="_blank">PRIVACY POLICY</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-</footer> -->

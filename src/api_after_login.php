@@ -15,6 +15,7 @@ $app->post('/update_company', function ($request, $response, $args) use ($app) {
         $_POST['company_logo'] = $_FILES['company_logo'];
     }
 
+    //Upload mutliple images
     if(isset($_FILES['images']) && count($_FILES['images'])>0  && !empty($_FILES['images'])){
 
         foreach($_FILES['images']['tmp_name'] as $key => $tmp_name ){
@@ -29,20 +30,19 @@ $app->post('/update_company', function ($request, $response, $args) use ($app) {
         $_POST['images'] = $storage; 
     }
 
-      
     $updateCompany     = new Curl(array(
         'url'           => $apiEndpoint,
         'postData'      => $_POST
      ));
 
-   echo json_encode( $updateCompany->loadFilesData() );
+   return checkJsonResult( $updateCompany->loadCurl() );
 });
 
 //company profile page
 $app->get('/company-profile', function ($request, $response, $args) {
 
     // need to take a look later    
-    $args = commonArgs($this->settings);
+    $args = commonData($this->settings);
 
     //Check Logged in or not
     if(!empty(authenticate())){
@@ -58,7 +58,7 @@ $app->get('/company-profile', function ($request, $response, $args) {
 $app->get('/import-contacts', function ($request, $response, $args) {
 
     // need to take a look later    
-    $args = commonArgs($this->settings);
+    $args = commonData($this->settings);
 
     //Check Logged in or not
     if(!empty(authenticate())){
@@ -86,7 +86,7 @@ $app->post('/contacts_upload',function ($request, $response, $args) use ($app) {
         'postData'      => $_POST
      ));
 
-    echo json_encode( $contactUpload->loadFilesData() );
+    return checkJsonResult( $contactUpload->loadCurl() );
 });
 
 //Bucket List
@@ -104,7 +104,7 @@ $app->post('/buckets_list',function ($request, $response, $args) use ($app) {
         'postData'      => $_POST
      ));
 
-     echo json_encode( $bucketList->loadCurl() );
+     return checkJsonResult( $bucketList->loadCurl() );
 });
 
 
@@ -123,7 +123,7 @@ $app->post('/contact_list',function ($request, $response, $args) use ($app) {
         'postData'      => $_POST
      ));
 
-     echo json_encode( $bucketList->loadCurl() );
+     return checkJsonResult( $bucketList->loadCurl() );
 });
 
 //Job Post
@@ -141,13 +141,13 @@ $app->post('/email_invitation',function ($request, $response, $args) use ($app) 
         'postData'      => $_POST
      ));
 
-     echo json_encode( $bucketList->loadCurl() );
+     return checkJsonResult( $bucketList->loadCurl() );
 });
 
 //Dashboard Page
 $app->get('/dashboard',function ($request, $response, $args) use ($app) {
     //Arguments
-    $args       = commonArgs($this->settings);
+    $args       = commonData($this->settings);
    
     //Check Logged in or not
     if(!empty(authenticate())){
@@ -159,9 +159,24 @@ $app->get('/dashboard',function ($request, $response, $args) use ($app) {
 });
 
 //Post Job Page
+$app->get('/job',function ($request, $response, $args) use ($app) {
+    
+    //Arguments
+    $args       = commonData($this->settings);
+    
+    //Check Logged in or not
+    if(!empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']);
+    }
+
+    // Render dashboard view
+    return $this->renderer->render($response, 'index.phtml', $args);
+});
+
+//Post Job Page
 $app->get('/job/post-job',function ($request, $response, $args) use ($app) {
     //Arguments
-    $args       = commonArgs($this->settings);
+    $args       = commonData($this->settings);
     
     //Check Logged in or not
     if(!empty(authenticate())){
@@ -175,7 +190,7 @@ $app->get('/job/post-job',function ($request, $response, $args) use ($app) {
 //Post job Page
 $app->get('/postJob',function ($request, $response, $args) use ($app) {
 	//Arguments
-    $args       = commonArgs($this->settings);
+    $args       = commonData($this->settings);
     
     //Check Logged in or not
     if(!empty(authenticate())){
@@ -188,25 +203,90 @@ $app->get('/postJob',function ($request, $response, $args) use ($app) {
 //Job Post
 $app->post('/post_job',function ($request, $response, $args) use ($app) {
     
-    // dynamically Access Token, Company id
+    // dynamically Access Token, Company Details
     $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
     $this->mintmeshCompanyDetails;
     
     // getting API endpoint from settings
     $apiEndpoint = getapiEndpoint($this->settings, 'post_job');
-   
-    $bucketList     = new Curl(array(
+    
+    $session = new Session();
+    $_POST['company_logo'] = $session->get('company_logo');
+
+    $postJob     = new Curl(array(
         'url'           => $apiEndpoint,
         'postData'      => $_POST
      ));
 
-     echo json_encode( $bucketList->loadCurl() );
+     return checkJsonResult( $postJob->loadCurl() );
 });
+
+//Job List
+$app->post('/jobs_list',function ($request, $response, $args) use ($app) {
+    
+    // dynamically Access Token, Company Details
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    
+    // getting API endpoint from settings
+   $apiEndpoint = getapiEndpoint($this->settings, 'jobs_list');
+   
+    $jobList     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    
+    return checkJsonResult( $jobList->loadCurl() );
+    
+});
+
+//Job Details
+$app->post('/job_details',function ($request, $response, $args) use ($app) {
+   
+    // dynamically Access Token, Company Details 
+   $this->mintmeshAccessToken;
+   $this->mintmeshCompanyId;
+    
+    // getting API endpoint from settings
+   $apiEndpoint = getapiEndpoint($this->settings, 'job_details');
+   
+    $jobDetails    = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    
+    return checkJsonResult( $jobDetails->loadCurl() );
+    
+});
+
+$app->get('/job/job-details/{id}', function ($request, $response, $args) use ($app) {
+
+    $route = $request->getAttribute('route');
+
+    //Arguments
+    $args  = commonData($this->settings);
+    $args['post_id'] = $route->getArgument('id') ;
+  
+    if(!empty($args['post_id'])){
+        
+        //Check Logged in or not
+        if(!empty(authenticate())){
+          return $response->withRedirect($args['APP_DOMAIN']);
+        }
+       
+        // Render dashboard view
+        return $this->renderer->render($response, 'index.phtml', $args);
+    }else{
+        return $response->withRedirect($args['APP_DOMAIN']."/job");
+    }
+});
+
 
 //Logout
 $app->get("/logout", function ($request, $response, $args) { 
-    session_destroy(); 
+    sessionDestroy();
     //Arguments
-    $args       = commonArgs($this->settings);
+    $args = commonData($this->settings);
     return $response->withRedirect($args['APP_DOMAIN']);
 }); 

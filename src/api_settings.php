@@ -54,5 +54,21 @@ return [
                 'VERSION'  => 'v1',
                 'ENDPOINT' => '/enterprise/post_job'
             ],
+            'forgot_password' => [
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/forgot_password'
+            ],
+            'reset_password' => [
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/reset_password'
+            ],
+            'jobs_list' => [
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/jobs_list'
+            ],
+            'job_details' => [
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/job_details'
+            ]
     ];
         

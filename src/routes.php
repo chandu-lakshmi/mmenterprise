@@ -1,6 +1,22 @@
 <?php
 // Set up Curl middleware
 require DIR_PATH .'/src/Curl.php';
+require DIR_PATH .'/src/Sessions.php';
+
+/*i
+//Reload the url and update and session update
+if(isset($_SESSION["access_token"]) && !empty($_SESSION["access_token"])) {
+    // getting API endpoint from settings
+    $apiEndpoint = getapiEndpoint($settings['settings'], 'get_user_details');
+    $_POST['access_token'] = $_SESSION["access_token"];
+    $curl = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+    ));
+    $jsonResult = $curl->loadCurl();
+    //update Session
+    setSession($jsonResult);
+}*/
 
 //Index page
 $app->get('/', function ($request, $response, $args) {
@@ -46,7 +62,12 @@ $app->post('/signin', function ($request, $response, $args) use ($app) {
         'postData'      => $_POST
     ));
     
-    echo json_encode($curl->loadCurl());
+    $jsonResult = $curl->loadCurl();
+    //Load Session
+    setSession($jsonResult);
+
+    return checkJsonResult($jsonResult);
+ 
 });
 
 //Create api
@@ -60,14 +81,14 @@ $app->post('/create_user', function ($request, $response, $args) use ($app) {
         'postData'      => $_POST
     ));
     
-    echo json_encode($curl->loadCurl());
- 
+    return checkJsonResult($curl->loadCurl());
+
 });
 
 //email verification page
 $app->get('/email-verify', function ($request, $response, $args) {
 
-    // need to take a look later    
+    // Arguments  
     $args = commonArgs($this->settings);
 
     $allGetVars = $request->getQueryParams();
@@ -83,42 +104,37 @@ $app->get('/email-verify', function ($request, $response, $args) {
 });
 
 //Forgot password
-$app->get('/forgot_password', function ($request, $response, $args) {
+$app->post('/forgot_password', function ($request, $response, $args) {
 
-    // need to take a look later    
+    // Arguments    
     $args = commonArgs($this->settings);
 
     $apiEndpoint = getapiEndpoint($this->settings, 'forgot_password');
     
-    $contactUpload     = new Curl(array(
+    $forgotPaswword     = new Curl(array(
         'url'           => $apiEndpoint,
         'postData'      => $_POST
      ));
 
-    echo json_encode( $contactUpload->loadCurl() );
+    return checkJsonResult($forgotPaswword->loadCurl());
 });
 
 //email verification page
-$app->get('/reset-password', function ($request, $response, $args) {
+$app->get('/reset_password', function ($request, $response, $args) {
 
-    // need to take a look later    
+    // Arguments    
     $args = commonArgs($this->settings);
 
-    //$args['token'] = $app->request()->get('token');
-    //$allGetVars = $request->getQueryParams();
-    //$args['resetcode'] = $allGetVars['resetcode'];
-    
-    //Check Logged - If it is login it redirects to dashboard page
-    /*if(empty(authenticate())){
-      return $response->withRedirect($args['APP_DOMAIN']."dashboard");
-    }*/
+    //$args['resetToken'] = $app->request()->get('resetToken');
+    $allGetVars = $request->getQueryParams();
+    $args['resetcode'] = $allGetVars['resetcode'];
     
     // Render index view
     return $this->renderer->render($response, 'index.phtml', $args);
 });
 
 //Change password
-$app->get('/resetpassword', function ($request, $response, $args) {
+$app->post('/reset_password', function ($request, $response, $args) {
 
     // dynamically Access Token
     $this->mintmeshAccessToken;
@@ -126,14 +142,14 @@ $app->get('/resetpassword', function ($request, $response, $args) {
     // need to take a look later    
     $args = commonArgs($this->settings);
 
-    $apiEndpoint = getapiEndpoint($this->settings, 'resetpassword');
+    $apiEndpoint = getapiEndpoint($this->settings, 'reset_password');
     
-    $contactUpload     = new Curl(array(
+    $restPassword     = new Curl(array(
         'url'           => $apiEndpoint,
         'postData'      => $_POST
      ));
 
-    echo json_encode( $contactUpload->loadCurl() );
+    return checkJsonResult($restPassword->loadCurl());
 });
 
 // download sample csv

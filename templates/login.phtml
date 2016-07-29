@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!-- This is new comment line for testing SVN -->
+<html ng-app="app">
+    <head>
+        <title>MintMesh</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <base href="<?php echo $data['APP_DOMAIN']; ?>" target="_blank, _self, _parent, _top">
+        <link rel="shortcut icon" href="public/images/favicon.png"/>
+        <link rel="stylesheet" type="text/css" href="public/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="public/css/font-awesome.min.css">
+        <link rel="stylesheet" href="public/css/angular-material.min.css">
+        <link rel="stylesheet" type="text/css" href="public/css/angular-ui-grid.css">
+        <link rel="stylesheet" type="text/css" href="public/css/home.css">
+        <link rel="stylesheet" type="text/css" href="public/css/import-contacts.css">
+        <link rel="stylesheet" type="text/css" href="public/css/fileuploader.css">
+        <script type="text/javascript" src="public/js/vendor/jquery.js"></script>
+        <script type="text/javascript" src="public/js/vendor/bootstrap.min.js"></script>
+        <script type="text/javascript" src="public/js/vendor/angular.js"></script>
+        <script src="public/js/vendor/angular-animate.min.js"></script>
+        <script src="public/js/vendor/angular-aria.min.js"></script>
+        <script src="public/js/vendor/angular-messages.min.js"></script>
+        <script src="public/js/vendor/angular-material.min.js"></script>
+        <script type="text/javascript" src="public/js/vendor/angular-ui-router.js"></script>
+        <script type="text/javascript" src="public/js/vendor/angular-ui-grid.js"></script>
+        <script src="public/js/vendor/ui-bootstrap-tpls.js"></script>
+        <script type="text/javascript" src="public/js/vendor/jquery.easy-autocomplete.js"></script>
+        <script type="text/javascript" src="public/js/vendor/fileuploader.js"></script>
+        <!-- Google API for Geo Location -->
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyD0LSkstKfF5yNdEuomco5HxBpXFQq2HeM&location=-33.8670522,151.1957362"></script>
+        <script type="text/javascript" src="public/js/vendor/ngAutocomplete.js"></script>
+        
+        <script type="text/javascript">
+            (function () {
+                "use strict";
+                
+                angular.module('app.constants', [])
+                .constant('App', {
+                    base_url   : '<?php echo $data['APP_DOMAIN']; ?>',
+                    API_DOMAIN : '<?php echo $data['API_DOMAIN']; ?>'
+                })
+                .value('UserDetails',<?php echo isset($data['user_details'])?$data['user_details']:'{}';?>)
+                .value('CompanyDetails',<?php echo isset($data['company_details'])?$data['company_details']:'{}';?>)
+            }());
+        </script>
+    </head>
+    <body>
+        <div data-ui-view style="height: 100%" ng-cloak></div>
+        <?php
+        if(!empty($data['token'])) {
+        ?> 
+        <input type="hidden" id="token" value="<?=$data['token'] ?>" />
+        <?php 
+        }
+        ?>
+        <?php
+        if(!empty($data['resetcode'])) {
+        ?> 
+        <input type="hidden" id="resetcode" value="<?=$data['resetcode'] ?>" />
+        <?php 
+        }
+        ?>
+        <?php
+        if(!empty($data['post_id'])) {
+        ?> 
+        <input type="hidden" id="post_id" value="<?=$data['post_id'] ?>" />
+        <?php 
+        }
+        ?>
+        <script type="text/javascript" src="public/js/controllers/home.js"></script>
+        <script type="text/javascript" src="public/js/controllers/forgot-password.js"></script>
+        <script type="text/javascript" src="public/js/controllers/company-profile.js"></script>
+        <script type="text/javascript" src="public/js/controllers/import-contacts.js"></script>
+        <script type="text/javascript" src="public/js/controllers/emails.js"></script>
+        <script type="text/javascript" src="public/js/controllers/dashboard.js"></script>
+        <script type="text/javascript" src="public/js/controllers/engagement-contacts.js"></script>
+        <script type="text/javascript" src="public/js/controllers/post-job.js"></script>
+        <script type="text/javascript" src="public/js/controllers/job-search.js"></script>
+        <script type="text/javascript" src="public/js/controllers/job-details.js"></script>
+        <script type="text/javascript" src="public/js/controllers/rewards.js"></script>
+        <script type="text/javascript" src="public/js/app.js"></script>
+    </body>
+</html>

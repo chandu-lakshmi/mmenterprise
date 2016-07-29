@@ -120,6 +120,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
         $uibModal.open({
             animation: true,
             backdrop: 'static',
+            keyboard: false,
             templateUrl: 'templates/dialogs/fileUpload.phtml',
             openedClass: "bucket",
             resolve: {
@@ -654,8 +655,8 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
 
     this.successMsg = false;
 
-    this.subject = "Welcome to MintMesh Enterprise";
-    this.body = "We bring this powerful referral  platform to you. Please download the app and sign up. We are excited to have you be a part of our success here at Enterpi.";
+    this.subject = "MintMesh Enterprise Invitation";
+    this.body = "We bring this powerful referral  platform to you. Please download the app and sign up. We are excited to have you be a part of our success here at MintMesh Enterprise.";
 
     var scope = this;
 

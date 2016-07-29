@@ -1,36 +1,5 @@
 <link rel="stylesheet" type="text/css" href="public/css/job_style.css">
-<!-- <header>
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-2">
-				<img src="public/images/logo.png" alt="brand-logo">
-			</div>
-			<div class="menu col-lg-7">
-				<ul>
-					<li><a ui-sref="dashboard">DASHBOARD</a></li>
-					<li><a ui-sref="job" class="active">JOBS</a></li>
-					<li><a ui-sref="importContactsList">CONTACTS</a></li>
-					<li><a ui-sref="#/">SETTINGS</a></li>
-				</ul>
-			</div>
-			<div class="notifications col-lg-3 pull-right text-center">
-				<div class="row">
-					<div class="not_alert col-lg-3">
-						<span class="num">2</span>
-						<i class="fa fa-bell-o"></i>
-					</div>
-					<div class="col-lg-9">
-						<div class="user">
-							<span><img src="public/images/arrow-dropdown-white.svg"></span>
-							<span class="comp_name">Jennifer</span>
-							<span class="user_dp"><img src="public/images/Ui_Faces/Jenifer.jpg" class="image-responsive img-circle" alt="dp" style="width: 40px;border: 1px solid #ccc"></span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</header> -->
+
 <div class="sub-header">
 	<div class="container">
 		<div class="mid-nav">
@@ -51,51 +20,43 @@
 	<div class="row">
 		<div class="col-xs-12 job_des_bo">
 			<div class="job_des_info">
-				<div class="col-xs-6">
-					<div>Job function:</div>
-					<div>Industry:</div>
-					<div>Location:</div>
-					<div>Experience:</div>
-					<div>Employment type:</div>
-					<div>Position ID:</div>
-					<div>Requisition ID:</div>
+				<div>
+					<span>Job function:</span>
+					<span>{{jobDetailsCtrl.post_data.job_function}}</span>
 				</div>
-				<div class="col-xs-6">
-					<div style="color:#000">Design</div>
-					<div>Information Technology</div>
-					<div>Plano, Texas</div>
-					<div>
-						5 - 6 Years
-					</div>
-					<div>Permanent</div>
-					<div>EN234</div>
-					<div>R123</div>
+				<div>
+					<span>Industry:</span>
+					<span>{{jobDetailsCtrl.post_data.industry_name}}</span>
+				</div>
+				<div>
+					<span>Location:</span>
+					<span>{{jobDetailsCtrl.post_data.location}}</span>
+				</div>
+				<div>
+					<span>Experience:</span>
+					<span>{{jobDetailsCtrl.post_data.experience_range}}</span>
+				</div>
+				<div>
+					<span>Employment type:</span>
+					<span>{{jobDetailsCtrl.post_data.employment_type}}</span>
+				</div>
+				<div>
+					<span>Position ID:</span>
+					<span>{{jobDetailsCtrl.post_data.position_id}}</span>
+				</div>
+				<div>
+					<span>Requisition ID:</span>
+					<span>{{jobDetailsCtrl.post_data.requistion_id}}</span>
 				</div>
 			</div>
 		</div>
 		<div class="col-xs-12 job-des-text job_des_bo">
 			<p>Job Description:</p>
-			<p>Responsibilities and tasks:<br>Execute interaction design as part of a multidisciplinary team. Collaborate on user experience planning with internal and external teams. Researching design and technology trends to integrate into current and future applications. Create wireframes and visual design comps.</p>
+			<p>{{jobDetailsCtrl.job_description}}</p>
 			
 		</div>
 		<div class="col-xs-12 job-des-text job_des_bo" style="border:0">
 			<p>Company Description:</p>
-			<p>We build modern, user friendly and secure applications for large enterprises the world over. We help them leverage the opportunities of today—Social, Mobile, Analytics and the Cloud (SMAC) to put their organization in the right path for tomorrow.
-</p>	</div>
-</div>
-<!-- <footer>
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-5">
-				<p>&copy; 2016 MINTMESH&trade; INC. ALL RIGHTS RESERVED.</p>
-			</div>
-			<div class="col-sm-7">
-				<ul>
-					<li><a href="https://mintmesh.com/us/" target="_blank">ABOUT US</a></li>
-					<li><a href="https://mintmesh.com/terms-of-use/" target="_blank">TERMS & CONDITIONS</a></li>
-					<li><a href="https://mintmesh.com/privacy-policy/" target="_blank">PRIVACY POLICY</a></li>
-				</ul>
-			</div>
+			<p>{{jobDetailsCtrl.company_description}}</p>
 		</div>
-	</div>
-</footer> -->
+</div>

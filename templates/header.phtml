@@ -1,12 +1,12 @@
-<div class="container" ng-init="selectedTab = 'dashboard'">
+<div class="container">
 	<div class="row">
 		<div class="col-lg-2">
 			<a ui-sref=".dashboard"><img src="public/images/company_logo.svg" alt="brand-logo"></a>
 		</div>
 		<div class="menu col-lg-7">
 			<ul class="opt">
-				<li><a ui-sref=".dashboard" ng-class="{'active':selectedTab === 'dashboard'}" ng-click="selectedTab = 'dashboard'">DASHBOARD</a></li>
-				<li><a ui-sref=".job" ng-class="{'active':selectedTab === 'job'}" ng-click="selectedTab = 'job'">JOBS</a></li>
+				<li><a ui-sref=".dashboard" ui-sref-active="active">DASHBOARD</a></li>
+				<li><a ui-sref=".job" ng-class="{active: ('app.job' | includedByState) || ('app.postJob' | includedByState) || ('app.postJob2' | includedByState) || ('app.jobDetails' | includedByState) || ('app.rewards' | includedByState) || ('app.engagement/contacts' | includedByState)}">JOBS</a></li>
 				<li><a href="">CONTACTS</a></li>
 				<!-- <li><a ui-sref=".importContactsList" ng-class="{'active':selectedTab === 'contacts'}" ng-click="selectedTab = 'contacts'">CONTACTS</a></li> -->
 				<!-- <li><a ui-sref="#/">SETTINGS</a></li> -->
@@ -14,16 +14,27 @@
 		</div>
 		<div class="notifications col-lg-3 pull-right text-center">
 			<div class="row">
-				<div class="not_alert col-lg-3" style=visibility:hidden>
+				<div class="not_alert col-lg-3" style="visibility:hidden;display:none;">
 					<span class="num">2</span>
 					<i class="fa fa-bell-o"></i>
 				</div>
-				<div class="col-lg-9">
-					<div class="user">
-						<span><img src="public/images/arrow-dropdown-white.svg"></span>
-						<span class="comp_name">{{headCtrl.user_name}}</span>
-						<span class="user_dp"><img ng-src="{{headCtrl.logo}}" class="image-responsive img-circle" alt="dp" style="width: 40px;border: 1px solid #ccc"></span>
+				<!-- <div class="col-lg-9">
+					<div class="user dropdown-toggle" data-toggle="dropdown">
+						<span class="comp_name">Jaya Krishna</span>
+						<span class="user_dp"><img ng-src="{{headCtrl.logo}}" class="image-responsive img-circle" alt="dp" style="width: 40px;height:40px;border: 1px solid #ccc"></span>
+						<span><img src="public/images/arrow-dropdown-white.svg" >
+						</span>
 					</div>
+				</div> -->
+				<div class="dropdown pull-right">
+  					<button class="btn dropdown-toggle " type="button" data-toggle="dropdown">
+  						<span class="user_name">{{headCtrl.user_name}}</span>
+						<span class="user_dp"><img ng-src="{{headCtrl.logo}}" class="image-responsive img-circle" alt="dp" style="width: 40px;height:40px;border: 1px solid #ccc"></span>
+						<span style="margin: 0 0 0 10px"><img src="public/images/arrow-dropdown-white.svg"></span>
+  					</button>
+  					<ul class="dropdown-menu drop-custom">
+    					<li><a ng-click="headCtrl.logout()" class="text-center">Logout</a></li>
+  					</ul>
 				</div>
 			</div>
 		</div>

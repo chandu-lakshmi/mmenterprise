@@ -9,7 +9,7 @@ $app->get('/get_job_functions',function ($request, $response, $args) use ($app) 
     $getJobFun 	= new Curl(array(
         'url'   => $apiEndpoint,
      ));
-     echo json_encode( $getJobFun->loadCurl() );
+     echo checkJsonResult( $getJobFun->loadCurl() );
 });
 
 //Get Industries
@@ -20,7 +20,7 @@ $app->get('/get_industries',function ($request, $response, $args) use ($app) {
     $getInd 	= new Curl(array(
         'url'   => $apiEndpoint,
      ));
-     echo json_encode( $getInd->loadCurl() );
+     echo checkJsonResult( $getInd->loadCurl() );
 });
 
 //Get Employee Types
@@ -31,7 +31,7 @@ $app->get('/get_employment_types',function ($request, $response, $args) use ($ap
     $getEmpTypes 	= new Curl(array(
        'url'   => $apiEndpoint,
     ));
-    echo json_encode( $getEmpTypes->loadCurl() );
+    echo checkJsonResult( $getEmpTypes->loadCurl() );
 });
 
 //Get Experience
@@ -42,7 +42,8 @@ $app->get('/get_experiences',function ($request, $response, $args) use ($app) {
     $getExp 	= new Curl(array(
        'url'   => $apiEndpoint,
     ));
-    echo json_encode( $getExp->loadCurl() );     
+    
+    echo checkJsonResult( $getExp->loadCurl() );     
 });
 
 //verify emails
@@ -60,8 +61,12 @@ $app->post('/verify_email',function ($request, $response, $args) use ($app) {
         'postData'      => $_POST
      ));
 
-     echo json_encode( $emaiVerify->loadCurl() );
-});
+    $jsonResult = $emaiVerify->loadCurl();
+    //Load Session
+    setSession($jsonResult);
+
+    return checkJsonResult($jsonResult);
+ });
 
 
 

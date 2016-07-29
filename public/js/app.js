@@ -3,7 +3,7 @@
 
 angular.module('app', [
     'ui.router', 'ui.bootstrap',
-    'app.constants', 'app.home', 'app.company.profile', 'app.import.contacts', 'app.emails', 'app.dashboard', 'app.engagement.contacts', 'app.post.job', 'app.job.search','app.job.details','app.rewards'
+    'app.constants', 'app.home', 'app.forgotPassword', 'app.company.profile', 'app.import.contacts', 'app.emails', 'app.dashboard', 'app.engagement.contacts', 'app.post.job', 'app.job.search','app.job.details','app.rewards'
 ])
 
 .constant('CONFIG', {
@@ -31,6 +31,12 @@ angular.module('app', [
         templateUrl: App.base_url + 'templates/home.phtml',
         controller: 'HomeController',
         controllerAs:'homeCtrl'
+    })
+    .state('forgotPassword',{
+        url:'/reset_password',
+        templateUrl : App.base_url + 'templates/forgot-password.phtml',
+        controller:'ForgotPassword',
+        controllerAs:'forgotCtrl'
     })
     .state('companyProfile', {
         url: '/company-profile',
@@ -100,7 +106,7 @@ angular.module('app', [
 
     })
     .state('app.jobDetails',{
-        url: '^/job/job-details',
+        url: '^/job/job-details/:post_id',
         templateUrl: App.base_url + 'templates/job-details.phtml',
         controller: 'JobDetailsController',
         controllerAs: 'jobDetailsCtrl'
@@ -117,6 +123,7 @@ angular.module('app', [
         controller: 'RewardsController',
         controllerAs: 'RewardCtrl'
     })
+
     $urlRouterProvider.otherwise('/login');
     
 });

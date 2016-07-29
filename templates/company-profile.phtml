@@ -103,8 +103,9 @@
 										<div class="col-sm-3">
 											<label for="upload-image">
 												<img src="public/images/icon.png" id="company_logo" class="img-thumbnail">
+												<input id="upload-image" type="file" ng-model="compCtrl.companyLogo" name="logo" name="logo" style="display: none"accept=".jpeg,.jpg,.gif,.ico" custom-on-change="compCtrl.uploadLogo">
 											</label>
-											<input id="upload-image" type="file" ng-model="compCtrl.companyLogo" name="logo" name="logo" style="display: none"accept=".jpeg,.jpg,.gif,.ico" custom-on-change="compCtrl.uploadLogo">
+											<span id="img_err_name" style="color:red;padding:0px 10px;min-height:20px;white-space: nowrap;"></span>
 
 											<!-- <div ng-if="company_form.logo.$error.required && compCtrl.files_error"  class="has-error-msg" style="white-space: nowrap;">Please Choose Company Logo</div> -->
 										</div>
@@ -116,8 +117,9 @@
 										<div class="col-sm-4 col-xs-6 col-md-3" ng-repeat="x in [1,2,3,4]">
 											<label for="add-image-{{x}}">
 												<img src="public/images/add.png" id="dp-{{x}}" class="img-thumbnail">
+												<input id="add-image-{{x}}" type="file" name="add-img" style="display: none;" accept=".jpeg,.jpg,.gif,.ico" onchange="angular.element(this).scope().compCtrl.multipleFiles(this,angular.element(this).scope().x)">
 											</label>
-											<input id="add-image-{{x}}" type="file" name="add-img" style="display: none;" accept=".jpeg,.jpg,.gif,.ico" onchange="angular.element(this).scope().compCtrl.multipleFiles(this,angular.element(this).scope().x)">
+											<span id="multiple_img_error_{{x}}" style="color:red;padding:0px 10px;min-height:20px;white-space: nowrap;"></span>
 										</div>
 										<!-- <div class="col-sm-4 col-xs-6 col-md-3">
 											<label for="add-image-1">
@@ -143,10 +145,10 @@
 									<h3 style="margin-bottom: 20px">Referral Bonus Policy</h3>
 									<label for="pdf">
 										<span class="btn btn-default" style="padding: 10px 50px;">UPLOAD FILE</span>
+										<input type="file" name="file_pdf" id="pdf" accept=".pdf,.doc,.docx" custom-on-change="compCtrl.uploadPdf">
 									</label>
 									<span id="pdf_name"></span>
 									<span id="pdf_err_name" style="color:red"></span>
-									<input type="file" name="file_pdf" id="pdf" accept=".pdf,.doc,.docx" custom-on-change="compCtrl.uploadPdf">
 									<p style="color: #BDBDBD;margin: 10px 0">Supported file format: .Pdf, .doc, .docx. Max file size (10MB)</p>
 								</div>
 							</div>
@@ -155,12 +157,12 @@
 									<img src="public/images/arrow-back.svg" ng-click="compCtrl.prev(1,2)"  style="margin-top: 10px;">
 								</div>
 								<ul class="indicators">
-									<li ng-click="compCtrl.prev(0,1)"></li>
+									<li ng-click="compCtrl.prev(0,2)"></li>
 									<li ng-click="compCtrl.prev(1,2)"></li>
 									<li class="active"></li>
 								</ul>
 								<div class="pull-right">
-									<button  class="btn btn-style" ng-click="compCtrl.valid(company_form.$valid)" ng-disabled="compCtrl.disabled">CONTINUE&nbsp;&nbsp;<img src="public/images/loader/butt_loader.gif" style="margin-top: -2px;" ng-if="compCtrl.cont_load"></button>
+									<button  class="btn btn-style btn-loader" ng-click="compCtrl.valid()" ng-disabled="compCtrl.disabled">CONTINUE<img src="public/images/loader/butt_loader.gif" ng-if="compCtrl.cont_load" alt="loader"></button>
 								</div>
 							</div>
 						</div>
@@ -175,7 +177,7 @@
 										<div class="dotted-border">
 											<p>Your MintMesh connect code is</p>
 											<input type="text" readonly ng-model="compCtrl.company_code">
-											<p>Share it with your contacts to get connected <a href="">WHY?</a></p>
+											<p>Share it with your contacts to get connected <!-- <a href="">WHY?</a> --></p>
 										</div>
 									</div>
 									<button class="btn btn-style" ng-click="compCtrl.upload_contacts()">UPLOAD CONTACTS &nbsp;&nbsp;<img src="public/images/arrow-buttons.svg" style="margin-top: -2px;"></button>

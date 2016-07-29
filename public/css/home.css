@@ -38,6 +38,7 @@ hr{
     z-index: 9999;
     background: url('../images/loader/preloader.gif') 50% 50% no-repeat rgb(255,255,255);
 }
+
 /*Background Image*/
 .bg-image{
     background: url('../images/bg-img.jpg') no-repeat;
@@ -46,7 +47,7 @@ hr{
     height: 100%;
     overflow: auto;
 }
-.bg-image footer{
+.bg-image footer,.forgot-password footer{
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -59,13 +60,13 @@ hr{
     padding: 10px 0 0 0;
     color: white;
 }
-.bg-image footer ul{
+.bg-image footer ul,.forgot-password footer ul{
     list-style: none;
     margin: 0;
     padding: 0;
     text-align: right;
 }
-.bg-image footer ul > li{
+.bg-image footer ul > li,.forgot-password footer ul > li{
     display: inline-block;
     margin-left: 20px;
 }
@@ -148,6 +149,11 @@ input{
         height: auto !important;
     }
 }
+@media (max-height: 500px){
+    .forgot-password footer{
+        position: static !important;
+    }
+}
 @media(max-width: 767px){
     .signin-signup .col-xs-9{
         float: none;
@@ -168,15 +174,18 @@ input{
     }
 }
 
+
+
 /*Signin and Signup Styles*/
 .signin-signup{
     padding: 80px 0;
 }
-.signin-signup button.btn-loader span{
-    display: inline-block;
+.signin-signup button.btn-loader{
+    position: relative;
 }
 .signin-signup button.btn-loader img[alt=loader]{
-    float: right;
+    position: absolute;
+    right: 16px;
 }
 .signin-signup .m_left{
     width: 84%;
@@ -259,6 +268,7 @@ input{
     margin-top: 20px;
     color: #797979;
 }
+
 /*Forgot Password*/
 .signin-signup .sign-in-box a.forgot-link{
     display: block;
@@ -285,6 +295,44 @@ input{
 .signin-signup .forgot-password-box .back-to-home span{
     cursor: pointer;
 }
+
+/*Retype password*/
+.forgot-password .error-spacer{
+    float: right;
+    min-height: 24px;
+    min-width: 1px;
+}
+.forgot-password header img.logo{
+    margin-bottom: 30px;
+    padding: 12px 0 0 0;
+}
+.forgot-password{
+    height: 100%;
+    background: #f2f2f2;
+}
+.forgot-password section .back-to-home{
+    font-size: 20px;
+    padding: 10px;
+}
+.forgot-password footer div.container{
+    border-top : 1px solid #ccc;
+    padding: 10px 0 0 0;
+}
+.forgot-password button.btn-loader{
+    position: relative;
+    padding: 10px 40px !important;
+}
+.forgot-password button.btn-loader img[alt=loader]{
+    position: absolute;
+    right: 6px;
+}
+/*modal*/
+.reset-pwd .modal{
+    top:20%;
+}
+.reset-pwd .modal-dialog{
+    width: 30%;
+} 
 
 
 /*Verify Styles*/
@@ -321,6 +369,7 @@ input{
 }
 
 
+
 /*Company Profile Styles*/
 .company-profile .error-spacer{
     float: right;
@@ -331,6 +380,14 @@ input{
     background: #f2f2f2;
     height: 100%;
     /*overflow: hidden;*/
+}
+.company-profile button.btn-loader{
+    position: relative;
+    padding: 10px 40px !important;
+}
+.company-profile button.btn-loader img[alt=loader]{
+    position: absolute;
+    right: 6px;
 }
 .company-profile .btn-default{
     background: #fafafa;
@@ -500,9 +557,9 @@ input{
     width: 13px;
     outline: none;
 }
-.add-img{
+/*.add-img{
     margin-bottom: 30px;
-}
+}*/
 .upload span,.add-img span{
     display: block;
     padding: 20px 0;

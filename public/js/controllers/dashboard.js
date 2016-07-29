@@ -4,8 +4,8 @@
 angular.module('app.dashboard', [])
 
 
-.controller('DashboardController', [ '$http', '$state', '$rootScope', function($http,$state,$rootScope){
-	this.username = "Jennifer";
+.controller('DashboardController', [ '$http', '$state', 'UserDetails', function($http,$state,UserDetails){
+	this.username = UserDetails.user_name;
 	var scope = this;
 
 	$http({
@@ -20,9 +20,13 @@ angular.module('app.dashboard', [])
 
 }])
 
-.controller('HeaderController',['$rootScope', function($rootScope){
-	this.user_name = $rootScope.client_name;
-	this.logo = $rootScope.company_logo;
+.controller('HeaderController',['UserDetails', 'CompanyDetails', '$http', 'CONFIG', function(UserDetails,CompanyDetails,$http,CONFIG){
+	this.user_name = UserDetails.user_name;
+	this.logo = CompanyDetails.company_logo;
+
+	this.logout = function(){
+		window.location.href = CONFIG.APP_DOMAIN+'logout';
+	}
 }])
 
 

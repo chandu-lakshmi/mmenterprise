@@ -1,4 +1,4 @@
-/*--------job---------*/
+	/*--------job---------*/
 .search-job{
 	margin-top: 3%;
 }
@@ -80,6 +80,11 @@
 .padZ{
 	padding: 0;
 }
+.job-search .total_record{
+	font-size: 18px;
+    color: #666;
+    padding-bottom: 15px;
+}
 .job-search .row{
 	padding: 0 1.4%;
 	border: 1px solid silver;
@@ -147,6 +152,12 @@
     border-right: 1px solid silver;
     padding: 0;
     font-size: 16px;
+}
+.job-info_d div:last-child{	
+	overflow: hidden;
+    max-width: 98%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .job-info_d div:nth-child(even){
 	margin:3% 0;
@@ -321,11 +332,22 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 }
 .job_des_info{
 	width: 35%;
-	background: red;
 	text-align: left;
 }
 .job_des_info div{
 	padding: 5px 0;
+	clear: both;
+}
+.job_des_info div span:first-child{
+	width: 50%;
+	display: inline-block;
+	float: left;
+	color: #666;
+}
+.job_des_info div span:last-child{
+	width: 50%;
+	float: right;
+	color: #000;
 }
 .job_des_info div:first-child{
 	color:gray;

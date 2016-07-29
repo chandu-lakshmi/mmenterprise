@@ -16,16 +16,15 @@ angular.module('app.post.job', ['ngAutocomplete'])
     }
 })
 
-.controller('PostJobController', ['$state','$window', '$http', '$scope', '$uibModal', 'gettingData', 'CONFIG', function($state,$window,$http,$scope,$uibModal,gettingData,CONFIG){
+.controller('PostJobController', ['$state','$window', '$http', '$scope', '$uibModal', 'gettingData', 'CompanyDetails', 'CONFIG', function($state,$window,$http,$scope,$uibModal,gettingData,CompanyDetails,CONFIG){
 
   this.geo_location = '';
   this.geo_options = null;
   this.geo_details = '';
 
 	var scope = this;
-
+  this.company_name = CompanyDetails.company_name;
   this.postJob1 = gettingData.getObj();
-  //console.log(this.postJob1)
   
   scope.postJob1.location = '';
 
@@ -49,7 +48,7 @@ angular.module('app.post.job', ['ngAutocomplete'])
 	get_job_functions.success(function(response){
 		scope.job_function = response.data.job_functions;
     if(gettingData.bol){
-      scope.postJob1.job_func = scope.job_function[scope.postJob1.job_func.job_function_id];
+      scope.postJob1.job_func = scope.job_function[scope.postJob1.job_func.job_function_id - 1];
     }
 	})
   
@@ -65,7 +64,7 @@ angular.module('app.post.job', ['ngAutocomplete'])
     get_industries.success(function(response){
        scope.industry_list = response.data.industries;
         if(gettingData.bol){
-          scope.postJob1.industry = scope.industry_list[scope.postJob1.industry.industry_id];
+          scope.postJob1.industry = scope.industry_list[scope.postJob1.industry.industry_id - 1];
         }
     })
 
@@ -80,7 +79,7 @@ angular.module('app.post.job', ['ngAutocomplete'])
     get_employment_types.success(function(response){
        scope.employment_type = response.data.employmentTypes;
        if(gettingData.bol){
-          scope.postJob1.emp_type = scope.employment_type[scope.postJob1.emp_type.employment_type_id];
+          scope.postJob1.emp_type = scope.employment_type[scope.postJob1.emp_type.employment_type_id - 1];
         }    
     })
 
@@ -95,7 +94,7 @@ angular.module('app.post.job', ['ngAutocomplete'])
     get_experiences.success(function(response){
        scope.experience = response.data.experiences;
        if(gettingData.bol){
-          scope.postJob1.experience = scope.experience[scope.postJob1.experience.experience_id];
+          scope.postJob1.experience = scope.experience[scope.postJob1.experience.experience_id - 1];
         }
     })
 
@@ -108,7 +107,6 @@ angular.module('app.post.job', ['ngAutocomplete'])
       else{
         gettingData.setData(scope.postJob1)
         $window.scrollTo(0,0);
-        //console.log(scope.postJob1)
         $state.go('^.postJob2');
       }
     }
@@ -116,8 +114,10 @@ angular.module('app.post.job', ['ngAutocomplete'])
 }])
 
 
-.controller('PostJobTwoController', ['$uibModal', 'gettingData', '$rootScope', '$http', 'CONFIG', function($uibModal,gettingData,$rootScope,$http,CONFIG){
+.controller('PostJobTwoController', ['$uibModal', 'gettingData', 'CompanyDetails', '$http', 'CONFIG', function($uibModal,gettingData,CompanyDetails,$http,CONFIG){
 
+  this.company_name = CompanyDetails.company_name;
+  
   gettingData.bol = true;
   this.buckLoader = true;
   var bucketColor = ["#229A77", "#21A4AC", "#EE8F3B", "#2A99E0", "#154c50", "#103954", "#342158", "#5B5B29", "#004D40", "#3e110d"];
@@ -255,7 +255,7 @@ angular.module('app.post.job', ['ngAutocomplete'])
 
 }])
 
-.controller('SuccessController',['$window', '$state', '$uibModalInstance', function ($window, $state, $uibModalInstance) {
+.controller('SuccessController',['$scope', '$window', '$state', '$uibModalInstance', 'gettingData', function ($scope, $window, $state, $uibModalInstance, gettingData) {
   
   this.goDashBoard = function  () {
     
@@ -263,9 +263,10 @@ angular.module('app.post.job', ['ngAutocomplete'])
 	  $state.go('^.dashboard');
   }
 
-  window.onhashchange = function() {
+  $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+    gettingData.bol = false;
     $uibModalInstance.dismiss('cancel');
-  }
+  })
 
 }]);
 
