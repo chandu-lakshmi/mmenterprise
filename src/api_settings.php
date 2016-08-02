@@ -69,6 +69,19 @@ return [
             'job_details' => [
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/job_details'
+            ],
+           /* 'get_user_details' => [
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_user_details'
+            ],*/
+            
+            'job_referral_details' => [
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/job_referral_details'
+            ],
+            'status_details' => [
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/status_details'
             ]
     ];
         

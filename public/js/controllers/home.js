@@ -161,9 +161,9 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
             scope.default_signin = false;
             var data = $.param({
                 username : scope.signin_form.l_email,
-                password : scope.signin_form.l_pass
+                password : scope.signin_form.l_pass,
+                timeZone : new Date().getTimezoneOffset()
             });
-
             var signin = $http({
                 headers: {
                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -177,12 +177,8 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
                 scope.load_cond_signin = false;
                 scope.default_signin = true;
                 if(response.status_code == 200){
-                    window.location = CONFIG.APP_DOMAIN+'dashboard';
-                    /*$rootScope.access_token = response.data.access_token;
-                    $rootScope.refresh_token = response.data.refresh_token;
-                    $rootScope.company_name = response.data.company.name;
-                    $rootScope.client_name = response.data.user.firstname;
-                    $state.go('app.dashboard');*/
+                    $window.location = CONFIG.APP_DOMAIN+'dashboard';
+                    //$state.go('app.dashboard');
                 }
                 else if(response.status_code == 403){
                     scope.dublicate_invalid = true;

@@ -31,6 +31,18 @@ class Session
         return (isset($_SESSION[$key])) ? $_SESSION[$key] : false;
     }
 
+     /**
+     * get the data based on the array
+     *
+     * @param  string Array()
+     * Update Session
+     */
+     
+    public function updateArray($arrayResult)
+    {
+        $_SESSION = array_replace($_SESSION,$arrayResult);
+    }
+
     /**
      * unset the session data based on the key
      *

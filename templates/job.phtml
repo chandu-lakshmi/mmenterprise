@@ -5,8 +5,10 @@
 	<!--Search sort-->
 	<div class="row search-job" style="padding:0;border:0;margin-bottom:1%">
 		<div class="left-inner-addon col-xs-12 col-sm-4 ct-search">
-    		<img src="public/images/search.svg" alt="search">
+    		<img src="public/images/search.svg" alt="feedback_left" ng-if="!jobSearchCtrl.search_load_cond">
     		<input type="text" ng-model="jobSearchCtrl.search_value" class="form-control search" placeholder="Search Jobs" ng-keyup="jobSearchCtrl.searchFilter(jobSearchCtrl.pay_status,jobSearchCtrl.search_value)"/>
+    		<img src="public/images/loader/search_loader.gif" alt="feedback_left" style="width:45px;height:41px;" ng-if="jobSearchCtrl.search_load_cond"/>
+    		<img src="public/images/cross.svg" class="feedback" ng-show="jobSearchCtrl.search_value.length >= 1" ng-click="jobSearchCtrl.search_value = '';jobSearchCtrl.searchFilter(jobSearchCtrl.pay_status,jobSearchCtrl.search_value)" alt="feedback_right">
            <span class="bar"></span>
 		</div>
 		<div class="col-xs-12 col-sm-6 col-sm-offset-2">
@@ -25,16 +27,17 @@
 		</div>	
 	</div>
 	<div class="total_record" ng-if="jobSearchCtrl.post_count">
-		Total items : {{jobSearchCtrl.post_count}}
+		Total Jobs : {{jobSearchCtrl.post_count}}
 	</div>
+	<div class="post_err_msg" ng-if="jobSearchCtrl.no_posts_found">No Jobs Found</div>
 	<!-- infinite scroll -->
-	<div infinite-scroll='jobSearchCtrl.nextPage()' infinite-scroll-disabled='jobSearchCtrl.busy' infinite-scroll-distance='1'>
+	<!-- <div infinite-scroll='jobSearchCtrl.nextPage(jobSearchCtrl.pay_status,jobSearchCtrl.search_value)' infinite-scroll-disabled='jobSearchCtrl.busy' infinite-scroll-distance='10'> -->
 		<!--Typeof Job -->
 		<div class="row" ng-repeat="jobList in jobSearchCtrl.jobDetails">
 			<div class="job-type">
 				<img src="public/images/breifcase_gray.svg" alt="briefcase">
-				<h3 ng-click="jobSearchCtrl.job_details(jobList.id)">
-					<span>{{jobList.job_title}}</span>
+				<h3 ng-click="jobSearchCtrl.job_details(jobList)">
+					<span title="{{jobList.job_title}}">{{jobList.job_title}}</span>
 					<img src="public/images/arrow-buttons_green.svg">
 				</h3>
 				<span ng-init="sc=jobList.service_cost;jobList.cost = jobList.free_service == '0' ? 'FREE' : (jobList.service_currency =='DLR' ? '$'+sc+'/Referral' : '&#8377;'+sc+'/Referral')">
@@ -88,6 +91,13 @@
 				</div>
 			</div>
 		</div>
-		<div ng-show='jobSearchCtrl.busy'>Loading data...</div>
+		<!-- <div ng-show='jobSearchCtrl.busy'>Loading data...</div> -->
+		<div class="grid-msg-overlay" ng-if="jobSearchCtrl.jobLoader" style="position:relative;top:25%">
+	    <div class="msg">
+	        <span>
+	          Loading Data... 
+	          <img src="public/images/loader/upload_file.gif" alt="loader">
+	        </span>
+	    </div>
 	</div>
 </div>

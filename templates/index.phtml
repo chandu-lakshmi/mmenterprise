@@ -36,6 +36,7 @@ and open the template in the editor.
         <script type="text/javascript" src="public/js/vendor/ngAutocomplete.js"></script>
         
         <script type="text/javascript">
+
             (function () {
                 "use strict";
                 
@@ -46,7 +47,12 @@ and open the template in the editor.
                 })
                 .value('UserDetails',<?php echo isset($data['user_details'])?$data['user_details']:'{}';?>)
                 .value('CompanyDetails',<?php echo isset($data['company_details'])?$data['company_details']:'{}';?>)
+                .value('jobDetails',{
+                    id:'<?php echo isset($data['post_id'])?$data['post_id']:'';?>',
+                    job_title : ''
+                })
             }());
+            
         </script>
     </head>
     <body>

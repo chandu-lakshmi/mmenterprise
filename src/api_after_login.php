@@ -35,7 +35,18 @@ $app->post('/update_company', function ($request, $response, $args) use ($app) {
         'postData'      => $_POST
      ));
 
-   return checkJsonResult( $updateCompany->loadCurl() );
+    $jsonResult = checkJsonResult( $updateCompany->loadCurl() );
+    $result = json_decode($jsonResult);
+    $arrayList["company"] = array(
+            "company_id" => $_POST["company_id"],
+            "company_code" => $_POST["company_code"],
+            "company_logo" => isset($result->data->company_logo)?$result->data->company_logo:"",
+            "company_name" => $_POST["company"],
+        );
+    //Update Session
+    updateSession($arrayList);
+
+    return $jsonResult;
 });
 
 //company profile page
@@ -77,7 +88,7 @@ $app->post('/contacts_upload',function ($request, $response, $args) use ($app) {
     $this->mintmeshCompanyId;
     
     $_POST['contacts_file'] = $_FILES['contacts_file'];
-   
+
     // getting API endpoint from settings
     $apiEndpoint = getapiEndpoint($this->settings, 'contacts_upload');
     //print_r($_POST);exit;
@@ -187,6 +198,20 @@ $app->get('/job/post-job',function ($request, $response, $args) use ($app) {
     return $this->renderer->render($response, 'index.phtml', $args);
 });
 
+//Post Job Page
+$app->get('/job/post-job-2',function ($request, $response, $args) use ($app) {
+     
+     //Arguments
+    $args       = commonData($this->settings);
+    
+    //Check Logged in or not
+    if(!empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']);
+    }
+
+     return $response->withRedirect($args['APP_DOMAIN']."job/post-job");
+});
+
 //Post job Page
 $app->get('/postJob',function ($request, $response, $args) use ($app) {
 	//Arguments
@@ -207,7 +232,6 @@ $app->post('/post_job',function ($request, $response, $args) use ($app) {
     $this->mintmeshAccessToken;
     $this->mintmeshCompanyId;
     $this->mintmeshCompanyDetails;
-    
     // getting API endpoint from settings
     $apiEndpoint = getapiEndpoint($this->settings, 'post_job');
     
@@ -282,6 +306,41 @@ $app->get('/job/job-details/{id}', function ($request, $response, $args) use ($a
     }
 });
 
+//Job Referrals details
+$app->post('/job_referral_details',function ($request, $response, $args) use ($app) {
+   
+    // dynamically Access Token
+   $this->mintmeshAccessToken;
+      
+    // getting API endpoint from settings
+   $apiEndpoint = getapiEndpoint($this->settings, 'job_referral_details');
+   
+    $jobReferDetails    = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    
+    return checkJsonResult( $jobReferDetails->loadCurl() );
+    
+});
+
+//Update Status Details
+$app->post('/update_job_status',function ($request, $response, $args) use ($app) {
+   
+    // dynamically Access Token
+   $this->mintmeshAccessToken;
+      
+    // getting API endpoint from settings
+   $apiEndpoint = getapiEndpoint($this->settings, 'status_details');
+   
+    $statusDetails    = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    
+    return checkJsonResult( $statusDetails->loadCurl() );
+    
+});
 
 //Logout
 $app->get("/logout", function ($request, $response, $args) { 

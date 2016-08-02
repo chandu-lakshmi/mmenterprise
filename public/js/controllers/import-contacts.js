@@ -78,8 +78,6 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
     })
 
 
-    //this.bucketsName = dynamicBucketsName.getData();
-    //console.log(this.bucketsName)
     var bucketColor = ["#229A77", "#21A4AC", "#EE8F3B", "#2A99E0", "#154c50", "#103954", "#342158", "#5B5B29", "#004D40", "#6f2b25"];
 
     this.fileNames = [];
@@ -292,13 +290,15 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
     var selectedContacts1 = [];
 
     var API_CALL = CONFIG.APP_DOMAIN+'contact_list';
+    var bucketId;
 
     this.importContactGrid = function(url, id, type) {
+        bucketId = id;
         scope.gridNoData = false;
         scope.loading = true;
 
         $scope.gridOptions = {
-            infiniteScrollRowsFromEnd: 25,
+            infiniteScrollRowsFromEnd: 50,
             enableFullRowSelection: true,
             infiniteScrollUp: true,
             infiniteScrollDown: true,
@@ -329,7 +329,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
 
             onRegisterApi: function(gridApi) {
                 gridApi.infiniteScroll.on.needLoadMoreData($scope, $scope.getDataDown);
-                gridApi.infiniteScroll.on.needLoadMoreDataTop($scope, $scope.getDataUp);
+                //gridApi.infiniteScroll.on.needLoadMoreDataTop($scope, $scope.getDataUp);
                 $scope.gridApi = gridApi;
 
                 gridApi.selection.on.rowSelectionChanged($scope, function(row) {
@@ -370,12 +370,10 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
         $scope.page_no = 1;
 
         $scope.getFirstData = function() {
-
             var list = $.param({
-                bucket_id: id,
+                bucket_id: bucketId,
                 page_no: $scope.page_no
             });
-
             return $http({
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -387,6 +385,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
 
             .then(function(response) {
                 scope.totalRows = response.data.data.total_records[0].total_count;
+
                 scope.total_pages = Math.ceil(scope.totalRows / 50);
                
                 //$scope.gridOptions.data = response.data.Contacts_list;
@@ -432,10 +431,9 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
             $scope.page_no++;
 
             var list = $.param({
-                bucket_id: id,
+                bucket_id: bucketId,
                 page_no: $scope.page_no
             });
-
             return $http({
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -451,8 +449,8 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
                 $scope.gridApi.infiniteScroll.saveScrollPercentage();
                 $scope.data = $scope.data.concat(newData);
 
-                return $scope.gridApi.infiniteScroll.dataLoaded($scope.firstPage > 0, $scope.lastPage < scope.total_pages).then(function() {
-                    $scope.checkDataLength('up');
+                return $scope.gridApi.infiniteScroll.dataLoaded($scope.firstPage > 0, $scope.page_no < scope.total_pages).then(function() {
+                    //$scope.checkDataLength('up');
                 });
             })
             .catch(function(error) {
@@ -461,37 +459,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
 
         };
 
-        $scope.getDataUp = function() {
-
-            $scope.page_no--;
-
-            var list = $.param({
-                bucket_id: id,
-                page_no: $scope.page_no
-            });
-
-            return $http({
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                },
-                method: 'POST',
-                url: url,
-                data: list
-            })
-
-            .then(function(response) {
-                $scope.firstPage--;
-                var newData = $scope.getPage(response.data.data.Contacts_list);
-                $scope.gridApi.infiniteScroll.saveScrollPercentage();
-                $scope.data = newData.concat($scope.data);
-                return $scope.gridApi.infiniteScroll.dataLoaded($scope.firstPage > 0, $scope.lastPage < $scope.lastPage < scope.total_pages).then(function() {
-                    $scope.checkDataLength('down');
-                });
-            })
-            .catch(function(error) {
-                return $scope.gridApi.infiniteScroll.dataLoaded();
-            });
-        };
+        
 
         $scope.getPage = function(data) {
             var res = [];
@@ -501,40 +469,17 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
             return res;
         };
 
-        $scope.checkDataLength = function(discardDirection) {
-            // work out whether we need to discard a page, if so discard from the direction passed in
-            if ($scope.lastPage - $scope.firstPage > scope.total_pages - 1) {
-                // we want to remove a page
-                $scope.gridApi.infiniteScroll.saveScrollPercentage();
-
-                if (discardDirection === 'up') {
-                    $scope.data = $scope.data.slice(50);
-                    $scope.firstPage++;
-                    $timeout(function() {
-                        // wait for grid to ingest data changes
-                        $scope.gridApi.infiniteScroll.dataRemovedTop($scope.firstPage > 0, $scope.lastPage < scope.total_pages);
-                    });
-                } else {
-                    $scope.data = $scope.data.slice(0, scope.total_pages * 50);
-                    $scope.lastPage--;
-                    $timeout(function() {
-                        // wait for grid to ingest data changes
-                        $scope.gridApi.infiniteScroll.dataRemovedBottom($scope.firstPage > 0, $scope.lastPage < scope.total_pages);
-                    });
-                }
-            }
-        };
 
         $scope.getFirstData().then(function() {
             $timeout(function() {
                 // timeout needed to allow digest cycle to complete,and grid to finish ingesting the data
                 // you need to call resetData once you've loaded your data if you want to enable scroll up,
                 // it adjusts the scroll position down one pixel so that we can generate scroll up events
-                $scope.gridApi.infiniteScroll.resetScroll($scope.firstPage > 0, $scope.lastPage < scope.total_pages);
+                $scope.gridApi.infiniteScroll.resetScroll($scope.firstPage > 0, $scope.page_no < scope.total_pages);
             });
         });
 
-        }
+    }
         //default calling all contacts
     scope.importContactGrid(API_CALL, 0, "all");
 
@@ -545,7 +490,9 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
     }
 
    
-
+    this.jumpPage = function(){
+        $window.location = CONFIG.APP_DOMAIN+'dashboard';
+    }
 
     this.importSelect = function() {
         if(selectedContacts.length == 0){
@@ -557,7 +504,6 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
                 size:'sm',
                 controller: 'InviteZero'
             });
-            //alert("please select alteast one contact to invite")
         }
         else{
             $uibModal.open({
@@ -588,8 +534,8 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
 
 }])
 .controller('InviteZero',["$scope", "$uibModalInstance", function($scope, $uibModalInstance){
+    
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
-
         $uibModalInstance.dismiss('cancel');
 
     })
@@ -651,7 +597,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
 
 }])
 
-.controller('modalCtrl', ['$scope', '$uibModalInstance', 'listContacts', '$http', 'CONFIG', function($scope, $uibModalInstance,listContacts,$http,CONFIG) {
+.controller('modalCtrl', ['$scope', '$uibModalInstance', 'listContacts', '$http', '$window', 'CONFIG', function($scope, $uibModalInstance,listContacts,$http,$window,CONFIG) {
 
     this.successMsg = false;
 
@@ -689,6 +635,10 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
         })
 
     };
+
+    this.jumpPage = function(){
+        $window.location = CONFIG.APP_DOMAIN+'dashboard';
+    }
     
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
 

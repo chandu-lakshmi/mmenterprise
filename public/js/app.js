@@ -81,7 +81,7 @@ angular.module('app', [
         controllerAs:'DashCtrl'
     })
     .state('app.engagement/contacts',{
-        url: '^/job/engagement-contacts',
+        url: '^/job/engagement-contacts/:post_id',
         templateUrl: App.base_url + 'templates/engagement-contacts.phtml',
         controller: 'EngagementContactsController',
         controllerAs: 'EngContCtrl'
@@ -118,7 +118,7 @@ angular.module('app', [
         controllerAs:'ipContactListCtrl'
     })
     .state('app.rewards',{
-        url: '^/job/rewards',
+        url: '^/job/rewards/:post_id',
         templateUrl: App.base_url + 'templates/rewards.phtml',
         controller: 'RewardsController',
         controllerAs: 'RewardCtrl'

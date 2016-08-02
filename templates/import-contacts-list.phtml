@@ -32,7 +32,7 @@
 				        </div>	
 				        <div class="grid-msg-overlay" ng-if="ipContactListCtrl.gridNoData">
 				          <div class="msg">
-				            <span>No Data Found</span>
+				            <span>No Contacts Found</span>
 				          </div>
 				        </div>
 					</div>
@@ -41,7 +41,7 @@
 					<div class="col-sm-12 im_c_foot">
 						<!-- <button class="btn btn-lg pull-right" ng-click="ipContactListCtrl.importSelect()">IMPORT SELECTED<img src="public/images/arrow-buttons_black.svg" alt="arrow"></button> -->
 
-						<a ui-sref="app.dashboard"><button class="btn btn-lg pull-right">SKIP<img src="public/images/arrow-buttons_black.svg" alt="arrow"></button></a>
+						<a ng-click="ipContactListCtrl.jumpPage()"><button class="btn btn-lg pull-right">SKIP<img src="public/images/arrow-buttons_black.svg" alt="arrow"></button></a>
 
 						<button class="btn btn-lg pull-right" ng-click="ipContactListCtrl.importSelect()">INVITE SELECTED<img src="public/images/arrow-buttons.svg" alt="arrow"></button>
 					</div>

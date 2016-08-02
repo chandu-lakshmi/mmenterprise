@@ -29,11 +29,11 @@
 				<div class="dropdown pull-right">
   					<button class="btn dropdown-toggle " type="button" data-toggle="dropdown">
   						<span class="user_name">{{headCtrl.user_name}}</span>
-						<span class="user_dp"><img ng-src="{{headCtrl.logo}}" class="image-responsive img-circle" alt="dp" style="width: 40px;height:40px;border: 1px solid #ccc"></span>
+						<span class="user_dp"><img ng-src="{{headCtrl.logo}}" class="image-responsive img-circle" alt="dp" style="width: 40px;height:40px;border: 1px solid #ccc;display: inline-block;"></span>
 						<span style="margin: 0 0 0 10px"><img src="public/images/arrow-dropdown-white.svg"></span>
   					</button>
   					<ul class="dropdown-menu drop-custom">
-    					<li><a ng-click="headCtrl.logout()" class="text-center">Logout</a></li>
+    					<li><a ng-click="headCtrl.logout()" class="text-center" style="font-size:16px">Logout</a></li>
   					</ul>
 				</div>
 			</div>

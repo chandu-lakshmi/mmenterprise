@@ -1,0 +1,19 @@
+<div ng-if="refStatus.accept">
+    <div class="modal-header text-center" style="border-bottom:0">
+    	<div>
+	        <h5 style="font-size:18px">Are you sure you want to accept the Referral?</h5>
+	    </div>
+	    <button class="btn btn-default" type="button" ng-click="$dismiss()" style="margin-top:5px;padding: 6px 30px">CANCEL</button>
+	    <button class="btn btn-primary" type="button" ng-click="$dismiss()" style="margin-top:5px;padding: 6px 30px">OK</button>
+    </div>
+</div>
+
+<div ng-if="refStatus.decline">
+    <div class="modal-header text-center" style="border-bottom:0">
+    	<div>
+	        <h5 style="font-size:18px">Are you sure you want to decline the Referral?</h5>
+	    </div>
+	    <button class="btn btn-default" type="button" ng-click="$dismiss()" style="margin-top:5px;padding: 6px 30px">CANCEL</button>
+	    <button class="btn btn-primary" type="button" ng-click="$dismiss()" style="margin-top:5px;padding: 6px 30px">OK</button>
+    </div>
+</div>

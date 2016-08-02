@@ -1,16 +1,18 @@
+
 <div class="sub-header">
 	<div class="container">
 		<div class="mid-nav">
 			<h3>
 				<a ui-sref="^.job"><img src="public/images/back-arrow.svg" alt="back" style="margin-bottom: 4px;">
-				<span>UI/UX Designer</span></a>
+				<span>{{RewardCtrl.job_title | uppercase}}</span></a>
 			</h3>
 			<span class="openbox" style="margin:0">OPEN</span>
 		</div>
 		<ul>
-			<li><a ui-sref="^.jobDetails">JOB DETAILS</a></li>
-			<li><a ui-sref="^.engagement/contacts">ENGAGEMENT/CONTACTS</a></li>
-			<li><a ui-sref="^.rewards" class="active">REWARDS</a></li>
+			<li><a ui-sref="^.jobDetails({post_id:RewardCtrl.post_id})" ui-sref-active="active">JOB DETAILS</a></li>
+			<li><a ui-sref="^.engagement/contacts({post_id:RewardCtrl.post_id})" ui-sref-active="active">ENGAGEMENT/CONTACTS</a></li>
+			<li><a ui-sref="^.rewards({post_id:RewardCtrl.post_id})" ui-sref-active="active">REWARDS</a></li>
+		</ul>
 		</ul>
 	</div>
 </div>

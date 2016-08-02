@@ -10,8 +10,8 @@ angular.module('app.emails', [])
 		var scope = this;
 		var tokenid = document.getElementById('token').value;        
 		var data = $.param({
-        token: tokenid
-    });
+            token: tokenid
+        });
 
     var email_verify = $http({
         headers: {

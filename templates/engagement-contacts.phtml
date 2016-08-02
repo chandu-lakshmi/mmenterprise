@@ -1,50 +1,17 @@
 
-<!-- <header>
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-2">
-				<img src="public/images/logo.png" alt="brand-logo">
-			</div>
-			<div class="menu col-lg-7">
-				<ul>
-					<li><a ui-sref="dashboard">DASHBOARD</a></li>
-					<li><a ui-sref="job" class="active">JOBS</a></li>
-					<li><a ui-sref="importContactsList">CONTACTS</a></li>
-					<li><a ui-sref="#/">SETTINGS</a></li>
-				</ul>
-			</div>
-			<div class="notifications col-lg-3 pull-right text-center">
-				<div class="row">
-					<div class="not_alert col-lg-3">
-						<span class="num">2</span>
-						<i class="fa fa-bell-o"></i>
-					</div>
-					<div class="col-lg-9">
-						<div class="user">
-							<span><img src="public/images/arrow-dropdown-white.svg"></span>
-							<span class="comp_name">Jennifer</span>
-							<span class="user_dp"><img src="public/images/Ui_Faces/Jenifer.jpg" class="image-responsive img-circle" alt="dp" style="width: 40px;border: 1px solid #ccc"></span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</header> -->
-
 <div class="sub-header">
 	<div class="container">
 		<div class="mid-nav">
 			<h3>
 				<a ui-sref="^.job"><img src="public/images/back-arrow.svg" alt="back" style="margin-bottom: 4px;">
-				<span>UI/UX Designer</span></a>
+				<span>{{EngContCtrl.job_title | uppercase}}</span></a>
 			</h3>
 			<span class="openbox" style="margin:0">OPEN</span>
 		</div>
 		<ul>
-			<li><a ui-sref="^.jobDetails">JOB DETAILS</a></li>
-			<li><a ui-sref="^.engagement/contacts">ENGAGEMENT/CONTACTS</a></li>
-			<li><a ui-sref="^.rewards">REWARDS</a></li>
+			<li><a ui-sref="^.jobDetails({post_id:EngContCtrl.post_id})" ui-sref-active="active">JOB DETAILS</a></li>
+			<li><a ui-sref="^.engagement/contacts({post_id:EngContCtrl.post_id})" ui-sref-active="active">ENGAGEMENT/CONTACTS</a></li>
+			<li><a ui-sref="^.rewards({post_id:EngContCtrl.post_id})" ui-sref-active="active">REWARDS</a></li>
 		</ul>
 	</div>
 </div>
@@ -52,7 +19,7 @@
 <div class="engage-contact" style="padding: 70px 0 100px 0">
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-4" ng-show="!EngContCtrl.referrals_show">
+			<!-- <div class="col-lg-4" ng-show="!EngContCtrl.referrals_show">
 				<div class="box invited">
 					<div class="box-header">
 						<span>INVITED (150)</span>
@@ -128,104 +95,19 @@
 									<div ng-class="{'bg-hired':accept.status == 'hired'}">Hired</div>
 								</div>
 							</li>
-							<!-- <li>
-								<div class="clearfix">
-									<div class="pull-left" style="padding-right: 10px;">
-										<img src="public/images/Ui_Faces/Kevin.jpg" class="img-responsive img-circle">
-									</div>
-									<div class="content pull-left">
-										<span class="text-name">Kevin</span>
-										<p style="margin-bottom: 5px;">Sr. Human Resource Manager</p>
-									</div>
-								</div>
-								<div class="btn-group">
-									<div>Accepted</div>
-									<div class="bg-interviewed">Interviewed</div>
-									<div>Offer Made</div>
-									<div>Hired</div>
-								</div>
-							</li>
-							<li>
-								<div class="clearfix">
-									<div class="pull-left" style="padding-right: 10px;">
-										<img src="public/images/Ui_Faces/George.jpg" class="img-responsive img-circle">
-									</div>
-									<div class="content pull-left">
-										<span class="text-name">George</span>
-										<p style="margin-bottom: 5px;">Sr. Human Resource Manager</p>
-									</div>
-								</div>
-								<div class="btn-group">
-									<div>Accepted</div>
-									<div class="bg-interviewed">Interviewed</div>
-									<div>Offer Made</div>
-									<div>Hired</div>
-								</div>
-							</li>
-							<li>
-								<div class="clearfix">
-									<div class="pull-left" style="padding-right: 10px;">
-										<img src="public/images/Ui_Faces/Kristin.jpg" class="img-responsive img-circle">
-									</div>
-									<div class="content pull-left">
-										<span class="text-name">Kristin</span>
-										<p style="margin-bottom: 5px;">UI Manager</p>
-									</div>
-								</div>
-								<div class="btn-group">
-									<div>Accepted</div>
-									<div>Interviewed</div>
-									<div>Offer Made</div>
-									<div class="bg-hired">Hired</div>
-								</div>
-							</li>
-							<li>
-								<div class="clearfix">
-									<div class="pull-left" style="padding-right: 10px;">
-										<img src="public/images/Ui_Faces/Armen Hodge.jpg" class="img-responsive img-circle">
-									</div>
-									<div class="content pull-left">
-										<span class="text-name">Armen Hodge</span>
-										<p style="margin-bottom: 5px;">Sr Software Engineer</p>
-									</div>
-								</div>
-								<div class="btn-group">
-									<div>Accepted</div>
-									<div>Interviewed</div>
-									<div class="bg-offerMade">Offer Made</div>
-									<div>Hired</div>
-								</div>
-							</li>
-							<li>
-								<div class="clearfix">
-									<div class="pull-left" style="padding-right: 10px;">
-										<img src="public/images/Ui_Faces/Watson.jpg" class="img-responsive img-circle">
-									</div>
-									<div class="content pull-left">
-										<span class="text-name">Watson</span>
-										<p style="margin-bottom: 5px;">UI/UX Designer</p>
-									</div>
-								</div>
-								<div class="btn-group">
-									<div class="bg-accepetd">Accepted</div>
-									<div>Interviewed</div>
-									<div>Offer Made</div>
-									<div>Hired</div>
-								</div>
-							</li> -->
 						</ul>
 					</div>
 				</div>
-			</div>
-			<div class="col-lg-12 fade" ng-if="EngContCtrl.referrals_show">
+			</div> -->
+			<div class="col-lg-12 fade"><!--  ng-if="EngContCtrl.referrals_show"> -->
 				<div class="box referred-expand">
 					<div class="box-header">
 						<span>REFERRALS (30)</span>
-						<i class="fa fa-compress pull-right" ng-click="EngContCtrl.fun_click()"></i>
+						<i class="fa fa-compress pull-right"></i><!--  ng-click="EngContCtrl.fun_click()"></i> -->
 					</div>
 					<div class="box-content" style="padding: 0">
 						<ul>
-							<li class="t_head">
+							<li class="t_head" ng-style="{'border-bottom':EngContCtrl.length_zero ? '1px solid #ccc' : ''}">
 								<div class="col-lg-3">
 									NAME
 								</div>
@@ -242,39 +124,43 @@
 									AWAITING ACTION 
 								</div>
 							</li>
-							<li ng-repeat="refer in EngContCtrl.contacts[0].referred">
+							<li ng-repeat="referralsList in EngContCtrl.referrals">
 								<div class="col-lg-3">
 									<div class="pull-left">
-										<img ng-src="public/images/Ui_Faces/{{refer.name}}.jpg" class="img-responsive img-circle border-{{refer.status | lowercase}}">
+										<img ng-src="{{referralsList.dp_image}}" class="img-responsive img-circle border-{{refer.status | lowercase}}">
 									</div>
 									<div class="content pull-left">
-										<big>{{refer.name}}</big>
-										<p style="margin:0">{{refer.designation}}</p>
+										<big>{{referralsList.name}}</big>
+										<p style="margin:0">{{referralsList.designation}}</p>
 									</div>
 								</div>
 								<div class="col-lg-3" style="padding: 0">
 									<div class="pull-left">
-										<img ng-src="public/images/Ui_Faces/{{refer.referred_by}}.jpg" class="img-responsive img-circle border-default">
+										<img ng-src="{{referralsList.referred_by_dp_image}}" class="img-responsive img-circle border-default">
 									</div>
 									<div class="content pull-left">
-										<big>{{refer.referred_by}}</big>
-										<p style="margin:0;">{{refer.ref_designation}}</p>
+										<big>{{referralsList.referred_by}}</big>
+										<p style="margin:0;">{{referralsList.ref_designation}}</p>
 									</div>
 								</div>
 								<div class="col-lg-2">
-									<span style="display: inline-block;padding: 12px 0;line-height: 1.8em">{{refer.time}}&nbsp;&nbsp;<img src="public/images/time.svg"alt="clock"></span>
+									<span style="display: inline-block;padding: 12px 0;line-height: 1.8em">{{referralsList.created_at}}&nbsp;&nbsp;<img src="public/images/time.svg"alt="clock"></span>
 								</div>
 								<div class="col-lg-2 text-right">
-									<span style="display: inline-block;padding: 12px 0;line-height: 1.8em;color: black">{{refer.name}}.pdf &nbsp;&nbsp;<img src="public/images/download.svg" alt="download_svg"></span>
+									<span class="resume_file">{{referralsList.resume_path | fileName}}</span>
+									<img src="public/images/download.svg" alt="download_svg">
 								</div>
-								<div class="col-lg-2 text-center" style="padding: 10px 0" ng-if="refer.status == 'Pending'">
-									<img src="public/images/tickmark-accept.svg" alt="response">&nbsp;&nbsp;
-									<img src="public/images/closemark-decline.svg" alt="response">
+								<div class="col-lg-2 text-center" style="padding: 10px 0" ng-if="referralsList.status == 'PENDING'">
+									<img src="public/images/tickmark-accept.svg" alt="response" ng-click="EngContCtrl.referral_status(1)">&nbsp;&nbsp;
+									<img src="public/images/closemark-decline.svg" alt="response" ng-click="EngContCtrl.referral_status(2)">
 								</div>
-								<div class="col-lg-2 text-center" style="padding: 15px 0" ng-if="refer.status != 'Pending'">
+								<div class="col-lg-2 text-center" style="padding: 15px 0" ng-if="referralsList.status != 'PENDING'">
 									<span class="text-{{refer.status | lowercase}}">{{refer.status | uppercase}}</span>
 								</div>
 							</li>
+							<div class="clearfix"></div>
+							<div class="text-center" style="padding:50px 0;" ng-if="EngContCtrl.referrals_load_cond">Loading data...</div>
+							<div class="text-center" style="padding:50px 0;" ng-if="EngContCtrl.length_zero">No Data Found</div>
 						</ul>
 					</div>
 				</div>
@@ -282,20 +168,3 @@
 		</div>
 	</div>
 </div>
-
-<!-- <footer>
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-5">
-				<p>&copy; 2016 MINTMESH&trade; INC. ALL RIGHTS RESERVED.</p>
-			</div>
-			<div class="col-sm-7">
-				<ul>
-					<li><a href="https://mintmesh.com/us/" target="_blank">ABOUT US</a></li>
-					<li><a href="https://mintmesh.com/terms-of-use/" target="_blank">TERMS & CONDITIONS</a></li>
-					<li><a href="https://mintmesh.com/privacy-policy/" target="_blank">PRIVACY POLICY</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-</footer> -->

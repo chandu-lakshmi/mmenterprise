@@ -128,12 +128,12 @@ angular.module('app.post.job', ['ngAutocomplete'])
   }
 
   this.rewards = [
-    {'pay_status':'free','amount':'0','message':'just a thank you','currency':'DLR','pay_fee':'0'},
-    {'pay_status':'pay','amount':'10','message':'per referral','currency':'DLR','pay_fee':'1'},
-    {'pay_status':'pay','amount':'20','message':'per referral','currency':'DLR','pay_fee':'1'},
-    {'pay_status':'pay','amount':'50','message':'per referral','currency':'DLR','pay_fee':'1'},
-    {'pay_status':'pay','amount':'100','message':'per referral','currency':'DLR','pay_fee':'1'},
-    {'pay_status':'pay','amount':'500','message':'per referral','currency':'DLR','pay_fee':'1'}
+    {'pay_status':'free','amount':'0','message':'just a thank you','currency':'DLR','pay_fee':'1'},
+    {'pay_status':'pay','amount':'10','message':'per referral','currency':'DLR','pay_fee':'0'},
+    {'pay_status':'pay','amount':'20','message':'per referral','currency':'DLR','pay_fee':'0'},
+    {'pay_status':'pay','amount':'50','message':'per referral','currency':'DLR','pay_fee':'0'},
+    {'pay_status':'pay','amount':'100','message':'per referral','currency':'DLR','pay_fee':'0'},
+    {'pay_status':'pay','amount':'500','message':'per referral','currency':'DLR','pay_fee':'0'}
   ]
 
   this.post_job_result = gettingData.getObj();
@@ -260,11 +260,12 @@ angular.module('app.post.job', ['ngAutocomplete'])
   this.goDashBoard = function  () {
     
     $window.scrollTo(0,0);
-	  $state.go('^.dashboard');
+	  $state.go('^.job');
   }
 
   $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
     gettingData.bol = false;
+    gettingData.setData({});
     $uibModalInstance.dismiss('cancel');
   })
 

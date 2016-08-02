@@ -158,12 +158,12 @@ angular.module('app.company.profile', [])
     this.files_error = false;
     scope.disabled = false;
     this.valid = function(){
-
-        if(multiple_img_cond || logo_cond){
+        
+        /*if(multiple_img_cond || logo_cond){
             this.files_error = true;
-        }
-        else{
-            this.files_error = false;
+        }*/
+        //else{
+            //this.files_error = false;
             scope.disabled = true;
             scope.cont_load = true;
             var formData = new FormData();
@@ -207,9 +207,10 @@ angular.module('app.company.profile', [])
 
             create_company.error(function(response){
                 scope.disabled = false;
+                scope.cont_load = false;
                 console.log(response);
             })
-        }
+        //}
     }
 
     this.group_size = ['10-50','50-100','100-500','500-1000','1000-5000','5000+'];

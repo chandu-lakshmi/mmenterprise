@@ -76,6 +76,13 @@ function setSession($result = "") {
 	}
 }
 
+//Update Session in array
+function updateSession($resultArray = array()){
+	
+	$session = new Session();
+	$session->updateArray($resultArray);
+}
+
 //Session Destroy
 function sessionDestroy(){
 	$session = new Session();
