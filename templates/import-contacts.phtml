@@ -26,21 +26,9 @@
 								<span style="color:gray">Organize your contacts in one of the groups below or create your own</span>
 							</div>
 						</div>
-						<!-- <div class="grid-msg-overlay loader" ng-if="importCtrl.loader">
-		          			<div class="msg" style="background: transparent;border:0;top:45%">
-					            <span>
-					              <img src="public/images/loader/upload_file.gif" alt="loader">
-					            </span>
-		          			</div>
-					    </div> -->
-					    <div class="grid-msg-overlay" ng-if="importCtrl.loader" style="position:relative;min-height: 558px;background:transparent">
-				          	<div class="msg" style="border:0">
-				           		<span>
-				              		Loading ... 
-				              		<img src="public/images/loader/upload_file.gif" alt="loader">
-				            	</span>
-				          	</div>
-						</div>
+					    <div ng-if="importCtrl.loader" style="position:relative;min-height: 558px;">
+				           	<img src="public/images/loader/preloader.gif"  alt="loader" style="position:absolute;top:42.5%;left:31%;width:38%">
+				        </div>
 						<div class="div-btn row" ng-if="!importCtrl.loader">
 							<div ng-repeat="bucketName in importCtrl.bucketsName" class="col-lg-4"  ng-init="color=importCtrl.getColor($index)">
 								<div ng-style='{"background":color}' ng-click="importCtrl.fileUploadModal(bucketName.bucket_name, color,bucketName.bucket_id)" style="position:relative">

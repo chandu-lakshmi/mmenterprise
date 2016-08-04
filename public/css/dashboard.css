@@ -532,8 +532,26 @@ footer a:hover{
     font-size: 14px;
 }
 /* Engagement and contacts dialog style*/
-.referral-status .modal-content{
-	width: 450px;
+.referral-status .modal{
+	left: calc(50% - 194px) !important;
+    top: calc(50% - 99px);
+}
+.referral-status .modal-dialog{
+	width: 400px;
+	margin:0px;
+}
+.referral-status .modal-dialog	.modal-content{
+    border-radius: 0;
+    padding: 50px 0;
+}
+.referral-status .modal-dialog	.modal-content h5{
+	margin-top: 0;
+}
+.referral-status .modal-dialog	button{
+	border-radius: 0;
+	margin-top:5px;
+	padding: 6px 30px;
+	border:0;
 }
 
 
@@ -630,6 +648,7 @@ footer a:hover{
     float: left;
     margin-top: 20px;
     font-size: 30px;
+    padding-left: 12px;
 }
 .post-job textarea{
 	resize: none;

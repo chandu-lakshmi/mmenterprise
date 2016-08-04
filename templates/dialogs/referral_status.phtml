@@ -3,8 +3,8 @@
     	<div>
 	        <h5 style="font-size:18px">Are you sure you want to accept the Referral?</h5>
 	    </div>
-	    <button class="btn btn-default" type="button" ng-click="$dismiss()" style="margin-top:5px;padding: 6px 30px">CANCEL</button>
-	    <button class="btn btn-primary" type="button" ng-click="$dismiss()" style="margin-top:5px;padding: 6px 30px">OK</button>
+	    <button class="btn btn-default" type="button" ng-click="$dismiss()" style="border:1px solid gray">CANCEL</button>
+	    <button class="btn btn-primary" type="button" ng-click="refStatus.referralStatus('ACCEPTED')" style="background:#37b894;border:1px solid #37b894">ACCEPT</button>
     </div>
 </div>
 
@@ -13,7 +13,7 @@
     	<div>
 	        <h5 style="font-size:18px">Are you sure you want to decline the Referral?</h5>
 	    </div>
-	    <button class="btn btn-default" type="button" ng-click="$dismiss()" style="margin-top:5px;padding: 6px 30px">CANCEL</button>
-	    <button class="btn btn-primary" type="button" ng-click="$dismiss()" style="margin-top:5px;padding: 6px 30px">OK</button>
+	    <button class="btn btn-default" type="button" ng-click="$dismiss()" style="border:1px solid gray">CANCEL</button>
+	    <button class="btn btn-primary" type="button" ng-click="refStatus.referralStatus('DECLINED')" style="background:#37b894;border:1px solid #37b894">DECLINE</button>
     </div>
 </div>

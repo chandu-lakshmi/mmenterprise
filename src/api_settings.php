@@ -79,9 +79,9 @@ return [
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/job_referral_details'
             ],
-            'status_details' => [
+            'process_job' => [
                 'VERSION' => 'v1',
-                'ENDPOINT' => '/enterprise/status_details'
+                'ENDPOINT' => '/enterprise/process_job'
             ]
     ];
         

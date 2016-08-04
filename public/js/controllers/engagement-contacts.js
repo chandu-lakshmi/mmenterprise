@@ -6,12 +6,13 @@ angular.module('app.engagement.contacts', [])
 .filter('fileName', function() {
    return function(x) {
        var file_name = x.split("/").pop();
-       console.log(file_name)
        return file_name;
    };
 })
 
-.controller('EngagementContactsController', [ '$http', 'jobDetails', '$uibModal', 'CONFIG', function($http,jobDetails,$uibModal,CONFIG){
+.controller('EngagementContactsController', ['$window', '$http', 'jobDetails', '$uibModal', 'CONFIG', function($window,$http,jobDetails,$uibModal,CONFIG){
+
+	$window.scrollTo(0,0);
 
 	this.post_id = jobDetails.id
 	this.job_title = jobDetails.job_title;
@@ -60,8 +61,7 @@ angular.module('app.engagement.contacts', [])
     })
 
 
-    scope.referral_status = function(status){
-
+    scope.referral_status = function(obj,status_code){
     	$uibModal.open({
             animation: false,
             backdrop: 'static',
@@ -69,8 +69,10 @@ angular.module('app.engagement.contacts', [])
             templateUrl: 'templates/dialogs/referral_status.phtml',
             openedClass: "referral-status",
             resolve: {
-                status_code : function(){
-                	return status;
+                referralObj: function() {
+                    var referralObj = obj;
+                    referralObj.status_code = status_code
+                    return referralObj;
                 }
             },
             controller: 'ReferralStatus',
@@ -80,18 +82,46 @@ angular.module('app.engagement.contacts', [])
 
 }])
 
-.controller('ReferralStatus',["$scope", "$uibModalInstance", "status_code", function($scope, $uibModalInstance, status_code){
+.controller('ReferralStatus',["$scope", "$uibModalInstance", "referralObj", "$http", "CONFIG", "jobDetails", function($scope, $uibModalInstance, referralObj, $http, CONFIG, jobDetails){
 
 	var scope = this;
-
 	scope.accept = false;
 	scope.decline = false;
-	if(status_code == 1){
+	if(referralObj.status_code == 'accepted'){
 		scope.accept = true;
 	}
 	else{
 		scope.decline = true
 	}
+
+    // function
+    this.referralStatus = function(status){
+
+        var pramas = $.param({
+            from_user : referralObj.from_user,
+            referred_by : referralObj.referred_by,
+            post_id : jobDetails.id,
+            status : status
+        });
+
+        var processJob = $http({
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
+            method : 'POST',
+            data : pramas,
+            url : CONFIG.APP_DOMAIN+'process_job',
+        })
+        processJob.success(function(response){
+            console.log(response)
+            if(response.status_code == 200){
+                $uibModalInstance.dismiss('cancel');
+            }
+        })
+        processJob.error(function(response){
+            console.log(response)
+        })
+    }
 
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
 

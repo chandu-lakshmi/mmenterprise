@@ -1,7 +1,8 @@
 <div class="container post-job">
 	<div class="row">
 		<div class="job-title text-center">
-			<a ui-sref="^.postJob"><img src="public/images/arrow-back.svg" alt="arrowback"></a>
+			<a ui-sref="^.postJob"><img src="public/images/arrow-back.svg" alt="arrowback" style="margin-top: 28px;
+    width: 13px;"></a>
 			<h2>Get Ready to Post Your Request</h2>
 		</div>
 		<div class="job-info">
@@ -72,10 +73,7 @@
 		<div class="clearfix"></div>
 		<div class="grid-msg-overlay" ng-if="post2Ctrl.buckLoader" style="position:relative;min-height: 558px;background:transparent">
           	<div class="msg" style="border:0">
-           		<span>
-              		Loading ... 
-              		<img src="public/images/loader/upload_file.gif" alt="loader">
-            	</span>
+              	<img src="public/images/loader/preloader.gif"  alt="loader" style="position:absolute;top:42.5%;left:31%;width:38%">
           	</div>
 		</div>
 		<div class="row select-type row-centered">

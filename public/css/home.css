@@ -328,10 +328,16 @@ input{
 }
 /*modal*/
 .reset-pwd .modal{
-    top:20%;
+    top:calc(50% - 123px);
+    left:calc(50% - 182px);
 }
 .reset-pwd .modal-dialog{
-    width: 30%;
+    width: 364px;
+    margin:0;
+} 
+.reset-pwd .modal-dialog .modal-content{
+    padding: 26px;
+    border-radius: 0px;
 } 
 
 

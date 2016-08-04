@@ -507,7 +507,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
         }
         else{
             $uibModal.open({
-                animation: false,
+                animation: true,
                 keyboard: false,
                 backdrop: 'static',
                 templateUrl: 'templates/dialogs/custom-msg.phtml',

@@ -1,7 +1,7 @@
 (function () {
 "use strict";
 
-angular.module('app.job.search', ['app.post.job'])
+angular.module('app.job.search', ['app.post.job','infinite-scroll'])
 
 .filter('myDate', function() {
    return function(x) {
@@ -12,14 +12,21 @@ angular.module('app.job.search', ['app.post.job'])
    };
 })
 
-.controller('JobSearchController', ["gettingData","$http", "$state", "$rootScope", "$q", "jobDetails", "CONFIG", function(gettingData, $http, $state, $rootScope, $q, jobDetails, CONFIG){
-	var scope = this;
+.controller('JobSearchController', ["$window", "gettingData", "$http", "$state", "$rootScope", "$q", "jobDetails", "ajaxData", "CONFIG", function($window,gettingData, $http, $state, $rootScope, $q, jobDetails, ajaxData, CONFIG){
+	
+    $window.scrollTo(0,0);
+
+    var scope = this;
+
+    ajaxData.setData({});
+    ajaxData.bol = false;
 
     scope.pay_status = "2";
 
     this.search_load_cond = false;
-    this.jobLoader = true;
+    this.initLoader = true;
     var canceller;
+    var page_no = 1,total_pages = 1,data = [];
 
     function postList(status,input){
 
@@ -31,7 +38,8 @@ angular.module('app.job.search', ['app.post.job'])
 
         var job_list_param = $.param({
             request_type : status,
-            search_for : input
+            search_for : input,
+            page_no : page_no
         });
 
         var postJobList = $http({
@@ -46,16 +54,28 @@ angular.module('app.job.search', ['app.post.job'])
 
         postJobList.success(function(response){
             scope.search_load_cond = false;
-            scope.jobLoader = false;
+            scope.initLoader = false;
             if(response.data.length == 0){
                 scope.no_posts_found = true;
                 scope.post_count = 0;
                 scope.jobDetails = response.data.posts;
             }
             else{
+
+                if(page_no == 1){
+                    data = [];
+                    total_pages = Math.ceil(response.data.total_count / 10);
+                }
+                
+                for(var i = 0; i < response.data.posts.length; i++){
+                    data.push(response.data.posts[i]);
+                }
+
                 scope.no_posts_found = false;
-                scope.jobDetails = response.data.posts;
-                scope.post_count = response.data.jobs_count;
+                scope.jobDetails = data;
+                page_no++;
+                scope.post_count = response.data.total_count;
+                scope.busy = false;
             }
         })
         postJobList.error(function(response){
@@ -63,11 +83,12 @@ angular.module('app.job.search', ['app.post.job'])
         })
     }
 
-    postList(scope.pay_status,'');
-
     scope.selectFilter = function(status,input){
         //canceller.resolve("user cancelled");
-        postList(status,input);
+        //if(!scope.no_posts_found){
+            page_no = 1;
+            postList(status,input);
+        //}
     }
     var time;
     scope.searchFilter = function(status,input){
@@ -75,19 +96,27 @@ angular.module('app.job.search', ['app.post.job'])
             clearInterval(time);
         }
         scope.search_load_cond = true;
+        page_no = 1;
         time = setTimeout(function(){
             //canceller.resolve("user cancelled");
-            postList(status,input)
+            //if(!scope.no_posts_found){
+                //scope.search_load_cond = true;
+                postList(status,input);
+            //}
         },500);
     }
 
-    /*scope.nextPage = function(status,input){
-        alert();
-        if(scope.busy){
-            return;
+    scope.nextPage = function(status,input){
+        if(total_pages >= page_no){
+            if(scope.busy){
+                return;
+            }
+
+            scope.busy = true;
+
+            postList(status,input);
         }
-        postList(status,input);
-    }*/
+    }
 
     gettingData.bol = false;
     gettingData.setData({});

@@ -381,25 +381,32 @@ span.tab-active a.active,span.tab-active a.hover{
     outline: 0;
 }
 .import_verify .modal {
+  top: calc(50% - 217px);
   text-align: center;
   padding: 0!important;
 }
-.import_verify .modal-content{
+/*.import_verify .modal-content{
   width : 532px;
   margin : 0 auto;
   border-radius: 0;
-}
-.import_verify .modal:before {
+}*/
+
+/*.import_verify .modal:before {
   content: '';
   display: inline-block;
   height: 100%;
   vertical-align: middle;
   margin-right: -4px;
-}
+}*/
+
 .import_verify .modal-dialog {
+  width : 532px;
   display: inline-block;
   text-align: left;
   vertical-align: middle;
+}
+.import_verify .modal-dialog .modal-content{
+  border-radius: 0;
 }
 .import_verify .modal-header img{
     display:block;
@@ -422,10 +429,31 @@ span.tab-active a.active,span.tab-active a.hover{
     padding-left: 10px;
     vertical-align: -1px;
 }
+
+/* modal for zero record select */
+
 .import-zero .modal{
-  top: 38%;
+  top:calc(50% - 90px);
+  left:calc(50% - 168px);
 }
-div[window-class="pop-cre"] .modal-content{
+.import-zero .modal .modal-dialog{
+  width: 336px !important;
+  margin:0;  
+}
+
+/* modal for requested posted success */
+.posted-success .modal{
+  left:calc(50% - 198px);
+  top:calc(50% - 131.5px);
+}
+.posted-success .modal-dialog{
+  width: 386px;
+  margin: 0;
+}
+.posted-success .modal .modal-content{
+  border-radius: 0;
+}
+/*div[window-class="pop-cre"] .modal-content{
     width: 400px;
 }
 @media screen and (min-width: 320px) {
@@ -451,7 +479,8 @@ div[window-class="pop-cre"] .modal-content{
     .import_verify .modal:before{
         height: 60%;
     }
-}
+}*/
+
 .div-btn div{
   margin-bottom: 4%;
 }

@@ -18,20 +18,22 @@
 					<i class="fa fa-angle-down fa-feedback select-arrow" style="color:#000"></i>
 				  <select class="form-control" style="display:inline-block" ng-model="jobSearchCtrl.pay_status" ng-change="jobSearchCtrl.selectFilter(jobSearchCtrl.pay_status,jobSearchCtrl.search_value)">
 				    <option value="2">All</option>
-				    <option value="1">Paid</option>
-				    <option value="0">Free</option>
+				    <option value="0">Paid</option>
+				    <option value="1">Free</option>
 				  </select>
 				</div>
 				<a ui-sref="^.postJob"><button class="btn"><img src="public/images/arrow-top.svg" alt="uparrow" style="margin-top:-3px"> POST REQUEST</button></a>
 			</span>
 		</div>	
 	</div>
+
 	<div class="total_record" ng-if="jobSearchCtrl.post_count">
 		Total Jobs : {{jobSearchCtrl.post_count}}
 	</div>
-	<div class="post_err_msg" ng-if="jobSearchCtrl.no_posts_found">No Jobs Found</div>
+
+	<div class="post_err_msg" ng-if="jobSearchCtrl.no_posts_found">There are no open Job Requests  at this time.<br> Would you like to create a new Job Request?</div>
 	<!-- infinite scroll -->
-	<!-- <div infinite-scroll='jobSearchCtrl.nextPage(jobSearchCtrl.pay_status,jobSearchCtrl.search_value)' infinite-scroll-disabled='jobSearchCtrl.busy' infinite-scroll-distance='10'> -->
+	<div infinite-scroll='jobSearchCtrl.nextPage(jobSearchCtrl.pay_status,jobSearchCtrl.search_value)' infinite-scroll-disabled='jobSearchCtrl.busy' infinite-scroll-distance='2'>
 		<!--Typeof Job -->
 		<div class="row" ng-repeat="jobList in jobSearchCtrl.jobDetails">
 			<div class="job-type">
@@ -40,8 +42,8 @@
 					<span title="{{jobList.job_title}}">{{jobList.job_title}}</span>
 					<img src="public/images/arrow-buttons_green.svg">
 				</h3>
-				<span ng-init="sc=jobList.service_cost;jobList.cost = jobList.free_service == '0' ? 'FREE' : (jobList.service_currency =='DLR' ? '$'+sc+'/Referral' : '&#8377;'+sc+'/Referral')">
-					<span ng-class="{'job_free':jobList.free_service == '0'}">
+				<span ng-init="sc=jobList.service_cost;jobList.cost = jobList.free_service == '1' ? 'FREE' : (jobList.service_currency =='DLR' ? '$'+sc+'/Referral' : '&#8377;'+sc+'/Referral')">
+					<span ng-class="{'job_free':jobList.free_service == '1'}">
 						{{jobList.cost}}
 					</span>
 					<span>
@@ -91,13 +93,9 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div ng-show='jobSearchCtrl.busy'>Loading data...</div> -->
-		<div class="grid-msg-overlay" ng-if="jobSearchCtrl.jobLoader" style="position:relative;top:25%">
-	    <div class="msg">
-	        <span>
-	          Loading Data... 
-	          <img src="public/images/loader/upload_file.gif" alt="loader">
-	        </span>
-	    </div>
 	</div>
+	<div  ng-if="jobSearchCtrl.initLoader">
+		<img src="public/images/loader/preloader.gif" alt="spinner" style="display: block;margin: 0 auto;width: 20%;">
+	</div>
+	
 </div>

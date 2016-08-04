@@ -18,6 +18,8 @@ angular.module('app.post.job', ['ngAutocomplete'])
 
 .controller('PostJobController', ['$state','$window', '$http', '$scope', '$uibModal', 'gettingData', 'CompanyDetails', 'CONFIG', function($state,$window,$http,$scope,$uibModal,gettingData,CompanyDetails,CONFIG){
 
+  $window.scrollTo(0,0);
+
   this.geo_location = '';
   this.geo_options = null;
   this.geo_details = '';
@@ -114,7 +116,9 @@ angular.module('app.post.job', ['ngAutocomplete'])
 }])
 
 
-.controller('PostJobTwoController', ['$uibModal', 'gettingData', 'CompanyDetails', '$http', 'CONFIG', function($uibModal,gettingData,CompanyDetails,$http,CONFIG){
+.controller('PostJobTwoController', ['$window', '$uibModal', 'gettingData', 'CompanyDetails', '$http', 'CONFIG', function($window,$uibModal,gettingData,CompanyDetails,$http,CONFIG){
+
+  $window.scrollTo(0,0);
 
   this.company_name = CompanyDetails.company_name;
   
@@ -230,8 +234,7 @@ angular.module('app.post.job', ['ngAutocomplete'])
           keyboard: false,
           backdrop: 'static',
           templateUrl: 'templates/dialogs/post-success.phtml',
-          openedClass: "import_verify",
-          windowClass: "pop-cre",
+          openedClass: "posted-success",
           controller: 'SuccessController',
           controllerAs:"succCtrl"
         });

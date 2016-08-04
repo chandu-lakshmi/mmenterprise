@@ -251,8 +251,15 @@
 	outline:0;
 	background: transparent;
 }
+
+.bucket .modal{
+	top: calc(50% - 119px);
+	left: calc(50% - 250px);
+}
 .bucket .modal-dialog{
 	width: 500px;
+	margin:0;
+
 }
 .customInput{
 	width: 130px;
@@ -270,3 +277,4 @@
     vertical-align: middle;
     padding-left: 12px;
 }
+

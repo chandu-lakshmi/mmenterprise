@@ -325,13 +325,13 @@ $app->post('/job_referral_details',function ($request, $response, $args) use ($a
 });
 
 //Update Status Details
-$app->post('/update_job_status',function ($request, $response, $args) use ($app) {
+$app->post('/process_job',function ($request, $response, $args) use ($app) {
    
     // dynamically Access Token
    $this->mintmeshAccessToken;
       
     // getting API endpoint from settings
-   $apiEndpoint = getapiEndpoint($this->settings, 'status_details');
+   $apiEndpoint = getapiEndpoint($this->settings, 'process_job');
    
     $statusDetails    = new Curl(array(
         'url'           => $apiEndpoint,
@@ -339,7 +339,42 @@ $app->post('/update_job_status',function ($request, $response, $args) use ($app)
      ));
     
     return checkJsonResult( $statusDetails->loadCurl() );
+
+       
+});
+
+//engagement contacts Page - If it reload redirects to front job details page
+$app->get('/job/engagement-contacts/{id}',function ($request, $response, $args) use ($app) {
+     
+    $route = $request->getAttribute('route');
+
+    //Arguments
+    $args  = commonData($this->settings);
+    $post_id = $route->getArgument('id') ;
     
+    //Check Logged in or not
+    if(!empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']);
+    }
+
+     return $response->withRedirect($args['APP_DOMAIN']."job/job-details/".$post_id);
+});
+
+//Reward Page - If it reload redirects to front job details page
+$app->get('/job/rewards/{id}',function ($request, $response, $args) use ($app) {
+     
+    $route = $request->getAttribute('route');
+
+    //Arguments
+    $args  = commonData($this->settings);
+    $post_id = $route->getArgument('id') ;
+    
+    //Check Logged in or not
+    if(!empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']);
+    }
+
+     return $response->withRedirect($args['APP_DOMAIN']."job/job-details/".$post_id);
 });
 
 //Logout

@@ -4,7 +4,10 @@
 angular.module('app.dashboard', [])
 
 
-.controller('DashboardController', [ '$http', '$state', 'UserDetails', function($http,$state,UserDetails){
+.controller('DashboardController', ['$window', '$http', '$state', 'UserDetails', function($window,$http,$state,UserDetails){
+
+	$window.scrollTo(0,0);
+
 	this.username = UserDetails.user_name;
 	var scope = this;
 

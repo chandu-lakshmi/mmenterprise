@@ -147,20 +147,22 @@
 									<span style="display: inline-block;padding: 12px 0;line-height: 1.8em">{{referralsList.created_at}}&nbsp;&nbsp;<img src="public/images/time.svg"alt="clock"></span>
 								</div>
 								<div class="col-lg-2 text-right">
-									<span class="resume_file">{{referralsList.resume_path | fileName}}</span>
-									<img src="public/images/download.svg" alt="download_svg">
+									<a href="{{referralsList.resume_path}}" download>
+										<span class="resume_file" title="{{referralsList.resume_path | fileName}}">{{referralsList.resume_path | fileName}}</span>
+										<img src="public/images/download.svg" alt="download_svg">
+									</a>
 								</div>
 								<div class="col-lg-2 text-center" style="padding: 10px 0" ng-if="referralsList.status == 'PENDING'">
-									<img src="public/images/tickmark-accept.svg" alt="response" ng-click="EngContCtrl.referral_status(1)">&nbsp;&nbsp;
-									<img src="public/images/closemark-decline.svg" alt="response" ng-click="EngContCtrl.referral_status(2)">
+									<img src="public/images/tickmark-accept.svg" alt="response" ng-click="EngContCtrl.referral_status(referralsList,'accepted')">&nbsp;&nbsp;
+									<img src="public/images/closemark-decline.svg" alt="response" ng-click="EngContCtrl.referral_status(referralsList,'declined')">
 								</div>
 								<div class="col-lg-2 text-center" style="padding: 15px 0" ng-if="referralsList.status != 'PENDING'">
 									<span class="text-{{refer.status | lowercase}}">{{refer.status | uppercase}}</span>
 								</div>
 							</li>
 							<div class="clearfix"></div>
-							<div class="text-center" style="padding:50px 0;" ng-if="EngContCtrl.referrals_load_cond">Loading data...</div>
-							<div class="text-center" style="padding:50px 0;" ng-if="EngContCtrl.length_zero">No Data Found</div>
+							<div class="text-center" style="height:500px;line-height:500px" ng-if="EngContCtrl.referrals_load_cond">Loading data...</div>
+							<div class="text-center" style="height:500px;line-height:500px;" ng-if="EngContCtrl.length_zero">No Data Found</div>
 						</ul>
 					</div>
 				</div>
