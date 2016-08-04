@@ -10,14 +10,14 @@ angular.module('app.engagement.contacts', [])
    };
 })
 
-.controller('EngagementContactsController', ['$window', '$http', 'jobDetails', '$uibModal', 'CONFIG', function($window,$http,jobDetails,$uibModal,CONFIG){
+.controller('EngagementContactsController', ['$window', '$rootScope', '$http', '$q', 'jobDetails', '$uibModal', 'CONFIG', function($window,$rootScope,$http,$q,jobDetails,$uibModal,CONFIG){
 
 	$window.scrollTo(0,0);
 
 	this.post_id = jobDetails.id
 	this.job_title = jobDetails.job_title;
 
-	var scope = this;
+	var scope = this,canceller;
 
 	/*this.fun_click = function(){
 		if(this.referrals_show == true){
@@ -30,35 +30,55 @@ angular.module('app.engagement.contacts', [])
 
 	this.length_zero = false;
 
-	this.referrals_load_cond = true;
-	var referrals = $.param({
-        post_id : jobDetails.id
-    });
+    this.referrals_load_cond = true;
 
-    var referralsList = $http({
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-        },
-        method : 'POST',
-        data : referrals,
-        url : CONFIG.APP_DOMAIN+'job_referral_details',
-    })
-    referralsList.success(function(response){
-    	if(response.status_code == 200){
-    		if(response.data.length == 0){
-    			scope.referrals_load_cond = false;
-    			scope.length_zero = true;
-    		}
-    		else{
-    			scope.referrals_load_cond = false;
-    			scope.referrals = response.data.referrals;
-    		}
-    	}
-    	
-    })
-    referralsList.error(function(response){
-    	console.log(response);
-    })
+    $rootScope.ajaxCall = function(status){
+        scope.referrals = [];
+        scope.referrals_load_cond = true;
+
+        if(canceller){
+            canceller.resolve();
+        }
+
+        canceller = $q.defer();
+
+        var referrals = $.param({
+            post_id : jobDetails.id,
+            status : status
+        });
+
+        var referralsList = $http({
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
+            method : 'POST',
+            data : referrals,
+            url : CONFIG.APP_DOMAIN+'job_referral_details',
+            timeout : canceller.promise
+        })
+        referralsList.success(function(response){
+        	if(response.status_code == 200){
+        		if(response.data.length == 0){
+        			scope.referrals_load_cond = false;
+        			scope.length_zero = true;
+        		}
+        		else{
+                    scope.length_zero = false;
+        			scope.referrals_load_cond = false;
+        			scope.referrals = response.data.referrals;
+        		}
+        	}
+        	
+        })
+        referralsList.error(function(response){
+        	console.log(response);
+        })
+    }
+    $rootScope.ajaxCall('');
+
+    scope.referralsCond = function(status){
+        $rootScope.ajaxCall(status);
+    }
 
 
     scope.referral_status = function(obj,status_code){
@@ -82,7 +102,7 @@ angular.module('app.engagement.contacts', [])
 
 }])
 
-.controller('ReferralStatus',["$scope", "$uibModalInstance", "referralObj", "$http", "CONFIG", "jobDetails", function($scope, $uibModalInstance, referralObj, $http, CONFIG, jobDetails){
+.controller('ReferralStatus',["$scope", "$rootScope", "$uibModalInstance", "referralObj", "$http", "CONFIG", "jobDetails", function($scope, $rootScope, $uibModalInstance, referralObj, $http, CONFIG, jobDetails){
 
 	var scope = this;
 	scope.accept = false;
@@ -113,8 +133,8 @@ angular.module('app.engagement.contacts', [])
             url : CONFIG.APP_DOMAIN+'process_job',
         })
         processJob.success(function(response){
-            console.log(response)
             if(response.status_code == 200){
+                $rootScope.ajaxCall(referralObj.status);
                 $uibModalInstance.dismiss('cancel');
             }
         })

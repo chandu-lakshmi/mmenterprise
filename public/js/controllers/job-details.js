@@ -24,6 +24,7 @@ angular.module('app.job.details', [])
 	var scope = this;
 
 	this.post_id = jobDetails.id;
+	
 	if(!ajaxData.bol){
 		this.job_details_loader = true;
 		this.post_id = jobDetails.id;

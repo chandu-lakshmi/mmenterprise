@@ -303,7 +303,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
             infiniteScrollUp: true,
             infiniteScrollDown: true,
             enableHorizontalScrollbar: 1,
-            rowHeight: 35,
+            rowHeight: 40,
 
             columnDefs: [{
                 name: 'other_id',

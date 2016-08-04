@@ -54,15 +54,16 @@ footer{
     }
 }
 
-/*Header Styles*/
+/*Header Styles(ne mock)*/
  header{
-	background: #373E44;
-	padding: 10px;
+	background: #002134;
+	height: 60px;
+	line-height: 62px;
 }
 header img[alt="brand-logo"]{
 	height: 40px;
 }
- header .menu ul{
+header .menu ul{
  	margin: 0;
 	padding: 0;
 	list-style: none;
@@ -70,26 +71,31 @@ header img[alt="brand-logo"]{
 	font-size: 16px;
 }
 header .menu ul > li{
+	position: relative;
 	display: inline-block;
 	margin: 0;
 	margin-left: 20px;
 }
  header .menu ul > li > a{
-	padding: 8px 15px;
-	border: 1px solid #373E44;
-	border-radius: 4px;
-	color: #C2C0C1;
-	display: block;
+ 	display: block;
+	padding-bottom: 18px;
+	padding: 0px 15px;
+	color: #7792a0;
 }
- header .menu ul > li > a.active{
+header .menu ul > li > a.active:before,header .menu ul > li > a:hover:before{
+	position: absolute;
+	content: '';
+	top: 0px;
+	bottom: 2px;
+	left: 0px;
+	right: 0px;
+	border-bottom: 4px solid #14acff;
+}
+header .menu ul > li > a.active{
 	color: white;
-	border: 1px solid white;
-	border-radius: 4px;
 }
  header .menu ul > li > a:hover{
 	color: white;
-	border: 1px solid white;
-	border-radius: 4px;
 	text-decoration: none;
 	outline: 0;
 }
@@ -130,7 +136,7 @@ header .notifications .dropdown button{
     padding: 0px;
     min-width: 25px;
     margin: -11px;
-    padding: 9px;
+    padding: 7px 8px;
 }
 header .notifications .dropdown button .user_name{
 	font-size: 18px;
@@ -139,12 +145,12 @@ header .notifications .dropdown button .user_name{
 }
 header .notifications .drop-custom{
 	left: 0;
-    top: 49px;
+    top: 60px;
     margin-top: 0px;
     min-width: 93px;
     border-radius: 0;
     margin-left: -11px;
-    margin-right: -15px;
+    margin-right: -12px;
 }
 header .dropdown.open button{
 	color: #fff;
@@ -381,8 +387,8 @@ footer a:hover{
 	color: #FD4243;
 }
 .bg-accepted{
-	background: #99d3f2 !important;
-	color: #333 !important;
+	background: #098cd2 !important;
+    color: #fff !important;
 }
 .bg-interviewed{
 	background: #f5b984 !important;
@@ -428,9 +434,42 @@ footer a:hover{
 
 
 /*Engagement-Contacts Styles*/
+
+/* new mock styles*/
+.nav-tabs > li {
+	background: #f5f7f6;
+	color: #949596;
+	width: 190px;
+    height: 60px;
+}
+.nav-tabs > li > a{
+	height: 100%;
+	line-height: 45px;
+	text-align: center;
+	color: #949596;
+	font-weight: bold;
+	margin-right: 0px;
+	border-top: 3px solid transparent !important;
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+	border-top: 3px solid #0ea1f9 !important;
+}
+.nav-tabs > li:not(.active){
+	border: 1px solid #ddd;
+    border-top: 0;
+}
+.engage-contact .btn-group div:first-child{
+	border-radius: 5px 0px 0px 5px;
+}
+.engage-contact .btn-group div:last-child{
+	border-radius: 0px 5px 5px 0px;
+}
+
+
 .engage-contact .box{
-	border: 1px solid #ccc;
-	box-shadow: 1px 1px 5px #ccc;
+	border: 1px solid #ddd;
+    border-top: 0;
+    box-shadow: 3px 1px 5px #ddd;
 	min-height: 860px;
 	margin-bottom: 30px;
 	overflow: hidden;
@@ -531,6 +570,10 @@ footer a:hover{
     color: rgba(51, 51, 51, 0.74);
     font-size: 14px;
 }
+
+
+
+
 /* Engagement and contacts dialog style*/
 .referral-status .modal{
 	left: calc(50% - 194px) !important;
@@ -556,12 +599,41 @@ footer a:hover{
 
 
 
-/* sub header styles */
+/* sub header styles new-mock*/
 .sub-header{
-	background: #2D3236;
+	background: #0e2d3f;
 }
+.sub-header .container .row{
+	height: 136px;
+    min-height: 136px;
+    max-height: 136px;
+}
+.sub-header .sub-right{
+	color:#1884c1;
+}
+.sub-header .sub-right ul{
+	list-style: none;
+	margin: 0;
+}
+.sub-header .sub-right ul li{
+	width: 25%;
+	border: 1px solid #233f50;
+	border-top: 0;
+	border-bottom: 0;
+	float: left;
+	padding: 40px 0px;
+}
+.sub-header .sub-right ul li h3{
+	margin-top: 0px;
+}
+.sub-header .sub-right ul li span img{
+	padding-right: 10px;
+    margin-top: -4px;
+}
+
+/* sub header styles according to new mock*/
 .sub-header .mid-nav{
-	padding: 3% 0;
+	padding: 7% 0;
 }
 .mid-nav h3{
 	display: inline-block;
@@ -581,7 +653,7 @@ footer a:hover{
     display: inline-block;
     white-space: nowrap;
     vertical-align: middle;
-    max-width: 425px;
+    max-width: 300px;
     overflow: hidden;
     text-overflow: ellipsis;
 } 
@@ -595,9 +667,9 @@ footer a:hover{
 	margin-right: 40px;
 }
 .mid-nav + ul a{
-	color: gray;
+	color: #74a2b9;
 	display: inline-block;
-	padding: 10px 0px;
+	padding: 11px 0px;
 	border-bottom: 4px solid #2D3236;
 }
 .mid-nav + ul li a.active{
@@ -823,6 +895,11 @@ footer a:hover{
 }
 .select-type div{
 	min-height:220px;
+	outline: 0;
+	-webkit-user-select: none;  
+	-moz-user-select: none;    
+	-ms-user-select: none;    
+	user-select: none; 
 }
 .amount-pay input[type="radio"]{
 	opacity: 0;
@@ -854,9 +931,6 @@ footer a:hover{
 
 
 
-
-
-
 /*ngAnimate*/
 .fade{
 	opacity: 1;
@@ -869,43 +943,48 @@ footer a:hover{
   opacity:1;
 }
 
-.engage-contact .referred-expand .box-content ul > li img{
+.engage-contact .tab-content .box .box-content ul > li img{
 	width: 60px;
 	height: 60px;
 }
-.engage-contact .referred-expand ul > li.t_head{
+.engage-contact .tab-content .box .box-content ul > li.t_head{
 	padding: 10px 0 !important;
 	font-weight: bold;
 }
-.engage-contact .referred-expand ul > li{
+.engage-contact .tab-content .box .box-content ul > li{
 	padding: 12px 0 !important;
 	float: left;
 	font-size: 15px;
 }
-.engage-contact .referred-expand ul > li img[alt="download_svg"]{
+.engage-contact .tab-content .box .box-content ul > li img[alt="download_svg"]{
 	width: 20px;
 	height: 20px;
 }
-.engage-contact .referred-expand ul > li img[alt="clock"]{
+.engage-contact .tab-content .box .box-content ul > li img[alt="clock"]{
 	width: 20px;
 	height: 20px;
 }
-.engage-contact .referred-expand ul > li img[alt="response"]{
+.engage-contact .tab-content .box .box-content ul > li img[alt="response"]{
 	width: 30px;
 	height: 30px;
 }
-.engage-contact .referred-expand ul > li:not(:last-child){
+.engage-contact .tab-content .box .box-content ul > li:not(:last-child){
 	border-bottom: 1px solid #ccc;
 }
-.engage-contact .referred-expand .box-content{
+.engage-contact .tab-content .box .box-content{
 	margin-top: 2px;
 }
-.engage-contact .referred-expand .box-content ul > li div.content{
+.engage-contact .tab-content .box .box-content ul > li div.content{
 	line-height: 1.8em;
 	font-size: 14px;
 	padding: 5px 10px;
 }
-
+.engage-contact .tab-content .box .box-content .btn-group div {
+    float: left;
+    padding: 12px 10px;
+    border: 1px solid #cbcbcb;
+    margin-right: -1px;
+}
 
 
 

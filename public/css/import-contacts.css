@@ -492,6 +492,7 @@ span.tab-active a.active,span.tab-active a.hover{
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
+  outline: 0;
 }
 i.file-name{
   position: absolute;
@@ -571,4 +572,12 @@ i.file-name{
   position:relative;
   min-height:370px;
   background: rgba(0, 0, 0, 0.2);
+}
+
+
+.ui-grid-viewport{
+  overflow-x:hidden !important;
+}
+body.import_verify,body.bucket,body.posted-success,body.referral-status,body.reset-pwd{
+  overflow: hidden;
 }

@@ -1,7 +1,7 @@
 (function () {
 "use strict";
 
-angular.module('app.job.search', ['app.post.job','infinite-scroll'])
+angular.module('app.job.search', ['infinite-scroll'])
 
 .filter('myDate', function() {
    return function(x) {
@@ -84,12 +84,10 @@ angular.module('app.job.search', ['app.post.job','infinite-scroll'])
     }
 
     scope.selectFilter = function(status,input){
-        //canceller.resolve("user cancelled");
-        //if(!scope.no_posts_found){
-            page_no = 1;
-            postList(status,input);
-        //}
+        page_no = 1;
+        postList(status,input);
     }
+
     var time;
     scope.searchFilter = function(status,input){
         if(time != null){
@@ -98,11 +96,7 @@ angular.module('app.job.search', ['app.post.job','infinite-scroll'])
         scope.search_load_cond = true;
         page_no = 1;
         time = setTimeout(function(){
-            //canceller.resolve("user cancelled");
-            //if(!scope.no_posts_found){
-                //scope.search_load_cond = true;
-                postList(status,input);
-            //}
+            postList(status,input);
         },500);
     }
 

@@ -1,21 +1,46 @@
 
 <div class="sub-header">
 	<div class="container">
-		<div class="mid-nav">
-			<h3>
-				<a ui-sref="^.job"><img src="public/images/back-arrow.svg" alt="back" style="margin-bottom: 4px;">
-				<span>{{RewardCtrl.job_title | uppercase}}</span></a>
-			</h3>
-			<span class="openbox" style="margin:0">OPEN</span>
+		<div class="row">
+			<div class="col-sm-5 sub_left">
+				<div class="mid-nav">
+					<h3>
+						<a ui-sref="^.job" style="min-width:100px;"><img src="public/images/back-arrow.svg" alt="back" style="margin-bottom: 4px;">
+						<span style="min-width:100px;">{{RewardCtrl.job_title | uppercase}}</span></a>
+					</h3>
+					<span class="openbox" style="margin:0">OPEN</span>
+				</div>
+				<ul>
+					<li><a ui-sref="^.jobDetails({post_id:RewardCtrl.post_id})" ui-sref-active="active">JOB DETAILS</a></li>
+					<li><a ui-sref="^.engagement/contacts({post_id:RewardCtrl.post_id})" ui-sref-active="active">ENGAGEMENT/CONTACTS</a></li>
+					<li><a ui-sref="^.rewards({post_id:RewardCtrl.post_id})" ui-sref-active="active">REWARDS</a></li>
+				</ul>
+			</div>
+			<div class="col-sm-7 text-center sub-right">
+				<ul>
+					<li>
+						<h3>350</h3>
+						<span><img src="public/images/invited.svg" alt="invited">INVITED</span>
+					</li>
+					<li>
+						<h3>350</h3>
+						<span><img src="public/images/referrals.svg" alt="invited">REFERRALS</span>
+					</li>
+					<li>
+						<h3>350</h3>
+						<span><img src="public/images/Applied.svg" alt="invited"></i>ACCEPTED</span>
+					</li>
+					<li>
+						<h3>350</h3>
+						<span><img src="public/images/hired.svg">HIRED</span>
+					</li>
+				</ul>
+			</div>
 		</div>
-		<ul>
-			<li><a ui-sref="^.jobDetails({post_id:RewardCtrl.post_id})" ui-sref-active="active">JOB DETAILS</a></li>
-			<li><a ui-sref="^.engagement/contacts({post_id:RewardCtrl.post_id})" ui-sref-active="active">ENGAGEMENT/CONTACTS</a></li>
-			<li><a ui-sref="^.rewards({post_id:RewardCtrl.post_id})" ui-sref-active="active">REWARDS</a></li>
-		</ul>
-		</ul>
 	</div>
 </div>
+
+
 
 <div class="rewards">
 	<div class="container">
