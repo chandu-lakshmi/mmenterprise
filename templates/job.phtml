@@ -31,18 +31,21 @@
 		Total Jobs : {{jobSearchCtrl.post_count}}
 	</div>
 
-	<div class="post_err_msg" ng-if="jobSearchCtrl.no_posts_found">There are no open Job Requests  at this time.<br> Would you like to create a new Job Request?</div>
+	<div class="post_err_msg" ng-if="jobSearchCtrl.init_no_posts_found">There are no open Job Requests  at this time.<br> Would you like to create a new Job Request?</div>
+	<div class="post_err_msg" ng-if="jobSearchCtrl.no_posts_found">No Jobs Found</div>
 	<!-- infinite scroll -->
 	<div infinite-scroll='jobSearchCtrl.nextPage(jobSearchCtrl.pay_status,jobSearchCtrl.search_value)' infinite-scroll-disabled='jobSearchCtrl.busy' infinite-scroll-distance='2'>
 		<!--Typeof Job -->
 		<div class="row" ng-repeat="jobList in jobSearchCtrl.jobDetails">
 			<div class="job-type">
 				<img src="public/images/breifcase_gray.svg" alt="briefcase">
-				<h3 ng-click="jobSearchCtrl.job_details(jobList)">
-					<span title="{{jobList.job_title}}">{{jobList.job_title}}</span>
-					<img src="public/images/arrow-buttons_green.svg">
-				</h3>
-				<span ng-init="sc=jobList.service_cost;jobList.cost = jobList.free_service == '1' ? 'FREE' : (jobList.service_currency =='DLR' ? '$'+sc+'/Referral' : '&#8377;'+sc+'/Referral')">
+				<a href="" ui-sref="^.jobDetails({post_id:jobList.id})" title="" ng-click="jobSearchCtrl.job_details(jobList)">
+					<h3>
+						<span title="{{jobList.job_title}}">{{jobList.job_title}}</span>
+						<img src="public/images/arrow-buttons_green.svg">
+					</h3>
+				</a>
+				<span ng-init="sc=jobList.service_cost;jobList.cost = jobList.free_service == '1' ? 'FREE' : (jobList.service_currency =='DLR' ? '$'+sc+'/Referral' : '&#8377;'+sc+'/Referral')" style="float:right">
 					<span ng-class="{'job_free':jobList.free_service == '1'}">
 						{{jobList.cost}}
 					</span>
@@ -67,25 +70,25 @@
 						<span title="{{jobList.location}}">{{jobList.location}}</span>
 					</div>
 				</div>
-				<div class="col-sm-2 col-xs-6">
+				<div class="col-sm-2 col-xs-6 invited">
 					<div>
 						<h1>{{jobList.invited_count}}</h1>
 						<span><img src="public/images/invited.svg" alt="invited">INVITED</span>
 					</div>
 				</div>
-				<div class="col-sm-2 referal_s col-xs-6">
+				<div class="col-sm-2 referal_s col-xs-6 referral">
 					<div>
 						<h1>{{jobList.referral_count}}</h1>
 						<span><img src="public/images/referrals.svg" alt="invited">REFERRALS</span>
 					</div>
 				</div>
-				<div class="col-sm-2 col-xs-6">
+				<div class="col-sm-2 col-xs-6 accepted">
 					<div>
 						<h1>{{jobList.accepted_count}}</h1>
 						<span><img src="public/images/Applied.svg" alt="invited"></i>ACCEPTED</span>
 					</div>
 				</div>
-				<div class="col-sm-2 col-xs-6">
+				<div class="col-sm-2 col-xs-6 hired	">
 					<div>
 						<h1>{{jobList.hired_count}}</h1>
 						<span><img src="public/images/hired.svg">HIRED</span>
@@ -94,7 +97,7 @@
 			</div>
 		</div>
 	</div>
-	<div  ng-if="jobSearchCtrl.initLoader">
+	<div  ng-if="jobSearchCtrl.busy">
 		<img src="public/images/loader/preloader.gif" alt="spinner" style="display: block;margin: 0 auto;width: 20%;">
 	</div>
 	

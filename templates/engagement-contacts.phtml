@@ -19,19 +19,19 @@
 			<div class="col-sm-7 text-center sub-right">
 				<ul>
 					<li>
-						<h3>350</h3>
+						<h3>{{EngContCtrl.subHeaderCount.invited_count}}</h3>
 						<span><img src="public/images/invited.svg" alt="invited">INVITED</span>
 					</li>
 					<li>
-						<h3>350</h3>
+						<h3>{{EngContCtrl.subHeaderCount.referral_count}}</h3>
 						<span><img src="public/images/referrals.svg" alt="invited">REFERRALS</span>
 					</li>
 					<li>
-						<h3>350</h3>
+						<h3>{{EngContCtrl.subHeaderCount.accepted_count}}</h3>
 						<span><img src="public/images/Applied.svg" alt="invited"></i>ACCEPTED</span>
 					</li>
 					<li>
-						<h3>350</h3>
+						<h3>{{EngContCtrl.subHeaderCount.hired_count}}</h3>
 						<span><img src="public/images/hired.svg">HIRED</span>
 					</li>
 				</ul>
@@ -40,13 +40,13 @@
 	</div>
 </div>
 
-<div class="engage-contact" style="padding: 70px 0 100px 0">
+<div class="engage-contact">
 	<div class="container">
 		<div class="row">
 			<ul class="nav nav-tabs" ng-init="switchCond = 'all'">
   				<li class="active"><a data-toggle="tab" ng-click="EngContCtrl.referralsCond('');switchCond = 'all'">ALL REFERRALS</a></li>
   				<li><a data-toggle="tab" ng-click="EngContCtrl.referralsCond('PENDING');switchCond = 'pending'">PENDING</a></li>
-  				<li><a data-toggle="tab" ng-click="EngContCtrl.referralsCond('ACCEPTED');;switchCond = 'accepeted'">ACCEPETED</a></li>
+  				<li><a data-toggle="tab" ng-click="EngContCtrl.referralsCond('ACCEPTED');switchCond = 'accepted'">ACCEPTED</a></li>
 			</ul>
 
 			<div class="tab-content" ng-switch="switchCond">
@@ -68,15 +68,15 @@
 										RESUME
 									</div>
 									<div class="col-lg-2 text-center">
-										ACTION AWAITING
+										AWAITING ACTION
 									</div>
 								</li>
 								<li ng-repeat="allReferrals in EngContCtrl.referrals">
 									<div class="col-lg-3">
 										<div class="pull-left">
-											<img ng-src="{{allReferrals.dp_image}}" class="img-responsive img-circle border-{{refer.status | lowercase}}">
+											<img ng-src="{{allReferrals.dp_image == null ? 'public/images/avatar.png' : allReferrals.dp_image}}" class="img-responsive img-circle border-{{allReferrals.status | lowercase}}" ng-style="{'border-color': allReferrals.dp_image == null ? 'transparent': ''}">
 										</div>
-										<div class="content pull-left" ng-style="{'padding-top': allReferrals.designation == ''? '13px' : ''}">
+										<div class="content pull-left" ng-style="{'padding-top': allReferrals.designation == ''? '18px' : ''}">
 											<big>{{allReferrals.name}}</big>
 											<p style="margin:0">{{allReferrals.designation}}</p>
 										</div>
@@ -85,25 +85,30 @@
 										<div class="pull-left">
 											<img ng-src="{{allReferrals.referred_by_dp_image}}" class="img-responsive img-circle border-default">
 										</div>
-										<div class="content pull-left" ng-style="{'padding-top': allReferrals.ref_designation == ''? '13px' : ''}">
+										<div class="content pull-left" ng-style="{'padding-top': allReferrals.ref_designation == ''? '18px' : ''}">
 											<big>{{allReferrals.referred_by_name}}</big>
 											<p style="margin:0;">{{allReferrals.ref_designation}}</p>
 										</div>
 									</div>
-									<div class="col-lg-2">
+									<div class="col-lg-2" style="padding-top:6px;">
 										<span style="display: inline-block;padding: 12px 0;line-height: 1.8em">{{allReferrals.created_at}}&nbsp;&nbsp;<img src="public/images/time.svg"alt="clock"></span>
 									</div>
-									<div class="col-lg-2">
-										<a href="{{allReferrals.resume_path}}" download>
-											<img src="public/images/download.svg" alt="download_svg">
-											<span class="resume_file" title="{{allReferrals.resume_path | fileName}}">{{allReferrals.resume_path | fileName}}</span>
-										</a>
+									<div class="col-lg-2" style="padding-top:6px;">
+										<div ng-if="!allReferrals.resume_path == ''">
+											<a href="{{allReferrals.resume_path}}" download>
+												<img src="public/images/download.svg" alt="download_svg">
+												<span class="resume_file" title="{{allReferrals.resume_path | fileName}}">{{allReferrals.resume_path | fileName}}</span>
+											</a>
+										</div>
+										<div ng-if="allReferrals.resume_path == ''" style="padding-top:15px;">
+											No Resume Found
+										</div>
 									</div>
-									<div class="col-lg-2 text-center" style="padding: 10px 0" ng-if="allReferrals.status == 'PENDING'">
-										<img src="public/images/tickmark-accept.svg" alt="response" ng-click="EngContCtrl.referral_status(allReferrals,'accepted')">&nbsp;&nbsp;
-										<img src="public/images/closemark-decline.svg" alt="response" ng-click="EngContCtrl.referral_status(allReferrals,'declined')">
+									<div class="col-lg-2 text-center" style="padding-top: 15px" ng-if="allReferrals.status == 'PENDING'">
+										<img src="public/images/tickmark-accept.svg" alt="response" ng-click="EngContCtrl.referral_status('',allReferrals,'accepted')">&nbsp;&nbsp;
+										<img src="public/images/closemark-decline.svg" alt="response" ng-click="EngContCtrl.referral_status('',allReferrals,'declined')">
 									</div>
-									<div class="col-lg-2 text-center" style="padding: 15px 0" ng-if="allReferrals.status != 'PENDING'">
+									<div class="col-lg-2 text-center" style="padding-top: 20px" ng-if="allReferrals.status != 'PENDING'">
 										<span class="text-{{allReferrals.status | lowercase}}">{{allReferrals.status}}</span>
 									</div>
 								</li>
@@ -132,15 +137,15 @@
 										RESUME
 									</div>
 									<div class="col-lg-2 text-center">
-										ACTION AWAITING
+										AWAITING ACTION
 									</div>
 								</li>
 								<li ng-repeat="pendingReferrals in EngContCtrl.referrals">
 									<div class="col-lg-3">
 										<div class="pull-left">
-											<img ng-src="{{pendingReferrals.dp_image}}" class="img-responsive img-circle border-{{refer.status | lowercase}}">
+											<img ng-src="{{pendingReferrals.dp_image == null ? 'public/images/avatar.png' : pendingReferrals.dp_image}}" class="img-responsive img-circle border-{{pendingReferrals.status | lowercase}}" ng-style="{'border-color': pendingReferrals.dp_image == null ? 'transparent': ''}">
 										</div>
-										<div class="content pull-left" ng-style="{'padding-top': pendingReferrals.designation == ''? '13px' : ''}">
+										<div class="content pull-left" ng-style="{'padding-top': pendingReferrals.designation == ''? '18px' : ''}">
 											<big>{{pendingReferrals.name}}</big>
 											<p style="margin:0">{{pendingReferrals.designation}}</p>
 										</div>
@@ -149,25 +154,30 @@
 										<div class="pull-left">
 											<img ng-src="{{pendingReferrals.referred_by_dp_image}}" class="img-responsive img-circle border-default">
 										</div>
-										<div class="content pull-left" ng-style="{'padding-top': pendingReferrals.ref_designation == ''? '13px' : ''}">
+										<div class="content pull-left" ng-style="{'padding-top': pendingReferrals.ref_designation == ''? '18px' : ''}">
 											<big>{{pendingReferrals.referred_by_name}}</big>
 											<p style="margin:0;">{{pendingReferrals.ref_designation}}</p>
 										</div>
 									</div>
-									<div class="col-lg-2">
+									<div class="col-lg-2" style="padding-top:6px;">
 										<span style="display: inline-block;padding: 12px 0;line-height: 1.8em">{{pendingReferrals.created_at}}&nbsp;&nbsp;<img src="public/images/time.svg"alt="clock"></span>
 									</div>
-									<div class="col-lg-2">
-										<a href="{{pendingReferrals.resume_path}}" download>
-											<span class="resume_file" title="{{pendingReferrals.resume_path | fileName}}">{{pendingReferrals.resume_path | fileName}}</span>
-											<img src="public/images/download.svg" alt="download_svg">
-										</a>
+									<div class="col-lg-2" style="padding-top:6px;">
+										<div ng-if="!pendingReferrals.resume_path == ''">
+											<a href="{{pendingReferrals.resume_path}}" download>
+												<span class="resume_file" title="{{pendingReferrals.resume_path | fileName}}">{{pendingReferrals.resume_path | fileName}}</span>
+												<img src="public/images/download.svg" alt="download_svg">
+											</a>
+										</div>
+										<div ng-if="pendingReferrals.resume_path == ''" style="padding-top:15px;">
+											No Resume Found
+										</div>
 									</div>
-									<div class="col-lg-2 text-center" style="padding: 10px 0" ng-if="pendingReferrals.status == 'PENDING'">
-										<img src="public/images/tickmark-accept.svg" alt="response" ng-click="EngContCtrl.referral_status(pendingReferrals,'accepted')">&nbsp;&nbsp;
-										<img src="public/images/closemark-decline.svg" alt="response" ng-click="EngContCtrl.referral_status(pendingReferrals,'declined')">
+									<div class="col-lg-2 text-center" style="padding-top: 15px" ng-if="pendingReferrals.status == 'PENDING'">
+										<img src="public/images/tickmark-accept.svg" alt="response" ng-click="EngContCtrl.referral_status('PENDING',pendingReferrals,'accepted')">&nbsp;&nbsp;
+										<img src="public/images/closemark-decline.svg" alt="response" ng-click="EngContCtrl.referral_status('PENDING',pendingReferrals,'declined')">
 									</div>
-									<div class="col-lg-2 text-center" style="padding: 15px 0" ng-if="pendingReferrals.status != 'PENDING'">
+									<div class="col-lg-2 text-center" style="padding-top: 20px" ng-if="pendingReferrals.status != 'PENDING'">
 										<span class="text-{{pendingReferrals.status | lowercase}}">{{pendingReferrals.status}}</span>
 									</div>
 								</li>
@@ -178,7 +188,7 @@
 						</div>
 			    	</div>
 		  		</div>
-		  		<div id="active" class="tab-pane" ng-class="{'active': switchCond = 'pending'}" ng-switch-when="accepeted">
+		  		<div id="active" class="tab-pane" ng-class="{'active': switchCond = 'pending'}" ng-switch-when="accepted">
 		    		<div class="box">
 			    		<div class="box-content" style="padding: 30px 0px">
 							<ul>
@@ -193,15 +203,15 @@
 										RESUME
 									</div>
 									<div class="col-lg-4">
-										ACTION AWAITING
+										AWAITING ACTION
 									</div>
 								</li>
 								<li ng-repeat="activeReferrals in EngContCtrl.referrals">
 									<div class="col-lg-3">
 										<div class="pull-left">
-											<img ng-src="{{activeReferrals.dp_image}}" class="img-responsive img-circle border-{{refer.status | lowercase}}">
+											<img ng-src="{{activeReferrals.dp_image == null ? 'public/images/avatar.png' : activeReferrals.dp_image}}" class="img-responsive img-circle border-{{activeReferrals.status | lowercase}}" ng-style="{'border-color': activeReferrals.dp_image == null ? 'transparent': ''}">
 										</div>
-										<div class="content pull-left" ng-style="{'padding-top': activeReferrals.designation == ''? '13px' : ''}">
+										<div class="content pull-left" ng-style="{'padding-top': activeReferrals.designation == ''? '18px' : ''}">
 											<big>{{activeReferrals.name}}</big>
 											<p style="margin:0">{{activeReferrals.designation}}</p>
 										</div>
@@ -210,22 +220,27 @@
 										<div class="pull-left">
 											<img ng-src="{{activeReferrals.referred_by_dp_image}}" class="img-responsive img-circle border-default">
 										</div>
-										<div class="content pull-left" ng-style="{'padding-top': activeReferrals.ref_designation == ''? '13px' : ''}">
+										<div class="content pull-left" ng-style="{'padding-top': activeReferrals.ref_designation == ''? '18px' : ''}">
 											<big>{{activeReferrals.referred_by_name}}</big>
 											<p style="margin:0;">{{activeReferrals.ref_designation}}</p>
 										</div>
 									</div>
-									<div class="col-lg-2">
-										<a href="{{activeReferrals.resume_path}}" download>
-											<span class="resume_file" title="{{activeReferrals.resume_path | fileName}}">{{activeReferrals.resume_path | fileName}}</span>
-											<img src="public/images/download.svg" alt="download_svg">
-										</a>
+									<div class="col-lg-2" style="padding-top:6px;">
+										<div ng-if="!activeReferrals.resume_path == ''">
+											<a href="{{activeReferrals.resume_path}}" download>
+												<span class="resume_file" title="{{activeReferrals.resume_path | fileName}}">{{activeReferrals.resume_path | fileName}}</span>
+												<img src="public/images/download.svg" alt="download_svg">
+											</a>
+										</div>
+										<div ng-if="activeReferrals.resume_path == ''" style="padding-top:15px;">
+											No Resume Found
+										</div>
 									</div>
-									<div class="col-lg-4 text-center" style="padding: 10px 0" ng-if="activeReferrals.status == 'PENDING'">
-										<img src="public/images/tickmark-accept.svg" alt="response" ng-click="EngContCtrl.referral_status(activeReferrals,'accepted')">&nbsp;&nbsp;
-										<img src="public/images/closemark-decline.svg" alt="response" ng-click="EngContCtrl.referral_status(activeReferrals,'declined')">
+									<div class="col-lg-4 text-center" style="padding-top: 15px" ng-if="activeReferrals.status == 'PENDING'">
+										<img src="public/images/tickmark-accept.svg" alt="response" ng-click="EngContCtrl.referral_status('ACCEPTED',activeReferrals,'accepted')">&nbsp;&nbsp;
+										<img src="public/images/closemark-decline.svg" alt="response" ng-click="EngContCtrl.referral_status('ACCEPTED',activeReferrals,'declined')">
 									</div>
-									<div class="col-lg-4" style="padding:5px 15px;" ng-if="activeReferrals.status != 'PENDING'">
+									<div class="col-lg-4" style="padding:7px 15px;" ng-if="activeReferrals.status != 'PENDING'">
 										<div class="btn-group">
 											<div class="bg-accepted">Accepted</div>
 											<div>Interviewed</div>

@@ -45,22 +45,11 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
     }
 }])
 
-/*.service('dynamicBucketsName',function(){
-    var bucketNames = ["employees", "clients", "candidates", "others"];
-
-    this.setData = function(data){
-        bucketNames.push(data);
-    }
-
-    this.getData = function(){
-        return bucketNames;
-    }
-})*/
-
 .controller('ImportContactsController', ['$state', '$window', '$uibModal', '$http', '$rootScope', 'CONFIG', function($state, $window, $uibModal, $http, $rootScope, CONFIG) {
 
     var scope = this;
     this.loader = true;
+
     // get bucket names
     var get_buckets = $http({
         headers: {
@@ -91,14 +80,10 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
         $state.go('importContactsList');
     }
 
-     this.downloadSample = function(){
+    // Download sample template
+    this.downloadSample = function(){
         window.location.href = CONFIG.APP_DOMAIN+'downloadcsv';
     }
-
-    /*this.backToCompleteProfile = function() {
-        $window.scrollTo(0, 0);
-        $state.go('companyProfile');
-    }*/
 
     scope.path = CONFIG.APP_DOMAIN+'public/downloads/sample_template.xlsx';
 
@@ -162,10 +147,10 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
             bol = true;
         }
     }
+
     if(!bol){
         bucket_id = scope.bucketNames.length + 1;
     }
-
 
     if (bucketName == "Add Your Own") {
         scope.newBucket = true;
@@ -180,6 +165,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
 
     this.upload_load_cond = false;
     this.success_upload = false;
+
     this.onfileSubmit = function(valid) {
 
         if (!valid) {
@@ -191,12 +177,10 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
 
             // Sending data to post call
             var bucket_data = new FormData();
-            //bucket_data.append("access_token", $rootScope.access_token);
             var files = $('input[type=file]#fileUploads')[0].files[0];
             bucket_data.append("contacts_file", files);
-            //bucket_data.append("company_id", $rootScope.company_id);
-            //bucket_data.append("company_code",$rootScope.company_code)
             bucket_data.append("is_bucket_new", scope.new_bucket_flag);
+
             if (scope.newBucket) {
                 bucket_data.append("bucket_name", scope.customName);
                 scope.name = scope.customName;
@@ -205,6 +189,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
                 bucket_data.append("bucket_name", bucketName);
                 scope.name = bucketName;
             }
+
             bucket_data.append("bucket_id", bucket_id);
 
             // Contacts Upload Ajax Call
@@ -221,19 +206,17 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
                 if (response.status_code == 200) {
                     bucket.fileNames[bucket_id-1] = files.name;
                     scope.upload_load_cond = false;
-                    if (scope.newBucket) {
 
+                    if (scope.newBucket) {
                         var obj = {"bucket_id":bucket_id,"bucket_name":scope.customName};
                         scope.bucketNames.push(obj);
-                        //dynamicBucketsName.setData(scope.customName)
-                        /*$rootScope.bucketsName.push(scope.customName);*/
-                        //console.log(dynamicBucketsName.getData());
                     }
+
                     scope.success_upload = true;
                     scope.success = true;
                     scope.success = response.message[0];
-                    $rootScope.successUpload(scope.name,scope.success_upload,$('input[type=file]#fileUploads')[0].files[0].name)
-                    // $uibModalInstance.dismiss('cancel');
+                    $rootScope.successUpload(scope.name,scope.success_upload,$('input[type=file]#fileUploads')[0].files[0].name);
+
                 } else if (response.status_code == 403) {
                     scope.disabled = false;
                     scope.upload_load_cond = false;
@@ -259,7 +242,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
     })
 }])
 
-.controller('ImportContactsListController', ['$rootScope', '$window', '$state', '$scope', '$http', '$log', '$timeout', 'uiGridConstants', '$uibModal', 'CONFIG', function($rootScope, $window, $state, $scope, $http, $log, $timeout, uiGridConstants, $uibModal, CONFIG) {
+.controller('ImportContactsListController', ['$rootScope', '$q', '$window', '$state', '$scope', '$http', '$log', '$timeout', 'uiGridConstants', '$uibModal', 'CONFIG', function($rootScope, $q, $window, $state, $scope, $http, $log, $timeout, uiGridConstants, $uibModal, CONFIG) {
 
     var scope = this;
     scope.loadingTabs = true;
@@ -290,7 +273,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
     var selectedContacts1 = [];
 
     var API_CALL = CONFIG.APP_DOMAIN+'contact_list';
-    var bucketId;
+    var bucketId,canceller;
 
     this.importContactGrid = function(url, id, type) {
         bucketId = id;
@@ -361,6 +344,11 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
             }
         }
 
+        if(canceller){
+            canceller.resolve();
+        }
+
+        canceller = $q.defer();
 
         $scope.data = [];
 
@@ -380,24 +368,21 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
                 },
                 method: 'POST',
                 url: url,
-                data: list
+                data: list,
+                timeout : canceller.promise
             })
 
             .then(function(response) {
                 scope.totalRows = response.data.data.total_records[0].total_count;
 
                 scope.total_pages = Math.ceil(scope.totalRows / 50);
-               
-                //$scope.gridOptions.data = response.data.Contacts_list;
                 var newData = $scope.getPage(response.data.data.Contacts_list);
                 if(newData.length==0){
                     scope.loading = false;
                     scope.gridNoData = true;
-                    document.getElementById("disablePointer").style.pointerEvents = "auto";
                     return false;
                 }
                 
-
                 var selectedCount = 0;
                 $scope.gridApi.grid.selection.selectAll = false;
                 scope.loading = false;
@@ -416,15 +401,10 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
                         $scope.gridApi.grid.selection.selectAll = true;
                     }
                 })
-                
                 $scope.data = $scope.data.concat(newData);
-                document.getElementById("disablePointer").style.pointerEvents = "auto";
-                //console.log($scope.data+"first")
-                
             })
 
         };
-
 
         $scope.getDataDown = function() {
 
@@ -440,7 +420,8 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
                 },
                 method: 'POST',
                 url: url,
-                data: list
+                data: list,
+                timeout : canceller.promise
             })
 
             .then(function(response) {
@@ -484,7 +465,6 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
     scope.importContactGrid(API_CALL, 0, "all");
 
     this.getInfo = function(id, type) {
-        document.getElementById("disablePointer").style.pointerEvents = "none";
         scope.loading = true;
         scope.importContactGrid(API_CALL, id, type);
     }

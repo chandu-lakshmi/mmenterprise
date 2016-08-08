@@ -26,7 +26,7 @@ angular.module('app.job.search', ['infinite-scroll'])
     this.search_load_cond = false;
     this.initLoader = true;
     var canceller;
-    var page_no = 1,total_pages = 1,data = [];
+    var page_no = 1,total_pages = 1,data = [],initial = 0;
 
     function postList(status,input){
 
@@ -56,12 +56,22 @@ angular.module('app.job.search', ['infinite-scroll'])
             scope.search_load_cond = false;
             scope.initLoader = false;
             if(response.data.length == 0){
-                scope.no_posts_found = true;
+
+                if(initial == 0){
+                    scope.init_no_posts_found = true;
+                }
+                else{
+                    scope.init_no_posts_found = false;
+                    scope.no_posts_found = true;   
+                }
+
+                total_pages = 0;
+                scope.busy = false;
                 scope.post_count = 0;
                 scope.jobDetails = response.data.posts;
             }
             else{
-
+                initial = 1;
                 if(page_no == 1){
                     data = [];
                     total_pages = Math.ceil(response.data.total_count / 10);
@@ -71,6 +81,7 @@ angular.module('app.job.search', ['infinite-scroll'])
                     data.push(response.data.posts[i]);
                 }
 
+                scope.init_no_posts_found = false;
                 scope.no_posts_found = false;
                 scope.jobDetails = data;
                 page_no++;
@@ -101,7 +112,7 @@ angular.module('app.job.search', ['infinite-scroll'])
     }
 
     scope.nextPage = function(status,input){
-        if(total_pages >= page_no){
+        if(total_pages >= page_no && total_pages != 0){
             if(scope.busy){
                 return;
             }

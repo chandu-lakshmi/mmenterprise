@@ -23,7 +23,7 @@ p.indent:first-letter{
     position: relative;
 }
 .search-job .left-inner-addon input {
-    padding-left: 30px;
+    padding:0 30px;
 }
 .search-job .left-inner-addon input:focus{
 	border-bottom: 1px solid #ccc;
@@ -53,7 +53,7 @@ p.indent:first-letter{
 	padding:5px 5px;
 }
 .select-arrow{
-	right: 165px;
+	right: 8px;
 	top: 5px;
 	font-size: 24px;
 	pointer-events: none;
@@ -80,6 +80,7 @@ p.indent:first-letter{
 .search-job div .form-group{
 	display: inline-block;
 	float: none;
+	position: relative;	
 }
 .search-job div{
 	padding: 0;
@@ -113,7 +114,7 @@ p.indent:first-letter{
 	margin-bottom: 3%;
 }
 .job-type{
-	padding: 1.5% 1%;
+	padding: 1.5% 0;
 	border-bottom: 1px solid silver;
 }
 .job-type img{
@@ -145,6 +146,7 @@ p.indent:first-letter{
 }
 .job-type h3 + span{
 	float:right;
+	padding: 2px 0;
 }
 .job-type span span{
 	margin: 0 2px;
@@ -176,10 +178,11 @@ p.indent:first-letter{
     color: orange !important;
 }
 .job-info_d{
-	margin: 1% 0;
+	margin: 12.5px 0;
     border-right: 1px solid silver;
     padding: 0;
     font-size: 16px;
+    line-height: 1.5;
 }
 .job-info_d div:last-child{	
 	overflow: hidden;
@@ -203,27 +206,47 @@ p.indent:first-letter{
 }
 .job-info_d ~ div span{
 	display: inline-block;
-    padding-bottom: 24px;
+    padding-bottom: 25px;
     font-weight: 900;
 }
-.job-info_d ~ div div{
-	border-bottom: 2px solid #559E33;
-	color: #559E33;
+.job-info  .job-info_d ~ div{
+	position: relative;
 }
-.job-info_d + div div{
-	border-bottom: 2px solid #47BABD;
+.job-info  .job-info_d~div:before{
+	position: absolute;
+    content: '';
+    left: 23px;
+    right: 23px;
+    bottom: -1px;
+}
+.job-info  .invited{
 	color: #47BABD;
 }
-.job-info .referal_s div{
-	border-bottom: 2px solid #FA8116;
+.job-info  .referral{
 	color: #FA8116;
 }
-.job-info .referal_s + div div{
-	border-bottom: 2px solid #16A4FA;
+.job-info  .accepted{
 	color: #16A4FA;
 }
+.job-info  .hired{
+	color: #559E33;
+}
+.job-info  .invited:before{
+	border-bottom: 2px solid #47BABD;
+}
+.job-info  .referral:before{
+	border-bottom: 2px solid #FA8116;
+}
+.job-info  .accepted:before{
+	border-bottom: 2px solid #16A4FA;
+}
+.job-info  .hired:before{
+	border-bottom: 2px solid #559E33;
+}
+
 .job-info h1{
 	color: #000;
+	margin-bottom: 16px;
 }
 .job-info i{
 	font-size: 17px;

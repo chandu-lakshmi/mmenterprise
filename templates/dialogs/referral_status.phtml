@@ -1,19 +1,22 @@
 <div ng-if="refStatus.accept">
-    <div class="modal-header text-center" style="border-bottom:0">
-    	<div>
-	        <h5 style="font-size:18px">Are you sure you want to accept the Referral?</h5>
-	    </div>
-	    <button class="btn btn-default" type="button" ng-click="$dismiss()" style="border:1px solid gray">CANCEL</button>
-	    <button class="btn btn-primary" type="button" ng-click="refStatus.referralStatus('ACCEPTED')" style="background:#37b894;border:1px solid #37b894">ACCEPT</button>
+    <div class="modal-header">
+    	<img src="public/images/cross_icon.png" alt="close" class="img-close" ng-click="$dismiss()">
+    	<div style="padding:40px;overflow:hidden">
+    		<img src="public/images/user_ico.png" alt="user">
+    		<p>Are you sure want to <br> Accept  the  referral?</p>
+    		<div ng-click="refStatus.referralStatus('ACCEPTED')">Yes</div>
+    		<div style="float:right;background:#fff;border:1px solid red;color:#e66a6a" ng-click="$dismiss()">No</div>
+    	</div>
     </div>
 </div>
-
 <div ng-if="refStatus.decline">
-    <div class="modal-header text-center" style="border-bottom:0">
-    	<div>
-	        <h5 style="font-size:18px">Are you sure you want to decline the Referral?</h5>
-	    </div>
-	    <button class="btn btn-default" type="button" ng-click="$dismiss()" style="border:1px solid gray">CANCEL</button>
-	    <button class="btn btn-primary" type="button" ng-click="refStatus.referralStatus('DECLINED')" style="background:#37b894;border:1px solid #37b894">DECLINE</button>
+    <div class="modal-header">
+    	<img src="public/images/cross_icon.png" alt="close" class="img-close" ng-click="$dismiss()">
+    	<div style="padding:40px;overflow:hidden">
+    		<img src="public/images/user_ico.png" alt="user">
+    		<p>Are you sure want to <br> Decline  the  referral?</p>
+    		<div ng-click="refStatus.referralStatus('DECLINED')">Yes</div>
+    		<div style="float:right;background:#fff;border:1px solid red;color:#e66a6a" ng-click="$dismiss()">No</div>
+    	</div>
     </div>
 </div>

@@ -10,29 +10,24 @@ angular.module('app.engagement.contacts', [])
    };
 })
 
-.controller('EngagementContactsController', ['$window', '$rootScope', '$http', '$q', 'jobDetails', '$uibModal', 'CONFIG', function($window,$rootScope,$http,$q,jobDetails,$uibModal,CONFIG){
+.controller('EngagementContactsController', ['$window', '$http', '$q', 'jobDetails', '$uibModal', 'ajaxData', 'CONFIG', function($window,$http,$q,jobDetails,$uibModal,ajaxData,CONFIG){
 
 	$window.scrollTo(0,0);
+
+    this.subHeaderCount = ajaxData.getData();
 
 	this.post_id = jobDetails.id
 	this.job_title = jobDetails.job_title;
 
 	var scope = this,canceller;
 
-	/*this.fun_click = function(){
-		if(this.referrals_show == true){
-			this.referrals_show = false;
-		}
-		else{
-			this.referrals_show = true;
-		}
-	}*/
-
 	this.length_zero = false;
 
     this.referrals_load_cond = true;
 
-    $rootScope.ajaxCall = function(status){
+
+    function  ajaxCall(status){
+
         scope.referrals = [];
         scope.referrals_load_cond = true;
 
@@ -74,14 +69,15 @@ angular.module('app.engagement.contacts', [])
         	console.log(response);
         })
     }
-    $rootScope.ajaxCall('');
+
+    ajaxCall('');
 
     scope.referralsCond = function(status){
-        $rootScope.ajaxCall(status);
+        ajaxCall(status);
     }
 
 
-    scope.referral_status = function(obj,status_code){
+    scope.referral_status = function(tabName,obj,status_code){
     	$uibModal.open({
             animation: false,
             backdrop: 'static',
@@ -91,7 +87,9 @@ angular.module('app.engagement.contacts', [])
             resolve: {
                 referralObj: function() {
                     var referralObj = obj;
-                    referralObj.status_code = status_code
+                    referralObj.tabName = tabName;
+                    referralObj.status_code = status_code;
+                    referralObj.ajaxFunCall = ajaxCall;
                     return referralObj;
                 }
             },
@@ -102,11 +100,13 @@ angular.module('app.engagement.contacts', [])
 
 }])
 
-.controller('ReferralStatus',["$scope", "$rootScope", "$uibModalInstance", "referralObj", "$http", "CONFIG", "jobDetails", function($scope, $rootScope, $uibModalInstance, referralObj, $http, CONFIG, jobDetails){
+.controller('ReferralStatus',["$scope", "$q", "$uibModalInstance", "referralObj", "$http", "ajaxData", "CONFIG", "jobDetails", function($scope, $q, $uibModalInstance, referralObj, $http, ajaxData, CONFIG, jobDetails){
 
 	var scope = this;
+
 	scope.accept = false;
 	scope.decline = false;
+
 	if(referralObj.status_code == 'accepted'){
 		scope.accept = true;
 	}
@@ -114,8 +114,14 @@ angular.module('app.engagement.contacts', [])
 		scope.decline = true
 	}
 
-    // function
+    var canceller;
     this.referralStatus = function(status){
+
+        if(canceller){
+            canceller.resolve();
+        }
+
+        canceller = $q.defer();
 
         var pramas = $.param({
             from_user : referralObj.from_user,
@@ -131,10 +137,16 @@ angular.module('app.engagement.contacts', [])
             method : 'POST',
             data : pramas,
             url : CONFIG.APP_DOMAIN+'process_job',
+            timeout : canceller.promise
         })
         processJob.success(function(response){
             if(response.status_code == 200){
-                $rootScope.ajaxCall(referralObj.status);
+                var data = response.data.countDetails;
+                // setting count parameters in ajaxData service
+                for(var i in data){
+                    ajaxData.addProperty(i,data[i]);
+                }
+                referralObj.ajaxFunCall(referralObj.tabName);
                 $uibModalInstance.dismiss('cancel');
             }
         })

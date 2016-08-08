@@ -78,7 +78,6 @@ header .menu ul > li{
 }
  header .menu ul > li > a{
  	display: block;
-	padding-bottom: 18px;
 	padding: 0px 15px;
 	color: #7792a0;
 }
@@ -136,16 +135,19 @@ header .notifications .dropdown button{
     padding: 0px;
     min-width: 25px;
     margin: -11px;
+    margin-top:-16px;
     padding: 7px 8px;
+    border-radius: 0;
 }
 header .notifications .dropdown button .user_name{
 	font-size: 18px;
 	margin:0 10px;
 	vertical-align: middle;
+	text-transform: capitalize;
 }
 header .notifications .drop-custom{
 	left: 0;
-    top: 60px;
+    top: 58px;
     margin-top: 0px;
     min-width: 93px;
     border-radius: 0;
@@ -154,7 +156,8 @@ header .notifications .drop-custom{
 }
 header .dropdown.open button{
 	color: #fff;
-	background: #2d3236;
+	/*background: #2d3236;*/
+	background: #22475d;
 }
 header .notifications .dropdown button:focus{
 	color: #fff;
@@ -162,11 +165,13 @@ header .notifications .dropdown button:focus{
 header .notifications .dropdown button:active:focus{
 	outline: none;
 	color: #fff;
-	background: #2d3236;
+	/*background: #2d3236;*/
+	background: #22475d;
 }
 header .notifications .dropdown button:hover{
 	color: #fff;
-	background: #2d3236;
+	/*background: #2d3236;*/
+	background: #22475d;
 }
 header .notifications .user span:not(:last-child){
 	margin-right: 5px;
@@ -403,13 +408,13 @@ footer a:hover{
 	color: #333 !important;
 }
 .border-pending{
-	border: 3px solid #E9832E;
+	border: 3px solid #f07914;
 }
 .border-accepted{
-	border: 3px solid #0F8EDB;
+	border: 3px solid #22a2ee;
 }
 .border-declined{
-	border: 3px solid #FD4243;
+	border: 3px solid #ff3a3b;
 }
 .border-default{
 	border: 3px solid transparent;
@@ -465,8 +470,12 @@ footer a:hover{
 	border-radius: 0px 5px 5px 0px;
 }
 
-
+.engage-contact{
+	padding: 70px 0 100px 0;
+	background:#eeeff1;
+}
 .engage-contact .box{
+	background: #fff;
 	border: 1px solid #ddd;
     border-top: 0;
     box-shadow: 3px 1px 5px #ddd;
@@ -576,16 +585,44 @@ footer a:hover{
 
 /* Engagement and contacts dialog style*/
 .referral-status .modal{
-	left: calc(50% - 194px) !important;
-    top: calc(50% - 99px);
+	left: calc(50% - 240px) !important;
+    top: calc(50% - 164px);
 }
 .referral-status .modal-dialog{
-	width: 400px;
+	width: 480px;
 	margin:0px;
 }
+.referral-status .modal-header{
+	text-align: center;
+	border-bottom:0;
+	position: relative;
+	font-size: 21px;
+}
+.referral-status .modal-header .img-close{
+	position: absolute;
+	top:15px;
+	right: 15px;
+	cursor: pointer;
+}
+.referral-status .modal-header p{
+    margin: 10px 0 20px 0px;
+}
+.referral-status .modal-header div div{
+	width: 122px;
+    height: 52px;
+    color: #fff;
+    background: #229a78;
+    padding: 10px 35px;
+    cursor: pointer;
+    float: left;
+    outline: 0;
+}
+/*.modal-content .ng-scope{
+	padding:15px;
+}*/
+
 .referral-status .modal-dialog	.modal-content{
     border-radius: 0;
-    padding: 50px 0;
 }
 .referral-status .modal-dialog	.modal-content h5{
 	margin-top: 0;
@@ -622,6 +659,7 @@ footer a:hover{
 	border-bottom: 0;
 	float: left;
 	padding: 40px 0px;
+	margin-right: -1px;
 }
 .sub-header .sub-right ul li h3{
 	margin-top: 0px;
@@ -984,6 +1022,7 @@ footer a:hover{
     padding: 12px 10px;
     border: 1px solid #cbcbcb;
     margin-right: -1px;
+    cursor: pointer;
 }
 
 

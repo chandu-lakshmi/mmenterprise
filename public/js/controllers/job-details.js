@@ -15,6 +15,10 @@ angular.module('app.job.details', [])
 	this.getData = function(){
 		return responseData;
 	}
+
+	this.addProperty = function(prop,value){
+		responseData[prop] = value;
+	}
 })
 
 .controller('JobDetailsController', ['$window', '$http', '$stateParams', 'jobDetails', 'ajaxData', 'CONFIG', function($window,$http,$stateParams,jobDetails,ajaxData,CONFIG){
