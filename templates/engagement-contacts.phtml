@@ -44,9 +44,9 @@
 	<div class="container">
 		<div class="row">
 			<ul class="nav nav-tabs" ng-init="switchCond = 'all'">
-  				<li class="active"><a data-toggle="tab" ng-click="EngContCtrl.referralsCond('');switchCond = 'all'">ALL REFERRALS</a></li>
-  				<li><a data-toggle="tab" ng-click="EngContCtrl.referralsCond('PENDING');switchCond = 'pending'">PENDING</a></li>
-  				<li><a data-toggle="tab" ng-click="EngContCtrl.referralsCond('ACCEPTED');switchCond = 'accepted'">ACCEPTED</a></li>
+  				<li class="active"><a data-toggle="tab" ng-click="EngContCtrl.referralsCond('');switchCond = 'all'">ALL REFERRALS ({{EngContCtrl.totals.totalCount ? EngContCtrl.totals.totalCount : '0'}})</a></li>
+  				<li><a data-toggle="tab" ng-click="EngContCtrl.referralsCond('PENDING');switchCond = 'pending'">PENDING ({{EngContCtrl.totals.pendingCount ? EngContCtrl.totals.pendingCount : '0'}})</a></li>
+  				<li><a data-toggle="tab" ng-click="EngContCtrl.referralsCond('ACCEPTED');switchCond = 'accepted'">ACCEPTED ({{EngContCtrl.totals.acceptedCount ? EngContCtrl.totals.acceptedCount : '0'}})</a></li>
 			</ul>
 
 			<div class="tab-content" ng-switch="switchCond">
@@ -68,7 +68,7 @@
 										RESUME
 									</div>
 									<div class="col-lg-2 text-center">
-										AWAITING ACTION
+										STATUS
 									</div>
 								</li>
 								<li ng-repeat="allReferrals in EngContCtrl.referrals">

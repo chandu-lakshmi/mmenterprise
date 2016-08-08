@@ -61,6 +61,7 @@ angular.module('app.engagement.contacts', [])
                     scope.length_zero = false;
         			scope.referrals_load_cond = false;
         			scope.referrals = response.data.referrals;
+                    scope.totals = response.data.count;
         		}
         	}
         	

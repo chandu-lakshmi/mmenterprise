@@ -232,6 +232,7 @@ span.tab-active a.active,span.tab-active a.hover{
   margin-bottom: 3px;
   width: 31px;
   outline: 0;
+  height: 26px;
 }
 .nav > li > a:hover, .nav > li > a:focus{
   background: none;

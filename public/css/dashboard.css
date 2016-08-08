@@ -458,6 +458,7 @@ footer a:hover{
 }
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
 	border-top: 3px solid #0ea1f9 !important;
+	color: #000;
 }
 .nav-tabs > li:not(.active){
 	border: 1px solid #ddd;
@@ -658,8 +659,9 @@ footer a:hover{
 	border-top: 0;
 	border-bottom: 0;
 	float: left;
-	padding: 40px 0px;
+	padding: 25px 0px;
 	margin-right: -1px;
+	margin: 15px -1px 15px 0;
 }
 .sub-header .sub-right ul li h3{
 	margin-top: 0px;

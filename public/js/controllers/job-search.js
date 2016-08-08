@@ -55,38 +55,43 @@ angular.module('app.job.search', ['infinite-scroll'])
         postJobList.success(function(response){
             scope.search_load_cond = false;
             scope.initLoader = false;
-            if(response.data.length == 0){
+            if(response.status_code == 200){
+                if(response.data.length == 0){
 
-                if(initial == 0){
-                    scope.init_no_posts_found = true;
+                    if(initial == 0){
+                        scope.init_no_posts_found = true;
+                    }
+                    else{
+                        scope.init_no_posts_found = false;
+                        scope.no_posts_found = true;   
+                    }
+
+                    total_pages = 0;
+                    scope.busy = false;
+                    scope.post_count = 0;
+                    scope.jobDetails = response.data.posts;
                 }
                 else{
+                    initial = 1;
+                    if(page_no == 1){
+                        data = [];
+                        total_pages = Math.ceil(response.data.total_count / 10);
+                    }
+                    
+                    for(var i = 0; i < response.data.posts.length; i++){
+                        data.push(response.data.posts[i]);
+                    }
+
                     scope.init_no_posts_found = false;
-                    scope.no_posts_found = true;   
+                    scope.no_posts_found = false;
+                    scope.jobDetails = data;
+                    page_no++;
+                    scope.post_count = response.data.total_count;
+                    scope.busy = false;
                 }
-
-                total_pages = 0;
-                scope.busy = false;
-                scope.post_count = 0;
-                scope.jobDetails = response.data.posts;
             }
-            else{
-                initial = 1;
-                if(page_no == 1){
-                    data = [];
-                    total_pages = Math.ceil(response.data.total_count / 10);
-                }
-                
-                for(var i = 0; i < response.data.posts.length; i++){
-                    data.push(response.data.posts[i]);
-                }
-
-                scope.init_no_posts_found = false;
-                scope.no_posts_found = false;
-                scope.jobDetails = data;
-                page_no++;
-                scope.post_count = response.data.total_count;
-                scope.busy = false;
+            if(response.status_code == 400){
+                $window.location = CONFIG.APP_DOMAIN+'login';
             }
         })
         postJobList.error(function(response){

@@ -149,7 +149,7 @@ input{
         height: auto !important;
     }
 }
-@media (max-height: 500px){
+@media (max-height: 550px){
     .forgot-password footer{
         position: static !important;
     }
@@ -377,6 +377,18 @@ input{
 
 
 /*Company Profile Styles*/
+.img-upload{
+    position: relative;
+}
+.img-upload input{
+    width: 123px;
+    height: 124px;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+}
 .company-profile .error-spacer{
     float: right;
     min-height: 24px;
@@ -614,8 +626,9 @@ input{
 }
 .cmp-size ul li > label{
     padding: 15px 0;
-    display: block;
+    display: inline-block;
     margin: 0;
+    width: 100%;
 }
 .go_2 .company-content{
     min-height: 613px;
@@ -643,6 +656,7 @@ input{
 .cmp-size input[type='radio'] + label{
     margin: 0;
     clear: none;
+    display: inline-block;
     padding: 20px 10px 10px 20px;
     cursor: pointer;
     background: url('../images/radio-button-unchecked.svg') no-repeat;
