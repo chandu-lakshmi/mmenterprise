@@ -1,5 +1,3 @@
-<link rel="stylesheet" type="text/css" href="public/css/job_style.css">
-
 
 <div class="job-search container padZ" style="padding-bottom:10%;min-height:1000px">
 	<!--Search sort-->
@@ -79,15 +77,19 @@
 					</div>
 				</div>
 				<div class="col-sm-2 referal_s col-xs-6 referral">
-					<div>
-						<h1>{{jobList.referral_count}}</h1>
-						<span><img src="public/images/referrals.svg" alt="invited">REFERRALS</span>
+					<div class="jump">
+						<a ng-click="jobSearchCtrl.jumpPage(jobList)" title="" style="color:inherit">
+							<h1>{{jobList.referral_count}}</h1>
+							<span><img src="public/images/referrals.svg" alt="invited">REFERRALS</span>
+						</a>
 					</div>
 				</div>
 				<div class="col-sm-2 col-xs-6 accepted">
-					<div>
-						<h1>{{jobList.accepted_count}}</h1>
-						<span><img src="public/images/Applied.svg" alt="invited"></i>ACCEPTED</span>
+					<div class="jump">
+						<a ng-click="jobSearchCtrl.jumpPage(jobList)" title="" style="color:inherit">
+							<h1>{{jobList.accepted_count}}</h1>
+							<span><img src="public/images/Applied.svg" alt="invited"></i>ACCEPTED</span>
+						</a>
 					</div>
 				</div>
 				<div class="col-sm-2 col-xs-6 hired	">

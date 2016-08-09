@@ -73,10 +73,21 @@ angular.module( "ngAutocomplete", [])
           scope.gPlace = new google.maps.places.Autocomplete(element[0], opts);
           google.maps.event.addListener(scope.gPlace, 'place_changed', function() {
             scope.$apply(function() {
-//              if (scope.details) {
                 scope.details = scope.gPlace.getPlace();
-//              }
-              scope.ngAutocomplete = element.val();
+                // try{
+                //   if (scope.details.hasOwnProperty('address_components')) {
+                //     var details = scope.details.address_components;
+                //     for(var i = details.length - 1;i >= 0 ;i-- ) {
+                //       if(details[i].long_name != details[i].short_name && details[i].short_name.length == 2){
+                //         attrs.$set("country-code", details[i].short_name);
+                //         break;
+                //       }
+                //     }
+                //   }                      
+                // }  
+                // catch(e){
+                // }
+                scope.ngAutocomplete = element.val();
             });
           })
         }
@@ -89,7 +100,8 @@ angular.module( "ngAutocomplete", [])
         scope.$watch(scope.watchOptions, function () {
           initOpts()
           newAutocomplete()
-          element[0].value = '';
+          //element[0].value = '';
+          element[0].placeholder = 'Please Choose Location';
           scope.ngAutocomplete = element.val();
         }, true);
       }

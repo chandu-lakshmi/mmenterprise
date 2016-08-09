@@ -136,7 +136,7 @@ header .notifications .dropdown button{
     min-width: 25px;
     margin: -11px;
     margin-top:-16px;
-    padding: 7px 8px;
+    padding: 9px 8px;
     border-radius: 0;
 }
 header .notifications .dropdown button .user_name{
@@ -147,7 +147,7 @@ header .notifications .dropdown button .user_name{
 }
 header .notifications .drop-custom{
 	left: 0;
-    top: 58px;
+    top: 59px;
     margin-top: 0px;
     min-width: 93px;
     border-radius: 0;
@@ -417,7 +417,7 @@ footer a:hover{
 	border: 3px solid #ff3a3b;
 }
 .border-default{
-	border: 3px solid transparent;
+	/*border: 3px solid transparent;*/
 }
 
 
@@ -459,6 +459,7 @@ footer a:hover{
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
 	border-top: 3px solid #0ea1f9 !important;
 	color: #000;
+	border-radius: 0;
 }
 .nav-tabs > li:not(.active){
 	border: 1px solid #ddd;
@@ -494,6 +495,9 @@ footer a:hover{
 	padding: 0px 15px;
 	font-size: 16px;
 	color: #878787;
+}
+.engage-contact .box .box-content a:focus{
+	text-decoration: none;
 }
 .engage-contact .box .box-content .resume_file{
 	display: inline-block;
@@ -593,6 +597,14 @@ footer a:hover{
 	width: 480px;
 	margin:0px;
 }
+.referral-status .modal .load{
+	position: relative;
+}
+.referral-status .modal .load img{
+	position: absolute;
+	top: 8px;
+    right: 1px;
+}
 .referral-status .modal-header{
 	text-align: center;
 	border-bottom:0;
@@ -604,6 +616,7 @@ footer a:hover{
 	top:15px;
 	right: 15px;
 	cursor: pointer;
+	outline: 0;
 }
 .referral-status .modal-header p{
     margin: 10px 0 20px 0px;
@@ -809,7 +822,7 @@ footer a:hover{
     -webkit-appearance: none;
     -moz-appearance:none;
     appearance:none;
-    padding-left: 10px;
+    padding: 0 40px 0 12px;
 }
 
 /*Post job 2 styles*/
@@ -869,10 +882,21 @@ footer a:hover{
 	font-size: 30px;
 }*/
 .amount-pay img{
-	float:right;
-	cursor:pointer;
-	outline: none;
-	width: 28px;
+    width: 28px;
+    transition: ease 0.25s all;
+    -webkit-transform: translate(50%, -50%);
+    transform: translate(50%, -50%);
+    position: absolute;
+    top: 35px;
+    right: 50px;
+}
+.amount-pay:hover img[src="public/images/add.svg"]{
+    -webkit-transform: translate(50%, -50%) rotate(180deg);
+    transform: translate(50%, -50%) rotate(180deg);
+}
+.amount-pay:hover img[src="public/images/select.svg"]{
+    -webkit-transform: translate(50%, -50%) rotate(-360deg);
+    transform: translate(50%, -50%) rotate(-360deg);
 }
 .amount-pay h3{
 	text-align: center;
@@ -1007,6 +1031,7 @@ footer a:hover{
 .engage-contact .tab-content .box .box-content ul > li img[alt="response"]{
 	width: 30px;
 	height: 30px;
+	outline: 0;
 }
 .engage-contact .tab-content .box .box-content ul > li:not(:last-child){
 	border-bottom: 1px solid #ccc;

@@ -103,7 +103,7 @@
 										<div class="col-sm-3">
 											<label for="upload-image" class="img-upload">
 												<img src="public/images/icon.png" id="company_logo" class="img-thumbnail">
-												<input id="upload-image" type="file" ng-model="compCtrl.companyLogo" name="logo" name="logo" style="display: none"accept=".jpeg,.jpg,.gif,.ico" custom-on-change="compCtrl.uploadLogo">
+												<input id="upload-image" type="file" ng-model="compCtrl.companyLogo" name="logo" name="logo" accept=".jpeg,.jpg,.gif,.ico" custom-on-change="compCtrl.uploadLogo">
 											</label>
 											<span id="img_err_name" style="color:red;padding:0px 10px;min-height:20px;white-space: nowrap;"></span>
 
@@ -117,7 +117,7 @@
 										<div class="col-sm-4 col-xs-6 col-md-3" ng-repeat="x in [1,2,3,4]">
 											<label for="add-image-{{x}}" class="img-upload">
 												<img src="public/images/add.png" id="dp-{{x}}" class="img-thumbnail">
-												<input id="add-image-{{x}}" type="file" name="add-img" style="display: none;" accept=".jpeg,.jpg,.gif,.ico" onchange="angular.element(this).scope().compCtrl.multipleFiles(this,angular.element(this).scope().x)">
+												<input id="add-image-{{x}}" type="file" name="add-img" accept=".jpeg,.jpg,.gif,.ico" onchange="angular.element(this).scope().compCtrl.multipleFiles(this,angular.element(this).scope().x)">
 											</label>
 											<span id="multiple_img_error_{{x}}" style="color:red;padding:0px 10px;min-height:20px;white-space: nowrap;"></span>
 										</div>

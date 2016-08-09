@@ -90,8 +90,8 @@ angular.module('app.job.search', ['infinite-scroll'])
                     scope.busy = false;
                 }
             }
-            if(response.status_code == 400){
-                $window.location = CONFIG.APP_DOMAIN+'login';
+            else if(response.status_code == 400){
+                $window.location = CONFIG.APP_DOMAIN+'logout';
             }
         })
         postJobList.error(function(response){
@@ -100,12 +100,22 @@ angular.module('app.job.search', ['infinite-scroll'])
     }
 
     scope.selectFilter = function(status,input){
+        
+        scope.post_count = 0;
+        scope.jobDetails = [];
+        scope.busy = true;
+
         page_no = 1;
         postList(status,input);
     }
 
     var time;
     scope.searchFilter = function(status,input){
+
+        scope.post_count = 0;
+        scope.jobDetails = [];
+        scope.busy = true;
+
         if(time != null){
             clearInterval(time);
         }
@@ -135,6 +145,14 @@ angular.module('app.job.search', ['infinite-scroll'])
         jobDetails.id = job.id;
         jobDetails.job_title = job.job_title;
   	    $state.go('^.jobDetails',{"post_id":job.id});
+    }
+
+    scope.jumpPage = function(obj){
+        console.log(obj)
+        ajaxData.setData(obj);
+        jobDetails.id = obj.id;
+        jobDetails.job_title = obj.job_title;
+        $state.go('^.engagement/contacts',{'post_id':obj.id});
     }
 
 }]);

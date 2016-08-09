@@ -27,15 +27,12 @@ angular.module('app.post.job', ['ngAutocomplete'])
 	var scope = this;
   this.company_name = CompanyDetails.company_name;
   this.postJob1 = gettingData.getObj();
-  
-  scope.postJob1.location = '';
 
   $scope.$watch(function() {
     return scope.geo_details;
   }, function(location) {
     if (location) {
       scope.postJob1.location = location.formatted_address;
-      // console.log(scope.postJob1.location)
     }
   });
 

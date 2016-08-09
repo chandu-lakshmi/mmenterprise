@@ -49,10 +49,10 @@ span.tab-active a.active,span.tab-active a.hover{
   background: #fff !important;
 }
 .import_c_box p{
-    color: #a6a6a6;
-    line-height: 18px;
-    font-size: 13px;
-    text-align: left;
+  color: #a6a6a6;
+  line-height: 18px;
+  font-size: 13px;
+  text-align: left;
 }
 .import_c_box div div img:first-child{
 	cursor: pointer;
@@ -61,14 +61,14 @@ span.tab-active a.active,span.tab-active a.hover{
 }
 .skip{
 	float: right;
-    margin-top: 6px;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-    outline: 0;
+  margin-top: 6px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  outline: 0;
 }
 .skip img{
-    vertical-align: 0px !important; 
+  vertical-align: 0px !important; 
 }
 .tit_head{
 	border:1px solid silver;
@@ -129,11 +129,11 @@ span.tab-active a.active,span.tab-active a.hover{
 	margin-left: 1px !important;
 }
 .import-con-grid .ui-grid-row.ui-grid-row-selected > [ui-grid-row] > .ui-grid-cell {
-  	background-color: #FDEBDD !important;
+  background-color: #FDEBDD !important;
 }
 .import-con-grid .ui-grid-row:nth-child(odd) .ui-grid-cell {
-  	background-color: #fff !important;
-  	border-bottom: 1px solid silver;
+	background-color: #fff !important;
+	border-bottom: 1px solid silver;
 }
 .import-con-grid .ui-grid-row:nth-child(even) .ui-grid-cell {
   background-color: #fff;
@@ -152,7 +152,7 @@ span.tab-active a.active,span.tab-active a.hover{
   background: #fff !important;
 }
 .import-con-grid .ui-grid-column-menu-button-last-col{
-    margin-right: 0px !important;
+  margin-right: 0px !important;
 }
 .grid-ic .ui-grid{
   border:0 !important;
@@ -305,10 +305,10 @@ span.tab-active a.active,span.tab-active a.hover{
   float: right;
 }
 .upload-btn div h6 a{
-    font-size: 12px;
-    font-weight: bolder;
-    text-decoration: underline;
-    color:silver;
+  font-size: 12px;
+  font-weight: bolder;
+  text-decoration: underline;
+  color:silver;
 }
 .foot_next{
   padding-top: 17px;
@@ -339,8 +339,8 @@ span.tab-active a.active,span.tab-active a.hover{
   top: -1px;
 }
 .import_verify .modal-footer img:last-child,.foot_im_c img:last-child{
-    padding-left: 10px;
-    vertical-align: 0px;
+  padding-left: 10px;
+  vertical-align: 0px;
 }
 .upload-con{
 	clear: both;
@@ -373,13 +373,21 @@ span.tab-active a.active,span.tab-active a.hover{
 	display: block;
 	margin:0 auto;
 }
+img.cross_close:hover {
+  -webkit-transform: translate(50%, -50%) rotate(180deg);
+  transform: translate(50%, -50%) rotate(180deg);
+}
 .import_verify .cross_close{
-    position: absolute;
-    right: -6px;
-    top: -9px;
-    z-index: 200;
-    cursor:pointer;
-    outline: 0;
+  position: absolute;
+  right: 5px;
+  top: 3px;
+  width: 32px;
+  z-index: 200;
+  cursor: pointer;
+  outline: 0;
+  transition: ease 0.25s all;
+  -webkit-transform: translate(50%, -50%);
+  transform: translate(50%, -50%);
 }
 .import_verify .modal {
   top: calc(50% - 217px);
@@ -454,6 +462,13 @@ span.tab-active a.active,span.tab-active a.hover{
 .posted-success .modal .modal-content{
   border-radius: 0;
 }
+.modal-backdrop{
+  opacity:0; transition:opacity .2s;
+}
+.modal-backdrop.in{
+  opacity:.7;
+}
+
 /*div[window-class="pop-cre"] .modal-content{
     width: 400px;
 }

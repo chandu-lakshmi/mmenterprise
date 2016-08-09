@@ -91,7 +91,8 @@
 										</div>
 									</div>
 									<div class="col-lg-2" style="padding-top:6px;">
-										<span style="display: inline-block;padding: 12px 0;line-height: 1.8em">{{allReferrals.created_at}}&nbsp;&nbsp;<img src="public/images/time.svg"alt="clock"></span>
+										<img src="public/images/clock.png"alt="clock">&nbsp;&nbsp;
+										<span style="display: inline-block;padding: 12px 0;line-height: 1.8em">{{allReferrals.created_at}}</span>
 									</div>
 									<div class="col-lg-2" style="padding-top:6px;">
 										<div ng-if="!allReferrals.resume_path == ''">
@@ -160,13 +161,14 @@
 										</div>
 									</div>
 									<div class="col-lg-2" style="padding-top:6px;">
-										<span style="display: inline-block;padding: 12px 0;line-height: 1.8em">{{pendingReferrals.created_at}}&nbsp;&nbsp;<img src="public/images/time.svg"alt="clock"></span>
+										<img src="public/images/clock.png"alt="clock">&nbsp;&nbsp;
+										<span style="display: inline-block;padding: 12px 0;line-height: 1.8em">{{pendingReferrals.created_at}}</span>
 									</div>
 									<div class="col-lg-2" style="padding-top:6px;">
 										<div ng-if="!pendingReferrals.resume_path == ''">
 											<a href="{{pendingReferrals.resume_path}}" download>
-												<span class="resume_file" title="{{pendingReferrals.resume_path | fileName}}">{{pendingReferrals.resume_path | fileName}}</span>
 												<img src="public/images/download.svg" alt="download_svg">
+												<span class="resume_file" title="{{pendingReferrals.resume_path | fileName}}">{{pendingReferrals.resume_path | fileName}}</span>
 											</a>
 										</div>
 										<div ng-if="pendingReferrals.resume_path == ''" style="padding-top:15px;">
@@ -228,8 +230,8 @@
 									<div class="col-lg-2" style="padding-top:6px;">
 										<div ng-if="!activeReferrals.resume_path == ''">
 											<a href="{{activeReferrals.resume_path}}" download>
-												<span class="resume_file" title="{{activeReferrals.resume_path | fileName}}">{{activeReferrals.resume_path | fileName}}</span>
 												<img src="public/images/download.svg" alt="download_svg">
+												<span class="resume_file" title="{{activeReferrals.resume_path | fileName}}">{{activeReferrals.resume_path | fileName}}</span>
 											</a>
 										</div>
 										<div ng-if="activeReferrals.resume_path == ''" style="padding-top:15px;">

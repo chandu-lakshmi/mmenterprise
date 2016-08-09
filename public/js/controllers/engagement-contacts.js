@@ -14,6 +14,8 @@ angular.module('app.engagement.contacts', [])
 
 	$window.scrollTo(0,0);
 
+    console.log(ajaxData.getData())
+
     this.subHeaderCount = ajaxData.getData();
 
 	this.post_id = jobDetails.id
@@ -60,11 +62,18 @@ angular.module('app.engagement.contacts', [])
         		else{
                     scope.length_zero = false;
         			scope.referrals_load_cond = false;
+                    var data = response.data.countDetails;
+                    for(var i in data){
+                        ajaxData.addProperty(i,data[i]);
+                    }
+                    scope.subHeaderCount = data;
         			scope.referrals = response.data.referrals;
                     scope.totals = response.data.count;
         		}
         	}
-        	
+        	else if(response.status_code == 400){
+                $window.location = CONFIG.APP_DOMAIN+'logout';
+            }
         })
         referralsList.error(function(response){
         	console.log(response);
@@ -107,6 +116,8 @@ angular.module('app.engagement.contacts', [])
 
 	scope.accept = false;
 	scope.decline = false;
+    
+    scope.success_loader = false;
 
 	if(referralObj.status_code == 'accepted'){
 		scope.accept = true;
@@ -117,6 +128,12 @@ angular.module('app.engagement.contacts', [])
 
     var canceller;
     this.referralStatus = function(status){
+
+        scope.success_loader = true;
+
+        $('.referral-status .modal-dialog').css({
+            'pointerEvents' : 'none'
+        })
 
         if(canceller){
             canceller.resolve();
@@ -141,18 +158,26 @@ angular.module('app.engagement.contacts', [])
             timeout : canceller.promise
         })
         processJob.success(function(response){
+
+            $('.referral-status .modal-dialog').css({
+                'pointerEvents' : 'auto'
+            })
+
+            scope.success_loader = false;
             if(response.status_code == 200){
-                var data = response.data.countDetails;
-                // setting count parameters in ajaxData service
-                for(var i in data){
-                    ajaxData.addProperty(i,data[i]);
-                }
                 referralObj.ajaxFunCall(referralObj.tabName);
                 $uibModalInstance.dismiss('cancel');
+            }
+            else if(response.status_code == 400){
+                $window.location = CONFIG.APP_DOMAIN+'logout';
             }
         })
         processJob.error(function(response){
             console.log(response)
+
+            $('.referral-status .modal-dialog').css({
+                'pointerEvents' : 'auto'
+            })
         })
     }
 
