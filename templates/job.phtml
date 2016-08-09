@@ -45,7 +45,7 @@
 						</h3>
 					</a>
 				</div>
-				<span ng-init="sc=jobList.service_cost;jobList.cost = jobList.free_service == '1' ? 'FREE' : (jobList.service_currency =='DLR' ? '$'+sc+'/Referral' : '&#8377;'+sc+'/Referral')" style="float:right">
+				<span ng-init="sc=jobList.service_cost;jobList.cost = jobList.free_service == '1' ? 'FREE' : (jobList.service_currency =='DLR' ? '$'+sc+'/Referral' : '&#8377;'+sc+'/Referral')" style="float:right;margin-top:2px">
 					<span ng-class="{'job_free':jobList.free_service == '1'}">
 						{{jobList.cost}}
 					</span>

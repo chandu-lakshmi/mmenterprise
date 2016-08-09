@@ -119,9 +119,9 @@ p.indent:first-letter{
 	overflow: hidden;
 }
 .job-type img{
-	width: 28px;
+	width: 28px;    height: 25px;
     margin-top: -10px;
-    margin-right: 5px
+    margin-right: 1px
 }
 .job-type h3{
 	display: inline-block;
@@ -129,7 +129,8 @@ p.indent:first-letter{
 }
 .job-type h3 img{
 	width: 10px;
-    margin-left: 6px;
+    height: 20px;
+    margin-left: 1px;
     margin-top: 1px;
 }
 .job-type h3 span{

@@ -14,8 +14,6 @@ angular.module('app.engagement.contacts', [])
 
 	$window.scrollTo(0,0);
 
-    console.log(ajaxData.getData())
-
     this.subHeaderCount = ajaxData.getData();
 
 	this.post_id = jobDetails.id
@@ -116,8 +114,10 @@ angular.module('app.engagement.contacts', [])
 
 	scope.accept = false;
 	scope.decline = false;
-    
+
     scope.success_loader = false;
+
+    console.log(referralObj)
 
 	if(referralObj.status_code == 'accepted'){
 		scope.accept = true;
@@ -144,6 +144,7 @@ angular.module('app.engagement.contacts', [])
         var pramas = $.param({
             from_user : referralObj.from_user,
             referred_by : referralObj.referred_by,
+            relation_count : referralObj.relation_count,
             post_id : jobDetails.id,
             status : status
         });

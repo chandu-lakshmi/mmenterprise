@@ -100,6 +100,9 @@ angular.module('app.job.search', ['infinite-scroll'])
     }
 
     scope.selectFilter = function(status,input){
+
+        scope.init_no_posts_found = false;
+        scope.no_posts_found = false;
         
         scope.post_count = 0;
         scope.jobDetails = [];
@@ -111,6 +114,9 @@ angular.module('app.job.search', ['infinite-scroll'])
 
     var time;
     scope.searchFilter = function(status,input){
+
+        scope.init_no_posts_found = false;
+        scope.no_posts_found = false;
 
         scope.post_count = 0;
         scope.jobDetails = [];
@@ -148,7 +154,6 @@ angular.module('app.job.search', ['infinite-scroll'])
     }
 
     scope.jumpPage = function(obj){
-        console.log(obj)
         ajaxData.setData(obj);
         jobDetails.id = obj.id;
         jobDetails.job_title = obj.job_title;
