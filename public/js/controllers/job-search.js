@@ -12,7 +12,7 @@ angular.module('app.job.search', ['infinite-scroll'])
    };
 })
 
-.controller('JobSearchController', ["$window", "gettingData", "$http", "$state", "$rootScope", "$q", "jobDetails", "ajaxData", "CONFIG", function($window,gettingData, $http, $state, $rootScope, $q, jobDetails, ajaxData, CONFIG){
+.controller('JobSearchController', ["$window", "gettingData", "$http", "$state", "$rootScope", "$q", "jobDetails", "ajaxData", "tabName", "CONFIG", function($window,gettingData, $http, $state, $rootScope, $q, jobDetails, ajaxData, tabName, CONFIG){
 	
     $window.scrollTo(0,0);
 
@@ -160,10 +160,12 @@ angular.module('app.job.search', ['infinite-scroll'])
   	    $state.go('^.jobDetails',{"post_id":job.id});
     }
 
-    scope.jumpPage = function(obj){
+    scope.jumpPage = function(obj,tabCond){
         ajaxData.setData(obj);
         jobDetails.id = obj.id;
         jobDetails.job_title = obj.job_title;
+
+        tabName.tab_name = tabCond;
         $state.go('^.engagement/contacts',{'post_id':obj.id});
     }
 

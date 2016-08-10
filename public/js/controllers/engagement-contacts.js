@@ -10,11 +10,21 @@ angular.module('app.engagement.contacts', [])
    };
 })
 
-.controller('EngagementContactsController', ['$window', '$http', '$q', 'jobDetails', '$uibModal', 'ajaxData', 'CONFIG', function($window,$http,$q,jobDetails,$uibModal,ajaxData,CONFIG){
+.service('tabName',function() {
+    var tab_name = '';
+})
+
+.controller('EngagementContactsController', ['$window', '$http', '$q', 'jobDetails', '$uibModal', 'tabName', 'ajaxData', 'CONFIG', function($window,$http,$q,jobDetails,$uibModal,tabName,ajaxData,CONFIG){
 
 	$window.scrollTo(0,0);
 
     this.subHeaderCount = ajaxData.getData();
+
+    // tab cond based on navigation
+    /*if(tabName.tab_name == ''){
+        this.tabCond = 'all';
+    }*/
+    
 
 	this.post_id = jobDetails.id
 	this.job_title = jobDetails.job_title;
@@ -64,9 +74,9 @@ angular.module('app.engagement.contacts', [])
                     for(var i in data){
                         ajaxData.addProperty(i,data[i]);
                     }
+                    console.log(ajaxData.getData())
                     scope.subHeaderCount = data;
         			scope.referrals = response.data.referrals;
-                    scope.totals = response.data.count;
         		}
         	}
         	else if(response.status_code == 400){
@@ -78,7 +88,7 @@ angular.module('app.engagement.contacts', [])
         })
     }
 
-    ajaxCall('');
+    ajaxCall(tabName.tab_name);
 
     scope.referralsCond = function(status){
         ajaxCall(status);

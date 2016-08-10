@@ -11,7 +11,7 @@
 		</div>
 		<div class="col-xs-12 col-sm-6 col-sm-offset-2">
 			<span>
-				<span class="sort_g">Sort by</span>
+				<span class="sort_g">Filter by</span>
 				<div class="form-group">
 					<i class="fa fa-angle-down fa-feedback select-arrow" style="color:#000"></i>
 				  <select class="form-control" style="display:inline-block" ng-model="jobSearchCtrl.pay_status" ng-change="jobSearchCtrl.selectFilter(jobSearchCtrl.pay_status,jobSearchCtrl.search_value)">
@@ -78,7 +78,7 @@
 				</div>
 				<div class="col-sm-2 referal_s col-xs-6 referral">
 					<div class="jump">
-						<a ng-click="jobSearchCtrl.jumpPage(jobList)" title="" style="color:inherit">
+						<a ng-click="jobSearchCtrl.jumpPage(jobList,'')" title="" style="color:inherit">
 							<h1>{{jobList.referral_count}}</h1>
 							<span><img src="public/images/referrals.svg" alt="invited">REFERRALS</span>
 						</a>
@@ -86,7 +86,7 @@
 				</div>
 				<div class="col-sm-2 col-xs-6 accepted">
 					<div class="jump">
-						<a ng-click="jobSearchCtrl.jumpPage(jobList)" title="" style="color:inherit">
+						<a ng-click="jobSearchCtrl.jumpPage(jobList,'ACCEPTED')" title="" style="color:inherit">
 							<h1>{{jobList.accepted_count}}</h1>
 							<span><img src="public/images/Applied.svg" alt="invited"></i>ACCEPTED</span>
 						</a>
