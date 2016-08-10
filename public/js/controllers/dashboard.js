@@ -3,6 +3,11 @@
 
 angular.module('app.dashboard', [])
 
+.run(["$templateCache", "$http", function ($templateCache, $http) {
+    $http.get('templates/header.phtml', { cache: $templateCache });
+    $http.get('templates/footer.phtml', { cache: $templateCache });
+}])
+
 
 .controller('DashboardController', ['$window', '$http', '$state', 'UserDetails', function($window,$http,$state,UserDetails){
 

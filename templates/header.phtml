@@ -20,7 +20,7 @@
 				</div>
 				<div class="dropdown pull-right">
   					<button class="btn dropdown-toggle " type="button" data-toggle="dropdown">
-						<span class="user_dp"><img ng-src="{{headCtrl.logo}}" class="image-responsive img-circle" alt="dp" style="width: 40px;height:40px;border: 1px solid #ccc;display: inline-block;"></span>
+						<span class="user_dp"><img ng-src="{{headCtrl.logo}}" class="image-responsive img-circle" alt="dp" style="width: 40px;height:40px;border: 1px solid #ccc;display: inline-block;" ng-if="headCtrl.logo"><img src="public/images/avatar.png" class="image-responsive" alt="dp" style="width: 40px;height:40px;display: inline-block;" ng-if="!headCtrl.logo"></span>
   						<span class="user_name">{{headCtrl.user_name}}</span>
 						<span style="margin: 0 0 0 10px"><img src="public/images/arrow-dropdown-white.svg" style="margin-top:4px"></span>
   					</button>

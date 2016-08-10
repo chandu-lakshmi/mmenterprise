@@ -24,7 +24,8 @@ angular.module('app.job.search', ['infinite-scroll'])
     scope.pay_status = "2";
 
     this.search_load_cond = false;
-    this.initLoader = true;
+    //this.initLoader = true;
+    scope.post_count = 0;
     var canceller;
     var page_no = 1,total_pages = 1,data = [],initial = 0;
 
@@ -54,7 +55,8 @@ angular.module('app.job.search', ['infinite-scroll'])
 
         postJobList.success(function(response){
             scope.search_load_cond = false;
-            scope.initLoader = false;
+            //scope.initLoader = false;
+            scope.overLoader = false;
             if(response.status_code == 200){
                 if(response.data.length == 0){
 
@@ -103,24 +105,29 @@ angular.module('app.job.search', ['infinite-scroll'])
 
         scope.init_no_posts_found = false;
         scope.no_posts_found = false;
+
+        scope.overLoader = true;
         
-        scope.post_count = 0;
-        scope.jobDetails = [];
-        scope.busy = true;
+        //scope.post_count = 0;
+        //scope.jobDetails = [];
+        //scope.busy = true;
 
         page_no = 1;
         postList(status,input);
     }
 
     var time;
+    scope.overLoader = false;
     scope.searchFilter = function(status,input){
 
         scope.init_no_posts_found = false;
         scope.no_posts_found = false;
 
-        scope.post_count = 0;
-        scope.jobDetails = [];
-        scope.busy = true;
+        scope.overLoader = true;
+
+        //scope.post_count = 0;
+        //scope.jobDetails = [];
+        //scope.busy = true;
 
         if(time != null){
             clearInterval(time);
@@ -161,10 +168,6 @@ angular.module('app.job.search', ['infinite-scroll'])
     }
 
 }]);
-
-
-
-
 
 
 }());

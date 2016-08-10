@@ -3,7 +3,7 @@
 
 angular.module('app.emails', [])
 
-.controller('EmailVerificationController', ['$state','$stateParams','$http','CONFIG','$rootScope', '$window', function ($state,$stateParams,$http,CONFIG,$rootScope,$window) {
+.controller('EmailVerificationController', ['$state','$stateParams','$http','CONFIG', '$window', function ($state,$stateParams,$http,CONFIG,$window) {
 
     this.loadCond = true;
 
@@ -31,18 +31,11 @@ angular.module('app.emails', [])
                 scope.loadCond = false;
                 scope.already_verified = false;
                 scope.verified = true;
-                //$rootScope.access_token = response.data.access_token;
-                $rootScope.company_name = response.data.company.name;
-                $rootScope.company_code = response.data.company.code;
-                $rootScope.client_name = response.data.user.firstname;
-                //$rootScope.company_id = response.data.company.company_id;
-                $rootScope.user_emailid = response.data.user.emailid;
-                //$rootScope.user_id = response.data.user.id;
                 
                 scope.continue = function(){
                     $window.scrollTo(0,0);
-                    $window.scrollTo(0,0);
-                    $state.go('companyProfile');
+                    $window.location = CONFIG.APP_DOMAIN+'company-profile';
+                    //$state.go('companyProfile');
                 }
             }
             else{

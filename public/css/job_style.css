@@ -25,9 +25,6 @@ p.indent:first-letter{
 .search-job .left-inner-addon input {
     padding:0 30px;
 }
-.search-job .left-inner-addon input:focus{
-	border-bottom: 1px solid #ccc;
-}
 .search-job .left-inner-addon img[alt='feedback_left'] {
     position: absolute;
     padding: 10px 12px;
@@ -96,6 +93,10 @@ p.indent:first-letter{
 }
 .padZ{
 	padding: 0;
+}
+.job-search div[infinite-scroll].over-lay{
+	position: relative;
+	opacity: 0.5;
 }
 .job-search .total_record{
 	font-size: 18px;
@@ -319,26 +320,25 @@ input+.bar{
 	width: 100%;
 }
 .bar:before, .bar:after     {
- content:'';
- height:2px; 
- width:0;
- bottom:1px; 
- position:absolute;
- background:#01b893; 
- transition:0.2s ease all; 
- -moz-transition:0.2s ease all; 
- -webkit-transition:0.2s ease all;
+ 	content:'';
+ 	height:2px; 
+ 	width:0;
+ 	bottom:1px; 
+ 	position:absolute;
+ 	background:#01b893; 
+ 	transition:0.2s ease all; 
+ 	-moz-transition:0.2s ease all; 
+ 	-webkit-transition:0.2s ease all;
 }
 .bar:before {
- left:50%;
+ 	left:50%;
 }
 .bar:after {
- right:50%; 
-} transition: 0.4s
+ 	right:50%; 
 }
 /* active state */
 input:focus ~ .bar:before, input:focus ~ .bar:after {
- width:50%;
+ 	width:50%;
 }
 /*Job details*/
 /*.job-details-box{

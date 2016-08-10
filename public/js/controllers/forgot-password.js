@@ -79,6 +79,8 @@ angular.module('app.forgotPassword', [])
 	this.forgot_cancel = function(){
 		$state.go('home')
 	}
+
+    
 }])
 
 

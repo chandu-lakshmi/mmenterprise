@@ -3,7 +3,7 @@
 
 angular.module('app.home', ['ngMaterial','ngMessages'])
 
-.controller('HomeController', ['$state','$window', '$http', '$rootScope', 'CONFIG',function ($state,$window,$http,$rootScope,CONFIG) {    
+.controller('HomeController', ['$state','$window', '$http', 'CONFIG',function ($state,$window,$http,CONFIG) {    
     var scope = this;
     var signin_form = {};
     var signup_form = {};
@@ -12,6 +12,7 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
     scope.default_signup = true;
     scope.default_signin = true;
     scope.verfication_show = false;
+    
     scope.signup = function () {
         $window.scrollTo(0,0);
         scope.signin_show = false;

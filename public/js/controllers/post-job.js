@@ -138,20 +138,8 @@ angular.module('app.post.job', ['ngAutocomplete'])
   ]
 
   this.post_job_result = gettingData.getObj();
-  //console.log(this.post_job_result)
 
   var scope = this;
-
-  /*this.payCond = function(){
-    if(scope.rewardCond.pay_status == "free"){
-      scope.pay_fee = 0; 
-    }
-    else{
-      scope.pay_fee = 1;
-    }
-    scope.amount = scope.rewardCond.amount;
-    scope.currency = scope.rewardCond.currency;
-  }*/
 
   // getting bucket names dynamically
   var get_buckets = $http({
@@ -192,15 +180,12 @@ angular.module('app.post.job', ['ngAutocomplete'])
 
 
     var post_job = $.param({
-      //access_token : $rootScope.access_token,
       job_title : scope.post_job_result.job_title,
       location : scope.post_job_result.location,
       industry : scope.post_job_result.industry.industry_id,
       employment_type : scope.post_job_result.emp_type.employment_type_id,
       job_description : scope.post_job_result.job_desc,
       experience_range : scope.post_job_result.experience.experience_id,
-      //company_name : $rootScope.company_name,
-      //company_code : $rootScope.company_code,
       job_function : scope.post_job_result.job_func.job_function_id,
       free_job : scope.rewardCond.pay_fee,
       job_currency : scope.rewardCond.currency,

@@ -117,8 +117,6 @@ angular.module('app.engagement.contacts', [])
 
     scope.success_loader = false;
 
-    console.log(referralObj)
-
 	if(referralObj.status_code == 'accepted'){
 		scope.accept = true;
 	}
@@ -146,7 +144,8 @@ angular.module('app.engagement.contacts', [])
             referred_by : referralObj.referred_by,
             relation_count : referralObj.relation_count,
             post_id : jobDetails.id,
-            status : status
+            status : status,
+            referred_by_phone : referralObj.referred_by_phone
         });
 
         var processJob = $http({

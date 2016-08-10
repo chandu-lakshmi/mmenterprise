@@ -4,22 +4,6 @@
 angular.module('app.company.profile', [])
 
 
-// Required input[type=file]
-/*.directive('validFile', function() {
-    return {
-        require: 'ngModel',
-        link: function(scope, el, attrs, ngModel) {
-            //change event is fired when file is selected
-            el.bind('change', function() {
-                scope.$apply(function() {
-                    ngModel.$setViewValue(el.val());
-                    ngModel.$render();
-                })
-            })
-        }
-    }
-})*/
-
 // input[type=file] directive(onChange)
 .directive('customOnChange', function() {
   return {
@@ -48,10 +32,10 @@ angular.module('app.company.profile', [])
 
 
 
-.controller('CompanyProfileController', ['$state','$window','$http','CONFIG','$scope','$rootScope',function ($state,$window,$http,CONFIG,$scope,$rootScope) {
+.controller('CompanyProfileController', ['$state','$window','$http','CompanyDetails','CONFIG','$scope',function ($state,$window,$http,CompanyDetails,CONFIG,$scope) {
 
     var scope = this;
-    this.comp_name = $rootScope.company_name;
+    this.comp_name = CompanyDetails.company_name;
 
     // GetIndustries
     var get_industries = $http({
@@ -73,65 +57,56 @@ angular.module('app.company.profile', [])
     // Storing company logo from step3
     var upload_condition = false;
     var logo;
-    var logo_cond = false;
     this.uploadLogo = function(){
         var preview = document.querySelector('#company_logo');
         var files = this.files[0];
         var type = files.type.split('/')[0];
-        logo = files;
         var reader  = new FileReader();
 
         reader.addEventListener("load", function () {
             if(type == 'image'){
                 if(files.size <= (1 * 1024 *1024)){
+                    upload_condition = true;
+                    logo = files;
                     preview.src = reader.result;
                     $('#img_err_name').text("");
-                    logo_cond = false;
                 }
                 else{
                     $('#img_err_name').text("Exceeds Maximum Size");
-                    logo_cond = true;
                 }   
             }
             else{
                 preview.src = "public/images/icon.png";
                 $('#img_err_name').text("Invalid Format");
-                logo_cond = true;
             }
          }, false);
 
          if (files) {
            reader.readAsDataURL(files);
          }
-
-        upload_condition = true;
     };
 
     var multipleImages = [];
-    var multiple_img_cond = false;
     this.multipleFiles = function(event,index){
         var preview = document.querySelector('#dp-'+index);
         var files = document.querySelector('#add-image-'+index).files[0];
-        multipleImages[index-1] = files;
         var type = files.type.split('/')[0];
         var reader = new FileReader();
         
         reader.addEventListener("load", function () {
             if(type == "image"){
                 if(files.size <= (1 * 1024 *1024)){
+                    multipleImages[index-1] = files;
                     preview.src = reader.result;
                     $('#multiple_img_error_'+index).text("");
-                    multiple_img_cond = false;
                 }
                 else{
                     $('#multiple_img_error_'+index).text("Exceeds Maximum Size");
-                    multiple_img_cond = true;
                 }
             }
             else{
                 preview.src = "public/images/add.png";
                 $('#multiple_img_error_'+index).text("Invalid Format");
-                multiple_img_cond = true;
             }
          }, false);
 
@@ -158,59 +133,53 @@ angular.module('app.company.profile', [])
     this.files_error = false;
     scope.disabled = false;
     this.valid = function(){
-        
-        /*if(multiple_img_cond || logo_cond){
-            this.files_error = true;
-        }*/
-        //else{
-            //this.files_error = false;
-            scope.disabled = true;
-            scope.cont_load = true;
-            var formData = new FormData();
-            formData.append('company',scope.comp_name);
-            //formData.append('code',$rootScope.company_code);
-            //formData.append('access_token',$rootScope.access_token);
-            formData.append('industry',scope.industry.industry_id);
-            formData.append('description',scope.desc);
-            formData.append('number_of_employees',scope.groupSize);
-            formData.append('website',scope.website);
-            //formData.append('user_id',$rootScope.user_id);
-            if(upload_condition == true){
-                formData.append('company_logo', logo);
-            }
 
-            for(var i = 0; i < multipleImages.length; i++){
-                formData.append('images['+i+']',multipleImages[i]);
-            }
+        scope.disabled = true;
+        scope.cont_load = true;
+
+        var formData = new FormData();
+        formData.append('company',scope.comp_name);
+        formData.append('industry',scope.industry.industry_id);
+        formData.append('description',scope.desc);
+        formData.append('number_of_employees',scope.groupSize);
+        formData.append('website',scope.website);
+
+        if(upload_condition == true){
+            formData.append('company_logo', logo);
+        }
+
+        for(var i = 0; i < multipleImages.length; i++){
+            formData.append('images['+i+']',multipleImages[i]);
+        }
             
 
-            var create_company = $http({
-                headers: {
-                    'Content-Type' : undefined
-                },
-                method : 'POST',
-                url : CONFIG.APP_DOMAIN+'update_company',
-                data : formData
-            });
-            create_company.success(function(response){
-                if(response.status_code == 200){
+        var create_company = $http({
+            headers: {
+                'Content-Type' : undefined
+            },
+            method : 'POST',
+            url : CONFIG.APP_DOMAIN+'update_company',
+            data : formData
+        });
 
-                    $rootScope.company_code = response.data.company_code;
-                    $rootScope.company_logo = response.data.company_logo;
-                    scope.company_code = $rootScope.company_code;
-                    scope.go_2 = false;
-                    scope.cont_load = false;
-                    $window.scrollTo(0,0);
-                    scope.go_3 = true;
-                }
-            });
-
-            create_company.error(function(response){
-                scope.disabled = false;
+        create_company.success(function(response){
+            if(response.status_code == 200){
+                scope.company_code = response.data.company_code;
+                scope.go_2 = false;
                 scope.cont_load = false;
-                console.log(response);
-            })
-        //}
+                $window.scrollTo(0,0);
+                scope.go_3 = true;
+            }
+            else if(response.status_code == 400){
+                $window.location = CONFIG.APP_DOMAIN+'logout';
+            }
+        });
+
+        create_company.error(function(response){
+            scope.disabled = false;
+            scope.cont_load = false;
+            console.log(response);
+        })
     }
 
     this.group_size = ['10-50','50-100','100-500','500-1000','1000-5000','5000+'];

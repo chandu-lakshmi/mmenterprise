@@ -37,8 +37,6 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
                     if(!bol){
                          ctrl.$setValidity('bucketmatch', true);
                     }
-                    // var v = bkNames.indexOf(attr.myName) === -1;
-                    // ctrl.$setValidity('bucketmatch', v);
                 });
             });
         }
@@ -59,8 +57,14 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
         url: CONFIG.APP_DOMAIN+'buckets_list'
     })
     get_buckets.success(function(response){
-        scope.bucketsName = response.data;
-        scope.loader = false;
+        if(response.status_code == 200){
+            scope.bucketsName = response.data;
+            scope.loader = false;
+        }
+        // Session Destroy
+        else if(response.status_code == 400){
+            $window.location = CONFIG.APP_DOMAIN+'logout';
+        }
     });
     get_buckets.error(function(response){
         console.log(response);
@@ -373,6 +377,12 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
             })
 
             .then(function(response) {
+
+                // Session Destroy
+                if(response.status_code == 400){
+                    $window.location = CONFIG.APP_DOMAIN+'logout';
+                }
+
                 scope.totalRows = response.data.data.total_records[0].total_count;
 
                 scope.total_pages = Math.ceil(scope.totalRows / 50);
@@ -425,6 +435,12 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
             })
 
             .then(function(response) {
+
+                // Session Destroy
+                if(response.status_code == 400){
+                    $window.location = CONFIG.APP_DOMAIN+'logout';
+                }
+
                 $scope.lastPage++;
                 var newData = $scope.getPage(response.data.data.Contacts_list);
                 $scope.gridApi.infiniteScroll.saveScrollPercentage();
@@ -433,6 +449,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
                 return $scope.gridApi.infiniteScroll.dataLoaded($scope.firstPage > 0, $scope.page_no < scope.total_pages).then(function() {
                     //$scope.checkDataLength('up');
                 });
+
             })
             .catch(function(error) {
                 return $scope.gridApi.infiniteScroll.dataLoaded();
@@ -603,7 +620,6 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
             data: paramas
         })
         invite_contacts.success(function(response){
-            //console.log(response)
             if(response.status_code == 200){
                 scope.invite_cond = false;
                 scope.successMsg = true;
