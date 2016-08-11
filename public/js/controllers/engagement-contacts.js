@@ -10,20 +10,23 @@ angular.module('app.engagement.contacts', [])
    };
 })
 
-.service('tabName',function() {
+.service('tabsName',function() {
     var tab_name = '';
 })
 
-.controller('EngagementContactsController', ['$window', '$http', '$q', 'jobDetails', '$uibModal', 'tabName', 'ajaxData', 'CONFIG', function($window,$http,$q,jobDetails,$uibModal,tabName,ajaxData,CONFIG){
+.controller('EngagementContactsController', ['$window', '$http', '$q', 'jobDetails', '$uibModal', 'tabsName', 'ajaxData', 'CONFIG', function($window,$http,$q,jobDetails,$uibModal,tabsName,ajaxData,CONFIG){
 
 	$window.scrollTo(0,0);
 
     this.subHeaderCount = ajaxData.getData();
 
     // tab cond based on navigation
-    /*if(tabName.tab_name == ''){
-        this.tabCond = 'all';
-    }*/
+    if(tabsName.tab_name == ''){
+        this.tabCond = 'ALL';
+    }
+    else{
+        this.tabCond = tabsName.tab_name;
+    }
     
 
 	this.post_id = jobDetails.id
@@ -39,6 +42,7 @@ angular.module('app.engagement.contacts', [])
     function  ajaxCall(status){
 
         scope.referrals = [];
+        scope.length_zero = false;
         scope.referrals_load_cond = true;
 
         if(canceller){
@@ -66,6 +70,10 @@ angular.module('app.engagement.contacts', [])
         		if(response.data.length == 0){
         			scope.referrals_load_cond = false;
         			scope.length_zero = true;
+                    if(status == 'PENDING'){
+                        ajaxData.addProperty('pending_count','0');
+                        scope.subHeaderCount.pending_count = 0;
+                    }                    
         		}
         		else{
                     scope.length_zero = false;
@@ -74,7 +82,6 @@ angular.module('app.engagement.contacts', [])
                     for(var i in data){
                         ajaxData.addProperty(i,data[i]);
                     }
-                    console.log(ajaxData.getData())
                     scope.subHeaderCount = data;
         			scope.referrals = response.data.referrals;
         		}
@@ -88,9 +95,10 @@ angular.module('app.engagement.contacts', [])
         })
     }
 
-    ajaxCall(tabName.tab_name);
+    ajaxCall(tabsName.tab_name);
 
     scope.referralsCond = function(status){
+        scope.tabCond = status;
         ajaxCall(status);
     }
 

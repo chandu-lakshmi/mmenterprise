@@ -72,6 +72,7 @@ angular.module('app.company.profile', [])
                     $('#img_err_name').text("");
                 }
                 else{
+                    preview.src = "public/images/icon.png";
                     $('#img_err_name').text("Exceeds Maximum Size");
                 }   
             }
@@ -88,6 +89,9 @@ angular.module('app.company.profile', [])
 
     var multipleImages = [];
     this.multipleFiles = function(event,index){
+        for(var i = 1; i <= 4; i++){
+            $('#multiple_img_error_'+i).text("");
+        }
         var preview = document.querySelector('#dp-'+index);
         var files = document.querySelector('#add-image-'+index).files[0];
         var type = files.type.split('/')[0];
@@ -101,6 +105,7 @@ angular.module('app.company.profile', [])
                     $('#multiple_img_error_'+index).text("");
                 }
                 else{
+                    preview.src = "public/images/add.png";
                     $('#multiple_img_error_'+index).text("Exceeds Maximum Size");
                 }
             }
@@ -113,6 +118,8 @@ angular.module('app.company.profile', [])
          if (files) {
            reader.readAsDataURL(files);
          }
+
+         document.querySelector('#add-image-'+index).value = null;
     }
 
 

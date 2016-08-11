@@ -21,11 +21,13 @@ angular.module('app.job.details', [])
 	}
 })
 
-.controller('JobDetailsController', ['$window', '$http', '$stateParams', 'jobDetails', 'ajaxData', 'CONFIG', function($window,$http,$stateParams,jobDetails,ajaxData,CONFIG){
+.controller('JobDetailsController', ['$window', '$http', '$stateParams', 'jobDetails', 'tabsName', 'ajaxData', 'CONFIG', function($window,$http,$stateParams,jobDetails,tabsName,ajaxData,CONFIG){
 	
 	$window.scrollTo(0,0);
 
 	var scope = this;
+
+	tabsName.tab_name = '';
 
 	this.post_id = jobDetails.id;
 	

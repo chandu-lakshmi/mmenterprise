@@ -12,7 +12,7 @@ angular.module('app.job.search', ['infinite-scroll'])
    };
 })
 
-.controller('JobSearchController', ["$window", "gettingData", "$http", "$state", "$rootScope", "$q", "jobDetails", "ajaxData", "tabName", "CONFIG", function($window,gettingData, $http, $state, $rootScope, $q, jobDetails, ajaxData, tabName, CONFIG){
+.controller('JobSearchController', ["$window", "gettingData", "$http", "$state", "$rootScope", "$q", "jobDetails", "ajaxData", "tabsName", "CONFIG", function($window,gettingData, $http, $state, $rootScope, $q, jobDetails, ajaxData, tabsName, CONFIG){
 	
     $window.scrollTo(0,0);
 
@@ -24,7 +24,6 @@ angular.module('app.job.search', ['infinite-scroll'])
     scope.pay_status = "2";
 
     this.search_load_cond = false;
-    //this.initLoader = true;
     scope.post_count = 0;
     var canceller;
     var page_no = 1,total_pages = 1,data = [],initial = 0;
@@ -55,7 +54,6 @@ angular.module('app.job.search', ['infinite-scroll'])
 
         postJobList.success(function(response){
             scope.search_load_cond = false;
-            //scope.initLoader = false;
             scope.overLoader = false;
             if(response.status_code == 200){
                 if(response.data.length == 0){
@@ -165,7 +163,7 @@ angular.module('app.job.search', ['infinite-scroll'])
         jobDetails.id = obj.id;
         jobDetails.job_title = obj.job_title;
 
-        tabName.tab_name = tabCond;
+        tabsName.tab_name = tabCond;
         $state.go('^.engagement/contacts',{'post_id':obj.id});
     }
 

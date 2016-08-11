@@ -95,6 +95,13 @@ hr{
     content: url('../images/arrow-dropdown.svg') !important;
     display: inline !important;
 }
+md-input-container {
+    position: relative;
+}
+md-input-container .md-errors-spacer + div{
+    position: absolute;
+    bottom: 0;
+}
 md-input-container label{
     color: #666;
     font-weight: normal;
@@ -653,7 +660,7 @@ input{
     position: absolute;
     cursor: pointer;
 }
-.cmp-size input[type='radio'] + label{
+.cmp-size input[type='radio'] + div{
     margin: 0;
     clear: none;
     display: inline-block;
@@ -661,7 +668,7 @@ input{
     cursor: pointer;
     background: url('../images/radio-button-unchecked.svg') no-repeat;
 }
-.cmp-size input[type='radio']:checked + label{
+.cmp-size input[type='radio']:checked + div{
     background: url('../images/radio-button-checked.svg') no-repeat;
 }
 .final_state{

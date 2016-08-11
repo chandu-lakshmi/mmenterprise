@@ -95,7 +95,6 @@ p.indent:first-letter{
 	padding: 0;
 }
 .job-search div[infinite-scroll].over-lay{
-	position: relative;
 	opacity: 0.5;
 }
 .job-search .total_record{

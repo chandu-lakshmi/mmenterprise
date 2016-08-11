@@ -74,7 +74,7 @@
 										<li class="col-sm-2 col-xs-3" ng-repeat="group in compCtrl.group_size">
 											<label>
 												<span ng-class="{'has-color':group == compCtrl.groupSize }">{{group}}</span>
-												<input type="radio" name="r1" ng-model="compCtrl.groupSize" ng-value="group" ng-init="$index==0?(compCtrl.groupSize=group):''"><label></label>
+												<input type="radio" name="r1" ng-model="compCtrl.groupSize" ng-value="group" ng-init="$index==0?(compCtrl.groupSize=group):''"><div></div>
 											</label>
 										</li>
 									</ul>
@@ -119,11 +119,12 @@
 												<img src="public/images/add.png" id="dp-{{x}}" class="img-thumbnail">
 												<input id="add-image-{{x}}" type="file" name="add-img" accept=".jpeg,.jpg,.gif,.ico" onchange="angular.element(this).scope().compCtrl.multipleFiles(this,angular.element(this).scope().x)">
 											</label>
-											<span id="multiple_img_error_{{x}}" style="color:red;padding:0px 10px;min-height:20px;white-space: nowrap;"></span>
+											<div class="error-spacer"></div>
+											<span class="clearfix" id="multiple_img_error_{{x}}" style="color:red;padding:0px 10px;min-height:20px;white-space: nowrap;"></span>
 										</div>
 									</div>
 								</div>
-								<div style="padding: 20px 0;" style="display:hidden">
+								<div style="padding: 20px 0;">
 									<h3 style="margin-bottom: 20px">Referral Bonus Policy</h3>
 									<label for="pdf">
 										<span class="btn btn-default" style="padding: 10px 50px;">UPLOAD FILE</span>
