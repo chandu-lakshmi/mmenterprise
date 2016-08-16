@@ -84,6 +84,14 @@
 						</a>
 					</div>
 				</div>
+				<div class="col-sm-2 col-xs-6 referral pending">
+					<div class="jump">
+						<a ng-click="jobSearchCtrl.jumpPage(jobList,'PENDING')" title="" style="color:inherit">
+							<h1>{{jobList.pending_count}}</h1>
+							<span><img src="public/images/referrals.svg" alt="invited">PENDING</span>
+						</a>
+					</div>
+				</div>
 				<div class="col-sm-2 col-xs-6 accepted">
 					<div class="jump">
 						<a ng-click="jobSearchCtrl.jumpPage(jobList,'ACCEPTED')" title="" style="color:inherit">

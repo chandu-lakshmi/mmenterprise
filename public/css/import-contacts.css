@@ -239,7 +239,7 @@ span.tab-active a.active,span.tab-active a.hover{
 }
 .grid {
   width: 100%;
-  height: calc(100vh - 360px);
+  height: calc(100vh - 328px);
  /* height: 100vh;
     margin-top: -25vw;
     padding-top: 25vw;

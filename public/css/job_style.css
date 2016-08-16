@@ -185,6 +185,13 @@ p.indent:first-letter{
     height: 100%;
     display: inline-block;
 }
+
+/*Overriding from dashboard*/
+@media (min-width: 768px){
+	.job-info .col-sm-2 {
+	    width: 13.3333339%;
+	}
+}
 .job-info_d{
 	margin: 12.5px 0;
     border-right: 1px solid silver;
@@ -390,7 +397,7 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 	border-bottom: 1px solid silver;
 }
 .job_des_info{
-	width: 35%;
+	width: 100%;
 	text-align: left;
 }
 .job_des_info div{
@@ -398,13 +405,13 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 	clear: both;
 }
 .job_des_info div span:first-child{
-	width: 50%;
+	width: 20%;
 	display: inline-block;
 	float: left;
 	color: #666;
 }
 .job_des_info div span:last-child{
-	width: 50%;
+	width: 80%;
 	float: right;
 	color: #000;
 }

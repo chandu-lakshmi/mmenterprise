@@ -10,11 +10,51 @@ angular.module('app.engagement.contacts', [])
    };
 })
 
+// ajax in factory method
+.factory('ajaxService', function($http,$q,jobDetails,CONFIG) {
+    var canceller;
+    var ajaxService = {
+        async: function(obj,status) {
+
+            if(canceller){
+                canceller.resolve();
+            }
+
+            canceller = $q.defer();
+
+            var pramas = $.param({
+                from_user : obj.from_user,
+                referred_by : obj.referred_by,
+                relation_count : obj.relation_count,
+                post_id : jobDetails.id,
+                status : status,
+                referred_by_phone : obj.referred_by_phone
+            });
+
+            var processJob = $http({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method : 'POST',
+                data : pramas,
+                url : CONFIG.APP_DOMAIN+'process_job',
+                timeout : canceller.promise
+            })
+
+            return processJob;
+        }
+    }
+    return ajaxService;
+
+})
+
+
+// For Navigation
 .service('tabsName',function() {
     var tab_name = '';
 })
 
-.controller('EngagementContactsController', ['$window', '$http', '$q', 'jobDetails', '$uibModal', 'tabsName', 'ajaxData', 'CONFIG', function($window,$http,$q,jobDetails,$uibModal,tabsName,ajaxData,CONFIG){
+.controller('EngagementContactsController', ['$window', '$http', '$q', 'jobDetails', '$uibModal', 'tabsName', 'ajaxData', 'ajaxService', 'CONFIG', function($window,$http,$q,jobDetails,$uibModal,tabsName,ajaxData,ajaxService,CONFIG){
 
 	$window.scrollTo(0,0);
 
@@ -34,6 +74,7 @@ angular.module('app.engagement.contacts', [])
 
 	var scope = this,canceller;
 
+    // for styling li's
 	this.length_zero = false;
 
     this.referrals_load_cond = true;
@@ -102,31 +143,53 @@ angular.module('app.engagement.contacts', [])
         ajaxCall(status);
     }
 
-
     scope.referral_status = function(tabName,obj,status_code){
-    	$uibModal.open({
-            animation: false,
-            backdrop: 'static',
-            keyboard: false,
-            templateUrl: 'templates/dialogs/referral_status.phtml',
-            openedClass: "referral-status",
-            resolve: {
-                referralObj: function() {
-                    var referralObj = obj;
-                    referralObj.tabName = tabName;
-                    referralObj.status_code = status_code;
-                    referralObj.ajaxFunCall = ajaxCall;
-                    return referralObj;
+        if(status_code == 'accepted'){
+            $('div.pointer').css({
+                'pointerEvents' : 'none'
+            })
+            /* From Factory Service Dynamically */
+            var ajax = ajaxService.async(obj,'ACCEPTED');
+            ajax.success(function(response){
+                if(response.status_code == 200){
+                    ajaxCall(tabName)
                 }
-            },
-            controller: 'ReferralStatus',
-            controllerAs: "refStatus"
-        });
+                else if(response.status_code == 400){
+                    $window.location = CONFIG.APP_DOMAIN+'logout';
+                }
+            })
+            ajax.error(function(response){
+                console.log(response)
+                $('div.pointer').css({
+                    'pointerEvents' : 'auto'
+                })
+            })
+
+        }
+    	else{
+            $uibModal.open({
+                animation: false,
+                backdrop: 'static',
+                keyboard: false,
+                templateUrl: 'templates/dialogs/referral_status.phtml',
+                openedClass: "referral-status",
+                resolve: {
+                    referralObj: function() {
+                        var referralObj = obj;
+                        referralObj.tabName = tabName;
+                        referralObj.ajaxFunCall = ajaxCall;
+                        return referralObj;
+                    }
+                },
+                controller: 'ReferralStatus',
+                controllerAs: "refStatus"
+            });
+        }
     }
 
 }])
 
-.controller('ReferralStatus',["$scope", "$q", "$uibModalInstance", "referralObj", "$http", "ajaxData", "CONFIG", "jobDetails", function($scope, $q, $uibModalInstance, referralObj, $http, ajaxData, CONFIG, jobDetails){
+.controller('ReferralStatus',["$scope", "$uibModalInstance", "referralObj", "$http", "ajaxService", "CONFIG", function($scope, $uibModalInstance, referralObj, $http, ajaxService, CONFIG){
 
 	var scope = this;
 
@@ -135,52 +198,21 @@ angular.module('app.engagement.contacts', [])
 
     scope.success_loader = false;
 
-	if(referralObj.status_code == 'accepted'){
-		scope.accept = true;
-	}
-	else{
-		scope.decline = true
-	}
-
-    var canceller;
     this.referralStatus = function(status){
 
         scope.success_loader = true;
+
 
         $('.referral-status .modal-dialog').css({
             'pointerEvents' : 'none'
         })
 
-        if(canceller){
-            canceller.resolve();
-        }
-
-        canceller = $q.defer();
-
-        var pramas = $.param({
-            from_user : referralObj.from_user,
-            referred_by : referralObj.referred_by,
-            relation_count : referralObj.relation_count,
-            post_id : jobDetails.id,
-            status : status,
-            referred_by_phone : referralObj.referred_by_phone
-        });
-
-        var processJob = $http({
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-            },
-            method : 'POST',
-            data : pramas,
-            url : CONFIG.APP_DOMAIN+'process_job',
-            timeout : canceller.promise
-        })
+        /* From Factory Service Dynamically */
+        var processJob = ajaxService.async(referralObj,status);
         processJob.success(function(response){
-
             $('.referral-status .modal-dialog').css({
                 'pointerEvents' : 'auto'
-            })
-
+            });
             scope.success_loader = false;
             if(response.status_code == 200){
                 referralObj.ajaxFunCall(referralObj.tabName);
@@ -192,11 +224,12 @@ angular.module('app.engagement.contacts', [])
         })
         processJob.error(function(response){
             console.log(response)
-
+            scope.success_loader = false;
             $('.referral-status .modal-dialog').css({
                 'pointerEvents' : 'auto'
             })
         })
+
     }
 
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
@@ -205,11 +238,6 @@ angular.module('app.engagement.contacts', [])
 
     })
 }])
-
-
-
-
-
 
 
 

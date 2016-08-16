@@ -28,11 +28,44 @@ angular.module('app.post.job', ['ngAutocomplete'])
   this.company_name = CompanyDetails.company_name;
   this.postJob1 = gettingData.getObj();
 
+
+  // Autocomplete for job title
+  /*var result = [];
+  this.job_title_suggestion = function(input){
+    $('#job_title').autocomplete({
+      source: function( request, response ) {
+        $.ajax( {
+          type: 'POST',
+          url: CONFIG.APP_DOMAIN+'get_services',
+          data: {
+            search: input
+          },
+          dataType: 'json',
+          success: function( res ) {
+            console.log(res.data)
+            for(var i = 0; i < res.data.services.length; i++){
+              //console.log(res.data.services[i].service_name)
+              result.push(res.data.services[i].service_name)
+            }
+            response( result )
+          }
+        })
+      },
+      minLength: 1,
+    });
+  }*/
+  
+
+  /*scope.job_title_suggestion = function(key){
+    $('#job_title').autocomplete({});
+  }*/
+
+
   $scope.$watch(function() {
     return scope.geo_details;
   }, function(location) {
     if (location) {
-      scope.postJob1.location = location.formatted_address;
+      scope.postJob1.location = scope.geo_location;
     }
   });
 

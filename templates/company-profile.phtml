@@ -105,7 +105,7 @@
 												<img src="public/images/icon.png" id="company_logo" class="img-thumbnail">
 												<input id="upload-image" type="file" ng-model="compCtrl.companyLogo" name="logo" name="logo" accept=".jpeg,.jpg,.gif,.ico" custom-on-change="compCtrl.uploadLogo">
 											</label>
-											<span id="img_err_name" style="color:red;padding:0px 10px;min-height:20px;white-space: nowrap;"></span>
+											<span id="img_err_name" style="color:red;padding:0px;min-height:20px;white-space: nowrap;"></span>
 
 											<!-- <div ng-if="company_form.logo.$error.required && compCtrl.files_error"  class="has-error-msg" style="white-space: nowrap;">Please Choose Company Logo</div> -->
 										</div>
@@ -120,7 +120,7 @@
 												<input id="add-image-{{x}}" type="file" name="add-img" accept=".jpeg,.jpg,.gif,.ico" onchange="angular.element(this).scope().compCtrl.multipleFiles(this,angular.element(this).scope().x)">
 											</label>
 											<div class="error-spacer"></div>
-											<span class="clearfix" id="multiple_img_error_{{x}}" style="color:red;padding:0px 10px;min-height:20px;white-space: nowrap;"></span>
+											<span class="clearfix" id="multiple_img_error_{{x}}" style="color:red;padding:0px;min-height:20px;white-space: nowrap;"></span>
 										</div>
 									</div>
 								</div>

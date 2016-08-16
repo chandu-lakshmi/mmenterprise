@@ -1,3 +1,38 @@
+/*.ui-autocomplete-loading {
+	background: white url("../images/loader/ui-anim_basic_16x16.gif") right center no-repeat;
+}*/
+.ui-menu.ui-widget.ui-widget-content{
+	margin: 0;
+	background-color: #fff;
+    position: absolute !important;
+    z-index: 1000;
+    border-radius: 2px;
+    /*border-top: 1px solid #d9d9d9;*/
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.ui-menu .ui-menu-item{
+	cursor: default;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    line-height: 30px;
+    text-align: left;
+    border-top: 1px solid #e6e6e6;
+    font-size: 14px;
+}
+.ui-menu .ui-menu-item a{
+	color: #555;
+	padding: 5px;
+	display: inline-block;
+	width: 100%;
+	margin: 0;
+	padding: 0 4px;
+}
+
 .arrow-up {
   width: 0; 
   height: 0; 
@@ -676,14 +711,14 @@ footer a:hover{
 .sub-header .sub-right ul{
 	list-style: none;
 	margin: 0;
+	padding: 25px 0;
 }
 .sub-header .sub-right ul li{
-	width: 25%;
+	width: 20%;
 	border: 1px solid #233f50;
 	border-top: 0;
 	border-bottom: 0;
 	float: left;
-	padding: 25px 0px;
 	margin-right: -1px;
 	margin: 15px -1px 15px 0;
 }
@@ -691,7 +726,7 @@ footer a:hover{
 	margin-top: 0px;
 }
 .sub-header .sub-right ul li span img{
-	padding-right: 10px;
+	padding-right: 5px;
     margin-top: -4px;
 }
 
@@ -1018,6 +1053,16 @@ footer a:hover{
   opacity:1;
 }
 
+.engage-contact .tab-content .box .box-content .multiple-images{
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	vertical-align: middle;
+}
+/*.engage-contact .tab-content .box .box-content a.resume div.multiple-images{
+	background: url('../images/referrals.png') no-repeat;
+}*/
+
 .engage-contact .tab-content .box .box-content ul > li img{
 	width: 60px;
 	height: 60px;
@@ -1031,6 +1076,14 @@ footer a:hover{
 	float: left;
 	font-size: 15px;
 }
+.engage-contact .tab-content .box .box-content span.tick-accept{
+	color:#168363;
+	vertical-align: middle;
+	padding-left: 8px;
+}
+/*.engage-contact .tab-content .box .box-content div.background span:first-child{
+	background: url('../images/referrals.png') no-repeat;
+}*/
 .engage-contact .tab-content .box .box-content ul > li img[alt="download_svg"]{
 	width: 20px;
 	height: 20px;
@@ -1040,8 +1093,8 @@ footer a:hover{
 	height: 20px;
 }
 .engage-contact .tab-content .box .box-content ul > li img[alt="response"]{
-	width: 30px;
-	height: 30px;
+	width: 20px;
+	height: 20px;
 	outline: 0;
 }
 .engage-contact .tab-content .box .box-content ul > li:not(:last-child){
