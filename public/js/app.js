@@ -3,7 +3,8 @@
 
 angular.module('app', [
     'ui.router', 'ui.bootstrap',
-    'app.constants', 'app.home', 'app.forgotPassword', 'app.company.profile', 'app.import.contacts', 'app.emails', 'app.dashboard', 'app.engagement.contacts', 'app.post.job', 'app.job.search','app.job.details','app.rewards'
+    'app.constants', 'app.home', 'app.forgotPassword', 'app.company.profile', 'app.import.contacts', 'app.emails', 'app.dashboard',
+    'app.engagement.contacts', 'app.post.job', 'app.job.search', 'app.job.details', 'app.rewards', 'app.edit.company'
 ])
 
 .constant('CONFIG', {
@@ -122,6 +123,12 @@ angular.module('app', [
         templateUrl: App.base_url + 'templates/rewards.phtml',
         controller: 'RewardsController',
         controllerAs: 'RewardCtrl'
+    })
+    .state('app.editCompanyProfile',{
+        url: '^/edit-company-profile',
+        templateUrl: App.base_url + 'templates/edit-company-profile.phtml',
+        controller: 'editCompanyProfileController',
+        controllerAs: 'editCompCtrl'
     })
 
     $urlRouterProvider.otherwise('/login');

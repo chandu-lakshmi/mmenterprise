@@ -79,9 +79,18 @@ return [
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/job_referral_details'
             ],
+            'get_services' => [
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/get_services'
+            ],
             'process_job' => [
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/process_job'
+            ],
+            'view_company_details' => [
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/view_company_details'
             ]
+           
     ];
         

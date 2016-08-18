@@ -256,7 +256,7 @@ $app->post('/jobs_list',function ($request, $response, $args) use ($app) {
     // getting API endpoint from settings
    $apiEndpoint = getapiEndpoint($this->settings, 'jobs_list');
    
-    $jobList     = new Curl(array(
+    $jobList    = new Curl(array(
         'url'           => $apiEndpoint,
         'postData'      => $_POST
      ));
@@ -377,6 +377,65 @@ $app->get('/job/rewards/{id}',function ($request, $response, $args) use ($app) {
      return $response->withRedirect($args['APP_DOMAIN']."job/job-details/".$post_id);
 });
 
+//Update Status Details
+$app->post('/get_services',function ($request, $response, $args) use ($app) {
+   
+    // dynamically Access Token
+   $this->mintmeshAccessToken;
+      
+    // getting API endpoint from settings
+   $apiEndpoint = getapiEndpoint($this->settings, 'get_services');
+     $_POST["service_type"] = "global"; 
+     $_POST['user_country'] = "all"; 
+
+
+   
+    $getServicesDetails    = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    
+    return checkJsonResult( $getServicesDetails->loadCurl() );
+
+       
+});
+
+/*$app->post('/get_services',function ($request, $response, $args) use ($app) {
+    
+      // dynamically Access Token
+  $this->mintmeshAccessToken;
+     
+   // getting API endpoint from settings
+  $apiEndpoint = getapiEndpoint($this->settings, 'process_job');
+  $_POST["service_type"] = "global";
+  $_POST["user_country"] = "all";
+
+   $getServicesDetails    = new Curl(array(
+       'url'           => $apiEndpoint,
+       'postData'      => $_POST
+    ));
+   
+   return checkJsonResult( $getServicesDetails->loadCurl() );
+
+});*/
+
+
+
+// edit company profile
+$app->get('/edit-company-profile',function ($request, $response, $args) use ($app) {
+    //Arguments
+    $args       = commonData($this->settings);
+   
+    //Check Logged in or not
+    if(!empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']);
+    }
+   
+    // Render dashboard view
+    return $this->renderer->render($response, 'index.phtml', $args);
+});
+
+
 //Logout
 $app->get("/logout", function ($request, $response, $args) { 
     sessionDestroy();
@@ -384,3 +443,20 @@ $app->get("/logout", function ($request, $response, $args) {
     $args = commonData($this->settings);
     return $response->withRedirect($args['APP_DOMAIN']);
 }); 
+
+//Company Details
+$app->post('/view_company_details',function ($request, $response, $args) use ($app) {
+    
+    // dynamically Access Token
+    $this->mintmeshAccessToken;
+    
+    // getting API endpoint from settings
+    $apiEndpoint = getapiEndpoint($this->settings, 'view_company_details');
+   
+    $companyDetails     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+
+     return checkJsonResult( $companyDetails->loadCurl() );
+});
