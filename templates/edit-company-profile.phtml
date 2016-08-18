@@ -3,7 +3,7 @@
 
 	<div class="container">
 		<div class="head">
-			<h2 class="pull-left">Your Profile</h2>
+			<h2 class="pull-left">Company Profile</h2>
 			<div ng-if="!editCompCtrl.update">
 				<span class="pull-right btn-edit" style="padding:10px 20px;" ng-click="editCompCtrl.edit('write')">EDIT PROFILE</span>
 			</div>
@@ -24,10 +24,11 @@
 							<md-input-container class="md-block">
 					            <label>INDUSTRY</label>
 					            <md-select name="industry" ng-model="editCompCtrl.company_details.industry" required ng-class="{'has-error-border':edit_company_form.industry.$invalid && editCompCtrl.errCond}">
-					              	<md-option ng-repeat="industry in editCompCtrl.industry_list" ng-value="industry">
+					              	<md-option ng-repeat="industry in editCompCtrl.industry_list" ng-value="industry.industry_id">
 					                	{{industry.industry_name}}
 					              	</md-option>
 					            </md-select>
+                                                    
 					            <div class="md-errors-spacer"></div>
 					            <div ng-if="edit_company_form.industry.$error.required && editCompCtrl.errCond" class="has-error-msg">Please Select Industry</div>
 					        </md-input-container>

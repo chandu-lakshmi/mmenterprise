@@ -36,7 +36,7 @@ angular.module('app.edit.company', [])
 			scope.errCond = false;
 			var formData = new FormData();
 	        formData.append('company',scope.company_details.name);
-	        formData.append('industry',scope.company_details.industry.industry_id);
+	        formData.append('industry',scope.company_details.industry);
 	        formData.append('description',scope.company_details.description);
 	        formData.append('number_of_employees',scope.company_details.number_of_employees);
 	        formData.append('website',scope.company_details.website);
