@@ -33,6 +33,15 @@
 	padding: 0 4px;
 }
 
+
+.text-selection{
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
 .arrow-up {
   width: 0; 
   height: 0; 
@@ -192,11 +201,19 @@ header .notifications .dropdown button .user_name{
 header .notifications .drop-custom{
 	left: 0;
     top: 59px;
+    padding: 0;
     margin-top: 0px;
     min-width: 93px;
     border-radius: 0;
     margin-left: -11px;
     margin-right: -12px;
+}
+header .notifications .drop-custom li a{
+	padding: 10px;
+}
+header .notifications .drop-custom li a:hover,header .notifications .drop-custom li a:focus{
+    color: #545655;
+    background-color: #eeeff1;
 }
 header .dropdown.open button{
 	color: #fff;
@@ -447,7 +464,7 @@ footer a:hover{
 	background: #68b05a !important;
 	color: #333 !important;
 }
-.bg-offerMade{
+.bg-offermade{
 	background: #58c7b4 !important;
 	color: #333 !important;
 }
@@ -1185,6 +1202,15 @@ footer a:hover{
 
 
 /* New Mock on Edit Company Profile*/
+.edit-company .error-spacer{
+	float: right;
+    min-height: 24px;
+    min-width: 1px;
+}
+.edit-company .msg{
+	text-align: center;
+	color: #1d8e70;
+}
 .edit-company{
 	background: #eeeff1;
 	font-size: 16px;
@@ -1195,9 +1221,19 @@ footer a:hover{
 	width: 100%;
 	overflow: hidden;
 	color: #666;
-	padding: 15px 0; 
+	padding: 15px 0 0; 
 }
-.edit-company .head span.btn-edit{
+.edit-company .head span.btn-update,.edit-company .head span.btn-cancel{
+	width: 150px;
+	text-align: center;
+	padding: 10px 0px;
+}
+.edit-company .head span.btn-update img[alt="dot"]{
+	position: absolute;
+	top: 5px;
+	right: -3px;
+}
+.edit-company .head span.btn-edit,.edit-company .head span.btn-update{
 	background: #1d8e70;
     border: 1px solid #16795d;
     color: white !important;
@@ -1206,19 +1242,10 @@ footer a:hover{
     border-radius: 3px;
     cursor: pointer;
 }
-.edit-company .head span.btn-update{
-	background: #2196f3;
-    border: 1px solid #2196f3;
-    color: white !important;
-    outline: 0 !important;
-    font-size: 18px;
-    border-radius: 3px;
-    cursor: pointer;
-}
 .edit-company .head span.btn-cancel{
-	background: #607d8b;
-    border: 1px solid #607d8b;
-    color: white !important;
+	background: #fff;
+    border: 1px solid #fff;
+    color: #7b6d6d !important;
     outline: 0 !important;
     font-size: 18px;
     border-radius: 3px;
@@ -1229,6 +1256,7 @@ footer a:hover{
 	border: 1px solid #ccc;
 	box-shadow: 1px 1px 5px #ccc;
 	padding: 50px;
+	clear: both;
 }
 .edit-company .edit-box md-input-container.md-block{
 	margin: 25px 0;
@@ -1259,6 +1287,53 @@ footer a:hover{
 
 
 /*qq uploader styles*/
+.border-dynamic{
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+.qq-uploader .qq-upload-list {
+	position: absolute;
+    top: 40%;
+    right: 0;
+    height: 10px;
+}
+.qq-upload-drop-area{
+	width: 100%;
+	height: 100%;
+}
+.qq-upload-drop-area .drag_img{
+	width: 100%;
+	height: 100%;
+}
+.qq-upload-drop-area .drag_img .icon-trash{
+	position: absolute;
+    top: 5px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid #ccc;
+    background: #fff;
+    border-radius: 4px;
+    /* pointer-events: auto; */
+    display: none;
+    cursor: pointer;
+}
+.qq-upload-drop-area .drag_img .overlay{
+    display: none;
+    background: #000000;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    opacity: 0.1;
+}
+.qq-upload-drop-area .drag_img:hover .overlay,.qq-upload-drop-area .drag_img:hover .icon-trash{
+	display: block;
+}
+.qq-upload-drop-area .drag_img img{
+	width: 100%;
+	height: 100%;
+}
 .qq-upload-button:active{
 	top: 0;
 }
@@ -1268,6 +1343,9 @@ footer a:hover{
 .edit-company .edit-box #company-logo{
 	margin: 20px 0;
 }
+.edit-company .edit-box .image-group div.multiple-images{
+	margin: 20px 0 10px 0;
+}
 .edit-company .edit-box .company-logo .qq-uploader{
 	width: 125px;
 	height: 125px;
@@ -1276,16 +1354,19 @@ footer a:hover{
 }
 .edit-company .edit-box .company-logo .qq-upload-button{
 	background: url('../images/icon.png');
+	width: 100%;
+	height: 100%;
+}
+.edit-company .edit-box .image-group .qq-uploader{
+	padding: 0;
 	width: 125px;
 	height: 125px;
-}
-.edit-company .edit-box .mutiple-images .qq-uploader{
 	margin: 0;
 }
-.edit-company .edit-box .mutiple-images .qq-upload-button{
+.edit-company .edit-box .image-group .qq-upload-button{
 	background: url('../images/icon.png');
-	width: 125px;
-	height: 125px;
+	width: 100%;
+	height: 100%;
 }
 .edit-company .edit-box .referral-bonus .qq-upload-button{
 	background: #e6e6e6;

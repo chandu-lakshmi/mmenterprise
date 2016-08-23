@@ -257,10 +257,10 @@
 									</div> -->
 									<div class="col-lg-4" style="padding:7px 15px;"><!-- ng-if="activeReferrals.status != 'PENDING'">-->
 										<div class="btn-group">
-											<div class="bg-accepted">Accepted</div>
-											<div>Interviewed</div>
-											<div>Offer Made</div>
-											<div>Hired</div>
+											<div class="accept bg-accepted" style="pointer-events:none">Accepted</div>
+											<div class="interviewed" ng-click="EngContCtrl.process_status('interviewed',$index)">Interviewed</div>
+											<div class="offermade" ng-click="EngContCtrl.process_status('offermade',$index)">Offer Made</div>
+											<div class="hired" ng-click="EngContCtrl.process_status('hired',$index)">Hired</div>
 										</div>
 									</div>
 								</li>

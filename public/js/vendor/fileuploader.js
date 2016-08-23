@@ -296,9 +296,7 @@ qq.FileUploaderBasic = function(o){
             emptyError: "{file} is empty, please select files again without it.",
             onLeave: "The files are being uploaded, if you leave now the upload will be cancelled."            
         },
-        showMessage: function(message){
-            alert(message);
-        },
+        showMessage: function(message){},
         inputName: 'qqfile',
         extraDropzones : []
     };

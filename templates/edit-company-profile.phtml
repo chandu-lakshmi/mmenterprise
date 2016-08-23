@@ -3,38 +3,43 @@
 
 	<div class="container">
 		<div class="head">
-			<h2 class="pull-left">Company Profile</h2>
+			<h2 class="pull-left">Your Profile</h2>
 			<div ng-if="!editCompCtrl.update">
 				<span class="pull-right btn-edit" style="padding:10px 20px;" ng-click="editCompCtrl.edit('write')">EDIT PROFILE</span>
 			</div>
 			<div ng-if="editCompCtrl.update">
-				<span class="pull-right btn-update" style="padding:10px 20px;" ng-click="editCompCtrl.update_company(edit_company_form.$valid)">UPDATE</span>
-				<span class="pull-right btn-cancel" style="padding:10px 20px;margin-right:20px;" ng-click="editCompCtrl.edit('cancel')">CANCEL</span>
+				<span class="pull-right btn-update" style="position:relative;" ng-click="editCompCtrl.update_company(edit_company_form.$valid)">UPDATE<img src="public/images/loader/dot.svg" alt="dot" ng-if="editCompCtrl.updateLoader"/></span>
+				<span class="pull-right btn-cancel" style="margin-right:20px;" ng-click="editCompCtrl.edit('cancel')">CANCEL</span>
 			</div>
 		</div>
-		<div class="edit-box">
+		<div class="error-spacer"></div>
+		<div class="msg" ng-if="editCompCtrl.errorMsgCond">
+			<span>Successfully Updated</span>
+		</div>
+		<div class="edit-box clearfix">
 			<form name="edit_company_form" novalidate>
 				<div class="row">
 	 				<div class="col-sm-6">
 	 					<div style="width:85%">
 	 						<md-input-container class="md-block">
 								<label>COMPANY NAME</label>
-								<input type="text" name="company" ng-model="editCompCtrl.company_details.name">
+								<input type="text" name="company" ng-model="editCompCtrl.company_details.name" required ng-class="{'has-error-border':edit_company_form.company.$invalid && editCompCtrl.errCond}">
+								<div ng-if="edit_company_form.company.$error.required && editCompCtrl.errCond" class="has-error-msg">Please Enter Company Name</div>
 							</md-input-container>
 							<md-input-container class="md-block">
 					            <label>INDUSTRY</label>
-					            <md-select name="industry" ng-model="editCompCtrl.company_details.industry" required ng-class="{'has-error-border':edit_company_form.industry.$invalid && editCompCtrl.errCond}">
+					            <md-select ng-model="editCompCtrl.company_details.industry" required ng-class="{'has-error-border':edit_company_form.industry.$invalid && editCompCtrl.errCond}">
 					              	<md-option ng-repeat="industry in editCompCtrl.industry_list" ng-value="industry.industry_id">
 					                	{{industry.industry_name}}
 					              	</md-option>
 					            </md-select>
-                                                    
 					            <div class="md-errors-spacer"></div>
 					            <div ng-if="edit_company_form.industry.$error.required && editCompCtrl.errCond" class="has-error-msg">Please Select Industry</div>
 					        </md-input-container>
+				            <input type="hidden" name="industry" ng-value="editCompCtrl.company_details.industry">
 					        <md-input-container class="md-block">
 					            <label>NUMBER OF EMPLOYEES</label>
-					            <md-select name="employees" ng-model="editCompCtrl.company_details.number_of_employees" required ng-class="{'has-error-border':edit_company_form.employees.$invalid && editCompCtrl.errCond}">
+					            <md-select ng-model="editCompCtrl.company_details.number_of_employees" required ng-class="{'has-error-border':edit_company_form.employees.$invalid && editCompCtrl.errCond}">
 					              	<md-option ng-repeat="count in editCompCtrl.no_of_emp" ng-value="count">
 					                	{{count}}
 					              	</md-option>
@@ -42,6 +47,7 @@
 					            <div class="md-errors-spacer"></div>
 					            <div ng-if="edit_company_form.employees.$error.required && editCompCtrl.errCond" class="has-error-msg">Please Select Number of Employees</div>
 					        </md-input-container>
+				            <input type="hidden" name="number_of_employees" ng-value="editCompCtrl.company_details.number_of_employees">
 	 					</div>
 	 				</div>
 	 				<div class="col-sm-6">
@@ -54,7 +60,7 @@
 							</md-input-container>
 							<md-input-container class="md-block">
       							<label>DESCRIPTION</label>
-          						<textarea name="desc" ng-model="editCompCtrl.company_details.description" md-maxlength="250" maxlength="250" ng-maxlength="250" rows="5" required ng-class="{'has-error-border':edit_company_form.desc.$invalid && editCompCtrl.errCond}"></textarea>
+          						<textarea name="description" ng-model="editCompCtrl.company_details.description" md-maxlength="250" maxlength="250" ng-maxlength="250" rows="5" required ng-class="{'has-error-border':edit_company_form.desc.$invalid && editCompCtrl.errCond}"></textarea>
           						<div class="md-errors-spacer"></div>
           						<div ng-if="edit_company_form.desc.$error.required && editCompCtrl.errCond" class="has-error-msg">Please Enter Description</div>
     						</md-input-container>
@@ -76,8 +82,8 @@
 					</div>
 					<div class="col-sm-6">
 						<div style="width:85%;">
-							<div class="mutiple-images">
-							<span>PHOTOS <small style="color: #999">(Add your company pictures)</small></span>
+							<div>
+								<span>PHOTOS <small style="color: #999">(Add your company pictures)</small></span>
 								<div class="image-group">
 									<div class="multiple-images"></div>
 									<div class="multiple-images"></div>
