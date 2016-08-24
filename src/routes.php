@@ -61,11 +61,10 @@ $app->post('/signin', function ($request, $response, $args) use ($app) {
         'url'           => $apiEndpoint,
         'postData'      => $_POST
     ));
-    
     $jsonResult = $curl->loadCurl();
     //Load Session
     setSession($jsonResult);
-
+    $_SESSION['time_zone'] = $_POST['timeZone'];
     return checkJsonResult($jsonResult);
  
 });

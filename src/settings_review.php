@@ -40,7 +40,9 @@ return [
             'CLIENT_SECRET'     => 'ssyZldw0tylSGPwy38FyFu90MeSIgbxC',
 
             //Grant Types
-            'PASSWORD_GRANT'    => 'password'
+            'PASSWORD_GRANT'    => 'password',
+
+            'PATH'    => '/var/www/html/mintmesh/'
         ],
 
         // API settings

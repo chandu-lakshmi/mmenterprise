@@ -30,10 +30,10 @@ return [
             'PREFIX' => '/enterprise',
 
             // Angular Application domain
-            'APP_DOMAIN' => 'http://192.168.33.10/mintmesh_enterprise/',
+            'APP_DOMAIN' => 'http://192.168.33.10/mintmesh/mintmesh_slim/',
 
             // Application API domain
-            'API_DOMAIN' => 'http://192.168.33.10/mintmesh/',
+            'API_DOMAIN' => 'http://192.168.33.10/mintmesh/mintmeshapi/',
 
             //Client keys
             'CLIENT_ID'         => 'G7iLdQoeZy0Ef06C',
@@ -41,6 +41,9 @@ return [
 
             //Grant Types
             'PASSWORD_GRANT'    => 'password',
+
+            //qquploader path
+            'PATH'    => '/var/www/public/mintmesh/mintmeshapi/'
             
         ],
     

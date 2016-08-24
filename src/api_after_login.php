@@ -466,7 +466,7 @@ $app->POST('/file_upload',function ($request, $response, $args) {
 
     require 'library/fileupload_library.php';
     $file_upload = new fileupload_library; 
-        
+            $args       = commonData($this->settings);
         if (!isset($_REQUEST['filename']) && !isset($_FILES['qqfile'])) {
             $_REQUEST['filename'] = $_REQUEST['qqfile'];
         }
@@ -482,7 +482,7 @@ $app->POST('/file_upload',function ($request, $response, $args) {
             //upload the file and validate the size and file type
             $uploader = $file_upload->fileUpload($allowedExtensions, $sizeLimit);
             //return the file original and source name and path
-            $path = '/var/www/public/mintmesh/mintmeshapi/';
+            $path = $args['PATH'];
             $result = $file_upload->handleUpload(''.$path.'public/uploads/', FALSE, $myfilename);
             if (isset($result['success']) && $result['success'] == true) {
                     
