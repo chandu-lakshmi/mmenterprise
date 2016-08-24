@@ -1291,6 +1291,14 @@ footer a:hover{
 	border: 1px solid #ccc;
 	border-radius: 5px;
 }
+#company-logo .qq-upload-fail{
+    position: absolute;
+    top: 0px;
+    width: calc(100% - 120px);
+    right: -20px;
+    font-size: 13px;
+    color: #983a3a;
+}
 .qq-uploader .qq-upload-list {
 	position: absolute;
     top: 40%;
@@ -1313,7 +1321,6 @@ footer a:hover{
     border: 1px solid #ccc;
     background: #fff;
     border-radius: 4px;
-    /* pointer-events: auto; */
     display: none;
     cursor: pointer;
 }
@@ -1334,39 +1341,38 @@ footer a:hover{
 	width: 100%;
 	height: 100%;
 }
+.qq-upload-drop-area .drag_img img[alt='download']{
+	width: 25px;
+	height: 25px;
+}
 .qq-upload-button:active{
 	top: 0;
 }
 .qq-upload-button{
 	box-shadow: none;
 }
-.edit-company .edit-box #company-logo{
+.edit-company .edit-box #company-logo,.edit-company .edit-box #referral-bonus{
 	margin: 20px 0;
 }
 .edit-company .edit-box .image-group div.multiple-images{
 	margin: 20px 0 10px 0;
 }
-.edit-company .edit-box .company-logo .qq-uploader{
+.edit-company .edit-box .company-logo .qq-uploader,.edit-company .edit-box .image-group .qq-uploader{
 	width: 125px;
 	height: 125px;
 	margin: 0;
 	padding: 0;
 }
-.edit-company .edit-box .company-logo .qq-upload-button{
+.edit-company .edit-box .company-logo .qq-upload-button,.edit-company .edit-box .image-group .qq-upload-button{
 	background: url('../images/icon.png');
 	width: 100%;
 	height: 100%;
 }
-.edit-company .edit-box .image-group .qq-uploader{
-	padding: 0;
-	width: 125px;
-	height: 125px;
+.edit-company .edit-box .referral-bonus .qq-uploader{
+	width: 200px;
+	height: 50px;
+	padding: 13px 0px;
 	margin: 0;
-}
-.edit-company .edit-box .image-group .qq-upload-button{
-	background: url('../images/icon.png');
-	width: 100%;
-	height: 100%;
 }
 .edit-company .edit-box .referral-bonus .qq-upload-button{
 	background: #e6e6e6;
@@ -1377,4 +1383,33 @@ footer a:hover{
     padding: 15px 50px;
     text-shadow: none;
     font-weight: normal;
+}
+.edit-company .edit-box .referral-bonus .qq-uploader .qq-upload-list{
+	top: 0;
+}
+.edit-company .edit-box .referral-bonus .qq-uploader .qq-upload-drop-area{
+	background: transparent;
+	text-align: left;
+}
+.edit-company .edit-box .referral-bonus .qq-uploader .qq-upload-fail{
+	font-size: 13px;
+	color: #983a3a;
+}
+.edit-company .edit-box .referral-bonus .qq-uploader .drag_img a{
+	line-height: 50px;
+	color: #333;
+}
+.edit-company .edit-box .referral-bonus .qq-uploader .drag_img a p{
+	padding: 0px 5px;
+	display: inline-block;
+	overflow: hidden;
+    margin: 0;
+    text-overflow: ellipsis;
+    max-width: 160px;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+.edit-company .edit-box .referral-bonus .qq-upload-fail{
+	font-size: 13px;
+    color: #983a3a;
 }

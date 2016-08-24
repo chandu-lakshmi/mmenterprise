@@ -475,7 +475,7 @@ $app->POST('/file_upload',function ($request, $response, $args) {
                 $_REQUEST['filename'] = $_SERVER['HTTP_WMTGOAT'];
             }
             //print_r($_REQUEST['filename']);exit;
-            $allowedExtensions = array('jpg','png', 'jpeg');
+            $allowedExtensions = array('jpg','png', 'jpeg','doc', 'pdf', 'xlsx');
             // max file size in bytes
             $sizeLimit = 26 * 1024 * 1024;
             $myfilename = 'attach_' . mt_rand().time();
@@ -499,7 +499,6 @@ $app->POST('/file_upload',function ($request, $response, $args) {
                 $fname =  str_replace('_',' ',$org_name);
                 //$result['org_name'] = pathinfo(filterString($fname), PATHINFO_FILENAME);
                 $result['org_name'] = $fname;
-                $result['logo_image'] = $myfilename.'.'.$result['ext'];     
                 $result['filename'] = 'public/uploads/'.$myfilename.'.'.$result['ext'];
                 $data['success'] = true;
                 echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);

@@ -61,6 +61,8 @@ p.indent:first-letter{
 	padding-right: 48px;
 }
 .search-job button{
+	line-height: 22px;
+	height: 34px;
 	margin-left: 16px;
 	border-radius: 0;
 	background: #229A77;

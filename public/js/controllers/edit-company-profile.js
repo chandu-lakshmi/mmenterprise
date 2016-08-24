@@ -7,10 +7,11 @@ angular.module('app.edit.company', [])
 .controller('editCompanyProfileController', ['$http', 'CONFIG', function($http, CONFIG){
 
 	var scope = this,$banner_logo_wrap_el,bol = 1;
-    var image_path = '',image_name = '',mul_image_path = [];
+    var image_path = '',mul_image_path = [],bonus_file_path = '';
+    var updateData;
 
 
-    var $company_logo = $('#company-logo');
+    var $company_logo = $('#company-logo'),$referral_bonus = $('#referral-bonus');
 
 
 	$('.edit-company').addClass('text-selection');
@@ -38,7 +39,9 @@ angular.module('app.edit.company', [])
 
 
 	// view company details function
+	//var canceller;
 	function getCompanyDetails(){
+		$('.qq-upload-fail').remove();
 		var view_company_details = $http({
 	        headers: {
 	           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -60,11 +63,19 @@ angular.module('app.edit.company', [])
 	    			$company_logo.find('.qq-upload-drop-area').css('display','block');
 	    			$company_logo.find('.qq-upload-drop-area').html('<div class="drag_img"><img src="'+scope.company_details.company_logo+'" class="img-thumbnail"/></div>');
 	    			$company_logo.find('.qq-upload-list li').remove();
-	    			$company_logo.find('.qq-upload-list').append("<li><input type='hidden' name='org_name' value='" + scope.company_details.company_logo.split('/').pop() + "' /><input type='hidden' value='" + scope.company_details.company_logo + "' name='logo_image'/></li>").show();
+	    			$company_logo.find('.qq-upload-list').append("<li><input type='hidden' name='org_name_s3' value='" + scope.company_details.company_logo.split('/').pop() + "' /><input type='hidden' value='" + scope.company_details.company_logo + "' name='logo_image_s3'/></li>").show();
 	    			$company_logo.find('.drag_img').append('<div class="overlay"></div><i class="fa fa-trash-o icon-trash" onclick="angular.element(this).scope().editCompCtrl.trash(-1)"></i>');
 	       		}
 	       		if(scope.company_details.images.length > 0){
 	       			initialCallback(scope.company_details.images.length)
+	       		}
+	       		if(scope.company_details.referral_bonus_file.length != 0){
+	       			$referral_bonus.find('.qq-upload-button').hide();
+	       			$referral_bonus.find('.qq-upload-success').hide();
+		    		$referral_bonus.find('.qq-upload-drop-area').css('display','block');
+		    		$referral_bonus.find('.qq-upload-list li').remove();
+		    		$referral_bonus.find('.qq-upload-list').append("<li><input type='hidden' name='referral_org_name_s3' value='" + scope.company_details.referral_bonus_file.split('/').pop() + "' /><input type='hidden' value='" + scope.company_details.referral_bonus_file + "' name='referral_file_s3'/></li>").show();
+		    		$referral_bonus.find('.qq-upload-drop-area').html('<div class="drag_img"><a href="'+scope.company_details.referral_bonus_file+'" download><img src="public/images/Applied.svg" alt="download"><p>'+response.org_name+'&nbsp;</p></a><img src="public/images/close-popup-grey.svg" onclick="angular.element(this).scope().editCompCtrl.trash(-2)" style="width:20px;float:right;cursor:pointer"/>');
 	       		} 
     		}
     		else{
@@ -91,24 +102,26 @@ angular.module('app.edit.company', [])
 		eval("$mul_images_"+i).find('.qq-upload-drop-area').css('display','block');
 		eval("$mul_images_"+i).find('.qq-upload-drop-area').html('<div class="drag_img"><img src="'+scope.company_details.images[i]+'" class="img-thumbnail"/></div>');
 		eval("$mul_images_"+i).find('.qq-upload-list li').remove();
-		eval("$mul_images_"+i).find('.qq-upload-list').append("<li><input type='hidden' name='org_name["+i+"]' value='" + scope.company_details.images[i].split('/').pop() + "' /><input type='hidden' value='" + scope.company_details.images[i] + "' name='photos["+i+"]'/></li>").show();
+		eval("$mul_images_"+i).find('.qq-upload-list').append("<li><input type='hidden' name='org_name_s3[]' value='" + scope.company_details.images[i].split('/').pop() + "' /><input type='hidden' value='" + scope.company_details.images[i] + "' name='photos_s3[]'/></li>").show();
 		eval("$mul_images_"+i).find('.drag_img').append("<div class='overlay'></div><i class='fa fa-trash-o icon-trash' onclick='angular.element(this).scope().editCompCtrl.trash("+i+")'></i>");
 	}
 
 	scope.trash = function(value){
 		if(value == '-1'){
 			$company_logo.find('.drag_img').find('img').removeAttr('src');
-			$company_logo.find('.qq-upload-list li').css('display','none');
-			$company_logo.find('.qq-upload-list li').find('input[type=hidden]').eq(0).attr('value','');
-			$company_logo.find('.qq-upload-list li').find('input[type=hidden]').eq(1).attr('value','');
+			$company_logo.find('.qq-upload-list li').remove();
 			$company_logo.find('.qq-upload-drop-area').css('display','none');
 			$company_logo.find('.qq-upload-drop-area .drag_img').remove();
 		}
+		else if(value == '-2'){
+			$referral_bonus.find('.drag_img').remove();
+			$referral_bonus.find('.qq-upload-list li').remove();
+			$referral_bonus.find('.qq-upload-drop-area').css('display','none');
+			$referral_bonus.find('.qq-upload-button').show();
+		}
 		else{
 			eval("$mul_images_"+value).find('.drag_img').find('img').removeAttr('src');
-			eval("$mul_images_"+value).find('.qq-upload-list li').css("display","none");
-			eval("$mul_images_"+value).find('.qq-upload-list li').find('input[type=hidden]').eq(0).attr('value','');
-			eval("$mul_images_"+value).find('.qq-upload-list li').find('input[type=hidden]').eq(1).attr('value','');
+			eval("$mul_images_"+value).find('.qq-upload-list li').remove();
 			eval("$mul_images_"+value).find('.qq-upload-drop-area').css('display','none');
 			eval("$mul_images_"+value).find('.qq-upload-drop-area .drag_img').remove();
 		}
@@ -129,6 +142,8 @@ angular.module('app.edit.company', [])
 			$('form:first input:first').focus();
 		}
 		else{
+			$('.qq-upload-fail').remove();
+			getCompanyDetails();
 			$('.edit-company').addClass('text-selection');
 			scope.update = false;
 			scope.errCond = false;
@@ -145,6 +160,8 @@ angular.module('app.edit.company', [])
 		}
 		else{
 
+			$('.btn-disabled').css('pointer-events','none');
+
 			var param = $(' form[name="edit_company_form"]').serialize();
 
 			scope.errCond = false;
@@ -160,6 +177,10 @@ angular.module('app.edit.company', [])
 	        });
 
 	        update_company.success(function(response){
+	        	$('.btn-disabled').css('pointer-events','auto');
+				$('.qq-upload-drop-area').css('display','none');
+				$('.qq-upload-drop-area').find('.drag_img').remove();
+				$('.qq-upload-list li').remove();
 	        	scope.update = false;
 	        	scope.updateLoader = false;
 	        	getCompanyDetails();
@@ -177,7 +198,7 @@ angular.module('app.edit.company', [])
 	    dragText: "",
 		uploadButtonText: "",
 		multiple : false,
-		size: (1*1024*1024),
+		sizeLimit: (1*1024*1024),
 		allowedExtensions: ["jpg", "jpeg", "png"],
 	    action: CONFIG.APP_DOMAIN+'file_upload',
 
@@ -189,15 +210,21 @@ angular.module('app.edit.company', [])
 	    onComplete: function(id, name, response){
 	    	if(response.success){
 	    		image_path = CONFIG.APP_API_DOMAIN+response.filename;
+	    		$company_logo.find('.qq-upload-fail').remove();
 	    		$company_logo.find('.qq-upload-success').hide();
 	    		$company_logo.find('.qq-upload-drop-area').css('display','block');
 	    		$company_logo.find('.qq-upload-drop-area').html('<div class="drag_img"><img src="'+image_path+'" class="img-thumbnail"/></div>');
-	    		$company_logo.find('.qq-upload-list').append("<li><input type='hidden' name='org_name' value='" + response.org_name + "' /><input type='hidden' value='" + response.filename + "' name='logo_image'/></li>").show();
+	    		$company_logo.find('.qq-upload-list').append("<li><input type='hidden' name='logo_org_name' value='" + response.org_name + "' /><input type='hidden' value='" + response.filename + "' name='logo_image'/></li>").show();
 	    		$company_logo.find('.drag_img').append('<div class="overlay"></div><i class="fa fa-trash-o icon-trash" onclick="angular.element(this).scope().editCompCtrl.trash(-1)"></i>');
+	    	}
+	    	else{
+	    		$company_logo.find('.qq-upload-fail').remove();
+	    		$company_logo.append("<div class='qq-upload-fail'><i class='fa fa-times'></i>&nbsp;<span>"+response.msg+"</span></div>")
 	    	}
 	    },
 	    showMessage: function(msg){
-	    	console.log(msg)
+	    	$company_logo.find('.qq-upload-fail').remove();
+	    	$company_logo.append("<div class='qq-upload-fail'><i class='fa fa-times'></i>&nbsp;<span>"+msg+"</span></div>");
 	    }
 	});
 
@@ -215,7 +242,7 @@ angular.module('app.edit.company', [])
 			dragText: "",
 			uploadButtonText: "",
 		    multiple : false,
-			size: (1*1024*1024),
+			sizeLimit: (1*1024*1024),
 			allowedExtensions: ["jpg", "jpeg", "png"],
 		    action: CONFIG.APP_DOMAIN+'file_upload',
 
@@ -225,15 +252,16 @@ angular.module('app.edit.company', [])
 		    },
 		    onComplete: function(id, name, response){
 		    	if(response.success){
-		    		console.log(index)
 		    		mul_image_path[index] = CONFIG.APP_API_DOMAIN+response.filename;
 		    		eval("$mul_images_"+index).find('.qq-upload-success').hide();
 		    		eval("$mul_images_"+index).find('.qq-upload-drop-area').css('display','block');
 		    		eval("$mul_images_"+index).find('.qq-upload-drop-area').html('<div class="drag_img"><img src="'+mul_image_path[index]+'" class="img-thumbnail"/></div>');
-		    		eval("$mul_images_"+index).find('.qq-upload-list').append("<li><input type='hidden' name='org_name["+index+"]' value='" + response.org_name + "' /><input type='hidden' value='" + response.filename + "' name='photos["+index+"]'/></li>").show();
+		    		eval("$mul_images_"+index).find('.qq-upload-list').append("<li><input type='hidden' name='org_name[]' value='" + response.org_name + "' /><input type='hidden' value='" + response.filename + "' name='photos[]'/></li>").show();
 		    		eval("$mul_images_"+index).find('.drag_img').append("<div class='overlay'></div><i class='fa fa-trash-o icon-trash' onclick='angular.element(this).scope().editCompCtrl.trash("+index+")'></i>");
-
 		    	}
+		    },
+		    showMessage: function(msg){
+		    	console.log(msg)
 		    }
 
 		});
@@ -242,7 +270,37 @@ angular.module('app.edit.company', [])
 	// Referral Bonus upload
 	var uploader = new qq.FileUploader({
 	    element: document.getElementById('referral-bonus'),
-	    action: '/server/upload'
+	    dragText: "",
+		uploadButtonText: "Upload a file",
+	    multiple : false,
+	    sizeLimit: (10*1024*1024),
+		allowedExtensions: ["doc", "pdf", "xlsx"],
+	    action: CONFIG.APP_DOMAIN+'file_upload',
+
+	    onSubmit: function(id, name){
+	    	$referral_bonus.find('.drag_txt').hide();
+	    	$referral_bonus.find('.qq-upload-button').hide();
+            $referral_bonus.find('.qq-upload-list').show();
+	    },
+	    onComplete: function(id, name, response){
+	    	if(response.success){
+	    		bonus_file_path = CONFIG.APP_API_DOMAIN+response.filename;
+	    		$referral_bonus.find('.qq-upload-fail').remove();
+	    		$referral_bonus.find('.qq-upload-success').hide();
+	    		$referral_bonus.find('.qq-upload-list').css('z-index','-1');
+	    		$referral_bonus.find('.qq-upload-drop-area').css('display','block');
+	    		$referral_bonus.find('.qq-upload-list').append("<li><input type='hidden' name='referral_org_name' value='" + response.org_name + "' /><input type='hidden' value='" + response.filename + "' name='referral_bonus_file'/></li>").show();
+	    		$referral_bonus.find('.qq-upload-drop-area').html('<div class="drag_img"><a href="'+bonus_file_path+'" download><img src="public/images/Applied.svg" alt="download"><p>'+response.org_name+'&nbsp;</p></a><img src="public/images/close-popup-grey.svg" onclick="angular.element(this).scope().editCompCtrl.trash(-2)" style="width:20px;float:right;cursor:pointer"/>');
+	    	}
+	    	else{
+	    		$referral_bonus.find('.qq-upload-fail').remove();
+	    		$referral_bonus.append("<div class='qq-upload-fail'><i class='fa fa-times'></i>&nbsp;<span>"+response.msg+"</span></div>");
+	    	}
+	    },
+	    showMessage: function(msg){
+	    	$referral_bonus.find('.qq-upload-fail').remove();
+	    	$referral_bonus.append("<div class='qq-upload-fail'><i class='fa fa-times'></i>&nbsp;<span>"+msg+"</span></div>");
+	    }
 	});
 
 	
