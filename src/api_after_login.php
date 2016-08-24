@@ -484,7 +484,6 @@ $app->POST('/file_upload',function ($request, $response, $args) {
             //return the file original and source name and path
             $path = $args['PATH'];
             $result = $file_upload->handleUpload(''.$path.'public/uploads/', FALSE, $myfilename);
-            print_r($result);exit;
             if (isset($result['success']) && $result['success'] == true) {
                     
                
