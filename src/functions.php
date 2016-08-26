@@ -60,7 +60,7 @@ function companyProfile($settings){
         'url'           => $apiEndpoint,
         'postData'      => $_POST
      ));
-
+    
      $data = json_decode($companyDetails->loadCurl(),true);
      if(isset($data['data'])){
   

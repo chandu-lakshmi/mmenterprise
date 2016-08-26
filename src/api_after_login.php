@@ -46,13 +46,13 @@ $app->post('/update_company', function ($request, $response, $args) use ($app) {
         );
     //Update Session
     updateSession($arrayList);
-
+    
     return $jsonResult;
 });
 
 //company profile page
 $app->get('/company-profile', function ($request, $response, $args) {
-
+$this->mintmeshAccessToken;
     // need to take a look later    
     $args = commonData($this->settings);
 
@@ -61,6 +61,8 @@ $app->get('/company-profile', function ($request, $response, $args) {
       return $response->withRedirect($args['APP_DOMAIN']);
     }
 
+    $args['comp_data'] = companyProfile($this->settings);
+ 
     // Render index view
     return $this->renderer->render($response, 'index.phtml', $args);
         
@@ -68,7 +70,7 @@ $app->get('/company-profile', function ($request, $response, $args) {
 
 //import contacts page
 $app->get('/import-contacts', function ($request, $response, $args) {
-
+$this->mintmeshAccessToken;
     // need to take a look later    
     $args = commonData($this->settings);
 
@@ -76,7 +78,9 @@ $app->get('/import-contacts', function ($request, $response, $args) {
     if(!empty(authenticate())){
       return $response->withRedirect($args['APP_DOMAIN']);
     }
-    
+
+    $args['comp_data'] = companyProfile($this->settings);
+
     // Render index view
     return $this->renderer->render($response, 'index.phtml', $args);
         
@@ -159,20 +163,23 @@ $app->post('/email_invitation',function ($request, $response, $args) use ($app) 
 //Dashboard Page
 $app->get('/dashboard',function ($request, $response, $args) use ($app) {
     //Arguments
+     $this->mintmeshAccessToken;
     $args       = commonData($this->settings);
    
     //Check Logged in or not
     if(!empty(authenticate())){
       return $response->withRedirect($args['APP_DOMAIN']);
     }
-   
+
+    $args['comp_data'] = companyProfile($this->settings);
+
     // Render dashboard view
     return $this->renderer->render($response, 'index.phtml', $args);
 });
 
 //Post Job Page
 $app->get('/job',function ($request, $response, $args) use ($app) {
-    
+    $this->mintmeshAccessToken;
     //Arguments
     $args       = commonData($this->settings);
     
@@ -180,6 +187,8 @@ $app->get('/job',function ($request, $response, $args) use ($app) {
     if(!empty(authenticate())){
       return $response->withRedirect($args['APP_DOMAIN']);
     }
+
+    $args['comp_data'] = companyProfile($this->settings);
 
     // Render dashboard view
     return $this->renderer->render($response, 'index.phtml', $args);
@@ -188,12 +197,15 @@ $app->get('/job',function ($request, $response, $args) use ($app) {
 //Post Job Page
 $app->get('/job/post-job',function ($request, $response, $args) use ($app) {
     //Arguments
+    $this->mintmeshAccessToken;
     $args       = commonData($this->settings);
     
     //Check Logged in or not
     if(!empty(authenticate())){
       return $response->withRedirect($args['APP_DOMAIN']);
     }
+
+    $args['comp_data'] = companyProfile($this->settings);
 
     // Render dashboard view
     return $this->renderer->render($response, 'index.phtml', $args);
@@ -216,12 +228,16 @@ $app->get('/job/post-job-2',function ($request, $response, $args) use ($app) {
 //Post job Page
 $app->get('/postJob',function ($request, $response, $args) use ($app) {
 	//Arguments
+    $this->mintmeshAccessToken;
     $args       = commonData($this->settings);
     
     //Check Logged in or not
     if(!empty(authenticate())){
       return $response->withRedirect($args['APP_DOMAIN']);
     }
+
+    $args['comp_data'] = companyProfile($this->settings);
+
     // Render dashboard view
     return $this->renderer->render($response, 'post-job.phtml', $args);
 });
@@ -306,7 +322,7 @@ $app->post('/job_referral_details',function ($request, $response, $args) use ($a
 $app->get('/job/job-details/{id}', function ($request, $response, $args) use ($app) {
 
     $route = $request->getAttribute('route');
-
+$this->mintmeshAccessToken;
     //Arguments
     $args  = commonData($this->settings);
     $args['post_id'] = $route->getArgument('id') ;
@@ -317,14 +333,15 @@ $app->get('/job/job-details/{id}', function ($request, $response, $args) use ($a
         if(!empty(authenticate())){
           return $response->withRedirect($args['APP_DOMAIN']);
         }
-       
+
+        $args['comp_data'] = companyProfile($this->settings);
+
         // Render dashboard view
         return $this->renderer->render($response, 'index.phtml', $args);
     }else{
         return $response->withRedirect($args['APP_DOMAIN']."/job");
     }
 });
-
 //Update Status Details
 $app->post('/process_job',function ($request, $response, $args) use ($app) {
    
@@ -379,47 +396,6 @@ $app->get('/job/rewards/{id}',function ($request, $response, $args) use ($app) {
 });
 
 //Update Status Details
-$app->post('/get_services',function ($request, $response, $args) use ($app) {
-   
-    // dynamically Access Token
-   $this->mintmeshAccessToken;
-      
-    // getting API endpoint from settings
-   $apiEndpoint = getapiEndpoint($this->settings, 'get_services');
-     $_POST["service_type"] = "global"; 
-     $_POST['user_country'] = "all"; 
-
-
-   
-    $getServicesDetails    = new Curl(array(
-        'url'           => $apiEndpoint,
-        'postData'      => $_POST
-     ));
-    
-    return checkJsonResult( $getServicesDetails->loadCurl() );
-
-       
-});
-
-// awaiting action
-$app->post('/awaiting_action',function ($request, $response, $args) use ($app) {
-   
-    // dynamically Access Token
-   $this->mintmeshAccessToken;
-      
-    // getting API endpoint from settings
-   $apiEndpoint = getapiEndpoint($this->settings, 'awaiting_action');
-   
-    $statusDetails    = new Curl(array(
-        'url'           => $apiEndpoint,
-        'postData'      => $_POST
-     ));
-    
-    return checkJsonResult( $statusDetails->loadCurl() );
-
-       
-});
-
 /*$app->post('/get_services',function ($request, $response, $args) use ($app) {
     
       // dynamically Access Token
@@ -443,16 +419,56 @@ $app->post('/awaiting_action',function ($request, $response, $args) use ($app) {
 
 // edit company profile
 $app->get('/edit-company-profile',function ($request, $response, $args) use ($app) {
-    //Arguments
+    $this->mintmeshAccessToken;
+//Arguments
     $args       = commonData($this->settings);
    
     //Check Logged in or not
     if(!empty(authenticate())){
       return $response->withRedirect($args['APP_DOMAIN']);
     }
-   
+
+    $args['comp_data'] = companyProfile($this->settings);
+
     // Render dashboard view
     return $this->renderer->render($response, 'index.phtml', $args);
+});
+
+//Dashboard Details
+$app->post('/view_dashboard',function ($request, $response, $args) use ($app) {
+    
+    // dynamically Access Token
+    $this->mintmeshAccessToken;  
+    // getting API endpoint from settings
+   $apiEndpoint = getapiEndpoint($this->settings, 'view_dashboard');
+   
+    $statusDetails    = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    
+    return checkJsonResult( $statusDetails->loadCurl() );
+
+       
+});
+
+// awating action
+$app->post('/awaiting_action',function ($request, $response, $args) use ($app) {
+   
+    // dynamically Access Token
+   $this->mintmeshAccessToken;
+      
+    // getting API endpoint from settings
+   $apiEndpoint = getapiEndpoint($this->settings, 'awaiting_action');
+   
+    $statusDetails    = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    
+    return checkJsonResult( $statusDetails->loadCurl() );
+
+       
 });
 
 
@@ -486,7 +502,7 @@ $app->POST('/file_upload',function ($request, $response, $args) {
 
     require 'library/fileupload_library.php';
     $file_upload = new fileupload_library; 
-        
+            $args       = commonData($this->settings);
         if (!isset($_REQUEST['filename']) && !isset($_FILES['qqfile'])) {
             $_REQUEST['filename'] = $_REQUEST['qqfile'];
         }
@@ -495,14 +511,18 @@ $app->POST('/file_upload',function ($request, $response, $args) {
                 $_REQUEST['filename'] = $_SERVER['HTTP_WMTGOAT'];
             }
             //print_r($_REQUEST['filename']);exit;
-            $allowedExtensions = array('jpg','png', 'jpeg', "doc", "pdf", "xlsx");
+            $allowedExtensions = array('jpg', 'gif', 'png', 'jpeg', 'eps', 'cdr', 'ai', 'psd', 'tga', 'tiff', 'tif', 'ttf', 'svg', 'zip', 'rar',
+                'gz', 'tar', 'tarz', '7zip', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'pps', 'ppsx', 'pdf', 'eml', 'msg',
+                'txt', 'rtf', 'wps', 'csv', 'xml', 'otf', 'eot',
+                'mp3', 'm4a', 'aac', 'wmv', 'wma', 'avi', 'mp4', 'mov', 'mpg', 'qxd', 'qxp', 'swf', 'fla', 'odt', 'vsd', 'wav', 'aiff',
+                'sit', 'sitx', 'numbers', 'pages', 'key', 'ps', 'avi');
             // max file size in bytes
             $sizeLimit = 26 * 1024 * 1024;
             $myfilename = 'attach_' . mt_rand().time();
             //upload the file and validate the size and file type
             $uploader = $file_upload->fileUpload($allowedExtensions, $sizeLimit);
             //return the file original and source name and path
-            $path = '/var/www/public/mintmesh/';
+            $path = $args['PATH'];
             $result = $file_upload->handleUpload(''.$path.'public/uploads/', FALSE, $myfilename);
             if (isset($result['success']) && $result['success'] == true) {
                     
@@ -519,7 +539,6 @@ $app->POST('/file_upload',function ($request, $response, $args) {
                 $fname =  str_replace('_',' ',$org_name);
                 //$result['org_name'] = pathinfo(filterString($fname), PATHINFO_FILENAME);
                 $result['org_name'] = $fname;
-                $result['logo_image'] = $myfilename.'.'.$result['ext'];     
                 $result['filename'] = 'public/uploads/'.$myfilename.'.'.$result['ext'];
                 $data['success'] = true;
                 echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
@@ -533,5 +552,9 @@ $app->POST('/file_upload',function ($request, $response, $args) {
             $data['msg'] = 'No file uploaded';
             echo htmlspecialchars(json_encode($data), ENT_NOQUOTES);
         }
-   
+  
+});
+ $app->get('/view_company_detail324',function ($request, $response, $args) {
+    $this->mintmeshAccessToken;
+  print_r(companyProfile($this->settings));
 });

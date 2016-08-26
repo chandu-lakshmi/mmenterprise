@@ -218,7 +218,7 @@
 										AWAITING ACTION
 									</div>
 								</li>
-								<li ng-repeat="activeReferrals in EngContCtrl.referrals">
+								<li ng-repeat="activeReferrals in EngContCtrl.referrals" style="padding:16px 0!important">
 									<div class="col-lg-3">
 										<div class="pull-left">
 											<img ng-src="{{activeReferrals.dp_image == null ? 'public/images/avatar.png' : activeReferrals.dp_image}}" class="img-responsive img-circle border-{{activeReferrals.status | lowercase}}" ng-style="{'border': activeReferrals.dp_image == null ? '0': ''}">
@@ -255,15 +255,15 @@
 										<img src="public/images/tickmark-accept.svg" alt="response" ng-click="EngContCtrl.referral_status('ACCEPTED',activeReferrals,'accepted')">&nbsp;&nbsp;
 										<img src="public/images/closemark-decline.svg" alt="response" ng-click="EngContCtrl.referral_status('ACCEPTED',activeReferrals,'declined')">
 									</div> -->
-									<div class="col-lg-4" style="padding:7px 15px;"><!-- ng-if="activeReferrals.status != 'PENDING'">-->
+									<div class="col-lg-4" style="margin-top:-5px"><!-- ng-if="activeReferrals.status != 'PENDING'">-->
 										<div class="btn-group">
-											<div class="accept bg-accepted" style="pointer-events:none">Accepted</div>
-											<div class="interviewed" ng-click="EngContCtrl.process_status('INTERVIEWED',$index)">Interviewed</div>
-											<div class="offermade" ng-click="EngContCtrl.process_status('OFFERMADE',$index)">Offer Made</div>
-											<div class="hired" ng-click="EngContCtrl.process_status('HIRED',$index)">Hired</div>
+											<div style="pointer-events:none" ng-class="{'bg-accepted':activeReferrals.awaiting_action_status == 'ACCEPTED'}">Accepted</div>
+											<div class="interviewed" ng-click="EngContCtrl.process_status('INTERVIEWED',$index)" ng-class="{'bg-accepted':activeReferrals.awaiting_action_status == 'INTERVIEWED'}">Interviewed</div>
+											<div class="offermade" ng-click="EngContCtrl.process_status('OFFERMADE',$index)" ng-class="{'bg-accepted':activeReferrals.awaiting_action_status == 'OFFERMADE'}">Offer Made</div>
+											<div class="hired" ng-click="EngContCtrl.process_status('HIRED',$index)" ng-class="{'bg-accepted':activeReferrals.awaiting_action_status == 'HIRED'}">Hired</div>
 										</div>
 										<div class="status_details" style="position:absolute;font-size:13px;">
-											<span>Shiva</span>Accepeted by Jaya at 12:00pm
+											<span>{{activeReferrals.name+" "+activeReferrals.awaiting_action_status+" by "+activeReferrals.awaiting_action_by+" at "+activeReferrals.awaiting_action_updated_at}}</span>
 										</div>
 									</div>
 								</li>

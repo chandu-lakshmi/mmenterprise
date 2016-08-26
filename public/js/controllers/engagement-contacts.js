@@ -58,6 +58,8 @@ angular.module('app.engagement.contacts', [])
 
 	$window.scrollTo(0,0);
 
+    var className;
+
     this.subHeaderCount = ajaxData.getData();
 
     // tab cond based on navigation
@@ -125,6 +127,9 @@ angular.module('app.engagement.contacts', [])
                     }
                     scope.subHeaderCount = data;
         			scope.referrals = response.data.referrals;
+                    if(status == 'ACCEPTED'){
+                        awaitingStatusCall(scope.referrals);
+                    }
         		}
         	}
         	else if(response.status_code == 400){
@@ -147,7 +152,37 @@ angular.module('app.engagement.contacts', [])
     var status_arr = ["accept","interviewed","offermade","hired"];
     var interviewed = ['accept'],offermade = ['accept','interviewed'],hired = ['accept','interviewed','offermade'];
 
-    var disabled_arr = status_arr;
+    // initial disable unwanted clicks action
+    function awaitingStatusCall(obj){
+        setTimeout(function(){
+           for(var i = 0; i < obj.length; i++){
+                if(obj[i].awaiting_action_status == 'INTERVIEWED'){
+                    $('.interviewed').eq(i).css('pointerEvents','none');
+                    for(var j in interviewed){
+                        $('.'+interviewed[j]).eq(i).removeClass('bg-accepted');
+                        $('.'+interviewed[j]).eq(i).css('pointerEvents','none');
+                    }
+                }
+                if(obj[i].awaiting_action_status == 'OFFERMADE'){
+                    console.log(obj[i].awaiting_action_status)
+                    $('.offermade').eq(i).css('pointerEvents','none');
+                    for(var j in offermade){
+                        $('.'+offermade[j]).eq(i).removeClass('bg-accepted');
+                        $('.'+offermade[j]).eq(i).css('pointerEvents','none');
+                    }
+                }
+                if(obj[i].awaiting_action_status == 'HIRED'){
+                    $('.hired').eq(i).css('pointerEvents','none');
+                    for(var j in hired){
+                        $('.'+hired[j]).eq(i).removeClass('bg-accepted');
+                        $('.'+hired[j]).eq(i).css('pointerEvents','none');
+                    }
+                }
+            } 
+        },100)
+            
+    }
+
     var canceller;
     scope.process_status = function(status,index){
 
@@ -156,7 +191,6 @@ angular.module('app.engagement.contacts', [])
         }
 
         canceller = $q.defer();
-        console.log(scope.referrals)
         var statusData = $.param({
             from_user : scope.referrals[index].from_user,
             referred_by : scope.referrals[index].referred_by,
@@ -176,27 +210,35 @@ angular.module('app.engagement.contacts', [])
         })
 
         awaitingStatus.success(function(response){
-            console.log(response)
             if(response.status_code == 200){
-               if(status == 'INTERVIEWED'){
-                    $('.'+status).eq(index).addClass('bg-accepted');
-                    $('.'+status).eq(index).css('pointerEvents','none');
-                    for(var i in interviewed){alert()
+                if(response.data.awaiting_action_status == 'INTERVIEWED'){
+                    className = response.data.awaiting_action_status.toLowerCase();
+                    $('.status_details').eq(index).find('span').remove();
+                    $('.status_details').eq(index).append('<span>'+scope.referrals[index].name+' </span><span>'+className+' by '+response.data.awaiting_action_by+' at '+response.data.awaiting_action_updated_at+'</span>');
+                    $('.'+className).eq(index).addClass('bg-accepted');
+                    $('.'+className).eq(index).css('pointerEvents','none');
+                    for(var i in interviewed){
                         $('.'+interviewed[i]).eq(index).removeClass('bg-accepted');
                         $('.'+interviewed[i]).eq(index).css('pointerEvents','none');
                     }
                 }
                 if(status == 'OFFERMADE'){
-                    $('.'+status).eq(index).addClass('bg-accepted');
-                    $('.'+status).eq(index).css('pointerEvents','none');
+                    className = response.data.awaiting_action_status.toLowerCase();
+                    $('.status_details').eq(index).find('span').remove();
+                    $('.status_details').eq(index).append('<span>'+scope.referrals[index].name+' </span><span>'+className+' by '+response.data.awaiting_action_by+' at '+response.data.awaiting_action_updated_at+'</span>');
+                    $('.'+className).eq(index).addClass('bg-accepted');
+                    $('.'+className).eq(index).css('pointerEvents','none');
                     for(var i in offermade){
                         $('.'+offermade[i]).eq(index).removeClass('bg-accepted');
                         $('.'+offermade[i]).eq(index).css('pointerEvents','none');
                     }
                 }
                 if(status == 'HIRED'){
-                    $('.'+status).eq(index).addClass('bg-accepted');
-                    $('.'+status).eq(index).css('pointerEvents','none');
+                    className = response.data.awaiting_action_status.toLowerCase();
+                    $('.status_details').eq(index).find('span').remove();
+                    $('.status_details').eq(index).append('<span>'+scope.referrals[index].name+' </span><span>'+className+' by '+response.data.awaiting_action_by+' at '+response.data.awaiting_action_updated_at+'</span>');
+                    $('.'+className).eq(index).addClass('bg-accepted');
+                    $('.'+className).eq(index).css('pointerEvents','none');
                     for(var i in hired){
                         $('.'+hired[i]).eq(index).removeClass('bg-accepted');
                         $('.'+hired[i]).eq(index).css('pointerEvents','none');

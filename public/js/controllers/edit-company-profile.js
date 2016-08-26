@@ -4,7 +4,7 @@
 angular.module('app.edit.company', [])
 
 
-.controller('editCompanyProfileController', ['$http', 'CONFIG', function($http, CONFIG){
+.controller('editCompanyProfileController', ['$http', 'CompanyDetails', 'CONFIG', function($http, CompanyDetails, CONFIG){
 
 	var scope = this,bol = 1,dublicateData;
     var image_path = '',mul_image_path = [],bonus_file_path = '';
@@ -56,11 +56,15 @@ angular.module('app.edit.company', [])
 		$('.qq-upload-list').find('li').remove();
 		$('.qq-upload-button').show();
 
+		var param = $.param({
+			company_code : CompanyDetails.company_code
+		})
 		var view_company_details = $http({
 	        headers: {
 	           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
 	        },
 	        method: 'POST',
+	        data: param,
 	        url: CONFIG.APP_DOMAIN+'view_company_details'
 	    })
 

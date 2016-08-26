@@ -98,6 +98,10 @@ return [
             'awaiting_action' => [
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/awaiting_action'
+            ],
+            'view_dashboard' => [
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/view_dashboard'
             ]
            
     ];

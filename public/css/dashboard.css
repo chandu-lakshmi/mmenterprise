@@ -1,6 +1,12 @@
 /*.ui-autocomplete-loading {
 	background: white url("../images/loader/ui-anim_basic_16x16.gif") right center no-repeat;
 }*/
+/* loader */
+#ngProgress-container{
+	top:60px;
+	position: absolute;
+}
+
 .ui-menu.ui-widget.ui-widget-content{
 	margin: 0;
 	background-color: #fff;
@@ -238,34 +244,52 @@ header .notifications .user span:not(:last-child){
 	margin-right: 5px;
 }
 
-
+.dashboard-container{
+	min-height: calc(100vh - 60px);
+}
 .dashboard .main-title{
-	padding: 20px 0;
 	border-bottom: 1px solid #E5E5E5;
 }
 .dashboard .main-title h2{
 	margin: 0;
+    padding: 32px 0 7px 0;
+    font-size: 18px;
+    color: #2c9172;
 }
 .dashboard .panel-group{
 	font-size: 16px;
     color: #878787;
+    padding: 58px 0 0 0;
+    margin: 0;
 }
 .dashboard .panel-group .row{
 	margin: 0;
-	padding: 60px 0;
+	min-height: 183px;
 }
 .dashboard .panel-group .panel{
-	width: 249px;
-	float: left;
-	text-align: center;
-	padding: 40px 0;
-	margin: 20px 0;
+	width: 258px;
+    float: left;
+    text-align: center;
+    padding: 40px 0;
+    margin: 15px 36px 0 0;
+}
+.dashboard .panel-group .panel:last-child{
+	margin-right: 0;
 }
 .dashboard .panel-group .panel strong{
 	display: block;
+	color:#777777;
+	text-transform: capitalize;
 }
 .dashboard .panel-group .panel span{
 	font-size: 45px;
+}
+.svg-container{
+	width: 69% !important;
+}
+.svg-container .timer{
+	font-size: 36px !important;
+	fill: #000 !important;
 }
 .dashboard .panel-group .arrow{
 	width: 48px;
@@ -279,8 +303,6 @@ header .notifications .user span:not(:last-child){
 }
 .dashboard .circle-stats,.dashboard .top-contacts{
 	border-top: 1px solid #ccc;
-	border-bottom: 1px solid #ccc;
-	background: #F9FAFC;
 }
 /*.dashboard .circle-stats{
 	padding: 60px 0;
@@ -290,6 +312,9 @@ header .notifications .user span:not(:last-child){
 .dashboard .circle-stats .circlestat{
 	margin: 0 auto;
 }
+.circle-text{
+	font-size: 46px !important;
+}
 .dashboard .circle-stats .col-lg-4:not(:last-child){
 	border-right: 1px solid #ccc;
 }
@@ -298,18 +323,39 @@ header .notifications .user span:not(:last-child){
 	color: #878787;
 	font-size: 16px;
 }
-.dashboard .circle-stats div.container{
-	padding: 60px 0;
+/*.dashboard .circle-stats div.container{
+	padding: 54px 0;
+}*/
+.dashboard .circle-stats .col-lg-4.col-md-4.col-sm-4{
+	padding: 18px 0 32px 0;
+}
+.dashboard .circle-stats .col-lg-4 .head{
+	position: relative;
+	top: 38px;
+}
+.dashboard .circle-stats .col-lg-4 .foot{
+	position: relative;
+	top: -26px;
+    left: 8px;
 }
 .referrals-hires,.top-contacts{
 	color: #878787;
-	padding: 60px 0;
+	padding: 44px 0;
 	font-size: 16px;
 }
 .referrals-hires .paid{
 	padding: 3px 5px;
 	background: #478b26;
 	color: white;
+}
+.referrals-hires .ref-hire-list{
+	position: relative;
+	height: 365px;
+}
+.referrals-hires .ref-hire-list .load-status-report{
+	height: 365px;
+	min-height: 365px;
+	z-index: 10000;
 }
 .referrals .dp,.hires .dp,.top-contacts .dp{
 	width: 70px;
@@ -325,11 +371,37 @@ header .notifications .user span:not(:last-child){
 	padding-left: 15px;
 	padding-top: 5px;
 }
-.hires li > div.pull-left{
-	width: 35%;
-}
 .hires li > div.pull-right{
+	width: 35%;
+	text-align: right;
+}
+.hires li > div.pull-left{
 	width: 65%;
+}
+.dropdown-days{
+	position: relative;
+	display: inline-block;
+	padding: 15px 0;
+	font-size: 14px;
+}
+.dropdown-days select{
+	border: 0;
+    background: transparent;
+    outline: 0;
+    font-weight: 900;
+    -webkit-appearance:none;
+  	-moz-appearance:none;
+  	appearance:none;
+  	width: 88px;
+  	cursor: pointer;
+}
+.dropdown-days i{
+	position: absolute;
+    font-size: 25px;
+    right: 10px;
+	top: 13px;
+    pointer-events: none;
+    color: #000;
 }
 /*.referrals .status{
 	padding: 30px 0 0 0;
@@ -349,14 +421,42 @@ strong{
 	border: 1px solid #ccc;
 	box-shadow: 1px 1px 5px #ccc;
 	text-align: initial;
+	height: 365px;
+    overflow: auto;
 }
 .referrals-hires ul > li{
 	width: 100%;
 	margin: 0;
-	/*border-bottom: 1px solid #ccc;*/
-	padding: 16px;
-	/*min-height: 107px;*/
+	padding: 8px;
+	border-bottom:1px solid #ccc;
 	display: block;
+}
+/*.referrals-hires ul > li:last-child{
+	border:0;
+}*/
+/*loader in dashboard */
+.load-status-report{
+	min-height: 358px;
+    height: 358px;
+    background: rgba(240, 244, 247, 0.88);
+    position: absolute;
+    width: 100%;
+    top: 0;
+    text-align: center;
+}
+.load-status-report span{
+	display: inline-block;
+	height: 100%;
+	vertical-align: middle;"
+}
+.load-status-report img{
+	width: 50px;
+	height: 50px; 
+	vertical-align: middle;
+}
+select:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 #000;
 }
 .referrals-hires img.sub-img{
 	position: absolute;
@@ -1419,3 +1519,4 @@ footer a:hover{
 	font-size: 13px;
     color: #983a3a;
 }
+
