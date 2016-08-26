@@ -69,7 +69,7 @@ angular.module('app.engagement.contacts', [])
     }
     
 
-	this.post_id = jobDetails.id
+	this.post_id = jobDetails.id;
 	this.job_title = jobDetails.job_title;
 
 	var scope = this,canceller;
@@ -148,32 +148,69 @@ angular.module('app.engagement.contacts', [])
     var interviewed = ['accept'],offermade = ['accept','interviewed'],hired = ['accept','interviewed','offermade'];
 
     var disabled_arr = status_arr;
+    var canceller;
     scope.process_status = function(status,index){
-        console.log(status,index)
-        if(status == 'interviewed'){
-            $('.'+status).eq(index).addClass('bg-accepted');
-            $('.'+status).eq(index).css('pointerEvents','none');
-            for(var i in interviewed){alert()
-                $('.'+interviewed[i]).eq(index).removeClass('bg-accepted');
-                $('.'+interviewed[i]).eq(index).css('pointerEvents','none');
-            }
+
+        if(canceller){
+            canceller.resolve();
         }
-        if(status == 'offermade'){
-            $('.'+status).eq(index).addClass('bg-accepted');
-            $('.'+status).eq(index).css('pointerEvents','none');
-            for(var i in offermade){
-                $('.'+offermade[i]).eq(index).removeClass('bg-accepted');
-                $('.'+offermade[i]).eq(index).css('pointerEvents','none');
+
+        canceller = $q.defer();
+        console.log(scope.referrals)
+        var statusData = $.param({
+            from_user : scope.referrals[index].from_user,
+            referred_by : scope.referrals[index].referred_by,
+            post_id : jobDetails.id,
+            awaiting_action_status : status,
+            relation_count : scope.referrals[index].relation_count
+        })
+
+        var awaitingStatus = $http({
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
+            method : 'POST',
+            data : statusData,
+            url : CONFIG.APP_DOMAIN+'awaiting_action',
+            timeout : canceller.promise
+        })
+
+        awaitingStatus.success(function(response){
+            console.log(response)
+            if(response.status_code == 200){
+               if(status == 'INTERVIEWED'){
+                    $('.'+status).eq(index).addClass('bg-accepted');
+                    $('.'+status).eq(index).css('pointerEvents','none');
+                    for(var i in interviewed){alert()
+                        $('.'+interviewed[i]).eq(index).removeClass('bg-accepted');
+                        $('.'+interviewed[i]).eq(index).css('pointerEvents','none');
+                    }
+                }
+                if(status == 'OFFERMADE'){
+                    $('.'+status).eq(index).addClass('bg-accepted');
+                    $('.'+status).eq(index).css('pointerEvents','none');
+                    for(var i in offermade){
+                        $('.'+offermade[i]).eq(index).removeClass('bg-accepted');
+                        $('.'+offermade[i]).eq(index).css('pointerEvents','none');
+                    }
+                }
+                if(status == 'HIRED'){
+                    $('.'+status).eq(index).addClass('bg-accepted');
+                    $('.'+status).eq(index).css('pointerEvents','none');
+                    for(var i in hired){
+                        $('.'+hired[i]).eq(index).removeClass('bg-accepted');
+                        $('.'+hired[i]).eq(index).css('pointerEvents','none');
+                    }
+                } 
             }
-        }
-        if(status == 'hired'){
-            $('.'+status).eq(index).addClass('bg-accepted');
-            $('.'+status).eq(index).css('pointerEvents','none');
-            for(var i in hired){
-                $('.'+hired[i]).eq(index).removeClass('bg-accepted');
-                $('.'+hired[i]).eq(index).css('pointerEvents','none');
+            else if(response.status_code == 400){
+                $window.location = CONFIG.APP_DOMAIN+'logout';
             }
-        }
+
+        })
+        awaitingStatus.error(function(response){
+            console.log(response)
+        })
     }
 
     scope.referral_status = function(tabName,obj,status_code){

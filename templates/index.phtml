@@ -49,7 +49,7 @@ and open the template in the editor.
                     API_DOMAIN : '<?php echo $data['API_DOMAIN']; ?>'
                 })
                 .value('UserDetails',<?php echo isset($data['user_details'])?$data['user_details']:'{}';?>)
-                .value('CompanyDetails',<?php echo isset($data['company_details'])?$data['company_details']:'{}';?>)
+                .value('CompanyDetails',<?php echo isset($data['comp_data'])?$data['comp_data']:'{}';?>)
                 .value('jobDetails',{
                     id:'<?php echo isset($data['post_id'])?$data['post_id']:'';?>',
                     job_title : ''

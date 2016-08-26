@@ -60,6 +60,7 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
 
     scope.email_show_error = false;
     scope.forgotPassword = function(isValid){
+        scope.backend_error = false;
         if(!isValid){
             scope.email_show_error = true;
         }

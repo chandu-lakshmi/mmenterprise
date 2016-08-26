@@ -90,6 +90,14 @@ return [
             'view_company_details' => [
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/view_company_details'
+            ],
+            'get_company_profile' => [
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_company_profile'
+            ],
+            'awaiting_action' => [
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/awaiting_action'
             ]
            
     ];

@@ -26,7 +26,7 @@
 					                     	<div ng-if="signin_form.l_email.$error.pattern && homeCtrl.login_show_error" class="has-error-msg">Please Enter Valid Email Address.</div>
 										</md-input-container>
 										<md-input-container class="md-block" style="margin-bottom:0">
-											<label for="l_pass">Password*</label>
+											<label for="l_pass">PASSWORD *</label>
 		      								<input type="password" id="l_pass" name="l_pass" ng-model="homeCtrl.signin_form.l_pass" required ng-pattern="/^(?=.*[a-zA-Z0-9]).{6,16}$/"  ng-class="{'has-error-border':signin_form.l_pass.$invalid && homeCtrl.login_show_error}">
 		      								<div ng-if="signin_form.l_pass.$error.required && homeCtrl.login_show_error" class="has-error-msg">Password Field is Required.</div>
 						                    <div ng-if="signin_form.l_pass.$error.pattern && homeCtrl.login_show_error" class="has-error-msg">Please Enter Atleast 6 characters.</div>
@@ -48,8 +48,8 @@
 										<md-input-container class="md-block">
 											<label for="forgot_email">Enter Email Address*</label>
 											<input type="email" id="forgot_email" name="forgot_email" ng-model="homeCtrl.forgotObj.forgot_email" required ng-pattern="/^[a-z0-9A-Z._%+-]+@[a-zA-Z]+\.[a-z]{2,3}$/" ng-class="{'has-error-border':forgot_password.forgot_email.$invalid && homeCtrl.email_show_error || homeCtrl.backend_error}">
-				                     		<div ng-if="forgot_password.forgot_email.$error.required && homeCtrl.email_show_error" class="has-error-msg">Please Enter Email Address.</div>
-				                     		<div ng-if="forgot_password.forgot_email.$error.pattern && homeCtrl.email_show_error" class="has-error-msg">Please Enter Valid Email Address.</div>
+				                     		<div ng-if="forgot_password.forgot_email.$error.required && homeCtrl.email_show_error && !homeCtrl.backend_error" class="has-error-msg">Please Enter Email Address.</div>
+				                     		<div ng-if="forgot_password.forgot_email.$error.pattern && homeCtrl.email_show_error && !homeCtrl.backend_error" class="has-error-msg">Please Enter Valid Email Address.</div>
 				                     		<div ng-if="homeCtrl.backend_error" class="has-error-msg">{{homeCtrl.invalid_error}}</div>
 										</md-input-container>
 										<button class="btn btn-lg btn-style btn-block btn-loader" ng-disabled="homeCtrl.load_cond_forgot">RESET NOW<img src="public/images/loader/butt_loader.gif" width="30px" style="margin-top: -2px;" alt="loader" ng-if="homeCtrl.load_cond_forgot"></button>

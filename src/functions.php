@@ -49,6 +49,29 @@ function commonData ($settings = array()) {
 		);
 }
 
+function companyProfile($settings){
+    //echo "<pre>";
+       //print_r($settings);exit;
+    
+    // getting API endpoint from settings
+    $apiEndpoint = getapiEndpoint($settings, 'get_company_profile');
+  
+    $companyDetails     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+
+     $data = json_decode($companyDetails->loadCurl(),true);
+     if(isset($data['data'])){
+  
+       return json_encode($data['data']['companyDetails']);  
+     }else{
+        return array(); 
+     }
+     
+     
+}
+
 //Session Details
 function setSession($result = "") {
 

@@ -324,6 +324,7 @@ $app->get('/job/job-details/{id}', function ($request, $response, $args) use ($a
         return $response->withRedirect($args['APP_DOMAIN']."/job");
     }
 });
+
 //Update Status Details
 $app->post('/process_job',function ($request, $response, $args) use ($app) {
    
@@ -400,6 +401,25 @@ $app->post('/get_services',function ($request, $response, $args) use ($app) {
        
 });
 
+// awaiting action
+$app->post('/awaiting_action',function ($request, $response, $args) use ($app) {
+   
+    // dynamically Access Token
+   $this->mintmeshAccessToken;
+      
+    // getting API endpoint from settings
+   $apiEndpoint = getapiEndpoint($this->settings, 'awaiting_action');
+   
+    $statusDetails    = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    
+    return checkJsonResult( $statusDetails->loadCurl() );
+
+       
+});
+
 /*$app->post('/get_services',function ($request, $response, $args) use ($app) {
     
       // dynamically Access Token
@@ -466,7 +486,7 @@ $app->POST('/file_upload',function ($request, $response, $args) {
 
     require 'library/fileupload_library.php';
     $file_upload = new fileupload_library; 
-            $args       = commonData($this->settings);
+        
         if (!isset($_REQUEST['filename']) && !isset($_FILES['qqfile'])) {
             $_REQUEST['filename'] = $_REQUEST['qqfile'];
         }
@@ -475,14 +495,14 @@ $app->POST('/file_upload',function ($request, $response, $args) {
                 $_REQUEST['filename'] = $_SERVER['HTTP_WMTGOAT'];
             }
             //print_r($_REQUEST['filename']);exit;
-            $allowedExtensions = array('jpg','png', 'jpeg','doc', 'pdf', 'xlsx');
+            $allowedExtensions = array('jpg','png', 'jpeg', "doc", "pdf", "xlsx");
             // max file size in bytes
             $sizeLimit = 26 * 1024 * 1024;
             $myfilename = 'attach_' . mt_rand().time();
             //upload the file and validate the size and file type
             $uploader = $file_upload->fileUpload($allowedExtensions, $sizeLimit);
             //return the file original and source name and path
-            $path = $args['PATH'];
+            $path = '/var/www/public/mintmesh/';
             $result = $file_upload->handleUpload(''.$path.'public/uploads/', FALSE, $myfilename);
             if (isset($result['success']) && $result['success'] == true) {
                     
@@ -499,6 +519,7 @@ $app->POST('/file_upload',function ($request, $response, $args) {
                 $fname =  str_replace('_',' ',$org_name);
                 //$result['org_name'] = pathinfo(filterString($fname), PATHINFO_FILENAME);
                 $result['org_name'] = $fname;
+                $result['logo_image'] = $myfilename.'.'.$result['ext'];     
                 $result['filename'] = 'public/uploads/'.$myfilename.'.'.$result['ext'];
                 $data['success'] = true;
                 echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);

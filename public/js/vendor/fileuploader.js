@@ -290,8 +290,8 @@ qq.FileUploaderBasic = function(o){
 		onError: function(id, fileName, xhr) {},
         // messages                
         messages: {
-            typeError: "Unfortunately, the file(s) you selected weren't the type we were expecting.  {file} has invalid extension. Only {extensions} are allowed.",
-            sizeError: "{file} is too large, maximum file size is {sizeLimit}.",
+            typeError: "Invalid file format. Only['JPEG', 'JPG', 'PNG'] formats are allowed",
+            sizeError: "Maximum file size is {sizeLimit}.",
             minSizeError: "{file} is too small, minimum file size is {minSizeLimit}.",
             emptyError: "{file} is empty, please select files again without it.",
             onLeave: "The files are being uploaded, if you leave now the upload will be cancelled."            
