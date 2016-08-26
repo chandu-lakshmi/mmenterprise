@@ -447,7 +447,39 @@ $app->post('/view_dashboard',function ($request, $response, $args) use ($app) {
         'postData'      => $_POST
      ));
     
-    return checkJsonResult( $statusDetails->loadCurl() );
+    return '{
+  "status_code": 200,
+  "status": "success",
+  "message": {
+    "msg": [
+      "successfully retrieved"
+    ]
+  },
+  "data": {
+    "post_counts": 36,
+    "status_count": {
+      "referral_count": 57,
+      "accepted_count": 54,
+      "interviewed_count": 0,
+      "hired_count": 8
+    },
+    "post_progress": {
+      "contacts": 0,
+      "jobs": 40,
+      "rewards": 65
+    },
+    "post_referrals": {
+        "job_title": "ios",
+        "referral": "xyz",
+        "referred_by" : "abc",
+        "time" : "10min ago",
+        "status" : "PENDING",
+        "img" : "public/images/Ui_Faces/John Butler.jpg",
+        "refimg" : "public/images/Ui_Faces/John Butler.jpg"
+    },
+    "post_hires": ""
+  }
+}'; exit;
 
        
 });

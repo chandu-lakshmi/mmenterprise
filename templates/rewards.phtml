@@ -19,20 +19,24 @@
 			<div class="col-sm-7 text-center sub-right">
 				<ul>
 					<li>
-						<h3>0</h3>
-						<span><img src="public/images/invited.svg" alt="invited">INVITED</span>
+						<h3>{{RewardCtrl.subHeaderCount.invited_count}}</h3>
+						<span><img src="public/images/invited-header.svg" alt="invited">INVITED</span>
 					</li>
 					<li>
-						<h3>0</h3>
-						<span><img src="public/images/referrals.svg" alt="invited">REFERRALS</span>
+						<h3>{{RewardCtrl.subHeaderCount.referral_count}}</h3>
+						<span><img src="public/images/referrals-header.svg" alt="referral">REFERRALS</span>
 					</li>
 					<li>
-						<h3>0</h3>
-						<span><img src="public/images/Applied.svg" alt="invited"></i>ACCEPTED</span>
+						<h3>{{RewardCtrl.subHeaderCount.pending_count}}</h3>
+						<span><img src="public/images/referrals-header.svg" alt="pending">PENDING</span>
 					</li>
 					<li>
-						<h3>0</h3>
-						<span><img src="public/images/hired.svg">HIRED</span>
+						<h3>{{RewardCtrl.subHeaderCount.accepted_count}}</h3>
+						<span><img src="public/images/Applied.svg" alt="accepetd"></i>ACCEPTED</span>
+					</li>
+					<li>
+						<h3>{{RewardCtrl.subHeaderCount.hired_count}}</h3>
+						<span><img src="public/images/hired-header.svg" alt="hired">HIRED</span>
 					</li>
 				</ul>
 			</div>

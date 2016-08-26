@@ -827,17 +827,27 @@ footer a:hover{
 }
 .sub-header .sub-right ul{
 	list-style: none;
-	margin: 0;
-	padding: 25px 0;
+	margin: 20px;
+	padding: 0;
+	overflow: hidden;
+    background: #12384d;
+    border-radius: 10px;
+}
+.sub-header .sub-right ul li:first-child{
+
+}
+.sub-header .sub-right ul li:last-child{
+	border-right: 0;
 }
 .sub-header .sub-right ul li{
 	width: 20%;
-	border: 1px solid #233f50;
+	border: 1px solid #0c2c3b;
 	border-top: 0;
 	border-bottom: 0;
 	float: left;
 	margin-right: -1px;
-	margin: 15px -1px 15px 0;
+	/*margin: 15px -1px 15px 0;*/
+	padding: 20px 0;
 }
 .sub-header .sub-right ul li h3{
 	margin-top: 0px;

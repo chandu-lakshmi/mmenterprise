@@ -35,7 +35,7 @@ angular.module('app.company.profile', [])
 .controller('CompanyProfileController', ['$state','$window','$http','CompanyDetails','CONFIG','$scope',function ($state,$window,$http,CompanyDetails,CONFIG,$scope) {
 
     var scope = this;
-    this.comp_name = CompanyDetails.company_name;
+    this.comp_name = CompanyDetails.name;
 
     // GetIndustries
     var get_industries = $http({
