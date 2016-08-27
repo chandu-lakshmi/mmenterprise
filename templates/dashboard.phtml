@@ -47,6 +47,7 @@
 						<select ng-change="DashCtrl.showReportsSel(days)" ng-model="days" >
 							<option value="7">7 Days</option>
 							<option value="30">30 Days</option>
+							<option value="360">1 Year</option>
 						</select>
 						<i class="fa fa-angle-down fa-feedback"></i>
 					</div>
@@ -113,28 +114,29 @@
 								<select ng-change="DashCtrl.lastReferrals(refDays)" ng-model="refDays" ng-init="refDays='7'">
 									<option value="7">7 Days</option>
 									<option value="30">30 Days</option>
+									<option value="360">1 Year</option>
 								</select>
 								<i class="fa fa-angle-down fa-feedback"></i>
 							<!-- <span class="pull-right">Referrals Increased &nbsp;<span class="arrow-up"></span></span> -->
 						</div>
 						<div class="ref-hire-list">
 							<ul class="referrals">
-								<li class="clearfix" ng-repeat="refList in DashCtrl.referralsList">
+								<li class="clearfix" ng-repeat="refList in DashCtrl.referralsList track by $index">
 									<div class="pull-left" style="position: relative;padding-right: 10px" ng-init="getColor=DashCtrl.getColor(refList.status)">
-										<img ng-src="{{refList.imgSrc}}" class="pull-left img-responsive img-circle dp" ng-style="{'border': '3px solid {{getColor}}'}">
-										<img ng-src="{{refList.refImgSrc}}" class="img-responsive img-circle sub-img">
+										<img ng-src="{{refList.referral_img}}" class="pull-left img-responsive img-circle dp" ng-style="{'border': '3px solid {{getColor}}'}">
+										<img ng-src="{{refList.referred_by_img}}" class="img-responsive img-circle sub-img">
 									</div>
 									<div class="content">
 										<span>
-											<strong ng-bind="refList.name"></strong>
+											<strong ng-bind="refList.referral"></strong>
 											 	was referred for 
-											<strong ng-bind="refList.designation"></strong>
+											<strong ng-bind="refList.job_title"></strong>
 										</span>
 										<br>
-										<span>by {{refList.refName}}</span>
+										<span>by {{refList.referred_by}}</span>
 										<span>
 											<span class="vr"></span>
-											<span ng-bind="refList.time"></span> 
+											<span ng-bind="refList.created_at"></span> 
 											<span class="pull-right" ng-style="{'color':getColor}" ng-bind="refList.status"></span>
 										</span>
 									</div>
@@ -152,6 +154,7 @@
 							<select ng-change="DashCtrl.lastHires(hireDays)" ng-model="hireDays" ng-init="hireDays='30'">
 								<option value="7">7 Days</option>
 								<option value="30">30 Days</option>
+								<option value="360">1 Year</option>
 							</select>
 							<i class="fa fa-angle-down fa-feedback"></i>
 							<!-- <span class="pull-right">Hires Decreased &nbsp;<span class="arrow-down"></span></span> -->
@@ -160,24 +163,24 @@
 							<ul class="hires">
 								<li class="clearfix" ng-repeat="hireList in DashCtrl.hiresList">
 									<div class="pull-right" style="padding: 5px 0;line-height: 2em">
-										<strong ng-bind="hireList.designation"></strong>
+										<strong ng-bind="hireList.job_title"></strong>
 										<br>
-										<span class="paid" ng-bind="hireList.amount"></span>
+										<span class="paid" ng-bind="'Paid $'+hireList.service_cost"></span>
 									</div>
 									<div class="pull-left" style="position: relative;">
-										<img ng-src="{{hireList.imgSrc}}" class="pull-left img-responsive img-circle dp" style="border: 3px solid #468A25">
-										<img ng-src="{{hireList.refImgSrc}}" class="img-responsive img-circle sub-img">
+										<img ng-src="{{hireList.referral_img}}" class="pull-left img-responsive img-circle dp" style="border: 3px solid #468A25">
+										<img ng-src="{{hireList.referred_by_img}}" class="img-responsive img-circle sub-img">
 										<div class="content">
 											<span>
-												<strong ng-bind="hireList.name"></strong>
+												<strong ng-bind="hireList.referral"></strong>
 													was referred by
 											</span>
 											<br>
 											<span>
-												<i>{{hireList.refName}}</i>
+												<i>{{hireList.referred_by}}</i>
 											</span>
 											<span class="vr"></span>
-											<span ng-bind="hireList.time"></span> 
+											<span ng-bind="hireList.created_at"></span> 
 										</div>
 									</div>
 								</li>

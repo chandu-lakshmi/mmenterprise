@@ -60,22 +60,12 @@ angular.module('app.dashboard', ['ngProgress'])
 		});
 	}
 	
-	/* sample data */
-	var dataRef = [
-		{"id" : 1, "name" : "John Butler", "imgSrc" : "public/images/Ui_Faces/John Butler.jpg", "refImgSrc" : "public/images/Ui_Faces/Steve Chris.jpg", "designation" : "UI/UX Designer", "refName" : "Steve Chris", "time" : "12 min ago", "status" : "Pending" },
-		{"id" : 2, "name" : "Daniel", "imgSrc" : "public/images/Ui_Faces/Daniel.jpg", "refImgSrc" : "public/images/Ui_Faces/Julia Lawson.jpg", "designation" : "Salesforce Architect", "refName" : "Julia Lawson", "time" : "25 mins ago", "status" : "Accepted" },
-		{"id" : 3, "name" : "Christopher", "imgSrc" : "public/images/Ui_Faces/Christopher.jpg", "refImgSrc" : "public/images/Ui_Faces/Kristene Scot.jpg", "designation" : "iOS Developer", "refName" : "Kristene Scot", "time" : "12 min ago", "status" : "Hired" },
-		{"id" : 4, "name" : "Johnson", "imgSrc" : "public/images/Ui_Faces/Johnson.jpg", "refImgSrc" : "public/images/Ui_Faces/Mary L.jpg", "designation" : "UI/UX Designer", "refName" : "Mary L", "time" : "1 day ago", "status" : "Declined" },
-		{"id" : 4, "name" : "Johnson", "imgSrc" : "public/images/Ui_Faces/Johnson.jpg", "refImgSrc" : "public/images/Ui_Faces/Mary L.jpg", "designation" : "UI/UX Designer", "refName" : "Mary L", "time" : "1 day ago", "status" : "Declined" }
-	];
-	var dataHire = [
-		{"id" : 1, "name" : "Daniel", "imgSrc" : "public/images/Ui_Faces/Daniel.jpg", "refImgSrc" : "public/images/Ui_Faces/Julia Lawson.jpg", "designation" : "Salesforce Architect", "refName" : "Julia Lawson", "time" : "1 day ago", "amount" : "Paid $5" },
-	];
-
 	/* $http request for Dashboard */
 	var dashboardParams = $.param({
-        company_code : CompanyDetails.company_code
-    });
+		company_code : CompanyDetails.company_code,
+        request_type : ''
+	});
+
 	var dashboard_job_details = $http({
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -92,11 +82,8 @@ angular.module('app.dashboard', ['ngProgress'])
 			var postProgress = response.data.post_progress;
 			scope.jobsCount = response.data.post_counts;
 			scope.jobsStatusCount = response.data.status_count;
-			//scope.referralsList = response.data.post_referrals;
-			//scope.hiresList = response.data.post_hires;
-			scope.referralsList = dataRef;
-			scope.hiresList = dataHire;
-			//circleProgress(postProgress.contacts, postProgress.jobs, postProgress.rewards);
+			scope.referralsList = response.data.post_referrals;
+			scope.hiresList = response.data.post_hires;
 			setTimeout(function(){circleProgress(postProgress.contacts, postProgress.jobs, postProgress.rewards)},0);
 		}
 		else if(response.status_code == 400){
@@ -108,12 +95,18 @@ angular.module('app.dashboard', ['ngProgress'])
 	});
 
 
-	/* $http request for showReports select box */
+	/* $http request for Progress select box */
 	var canceller;	
 	this.loaderShowReport = false;
 	this.showReportsSel = function(days){
-		scope.loaderShowReport = true;
 
+		var progressParams = $.param({
+			company_code : CompanyDetails.company_code,
+	        request_type :'PROGRESS',
+			filter_limit : days
+		});
+		
+		scope.loaderShowReport = true;
 		if (canceller) {
             canceller.resolve();
         }
@@ -125,22 +118,19 @@ angular.module('app.dashboard', ['ngProgress'])
 	            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
 	        },
 	        method : 'POST',
-	        //data:'showReports: '+days,
-	        data: dashboardParams,
+	        data: progressParams,
 	        url : CONFIG.APP_DOMAIN + 'view_dashboard',
 	        timeout : canceller.promise
 		})
 		showReports.success(function(response){
 			if (response.status_code == 200) {
 				var postProgress = response.data.post_progress;
-				scope.loaderShowReport = false;
+				scope.loaderShowReport = false;				
 				$('.circlestat svg:last-child').remove();
 				$('.circlestat1 svg:last-child').remove();
 				$('.circlestat2 svg:last-child').remove();
 				circleProgress(postProgress.contacts, postProgress.jobs, postProgress.rewards);
-				// $.when($('.circlestat').circliful({percent: postProgress.contacts})).then( );
-				// $.when($('.circlestat1').circliful({percent: postProgress.jobs})).then( );
-				// $.when($('.circlestat2').circliful({percent: postProgress.rewards})).then(  );
+				// $.when($('.circlestat').circliful({percent: postProgress.contacts})).then($('.circlestat svg:last-child').remove());
 			}
 		})
 		dashboard_job_details.error(function(response){
@@ -154,6 +144,13 @@ angular.module('app.dashboard', ['ngProgress'])
 	var cancelleRerrals;	
 	this.loaderRerrals = false;
 	this.lastReferrals = function(days){
+
+		var refParams = $.param({
+			company_code : CompanyDetails.company_code,
+	        request_type :'REFERRALS',
+			filter_limit : days
+		});
+
 		scope.loaderRerrals = true;
 
 		if (cancelleRerrals) {
@@ -167,16 +164,14 @@ angular.module('app.dashboard', ['ngProgress'])
 	            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
 	        },
 	        method : 'POST',
-	        //data:'lastReferrals: '+days,
-	        data: dashboardParams,
+	        data: refParams,
 	        url : CONFIG.APP_DOMAIN + 'view_dashboard',
 	        timeout : cancelleRerrals.promise
 		})
 		showReports.success(function(response){
 			if (response.status_code == 200) {
 				scope.loaderRerrals = false;
-				//scope.referralsList = response.data.post_referrals;
-				scope.referralsList = dataRef;
+				scope.referralsList = response.data.post_referrals;
 			}
 		})
 		dashboard_job_details.error(function(response){
@@ -189,6 +184,14 @@ angular.module('app.dashboard', ['ngProgress'])
 	var cancelleHires;	
 	this.loaderHires = false;
 	this.lastHires = function(days){
+
+		var hiresParams = $.param({
+			company_code : CompanyDetails.company_code,
+	        request_type :'HIRED',
+			filter_limit : days
+		});
+
+
 		scope.loaderHires = true;
 
 		if (cancelleHires) {
@@ -202,16 +205,14 @@ angular.module('app.dashboard', ['ngProgress'])
 	            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
 	        },
 	        method : 'POST',
-	        //data:'lastHires: '+days,
-	        data: dashboardParams,
+	        data: hiresParams,
 	        url : CONFIG.APP_DOMAIN + 'view_dashboard',
 	        timeout : cancelleHires.promise
 		})
 		showReports.success(function(response){
 			if (response.status_code == 200) {
 				scope.loaderHires = false;
-				//scope.hiresList = response.data.post_hires;
-				scope.hiresList = dataHire;
+				scope.hiresList = response.data.post_hires;
 			}
 		})
 		dashboard_job_details.error(function(response){

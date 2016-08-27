@@ -359,6 +359,7 @@ header .notifications .user span:not(:last-child){
 }
 .referrals .dp,.hires .dp,.top-contacts .dp{
 	width: 70px;
+	height: 70px;
 }
 .referrals .content{
 	/*display: inline-block;*/
@@ -461,6 +462,7 @@ select:-moz-focusring {
 .referrals-hires img.sub-img{
 	position: absolute;
     width: 38px;
+    height: 38px;
     left: 35px;
     top: 40px;
     z-index: 9999;
