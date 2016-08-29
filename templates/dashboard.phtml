@@ -137,7 +137,7 @@
 										<span>
 											<span class="vr"></span>
 											<span ng-bind="refList.created_at"></span> 
-											<span class="pull-right" ng-style="{'color':getColor}" ng-bind="refList.status"></span>
+											<span class="pull-right" style="text-transform: capitalize;" ng-style="{'color':getColor}" ng-bind="refList.status | lowercase"></span>
 										</span>
 									</div>
 								</li>
@@ -162,7 +162,7 @@
 						<div class="ref-hire-list">
 							<ul class="hires">
 								<li class="clearfix" ng-repeat="hireList in DashCtrl.hiresList">
-									<div class="pull-right" style="padding: 5px 0;line-height: 2em">
+									<div class="pull-right" style="padding: 5px 0;line-height: 1.8em">
 										<strong ng-bind="hireList.job_title"></strong>
 										<br>
 										<span class="paid" ng-bind="'Paid $'+hireList.service_cost"></span>
@@ -177,7 +177,7 @@
 											</span>
 											<br>
 											<span>
-												<i>{{hireList.referred_by}}</i>
+												<i style="color:#000">{{hireList.referred_by}}</i>
 											</span>
 											<span class="vr"></span>
 											<span ng-bind="hireList.created_at"></span> 
@@ -198,11 +198,11 @@
 		<div class="top-contacts" style="border:0">
 			<div class="container">
 
-				<!-- <div class="first">
+				 <div class="first">
 
-					<div style="padding: 15px 0">Top Referrers in your <strong style="cursor: pointer;">Connections &nbsp;<img src="public/images/arrow-dropdown-black.svg"></strong></div>
+					<!-- <div>TOP REFERRERS FROM YOUR <strong>CONTACTS</strong></div> -->
 
-					<div class="row">
+					<!-- <div class="row">
 						<div class="col-lg-4 col-md-6 col-sm-6" ng-repeat="conn in DashCtrl.dashboard_JSON[0].Connections">
 							<div class="box clearfix">
 								<div class="clearfix">
@@ -223,8 +223,8 @@
 								</div>
 							</div>
 						</div>
-					</div>
-				</div> -->
+					</div> -->
+				</div>
 
 				<!-- <div class="second">
 
@@ -376,7 +376,7 @@
 							</div>
 						</div>
 					</div>
-				</div> -->
+				</div>  -->
 			</div>
 		</div>
 	</section>

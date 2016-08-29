@@ -22,6 +22,14 @@ angular.module('app.edit.company', [])
 	        e.preventDefault();
 	});
 
+	// textarea autoheight 
+	$('textarea').each(function () {
+  		this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;max-height:106px;');
+	}).on('input', function () {
+  		this.style.height = 'auto';
+  		this.style.height = (this.scrollHeight) + 'px';
+	});
+
 	$('.edit-company').addClass('text-selection');
 	$('form').css('pointer-events','none');
 
@@ -202,6 +210,7 @@ angular.module('app.edit.company', [])
 
 	        update_company.success(function(response){
 	        	if(response.status_code == 200){
+	        		$('form').css('pointer-events','none');
 	        		if(response.data.hasOwnProperty('company_logo')){
 	        			$('.user_dp img').attr({
 	        				'src':response.data.company_logo
@@ -242,7 +251,7 @@ angular.module('app.edit.company', [])
 		uploadButtonText: "",
 		multiple : false,
 		sizeLimit: (1*1024*1024),
-		allowedExtensions: ["jpg", "jpeg", "png"],
+		allowedExtensions: ["JPG", "JPEG", "PNG"],
 	    action: CONFIG.APP_DOMAIN+'file_upload',
 
 	    onSubmit: function(id, name){
@@ -284,7 +293,7 @@ angular.module('app.edit.company', [])
 			uploadButtonText: "",
 		    multiple : false,
 			sizeLimit: (1*1024*1024),
-			allowedExtensions: ["jpg", "jpeg", "png"],
+			allowedExtensions: ["JPG", "JPEG", "PNG"],
 		    action: CONFIG.APP_DOMAIN+'file_upload',
 
 		    onSubmit: function(id, name){
@@ -319,17 +328,14 @@ angular.module('app.edit.company', [])
 		uploadButtonText: "Upload a file",
 	    multiple : false,
 	    sizeLimit: (10*1024*1024),
-		allowedExtensions: ['jpg', 'gif', 'png', 'jpeg', 'eps', 'cdr', 'ai', 'psd', 'tga', 'tiff', 'tif', 'ttf', 'svg', 'zip', 'rar',
-               'gz', 'tar', 'tarz', '7zip', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'pps', 'ppsx', 'pdf', 'eml', 'msg',
-               'txt', 'rtf', 'wps', 'csv', 'xml', 'otf', 'eot',
-               'mp3', 'm4a', 'aac', 'wmv', 'wma', 'avi', 'mp4', 'mov', 'mpg', 'qxd', 'qxp', 'swf', 'fla', 'odt', 'vsd', 'wav', 'aiff',
-               'sit', 'sitx', 'numbers', 'pages', 'key', 'ps', 'avi'],
+		allowedExtensions: ['CSV','PDF','DOC','DOCX'],
 	    action: CONFIG.APP_DOMAIN+'file_upload',
 
 	    onSubmit: function(id, name){
 	    	$referral_bonus.find('.drag_txt').hide();
 	    	$referral_bonus.find('.qq-upload-button').hide();
             $referral_bonus.find('.qq-upload-list').show();
+            $referral_bonus.find('.qq-upload-list').css('z-index','0');
 	    },
 	    onComplete: function(id, name, response){
 	    	if(response.success){

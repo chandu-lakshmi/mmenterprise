@@ -28,13 +28,13 @@
 							</md-input-container>
 							<md-input-container class="md-block">
 					            <label>INDUSTRY</label>
-					            <md-select ng-model="editCompCtrl.company_details.industry" required ng-class="{'has-error-border':edit_company_form.industry.$invalid && editCompCtrl.errCond}">
+					            <md-select name="ind" ng-model="editCompCtrl.company_details.industry" required ng-class="{'has-error-border':edit_company_form.ind.$invalid && editCompCtrl.errCond}">
 					              	<md-option ng-repeat="industry in editCompCtrl.industry_list" ng-value="industry.industry_id">
 					                	{{industry.industry_name}}
 					              	</md-option>
 					            </md-select>
 					            <div class="md-errors-spacer"></div>
-					            <div ng-if="edit_company_form.industry.$error.required && editCompCtrl.errCond" class="has-error-msg">Please Select Industry</div>
+					            <div ng-if="edit_company_form.ind.$error.required && editCompCtrl.errCond" class="has-error-msg">Please Select Industry</div>
 					        </md-input-container>
 				            <input type="hidden" name="industry" ng-value="editCompCtrl.company_details.industry">
 					        <md-input-container class="md-block">
@@ -60,7 +60,7 @@
 							</md-input-container>
 							<md-input-container class="md-block">
       							<label>DESCRIPTION</label>
-          						<textarea name="description" ng-model="editCompCtrl.company_details.description" md-maxlength="500" maxlength="500" ng-maxlength="500" rows="1" style="max-height:106px !important"></textarea>
+          						<textarea name="description" ng-model="editCompCtrl.company_details.description" md-maxlength="500" maxlength="500" ng-maxlength="500" md-no-autogrow rows="1"></textarea>
     						</md-input-container>
 						</div>
 	 				</div>
@@ -80,7 +80,7 @@
 					        	<span>REFERRAL BONUS POLICY</span>
 					        	<div id="referral-bonus"></div>
 					        	<ul style="color: #999;font-size:13px;padding-left:19px;">
-					        		<li>Supported file format: ".JPEG", ".JPG", ".PNG", ".DOC", ".PDF", ".XLSX"</li>
+					        		<li>Supported file format: ".DOC", ".PDF", ".CSV", ".DOCX"</li>
 					        		<li>Max file size (10.0MB)</li>
 					        	</ul>
 					        </div>

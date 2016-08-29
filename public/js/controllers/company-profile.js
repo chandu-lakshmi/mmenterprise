@@ -37,6 +37,11 @@ angular.module('app.company.profile', [])
     var scope = this;
     this.comp_name = CompanyDetails.name;
 
+    var referralSuccess = false,bonus_org_name = '',bonus_file_name = '';
+    var bonus_file_path = '';
+
+    var $referral_bonus = '';
+
     // GetIndustries
     var get_industries = $http({
         headers: {
@@ -127,13 +132,19 @@ angular.module('app.company.profile', [])
     var referralBonus;
     this.uploadPdf = function(){
         var files = this.files[0];
-        referralBonus = files;
-        if(files.size <= (10 * 1024 *1024)){
-            $('#pdf_name').text(files.name);
+        var type = files.type.split('/')[0];
+        if(type != 'image'){
+            referralBonus = files;
+            if(files.size <= (10 * 1024 *1024)){
+                $('#pdf_name').text(files.name);
+            }
+            else{
+                $('#pdf_err_name').text("Exceeds Maximum Size");
+            }
         }
         else{
-            $('#pdf_err_name').text("Exceeds Maximum Size");
-        }
+            $('#pdf_err_name').text("Invalid File Format");
+        }      
     }
 
     // Posting Data to API
@@ -157,6 +168,11 @@ angular.module('app.company.profile', [])
 
         for(var i = 0; i < multipleImages.length; i++){
             formData.append('images['+i+']',multipleImages[i]);
+        }
+
+        if(referralSuccess){
+            formData.append('referral_org_name',bonus_org_name)
+            formData.append('referral_bonus_file', bonus_file_name);
         }
             
 
@@ -198,6 +214,11 @@ angular.module('app.company.profile', [])
     this.comp3_show_error = false;
     
     this.jump = function(go,isValid){
+        if(go == 2){
+            setTimeout(function(){
+                qqUploaderCall();
+            },100)
+        }
         if(!isValid){
             if(go == 1)
                 this.comp1_show_error = true;
@@ -238,6 +259,65 @@ angular.module('app.company.profile', [])
 
         var curr = 'go_'+cur;
         this[curr] = false;
+    }
+
+    // qq uploader
+    function qqUploaderCall(){
+        // Referral Bonus upload
+        $referral_bonus = $('#referral-bonus');
+        var uploader = new qq.FileUploader({
+            element: document.getElementById('referral-bonus'),
+            dragText: "",
+            uploadButtonText: "Upload a file",
+            multiple : false,
+            sizeLimit: (10*1024*1024),
+            allowedExtensions: ['jpg', 'gif', 'png', 'jpeg', 'eps', 'cdr', 'ai', 'psd', 'tga', 'tiff', 'tif', 'ttf', 'svg', 'zip', 'rar',
+               'gz', 'tar', 'tarz', '7zip', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'pps', 'ppsx', 'pdf', 'eml', 'msg',
+               'txt', 'rtf', 'wps', 'csv', 'xml', 'otf', 'eot',
+               'mp3', 'm4a', 'aac', 'wmv', 'wma', 'avi', 'mp4', 'mov', 'mpg', 'qxd', 'qxp', 'swf', 'fla', 'odt', 'vsd', 'wav', 'aiff',
+               'sit', 'sitx', 'numbers', 'pages', 'key', 'ps', 'avi'],
+            action: CONFIG.APP_DOMAIN+'file_upload',
+
+            onSubmit: function(id, name){
+                $referral_bonus.find('.drag_txt').hide();
+                $referral_bonus.find('.qq-upload-button').hide();
+                $referral_bonus.find('.qq-upload-list').show();
+                $referral_bonus.find('.qq-upload-list').css('z-index','0');
+            },
+            onComplete: function(id, name, response){
+                if(response.success){
+                    referralSuccess = true;
+                    bonus_org_name = response.org_name;
+                    bonus_file_name = response.filename;
+                    bonus_file_path = CONFIG.APP_API_DOMAIN+response.filename;
+                    $referral_bonus.find('.qq-upload-fail').remove();
+                    $referral_bonus.find('.qq-upload-success').hide();
+                    $referral_bonus.find('.qq-upload-list').css('z-index','-1');
+                    $referral_bonus.find('.qq-upload-drop-area').css('display','block');
+                    // $referral_bonus.find('.qq-upload-list').append("<li><input type='hidden' name='referral_org_name' value='" + response.org_name + "' /><input type='hidden' value='" + response.filename + "' name='referral_bonus_file'/></li>").show();
+                    $referral_bonus.find('.qq-upload-drop-area').html('<div class="drag_img"><a href="'+bonus_file_path+'" download><img src="public/images/Applied.svg" alt="download"><p>'+response.org_name+'&nbsp;</p></a><img src="public/images/close-popup-grey.svg" onclick="angular.element(this).scope().compCtrl.trash(-2)" style="width:20px;float:right;cursor:pointer"/>');
+                }
+                else{
+                    $referral_bonus.find('.qq-upload-button').show();
+                    $referral_bonus.find('.qq-upload-fail').remove();
+                    $referral_bonus.append("<div class='qq-upload-fail'><i class='fa fa-times'></i>&nbsp;<span>"+response.msg+"</span></div>");
+                }
+            },
+            showMessage: function(msg){
+                $referral_bonus.find('.qq-upload-fail').remove();
+                $referral_bonus.append("<div class='qq-upload-fail'><i class='fa fa-times'></i>&nbsp;<span>"+msg+"</span></div>");
+            }
+        })
+    }
+
+    scope.trash = function(value){
+        $referral_bonus = $('#referral-bonus');
+        if(value == '-2'){
+            $referral_bonus.find('.drag_img').remove();
+            $referral_bonus.find('.qq-upload-list li').remove();
+            $referral_bonus.find('.qq-upload-drop-area').css('display','none');
+            $referral_bonus.find('.qq-upload-button').show();
+        }
     }
 
 

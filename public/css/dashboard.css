@@ -344,17 +344,19 @@ header .notifications .user span:not(:last-child){
 	font-size: 16px;
 }
 .referrals-hires .paid{
-	padding: 3px 5px;
-	background: #478b26;
-	color: white;
+	padding: 2px 5px;
+    background: #478b26;
+    color: white;
+    font-size: 14px;
+    border-radius: 2px;
 }
 .referrals-hires .ref-hire-list{
 	position: relative;
 	height: 365px;
 }
 .referrals-hires .ref-hire-list .load-status-report{
-	height: 365px;
-	min-height: 365px;
+	height: 348px;
+	min-height: 348px;
 	z-index: 10000;
 }
 .referrals .dp,.hires .dp,.top-contacts .dp{
@@ -362,9 +364,13 @@ header .notifications .user span:not(:last-child){
 	height: 70px;
 }
 .referrals .content{
-	/*display: inline-block;*/
+	font-size: 14px;
 	padding: 5px 0;
 	line-height: 2em;
+}
+.referrals .content strong,.referrals-hires .ref-hire-list strong{
+	font-weight: 200;
+	text-transform: capitalize;
 }
 .hires .content{
 	display: inline-block;
@@ -417,12 +423,12 @@ strong{
 }
 .referrals-hires ul{
 	margin: 0;
-	padding: 0;
-	list-style: none;
-	border: 1px solid #ccc;
-	box-shadow: 1px 1px 5px #ccc;
-	text-align: initial;
-	height: 365px;
+    padding: 0;
+    list-style: none;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 5px #ccc;
+    text-align: initial;
+    height: 350px;
     overflow: auto;
 }
 .referrals-hires ul > li{
@@ -441,8 +447,9 @@ strong{
     height: 358px;
     background: rgba(240, 244, 247, 0.88);
     position: absolute;
-    width: 100%;
-    top: 0;
+    width: 99%;
+    top: 1px;
+    left: 1px;
     text-align: center;
 }
 .load-status-report span{
@@ -471,9 +478,9 @@ select:-moz-focusring {
 .fa-clock-o{
 	color: #E9832E;
 }
-.top-contacts .first{
+/*.top-contacts .first{
 	padding-bottom: 40px;
-	/*border-bottom: 1px solid #ccc;*/
+	border-bottom: 1px solid #ccc;
 }
 .top-contacts .second{
 	padding: 40px 0;
@@ -496,7 +503,7 @@ select:-moz-focusring {
 }
 .top-contacts .box strong.name{
 	color: #108BD8;
-}
+}*/
 
 /*Footer Styles*/
 footer{
@@ -1416,6 +1423,7 @@ footer a:hover{
     top: 40%;
     right: 0;
     height: 10px;
+    width: 100%;
 }
 .qq-upload-drop-area{
 	width: 100%;
@@ -1504,6 +1512,7 @@ footer a:hover{
 }
 .edit-company .edit-box .referral-bonus .qq-uploader .qq-upload-list{
 	top: 0;
+	width: 100%;
 }
 .edit-company .edit-box .referral-bonus .qq-uploader .qq-upload-drop-area{
 	background: transparent;
