@@ -40,7 +40,7 @@ angular.module('app.dashboard', ['ngProgress'])
 		    percent: contact,
 		    foregroundBorderWidth: 9,
 		    backgroundBorderWidth: 9,
-		    backgroundColor: '#d4dfe5',
+		    backgroundColor: '#d4dfe5'
 		});
 
 		$('.circlestat1').circliful({
@@ -48,7 +48,7 @@ angular.module('app.dashboard', ['ngProgress'])
 		    percent: job,
 		    foregroundBorderWidth: 9,
 		    backgroundBorderWidth: 9,
-		    backgroundColor: '#d4dfe5',
+		    backgroundColor: '#d4dfe5'
 		});
 
 		$('.circlestat2').circliful({
@@ -56,11 +56,13 @@ angular.module('app.dashboard', ['ngProgress'])
 	        percent: reward,
 	        foregroundBorderWidth: 9,
 	        backgroundBorderWidth: 9,
-	        backgroundColor: '#d4dfe5',
+	        backgroundColor: '#d4dfe5'
 		});
 	}
 	
 	/* $http request for Dashboard */
+	this.noDataRef = false;
+	this.noDataHire = false;
 	var dashboardParams = $.param({
 		company_code : CompanyDetails.company_code,
         request_type : ''
@@ -84,6 +86,12 @@ angular.module('app.dashboard', ['ngProgress'])
 			scope.jobsStatusCount = response.data.status_count;
 			scope.referralsList = response.data.post_referrals;
 			scope.hiresList = response.data.post_hires;
+			if(scope.referralsList.length == 0){
+				scope.noDataRef = true;
+			}
+			if(scope.hiresList.length == 0){
+				scope.noDataHire = true;
+			}
 			setTimeout(function(){circleProgress(postProgress.contacts, postProgress.jobs, postProgress.rewards)},0);
 		}
 		else if(response.status_code == 400){
@@ -144,14 +152,14 @@ angular.module('app.dashboard', ['ngProgress'])
 	var cancelleRerrals;	
 	this.loaderRerrals = false;
 	this.lastReferrals = function(days){
-
+		scope.noDataRef = false;
+		scope.loaderRerrals = true;
+		
 		var refParams = $.param({
 			company_code : CompanyDetails.company_code,
 	        request_type :'REFERRALS',
 			filter_limit : days
 		});
-
-		scope.loaderRerrals = true;
 
 		if (cancelleRerrals) {
             cancelleRerrals.resolve();
@@ -172,6 +180,9 @@ angular.module('app.dashboard', ['ngProgress'])
 			if (response.status_code == 200) {
 				scope.loaderRerrals = false;
 				scope.referralsList = response.data.post_referrals;
+				if(scope.referralsList.length == 0){
+					scope.noDataRef = true;
+				}
 			}
 		})
 		dashboard_job_details.error(function(response){
@@ -184,15 +195,14 @@ angular.module('app.dashboard', ['ngProgress'])
 	var cancelleHires;	
 	this.loaderHires = false;
 	this.lastHires = function(days){
+		scope.noDataHire = false;
+		scope.loaderHires = true;
 
 		var hiresParams = $.param({
 			company_code : CompanyDetails.company_code,
 	        request_type :'HIRED',
 			filter_limit : days
 		});
-
-
-		scope.loaderHires = true;
 
 		if (cancelleHires) {
             cancelleHires.resolve();
@@ -213,6 +223,9 @@ angular.module('app.dashboard', ['ngProgress'])
 			if (response.status_code == 200) {
 				scope.loaderHires = false;
 				scope.hiresList = response.data.post_hires;
+				if(scope.hiresList.length == 0){
+					scope.noDataHire = true;
+				}
 			}
 		})
 		dashboard_job_details.error(function(response){
@@ -220,14 +233,9 @@ angular.module('app.dashboard', ['ngProgress'])
 		});
 
 	}
-
-
-
-
-
 	
 }])
-
+ 
 .controller('HeaderController',['UserDetails', 'CompanyDetails', '$http', 'CONFIG', function(UserDetails,CompanyDetails,$http,CONFIG){
 	this.user_name = UserDetails.user_name;
 	this.logo = CompanyDetails.company_logo;

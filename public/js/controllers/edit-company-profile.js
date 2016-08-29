@@ -23,12 +23,12 @@ angular.module('app.edit.company', [])
 	});
 
 	// textarea autoheight 
-	$('textarea').each(function () {
+	/*$('textarea').each(function () {
   		this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;max-height:106px;');
 	}).on('input', function () {
   		this.style.height = 'auto';
   		this.style.height = (this.scrollHeight) + 'px';
-	});
+	});*/
 
 	$('.edit-company').addClass('text-selection');
 	$('form').css('pointer-events','none');

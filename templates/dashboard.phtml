@@ -68,33 +68,33 @@
 						<div class="circlestat">
 							<!-- <span class="circle-info-half">User Satisfaction</span> -->
 						</div>
-						<div class="text-center foot" style="color: #222">
+						<!-- <div class="text-center foot" style="color: #222">
 							<span class="arrow-up"></span>
 								&nbsp;Engagement Increased to 
 							<span class="text-increase">10%</span>
-						</div>
+						</div> -->
 					</div>
 					<div class="col-lg-4 col-md-4 col-sm-4">
 						<div class="text-center head" style="font-weight: 500">
 							JOBS REACH
 						</div>
 						<div class="circlestat1"><!-- <span class="circle-info-half">User Satisfaction</span> --></div>
-						<div class="text-center foot" style="color: #222">
+						<!-- <div class="text-center foot" style="color: #222">
 							<span class="arrow-down"></span>
 								&nbsp;Reach Decreased to 
 							<span class="text-decrease">3%</span>
-						</div>
+						</div> -->
 					</div>
 					<div class="col-lg-4 col-md-4 col-sm-4">
 						<div class="text-center head">
 							REWARDS CLAIMED
 						</div>
 						<div class="circlestat2"><!-- <span class="circle-info-half">User Satisfaction</span> --></div>
-						<div class="text-center foot" style="color: #222">
+						<!-- <div class="text-center foot" style="color: #222">
 							<span class="arrow-up"></span>
 								&nbsp;Claim Increased to 
 							<span class="text-increase">6%</span>
-						</div>
+						</div> -->
 					</div>
 				</div>
 
@@ -142,6 +142,9 @@
 									</div>
 								</li>
 							</ul>
+							<div class="no-data" ng-if="DashCtrl.noDataRef">
+								NO REFERRALS FOUND
+							</div>
 							<div class="load-status-report" ng-if="DashCtrl.loaderRerrals">
 								<span></span>
 								<img src="public/images/loader/spin.gif" alt="loader">
@@ -164,8 +167,8 @@
 								<li class="clearfix" ng-repeat="hireList in DashCtrl.hiresList">
 									<div class="pull-right" style="padding: 5px 0;line-height: 1.8em">
 										<strong ng-bind="hireList.job_title"></strong>
-										<br>
-										<span class="paid" ng-bind="'Paid $'+hireList.service_cost"></span>
+										<br ng-init="cost=hireList.service_cost">
+										<span class="paid" ng-bind=" cost==0 ? 'Free' : 'Paid $'+cost" ng-style="{'background':cost==0 ? '#666666':''}"></span>
 									</div>
 									<div class="pull-left" style="position: relative;">
 										<img ng-src="{{hireList.referral_img}}" class="pull-left img-responsive img-circle dp" style="border: 3px solid #468A25">
@@ -185,6 +188,9 @@
 									</div>
 								</li>
 							</ul>
+							<div class="no-data" ng-if="DashCtrl.noDataHire">
+								NO HIRES FOUND
+							</div>
 							<div class="load-status-report" ng-if="DashCtrl.loaderHires">
 								<span></span>
 								<img src="public/images/loader/spin.gif" alt="loader">

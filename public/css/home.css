@@ -88,6 +88,10 @@ hr{
     min-height: 24px;
     min-width: 1px;
 }
+md-select.md-default-theme.ng-invalid.ng-touched .md-select-value, md-select.ng-invalid.ng-touched .md-select-value{
+    color: #666 !important;
+    border-bottom-color: rgba(0,0,0,0.12) !important;
+}
 .has-error-border{
     border-color: red !important;
     border-bottom: 1px solid red !important;
@@ -111,6 +115,7 @@ md-input-container.md-input-has-value label:not(.md-no-float){
     -webkit-transform: translate3d(0,6px,0) scale(.85);
     transform: translate3d(0,6px,0) scale(.85);
     color: #999;
+    display: block !important; 
 }
 md-input-container:not(.md-input-invalid).md-input-focused .md-input{
     border-color: rgba(0,0,0,0.12);
@@ -534,9 +539,6 @@ input{
     padding: 5px 0 0;
     font-size: 14px;
     color: #666;
-}
-.company-content md-select.has-error-border .md-select-value{
-    border-bottom-color: red !important;
 }
 .company-footer{
     border-top: 1px solid #ccc;

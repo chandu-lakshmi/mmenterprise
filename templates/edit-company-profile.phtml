@@ -27,7 +27,7 @@
 								<div ng-if="edit_company_form.company.$error.required && editCompCtrl.errCond" class="has-error-msg">Please Enter Company Name</div>
 							</md-input-container>
 							<md-input-container class="md-block">
-					            <label>INDUSTRY</label>
+					            <label style="display:none;">INDUSTRY</label>
 					            <md-select name="ind" ng-model="editCompCtrl.company_details.industry" required ng-class="{'has-error-border':edit_company_form.ind.$invalid && editCompCtrl.errCond}">
 					              	<md-option ng-repeat="industry in editCompCtrl.industry_list" ng-value="industry.industry_id">
 					                	{{industry.industry_name}}
@@ -38,7 +38,7 @@
 					        </md-input-container>
 				            <input type="hidden" name="industry" ng-value="editCompCtrl.company_details.industry">
 					        <md-input-container class="md-block">
-					            <label>NUMBER OF EMPLOYEES</label>
+					            <label style="display:none;">NUMBER OF EMPLOYEES</label>
 					            <md-select ng-model="editCompCtrl.company_details.number_of_employees" required ng-class="{'has-error-border':edit_company_form.employees.$invalid && editCompCtrl.errCond}">
 					              	<md-option ng-repeat="count in editCompCtrl.no_of_emp" ng-value="count">
 					                	{{count}}
@@ -60,7 +60,7 @@
 							</md-input-container>
 							<md-input-container class="md-block">
       							<label>DESCRIPTION</label>
-          						<textarea name="description" ng-model="editCompCtrl.company_details.description" md-maxlength="500" maxlength="500" ng-maxlength="500" md-no-autogrow rows="1"></textarea>
+          						<textarea name="description" ng-model="editCompCtrl.company_details.description" md-maxlength="500" maxlength="500" ng-maxlength="500" style="max-height:106px"></textarea>
     						</md-input-container>
 						</div>
 	 				</div>

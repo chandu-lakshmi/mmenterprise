@@ -27,7 +27,7 @@
 		  								<div ng-if="company_form.comp_name.$error.required && compCtrl.comp1_show_error"  class="has-error-msg">Please Enter Company Name</div>
 									</md-input-container>
 									<md-input-container class="md-block">
-							            <label>SELECT INDUSTRY*</label>
+							            <label style="display:none">SELECT INDUSTRY*</label>
 							            <md-select ng-model="compCtrl.industry" required name="industry" ng-class="{'has-error-border':company_form.industry.$invalid && compCtrl.comp1_show_error}">
 							              <md-option ng-repeat="industry in compCtrl.industry_list" ng-value="industry">
 							                {{industry.industry_name}}

@@ -54,9 +54,11 @@ angular.module('app.engagement.contacts', [])
     var tab_name = '';
 })
 
-.controller('EngagementContactsController', ['$window', '$http', '$q', 'jobDetails', '$uibModal', 'tabsName', 'ajaxData', 'ajaxService', 'CONFIG', function($window,$http,$q,jobDetails,$uibModal,tabsName,ajaxData,ajaxService,CONFIG){
+.controller('EngagementContactsController', ['$window', '$http', '$q', 'jobDetails', '$uibModal', 'tabsName', 'ajaxData', 'ajaxService', 'UserDetails', 'CONFIG', function($window,$http,$q,jobDetails,$uibModal,tabsName,ajaxData,ajaxService,UserDetails,CONFIG){
 
 	$window.scrollTo(0,0);
+
+    this.clientName = UserDetails.user_name;
 
     var className;
 

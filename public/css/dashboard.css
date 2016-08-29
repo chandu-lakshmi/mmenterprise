@@ -302,7 +302,7 @@ header .notifications .user span:not(:last-child){
 	width: 16px;
 }
 .dashboard .circle-stats,.dashboard .top-contacts{
-	border-top: 1px solid #ccc;
+	border-top: 1px solid #e6e8e9;
 }
 /*.dashboard .circle-stats{
 	padding: 60px 0;
@@ -316,12 +316,14 @@ header .notifications .user span:not(:last-child){
 	font-size: 46px !important;
 }
 .dashboard .circle-stats .col-lg-4:not(:last-child){
-	border-right: 1px solid #ccc;
+	border-right: 1px solid #e6e8e9;
 }
 .dashboard .circle-stats{
 	padding: 0;
 	color: #878787;
 	font-size: 16px;
+	background: #f6f8f9;
+
 }
 /*.dashboard .circle-stats div.container{
 	padding: 54px 0;
@@ -421,12 +423,18 @@ header .notifications .user span:not(:last-child){
 strong{
 	color: initial;
 }
+.referrals-hires .no-data{
+	position: absolute;
+    top: calc(50% - 18px);
+    width: 100%;
+    text-align: center;
+}
 .referrals-hires ul{
 	margin: 0;
     padding: 0;
     list-style: none;
     border: 1px solid #ccc;
-    box-shadow: 1px 1px 5px #ccc;
+    box-shadow: 1px 1px 2px #ccc;
     text-align: initial;
     height: 350px;
     overflow: auto;
@@ -447,7 +455,7 @@ strong{
     height: 358px;
     background: rgba(240, 244, 247, 0.88);
     position: absolute;
-    width: 99%;
+    width: 99.5%;
     top: 1px;
     left: 1px;
     text-align: center;
