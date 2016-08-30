@@ -198,7 +198,8 @@ angular.module('app.engagement.contacts', [])
             referred_by : scope.referrals[index].referred_by,
             post_id : jobDetails.id,
             awaiting_action_status : status,
-            relation_count : scope.referrals[index].relation_count
+            relation_count : scope.referrals[index].relation_count,
+            referred_by_phone : scope.referrals[index].referred_by_phone
         })
 
         var awaitingStatus = $http({
@@ -213,10 +214,12 @@ angular.module('app.engagement.contacts', [])
 
         awaitingStatus.success(function(response){
             if(response.status_code == 200){
+                ajaxData.addProperty('hired_count',response.data.hired_count);
+                scope.subHeaderCount.hired_count = response.data.hired_count;
                 if(response.data.awaiting_action_status == 'INTERVIEWED'){
                     className = response.data.awaiting_action_status.toLowerCase();
                     $('.status_details').eq(index).find('span').remove();
-                    $('.status_details').eq(index).append('<span>'+scope.referrals[index].name+' </span><span>'+className+' by '+response.data.awaiting_action_by+' at '+response.data.awaiting_action_updated_at+'</span>');
+                    $('.status_details').eq(index).append('<span>Status changed to '+className+' by '+response.data.awaiting_action_by+' at '+response.data.awaiting_action_updated_at+'</span>');
                     $('.'+className).eq(index).addClass('bg-accepted');
                     $('.'+className).eq(index).css('pointerEvents','none');
                     for(var i in interviewed){
@@ -227,7 +230,7 @@ angular.module('app.engagement.contacts', [])
                 if(status == 'OFFERMADE'){
                     className = response.data.awaiting_action_status.toLowerCase();
                     $('.status_details').eq(index).find('span').remove();
-                    $('.status_details').eq(index).append('<span>'+scope.referrals[index].name+' </span><span>'+className+' by '+response.data.awaiting_action_by+' at '+response.data.awaiting_action_updated_at+'</span>');
+                    $('.status_details').eq(index).append('<span>Status changed to '+className+' by '+response.data.awaiting_action_by+' at '+response.data.awaiting_action_updated_at+'</span>');
                     $('.'+className).eq(index).addClass('bg-accepted');
                     $('.'+className).eq(index).css('pointerEvents','none');
                     for(var i in offermade){
@@ -238,7 +241,7 @@ angular.module('app.engagement.contacts', [])
                 if(status == 'HIRED'){
                     className = response.data.awaiting_action_status.toLowerCase();
                     $('.status_details').eq(index).find('span').remove();
-                    $('.status_details').eq(index).append('<span>'+scope.referrals[index].name+' </span><span>'+className+' by '+response.data.awaiting_action_by+' at '+response.data.awaiting_action_updated_at+'</span>');
+                    $('.status_details').eq(index).append('<span>Status changed to '+className+' by '+response.data.awaiting_action_by+' at '+response.data.awaiting_action_updated_at+'</span>');
                     $('.'+className).eq(index).addClass('bg-accepted');
                     $('.'+className).eq(index).css('pointerEvents','none');
                     for(var i in hired){

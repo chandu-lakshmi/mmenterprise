@@ -44,7 +44,7 @@
 				<div style="padding-top: 53px">
 					<div class="dropdown-days" ng-init="days='7'">
 					SHOW REPORTS:
-						<select ng-change="DashCtrl.showReportsSel(days)" ng-model="days" >
+						<select ng-change="DashCtrl.lastProgressBar(days)" ng-model="days" >
 							<option value="7">7 Days</option>
 							<option value="30">30 Days</option>
 							<option value="360">1 Year</option>
@@ -98,7 +98,7 @@
 					</div>
 				</div>
 
-				<div class="load-status-report" ng-if='DashCtrl.loaderShowReport'>
+				<div class="load-status-report" ng-if='DashCtrl.loaderProgress'>
 					<span></span>
 					<img src="public/images/loader/spin.gif" alt="loader">
 				</div>

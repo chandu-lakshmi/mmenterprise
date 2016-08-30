@@ -266,7 +266,7 @@
 											<span style="text-transform: capitalize">{{activeReferrals.awaiting_action_status | lowercase}}</span><span> by {{EngContCtrl.clientName+" at "+activeReferrals.updated_at}}</span>
 										</div>
 										<div class="status_details" ng-if="activeReferrals.awaiting_action_status != 'ACCEPTED'" style="position:absolute;font-size:13px;">
-											<span>Status Changed to {{(activeReferrals.awaiting_action_status | lowercase)+" by "+activeReferrals.awaiting_action_by+" at "+activeReferrals.awaiting_action_updated_at}}</span>
+											<span>Status changed to {{(activeReferrals.awaiting_action_status | lowercase)+" by "+activeReferrals.awaiting_action_by+" at "+activeReferrals.awaiting_action_updated_at}}</span>
 										</div>
 									</div>
 								</li>

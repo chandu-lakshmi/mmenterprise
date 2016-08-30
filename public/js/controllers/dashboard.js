@@ -104,111 +104,49 @@ angular.module('app.dashboard', ['ngProgress'])
 
 
 	/* $http request for Progress select box */
-	var canceller;	
-	this.loaderShowReport = false;
-	this.showReportsSel = function(days){
+	this.cancellerProgress;	
+	this.loaderProgress = false;
+	this.lastProgressBar = function(days){
 
-		var progressParams = $.param({
-			company_code : CompanyDetails.company_code,
-	        request_type :'PROGRESS',
-			filter_limit : days
-		});
-		
-		scope.loaderShowReport = true;
-		if (canceller) {
-            canceller.resolve();
-        }
-
-        canceller = $q.defer();
-
-		var showReports = $http({
-	        headers: {
-	            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-	        },
-	        method : 'POST',
-	        data: progressParams,
-	        url : CONFIG.APP_DOMAIN + 'view_dashboard',
-	        timeout : canceller.promise
-		})
-		showReports.success(function(response){
-			if (response.status_code == 200) {
-				var postProgress = response.data.post_progress;
-				scope.loaderShowReport = false;				
-				$('.circlestat svg:last-child').remove();
-				$('.circlestat1 svg:last-child').remove();
-				$('.circlestat2 svg:last-child').remove();
-				circleProgress(postProgress.contacts, postProgress.jobs, postProgress.rewards);
-				// $.when($('.circlestat').circliful({percent: postProgress.contacts})).then($('.circlestat svg:last-child').remove());
-			}
-		})
-		dashboard_job_details.error(function(response){
-			console.log(response);	
-		});
+		scope.loaderProgress = true;
+		updateData(days, 'PROGRESS', 'cancellerProgress', 'loaderProgress', 'progressList', 'post_progress', '');
 
 	}
-	
 
 	/* $http request for lastReferrals select box */
-	var cancelleRerrals;	
+	this.cancelleRerrals;	
 	this.loaderRerrals = false;
 	this.lastReferrals = function(days){
+		
 		scope.noDataRef = false;
 		scope.loaderRerrals = true;
-		
-		var refParams = $.param({
-			company_code : CompanyDetails.company_code,
-	        request_type :'REFERRALS',
-			filter_limit : days
-		});
-
-		if (cancelleRerrals) {
-            cancelleRerrals.resolve();
-        }
-
-        cancelleRerrals = $q.defer();
-
-		var showReports = $http({
-	        headers: {
-	            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-	        },
-	        method : 'POST',
-	        data: refParams,
-	        url : CONFIG.APP_DOMAIN + 'view_dashboard',
-	        timeout : cancelleRerrals.promise
-		})
-		showReports.success(function(response){
-			if (response.status_code == 200) {
-				scope.loaderRerrals = false;
-				scope.referralsList = response.data.post_referrals;
-				if(scope.referralsList.length == 0){
-					scope.noDataRef = true;
-				}
-			}
-		})
-		dashboard_job_details.error(function(response){
-			console.log(response);	
-		});
-
+		updateData(days, 'REFERRALS', 'cancelleRerrals', 'loaderRerrals', 'referralsList', 'post_referrals', 'noDataRef');
+	
 	}
 
 	/* $http request for lastHires select box */
-	var cancelleHires;	
+	this.cancelleHires;	
 	this.loaderHires = false;
 	this.lastHires = function(days){
+
 		scope.noDataHire = false;
 		scope.loaderHires = true;
+		updateData(days, 'HIRED', 'cancelleHires', 'loaderHires', 'hiresList', 'post_hires', 'noDataHire');
+	
+	}
 
+	function updateData(days, paraType, varPromise, spinner, typeList, paraResponse, noDataSpinner){
 		var hiresParams = $.param({
 			company_code : CompanyDetails.company_code,
-	        request_type :'HIRED',
+	        request_type : paraType,
 			filter_limit : days
 		});
 
-		if (cancelleHires) {
-            cancelleHires.resolve();
+		if (scope[varPromise]) {
+            scope[varPromise].resolve();
         }
 
-        cancelleHires = $q.defer();
+        scope[varPromise] = $q.defer();
 
 		var showReports = $http({
 	        headers: {
@@ -217,21 +155,31 @@ angular.module('app.dashboard', ['ngProgress'])
 	        method : 'POST',
 	        data: hiresParams,
 	        url : CONFIG.APP_DOMAIN + 'view_dashboard',
-	        timeout : cancelleHires.promise
+	        timeout : scope[varPromise].promise
 		})
+
 		showReports.success(function(response){
 			if (response.status_code == 200) {
-				scope.loaderHires = false;
-				scope.hiresList = response.data.post_hires;
-				if(scope.hiresList.length == 0){
-					scope.noDataHire = true;
+				scope[spinner] = false;
+				scope[typeList] = response.data[paraResponse];
+				
+				if(scope[typeList].length == 0){
+					scope[noDataSpinner] = true;	
 				}
+
+				if(noDataSpinner == ""){
+					$('.circlestat svg:last-child').remove(),
+					$('.circlestat1 svg:last-child').remove(),
+					$('.circlestat2 svg:last-child').remove(),
+					circleProgress(scope[typeList].contacts, scope[typeList].jobs, scope[typeList].rewards)
+					// $.when($('.circlestat').circliful({percent: postProgress.contacts})).then($('.circlestat svg:last-child').remove());	
+				}	
 			}
 		})
+
 		dashboard_job_details.error(function(response){
 			console.log(response);	
 		});
-
 	}
 	
 }])

@@ -5,11 +5,11 @@
 		<div class="head">
 			<h2 class="pull-left">Company Profile</h2>
 			<div ng-if="!editCompCtrl.update">
-				<span class="pull-right btn-edit" style="padding:10px 20px;" ng-click="editCompCtrl.edit('write')">EDIT PROFILE</span>
+				<span class="pull-right btn-edit" style="padding:10px 20px;" ng-click="editCompCtrl.edit('edit')">EDIT PROFILE</span>
 			</div>
 			<div ng-if="editCompCtrl.update" class="btn-disabled">
-				<span class="pull-right btn-update" style="position:relative;" ng-click="editCompCtrl.update_company(edit_company_form.$valid)">UPDATE<img src="public/images/loader/dot.svg" alt="dot" ng-if="editCompCtrl.updateLoader"/></span>
-				<span class="pull-right btn-cancel" style="margin-right:20px;" ng-click="editCompCtrl.edit('cancel')">CANCEL</span>
+				<span class="pull-right btn-update" style="position:relative;" ng-click="editCompCtrl.update_company(edit_company_form.$valid);;edit_company_form.$setPristine();" ng-style="{'pointer-events':edit_company_form.$dirty ? 'auto' : 'none'}">UPDATE<img src="public/images/loader/dot.svg" alt="dot" ng-if="editCompCtrl.updateLoader"/></span>
+				<span class="pull-right btn-cancel" style="margin-right:20px;" ng-click="editCompCtrl.edit('cancel');edit_company_form.$setPristine();">CANCEL</span>
 			</div>
 		</div>
 		<div class="error-spacer"></div>
@@ -28,26 +28,24 @@
 							</md-input-container>
 							<md-input-container class="md-block">
 					            <label style="display:none;">INDUSTRY</label>
-					            <md-select name="ind" ng-model="editCompCtrl.company_details.industry" required ng-class="{'has-error-border':edit_company_form.ind.$invalid && editCompCtrl.errCond}">
+					            <md-select name="industry" ng-model="editCompCtrl.company_details.industry" ng-class="{'has-error-border':(editCompCtrl.company_details.industry == null || editCompCtrl.company_details.industry == '') && editCompCtrl.errCond}">
 					              	<md-option ng-repeat="industry in editCompCtrl.industry_list" ng-value="industry.industry_id">
 					                	{{industry.industry_name}}
 					              	</md-option>
 					            </md-select>
 					            <div class="md-errors-spacer"></div>
-					            <div ng-if="edit_company_form.ind.$error.required && editCompCtrl.errCond" class="has-error-msg">Please Select Industry</div>
+					            <div ng-if="(editCompCtrl.company_details.industry == null || editCompCtrl.company_details.industry == '') && editCompCtrl.errCond" class="has-error-msg">Please Select Industry</div>
 					        </md-input-container>
-				            <input type="hidden" name="industry" ng-value="editCompCtrl.company_details.industry">
+				            <!-- <input type="hidden" name="industry" ng-value="editCompCtrl.company_details.industry"> -->
 					        <md-input-container class="md-block">
 					            <label style="display:none;">NUMBER OF EMPLOYEES</label>
-					            <md-select ng-model="editCompCtrl.company_details.number_of_employees" required ng-class="{'has-error-border':edit_company_form.employees.$invalid && editCompCtrl.errCond}">
+					            <md-select name="number_of_employees" ng-model="editCompCtrl.company_details.number_of_employees">
 					              	<md-option ng-repeat="count in editCompCtrl.no_of_emp" ng-value="count">
 					                	{{count}}
 					              	</md-option>
 					            </md-select>
-					            <div class="md-errors-spacer"></div>
-					            <div ng-if="edit_company_form.employees.$error.required && editCompCtrl.errCond" class="has-error-msg">Please Select Number of Employees</div>
 					        </md-input-container>
-				            <input type="hidden" name="number_of_employees" ng-value="editCompCtrl.company_details.number_of_employees">
+				            <!-- <input type="hidden" name="number_of_employees" ng-value="editCompCtrl.company_details.number_of_employees"> -->
 	 					</div>
 	 				</div>
 	 				<div class="col-sm-6">

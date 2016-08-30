@@ -4,9 +4,9 @@
 angular.module('app.edit.company', [])
 
 
-.controller('editCompanyProfileController', ['$http', 'CompanyDetails', 'CONFIG', function($http, CompanyDetails, CONFIG){
+.controller('editCompanyProfileController', ['$http', '$window', 'CompanyDetails', 'CONFIG', function($http, $window, CompanyDetails, CONFIG){
 
-	var scope = this,bol = 1,dublicateData;
+	var scope = this,dublicateData;
     var image_path = '',mul_image_path = [],bonus_file_path = '';
 
 
@@ -22,16 +22,34 @@ angular.module('app.edit.company', [])
 	        e.preventDefault();
 	});
 
-	// textarea autoheight 
-	/*$('textarea').each(function () {
-  		this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;max-height:106px;');
-	}).on('input', function () {
-  		this.style.height = 'auto';
-  		this.style.height = (this.scrollHeight) + 'px';
-	});*/
+	scope.update = true;
+	$('form:first input:first').attr('readonly','readonly');
+	$('form').css('pointer-events','auto');
+	setTimeout(function(){
+		$('.btn-disabled').css('pointer-events','none');
+	},100);
 
-	$('.edit-company').addClass('text-selection');
-	$('form').css('pointer-events','none');
+	// button conditions(edit,update,cancel)
+	this.edit = function(text){
+		if(text == 'cancel'){
+			scope.company_details = dublicateData;
+			getCompanyDetails('cancel');
+			scope.update = false;
+			scope.errCond = false;
+			$('form').css('pointer-events','none');
+			$('.btn-update').css('pointer-events','none');
+			$('.edit-company').addClass('text-selection');
+			$('.qq-upload-fail').remove();
+		}
+		else if(text == 'edit'){
+			$('.edit-company').removeClass('text-selection');
+			scope.errCond = false;
+			scope.update = true;
+			$('form').css('pointer-events','auto');
+			$('form:first input:first').attr('readonly','readonly');
+			$('form:first input[name=website]').focus();
+		}
+	}
 
 
 	// GetIndustries
@@ -55,7 +73,7 @@ angular.module('app.edit.company', [])
 
 
 	// view company details function
-	function getCompanyDetails(){
+	function getCompanyDetails(status){
 
 		// for showing only available images from backend
 		$('.qq-upload-fail').remove();
@@ -80,8 +98,12 @@ angular.module('app.edit.company', [])
     		scope.errCond = false;
     		if(response.status_code == 200){
 	    		if(response.data.length != 0){
-	    			bol = 1;
 		       		scope.company_details = response.data.companyDetails;
+	       			dublicateData = angular.copy(scope.company_details);
+	    			if(status != 'cancel'){
+						$('form:first input[name=website]').focus();
+		       			$('.btn-disabled').css('pointer-events','auto');
+	    			}
 		       		if(scope.company_details.company_logo.length != 0){
 		       			$company_logo.find('.drag_txt').hide();
 	            		$company_logo.find('.qq-upload-list').show();
@@ -104,9 +126,6 @@ angular.module('app.edit.company', [])
 			    		$referral_bonus.find('.qq-upload-list').append("<li><input type='hidden' name='referral_org_name_s3' value='" + scope.company_details.referral_bonus_file.split('/').pop() + "' /><input type='hidden' value='" + scope.company_details.referral_bonus_file + "' name='referral_bonus_file_s3'/></li>").show();
 			    		$referral_bonus.find('.qq-upload-drop-area').html('<div class="drag_img"><a href="'+scope.company_details.referral_bonus_file+'" download><img src="public/images/Applied.svg" alt="download"><p title="'+scope.company_details.referral_org_name+'">'+scope.company_details.referral_org_name+'&nbsp;</p></a><img src="public/images/close-popup-grey.svg" onclick="angular.element(this).scope().editCompCtrl.trash(-2)" style="width:20px;float:right;cursor:pointer"/>');
 		       		}
-	    		}
-	    		else{
-	    			bol = 0;
 	    		}
 	    	}
 	    	else if(response.status_code == 400){
@@ -159,31 +178,7 @@ angular.module('app.edit.company', [])
 	}
 
 
-	// button conditions(edit,update,cancel)
-	this.update = false;
-	this.edit = function(text){
-		if(text == 'write'){
-			dublicateData = angular.copy(scope.company_details);
-			$('.edit-company').removeClass('text-selection');
-			scope.errCond = false;
-			scope.update = true;
-			$('form').css('pointer-events','auto');
-			if(bol == 1){
-				$('form:first input:first').attr('readonly','readonly');
-			}
-			$('form:first input[name=website]').focus();
-		}
-		else{
-			scope.company_details = dublicateData;
-			getCompanyDetails();
-			$('.qq-upload-fail').remove();
-			$('.edit-company').addClass('text-selection');
-			scope.update = false;
-			scope.errCond = false;
-			$('form').css('pointer-events','none');
-		}
-	}
-
+	
 	scope.errCond = false;
 	scope.updateLoader = false;
 	this.update_company = function(isValid){
@@ -231,14 +226,15 @@ angular.module('app.edit.company', [])
 					$('.qq-upload-list li').remove();
 		        	scope.update = false;
 		        	scope.updateLoader = false;
-		        	getCompanyDetails();
+		        	getCompanyDetails('cancel');
 		        }
 		        else if(response.status_code == 400){
 	                $window.location = CONFIG.APP_DOMAIN+'logout';
 	            }
 	        })
 	        update_company.error(function(response){
-	        	console.log(response)
+	        	console.log(response);
+	        	scope.updateLoader = false;
 	        })
 		}
     }
@@ -255,6 +251,7 @@ angular.module('app.edit.company', [])
 	    action: CONFIG.APP_DOMAIN+'file_upload',
 
 	    onSubmit: function(id, name){
+	    	$('.btn-update').css('pointer-events','auto');
 	    	$company_logo.find('.drag_txt').hide();
             // $company_logo.find('.qq-upload-button').hide();
             $company_logo.find('.qq-upload-list').show();
@@ -297,6 +294,7 @@ angular.module('app.edit.company', [])
 		    action: CONFIG.APP_DOMAIN+'file_upload',
 
 		    onSubmit: function(id, name){
+		    	$('.btn-update').css('pointer-events','auto');
 		    	eval("$mul_images_"+index).find('.drag_txt').hide();
 	            eval("$mul_images_"+index).find('.qq-upload-list').show();
 		    },
@@ -332,6 +330,7 @@ angular.module('app.edit.company', [])
 	    action: CONFIG.APP_DOMAIN+'file_upload',
 
 	    onSubmit: function(id, name){
+	    	$('.btn-update').css('pointer-events','auto');
 	    	$referral_bonus.find('.drag_txt').hide();
 	    	$referral_bonus.find('.qq-upload-button').hide();
             $referral_bonus.find('.qq-upload-list').show();

@@ -93,11 +93,11 @@
 						<div class="col-lg-12">
 							<div class="form-group">
 								<label for="job_desc">Job Description*</label>
-								<textarea class="form-control" id="job_desc" rows="6" ng-model="PtJobCtrl.postJob1.job_desc" name="job_desc" required maxlength="250"></textarea>
+								<textarea class="form-control" id="job_desc" rows="6" ng-model="PtJobCtrl.postJob1.job_desc" name="job_desc" required maxlength="500"></textarea>
 								<div class="error-spacer"></div>
 								<div>
 									<div ng-if="post_job.job_desc.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Job Description Field is Required.</div>
-								    <span class="max_length">Remaining {{250 - PtJobCtrl.postJob1.job_desc.length}} / 250 left</span>
+								    <span class="max_length">Remaining {{500 - PtJobCtrl.postJob1.job_desc.length}} / 500 left</span>
 								</div>
 							</div>
 						</div>
