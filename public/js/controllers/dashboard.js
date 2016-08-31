@@ -1,7 +1,7 @@
 (function () {
 "use strict";
 
-angular.module('app.dashboard', ['ngProgress'])
+angular.module('app.dashboard', ['ngMaterial', 'ngMessages'])
 
 .run(["$templateCache", "$http", function ($templateCache, $http) {
     $http.get('templates/header.phtml', { cache: $templateCache });
@@ -9,15 +9,17 @@ angular.module('app.dashboard', ['ngProgress'])
 }])
 
 
-.controller('DashboardController', ['$scope', '$window', '$http', '$state', 'UserDetails', '$q', 'ngProgressFactory', 'CompanyDetails', 'CONFIG', function($scope, $window, $http, $state, UserDetails, $q, ngProgressFactory, CompanyDetails, CONFIG){
+.controller('DashboardController', ['$interval', '$window', '$http', '$state', 'UserDetails', '$q', 'CompanyDetails', 'CONFIG', function($interval, $window, $http, $state, UserDetails, $q, CompanyDetails, CONFIG){
 
 	var scope = this;
 
 	$window.scrollTo(0, 0);
-
-	$scope.progressbar = ngProgressFactory.createInstance();
-    $scope.progressbar.start();
-    $scope.progressbar.setColor('#34b893');
+ 	
+ 	scope.borderInc = 1;
+ 	var s = $interval(function(){
+ 		scope.remaining = 100 - scope.borderInc;
+        scope.borderInc = scope.borderInc + (0.1 * Math.pow(1 - Math.sqrt(scope.remaining), 2))
+ 	}, 100);
 
     this.dashboardLoader = false;
 	this.statusNames = ['Referrals', 'Accepted', 'Interviewed', 'Hired'];
@@ -78,7 +80,10 @@ angular.module('app.dashboard', ['ngProgress'])
 	})
 
 	dashboard_job_details.success(function(response){
-		$scope.progressbar.complete();
+		scope.borderInc = 100;
+		$interval.cancel(s);
+		$('#borderLoader').fadeOut(2000);
+
 		scope.dashboardLoader = true;
 		if (response.status_code == 200) {
 			var postProgress = response.data.post_progress;
@@ -101,7 +106,6 @@ angular.module('app.dashboard', ['ngProgress'])
 	dashboard_job_details.error(function(response){
 		console.log(response);	
 	});
-
 
 	/* $http request for Progress select box */
 	this.cancellerProgress;	

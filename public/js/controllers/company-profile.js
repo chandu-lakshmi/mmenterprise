@@ -271,11 +271,7 @@ angular.module('app.company.profile', [])
             uploadButtonText: "Upload a file",
             multiple : false,
             sizeLimit: (10*1024*1024),
-            allowedExtensions: ['jpg', 'gif', 'png', 'jpeg', 'eps', 'cdr', 'ai', 'psd', 'tga', 'tiff', 'tif', 'ttf', 'svg', 'zip', 'rar',
-               'gz', 'tar', 'tarz', '7zip', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'pps', 'ppsx', 'pdf', 'eml', 'msg',
-               'txt', 'rtf', 'wps', 'csv', 'xml', 'otf', 'eot',
-               'mp3', 'm4a', 'aac', 'wmv', 'wma', 'avi', 'mp4', 'mov', 'mpg', 'qxd', 'qxp', 'swf', 'fla', 'odt', 'vsd', 'wav', 'aiff',
-               'sit', 'sitx', 'numbers', 'pages', 'key', 'ps', 'avi'],
+            allowedExtensions: ['CSV','PDF','DOC','DOCX'],
             action: CONFIG.APP_DOMAIN+'file_upload',
 
             onSubmit: function(id, name){

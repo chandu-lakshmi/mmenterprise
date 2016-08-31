@@ -10,7 +10,7 @@
 			</div>
 
 			<div class="content">
-				<form role="form" name="post_job" ng-submit="PtJobCtrl.postJob(post_job.$valid)" novalidate onkeypress="return event.keyCode != 13;">
+				<form role="form" name="post_job" ng-submit="PtJobCtrl.postJob(post_job.$valid)" novalidate onkeypress="return (event.keyCode == 13 && event.target.tagName != 'TEXTAREA') ? false : true ">
 					<div class="row">
 						<div class="col-lg-4">
 							<div class="form-group ui-widget">
@@ -84,7 +84,7 @@
 						</div>
 						<div class="col-lg-4">
 							<div class="form-group">
-								<label for="req-id">Requisition Id</label>
+								<label for="req-id">Requisition ID</label>
 								<input type="text" class="form-control" id="req-id" value="" ng-model="PtJobCtrl.postJob1.requistion_id">
 							</div>
 						</div>
@@ -117,5 +117,4 @@
 			</div>
 		</div>
 	</section>
-
 </div>
