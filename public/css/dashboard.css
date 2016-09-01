@@ -552,8 +552,13 @@ footer a:hover{
 }
 
 
-
-
+/*new styles*/
+.status-accepted{
+	color: #767676;
+}
+.status-declined{
+	color: #FD4243;
+}
 
 .text-name{
 	color: #108BD8;
@@ -658,6 +663,30 @@ footer a:hover{
 	border-radius: 0px 5px 5px 0px;
 }
 
+ul.new-tabs{
+	margin: 0;
+    padding: 0;
+    list-style: none;
+    margin-bottom: 15px;
+}
+ul.new-tabs > li{
+    display: inline-block;
+    padding: 7px 20px;
+}
+ul.new-tabs > li > a{
+	color: #777;
+	font-weight: bold;
+	letter-spacing: 0.5px;
+}
+ul.new-tabs > li.active{
+    border-radius: 40px;
+    border-top: 2px solid #b0b6b6;
+    background: #d7dddd;
+}
+ul.new-tabs > li.active > a{
+	color: #002132;
+}
+
 .engage-contact{
 	padding: 70px 0 100px 0;
 	background:#eeeff1;
@@ -665,7 +694,6 @@ footer a:hover{
 .engage-contact .box{
 	background: #fff;
 	border: 1px solid #ddd;
-    border-top: 0;
     box-shadow: 3px 1px 5px #ddd;
 	min-height: 860px;
 	margin-bottom: 30px;
@@ -680,7 +708,6 @@ footer a:hover{
 	color: #333;
 }
 .engage-contact .box .box-content{
-	padding: 0px 15px;
 	font-size: 16px;
 	color: #878787;
 }
@@ -1166,14 +1193,19 @@ footer a:hover{
 .amount-pay input[type="radio"]{
 	opacity: 0;
 	position: absolute;
-	cursor: pointer;
 }
-.amount-pay input[type="radio"] + label{
+.amount-pay input[type="radio"] + span{
 	background: url("../images/radio-button-unchecked.svg") no-repeat;
 	padding: 16px;
+	position: relative;
+    top: 22px;
+    cursor: pointer;
 }
-.amount-pay input[type="radio"]:checked + label{
+.amount-pay input[type="radio"]:checked + span{
 	background: url("../images/radio-button-checked.svg") no-repeat;
+	position: relative;
+    top: 22px;
+    cursor: pointer;
 }
 .choose-pay .amount_s{
 	color: #d89731 !important;
@@ -1220,8 +1252,9 @@ footer a:hover{
 	height: 60px;
 }
 .engage-contact .tab-content .box .box-content ul > li.t_head{
-	padding: 10px 0 !important;
+	padding: 12px 0 !important;
 	font-weight: bold;
+	background: #f7f7f7;
 }
 .engage-contact .tab-content .box .box-content ul > li{
 	padding: 12px 0 !important;
@@ -1251,9 +1284,6 @@ footer a:hover{
 }
 .engage-contact .tab-content .box .box-content ul > li:not(:last-child){
 	border-bottom: 1px solid #ccc;
-}
-.engage-contact .tab-content .box .box-content{
-	margin-top: 2px;
 }
 .engage-contact .tab-content .box .box-content ul > li div.content{
 	line-height: 1.8em;

@@ -182,7 +182,7 @@ angular.module('app.edit.company', [])
 	scope.errCond = false;
 	scope.updateLoader = false;
 	this.update_company = function(isValid){
-		if(!isValid){
+		if(!isValid || scope.company_details.industry == '' || scope.company_details.industry == null){
 			scope.errCond = true;
 		}
 		else{
