@@ -25,10 +25,7 @@ angular.module('app.edit.company', [])
 	scope.update = true;
 	$('form:first input:first').attr('readonly','readonly');
 	$('form').css('pointer-events','auto');
-	setTimeout(function(){
-		$('.btn-disabled').css('pointer-events','none');
-	},100);
-
+	
 	// button conditions(edit,update,cancel)
 	this.edit = function(text){
 		if(text == 'cancel'){
@@ -74,6 +71,7 @@ angular.module('app.edit.company', [])
 
 	// view company details function
 	function getCompanyDetails(status){
+		scope.disable_button = true;
 
 		// for showing only available images from backend
 		$('.qq-upload-fail').remove();
@@ -96,13 +94,13 @@ angular.module('app.edit.company', [])
 
 	    view_company_details.success(function(response){
     		scope.errCond = false;
+   			scope.disable_button = false;
     		if(response.status_code == 200){
 	    		if(response.data.length != 0){
 		       		scope.company_details = response.data.companyDetails;
 	       			dublicateData = angular.copy(scope.company_details);
 	    			if(status != 'cancel'){
 						$('form:first input[name=website]').focus();
-		       			$('.btn-disabled').css('pointer-events','auto');
 	    			}
 		       		if(scope.company_details.company_logo.length != 0){
 		       			$company_logo.find('.drag_txt').hide();
@@ -157,6 +155,7 @@ angular.module('app.edit.company', [])
 	}
 
 	scope.trash = function(value){
+		$('.btn-update').css('pointer-events','auto');
 		if(value == '-1'){
 			$company_logo.find('.drag_img').find('img').removeAttr('src');
 			$company_logo.find('.qq-upload-list li').remove();
@@ -182,17 +181,17 @@ angular.module('app.edit.company', [])
 	scope.errCond = false;
 	scope.updateLoader = false;
 	this.update_company = function(isValid){
+
 		if(!isValid || scope.company_details.industry == '' || scope.company_details.industry == null){
 			scope.errCond = true;
 		}
 		else{
 
-			$('.btn-disabled').css('pointer-events','none');
-
 			var param = $(' form[name="edit_company_form"]').serialize();
 
 			scope.errCond = false;
 			scope.updateLoader = true;
+			scope.disable_button = true;
 			
 			var update_company = $http({
 	            headers: {
@@ -204,6 +203,7 @@ angular.module('app.edit.company', [])
 	        });
 
 	        update_company.success(function(response){
+	        	scope.disable_button = false;
 	        	if(response.status_code == 200){
 	        		$('form').css('pointer-events','none');
 	        		if(response.data.hasOwnProperty('company_logo')){
@@ -220,7 +220,6 @@ angular.module('app.edit.company', [])
 	        				'src':'public/images/avatar.png'
 	        			});
 	        		}
-		        	$('.btn-disabled').css('pointer-events','auto');
 					$('.qq-upload-drop-area').css('display','none');
 					$('.qq-upload-drop-area').find('.drag_img').remove();
 					$('.qq-upload-list li').remove();
@@ -254,6 +253,7 @@ angular.module('app.edit.company', [])
 	    	$('.btn-update').css('pointer-events','auto');
 	    	$company_logo.find('.drag_txt').hide();
             // $company_logo.find('.qq-upload-button').hide();
+            $company_logo.find('.qq-upload-list').css('z-index','0');
             $company_logo.find('.qq-upload-list').show();
 	    },
 	    onComplete: function(id, name, response){
@@ -296,6 +296,7 @@ angular.module('app.edit.company', [])
 		    onSubmit: function(id, name){
 		    	$('.btn-update').css('pointer-events','auto');
 		    	eval("$mul_images_"+index).find('.drag_txt').hide();
+		    	eval("$mul_images_"+index).find('.qq-upload-list').css('z-index','0');
 	            eval("$mul_images_"+index).find('.qq-upload-list').show();
 		    },
 		    onComplete: function(id, name, response){

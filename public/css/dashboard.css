@@ -1367,6 +1367,9 @@ ul.new-tabs > li.active > a{
 
 
 /* New Mock on Edit Company Profile*/
+.btn-disabled{
+	pointer-events: none;
+}
 .edit-company .error-spacer{
 	float: right;
     min-height: 24px;
@@ -1470,6 +1473,7 @@ ul.new-tabs > li.active > a{
     right: 0;
     height: 10px;
     width: 100%;
+    z-index: -1
 }
 .qq-upload-drop-area{
 	width: 100%;

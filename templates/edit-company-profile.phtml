@@ -7,8 +7,8 @@
 			<div ng-if="!editCompCtrl.update">
 				<span class="pull-right btn-edit" style="padding:10px 20px;" ng-click="editCompCtrl.edit('edit')">EDIT PROFILE</span>
 			</div>
-			<div ng-if="editCompCtrl.update" class="btn-disabled">
-				<span class="pull-right btn-update" style="position:relative;" ng-click="editCompCtrl.update_company(edit_company_form.$valid);;edit_company_form.$setPristine();" ng-style="{'pointer-events':edit_company_form.$dirty ? 'auto' : 'none'}">UPDATE<img src="public/images/loader/dot.svg" alt="dot" ng-if="editCompCtrl.updateLoader"/></span>
+			<div ng-if="editCompCtrl.update" ng-class="{'btn-disabled':editCompCtrl.disable_button}">
+				<span class="pull-right btn-update" style="position:relative;" ng-click="editCompCtrl.update_company(edit_company_form.$valid);edit_company_form.$setPristine();" ng-style="{'pointer-events':edit_company_form.$dirty ? 'auto' : 'none'}">UPDATE<img src="public/images/loader/dot.svg" alt="dot" ng-if="editCompCtrl.updateLoader"/></span>
 				<span class="pull-right btn-cancel" style="margin-right:20px;" ng-click="editCompCtrl.edit('cancel');edit_company_form.$setPristine();">CANCEL</span>
 			</div>
 		</div>

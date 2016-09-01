@@ -48,9 +48,9 @@
 	<div class="container">
 		<div class="row">
 			<ul class="new-tabs" ng-init="switchCond = EngContCtrl.tabCond">
-  				<li ng-class="{'active':EngContCtrl.tabCond == 'ALL'}"><a data-toggle="tab" ng-click="EngContCtrl.referralsCond('');switchCond = 'ALL'">ALL REFERRALS ({{EngContCtrl.subHeaderCount.referral_count ? EngContCtrl.subHeaderCount.referral_count : '0'}})</a></li>
-  				<li ng-class="{'active':EngContCtrl.tabCond == 'PENDING'}"><a data-toggle="tab" ng-click="EngContCtrl.referralsCond('PENDING');switchCond = 'PENDING'">PENDING ({{EngContCtrl.subHeaderCount.pending_count ? EngContCtrl.subHeaderCount.pending_count : '0'}})</a></li>
-  				<li ng-class="{'active':EngContCtrl.tabCond == 'ACCEPTED'}"><a data-toggle="tab" ng-click="EngContCtrl.referralsCond('ACCEPTED');switchCond = 'ACCEPTED'">ACCEPTED ({{EngContCtrl.subHeaderCount.accepted_count ? EngContCtrl.subHeaderCount.accepted_count : '0'}})</a></li>
+  				<li ng-class="{'active':EngContCtrl.tabCond == 'ALL'}"><a data-toggle="tab" ng-click="EngContCtrl.referralsCond('ALL');switchCond = 'ALL'" ng-style="{'pointer-events':EngContCtrl.tabCond == 'ALL' ? 'none' : 'auto'}">ALL REFERRALS ({{EngContCtrl.subHeaderCount.referral_count ? EngContCtrl.subHeaderCount.referral_count : '0'}})</a></li>
+  				<li ng-class="{'active':EngContCtrl.tabCond == 'PENDING'}"><a data-toggle="tab" ng-click="EngContCtrl.referralsCond('PENDING');switchCond = 'PENDING'" ng-style="{'pointer-events':EngContCtrl.tabCond == 'PENDING' ? 'none' : 'auto'}">PENDING ({{EngContCtrl.subHeaderCount.pending_count ? EngContCtrl.subHeaderCount.pending_count : '0'}})</a></li>
+  				<li ng-class="{'active':EngContCtrl.tabCond == 'ACCEPTED'}"><a data-toggle="tab" ng-click="EngContCtrl.referralsCond('ACCEPTED');switchCond = 'ACCEPTED'" ng-style="{'pointer-events':EngContCtrl.tabCond == 'ACCEPTED' ? 'none' : 'auto'}">ACCEPTED ({{EngContCtrl.subHeaderCount.accepted_count ? EngContCtrl.subHeaderCount.accepted_count : '0'}})</a></li>
 			</ul>
 
 			<div class="tab-content" ng-switch="switchCond">

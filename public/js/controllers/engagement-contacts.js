@@ -147,7 +147,12 @@ angular.module('app.engagement.contacts', [])
 
     scope.referralsCond = function(status){
         scope.tabCond = status;
-        ajaxCall(status);
+        if(status == 'ALL'){
+            ajaxCall('')
+        }
+        else{
+            ajaxCall(status);
+        }
     }
 
     // process function

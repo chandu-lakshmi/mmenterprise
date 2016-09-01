@@ -88,6 +88,9 @@ hr{
     min-height: 24px;
     min-width: 1px;
 }
+md-input-container .md-input.ng-invalid.ng-dirty{
+    border-width: 0 0 1px;
+}
 md-select.md-default-theme.ng-invalid.ng-touched .md-select-value, md-select.ng-invalid.ng-touched .md-select-value{
     color: #666 !important;
     border-bottom-color: rgba(0,0,0,0.12) !important;
