@@ -224,7 +224,7 @@ angular.module('app.engagement.contacts', [])
                 if(response.data.awaiting_action_status == 'INTERVIEWED'){
                     className = response.data.awaiting_action_status.toLowerCase();
                     $('.status_details').eq(index).find('span').remove();
-                    $('.status_details').eq(index).append('<span>Status changed to '+className+' by '+response.data.awaiting_action_by+' at '+response.data.awaiting_action_updated_at+'</span>');
+                    $('.status_details').eq(index).append('<span>Status changed to '+className+' by '+response.data.awaiting_action_by+' on '+response.data.awaiting_action_updated_at+'</span>');
                     $('.'+className).eq(index).addClass('bg-accepted');
                     $('.'+className).eq(index).css('pointerEvents','none');
                     for(var i in interviewed){
@@ -235,7 +235,7 @@ angular.module('app.engagement.contacts', [])
                 if(status == 'OFFERMADE'){
                     className = response.data.awaiting_action_status.toLowerCase();
                     $('.status_details').eq(index).find('span').remove();
-                    $('.status_details').eq(index).append('<span>Status changed to '+className+' by '+response.data.awaiting_action_by+' at '+response.data.awaiting_action_updated_at+'</span>');
+                    $('.status_details').eq(index).append('<span>Status changed to '+className+' by '+response.data.awaiting_action_by+' on '+response.data.awaiting_action_updated_at+'</span>');
                     $('.'+className).eq(index).addClass('bg-accepted');
                     $('.'+className).eq(index).css('pointerEvents','none');
                     for(var i in offermade){
@@ -246,7 +246,7 @@ angular.module('app.engagement.contacts', [])
                 if(status == 'HIRED'){
                     className = response.data.awaiting_action_status.toLowerCase();
                     $('.status_details').eq(index).find('span').remove();
-                    $('.status_details').eq(index).append('<span>Status changed to '+className+' by '+response.data.awaiting_action_by+' at '+response.data.awaiting_action_updated_at+'</span>');
+                    $('.status_details').eq(index).append('<span>Status changed to '+className+' by '+response.data.awaiting_action_by+' on '+response.data.awaiting_action_updated_at+'</span>');
                     $('.'+className).eq(index).addClass('bg-accepted');
                     $('.'+className).eq(index).css('pointerEvents','none');
                     for(var i in hired){

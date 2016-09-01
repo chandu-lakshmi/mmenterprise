@@ -252,9 +252,9 @@ header .notifications .user span:not(:last-child){
 	margin-right: 5px;
 }
 
-.dashboard-container{
-	min-height: calc(100vh - 60px);
-}
+/*.dashboard-container{
+	min-height: calc(100vh - 50px);
+}*/
 .dashboard .main-title{
 	border-bottom: 1px solid #E5E5E5;
 }
@@ -370,8 +370,8 @@ header .notifications .user span:not(:last-child){
 	z-index: 10000;
 }
 .referrals .dp,.hires .dp,.top-contacts .dp{
-	width: 70px;
-	height: 70px;
+	width: 60px;
+    height: 60px;
 }
 .referrals .content{
 	font-size: 14px;
@@ -484,10 +484,10 @@ select:-moz-focusring {
 }
 .referrals-hires img.sub-img{
 	position: absolute;
-    width: 38px;
-    height: 38px;
-    left: 35px;
-    top: 40px;
+    width: 30px;
+    height: 30px;
+    left: 32px;
+    top: 33px;
     z-index: 9999;
     border: 2px solid white;
 }
@@ -1051,6 +1051,15 @@ ul.new-tabs > li.active > a{
 }
 
 /*Post job 2 styles*/
+.post-job .pre-style{
+	border: 0;
+    background: transparent;
+    font-size: 16px;
+    padding: 0;
+    margin: 0;
+    height: 120px;
+    font-family: 'Roboto';
+}
 .error-msg-float{
 	color: red;
 	min-height: 24px;

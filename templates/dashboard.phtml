@@ -3,7 +3,7 @@
 	<section ng-if="DashCtrl.dashboardLoader">
 		<div class="container">
 			<div class="main-title">
-				<h2>Welcome Back! <span ng-bind="DashCtrl.username" style="text-transform: capitalize"></span></h2>
+				<h2>Welcome! <span ng-bind="DashCtrl.username" style="text-transform: capitalize"></span></h2>
 			</div>
 
 			<div class="panel-group">
@@ -124,8 +124,8 @@
 							<ul class="referrals">
 								<li class="clearfix" ng-repeat="refList in DashCtrl.referralsList track by $index">
 									<div class="pull-left" style="position: relative;padding-right: 10px" ng-init="getColor=DashCtrl.getColor(refList.status)">
-										<img ng-src="{{refList.referral_img}}" class="pull-left img-responsive img-circle dp" ng-style="{'border': '3px solid {{getColor}}'}">
-										<img ng-src="{{refList.referred_by_img}}" class="img-responsive img-circle sub-img">
+										<img ng-src="{{DashCtrl.getSrc(refList.referral_img)}}" class="pull-left img-responsive img-circle dp" ng-style="{'border': '2px solid {{refList.referral_img == '' ? 'transparent' : getColor}}'}">
+										<img ng-src="{{DashCtrl.getSrc(refList.referred_by_img)}}" class="img-responsive img-circle sub-img">
 									</div>
 									<div class="content">
 										<span>
@@ -172,8 +172,8 @@
 										<span class="paid" ng-bind=" cost==0 ? 'Free' : 'Paid $'+cost" ng-style="{'background':cost==0 ? '#666666':''}"></span>
 									</div>
 									<div class="pull-left" style="position: relative;">
-										<img ng-src="{{hireList.referral_img}}" class="pull-left img-responsive img-circle dp" style="border: 3px solid #468A25">
-										<img ng-src="{{hireList.referred_by_img}}" class="img-responsive img-circle sub-img">
+										<img ng-src="{{DashCtrl.getSrc(hireList.referral_img)}}" class="pull-left img-responsive img-circle dp" ng-style="{'border': (hireList.referral_img == '' || hireList.referral_img == 'null') ? '' : '2px solid #468A25' }">
+										<img ng-src="{{DashCtrl.getSrc(hireList.referred_by_img)}}" class="img-responsive img-circle sub-img">
 										<div class="content">
 											<span>
 												<strong ng-bind="hireList.referral"></strong>

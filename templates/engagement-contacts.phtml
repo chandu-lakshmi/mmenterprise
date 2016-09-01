@@ -12,7 +12,7 @@
 				</div>
 				<ul>
 					<li><a ui-sref="^.jobDetails({post_id:EngContCtrl.post_id})" ui-sref-active="active">JOB DETAILS</a></li>
-					<li><a ui-sref="^.engagement/contacts({post_id:EngContCtrl.post_id})" ui-sref-active="active">ENGAGEMENT/CONTACTS</a></li>
+					<li><a ui-sref="^.engagement/contacts({post_id:EngContCtrl.post_id})" ui-sref-active="active">REFERRALS</a></li>
 					<li><a ui-sref="^.rewards({post_id:EngContCtrl.post_id})" ui-sref-active="active">REWARDS</a></li>
 				</ul>
 			</div>
@@ -255,7 +255,7 @@
 										<img src="public/images/tickmark-accept.svg" alt="response" ng-click="EngContCtrl.referral_status('ACCEPTED',activeReferrals,'accepted')">&nbsp;&nbsp;
 										<img src="public/images/closemark-decline.svg" alt="response" ng-click="EngContCtrl.referral_status('ACCEPTED',activeReferrals,'declined')">
 									</div> -->
-									<div class="col-lg-4" style="margin-top:-5px"><!-- ng-if="activeReferrals.status != 'PENDING'">-->
+									<div class="col-lg-4"><!-- ng-if="activeReferrals.status != 'PENDING'">-->
 										<div class="btn-group">
 											<div class="accept" style="pointer-events:none" ng-class="{'bg-accepted':activeReferrals.awaiting_action_status == 'ACCEPTED'}">Accepted</div>
 											<div class="interviewed" ng-click="EngContCtrl.process_status('INTERVIEWED',$index)" ng-class="{'bg-accepted':activeReferrals.awaiting_action_status == 'INTERVIEWED'}">Interviewed</div>
@@ -263,10 +263,10 @@
 											<div class="hired" ng-click="EngContCtrl.process_status('HIRED',$index)" ng-class="{'bg-accepted':activeReferrals.awaiting_action_status == 'HIRED'}">Hired</div>
 										</div>
 										<div class="status_details" ng-if="activeReferrals.awaiting_action_status == 'ACCEPTED'" style="position:absolute;font-size:13px;">
-											<span style="text-transform: capitalize">{{activeReferrals.awaiting_action_status | lowercase}}</span><span> by {{EngContCtrl.clientName+" at "+activeReferrals.updated_at}}</span>
+											<span style="text-transform: capitalize">{{activeReferrals.awaiting_action_status | lowercase}}</span><span> by {{EngContCtrl.clientName+" on "+activeReferrals.updated_at}}</span>
 										</div>
 										<div class="status_details" ng-if="activeReferrals.awaiting_action_status != 'ACCEPTED'" style="position:absolute;font-size:13px;">
-											<span>Status changed to {{(activeReferrals.awaiting_action_status | lowercase)+" by "+activeReferrals.awaiting_action_by+" at "+activeReferrals.awaiting_action_updated_at}}</span>
+											<span>Status changed to {{(activeReferrals.awaiting_action_status | lowercase)+" by "+activeReferrals.awaiting_action_by+" on "+activeReferrals.awaiting_action_updated_at}}</span>
 										</div>
 									</div>
 								</li>

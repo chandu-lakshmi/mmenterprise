@@ -5,7 +5,7 @@ angular.module('app.dashboard', ['ngMaterial', 'ngMessages'])
 
 .run(["$templateCache", "$http", function ($templateCache, $http) {
     $http.get('templates/header.phtml', { cache: $templateCache });
-    $http.get('templates/footer.phtml', { cache: $templateCache });
+   	$http.get('templates/footer.phtml', { cache: $templateCache });
 }])
 
 
@@ -14,7 +14,8 @@ angular.module('app.dashboard', ['ngMaterial', 'ngMessages'])
 	var scope = this;
 
 	$window.scrollTo(0, 0);
- 	
+
+	/*border loading at top */ 	
  	scope.borderInc = 1;
  	var s = $interval(function(){
  		scope.remaining = 100 - scope.borderInc;
@@ -23,7 +24,7 @@ angular.module('app.dashboard', ['ngMaterial', 'ngMessages'])
 
     this.dashboardLoader = false;
 	this.statusNames = ['Referrals', 'Accepted', 'Interviewed', 'Hired'];
-	this.getColor = function(status){
+	this.getColor = function(status, src){  
 		var status = status.toLowerCase();
 		if (status == 'pending')
 			return '#f07914';
@@ -31,8 +32,11 @@ angular.module('app.dashboard', ['ngMaterial', 'ngMessages'])
 			return '#22a2ee';
 		else if (status == 'declined') 
 			return '#FD4243';
-		else
-			return '#468A25'; 
+		else 
+			return ''; 
+	}
+	this.getSrc = function(arg){
+		return (arg != '' || arg == 'null')  ? arg : 'public/images/avatar.png';   
 	}
 	this.username = UserDetails.user_name;
 	
@@ -80,6 +84,7 @@ angular.module('app.dashboard', ['ngMaterial', 'ngMessages'])
 	})
 
 	dashboard_job_details.success(function(response){
+		
 		scope.borderInc = 100;
 		$interval.cancel(s);
 		$('#borderLoader').fadeOut(2000);
@@ -102,6 +107,7 @@ angular.module('app.dashboard', ['ngMaterial', 'ngMessages'])
 		else if(response.status_code == 400){
             $window.location = CONFIG.APP_DOMAIN + 'logout';
         }
+        $('footer').show();
 	})
 	dashboard_job_details.error(function(response){
 		console.log(response);	
@@ -185,6 +191,11 @@ angular.module('app.dashboard', ['ngMaterial', 'ngMessages'])
 			console.log(response);	
 		});
 	}
+
+	/* borderLoading the footer stays at bottom */
+	setTimeout(function (){
+ 		$('footer').hide();
+ 	},1);
 	
 }])
  
