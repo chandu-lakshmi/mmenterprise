@@ -1,0 +1,88 @@
+/* upload-contacts in dashboard*/
+/*@media (min-width: 768px){
+	.upload-contacts .col-sm-4 {
+	    width: 23.333333%;
+	}
+}*/
+
+
+.upload-contacts{
+	background: #eeeff1;
+}
+.upload-contacts .container{
+	padding-bottom: 100px;
+}
+.upload-contacts .head{
+	padding: 23px 0;
+	display: block;
+}
+.upload-contacts .head span{
+	font-size: 18px;
+	font-weight: bold;
+	margin-left: 13px;
+	color: #636363;
+	vertical-align: middle;
+}
+.upload-contacts .box{
+	border: 1px solid #cdcdcd;
+	box-shadow: 2px 1px 10px #cdcdcd;
+}
+.upload-contacts .box .box-content{
+	min-height:800px;
+	background: #fff;
+	padding: 55px 0;
+}
+.upload-contacts .box .box-content .heading h3{
+	margin: 0;
+}
+.upload-contacts .box .box-content .heading p{
+	margin: 16px 0;
+}
+.upload-contacts .box .box-content .heading p > span{
+	color:#999999;
+	vertical-align: middle;
+}
+.upload-contacts .box .box-content .file-uploading{
+	padding-top: 10px;
+	width: 60%;
+	margin: 0 auto;
+}
+.upload-contacts .box .box-content .file-uploading .row > div.col-sm-4{
+	width: 160px;
+	height: 160px;
+	margin: 20px;
+	padding: 0;
+	margin-bottom: 35px;
+}
+.upload-contacts .box .box-content .file-uploading .row > div.col-sm-4 .upload{
+	width: 100%;
+	height: 100%;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+.upload-contacts .box .box-content .file-uploading .row > div.col-sm-4 .upload + p{
+	color: #818181;
+	font-size: 12px;
+	margin-top: 10px;
+}
+.upload-contacts .box .box-footer{
+	background: #f2f2f2;
+	padding: 15px 20px;
+	overflow: hidden;
+}
+.upload-contacts .box .box-footer .btn-add{
+	background: #1d8e70;
+	color: #fff;
+	padding: 12px 18px;
+	display: inline-block;
+	border: 2px solid #1c8368;
+	border-radius: 5px;
+	cursor: pointer;
+}
+.upload-contacts .box .box-footer .btn-cancel{
+    color: #959595;
+    padding: 12px 22px;
+    display: inline-block;
+    cursor: pointer;
+    margin-right: 12px;
+}

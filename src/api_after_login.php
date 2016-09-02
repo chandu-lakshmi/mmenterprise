@@ -392,7 +392,7 @@ $app->get('/job/rewards/{id}',function ($request, $response, $args) use ($app) {
       return $response->withRedirect($args['APP_DOMAIN']);
     }
 
-     return $response->withRedirect($args['APP_DOMAIN']."job/job-details/".$post_id);
+    return $response->withRedirect($args['APP_DOMAIN']."job/job-details/".$post_id);
 });
 
 //Update Status Details
@@ -468,6 +468,38 @@ $app->post('/awaiting_action',function ($request, $response, $args) use ($app) {
     return checkJsonResult( $statusDetails->loadCurl() );
 
        
+});
+
+//Contacts Page
+$app->get('/contacts',function ($request, $response, $args) use ($app) {
+    //Arguments
+    $this->mintmeshAccessToken;
+    $args       = commonData($this->settings);
+   
+    //Check Logged in or not
+    if(!empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']);
+    }
+
+    $args['comp_data'] = companyProfile($this->settings);
+
+    // Render dashboard view
+    return $this->renderer->render($response, 'index.phtml', $args);
+});
+
+// Upload contacts -> if reload redirect to contacts page
+$app->get('/contacts/upload-contacts',function ($request, $response, $args) use ($app) {
+     
+    //Arguments
+    $this->mintmeshAccessToken;
+    $args  = commonData($this->settings);
+    
+    //Check Logged in or not
+    if(!empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']);
+    }
+
+    return $response->withRedirect($args['APP_DOMAIN']."contacts");
 });
 
 

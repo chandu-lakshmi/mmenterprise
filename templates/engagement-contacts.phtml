@@ -87,7 +87,7 @@
 									</div>
 									<div class="col-lg-3" style="padding: 0">
 										<div class="pull-left">
-											<img ng-src="{{allReferrals.referred_by_dp_image}}" class="img-responsive img-circle border-default">
+											<img ng-src="{{allReferrals.referred_by_dp_image == null ? 'public/images/avatar.png' : allReferrals.referred_by_dp_image}}" class="img-responsive img-circle border-default">
 										</div>
 										<div class="content pull-left" ng-style="{'padding-top': allReferrals.ref_designation == ''? '18px' : ''}" style="width:75%">
 											<big class="ellipsis" title="{{allReferrals.referred_by_name}}">{{allReferrals.referred_by_name}}</big>
@@ -160,7 +160,7 @@
 									</div>
 									<div class="col-lg-3" style="padding: 0">
 										<div class="pull-left">
-											<img ng-src="{{pendingReferrals.referred_by_dp_image}}" class="img-responsive img-circle border-default">
+											<img ng-src="{{pendingReferrals.referred_by_dp_image == null ? 'public/images/avatar.png' : pendingReferrals.referred_by_dp_image}}" class="img-responsive img-circle border-default">
 										</div>
 										<div class="content pull-left" ng-style="{'padding-top': pendingReferrals.ref_designation == ''? '18px' : ''}"style="width:75%">
 											<big class="ellipsis" title="{{pendingReferrals.referred_by_name}}">{{pendingReferrals.referred_by_name}}</big>
@@ -230,7 +230,7 @@
 									</div>
 									<div class="col-lg-3" style="padding: 0">
 										<div class="pull-left">
-											<img ng-src="{{activeReferrals.referred_by_dp_image}}" class="img-responsive img-circle border-default">
+											<img ng-src="{{activeReferrals.referred_by_dp_image == null ? 'public/images/avatar.png' : activeReferrals.referred_by_dp_image}}" class="img-responsive img-circle border-default">
 										</div>
 										<div class="content pull-left" ng-style="{'padding-top': activeReferrals.ref_designation == ''? '18px' : ''}" style="width:75%;">
 											<big class="ellipsis" title="{{activeReferrals.referred_by_name}}">{{activeReferrals.referred_by_name}}</big>

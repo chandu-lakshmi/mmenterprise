@@ -4,7 +4,7 @@
 angular.module('app', [
     'ui.router', 'ui.bootstrap',
     'app.constants', 'app.home', 'app.forgotPassword', 'app.company.profile', 'app.import.contacts', 'app.emails', 'app.dashboard',
-    'app.engagement.contacts', 'app.post.job', 'app.job.search', 'app.job.details', 'app.rewards', 'app.edit.company'
+    'app.engagement.contacts', 'app.post.job', 'app.job.search', 'app.job.details', 'app.rewards', 'app.edit.company', 'app.contact'
 ])
 
 .constant('CONFIG', {
@@ -129,6 +129,18 @@ angular.module('app', [
         templateUrl: App.base_url + 'templates/edit-company-profile.phtml',
         controller: 'editCompanyProfileController',
         controllerAs: 'editCompCtrl'
+    })
+    .state('app.contact',{
+        url: '^/contacts',
+        templateUrl: App.base_url + 'templates/contacts.phtml',
+        controller: 'ContactsController',
+        controllerAs: 'ContactCtrl'
+    })
+    .state('app.uploadContact',{
+        url: '^/contacts/upload-contacts',
+        templateUrl: App.base_url + 'templates/upload-contacts.phtml',
+        controller: 'UploadContactsController',
+        controllerAs: 'UploadContCtrl'
     })
 
     $urlRouterProvider.otherwise('/login');
