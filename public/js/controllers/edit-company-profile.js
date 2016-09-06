@@ -189,7 +189,7 @@ angular.module('app.edit.company', [])
 	        	if(response.status_code == 200){
 	        		scope.update = false;
 	        		$scope.edit_company_form.$setPristine();
-	        		$('form').css('pointer-events','none');
+	        		$('form').css('pointer-events','auto');
 	        		if(response.data.hasOwnProperty('company_logo')){
 	        			$('.user_dp img').attr({
 	        				'src':response.data.company_logo

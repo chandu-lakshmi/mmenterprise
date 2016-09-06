@@ -529,6 +529,22 @@ $app->post('/view_company_details',function ($request, $response, $args) use ($a
 });
 
 //Company Details
+$app->post('/update_contacts_list',function ($request, $response, $args) use ($app) {
+    
+    // dynamically Access Token
+    $this->mintmeshAccessToken;
+    
+    // getting API endpoint from settings
+    $apiEndpoint = getapiEndpoint($this->settings, 'update_contacts_list');
+   
+    $companyDetails     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+
+     return checkJsonResult( $companyDetails->loadCurl() );
+});
+//Company Details
 $app->POST('/file_upload',function ($request, $response, $args) {
 
     require 'library/fileupload_library.php';

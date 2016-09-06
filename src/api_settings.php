@@ -102,6 +102,10 @@ return [
             'view_dashboard' => [
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/view_dashboard'
+            ],
+            'update_contacts_list' => [
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/update_contacts_list'
             ]
            
     ];
