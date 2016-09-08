@@ -7,7 +7,8 @@
 			<ul class="opt">
 				<li><a ui-sref=".dashboard" ui-sref-active="active">DASHBOARD</a></li>
 				<li><a ui-sref=".job" ng-class="{active: ('app.job' | includedByState) || ('app.postJob' | includedByState) || ('app.postJob2' | includedByState) || ('app.jobDetails' | includedByState) || ('app.rewards' | includedByState) || ('app.engagement/contacts' | includedByState)}">JOBS</a></li>
-				<li><a>CONTACTS</a></li>
+				<li><a ng-class="{active: ('app.contact' | includedByState) || ('app.uploadContact' | includedByState)}">CONTACTS</a></li>
+				<li><a ui-sref=".candidates" ui-sref-active="active">CANDIDATES</a></li>
 				<!-- <li><a ui-sref=".importContactsList" ng-class="{'active':selectedTab === 'contacts'}" ng-click="selectedTab = 'contacts'">CONTACTS</a></li> -->
 				<!-- <li><a ui-sref="#/">SETTINGS</a></li> -->
 			</ul>
@@ -21,7 +22,7 @@
 				</div>
 				<div class="dropdown pull-right">
   					<button class="btn dropdown-toggle " type="button" data-toggle="dropdown">
-						<span class="user_dp"><img ng-src="{{headCtrl.logo}}" class="image-responsive img-circle" alt="dp" style="width: 40px;height:40px;border: 1px solid #ccc;display: inline-block;" ng-if="headCtrl.logo"><img src="public/images/avatar.png" class="image-responsive" alt="dp" style="width: 40px;height:40px;display: inline-block;" ng-if="!headCtrl.logo"></span>
+						<span class="user_dp"><img ng-src="{{headCtrl.logo}}" class="image-responsive img-circle" alt="dp" style="width: 40px;height:40px;display: inline-block;" ng-if="headCtrl.logo"><img src="public/images/avatar.png" class="image-responsive" alt="dp" style="width: 40px;height:40px;display:inline-block;" ng-if="!headCtrl.logo"></span>
   						<span class="user_name">{{headCtrl.user_name}}</span>
 						<span style="margin: 0 0 0 10px"><img src="public/images/arrow-dropdown-white.svg" style="margin-top:4px"></span>
   					</button>

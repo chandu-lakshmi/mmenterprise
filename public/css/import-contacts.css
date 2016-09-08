@@ -95,7 +95,7 @@ span.tab-active a.active,span.tab-active a.hover{
     pointer-events: all;
     width: 21px;
 }
-.import-con-grid .ui-grid-selection-row-header-buttons,.ui-grid-icon-ok{
+.import-con-grid .ui-grid-selection-row-header-buttons, .import-con-grid .ui-grid-icon-ok{
 	background: url("../images/checkbox_unchecked.svg");
 	opacity: 1;
 	border:1px solid silver;
@@ -112,10 +112,10 @@ span.tab-active a.active,span.tab-active a.hover{
   padding: 6px 1px 1px 8px !important;
   margin-bottom: 0px;
 }
-.ui-grid-header-canvas{
+.import-con-grid .ui-grid-header-canvas{
   height: 33px !important;
 }
-.ui-grid-cell .ui-grid-cell-contents{
+.import-con-grid .ui-grid-cell .ui-grid-cell-contents{
   /*padding: 7px 0px 1px 8px;*/
 }
 .import-con-grid .ui-grid-pinned-container.ui-grid-pinned-container-left .ui-grid-header-cell:last-child{
@@ -237,7 +237,7 @@ span.tab-active a.active,span.tab-active a.hover{
 .nav > li > a:hover, .nav > li > a:focus{
   background: none;
 }
-.grid {
+.grid.import-con-grid{
   width: 100%;
   height: calc(100vh - 328px);
  /* height: 100vh;

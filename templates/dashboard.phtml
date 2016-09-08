@@ -15,9 +15,9 @@
 					ALL OPEN JOBS: 
 					<span style="color:#2c9172" ng-bind="DashCtrl.jobsCount"></span>
 				</div>
-				<div class="row" ng-init = "setColors = [ '#F98017', '#14A5F8', '#48BBC0', '#539F32']">
+				<div class="row" ng-init="setColors = [ '#F98017', '#14A5F8', '#48BBC0', '#539F32']">
 					<div class="panel panel-default" ng-repeat="jobStatusCount  in DashCtrl.jobsStatusCount">
-						<span ng-style="{'color':setColors[$index]}" ng-bind="jobStatusCount"></span>
+						<span ng-style="{'color' : setColors[$index]}" ng-bind="jobStatusCount"></span>
 						<strong ng-bind="DashCtrl.statusNames[$index]"></strong>
 					</div>
 					<!-- <div class="arrow">
@@ -43,7 +43,7 @@
 					</div -->
 				</div>
 				<div style="padding-top: 53px">
-					<div class="dropdown-days" ng-init="days='30'">
+					<div class="dropdown-days" ng-init="days = '30'">
 					SHOW REPORTS:
 						<select ng-change="DashCtrl.lastProgressBar(days)" ng-model="days" >
 							<option value="7">7 Days</option>
@@ -112,7 +112,7 @@
 					<div class="col-lg-6" style="margin-bottom: 30px;">
 						<div class="dropdown-days">
 							REFERRALS IN THE LAST:
-								<select ng-change="DashCtrl.lastReferrals(refDays)" ng-model="refDays" ng-init="refDays='7'">
+								<select ng-change="DashCtrl.lastReferrals(refDays)" ng-model="refDays" ng-init="refDays = '7'">
 									<option value="7">7 Days</option>
 									<option value="30">30 Days</option>
 									<option value="360">1 Year</option>
@@ -123,7 +123,7 @@
 						<div class="ref-hire-list">
 							<ul class="referrals">
 								<li class="clearfix" ng-repeat="refList in DashCtrl.referralsList track by $index">
-									<div class="pull-left" style="position: relative;padding-right: 10px" ng-init="getColor=DashCtrl.getColor(refList.status)">
+									<div class="pull-left" style="position: relative;padding-right: 10px" ng-init="getColor = DashCtrl.getColor(refList.status)">
 										<img ng-src="{{DashCtrl.getSrc(refList.referral_img)}}" class="pull-left img-responsive img-circle dp" ng-style="{'border': '2px solid {{refList.referral_img == '' ? 'transparent' : getColor}}'}">
 										<img ng-src="{{DashCtrl.getSrc(refList.referred_by_img)}}" class="img-responsive img-circle sub-img">
 									</div>
@@ -138,7 +138,7 @@
 										<span>
 											<span class="vr"></span>
 											<span ng-bind="refList.created_at"></span> 
-											<span class="pull-right" style="text-transform: capitalize;" ng-style="{'color':getColor}" ng-bind="refList.status | lowercase"></span>
+											<span class="pull-right" style="text-transform: capitalize;" ng-style="{'color' : getColor}" ng-bind="refList.status | lowercase"></span>
 										</span>
 									</div>
 								</li>
@@ -155,7 +155,7 @@
 					<div class="col-lg-6" style="margin-bottom: 30px">
 						<div class="dropdown-days">
 							HIRES IN THE LAST:
-							<select ng-change="DashCtrl.lastHires(hireDays)" ng-model="hireDays" ng-init="hireDays='30'">
+							<select ng-change="DashCtrl.lastHires(hireDays)" ng-model="hireDays" ng-init="hireDays = '30'">
 								<option value="7">7 Days</option>
 								<option value="30">30 Days</option>
 								<option value="360">1 Year</option>
@@ -169,7 +169,7 @@
 									<div class="pull-right" style="padding: 5px 0;line-height: 1.8em">
 										<strong ng-bind="hireList.job_title"></strong>
 										<br ng-init="cost=hireList.service_cost">
-										<span class="paid" ng-bind=" cost==0 ? 'Free' : 'Paid $'+cost" ng-style="{'background':cost==0 ? '#666666':''}"></span>
+										<span class="paid" ng-bind="cost == 0 ? 'Free' : 'Paid $' + cost" ng-style="{'background':cost == 0 ? '#666666' : ''}"></span>
 									</div>
 									<div class="pull-left" style="position: relative;">
 										<img ng-src="{{DashCtrl.getSrc(hireList.referral_img)}}" class="pull-left img-responsive img-circle dp" ng-style="{'border': (hireList.referral_img == '' || hireList.referral_img == 'null') ? '' : '2px solid #468A25' }">

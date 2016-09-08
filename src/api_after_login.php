@@ -502,6 +502,42 @@ $app->get('/contacts/upload-contacts',function ($request, $response, $args) use 
     return $response->withRedirect($args['APP_DOMAIN']."contacts");
 });
 
+//create_bucket
+$app->post('/create_bucket',function ($request, $response, $args) use ($app) {
+   
+    // dynamically Access Token
+   $this->mintmeshAccessToken;
+   $this->mintmeshCompanyId;
+      
+    // getting API endpoint from settings
+   $apiEndpoint = getapiEndpoint($this->settings, 'create_bucket');
+   
+    $statusDetails    = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    
+    return checkJsonResult( $statusDetails->loadCurl() );
+   
+});
+
+//candidates
+$app->get('/candidates',function ($request, $response, $args) use ($app) {
+    //Arguments
+    $this->mintmeshAccessToken;
+    $args       = commonData($this->settings);
+    
+    //Check Logged in or not
+    if(!empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']);
+    }
+
+    $args['comp_data'] = companyProfile($this->settings);
+
+    // Render dashboard view
+    return $this->renderer->render($response, 'index.phtml', $args);
+});
+
 
 //Logout
 $app->get("/logout", function ($request, $response, $args) { 

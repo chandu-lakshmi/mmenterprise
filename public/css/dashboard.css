@@ -1469,6 +1469,10 @@ ul.new-tabs > li.active > a{
 	border-color: #208d6e;
 	border-width: 0 0 1px;
 }
+.edit-company .edit-box md-input-container.read-only:not(.md-input-invalid).md-input-focused .md-input{
+	border-color: #d8d8d8;
+	border-width: 0 0 1px;
+}
 .edit-company .edit-box md-input-container.md-input-has-value .md-select-value .md-select-icon:after{
 	content: url('../images/arrow-dropdown-active.svg') !important;
     display: inline !important;

@@ -1,6 +1,59 @@
-<div class="contacts">
-	<a ui-sref="app.uploadContact">shiva</span>
-	<section>
-		
-	</section>
+<link rel="stylesheet" type="text/css" href="public/css/contacts.css">
+<div class="grid-contacts">
+	<div class="container">
+
+		<div class="container-lt">
+			<md-input-container md-no-float="" class="md-block record-group">
+					<input ng-model="searchGroup" placeholder="Search Contacts Group">
+					<img src="public/images/search.svg" alt="searchGroup">
+			</md-input-container>
+			<div class="bkt-container">
+				<span ng-click="ContactCtrl.getGridData('ALL CONTACTS', '0', '','')" 
+					ng-class="{ activeBucketCls : ('ALL CONTACTS' == ContactCtrl.activeBucket) }">ALL CONTACTS</span>
+				<span ng-repeat="bkt in ContactCtrl.bucketNames | filter:searchGroup" 
+					ng-click="ContactCtrl.getGridData(bkt.bucket_name, bkt.bucket_id, '', '')" 
+					ng-class="{ activeBucketCls : (bkt.bucket_name == ContactCtrl.activeBucket) }"
+					ng-bind="bkt.bucket_name | uppercase">
+				</span>
+			</div>
+		</div>
+
+
+		<div class="container-rt">
+			<div>
+				<div class="active-bucket"><a ui-sref="app.uploadContact">+ ADD CONTACTS</a></div>
+				
+				<md-input-container md-no-float="" class="md-block record-search">
+						<img ng-src="public/images/loader/search_loader.gif" alt="buffer" ng-if="ContactCtrl.searchLoader">
+						<input ng-model="ContactCtrl.searchVal" ng-keyup="ContactCtrl.searchRecords(ContactCtrl.searchVal)" placeholder="Search">
+						<img ng-src="public/images/{{ContactCtrl.srcSearch}}" ng-click="ContactCtrl.searchRecords()" alt="feedback_left">
+						<!-- public/images/loader/search_loader.gif -->
+				</md-input-container>
+
+			</div>
+			<div class="grid-container">
+					<div ui-grid="ContactCtrl.gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection class="grid" ></div>
+				</div>
+				<div class="grid-footer">
+					<span class="selected-count">{{ContactCtrl.selectedContacts.length}} Contact selected</span>
+					<div class="pagenation">
+					<div class="arrow-click left" ng-click="ContactCtrl.getPage()">
+						<i class="fa fa-angle-double-left"></i>
+					</div>
+					<div class="pages-container">
+						<span class="pages">
+							<span ng-repeat="x in ContactCtrl.generatePageNo track by $index" ng-class="{'page-active':($index + 1) == ContactCtrl.currentPage}" ng-click="ContactCtrl.getGridData('', '', $index + 1)">{{$index + 1}}</span>
+						</span>
+					</div>
+					<div class="arrow-click right" ng-click="ContactCtrl.getPage(true)">
+						<i class="fa fa-angle-double-right"></i>
+					</div>
+				</div>
+				<div class="btn-invite">
+					INVITE SELECTED
+				</div>
+			</div>
+		</div>
+
+ 	</div>
 </div>

@@ -1,0 +1,31 @@
+<div class="modal-header" style="background:#999">
+    <h3 class="modal-title text-center" id="modal-title">+ Add Your Own</h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <form name="new_bucket_form" novalidate>
+        <div ng-if="!UploadContCtrl.modal.successCond">
+            <div style="width:60%">
+                <md-input-container class="md-block" style="margin:0">
+                    <label>Bucket Name</label>
+                    <input type="text" name="bucketName" ng-model="UploadContCtrl.modal.bucketName" required ng-class="{'has-error-border':new_bucket_form.bucketName.$invalid && UploadContCtrl.errorFromData}" check-bucket array-bucket="{{UploadContCtrl.bucketsList}}" bucket-name="{{UploadContCtrl.modal.bucketName}}" autocomplete="off">
+                    <div ng-if="new_bucket_form.bucketName.$error.required && UploadContCtrl.errorFromData" class="has-error-msg">Please Enter Bucket Name</div>
+                    <div ng-if="new_bucket_form.bucketName.$error.bucketmatch && UploadContCtrl.errorFromData" class="has-error-msg">Bucket Name Already Exists</div>
+                </md-input-container>
+            </div>
+            <div id="new-bucket" style="margin-top:10px;"></div>
+            <ul style="color: #999;font-size:15px;padding-left:19px;margin-top:25px;">
+                <li>Supported file format: ".CSV", ".XLSX", ".XLS"</li>
+                <li>Max file size (25MB)</li>
+            </ul>
+        </div>
+        <div ng-if="UploadContCtrl.modal.successCond">
+            <img src="public/images/tickmark.svg" alt="tickmark" style="padding: 0px; display: block; margin: 0px auto;">
+            <h2 style="font-size: 16px; text-align: center;">SUCCESSFULLY UPLOADED</h2>
+            <button class="btn" type="button" style="background:transparent;border-color:#999;color:#999;border: 1px solid;display: block; margin: 20px auto; padding: 8px 28px;border-radius:0;font-size:18px;" ng-click="$dismiss()">OK</button>
+        </div>
+    </form>
+</div>
+<div class="modal-footer clearfix" ng-if="!UploadContCtrl.modal.successCond">
+    <span class="btn-upload pull-right" style="border-color:#999;color:#999" ng-click="UploadContCtrl.uploadFile(new_bucket_form.$valid)">Upload</span>
+    <span class="btn-cancel pull-left" ng-click="$dismiss()">Cancel</span>
+</div>

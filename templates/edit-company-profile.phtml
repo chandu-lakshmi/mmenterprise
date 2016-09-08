@@ -1,6 +1,4 @@
 <div class="edit-company">
-	<!-- <div id="file-uploader"></div> -->
-
 	<div class="container">
 		<div class="head">
 			<h2 class="pull-left">Company Profile</h2>
@@ -18,7 +16,7 @@
 				<div class="row">
 	 				<div class="col-sm-6">
 	 					<div style="width:85%">
-	 						<md-input-container class="md-block">
+	 						<md-input-container class="md-block read-only">
 								<label>COMPANY NAME</label>
 								<input type="text" name="company" ng-model="editCompCtrl.company_details.name" required ng-class="{'has-error-border':edit_company_form.company.$invalid && editCompCtrl.errCond}">
 								<div ng-if="edit_company_form.company.$error.required && editCompCtrl.errCond" class="has-error-msg">Please Enter Company Name</div>

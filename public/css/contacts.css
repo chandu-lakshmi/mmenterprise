@@ -1,11 +1,300 @@
-/* upload-contacts in dashboard*/
-/*@media (min-width: 768px){
-	.upload-contacts .col-sm-4 {
-	    width: 23.333333%;
-	}
+/* contactsEdit in dashbaord */
+.grid-contacts{
+  	background: #eeeff1;
+  	font-size: 16px;
+}
+.grid-contacts div:focus{
+	outline: none !important;
+}
+.grid-contacts .container{
+  	width: 1200px;
+	padding: 0px;
+	padding-bottom: 40px;
+}
+.grid-contacts .container .container-lt{
+	width: 20%;
+	padding: 10px 10px 0 0;
+	float: left;
+}
+.grid-contacts .container .container-lt .bkt-container{
+	height: calc(100vh - 220px);
+    overflow-y: auto;
+}
+
+.grid-contacts .container .container-lt span{
+	display: block;
+    padding: 14px 0 14px 16px;
+    text-align: left;
+    font-size: 14px;
+    outline: 0;
+    border-radius: 2px;
+    color: #505455;
+    max-width: 230px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.grid-contacts .container md-input-container .md-errors-spacer{
+	min-height: 0;
+}
+.grid-contacts .container .container-lt md-input-container input{
+	padding-right: 30px;
+}
+.grid-contacts .container .container-lt md-input-container img[alt='searchGroup']{
+	position: absolute;
+    right: 2px;
+    width: 16px;
+    height: 16px;
+    top: 10px;
+}
+.grid-contacts .container .container-lt .activeBucketCls{
+	background-color: #1b8368;
+	color: #fff;
+}
+.btn-invite{
+    border-radius: 4px;
+    color: #fff;
+    padding-right:14px;
+    background-color: #1d8e70;
+    font-size: 16px;
+}
+.grid-contacts .container .container-rt{
+	width: 80%;
+	float: right;
+	border:1px solid #ccc;
+	border-top: 0;
+}
+.grid-contacts .container .container-rt .active-bucket{
+	display: inline-block;
+    padding: 12px 30px;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #1d8e70;
+    font-size: 16px;
+    margin: 8px;
+}
+.grid-contacts .container .container-rt .active-bucket a,.grid-contacts .container .container-rt .active-bucket a:hover{
+	color: #fff !important;
+}
+.grid-contacts .container .container-rt .record-search{
+	float: right;
+    display: inline-block;
+}
+.grid-contacts .container .container-rt .record-search input{
+	padding-right: 30px;
+}
+.grid-contacts .container .container-rt .record-search img[alt='buffer']{
+	width: 20px;
+    height: 20px;
+    position: absolute;
+    left: -28px;
+    top: 8px;
+}
+.grid-contacts .container .container-rt .record-search img[alt='feedback_left']{
+	position: absolute;
+    top: 8px;
+    right: 6px;
+    width: 16px;
+    height: 16px;
+    outline: 0;
+}
+/* grid style */
+.grid-contacts .grid-container{
+	clear: both;
+}
+.grid-contacts .grid-container .grid{
+    font-size: 14px;
+    border-left:0;
+    border-right: 0;
+    overflow: hidden;
+    height: calc(100vh - 285px) !important;
+}
+.grid-contacts .ui-grid-header-viewport{
+  	height: 40px;
+    line-height: 40px;
+    color: #999999;
+    background: #f2f2f2;
+    text-transform: uppercase;
+}
+.grid-contacts .ui-grid-header-cell{
+    border: 0;
+}
+.grid-contacts [ui-grid-row] {
+    display: table-row;
+}
+.grid-contacts .ui-grid-cell{
+    float: none;
+    display: table-cell;
+    vertical-align: middle;
+    border: none;
+    line-height: 70px;
+    background: #fff !important;
+}
+.grid-contacts input[type="checkbox"]{
+    line-height: 0 !important;
+}
+.grid-contacts .ui-grid-cell-contents{
+    padding: 0;
+}
+.grid-contacts .ui-grid-cell-contents-hidden + .ng-scope input{
+    border: 2px solid #0990e2 !important;
+    height: 40px;
+    width: 80%;
+    padding-left: 8px;
+}
+/*.grid-contacts .ui-grid-cell-contents.ng-binding.ng-scope.ui-grid-cell-focus + div{
+ 	margin-top:-1px;
+  	border-bottom:1px solid  #cdcdcd;
+}*/
+.grid-contacts .ui-grid-row .ng-scope div{
+	margin-top: -1px;
+    border-bottom: 1px solid #e6e8e8 !important; 
+    pointer-events: none;
+}
+.ui-grid-disable-selection.ng-scope{
+	height: 74px !important;
+}
+.grid-contacts .ui-grid-column-menu-button .ui-grid-icon-angle-down{
+    display: none;
+}
+.grid-contacts .ui-grid-pinned-container div[role="grid"]{
+    margin-left: 1px !important;
+} 
+.grid-contacts .ui-grid-disable-selection{
+    height: 70px;
+}
+.grid-contacts .ui-grid-disable-selection div{
+    background: #fff;
+}
+
+.grid-contacts .ui-grid-cell-focus{
+  	background: #f0fcfc;
+}
+.grid-contacts .ui-grid-focuser:focus {
+  	box-shadow: none;
+}
+.grid-contacts .ui-grid-icon-ok:before{
+  	position: relative;
+  	background: url('../images/checkbox_unchecked.svg');
+    width: 18px;
+    height: 18px;
+    left: 11.5px;
+    top: 6px;
+    background-size: 18px 18px;
+    background-repeat: no-repeat;
+    content: '';
+    pointer-events: all;
+}
+.grid-contacts .ui-grid-all-selected.ui-grid-icon-ok:before, .grid-contacts .ui-grid-row-selected.ui-grid-icon-ok:before{
+    background: url('../images/checkbox_checked_blue.svg');
+    background-size: 18px 18px;
+    background-repeat: no-repeat;
+}
+.grid-contacts .ui-grid-selection-row-header-buttons{
+  	opacity: 1;
+}
+.grid-contacts  .ui-grid-row-dirty .ui-grid-cell{
+	color: rgba(0,0,0,.87);
+}
+/*.grid-contacts	.select-box div:before{
+	content: '';
+    position: absolute;
+    width: 120px;
+    height: 40px;
+    top: 15px;
+    border: 1px solid #ccc;
 }*/
 
+/* select row bgcolor */
+.grid-contacts .ui-grid-row.ui-grid-row-selected > [ui-grid-row] > .ui-grid-cell,
+.grid-contacts .ui-grid-row.ui-grid-row-selected .ui-grid-disable-selection div{
+  	background-color: #f0fcfc !important;
+}
 
+/*footer bg color */
+.container .container-rt .grid-footer{
+ 	height: 70px;
+  	background: #eeeff1;
+  	border-top: 0;
+  	padding:12px 18px;
+  	position: relative;
+}
+.container .container-rt .grid-footer .btn-invite{
+	position: absolute;
+    margin-top: 12px;
+    padding: 14px;
+    float: right;
+    display: inline;
+    right: 18px;
+    top: -2px;
+}
+.container .container-rt .grid-footer .selected-count{
+  	float: left;
+    margin-top: 12px;
+}
+.container .container-rt div.pagenation{
+    border-radius: 4px;
+    width: 207px;
+    margin:5px auto;
+    overflow: hidden;
+    display: block;
+    margin-left: 358px;
+    background: #fff; 
+    border:1px solid #ccc;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;
+}
+.container .container-rt div.pagenation .arrow-click, .container .container-rt div.pagenation .pages span{
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    float: left;
+    outline: 0;
+}
+.container .container-rt div.pagenation .arrow-click.left{
+    border-right:1px solid #ccc;
+}
+.container .container-rt div.pagenation .pages span{
+    border-right:1px solid #ccc;
+}
+.container .container-rt div.pagenation .pages .page-active{
+    background-color: #347ab8;
+    color: #fff;
+}
+.container .container-rt div.pagenation .pages-container{
+    width: 136px;
+    position: relative;
+    height: 34px;
+    overflow: hidden;
+    float:left;
+}
+.container .container-rt div.pagenation .pages{
+    position: absolute;
+    left:0;
+    -webkit-transition: left 0.3s linear;
+    -moz-transition: left 0.3s linear;
+    -o-transition: left 0.3s linear;
+    transition: left 0.3s linear;
+}
+.container .container-rt .arrow-click.right{
+    position: relative;
+}
+.container .container-rt .arrow-click.right:after{
+    content: '';
+    position: absolute;
+    border-left: 1px solid #ccc;
+    z-index: 222222;
+    height: 34px;
+    left: -1px;
+}
+
+/* upload-contacts in dashboard*/
 .upload-contacts{
 	background: #eeeff1;
 }
@@ -14,7 +303,7 @@
 }
 .upload-contacts .head{
 	padding: 23px 0;
-	display: block;
+	display: inline-block;
 }
 .upload-contacts .head span{
 	font-size: 18px;
@@ -43,9 +332,9 @@
 	vertical-align: middle;
 }
 .upload-contacts .box .box-content .file-uploading{
-	padding-top: 10px;
 	width: 60%;
 	margin: 0 auto;
+	padding: 10px 56px;
 }
 .upload-contacts .box .box-content .file-uploading .row > div.col-sm-4{
 	width: 160px;
@@ -54,16 +343,34 @@
 	padding: 0;
 	margin-bottom: 35px;
 }
-.upload-contacts .box .box-content .file-uploading .row > div.col-sm-4 .upload{
+.upload-contacts .box .box-content .file-uploading .row > div.col-sm-4 .upload-bucket{
 	width: 100%;
 	height: 100%;
 	border: 1px solid #ccc;
 	border-radius: 5px;
+	cursor: pointer;
 }
-.upload-contacts .box .box-content .file-uploading .row > div.col-sm-4 .upload + p{
+.upload-contacts .box .box-content .file-uploading .row > div.col-sm-4 .upload-bucket div img[alt='upload']{
+	width: 25px;
+	height: 25px;
+}
+.upload-contacts .box .box-content .file-uploading .row > div.col-sm-4 .upload-bucket div p{
+	margin-top: 10px;
+    font-size: 18px;
+    color: #fff;
+}
+.upload-contacts .box .box-content .file-uploading .row > div.col-sm-4 .upload-bucket p.own{
+    font-size: 18px;
+    position: absolute;
+    top: 40%;
+    left: 10%;
+    color: #808080;
+}
+.upload-contacts .box .box-content .file-uploading .row > div.col-sm-4 .upload-bucket + p{
 	color: #818181;
 	font-size: 12px;
-	margin-top: 10px;
+	margin-top: 14px;
+	outline: none;
 }
 .upload-contacts .box .box-footer{
 	background: #f2f2f2;
@@ -73,7 +380,7 @@
 .upload-contacts .box .box-footer .btn-add{
 	background: #1d8e70;
 	color: #fff;
-	padding: 12px 18px;
+	padding: 12px 24px;
 	display: inline-block;
 	border: 2px solid #1c8368;
 	border-radius: 5px;
@@ -85,4 +392,154 @@
     display: inline-block;
     cursor: pointer;
     margin-right: 12px;
+    font-size: 17px;
+}
+
+
+/* qq uploader*/
+.upload-contacts .box .box-content .file-uploading .upload-bucket .qq-uploader{
+	height: 100%;
+	margin-bottom: 0;
+	padding-top: 0;
+}
+.upload-contacts .box .box-content .file-uploading .upload-bucket .qq-upload-fail{
+	position: absolute;
+    font-size: 13px;
+    color: #983a3a;
+    white-space: nowrap;
+    bottom: -18px;
+}
+.upload-contacts .box .box-content .file-uploading .upload-bucket .qq-uploader .qq-upload-button{
+	background: transparent;
+	height: 100%;
+	width: 100%;
+	text-shadow: none;
+	font-weight: normal;
+	text-transform: uppercase;
+}
+.upload-contacts .box .box-content .file-uploading .upload-bucket .qq-uploader .qq-upload-list{
+	z-index: 1;
+	top: 65%;
+}
+.qq-upload-success span:nth-child(n+1),.qq-upload-success a{
+	display: none !important;
+}
+.upload-contacts .box .box-content .file-uploading .upload-bucket .qq-uploader .qq-upload-button span.align-title{
+	position: absolute;
+	top: 30%;
+	width: 100%;
+	left: 0;
+}
+.upload-contacts .box .box-content .file-uploading .upload-bucket .qq-uploader .qq-upload-button span.align-title p{
+	width: 80%;
+    margin: 10px auto 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.upload-contacts .box .box-content .file-uploading .upload-bucket .qq-uploader .qq-upload-drop-area .file-name{
+    width: 100%;
+    height: 100%;
+}
+.upload-contacts .box .box-content .file-uploading .upload-bucket .qq-uploader .qq-upload-drop-area .file-name p.name{
+    position: absolute;
+    width: 90%;
+    bottom: 17px;
+    font-size: 15px;
+    left: 6%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.upload-contacts .box .box-content .file-uploading .upload-bucket .qq-uploader .qq-upload-drop-area .file-name .overlay{
+    display: none;
+    background: #000000;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    opacity: 0.1;
+}
+.upload-contacts .box .box-content .file-uploading .upload-bucket .qq-uploader .qq-upload-drop-area .file-name i.fa{
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid #ccc;
+    background: #fff;
+    border-radius: 4px;
+    display: none;
+    cursor: pointer;
+}
+.upload-contacts .box .box-content .file-uploading .upload-bucket .qq-uploader .qq-upload-drop-area .file-name:hover .overlay,
+.upload-contacts .box .box-content .file-uploading .upload-bucket .qq-uploader .qq-upload-drop-area .file-name:hover i.fa{
+	display: block;
+}
+
+/* modal qq-uploader*/
+.bucket-modal .modal-body #new-bucket{
+	width: 200px;
+	height: 50px;
+}
+.bucket-modal .modal-body #new-bucket .qq-uploader{
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+.bucket-modal .modal-body #new-bucket .qq-uploader .qq-upload-button{
+	background: transparent;
+	height: 100%;
+	width: 100%;
+	text-shadow: none;
+	font-weight: normal;
+	border: 1px solid #999;
+	color: #999;
+}
+.bucket-modal .modal-body #new-bucket .qq-uploader .qq-upload-button span.name{
+	position: absolute;
+    top: 20%;
+    left: 0;
+    width: 100%;
+    font-size: 20px;
+}
+
+
+
+
+/*modal styles*/
+.bucket-modal md-input-container:not(.md-input-invalid).md-input-focused .md-input{
+    border-color: rgba(0,0,0,0.12);
+    border-color: #999;
+}
+.bucket-modal .modal-header{
+	padding: 10px 0;
+}
+.bucket-modal .modal-header h3.modal-title{
+	color: #fff;
+}
+.bucket-modal .modal-body{
+	padding: 40px;
+}
+.bucket-modal .modal-body .browse{
+	border: 1px solid;
+	padding: 12px 50px;
+	cursor: pointer;
+}
+.bucket-modal .modal-body .browse input[type='file']{
+	display: none;
+}
+.bucket-modal .modal-footer{
+	padding: 10px 20px 10px 0;
+}
+.bucket-modal .modal-footer .btn-upload{
+	border: 1px solid;
+	padding: 10px 20px;
+	cursor: pointer;
+	outline: none;
+}
+.bucket-modal .modal-footer .btn-cancel{
+	padding: 10px 20px;
+	color: #959595;
+	outline: none;
 }

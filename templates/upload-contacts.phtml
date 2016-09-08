@@ -2,7 +2,7 @@
 <div class="upload-contacts">
 	<section>
 		<div class="container">
-			<a class="head">
+			<a class="head" ui-sref="app.contact">
 				<img src="public/images/arrow-back-grey.svg" alt="arrow-back">
 				<span>ADD CONTACT BUCKET</span>
 			</a>
@@ -16,10 +16,16 @@
 						</p>
 					</div>
 					<div class="file-uploading">
-						<div class="row row-centered">
-							<div class="col-sm-4 col-centered" ng-repeat="x in [1,2,3,4,5]">
-								<div class="upload">
-									
+						<div class="row">
+							<div class="col-sm-4" ng-repeat="bucketList in UploadContCtrl.bucketsList" ng-init="colorCode = UploadContCtrl.colorPicker($index)">
+								<!-- qq uploader -->
+								<div class="upload-bucket" ng-style="{'background':colorCode,'border-color':colorCode}"></div>
+								
+								<p ng-click="UploadContCtrl.downloadSample()" class="text-center">DOWNLOAD TEMPLATE</p>
+							</div>
+							<div class="col-sm-4">
+								<div class="upload-bucket" ng-click="UploadContCtrl.uploadModal()">
+									<p class="own"><i class="fa fa-plus" style="margin-right:3px;"></i>Add Your Own</p>
 								</div>
 								<p ng-click="UploadContCtrl.downloadSample()" class="text-center">DOWNLOAD TEMPLATE</p>
 							</div>
@@ -28,7 +34,7 @@
 				</div>
 				<div class="box-footer">
 					<div class="pull-right">
-						<span class="btn-cancel">Cancel</span>
+						<a ui-sref="app.contact"><span class="btn-cancel">Cancel</span></a>
 					    <span class="btn-add">ADD CONTACTS</span>
 					</div>
 				</div>
