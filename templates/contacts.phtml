@@ -1,4 +1,3 @@
-<link rel="stylesheet" type="text/css" href="public/css/contacts.css">
 <div class="grid-contacts">
 	<div class="container">
 
@@ -27,9 +26,10 @@
 				</span>
 				<div>
 					<img ng-src="public/images/loader/spin.gif" alt="bufferSpin" ng-if="ContactCtrl.updateLoader">
-					<span class="updateSuccess" style="display:none">Successfully Updated</span>
+					<span class="updateSuccess" style="color:#1d8e70">Successfully Updated</span>
 					<span class="updatefailure">Not Updated</span>
-					<span class="zeroRecords" style="color:#be7276;margin-left:-122px;">Please Select Atleast 1 Record</span>
+					<span class="zeroRecords" style="margin-left:-122px;">Please Select Atleast 1 Record</span>
+					<span class="existRecords" style="margin-left:-176px;">Please Choose Another Name EMP ID Already Exists</span>
 				</div>
 				<md-input-container md-no-float="" class="md-block">
 						<img ng-src="public/images/loader/search_loader.gif" alt="buffer" ng-if="ContactCtrl.searchLoader">
@@ -82,7 +82,7 @@
 					</div>
 					<div class="invite">
 						<span style="display: inline-block;padding: 12px 0;">{{ContactCtrl.selectedContacts.length}} Contact selected</span>
-						<div class="btn-invite">
+						<div class="btn-invite" ng-click="ContactCtrl.invite()">
 							INVITE SELECTED
 						</div>
 					</div>
@@ -93,7 +93,7 @@
  	</div>
 
  	<script type="text/ng-template" id="select-drop.html">
-    	<select ui-grid-edit-dropdown class="form-control" do-drop="col.colDef.handleClick" ng-model="MODEL_COL_FIELD" append-to-body="true">
+    	<select ui-grid-edit-dropdown class="form-control" ng-model="MODEL_COL_FIELD" append-to-body="true">
 		    <option value="Active" style="color:#0d8e68">Active</option>
 		    <option value="Inactive" style="color:#888888">Inactive</option>
 			<option value="Separated" style="color:#c46968">Separated</option>

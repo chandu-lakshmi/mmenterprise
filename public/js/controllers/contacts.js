@@ -92,11 +92,12 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
     this.selectedContacts = [];
     this.gridOptions = {
     	rowHeight : 70,
+    	enableCellEditOnFocus : true,
     	selectionRowHeaderWidth : 56,
     	enableHorizontalScrollbar: 0,
     	rowEditWaitInterval: -1,
     	columnDefs : [
-	        { name: 'other_id', displayName: 'Emp ID/Other ID', width: '12%', validators: { charOtherId:''}, cellTemplate: 'ui-grid/cellTitleValidator' },
+	        { name: 'other_id', displayName: 'Emp ID/Other ID', width: '12%', validators: { charOtherId:''}, cellTemplate: 'ui-grid/cellTitleValidator'},
 	        { name: 'firstname', displayName: 'First Name' ,width: '19%', validators: {charValidation:''}, cellTemplate: 'ui-grid/cellTitleValidator' },
 	        { name: 'lastname', displayName: 'Last Name', width : '19%', validators: {charValidation:''}, cellTemplate: 'ui-grid/cellTitleValidator' },
 	        { name: 'contact_number', displayName: 'Mobile' ,width: '14%', validators: {numValidation:''}, cellTemplate: 'ui-grid/cellTitleValidator' },
@@ -116,9 +117,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 	    ]   
     }
 
-    this.myFun = function(){
-    	alert();
-    }
+
     // function validtionCell(newVal, oldVal, rowEntity){
     // 	if(newVal != oldVal){
     // 		var regName = /^[a-zA-Z0-9'-]{2,30}$/,
@@ -137,7 +136,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 	    function(argument) {
 	      	return function(oldValue, newValue, rowEntity, colDef) {
 	      		if (newValue.length >= 1 && newValue.length <= 50) {
-	      			rowUpdate(oldValue, newValue, rowEntity, colDef.name);
+	      			rowUpdate(oldValue, newValue, rowEntity, colDef, 'charValidation');
 	      			return true;
 	      		}
 	      		else{
@@ -158,7 +157,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 	      	return function(oldValue, newValue, rowEntity, colDef) {
 	      		var regex = /^[a-zA-Z0-9-]{1,50}$/;
 	      		if (regex.test(newValue)) {
-	      			rowUpdate(oldValue, newValue, rowEntity, colDef.name);
+	      			rowUpdate(oldValue, newValue, rowEntity, colDef, 'charOtherId');
 	      			return true;
 	      		}
 	      		else{
@@ -179,7 +178,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 	      	return function(oldValue, newValue, rowEntity, colDef) {
 	      		var regex = /^[-0-9]{3,25}$/;
 	      		if (regex.test(newValue)) {
-	      			rowUpdate(oldValue, newValue, rowEntity, colDef.name);
+	      			rowUpdate(oldValue, newValue, rowEntity, colDef, 'numValidation');
        				return true;
     			}
     			else{
@@ -199,7 +198,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 	    function(argument) {
 	      	return function(newValue, oldValue, rowEntity, colDef) {
 	      		if(newValue != oldValue){
-	      			rowUpdate(oldValue, newValue, rowEntity, colDef.name);
+	      			rowUpdate(oldValue, newValue, rowEntity, colDef);
 	      			return true;
 	      		}
 	      	};
@@ -236,15 +235,12 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 	            }
 	        }
 		}
-
-        // gridApi.edit.on.afterCellEdit(null,function(rowEntity, colDef, newValue, oldValue){
-        // })
     };
 
     this.updateLoader = false;
-    function rowUpdate(oldValue, newValue, rowEntity, colDefName){
+    function rowUpdate(oldValue, newValue, rowEntity, colDef, validatorName){
     	if (newValue != oldValue) {
-    		$('.zeroRecords').hide();
+    		
     		scope.loaderImg = true;
     		scope.hideLoader = true;
     		scope.updateLoader = true;
@@ -257,7 +253,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 	            contact_number : rowEntity.contact_number,
 	            emailid : rowEntity.emailid,
 	            status : rowEntity.status
-	            //[colDefName] : newValue
+	            //[colDef.name] : newValue
 			});
 
 	        var get_buckets = $http({
@@ -271,13 +267,31 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 
 	    	get_buckets.success(function(response){
 		        if (response.status_code == 200) {
-		        	if (response.message.msg[0] == 'successfully updated') {
-		        		
+
 		        		scope.updateLoader = false;
 		        		scope.hideLoader = false;
 		        		scope.loaderImg = false;
+
+		        	if (response.message.msg[0] == 'successfully updated') {
+		        		
 		        		$('.updateSuccess').show();
 		        		$('.updateSuccess').fadeOut(3000);
+
+		        	}
+		        	else if (response.message.msg[0] == 'emp_id already exists') {
+		        		
+		        		$('.existRecords').show();
+		        		$('.existRecords').fadeOut(8000);
+		        		
+		        		if (!rowEntity['$$errors' + colDef.name]) {
+       						rowEntity['$$errors' + colDef.name] = {};
+    					}
+						rowEntity['$$errors' + colDef.name][validatorName] = true;
+						rowEntity['$$invalid' + colDef.name] = true;
+						rowEntity[colDef.name] = oldValue;
+						setTimeout(function() {
+	      					uiGridValidateService.setValid(rowEntity, colDef);
+	      				}, 500);
 
 		        	}
 		        	else if (response.message.msg[0] == 'failed to update') {	
@@ -303,7 +317,6 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
     this.srcSearch = 'search.svg';
     this.searchLoader = false;
    	this.searchRecords = function(arg) {
-   		$('.zeroRecords').hide();
    		if (arg == undefined || arg.length == 0) {
    			scope.srcSearch = 'search.svg';
    			scope.searchVal = '';
@@ -327,7 +340,6 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
     this.activeBucket = 'ALL CONTACTS';
     this.currentPage = 1;
     this.getGridData = function(bktName, bktID, pageNo, searchVal) {
-    	$('.zeroRecords').hide();
     	scope.loaderImg = true;
     	scope.loaderNoContacts = false;
 
@@ -405,12 +417,14 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
     	
     	if (scope.selectedContacts.length == 0) {
     		$('.zeroRecords').show();
+    		$('.zeroRecords').fadeOut(5000);
     		return;
     	}
-    		$('.zeroRecords').hide();
-    		scope.loaderImg = true;
-    		scope.hideLoader = true;
-    		scope.updateLoader = true;
+
+		$('.zeroRecords').hide();
+		scope.loaderImg = true;
+		scope.hideLoader = true;
+		scope.updateLoader = true;
 
     	if (cancellerStat) {
             cancellerStat.resolve();
@@ -450,14 +464,13 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 		        	scope.hideLoader = false;
 		        	scope.loaderImg = false;
 	        		$('.updateSuccess').show();
-		        	$('.updateSuccess').fadeOut(3000);
+		        	$('.updateSuccess').fadeOut(4000);
 		        	scope.gridOptions.data = angular.copy(scope.gridOptions.data);
 	        	}
 	        	else if (response.message.msg[0] == 'failed to update') {	
 	        		$('.updatefailure').show();
 		        	$('.updatefailure').fadeOut('slow');
 	        	}
-	        	$('.zeroRecords').fadeOut();
 	        }
 	        // Session Destroy
 	        else if (response.status_code == 400) {
@@ -471,6 +484,36 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 	    })
     }
 
+
+    //invite
+    this.invite = function(){
+    	if (scope.selectedContacts.length == 0) {
+    		$('.zeroRecords').show();
+    		$('.zeroRecords').fadeOut(5000);
+    		return;
+    	}
+
+    	$uibModal.open({
+            animation: false,
+            keyboard: false,
+            backdrop: 'static',
+            templateUrl: 'templates/dialogs/custom-msg.phtml',
+            openedClass: "import_verify",
+            controller: 'contactsInviteController',
+            size:'sm',
+            controllerAs: "ctrl",
+            resolve: {
+		        listContacts: function() {
+		        	var obj = {};
+		        	obj.selectedCts = scope.selectedContacts;
+		        	obj.resetSelectedCts = function(){
+		        		scope.gridApi.selection.clearSelectedRows();
+		        	}
+		            return obj;
+		        }
+           	}
+        });
+    }
 
 	// modal
    	this.bucketsModal = function(){
@@ -501,7 +544,57 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
    } 
 
 }])
+.controller('contactsInviteController', ['$scope', '$uibModalInstance', 'listContacts', '$http', '$window', 'CONFIG', function($scope, $uibModalInstance,listContacts,$http,$window,CONFIG) {
 
+    this.successMsg = false;
+
+    this.subject = "MintMesh Enterprise Invitation";
+    this.body = "We bring this powerful referral  platform to you. Please download the app and sign up. We are excited to have you be a part of our success here at MintMesh Enterprise.";
+
+    var scope = this;
+    this.invite = function() {
+        scope.invite_cond = true;
+        var list = listContacts.selectedCts.toString();
+        var paramas = $.param({
+        	action:'invite',
+            invite_contacts : list,
+            email_subject : scope.subject,
+            email_body :scope.body
+        });
+        var invite_contacts = $http({
+            headers: {
+               'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
+            method: 'POST',
+            url: CONFIG.APP_DOMAIN+'other_edits_in_contact_list',
+            data: paramas
+        })
+        invite_contacts.success(function(response){
+            if(response.status_code == 200){
+                scope.invite_cond = false;
+                scope.successMsg = true;
+                listContacts.resetSelectedCts();
+            }
+        })
+        invite_contacts.error(function(response){
+            console.log(response)
+            scope.invite_cond = false;
+        })
+
+    };
+
+    this.jumpPage = function(){
+    	$uibModalInstance.dismiss('cancel');
+        //$window.location = CONFIG.APP_DOMAIN+'dashboard';
+    }
+    
+    $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+
+        $uibModalInstance.dismiss('cancel');
+
+    })
+
+}])
 
 .controller('UploadContactsController',['$scope', '$uibModalInstance', '$state', '$http', '$uibModal', 'buckets', 'CONFIG', function($scope, $uibModalInstance, $state, $http, $uibModal, buckets, CONFIG){
     

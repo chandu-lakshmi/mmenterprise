@@ -605,6 +605,7 @@ $app->post('/other_edits_in_contact_list',function ($request, $response, $args) 
     
     // dynamically Access Token
     $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
     
     // getting API endpoint from settings
     $apiEndpoint = getapiEndpoint($this->settings, 'other_edits_in_contact_list');
