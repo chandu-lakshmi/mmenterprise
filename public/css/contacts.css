@@ -409,7 +409,7 @@
 }*/
 
 /* upload-contacts in dashboard*/
-.upload-contacts{
+/*.upload-contacts{
 	background: #eeeff1;
 }
 .upload-contacts .container{
@@ -513,11 +513,11 @@
 	position: absolute;
     right: -8px;
     top: 3px;
-}
+}*/
 
 
 /* qq uploader*/
-.upload-contacts .box .box-content .file-uploading .upload-bucket .qq-uploader{
+/*.upload-contacts .box .box-content .file-uploading .upload-bucket .qq-uploader{
 	height: 100%;
 	margin-bottom: 0;
 	padding-top: 0;
@@ -595,7 +595,7 @@
 .upload-contacts .box .box-content .file-uploading .upload-bucket .qq-uploader .qq-upload-drop-area .file-name:hover .overlay,
 .upload-contacts .box .box-content .file-uploading .upload-bucket .qq-uploader .qq-upload-drop-area .file-name:hover i.fa{
 	display: block;
-}
+}*/
 
 
 
@@ -643,51 +643,71 @@
 
 /* new mock */
 /* modal styles*/
-.bucket-modal .modal{
+.bucket-modal .modal,
+.contact-modal .modal{
     top: calc(50% - 385px);
     left: calc(50% - 859px);
 }
-.bucket-modal .modal-dialog{
+.bucket-modal .modal-dialog,
+.contact-modal .modal-dialog{
 	width: 990px;
 	height: 670px;
 	overflow-y:	auto; 
 }
-.bucket-modal .modal-dialog .modal-content{
+.bucket-modal .modal-dialog .modal-content,
+.contact-modal .modal-dialog .modal-content{
 	border-radius: 0;
 	width: 100%;
 	height: 100%; 
 }
-.bucket-modal .modal-dialog .modal-footer{
+.bucket-modal .modal-dialog .modal-footer,
+.contact-modal .modal-dialog .modal-footer{
     background: #eeeeee;
     position: absolute;
     width: 100%;
     bottom: 0;
 }
-.bucket-modal .modal-footer .btn-upload{
+.bucket-modal .modal-footer .btn-upload,
+.contact-modal .modal-footer .btn-upload{
+    width: 195px;
+    height: 50px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 50px;
+    background: #1c8f6e;
     border: 1px solid #1c8368;
-    padding: 13px 23px;
+    color: #fff;
     cursor: pointer;
     outline: none;
-    background: #1c8f6e;
-    display: inline-block;
     border-radius: 5px;
-    color: #fff;
+    display: inline-block;
 }
-.bucket-modal .modal-footer .btn-cancel{
+.bucket-modal .modal-footer .btn-cancel,
+.contact-modal .modal-footer .btn-cancel{
     padding: 10px 20px;
     color: #959595;
     outline: none;
     margin-right: 10px;
     font-size: 17px;
 }
+.bucket-modal .modal-body img[alt='close'],
+.bucket-modal .modal-body img[alt='back'],
+.contact-modal .modal-body img[alt='close'],
+.contact-modal .modal-body img[alt='back']{
+    width: 30px;
+    height: 30px;
+    outline: none;
+}
+.bucket-modal .modal-body .heading p,
+.contact-modal .modal-body .heading p{
+    margin:14px 0;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+}
 
 
 /* common */
-.bucket-modal .modal-body .heading p{
-	margin:14px 0;
-	font-size: 15px;
-    letter-spacing: 0.5px;
-}
+
 .bucket-modal .modal-body .download{
     margin: 33px 0 14px;
     font-size: 16px;
@@ -696,6 +716,10 @@
 
 
 
+.bucket-modal .modal-dialog .modal-content form[name='buckets_form']{
+    width: 100%;
+    height: 90%;
+}
 .bucket-modal .modal-body .contacts-group{
     overflow-y: auto; 
     height: 100%;
@@ -709,11 +733,7 @@
 .bucket-modal .modal-body .contacts-group .close:focus{
 	opacity: 1;
 }
-.bucket-modal .modal-body img[alt='close'],
-.bucket-modal .modal-body img[alt='back']{
-	width: 30px;
-	height: 30px;
-}
+
 
 
 .bucket-modal .modal-body .contacts-group .download span{
@@ -903,3 +923,30 @@
 
 
 /* new contact new mock*/
+
+.contact-modal .md-select-menu-container{
+    z-index: 1100;
+}
+.contact-modal .modal-body .new-contact .content{
+    overflow: hidden;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 40px;
+}
+.contact-modal .modal-body .new-contact .content .pull-left,
+.contact-modal .modal-body .new-contact .content .pull-right{
+    width: 45%;
+}
+
+    /* angular material css */
+.contact-modal .modal-body .new-contact .content md-input-container{
+    margin: 25px 0;
+}
+.contact-modal .modal-body .new-contact .content md-input-container label,
+.contact-modal .modal-body .new-contact .content md-select .md-select-value.md-select-placeholder{
+    font-size: 18px;
+}
+.contact-modal .modal-body .new-contact .content md-input-container:not(.md-input-invalid).md-input-focused label,
+.contact-modal .modal-body .new-contact .content md-input-container.md-input-has-value label:not(.md-no-float){
+    color: #656565;
+}

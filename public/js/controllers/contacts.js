@@ -795,8 +795,6 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 
     scope.bucketList = buckets.getData();
 
-    $('#phone_mask').mask("(999) 999-9999")
-
     scope.statusText = ["Active","Inactive","Seperated"];
 
     scope.errCond = false;

@@ -1,15 +1,3 @@
-<style type="text/css">
-    .modal-body .new-contact .content{
-        overflow: hidden;
-        width: 80%;
-        margin: 0 auto;
-    }
-    .modal-body .new-contact .content .pull-left,
-    .modal-body .new-contact .content .pull-right{
-        width: 45%;
-    }
-</style>
-
 <div class="modal-body">
     <div class="new-contact">
        <div>
@@ -17,39 +5,52 @@
         </div>
         <div class="clearfix"></div>
         <div class="heading text-center">
-            <h3 style="margin:0">Add Contact To Group</h3>
-            <p style="margin:14px 0;">
+            <h3 style="margin:0">Add Contact to Group</h3>
+            <p>
                 <span style="color:#989898;">Create your own contacts group Through uploading the contacts list</span>
             </p>
         </div>
         <div class="content">
             <form name="upload_contact_form" novalidate>
+                <md-input-container class="md-block" style="width:45%">
+                    <label style="display:none">Select Contact Group</label>
+                    <md-select name="bucket" ng-model="SingleContCtrl.newContact.bucket" required ng-class="{'has-error-border':upload_contact_form.bucket.$invalid && SingleContCtrl.errCond}">
+                        <md-option ng-repeat="bucket in SingleContCtrl.bucketList" ng-value="bucket">
+                            {{bucket.bucket_name}}
+                        </md-option>
+                    </md-select>
+                    <div ng-if="upload_contact_form.bucket.$error.required && SingleContCtrl.errCond" style="position:absolute" class="has-error-msg">Please Select Bucket Name</div>
+                </md-input-container>
                 <div class="pull-left">
-                    <md-input-container class="md-block" style="margin:0">
+                    <md-input-container class="md-block">
                         <label>FIRST NAME</label>
-                        <input type="text" name="firstname">
+                        <input type="text" name="firstname" ng-model="SingleContCtrl.newContact.firstname" required ng-class="{'has-error-border':upload_contact_form.firstname.$invalid && SingleContCtrl.errCond}">
+                        <div ng-if="upload_contact_form.firstname.$error.required && SingleContCtrl.errCond" class="has-error-msg">Please Enter First Name</div>
                     </md-input-container>
-                    <md-input-container class="md-block" style="margin:0">
+                    <md-input-container class="md-block">
                         <label>MOBILE</label>
-                        <input type="text" name="mobile">
+                        <input type="text" name="mobile" ng-model="SingleContCtrl.newContact.mobile" required ng-class="{'has-error-border':upload_contact_form.mobile.$invalid && SingleContCtrl.errCond}">
+                        <div ng-if="upload_contact_form.mobile.$error.required && SingleContCtrl.errCond" class="has-error-msg">Please Enter Mobile Number</div>
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label style="display:none">STATUS</label>
-                        <md-select name="status" ng-model="">
-                            <md-option>Active</md-option>
-                            <md-option>Inactive</md-option>
-                            <md-option>Seperated</md-option>
+                        <md-select name="status" ng-model="SingleContCtrl.newContact.status" required ng-class="{'has-error-border':upload_contact_form.status.$invalid && SingleContCtrl.errCond}">
+                            <md-option ng-repeat="status in SingleContCtrl.statusText" ng-value="status">{{status}}</md-option>
                         </md-select>
+                        <div ng-if="upload_contact_form.status.$error.required && SingleContCtrl.errCond" style="position:absolute" class="has-error-msg">Please Select Status</div>
                     </md-input-container>
                 </div>
                 <div class="pull-right">
-                    <md-input-container class="md-block" style="margin:0">
+                    <md-input-container class="md-block">
                         <label>LAST NAME</label>
-                        <input type="text" name="lastname">
+                        <input type="text" name="lastname" ng-model="SingleContCtrl.newContact.lastname" required ng-class="{'has-error-border':upload_contact_form.lastname.$invalid && SingleContCtrl.errCond}">
+                        <div ng-if="upload_contact_form.lastname.$error.required && SingleContCtrl.errCond" class="has-error-msg">Please Enter Last Name</div>
                     </md-input-container>
-                    <md-input-container class="md-block" style="margin:0">
+                    <md-input-container class="md-block">
                         <label>EMAIL</label>
-                        <input type="text" name="email">
+                        <input type="text" name="email" ng-model="SingleContCtrl.newContact.email" required ng-pattern="/^[a-z0-9A-Z._%+-]+@[a-zA-Z]+\.[a-z]{2,3}$/" ng-class="{'has-error-border':upload_contact_form.email.$invalid && SingleContCtrl.errCond}">
+                        <div ng-if="upload_contact_form.email.$error.required && SingleContCtrl.errCond" class="has-error-msg">Please Enter Email Address</div>
+                        <div ng-if="upload_contact_form.email.$error.pattern && SingleContCtrl.errCond" class="has-error-msg">Please Enter Valid Email Address</div>
                     </md-input-container>
                 </div>
             </form>
@@ -67,6 +68,6 @@
 <div class="modal-footer clearfix">
     <div class="pull-right">
         <span class="btn-cancel" ng-click="$dismiss()">Cancel</span>
-        <span class="btn-upload">ADD CONTACT</span>
+        <span class="btn-upload" ng-click="SingleContCtrl.add(upload_contact_form.$valid)">ADD CONTACT</span>
     </div>
 </div>
