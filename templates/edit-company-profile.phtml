@@ -31,7 +31,6 @@
 					            <div class="md-errors-spacer"></div>
 					            <div ng-if="(editCompCtrl.company_details.industry == null || editCompCtrl.company_details.industry == '') && editCompCtrl.errCond" class="has-error-msg">Please Select Industry</div>
 					        </md-input-container>
-				            <!-- <input type="hidden" name="industry" ng-value="editCompCtrl.company_details.industry"> -->
 					        <md-input-container class="md-block">
 					            <label style="display:none;">NUMBER OF EMPLOYEES</label>
 					            <md-select name="number_of_employees" ng-model="editCompCtrl.company_details.number_of_employees">
@@ -40,7 +39,6 @@
 					              	</md-option>
 					            </md-select>
 					        </md-input-container>
-				            <!-- <input type="hidden" name="number_of_employees" ng-value="editCompCtrl.company_details.number_of_employees"> -->
 	 					</div>
 	 				</div>
 	 				<div class="col-sm-6">
@@ -62,7 +60,7 @@
 					<div class="col-sm-6">
 						<div style="width:85%;">
 							<div class="company-logo">
-					        	<span>LOGO <small style="color: #999">(Add your company logo)</small></span>
+					        	<span style="color: #999">LOGO <small>(Add your company logo)</small></span>
 					        	<div id="company-logo" style="position:relative"></div>
 					        	<ul style="color: #999;font-size:13px;padding-left:19px;">
 					        		<li>Supported file format: ".JPEG", ".JPG", ".PNG"</li>
@@ -70,7 +68,7 @@
 					        	</ul>
 					        </div>
 					        <div class="referral-bonus">
-					        	<span>REFERRAL BONUS POLICY</span>
+					        	<span style="color: #999">REFERRAL BONUS POLICY</span>
 					        	<div id="referral-bonus" style="position:relative"></div>
 					        	<ul style="color: #999;font-size:13px;padding-left:19px;">
 					        		<li>Supported file format: ".DOC", ".PDF", ".CSV", ".DOCX"</li>
@@ -82,7 +80,7 @@
 					<div class="col-sm-6">
 						<div style="width:85%;">
 							<div>
-								<span>PHOTOS <small style="color: #999">(Add your company pictures)</small></span>
+								<span style="color: #999">PHOTOS <small>(Add your company pictures)</small></span>
 								<div class="image-group">
 									<div class="multiple-images"></div>
 									<div class="multiple-images"></div>

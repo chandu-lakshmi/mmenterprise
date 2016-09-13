@@ -435,7 +435,7 @@ qq.FileUploaderBasic.prototype = {
         }
     },      
     _validateFile: function(file){
-		console.dir(file)
+		//console.dir(file)
         var name, size;
         
         if (file.value){
@@ -448,9 +448,9 @@ qq.FileUploaderBasic.prototype = {
 			size = (file.fileSize !== null && file.fileSize !== undefined) ? file.fileSize : file.size;
         }
         
-        console.log(file.fileSize);
-        console.log(file.size);
-        console.log(size);
+        //console.log(file.fileSize);
+        //console.log(file.size);
+        //console.log(size);
 		
         if (! this._isAllowedExtension(name)){            
             this._error('typeError', name);
@@ -544,7 +544,7 @@ qq.FileUploader = function(o){
                 '<span class="qq-upload-file"></span>' +
                 '<span class="qq-upload-spinner"></span>' +
                 '<span class="qq-upload-size"></span>' +
-                '<a class="qq-upload-cancel" href="#">{cancelButtonText}</a>' +
+                '<a class="qq-upload-cancel" href="#" style="display:none">{cancelButtonText}</a>' +
                 '<span class="qq-upload-failed-text">{failUploadtext}</span>' +
             '</li>',        
         

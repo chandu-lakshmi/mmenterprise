@@ -106,6 +106,22 @@ return [
             'update_contacts_list' => [
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/update_contacts_list'
+            ],
+            'validate_headers' => [
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/validate_headers'
+            ],
+            'create_bucket' => [
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/create_bucket'
+            ],
+            'other_edits_in_contact_list' => [ 
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/other_edits_in_contact_list'
+            ],
+            'upload_contacts' => [
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/upload_contacts'
             ]
            
     ];

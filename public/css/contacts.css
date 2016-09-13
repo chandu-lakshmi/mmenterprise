@@ -16,12 +16,14 @@
 	padding: 10px 10px 0 0;
 	float: left;
 }
+.grid-contacts .container .container-lt .dropdown{
+	margin-bottom: 23px;
+}
 .grid-contacts .container .container-lt .bkt-container{
-	height: calc(100vh - 220px);
+	height: calc(100vh - 217px);
     overflow-y: auto;
 }
-
-.grid-contacts .container .container-lt span{
+.grid-contacts .container .container-lt span, .word-ellipsis{
 	display: block;
     padding: 14px 0 14px 16px;
     text-align: left;
@@ -33,65 +35,93 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-top: 4px;
 }
-
-.grid-contacts .container md-input-container .md-errors-spacer{
-	min-height: 0;
-}
-.grid-contacts .container .container-lt md-input-container input{
-	padding-right: 30px;
-}
-.grid-contacts .container .container-lt md-input-container img[alt='searchGroup']{
-	position: absolute;
-    right: 2px;
-    width: 16px;
-    height: 16px;
-    top: 10px;
-}
-.grid-contacts .container .container-lt .activeBucketCls{
-	background-color: #1b8368;
-	color: #fff;
-}
-.btn-invite{
-    border-radius: 4px;
-    color: #fff;
-    padding-right:14px;
+.grid-contacts .container .container-lt .dropdown button,
+.grid-contacts .open > .dropdown-toggle.btn-primary:hover
+.grid-contacts .open > .dropdown-toggle.btn-primary:focus,
+.grid-contacts .open > .dropdown-toggle.btn-primary:active{
+	padding: 10px 50px;
     background-color: #1d8e70;
     font-size: 16px;
+    outline: none;
+    box-shadow: none;
+    border-color: #1d8e70;
+}
+.grid-contacts .container .container-lt .dropdown ul{
+	min-width: 231px;
+	margin: 0;
+	padding: 0;
+}
+.grid-contacts .container .container-lt .dropdown ul li:not(:last-child){
+	border-bottom: 1px solid #d4d4d4;
+}
+.grid-contacts .container .container-lt .dropdown ul a{
+	padding: 20px;
+}
+/*.grid-contacts .container .container-lt .active-bucket{
+	padding: 11px 42px;
+    border-radius: 4px;
+    margin-bottom: 23px;
+    color: #fff;
+    background-color: #1d8e70;
+    font-size: 16px;
+    cursor: pointer;
+}
+.grid-contacts .container .container-lt .active-bucket a, .grid-contacts .container .container-lt .active-bucket a:hover{
+	color: #fff !important;
+}*/
+.grid-contacts .container .container-lt .activeBucketCls{
+	background-color: #969c9c;
+	color: #fff;
 }
 .grid-contacts .container .container-rt{
 	width: 80%;
 	float: right;
 	border:1px solid #ccc;
 	border-top: 0;
+	background-color: #fff;
 }
-.grid-contacts .container .container-rt .active-bucket{
+.grid-contacts .container .container-rt .search span{
 	display: inline-block;
-    padding: 12px 30px;
-    border-radius: 4px;
-    color: #fff;
-    background-color: #1d8e70;
-    font-size: 16px;
-    margin: 8px;
 }
-.grid-contacts .container .container-rt .active-bucket a,.grid-contacts .container .container-rt .active-bucket a:hover{
-	color: #fff !important;
-}
-.grid-contacts .container .container-rt .record-search{
+.grid-contacts .container .container-rt md-input-container{
 	float: right;
+	margin-bottom: 8px;
     display: inline-block;
 }
-.grid-contacts .container .container-rt .record-search input{
+.grid-contacts .container .container-rt md-input-container .md-errors-spacer{
+	min-height: 0;
+}
+.grid-contacts .container .container-rt .search{
+	position: relative;
+}
+.grid-contacts .container .container-rt .search div{
+	display: inline-block;
+    text-align: center;
+    position: absolute;
+    left: 48%;
+    top: 16px;
+}
+.grid-contacts .container .container-rt .search div img{
+	width: 30px;
+	height: 30px;
+}
+.grid-contacts .container .container-rt .search div span{
+	display: none;
+	margin-left: -66px;
+}
+.grid-contacts .container .container-rt .search input{
 	padding-right: 30px;
 }
-.grid-contacts .container .container-rt .record-search img[alt='buffer']{
+.grid-contacts .container .container-rt .search img[alt='buffer']{
 	width: 20px;
     height: 20px;
     position: absolute;
     left: -28px;
     top: 8px;
 }
-.grid-contacts .container .container-rt .record-search img[alt='feedback_left']{
+.grid-contacts .container .container-rt .search img[alt='feedback_left']{
 	position: absolute;
     top: 8px;
     right: 6px;
@@ -108,14 +138,13 @@
     border-left:0;
     border-right: 0;
     overflow: hidden;
-    height: calc(100vh - 285px) !important;
+    height: calc(100vh - 275px) !important;
 }
 .grid-contacts .ui-grid-header-viewport{
   	height: 40px;
     line-height: 40px;
     color: #999999;
-    background: #f2f2f2;
-    text-transform: uppercase;
+    background: #eeeff1;
 }
 .grid-contacts .ui-grid-header-cell{
     border: 0;
@@ -141,7 +170,7 @@
     border: 2px solid #0990e2 !important;
     height: 40px;
     width: 80%;
-    padding-left: 8px;
+    /*padding-left: 8px;*/
 }
 /*.grid-contacts .ui-grid-cell-contents.ng-binding.ng-scope.ui-grid-cell-focus + div{
  	margin-top:-1px;
@@ -149,8 +178,9 @@
 }*/
 .grid-contacts .ui-grid-row .ng-scope div{
 	margin-top: -1px;
-    border-bottom: 1px solid #e6e8e8 !important; 
+    /*border-bottom: 1px solid #e6e8e8 !important;*/ 
     pointer-events: none;
+    padding-right: 14px;
 }
 .ui-grid-disable-selection.ng-scope{
 	height: 74px !important;
@@ -205,47 +235,111 @@
     top: 15px;
     border: 1px solid #ccc;
 }*/
-
 /* select row bgcolor */
 .grid-contacts .ui-grid-row.ui-grid-row-selected > [ui-grid-row] > .ui-grid-cell,
 .grid-contacts .ui-grid-row.ui-grid-row-selected .ui-grid-disable-selection div{
   	background-color: #f0fcfc !important;
 }
+/* validation & loaders */
+.grid-contacts div.ui-grid-cell-contents.invalid{
+	margin-right: 24px;
+    height: 38px;
+    line-height: 38px;
+    width: 70%;
+}
+.grid-contacts .grid-msg-overlay{
+	top: 42px;
+	background-color: rgba(240, 244, 247, 0.5);
+}
+.grid-contacts .grid-msg-overlay .msg{
+	border: 0;
+	background-color: transparent;
+	top: 35.5%;
+	font-size: 16px;
+}
+.grid-contacts .grid-msg-overlay img{
+	width: 45px;
+	height: 45px;
 
+}
 /*footer bg color */
-.container .container-rt .grid-footer{
+.grid-contacts .container .container-rt .grid-footer{
  	height: 70px;
   	background: #eeeff1;
   	border-top: 0;
+  	font-size: 14px;
   	padding:12px 18px;
   	position: relative;
 }
-.container .container-rt .grid-footer .btn-invite{
+.grid-contacts .container .container-rt .grid-footer .status{
+	width: 36%;
+	padding-top: 5px;
+}
+.grid-contacts .container .container-rt .grid-footer .status span select{
+	border: 0;
+	display: inline-block;
+	background-color: transparent;
+	box-shadow: none;
+    outline: 0;
+    font-weight: 900;
+    -webkit-appearance:none;
+  	-moz-appearance:none;
+  	appearance:none;
+  	width: 71px;
+  	cursor: pointer;
+}
+.grid-contacts .container .container-rt .grid-footer .status span i{
+	position: absolute;
+    pointer-events: none;
+    right: -4px;
+    font-size: 22px;
+    top: -2px;
+    color: #000;
+}
+.grid-contacts .container .container-rt .grid-footer .status span:first-child{
+	position: relative;
+}
+.grid-contacts .container .container-rt .grid-footer .status span:last-child{
+    cursor: pointer;
+    outline: none;
+}
+.grid-contacts .container .container-rt .grid-footer .pages-con{
+	width: 30%;
+	text-align: center;
+}
+.grid-contacts .container .container-rt .grid-footer .invite .btn-invite{
 	position: absolute;
     margin-top: 12px;
     padding: 14px;
-    float: right;
-    display: inline;
     right: 18px;
     top: -2px;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #1d8e70;
+    cursor: pointer;
+}
+.grid-contacts .container .container-rt .grid-footer .invite span{
+	display: inline-block;
+    padding: 12px 0;
+    position: relative;
+    margin-left: 40px;
 }
 .container .container-rt .grid-footer .selected-count{
   	float: left;
     margin-top: 12px;
 }
+.container .container-rt .grid-footer .center-pages{
+  	width: 236px;
+    margin: 0 auto;
+    text-align: center;
+}
 .container .container-rt div.pagenation{
     border-radius: 4px;
-    width: 207px;
     margin:5px auto;
     overflow: hidden;
-    display: block;
-    margin-left: 358px;
+    display: inline-block;
     background: #fff; 
     border:1px solid #ccc;
-    -webkit-user-select: none;  /* Chrome all / Safari all */
-    -moz-user-select: none;     /* Firefox all */
-    -ms-user-select: none;      /* IE 10+ */
-    user-select: none;
 }
 .container .container-rt div.pagenation .arrow-click, .container .container-rt div.pagenation .pages span{
     display: inline-block;
@@ -289,10 +383,30 @@
     content: '';
     position: absolute;
     border-left: 1px solid #ccc;
-    z-index: 222222;
+    z-index: 22;
     height: 34px;
     left: -1px;
 }
+.container .container-rt .form-control:focus{
+	border-color: #cbcbcb;
+	box-shadow: none;
+}
+.container .container-rt .separated-s{
+	color: #c46968;
+}
+.container .container-rt .active-s{
+	color: #0d8e68;
+}
+.container .container-rt .inactive-s{
+	color: #888888;
+}
+.grid-contacts .ui-grid-row{
+	border-bottom: 1px solid #e6e8e8 !important;
+	overflow: hidden;
+}
+/*.ui-grid-cell{
+	height: 0px;
+}*/
 
 /* upload-contacts in dashboard*/
 .upload-contacts{
@@ -302,7 +416,7 @@
 	padding-bottom: 100px;
 }
 .upload-contacts .head{
-	padding: 23px 0;
+	padding: 15px 0;
 	display: inline-block;
 }
 .upload-contacts .head span{
@@ -380,11 +494,12 @@
 .upload-contacts .box .box-footer .btn-add{
 	background: #1d8e70;
 	color: #fff;
-	padding: 12px 24px;
+	padding: 12px 33px;
 	display: inline-block;
 	border: 2px solid #1c8368;
 	border-radius: 5px;
 	cursor: pointer;
+	position: relative;
 }
 .upload-contacts .box .box-footer .btn-cancel{
     color: #959595;
@@ -393,6 +508,11 @@
     cursor: pointer;
     margin-right: 12px;
     font-size: 17px;
+}
+.upload-contacts .box .box-footer .btn-add img[alt='dot']{
+	position: absolute;
+    right: -8px;
+    top: 3px;
 }
 
 
@@ -477,38 +597,13 @@
 	display: block;
 }
 
-/* modal qq-uploader*/
-.bucket-modal .modal-body #new-bucket{
-	width: 200px;
-	height: 50px;
-}
-.bucket-modal .modal-body #new-bucket .qq-uploader{
-	height: 100%;
-	margin: 0;
-	padding: 0;
-}
-.bucket-modal .modal-body #new-bucket .qq-uploader .qq-upload-button{
-	background: transparent;
-	height: 100%;
-	width: 100%;
-	text-shadow: none;
-	font-weight: normal;
-	border: 1px solid #999;
-	color: #999;
-}
-.bucket-modal .modal-body #new-bucket .qq-uploader .qq-upload-button span.name{
-	position: absolute;
-    top: 20%;
-    left: 0;
-    width: 100%;
-    font-size: 20px;
-}
+
 
 
 
 
 /*modal styles*/
-.bucket-modal md-input-container:not(.md-input-invalid).md-input-focused .md-input{
+/*.bucket-modal md-input-container:not(.md-input-invalid).md-input-focused .md-input{
     border-color: rgba(0,0,0,0.12);
     border-color: #999;
 }
@@ -542,4 +637,269 @@
 	padding: 10px 20px;
 	color: #959595;
 	outline: none;
+}*/
+
+
+
+/* new mock */
+/* modal styles*/
+.bucket-modal .modal{
+    top: calc(50% - 385px);
+    left: calc(50% - 859px);
 }
+.bucket-modal .modal-dialog{
+	width: 990px;
+	height: 670px;
+	overflow-y:	auto; 
+}
+.bucket-modal .modal-dialog .modal-content{
+	border-radius: 0;
+	width: 100%;
+	height: 100%; 
+}
+.bucket-modal .modal-dialog .modal-footer{
+    background: #eeeeee;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+.bucket-modal .modal-footer .btn-upload{
+    border: 1px solid #1c8368;
+    padding: 13px 23px;
+    cursor: pointer;
+    outline: none;
+    background: #1c8f6e;
+    display: inline-block;
+    border-radius: 5px;
+    color: #fff;
+}
+.bucket-modal .modal-footer .btn-cancel{
+    padding: 10px 20px;
+    color: #959595;
+    outline: none;
+    margin-right: 10px;
+    font-size: 17px;
+}
+
+
+/* common */
+.bucket-modal .modal-body .heading p{
+	margin:14px 0;
+	font-size: 15px;
+    letter-spacing: 0.5px;
+}
+.bucket-modal .modal-body .download{
+    margin: 33px 0 14px;
+    font-size: 16px;
+    color: #0f8265;
+}
+
+
+
+.bucket-modal .modal-body .contacts-group{
+    overflow-y: auto; 
+    height: 100%;
+    width: 100%;
+}
+.bucket-modal .modal-body .contacts-group .close{
+	opacity: 0.6;
+	outline: none;
+}
+.bucket-modal .modal-body .contacts-group .close:hover,
+.bucket-modal .modal-body .contacts-group .close:focus{
+	opacity: 1;
+}
+.bucket-modal .modal-body img[alt='close'],
+.bucket-modal .modal-body img[alt='back']{
+	width: 30px;
+	height: 30px;
+}
+
+
+.bucket-modal .modal-body .contacts-group .download span{
+	outline: none;
+}
+
+/* bucket styles (qq-uploader) */
+.bucket-modal .modal-body .contacts-group .file-uploading{
+	width: 64%;
+	margin: 0 auto;
+}
+.bucket-modal .modal-body .contacts-group .file-uploading .row{
+	margin: 0;
+	margin-left: 45px;
+}
+.bucket-modal .modal-body .contacts-group .file-uploading .row > div.col-sm-4{
+	width: 160px;
+	height: 160px;
+	margin: 20px;
+	padding: 0;
+	margin-left: 0;
+	margin-bottom: 0;
+}
+.bucket-modal .modal-body .contacts-group .file-uploading .row > div.col-sm-4 .upload-bucket{
+	width: 100%;
+	height: 100%;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	cursor: pointer;
+}
+.bucket-modal .modal-body .contacts-group .file-uploading .row > div.col-sm-4 .upload-bucket.new-bucket{
+	width: 100%;
+	height: 100%;
+	border: 2px dashed #ccc;
+	background: #f3f7fa;
+}
+.bucket-modal .modal-body .contacts-group .file-uploading .row > div.col-sm-4 .upload-bucket.new-bucket p.own{
+	font-size: 18px;
+    position: absolute;
+    top: 40%;
+    color: #808080;
+}
+
+.bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader{
+	height: 100%;
+	margin-bottom: 0;
+	padding-top: 0;
+}
+.bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-upload-fail{
+	position: absolute;
+    font-size: 13px;
+    color: #983a3a;
+    white-space: nowrap;
+    bottom: -18px;
+}
+.bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader .qq-upload-button{
+	background: transparent;
+	height: 100%;
+	width: 100%;
+	text-shadow: none;
+	font-weight: normal;
+	text-transform: uppercase;
+}
+.bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader .qq-upload-list{
+	z-index: 1;
+	top: 65%;
+}
+.bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader .qq-upload-button span.align-title{
+	position: absolute;
+	top: 35%;
+	width: 100%;
+	left: 0;
+	font-size: 18px;
+    text-transform: capitalize;
+}
+.bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader .qq-upload-button span.align-title p{
+	width: 80%;
+    margin: 10px auto 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader .qq-upload-drop-area .file-name{
+    width: 100%;
+    height: 100%;
+}
+.bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader .qq-upload-drop-area .file-name p.name{
+    position: absolute;
+    width: 90%;
+    bottom: 17px;
+    font-size: 15px;
+    left: 6%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    color: #fff;
+}
+.bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader .qq-upload-drop-area .file-name .overlay{
+    display: none;
+    background: #000000;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    opacity: 0.1;
+}
+.bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader .qq-upload-drop-area .file-name i.fa{
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid #ccc;
+    background: #fff;
+    border-radius: 4px;
+    display: none;
+    cursor: pointer;
+}
+.bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader .qq-upload-drop-area .file-name:hover .overlay,
+.bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader .qq-upload-drop-area .file-name:hover i.fa{
+	display: block;
+}
+
+/* new bucket */
+.bucket-modal .modal-body .new-bucket .content{
+    width: 27%;
+    margin: 0 auto;
+    margin-top: 60px;
+}
+/* new bucket qq-uploader */
+.bucket-modal .modal-body #new-bucket{
+    width: 146px;
+    height: 50px;
+}
+.bucket-modal .modal-body #new-bucket .qq-uploader{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+.bucket-modal .modal-body #new-bucket .qq-upload-fail{
+    font-size: 13px;
+    color: #983a3a;
+    white-space: nowrap;
+}
+.bucket-modal .modal-body #new-bucket .qq-uploader .qq-upload-button{
+    height: 100%;
+    width: 100%;
+    text-shadow: none;
+    font-weight: normal;
+    border: 2px solid #cccccc;
+    color: #a0a0a0;
+    background: #f8f8f8;
+}
+.bucket-modal .modal-body #new-bucket .qq-uploader .qq-upload-button span.name{
+    position: absolute;
+    top: 20%;
+    left: 0;
+    width: 100%;
+    font-size: 20px;
+}
+.bucket-modal .modal-body #new-bucket .qq-uploader .qq-upload-drop-area{
+    background: transparent;
+}
+.bucket-modal .modal-body #new-bucket .qq-uploader .qq-upload-drop-area .file-name{
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    padding: 15px 0;
+}
+.bucket-modal .modal-body #new-bucket .qq-uploader .qq-upload-drop-area .file-name img[alt='file']{
+    width: 25px;
+    height: 25px;
+}
+.bucket-modal .modal-body #new-bucket .qq-uploader .qq-upload-drop-area .file-name p.name{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline-block;
+    vertical-align: -webkit-baseline-middle;
+    width: 69%;
+    padding-left: 5px;
+}
+.bucket-modal .modal-body #new-bucket .qq-uploader .qq-upload-drop-area .file-name img[alt='cancel']{
+    cursor: pointer;
+    position: absolute;
+}
+
+
+/* new contact new mock*/

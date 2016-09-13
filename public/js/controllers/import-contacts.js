@@ -274,7 +274,6 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
     })
 
     var selectedContacts = [];
-    var selectedContacts1 = [];
 
     var API_CALL = CONFIG.APP_DOMAIN+'contact_list';
     var bucketId,canceller;
@@ -334,18 +333,16 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
         function updateRowSelection(row) {
 
             if (row.isSelected) {
-                if (selectedContacts.indexOf(row.entity.other_id) == -1) {
-                    selectedContacts.push(row.entity.other_id);
-                    selectedContacts1.push(row.entity.record_id);
+                if (selectedContacts.indexOf(row.entity.record_id) == -1) {
+                    selectedContacts.push(row.entity.record_id);
                 }
             } else {
-                var index = selectedContacts.indexOf(row.entity.other_id);
-                var index1 = selectedContacts.indexOf(row.entity.record_id);
+                var index = selectedContacts.indexOf(row.entity.record_id);
                 if (index > -1) {
                     selectedContacts.splice(index, 1);
-                    selectedContacts1.splice(index1,1);
                 }
             }
+            console.log(selectedContacts + "jaya")
         }
 
         if(canceller){
@@ -503,6 +500,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
             });
         }
         else{
+            console.log(selectedContacts+"dasdas")
             $uibModal.open({
                 animation: true,
                 keyboard: false,
@@ -514,7 +512,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
                 controllerAs: "ctrl",
                 resolve: {
                 listContacts: function() {
-                    return selectedContacts1;
+                    return selectedContacts;
                 }
             }
             });

@@ -1,0 +1,72 @@
+<style type="text/css">
+    .modal-body .new-contact .content{
+        overflow: hidden;
+        width: 80%;
+        margin: 0 auto;
+    }
+    .modal-body .new-contact .content .pull-left,
+    .modal-body .new-contact .content .pull-right{
+        width: 45%;
+    }
+</style>
+
+<div class="modal-body">
+    <div class="new-contact">
+       <div>
+            <img src="public/images/cross-grey.svg" alt="close" class="pull-right" ng-click="$dismiss()">
+        </div>
+        <div class="clearfix"></div>
+        <div class="heading text-center">
+            <h3 style="margin:0">Add Contact To Group</h3>
+            <p style="margin:14px 0;">
+                <span style="color:#989898;">Create your own contacts group Through uploading the contacts list</span>
+            </p>
+        </div>
+        <div class="content">
+            <form name="upload_contact_form" novalidate>
+                <div class="pull-left">
+                    <md-input-container class="md-block" style="margin:0">
+                        <label>FIRST NAME</label>
+                        <input type="text" name="firstname">
+                    </md-input-container>
+                    <md-input-container class="md-block" style="margin:0">
+                        <label>MOBILE</label>
+                        <input type="text" name="mobile">
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label style="display:none">STATUS</label>
+                        <md-select name="status" ng-model="">
+                            <md-option>Active</md-option>
+                            <md-option>Inactive</md-option>
+                            <md-option>Seperated</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div class="pull-right">
+                    <md-input-container class="md-block" style="margin:0">
+                        <label>LAST NAME</label>
+                        <input type="text" name="lastname">
+                    </md-input-container>
+                    <md-input-container class="md-block" style="margin:0">
+                        <label>EMAIL</label>
+                        <input type="text" name="email">
+                    </md-input-container>
+                </div>
+            </form>
+        </div>
+    </div> 
+            <!-- <div style="width:60%">
+                <md-input-container class="md-block" style="margin:0">
+                    <label>Bucket Name</label>
+                    <input type="text" name="bucketName" ng-model="UploadContCtrl.modal.bucketName" required ng-class="{'has-error-border':new_bucket_form.bucketName.$invalid && UploadContCtrl.errorFromData}" check-bucket array-bucket="{{UploadContCtrl.bucketsList}}" bucket-name="{{UploadContCtrl.modal.bucketName}}" autocomplete="off">
+                    <div ng-if="new_bucket_form.bucketName.$error.required && UploadContCtrl.errorFromData" class="has-error-msg">Please Enter Bucket Name</div>
+                    <div ng-if="new_bucket_form.bucketName.$error.bucketmatch && UploadContCtrl.errorFromData && !new_bucket_form.bucketName.$error.required" class="has-error-msg">Bucket Name Already Exists</div>
+                </md-input-container>
+            </div> -->
+</div>
+<div class="modal-footer clearfix">
+    <div class="pull-right">
+        <span class="btn-cancel" ng-click="$dismiss()">Cancel</span>
+        <span class="btn-upload">ADD CONTACT</span>
+    </div>
+</div>

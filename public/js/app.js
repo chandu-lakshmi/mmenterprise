@@ -32,7 +32,8 @@ angular.module('app', [
         url: '/login',
         templateUrl: App.base_url + 'templates/home.phtml',
         controller: 'HomeController',
-        controllerAs:'homeCtrl'
+        controllerAs:'homeCtrl',
+        // data : { pageTitle: 'Home' }
     })
     .state('forgotPassword',{
         url:'/reset_password',
@@ -152,6 +153,13 @@ angular.module('app', [
 
     $urlRouterProvider.otherwise('/login');
     
-});
+})
+
+/*.run([ '$rootScope', '$state', '$stateParams',
+    function ($rootScope, $state, $stateParams) {
+        $rootScope.$state = $state;
+        $rootScope.$stateParams = $stateParams;
+    }
+])*/
     
 }());

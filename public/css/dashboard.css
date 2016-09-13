@@ -155,7 +155,7 @@ header .menu ul > li > a.active:before,header .menu ul > li > a:hover:before{
 	bottom: 2px;
 	left: 0px;
 	right: 0px;
-	border-bottom: 4px solid #14acff;
+	border-bottom: 3px solid #14acff;
 }
 header .menu ul > li > a.active{
 	color: white;
