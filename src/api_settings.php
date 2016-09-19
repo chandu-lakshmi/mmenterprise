@@ -70,6 +70,10 @@ return [
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/job_details'
             ],
+            'deactivate_post' => [
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/referral/deactivate_post'
+            ],
            /* 'get_user_details' => [
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/get_user_details'
@@ -118,6 +122,10 @@ return [
             'other_edits_in_contact_list' => [ 
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/other_edits_in_contact_list'
+            ],
+            'add_contact' => [ 
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/add_contact'
             ],
             'upload_contacts' => [
                 'VERSION' => 'v1',

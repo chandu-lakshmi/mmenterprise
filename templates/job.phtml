@@ -46,10 +46,13 @@
 					</a>
 				</div>
 				<span ng-init="sc=jobList.service_cost;jobList.cost = jobList.free_service == '1' ? 'FREE' : (jobList.service_currency =='DLR' ? '$'+sc+'/Referral' : '&#8377;'+sc+'/Referral')" style="float:right;margin-top:2px">
+					<span style="margin-right:10px;" 
+						ng-bind="jobList.status == 'ACTIVE' ? 'OPEN' : 'CLOSE'"
+						ng-style="{'background' : jobList.status == 'ACTIVE' ? '#229A77' : '#be7276'}"></span>
 					<span ng-class="{'job_free':jobList.free_service == '1'}">
 						{{jobList.cost}}
 					</span>
-					<span>
+					<span class="date-stamp">
 						{{jobList.created_at | myDate | date:'dd MMM, yyyy'}}
 					</span>
 					<img src="public/images/time.svg" title="{{jobList.created_at | limitTo:8:11}}" alt="search">

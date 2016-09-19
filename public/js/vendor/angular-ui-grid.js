@@ -55,8 +55,6 @@
       PG_DOWN: 34,
       UP: 38,
       DOWN: 40,
-      LEFT: 37,
-      RIGHT: 39,
       ESC: 27,
       DEL: 46,
       F1: 112,
@@ -7157,7 +7155,7 @@ angular.module('ui.grid')
      */
     self.sortDirectionCycle = typeof(colDef.sortDirectionCycle) !== 'undefined' ?
       colDef.sortDirectionCycle :
-      [null, uiGridConstants.ASC, uiGridConstants.DESC];
+      [uiGridConstants.ASC, uiGridConstants.DESC];
 
     /**
      * @ngdoc boolean
@@ -16563,7 +16561,7 @@ module.filter('px', function() {
                     $elm[0].focus();
                     //only select text if it is not being replaced below in the cellNav viewPortKeyPress
                     if ($elm[0].select && $scope.col.colDef.enableCellEditOnFocus || !(uiGridCtrl && uiGridCtrl.grid.api.cellNav)) {
-                      $elm[0].select();
+                      //$elm[0].select();
                     }
                     else {
                       //some browsers (Chrome) stupidly, imo, support the w3 standard that number, email, ...

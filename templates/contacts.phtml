@@ -11,12 +11,14 @@
 			</div>
 			<div class="bkt-container">
 				<span ng-click="ContactCtrl.getGridData('ALL CONTACTS', '0', '','')" 
-					ng-class="{ activeBucketCls : ('ALL CONTACTS' == ContactCtrl.activeBucket) }">ALL CONTACTS{{' (' + ContactCtrl.allRecCount + ')'}}</span>
-				<span ng-repeat="bkt in ContactCtrl.bucketNames | filter:searchGroup" 
+					ng-class="{ activeBucketCls : ('ALL CONTACTS' == ContactCtrl.activeBucket) }">ALL CONTACTS{{' (' + ContactCtrl.totalRecords + ')'}}</span>
+				<div ng-repeat="bkt in ContactCtrl.bucketNames | filter:searchGroup" 
 					ng-click="ContactCtrl.getGridData(bkt.bucket_name, bkt.bucket_id, '', '')" 
 					ng-class="{ activeBucketCls : (bkt.bucket_name == ContactCtrl.activeBucket) }"
-					ng-bind="(bkt.bucket_name | uppercase) + ' (' + bkt.count + ')'">
-				</span>
+					>
+					<span>{{(bkt.bucket_name | uppercase)}}</span>
+					<span> ({{bkt.count}})</span>
+				</div>
 			</div>
 		</div>
 
@@ -38,7 +40,7 @@
 				</md-input-container>
 			</div>
 			<div class="grid-container">
-				<div ui-grid="ContactCtrl.gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-validate class="grid" >
+				<div ng-if="!ContactCtrl.refresh"ui-grid="ContactCtrl.gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-validate class="grid" >
 					<div class="grid-msg-overlay" ng-if="ContactCtrl.loaderImg">
 			          	<div class="msg">
 			            	<span>
@@ -54,16 +56,17 @@
 				</div>
 				<div class="grid-footer">
 					<div class="status pull-left">
-						<span ng-init="statusName = 'Active'">
+						<span>
 						Change Status to:
-							<select class="form-control" ng-click="ContactCtrl.updateStatusAndDeleteRow('status', statusName)" ng-model="statusName" id="status">
+							<select class="form-control" ng-change="ContactCtrl.statusUpdate('status', ContactCtrl.statusName)" ng-model="ContactCtrl.statusName" id="status">
+								<option value="" selected disabled>Default</option>
 								<option value="Active" style="color:#0d8e68">Active</option>
 		   						<option value="Inactive" style="color:#888888">Inactive</option>
 								<option value="Separated" style="color:#c46968">Separated</option>
 							</select>
 							<i class="fa fa-angle-down fa-feedback" ></i>
 						</span>
-						<!-- <span ng-click="ContactCtrl.updateStatusAndDeleteRow('delete', '')">Delete Contacts</span>  -->
+						<!-- <span ng-click="ContactCtrl.statusUpdate('delete', '')">Delete Contacts</span>  -->
 					</div>
 					<div class="pages-con pull-left">
 						<div class="pagenation">
@@ -72,7 +75,7 @@
 							</div>
 							<div class="pages-container">
 								<span class="pages">
-									<span ng-repeat="x in ContactCtrl.generatePageNo track by $index" ng-class="{'page-active':($index + 1) == ContactCtrl.currentPage}" ng-click="ContactCtrl.getGridData('', '', $index + 1)">{{$index + 1}}</span>
+									<span ng-repeat="x in ContactCtrl.generatePageNo track by $index" ng-class="{'page-active':($index + 1) == ContactCtrl.currentPage}" ng-click="ContactCtrl.getGridData('', '', $index + 1, '')">{{$index + 1}}</span>
 								</span>
 							</div>
 							<div class="arrow-click right" ng-click="ContactCtrl.getPage(true)">
@@ -81,7 +84,7 @@
 						</div>
 					</div>
 					<div class="invite">
-						<span style="display: inline-block;padding: 12px 0;">{{ContactCtrl.selectedContacts.length}} Contact selected</span>
+						<span style="display: inline-block;padding: 12px 0;">{{ContactCtrl.selectedContacts.length + (ContactCtrl.selectedContacts.length > 1 ? ' Contacts' : ' Contact')}} selected</span>
 						<div class="btn-invite" ng-click="ContactCtrl.invite()">
 							INVITE SELECTED
 						</div>

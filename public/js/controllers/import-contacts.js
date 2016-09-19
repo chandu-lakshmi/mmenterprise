@@ -58,7 +58,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
     })
     get_buckets.success(function(response){
         if(response.status_code == 200){
-            scope.bucketsName = response.data;
+            scope.bucketsName = response.data.buckets_list;
             scope.loader = false;
         }
         // Session Destroy
@@ -266,7 +266,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
         url: CONFIG.APP_DOMAIN+'buckets_list'
     })
     get_buckets.success(function(response) {
-        scope.bucket_names = response.data;
+        scope.bucket_names = response.data.buckets_list;
         scope.loadingTabs = false;
     });
     get_buckets.error(function(response) {

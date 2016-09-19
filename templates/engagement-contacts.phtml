@@ -8,7 +8,7 @@
 						<a ui-sref="^.job" style="min-width:100px;"><img src="public/images/back-arrow.svg" alt="back" style="margin-bottom: 4px;">
 						<span style="min-width:100px;">{{EngContCtrl.job_title | uppercase}}</span></a>
 					</h3>
-					<span class="openbox" style="margin:0">OPEN</span>
+					<span class="openbox" style="margin:0" ng-bind="EngContCtrl.subHeaderCount.status == 'ACTIVE' ? 'OPEN' : 'CLOSE'" ng-style="{'background': EngContCtrl.subHeaderCount.status == 'ACTIVE' ? '#488C27' : '#be7276'}"></span>
 				</div>
 				<ul>
 					<li><a ui-sref="^.jobDetails({post_id:EngContCtrl.post_id})" ui-sref-active="active">JOB DETAILS</a></li>

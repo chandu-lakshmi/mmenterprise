@@ -326,7 +326,8 @@ header .notifications .user span:not(:last-child){
 .dashboard .circle-stats .col-lg-4:not(:last-child){
 	border-right: 1px solid #e6e8e9;
 }
-.dashboard .circle-stats{
+.dashboard .circle-stats,
+.dashboard .top-contacts{
 	padding: 0;
 	color: #878787;
 	font-size: 16px;
@@ -348,7 +349,7 @@ header .notifications .user span:not(:last-child){
 	top: -26px;
     left: 8px;
 }
-.referrals-hires,.top-contacts{
+.referrals-hires{
 	color: #878787;
 	padding: 44px 0;
 	font-size: 16px;
@@ -493,6 +494,25 @@ select:-moz-focusring {
 }
 .fa-clock-o{
 	color: #E9832E;
+}
+	/* Dashboard Top Contacts */
+.dashboard .top-contacts .container{
+	padding: 50px 0;
+}
+.dashboard .top-contacts .container .head{
+	font-size: 13px;
+    letter-spacing: 0.6px;
+    font-weight: bold;
+}
+.dashboard .top-contacts .container .box{
+	border: 1px solid #cdcdcd;
+    border-radius: 4px;
+    box-shadow: 1px 1px 5px #cdcdcd;
+    background: #fff;
+    margin: 16px 0;
+    height: 145px;
+    box-sizing: border-box;
+    padding: 10px;
 }
 /*.top-contacts .first{
 	padding-bottom: 40px;
@@ -876,14 +896,16 @@ ul.new-tabs > li.active > a{
 }
 .sub-header .sub-right{
 	color:#1884c1;
+	padding-right: 0;
 }
 .sub-header .sub-right ul{
 	list-style: none;
-	margin: 20px;
-	padding: 0;
-	overflow: hidden;
+    margin: 15px;
+    padding: 0;
+    overflow: hidden;
     background: #12384d;
-    border-radius: 10px;
+    border-radius: 5px;
+    margin-right: 0;
 }
 .sub-header .sub-right ul li:first-child{
 
@@ -893,13 +915,12 @@ ul.new-tabs > li.active > a{
 }
 .sub-header .sub-right ul li{
 	width: 20%;
-	border: 1px solid #0c2c3b;
-	border-top: 0;
-	border-bottom: 0;
-	float: left;
-	margin-right: -1px;
-	/*margin: 15px -1px 15px 0;*/
-	padding: 20px 0;
+    border: 1px solid #0c2c3b;
+    border-top: 0;
+    border-bottom: 0;
+    float: left;
+    margin-right: -1px;
+    padding: 25px 0;
 }
 .sub-header .sub-right ul li h3{
 	margin-top: 0px;

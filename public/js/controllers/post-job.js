@@ -183,7 +183,7 @@ angular.module('app.post.job', ['ngAutocomplete'])
     url: CONFIG.APP_DOMAIN+'buckets_list'
   })
   get_buckets.success(function(response){
-    scope.bucket_names = response.data;
+    scope.bucket_names = response.data.buckets_list;
     scope.buckLoader = false;
   });
   get_buckets.error(function(response){

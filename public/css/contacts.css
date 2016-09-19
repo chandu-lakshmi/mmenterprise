@@ -7,8 +7,8 @@
 	outline: none !important;
 }
 .grid-contacts .container{
-  	width: 1200px;
-	padding: 0px;
+  	/*width: 1200px;
+	padding: 0px;*/
 	padding-bottom: 40px;
 }
 .grid-contacts .container .container-lt{
@@ -23,7 +23,8 @@
 	height: calc(100vh - 217px);
     overflow-y: auto;
 }
-.grid-contacts .container .container-lt span, .word-ellipsis{
+.grid-contacts .container .container-lt .bkt-container > span,
+.grid-contacts .container .container-lt .bkt-container > div{
 	display: block;
     padding: 14px 0 14px 16px;
     text-align: left;
@@ -31,17 +32,24 @@
     outline: 0;
     border-radius: 2px;
     color: #505455;
-    max-width: 230px;
+    margin-top: 4px;
+}
+.grid-contacts .container .container-lt .bkt-container  div span:first-child,.word-ellipsis{
+	max-width: 145px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-top: 4px;
+    display: inline-block;
+    vertical-align: middle;
 }
+/*.grid-contacts .container .container-lt span span{
+	display: inline-block;
+}*/
 .grid-contacts .container .container-lt .dropdown button,
 .grid-contacts .open > .dropdown-toggle.btn-primary:hover
 .grid-contacts .open > .dropdown-toggle.btn-primary:focus,
 .grid-contacts .open > .dropdown-toggle.btn-primary:active{
-	padding: 10px 50px;
+	padding: 10px 43px;
     background-color: #1d8e70;
     font-size: 16px;
     outline: none;
@@ -73,7 +81,7 @@
 }*/
 .grid-contacts .container .container-lt .activeBucketCls{
 	background-color: #969c9c;
-	color: #fff;
+	color: #fff !important;
 }
 .grid-contacts .container .container-rt{
 	width: 80%;
@@ -84,6 +92,8 @@
 }
 .grid-contacts .container .container-rt .search span{
 	display: inline-block;
+	padding: 17px;
+	max-width: 250px;
 }
 .grid-contacts .container .container-rt md-input-container{
 	float: right;
@@ -153,6 +163,9 @@
 .grid-contacts [ui-grid-row] {
     display: table-row;
 }
+.grid-contacts .grid .ui-grid-contents-wrapper > .ui-grid-render-container .ui-grid-canvas .ui-grid-cell{
+	line-height: 65px;
+}
 .grid-contacts .ui-grid-cell{
     float: none;
     display: table-cell;
@@ -168,23 +181,33 @@
     padding: 0;
 }
 .grid-contacts .ui-grid-cell-contents-hidden + .ng-scope input{
-    border: 2px solid #0990e2 !important;
+    border: 1px solid #0990e2 !important;
     height: 40px;
     width: 80%;
-    /*padding-left: 8px;*/
 }
-/*.grid-contacts .ui-grid-cell-contents.ng-binding.ng-scope.ui-grid-cell-focus + div{
- 	margin-top:-1px;
-  	border-bottom:1px solid  #cdcdcd;
-}*/
+.grid-contacts .grid-other-id .ui-grid-cell-contents-hidden + .ng-scope input{
+	text-transform: uppercase;
+}
+.grid-contacts .ui-grid-cell select{
+	width: 85% !important;
+}
 .grid-contacts .ui-grid-row .ng-scope div{
 	margin-top: -1px;
-    /*border-bottom: 1px solid #e6e8e8 !important;*/ 
     pointer-events: none;
     padding-right: 14px;
+    border: 1px solid transparent;
 }
-.ui-grid-disable-selection.ng-scope{
+.grid-contacts .ui-grid-disable-selection.ng-scope{
 	height: 74px !important;
+}
+.grid-contacts .grid-other-id{
+	text-transform: uppercase;
+}
+.grid-contacts .grid .ui-grid-contents-wrapper > .ui-grid-render-container .ui-grid-canvas div[ui-grid-row="row"] div:hover:not(.grid-email) div:first-child{
+	border: 1px solid #0990e2;
+    width: 71.5%;
+    height: 40px;
+    line-height: 38px;
 }
 .grid-contacts .ui-grid-column-menu-button .ui-grid-icon-angle-down{
     display: none;
@@ -200,10 +223,13 @@
 }
 
 .grid-contacts .ui-grid-cell-focus{
-  	background: #f0fcfc;
+  	background: transparent;
 }
 .grid-contacts .ui-grid-focuser:focus {
   	box-shadow: none;
+}
+.grid-contacts .ui-grid-pinned-container .ui-grid-header .ui-grid-icon-ok:before{
+	top: 4px !important;
 }
 .grid-contacts .ui-grid-icon-ok:before{
   	position: relative;
@@ -211,7 +237,7 @@
     width: 18px;
     height: 18px;
     left: 11.5px;
-    top: 6px;
+    top: 3px;
     background-size: 18px 18px;
     background-repeat: no-repeat;
     content: '';
@@ -247,6 +273,7 @@
     height: 38px;
     line-height: 38px;
     width: 70%;
+    border: 1px solid red;
 }
 .grid-contacts .grid-msg-overlay{
 	top: 42px;
@@ -273,26 +300,24 @@
   	position: relative;
 }
 .grid-contacts .container .container-rt .grid-footer .status{
-	width: 36%;
+	width: 33%;
 	padding-top: 5px;
 }
 .grid-contacts .container .container-rt .grid-footer .status span select{
-	border: 0;
 	display: inline-block;
-	background-color: transparent;
 	box-shadow: none;
     outline: 0;
     font-weight: 900;
     -webkit-appearance:none;
   	-moz-appearance:none;
   	appearance:none;
-  	width: 71px;
+  	width: 100px;
   	cursor: pointer;
 }
 .grid-contacts .container .container-rt .grid-footer .status span i{
 	position: absolute;
     pointer-events: none;
-    right: -4px;
+    right: 6px;
     font-size: 22px;
     top: -2px;
     color: #000;
@@ -305,7 +330,7 @@
     outline: none;
 }
 .grid-contacts .container .container-rt .grid-footer .pages-con{
-	width: 30%;
+	width: 33%;
 	text-align: center;
 }
 .grid-contacts .container .container-rt .grid-footer .invite .btn-invite{
@@ -323,7 +348,7 @@
 	display: inline-block;
     padding: 12px 0;
     position: relative;
-    margin-left: 40px;
+    margin-left: 20px;
 }
 .container .container-rt .grid-footer .selected-count{
   	float: left;
@@ -646,14 +671,17 @@
 /* modal styles*/
 .bucket-modal .modal,
 .contact-modal .modal{
-    top: calc(50% - 385px);
-    left: calc(50% - 859px);
+    /*top: calc(50% - 335px);*/
+    left: calc(50% - 495px);
+    overflow-y: auto; 
 }
 .bucket-modal .modal-dialog,
 .contact-modal .modal-dialog{
 	width: 990px;
 	height: 670px;
-	overflow-y:	auto; 
+	overflow-y:	auto;
+    /*margin: 0; */
+    margin: 5% 0;
 }
 .bucket-modal .modal-dialog .modal-content,
 .contact-modal .modal-dialog .modal-content{
@@ -699,24 +727,22 @@
     height: 30px;
     outline: none;
 }
-.bucket-modal .modal-body .heading p,
-.contact-modal .modal-body .heading p{
+.bucket-modal .modal-body .heading p{
     margin:14px 0;
     font-size: 15px;
     letter-spacing: 0.5px;
 }
-
-
-/* common */
-
 .bucket-modal .modal-body .download{
     margin: 33px 0 14px;
     font-size: 16px;
     color: #0f8265;
 }
+.bucket-modal .modal-body .contacts-group .download span{
+    outline: none;
+}
 
 
-
+/* contacts group modal */
 .bucket-modal .modal-dialog .modal-content form[name='buckets_form']{
     width: 100%;
     height: 90%;
@@ -736,12 +762,7 @@
 }
 
 
-
-.bucket-modal .modal-body .contacts-group .download span{
-	outline: none;
-}
-
-/* bucket styles (qq-uploader) */
+    /* bucket styles (qq-uploader) */
 .bucket-modal .modal-body .contacts-group .file-uploading{
 	width: 64%;
 	margin: 0 auto;
@@ -776,6 +797,7 @@
     position: absolute;
     top: 40%;
     color: #808080;
+    left: 16%;
 }
 
 .bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader{
@@ -858,13 +880,16 @@
 	display: block;
 }
 
-/* new bucket */
+
+
+/* new bucket modal */
 .bucket-modal .modal-body .new-bucket .content{
     width: 27%;
     margin: 0 auto;
     margin-top: 60px;
 }
-/* new bucket qq-uploader */
+
+    /* new bucket qq-uploader */
 .bucket-modal .modal-body #new-bucket{
     width: 146px;
     height: 50px;
@@ -914,7 +939,7 @@
     white-space: nowrap;
     display: inline-block;
     vertical-align: -webkit-baseline-middle;
-    width: 69%;
+    width: 80%;
     padding-left: 5px;
 }
 .bucket-modal .modal-body #new-bucket .qq-uploader .qq-upload-drop-area .file-name img[alt='cancel']{
@@ -923,8 +948,8 @@
 }
 
 
-/* new contact new mock*/
 
+/* new contact modal*/
 .contact-modal .md-select-menu-container{
     z-index: 1100;
 }
@@ -942,6 +967,9 @@
     /* angular material css */
 .contact-modal .modal-body .new-contact .content md-input-container{
     margin: 25px 0;
+}
+.contact-modal .modal-body .new-contact .content md-input-container.md-input-focused:not(.md-input-has-value) md-select .md-select-value.md-select-placeholder{
+    color: #666;
 }
 .contact-modal .modal-body .new-contact .content md-input-container label,
 .contact-modal .modal-body .new-contact .content md-select .md-select-value.md-select-placeholder{

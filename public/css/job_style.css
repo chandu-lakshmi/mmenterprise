@@ -159,7 +159,7 @@ p.indent:first-letter{
 	width: 18px;
     margin: -2px 0 0;
 }
-.job-type span span:first-child,.openbox{
+.job-type span span:not(.date-stamp),.openbox{
 	margin: 0 5px;
     padding: 2px 7px;
     display: inline-block;
@@ -394,6 +394,21 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 .mid-nav + ul li:hover a{
 	color: #fff;
 }*/
+.close-job{
+    width: 10%;
+    padding: 8px;
+    text-decoration: none;
+    position: absolute;
+    right: 0px;
+    top: 5%;
+    color: #fff;
+    background: #de7674;
+    text-align: center;
+    border-radius: 4px;
+    z-index: 999;
+    cursor: pointer;
+    outline: none;
+}
 .job_des_bo{
 	padding:2% 0;
 	border-bottom: 1px solid silver;
@@ -404,7 +419,7 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 }
 .job_des_info div{
 	padding: 5px 0;
-	clear: both;
+	overflow: hidden;
 }
 .job_des_info div span:first-child{
 	width: 20%;

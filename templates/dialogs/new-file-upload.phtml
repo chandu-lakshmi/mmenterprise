@@ -52,7 +52,7 @@
                     </p>
                 </div>
                 <div class="download">
-                    <span ng-click="UploadContCtrl.downloadSample()" class="text-center">Download Sample Templete</span>    
+                    <span ng-click="UploadContCtrl.downloadSample()" class="text-center">Download Sample Template</span>    
                 </div>
                 <div class="file-uploading">
                     <div class="row">
@@ -62,7 +62,7 @@
                         </div>
                         <div class="col-sm-4" style="margin-bottom:20px;">
                             <div class="upload-bucket new-bucket" ng-click="UploadContCtrl.newBucket()">
-                                <p class="own"><i class="fa fa-plus" style="margin-right:3px;"></i>New Contacts Group</p>
+                                <p class="own"><i class="fa fa-plus" style="margin-right:3px;"></i>New Group</p>
                             </div>
                         </div>
                     </div>
@@ -89,25 +89,25 @@
 
             <div class="text-center">
                  <div class="heading">
-                    <h3 style="margin:0">Add Contacts Group</h3>
+                    <h3 style="margin:0">Add New Group</h3>
                     <p style="margin:14px 0;">
-                        <span style="color:#989898;">Create your own contacts group Through uploading the contacts list</span>
+                        <span style="color:#989898;">Create your own group and add contacts to the gorup</span>
                     </p>
                 </div>
 
                 <div class="download">
-                    <span ng-click="UploadContCtrl.downloadSample()" class="text-center">Download Sample Templete</span>    
+                    <span ng-click="UploadContCtrl.downloadSample()" class="text-center">Download Sample Template</span>    
                 </div>
 
                 <div class="content">
                     <md-input-container class="md-block" style="margin:0">
-                        <label>Enter Contact Group Name</label>
+                        <label>Enter Group Name</label>
                         <input type="text" name="bucketName" ng-model="UploadContCtrl.new_bucket.bucketName" required ng-class="{'has-error-border':new_bucket_form.bucketName.$invalid && UploadContCtrl.new_bucket.errorFromData}" check-bucket array-bucket="{{UploadContCtrl.bucketsList}}" bucket-name="{{UploadContCtrl.new_bucket.bucketName}}" autocomplete="off">
                         <div ng-if="new_bucket_form.bucketName.$error.required && UploadContCtrl.new_bucket.errorFromData" class="has-error-msg">Please Enter Bucket Name</div>
                         <div ng-if="new_bucket_form.bucketName.$error.bucketmatch && UploadContCtrl.new_bucket.errorFromData && !new_bucket_form.bucketName.$error.required" class="has-error-msg">Bucket Name Already Exists</div>
                     </md-input-container>
                     <div id="new-bucket"></div>
-                    <div class="has-error-msg remove" ng-if="UploadContCtrl.new_bucket.fileError">Please Choose File</div>
+                    <!-- <div class="has-error-msg remove" ng-if="UploadContCtrl.new_bucket.fileError">Please Choose File</div> -->
                     <div style="clear:both;margin-top:15px;">
                         <img src="public/images/info.svg" alt="info"/>
                         <span style="color:#999999">Only .csv and .xlsx files are allowed.<br>File size must not exceed 25MB.</span>
@@ -126,9 +126,9 @@
     </div>
     <div class="pull-left" ng-if="!UploadContCtrl.newBucketModal">
         <span ng-if="UploadContCtrl.uploadLoader"><img src="public/images/loader/upload_file.gif" alt="loader" style="margin:5px;"> Uploading</span>
-        <span style="color:#983a3a;line-height:48px;" ng-if="UploadContCtrl.errorUpload"><i class="fa fa-times"></i>&nbsp;Please upload atleast one bucket</span>
+        <span style="color:#983a3a;line-height:48px;" ng-if="UploadContCtrl.errorUpload"><i class="fa fa-times"></i>&nbsp;Please upload contacts to atleast one group</span>
     </div>
-    <div class="pull-right">
+    <div class="pull-right disabled">
         <span class="btn-cancel" ng-click="$dismiss()">Cancel</span>
         <span class="btn-upload" ng-if="UploadContCtrl.newBucketModal" ng-click="UploadContCtrl.new_bucket.upload(new_bucket_form.$valid)">UPLOAD CONTACTS</span>
         <span class="btn-upload" ng-if="!UploadContCtrl.newBucketModal" ng-click="UploadContCtrl.uploadContacts()">ADD CONTACTS</span>

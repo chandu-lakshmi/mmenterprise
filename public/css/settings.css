@@ -1,0 +1,39 @@
+/* Settings Styles */
+.settings{
+	font-size: 14px;
+}
+.settings .sub-header{
+	background: #0e2d3f;
+	height: 60px;
+}
+.settings .sub-header ul{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.settings .sub-header ul li{
+	display: inline-block;
+}
+.settings .sub-header ul li a{
+    color: #6b8b9a;
+    outline: none;
+    text-decoration: none;
+    padding: 30px;
+    display: inline-block;
+    padding-bottom: 10px;
+    padding-right: 27px;
+    letter-spacing: 0.5px;
+}
+.settings .sub-header ul li a:hover,
+.settings .sub-header ul li a:focus{
+	color: white;
+}
+.settings .sub-header ul li a.active:before{
+	position: absolute;
+    content: '';
+    top: 0px;
+    bottom: 2px;
+    left: 0px;
+    right: 0px;
+    border-bottom: 3px solid #14acff;
+}

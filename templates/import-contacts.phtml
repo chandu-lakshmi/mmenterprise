@@ -5,7 +5,7 @@
 
 				<!-- logo -->
 				<div class="text-center">
-					<a href=""><img src="public/images/company_logo.svg" alt="logo" class="import_logo"></a>
+					<a href=""><img src="public/images/company_logo.svg" alt="logo" class="import_logo" ></a>
 				</div>
 
 				<!--import contacts header-->
@@ -22,12 +22,12 @@
 						<h3 class="mrZpdZ">Upload Contacts</h3>
 						<div class="info-upload">
 							<div>
-								<img src="public/images/info.svg" alt="info"/>
+								<img src="public/images/info.svg" alt="info" style="width:18px;height:18px"/>
 								<span style="color:gray">Organize your contacts in one of the groups below or create your own</span>
 							</div>
 						</div>
 					    <div ng-if="importCtrl.loader" style="position:relative;min-height: 558px;">
-				           	<img src="public/images/loader/preloader.gif"  alt="loader" style="position:absolute;top:42.5%;left:31%;width:38%">
+				           	<img src="public/images/loader/preloader.gif"  alt="loader" style="position:absolute;top:42.5%;left:31%;width:38%;height:24%">
 				        </div>
 						<div class="div-btn row" ng-if="!importCtrl.loader">
 							<div ng-repeat="bucketName in importCtrl.bucketsName" class="col-lg-4"  ng-init="color=importCtrl.getColor($index)">

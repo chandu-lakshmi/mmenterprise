@@ -1,25 +1,25 @@
-<div class="modal-body">
+<div class="modal-body" style="width:100%;height:100%;cursor:default;" ng-click="SingleContCtrl.closeDropdown()">
     <div class="new-contact">
        <div>
             <img src="public/images/cross-grey.svg" alt="close" class="pull-right" ng-click="$dismiss()">
         </div>
         <div class="clearfix"></div>
         <div class="heading text-center">
-            <h3 style="margin:0">Add Contact to Group</h3>
-            <p>
-                <span style="color:#989898;">Create your own contacts group Through uploading the contacts list</span>
-            </p>
+            <h3 style="margin:0;margin-bottom:14px">Add Contact to Group</h3>
+            <!-- <p>
+                <span style="color:#989898;">Create your own contacts to group</span>
+            </p> -->
         </div>
         <div class="content">
             <form name="upload_contact_form" novalidate>
                 <md-input-container class="md-block" style="width:45%">
-                    <label style="display:none">Select Contact Group</label>
-                    <md-select name="bucket" ng-model="SingleContCtrl.newContact.bucket" required ng-class="{'has-error-border':upload_contact_form.bucket.$invalid && SingleContCtrl.errCond}">
-                        <md-option ng-repeat="bucket in SingleContCtrl.bucketList" ng-value="bucket">
+                    <label style="display:none">SELECT GROUP</label>
+                    <md-select name="bucket_id" ng-model="SingleContCtrl.newContact.bucket" required ng-class="{'has-error-border':upload_contact_form.bucket_id.$invalid && SingleContCtrl.errCond}">
+                        <md-option ng-repeat="bucket in SingleContCtrl.bucketList" ng-value="bucket.bucket_id">
                             {{bucket.bucket_name}}
                         </md-option>
                     </md-select>
-                    <div ng-if="upload_contact_form.bucket.$error.required && SingleContCtrl.errCond" style="position:absolute" class="has-error-msg">Please Select Bucket Name</div>
+                    <div ng-if="upload_contact_form.bucket_id.$error.required && SingleContCtrl.errCond" style="position:absolute" class="has-error-msg">Please Select Group</div>
                 </md-input-container>
                 <div class="pull-left">
                     <md-input-container class="md-block">
@@ -29,8 +29,8 @@
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>MOBILE</label>
-                        <input type="text" name="mobile" ng-model="SingleContCtrl.newContact.mobile" required ng-class="{'has-error-border':upload_contact_form.mobile.$invalid && SingleContCtrl.errCond}">
-                        <div ng-if="upload_contact_form.mobile.$error.required && SingleContCtrl.errCond" class="has-error-msg">Please Enter Mobile Number</div>
+                        <input type="text" name="mobile" ng-model="SingleContCtrl.newContact.mobile" ng-pattern="/^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$/" ng-class="{'has-error-border':upload_contact_form.mobile.$invalid && SingleContCtrl.errCond}">
+                        <div ng-if="upload_contact_form.mobile.$error.pattern && SingleContCtrl.errCond" class="has-error-msg">Please Enter Mobile Number</div>
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label style="display:none">STATUS</label>
@@ -48,25 +48,21 @@
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>EMAIL</label>
-                        <input type="text" name="email" ng-model="SingleContCtrl.newContact.email" required ng-pattern="/^[a-z0-9A-Z._%+-]+@[a-zA-Z]+\.[a-z]{2,3}$/" ng-class="{'has-error-border':upload_contact_form.email.$invalid && SingleContCtrl.errCond}">
-                        <div ng-if="upload_contact_form.email.$error.required && SingleContCtrl.errCond" class="has-error-msg">Please Enter Email Address</div>
-                        <div ng-if="upload_contact_form.email.$error.pattern && SingleContCtrl.errCond" class="has-error-msg">Please Enter Valid Email Address</div>
+                        <input type="text" name="emailid" ng-model="SingleContCtrl.newContact.email" required ng-pattern="/^[a-z0-9A-Z._%+-]+@[a-zA-Z]+\.[a-z]{2,3}$/" ng-class="{'has-error-border':upload_contact_form.emailid.$invalid && SingleContCtrl.errCond}">
+                        <div ng-if="upload_contact_form.emailid.$error.required && SingleContCtrl.errCond" class="has-error-msg">Please Enter Email Address</div>
+                        <div ng-if="upload_contact_form.emailid.$error.pattern && SingleContCtrl.errCond" class="has-error-msg">Please Enter Valid Email Address</div>
                     </md-input-container>
                 </div>
             </form>
         </div>
-    </div> 
-            <!-- <div style="width:60%">
-                <md-input-container class="md-block" style="margin:0">
-                    <label>Bucket Name</label>
-                    <input type="text" name="bucketName" ng-model="UploadContCtrl.modal.bucketName" required ng-class="{'has-error-border':new_bucket_form.bucketName.$invalid && UploadContCtrl.errorFromData}" check-bucket array-bucket="{{UploadContCtrl.bucketsList}}" bucket-name="{{UploadContCtrl.modal.bucketName}}" autocomplete="off">
-                    <div ng-if="new_bucket_form.bucketName.$error.required && UploadContCtrl.errorFromData" class="has-error-msg">Please Enter Bucket Name</div>
-                    <div ng-if="new_bucket_form.bucketName.$error.bucketmatch && UploadContCtrl.errorFromData && !new_bucket_form.bucketName.$error.required" class="has-error-msg">Bucket Name Already Exists</div>
-                </md-input-container>
-            </div> -->
+    </div>
 </div>
 <div class="modal-footer clearfix">
-    <div class="pull-right">
+    <div class="pull-left">
+        <span ng-if="SingleContCtrl.uploadLoader"><img src="public/images/loader/upload_file.gif" alt="loader" style="margin:5px;"> Uploading</span>
+        <span ng-if="SingleContCtrl.backendError" style="color:#983a3a;line-height:48px;"><i class="fa fa-times"></i>&nbsp;Contact already exist</span>
+    </div>
+    <div class="pull-right disabled">
         <span class="btn-cancel" ng-click="$dismiss()">Cancel</span>
         <span class="btn-upload" ng-click="SingleContCtrl.add(upload_contact_form.$valid)">ADD CONTACT</span>
     </div>

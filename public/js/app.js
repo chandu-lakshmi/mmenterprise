@@ -5,7 +5,7 @@ angular.module('app', [
     'ui.router', 'ui.bootstrap',
     'app.constants', 'app.home', 'app.forgotPassword', 'app.company.profile', 'app.import.contacts', 'app.emails', 'app.dashboard',
     'app.engagement.contacts', 'app.post.job', 'app.job.search', 'app.job.details', 'app.rewards', 'app.edit.company', 'app.contact',
-    'app.candidates'
+    'app.candidates', 'app.settings'
 ])
 
 .constant('CONFIG', {
@@ -149,6 +149,12 @@ angular.module('app', [
         templateUrl: App.base_url + 'templates/candidates.phtml',
         controller: 'CandidatesController',
         controllerAs: 'CandidatesCtrl'
+    })
+    .state('app.settings',{
+        url: '^/settings',
+        templateUrl: App.base_url + 'templates/settings.phtml',
+        controller: 'SettingsController',
+        controllerAs: 'SettingsCtrl'
     })
 
     $urlRouterProvider.otherwise('/login');

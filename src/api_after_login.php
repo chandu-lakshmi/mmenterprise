@@ -301,6 +301,25 @@ $app->post('/job_details',function ($request, $response, $args) use ($app) {
     
 });
 
+//Close Job Details
+$app->post('/deactivate_post',function ($request, $response, $args) use ($app) {
+   
+    // dynamically Access Token, Company Details 
+   $this->mintmeshAccessToken;
+   $this->mintmeshCompanyId;
+    
+    // getting API endpoint from settings
+   $apiEndpoint = getapiEndpoint($this->settings, 'deactivate_post');
+   
+    $deactivate_post    = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    
+    return checkJsonResult( $deactivate_post->loadCurl() );
+    
+});
+
 //Job Referral Details
 $app->post('/job_referral_details',function ($request, $response, $args) use ($app) {
    
@@ -552,9 +571,26 @@ $app->post('/upload_contacts',function ($request, $response, $args) use ($app) {
         'url'           => $apiEndpoint,
         'postData'      => $_POST
      ));
-    
+
     return checkJsonResult( $jobDetails->loadCurl() );
     
+});
+
+//Settings Page
+$app->get('/settings',function ($request, $response, $args) use ($app) {
+    //Arguments
+    $this->mintmeshAccessToken;
+    $args       = commonData($this->settings);
+   
+    //Check Logged in or not
+    if(!empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']);
+    }
+
+    $args['comp_data'] = companyProfile($this->settings);
+
+    // Render dashboard view
+    return $this->renderer->render($response, 'index.phtml', $args);
 });
 
 
@@ -609,6 +645,24 @@ $app->post('/other_edits_in_contact_list',function ($request, $response, $args) 
     
     // getting API endpoint from settings
     $apiEndpoint = getapiEndpoint($this->settings, 'other_edits_in_contact_list');
+   
+    $companyDetails     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+
+     return checkJsonResult( $companyDetails->loadCurl() );
+});
+
+//Company Details
+$app->post('/add_contact',function ($request, $response, $args) use ($app) {
+    
+    // dynamically Access Token
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    
+    // getting API endpoint from settings
+    $apiEndpoint = getapiEndpoint($this->settings, 'add_contact');
    
     $companyDetails     = new Curl(array(
         'url'           => $apiEndpoint,

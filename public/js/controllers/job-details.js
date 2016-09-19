@@ -21,7 +21,7 @@ angular.module('app.job.details', [])
 	}
 })
 
-.controller('JobDetailsController', ['$window', '$http', '$stateParams', 'jobDetails', 'tabsName', 'ajaxData', 'CONFIG', function($window,$http,$stateParams,jobDetails,tabsName,ajaxData,CONFIG){
+.controller('JobDetailsController', ['$window', '$state', '$http', '$stateParams', 'jobDetails', 'tabsName', 'ajaxData', 'CONFIG', function($window, $state, $http, $stateParams, jobDetails, tabsName, ajaxData, CONFIG){
 	
 	$window.scrollTo(0,0);
 
@@ -45,7 +45,7 @@ angular.module('app.job.details', [])
 	        },
 	        method : 'POST',
 	        data : post_details_params,
-	        url : CONFIG.APP_DOMAIN+'job_details',
+	        url : CONFIG.APP_DOMAIN + 'job_details',
 	    })
 
 		post_details.success(function(response){
@@ -62,6 +62,32 @@ angular.module('app.job.details', [])
 	else{
 		scope.post_data = ajaxData.getData();
 	}
+
+	this.closeJob = function() {
+
+		var closeJobId = $.param({
+			post_id : jobDetails.id
+		})
+
+		var closeJob = $http({
+	        headers: {
+	            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+	        },
+	        method : 'POST',
+	        data : closeJobId,
+	        url : CONFIG.APP_DOMAIN + 'deactivate_post',
+	    })
+
+		closeJob.success(function(response){
+			if(response.status_code == 200){
+				$window.scrollTo(0, 0);
+   				$state.go('app.job');
+			}
+		})
+		closeJob.error(function(response){
+			console.log(response);	
+		})
+	}	
 
 
  }]);
