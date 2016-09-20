@@ -33,14 +33,17 @@ return [
             'APP_DOMAIN' => 'http://enterprisestaging.mintmesh.com/',
 
             // Application API domain
-            'API_DOMAIN' => 'http://staging.mintmesh.com/',
+            'API_DOMAIN' => 'https://staging.mintmesh.com/',
 
             //Client keys
             'CLIENT_ID'         => 'Db9ugKqHf0AZwboX',
             'CLIENT_SECRET'     => '5nw3q1qyr2wpzY9UMXiJvJHT4ZR77t4x',
 
             //Grant Types
-            'PASSWORD_GRANT'    => 'password'
+            'PASSWORD_GRANT'    => 'password',
+
+            // for file uploading
+            'PATH'    => '/var/www/html/mmenterprise/'
         ],
 
         // API settings
