@@ -51,27 +51,30 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 	this.loaderNoContacts = false;
 
     //get bucketNames
-    var get_buckets = $http({
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-        },
-        method: 'POST',
-        url: CONFIG.APP_DOMAIN + 'buckets_list'
-    })
-    get_buckets.success(function(response) {
-        if (response.status_code == 200) {
-            scope.bucketNames = response.data.buckets_list;
-            scope.totalRecords = response.data.total_count;
-            buckets.setData(scope.bucketNames);
-        }
-        // Session Destroy
-        else if (response.status_code == 400) {
-            $window.location = CONFIG.APP_DOMAIN+'logout';
-        }
-    })
-    get_buckets.error(function(response){
-        console.log(response);
-    })
+    function bucketsCount(){
+        var get_buckets = $http({
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
+            method: 'POST',
+            url: CONFIG.APP_DOMAIN + 'buckets_list'
+        })
+        get_buckets.success(function(response) {
+            if (response.status_code == 200) {
+                scope.bucketNames = response.data.buckets_list;
+                scope.totalRecords = response.data.total_count;
+                buckets.setData(scope.bucketNames);
+            }
+            // Session Destroy
+            else if (response.status_code == 400) {
+                $window.location = CONFIG.APP_DOMAIN+'logout';
+            }
+        })
+        get_buckets.error(function(response){
+            console.log(response);
+        })
+    }
+    bucketsCount();
 
     //pagenation prevent pre/post btns
     var rightLimit = 100;
@@ -89,35 +92,36 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
         }   
     }
 
+
     this.selectedContacts = [];
     this.gridOptions = {
     	rowHeight : 70,
     	enableCellEditOnFocus : true,
-    	useExternalSorting: true,
     	selectionRowHeaderWidth : 56,
     	enableHorizontalScrollbar: 0,
     	rowEditWaitInterval: -1,
     	columnDefs : [
-	        { name: 'firstname', displayName: 'First Name', validators: {charValidation:''}, cellTemplate: 'ui-grid/cellTitleValidator', enableSorting:false},
-	        { name: 'lastname', displayName: 'Last Name', validators: {charValidation:''}, cellTemplate: 'ui-grid/cellTitleValidator', enableSorting:false},
-	        { name: 'emailid', displayName: 'Email', enableCellEdit: false, cellClass:'grid-email', enableSorting:false},
-	        { name: 'phone', displayName: 'Mobile' , validators: {numValidation:''}, cellTemplate: 'ui-grid/cellTitleValidator', enableSorting:false},
-	        { name: 'employeeid', displayName: 'ID', cellClass:'grid-other-id' ,validators: { charOtherId:''}, cellTemplate: 'ui-grid/cellTitleValidator', enableSorting:false},
-	        { name: 'status',
-	        	displayName: 'Status',
-	          	editableCellTemplate: 'select-drop.html', 
-	          	sort: { direction: 'asc'}, 
-	          	cellEditableCondition:true,
-	          	enableSorting:true,
-	          	cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
-	        		var text = grid.getCellValue(row ,col).toLowerCase();
-	        		return (text == 'separated') ?  'separated-s' : ((text == 'active') ? 'active-s' :'inactive-s');
-      		  	}, 
-      		  	validators: {required: true, statusValidation:''}, 
-      		  	cellTemplate: 'ui-grid/cellTitleValidator' 
-      		}
-	    ]   
+            { name: 'firstname', displayName: 'First Name', validators: {charValidation:''}, cellTemplate: 'ui-grid/cellTitleValidator'},
+            { name: 'lastname', displayName: 'Last Name', validators: {charValidation:''}, cellTemplate: 'ui-grid/cellTitleValidator'},
+            { name: 'emailid', displayName: 'Email', enableCellEdit: false, cellClass:'grid-email', width: '20%'},
+            { name: 'phone', displayName: 'Mobile' , validators: {numValidation:''}, cellTemplate: 'ui-grid/cellTitleValidator'},
+            { name: 'employeeid', displayName: 'ID', cellClass:'grid-other-id' ,validators: { charOtherId:''}, cellTemplate: 'ui-grid/cellTitleValidator'},
+            { name: 'status',
+              displayName: 'Status',
+              editableCellTemplate: 'select-drop.html', 
+              sort: { direction: 'asc'}, 
+              cellEditableCondition:true,
+              enableSorting:true,
+              cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+                var text = grid.getCellValue(row ,col).toLowerCase();
+                return (text == 'separated') ?  'separated-s' : ((text == 'active') ? 'active-s' :'inactive-s');
+              }, 
+              validators: {required: true, statusValidation:''}, 
+              cellTemplate: 'ui-grid/cellTitleValidator' 
+            }
+        ] 
     };
+    
 
     function gridValidtion(validatorName, regExp){
 		uiGridValidateService.setValidator(validatorName,
@@ -154,8 +158,9 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 	gridValidtion('statusValidation', '');
 	
   	
-	var sort;
-	var colDefName = 'status';
+	var sort,
+        colSortObj = '',
+	    colDefName = 'status';
     this.gridOptions.onRegisterApi = function(gridApi){
         
         scope.gridApi = gridApi;
@@ -173,6 +178,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
         gridApi.core.on.sortChanged( null, function(grid, sortColumns){
         	sort = sortColumns[0].sort.direction == 'asc' ? '' : 'desc';
         	colDefName =  sortColumns[0].name;
+            colSortObj = sortColumns;
         	scope.getGridData('', '', '', scope.searchVal);
       	});
       
@@ -191,87 +197,13 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 		}
     };
 
-    this.updateLoader = false;
-    function rowUpdate(oldValue, newValue, rowEntity, colDef, validatorName){
-    	if (newValue != oldValue) {
-    		
-    		scope.loaderImg = true;
-    		scope.hideLoader = true;
-    		scope.updateLoader = true;
-
-			var list = $.param({
-				record_id : rowEntity.record_id,
-				other_id : rowEntity.employeeid,
-				firstname : rowEntity.firstname,
-	            lastname : rowEntity.lastname,
-	            contact_number : rowEntity.contact_number,
-	            emailid : rowEntity.emailid,
-	            status : rowEntity.status
-	            //[colDef.name] : newValue
-			});
-
-	        var get_buckets = $http({
-		        headers: {
-		          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-		        },
-		        method: 'POST',
-		        data:list,
-		        url: CONFIG.APP_DOMAIN + 'update_contacts_list'
-	    	})
-
-	    	get_buckets.success(function(response){
-		        if (response.status_code == 200) {
-
-	        		scope.updateLoader = false;
-	        		scope.hideLoader = false;
-	        		scope.loaderImg = false;
-
-		        	if (response.message.msg[0] == 'successfully updated') {
-		        		
-		        		$('.updateSuccess').show();
-		        		$('.updateSuccess').fadeOut(3000);
-
-		        	}
-		        	else if (response.message.msg[0] == 'emp_id already exists') {
-		        		
-		        		$('.existRecords').show();
-		        		$('.existRecords').fadeOut(3000);
-		        		
-		        		if (!rowEntity['$$errors' + colDef.name]) {
-       						rowEntity['$$errors' + colDef.name] = {};
-    					}
-						rowEntity['$$errors' + colDef.name][validatorName] = true;
-						rowEntity['$$invalid' + colDef.name] = true;
-						rowEntity[colDef.name] = oldValue;
-						setTimeout(function() {
-	      					uiGridValidateService.setValid(rowEntity, colDef);
-	      				}, 500);
-
-		        	}
-		        	else if (response.message.msg[0] == 'failed to update') {	
-		        		$('.updatefailure').show();
-		        		$('.updatefailure').fadeOut(3000);
-		        	}
-		        }
-		        // Session Destroy
-		        else if (response.status_code == 400) {
-		        	//promise.reject();
-		            $window.location = CONFIG.APP_DOMAIN + 'logout';
-		        }
-	    	});
-
-		    get_buckets.error(function(response) {
-		        //console.log(response);
-		    })
-		}
-    }
 
     // search filter
     var time;
     this.srcSearch = 'search.svg';
     this.searchLoader = false;
    	this.searchRecords = function(arg) {
-   		if (arg == undefined || arg.length == 0) {
+   		if (arg == "") {
    			scope.srcSearch = 'search.svg';
    			scope.searchVal = '';
    		}
@@ -295,6 +227,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
     this.getGridData = function(bktName, bktID, pageNo, searchVal) {
     	
     	if (bktName != "") {
+            colSortObj != "" ? colSortObj[0].sort.direction = '' : '';
     		scope.gridApi.grid.columns[6].sort.direction = 'asc';
     		sort = "";
     		colDefName = 'status';
@@ -307,11 +240,10 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
     	scope.activeBucket = bktName || scope.activeBucket;
     	scope.currentPage = pageNo || 1;
 
-    	if (searchVal == 'undefined' || searchVal == '') {
+    	if (searchVal == '') {
    			scope.srcSearch = 'search.svg';
    			scope.searchVal = scope.searchVal > 0 ? scope.searchVal : ''; 
    		}
-
 
     	if (canceller) {
             canceller.resolve();
@@ -371,7 +303,79 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 	    })
     }
 
+    //inital gridData
     this.getGridData("", "", "", "");
+
+    this.updateLoader = false;
+    function rowUpdate(oldValue, newValue, rowEntity, colDef, validatorName){
+        if (newValue != oldValue) {
+            
+            scope.loaderImg = true;
+            scope.hideLoader = true;
+            scope.updateLoader = true;
+
+            var list = $.param({
+                record_id : rowEntity.record_id,
+                other_id : rowEntity.employeeid,
+                firstname : rowEntity.firstname,
+                lastname : rowEntity.lastname,
+                contact_number : rowEntity.contact_number,
+                emailid : rowEntity.emailid,
+                status : rowEntity.status
+                //[colDef.name] : newValue
+            });
+
+            var get_buckets = $http({
+                headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'POST',
+                data:list,
+                url: CONFIG.APP_DOMAIN + 'update_contacts_list'
+            })
+
+            get_buckets.success(function(response){
+                if (response.status_code == 200) {
+
+                    scope.updateLoader = false;
+                    scope.hideLoader = false;
+                    scope.loaderImg = false;
+
+                    if (response.message.msg[0] == 'successfully updated') {    
+                        $('.updateSuccess').show();
+                        $('.updateSuccess').fadeOut(3000);
+                    }
+                    else if (response.message.msg[0] == 'emp_id already exists') {
+                        $('.existRecords').show();
+                        $('.existRecords').fadeOut(3000);
+                        
+                        if (!rowEntity['$$errors' + colDef.name]) {
+                            rowEntity['$$errors' + colDef.name] = {};
+                        }
+                        rowEntity['$$errors' + colDef.name][validatorName] = true;
+                        rowEntity['$$invalid' + colDef.name] = true;
+                        rowEntity[colDef.name] = oldValue;
+                        setTimeout(function() {
+                            uiGridValidateService.setValid(rowEntity, colDef);
+                        }, 500);
+                    }
+                    else if (response.message.msg[0] == 'failed to update') {   
+                        $('.updatefailure').show();
+                        $('.updatefailure').fadeOut(3000);
+                    }
+                }
+                // Session Destroy
+                else if (response.status_code == 400) {
+                    //promise.reject();
+                    $window.location = CONFIG.APP_DOMAIN + 'logout';
+                }
+            });
+
+            get_buckets.error(function(response) {
+                //console.log(response);
+            })
+        }
+    }
 
     var cancellerStat;
     this.statusUpdate = function(state, status) {
@@ -411,6 +415,8 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 
     	get_buckets.success(function(response) {
 	        if (response.status_code == 200) {
+	        	scope.searchVal = "";
+	        	scope.srcSearch = 'search.svg';
 	        	if (response.message.msg[0] == 'status changed successfully') {
 	        		for (var i = 0; i < scope.gridOptions.data.length; i++) {
 	        			for (var j = 0; j < scope.selectedContacts.length; j++) {
@@ -438,6 +444,8 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 	        	//promise.reject();
 	            $window.location = CONFIG.APP_DOMAIN + 'logout';
 	        }
+
+            scope.statusName = "";
     	});
 
 	    get_buckets.error(function(response){
@@ -454,6 +462,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
     		return;
     	}
 
+        // invite contacts modal
     	$uibModal.open({
             animation: false,
             keyboard: false,
@@ -476,7 +485,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
         });
     }
 
-	// modal
+	// buckets modal
    	this.bucketsModal = function(){
 
        	$uibModal.open({
@@ -490,6 +499,9 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
            resolve: {
                 defaultFunction: function() {
                     return scope.getGridData;
+                },
+                getBuckets: function(){
+                    return bucketsCount;
                 }
             }
       	 });
@@ -509,6 +521,9 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
           resolve: {
                 defaultFunction: function() {
                     return scope.getGridData;
+                },
+                getBuckets: function(){
+                    return bucketsCount;
                 }
             }
         });
@@ -570,7 +585,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 
 }])
 
-.controller('UploadContactsController',['$scope', 'defaultFunction', '$uibModalInstance', '$state', '$http', '$uibModal', 'buckets', 'CONFIG', function($scope, defaultFunction, $uibModalInstance, $state, $http, $uibModal, buckets, CONFIG){
+.controller('UploadContactsController',['$scope', '$window', 'defaultFunction', 'getBuckets', '$uibModalInstance', '$state', '$http', '$uibModal', 'buckets', 'CONFIG', function($scope, $window, defaultFunction, getBuckets, $uibModalInstance, $state, $http, $uibModal, buckets, CONFIG){
     
     var scope = this;
 
@@ -770,6 +785,9 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
                         },100);
                     }
                 }
+                else if (response.status_code == 400) {
+                    $window.location = CONFIG.APP_DOMAIN+'logout';
+                }
             })
             createBucket.error(function(response){
                 //console.log(response)
@@ -850,8 +868,8 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
             if(response.status_code == 200){
                 scope.uploadLoader = false;
                 scope.errorUpload = false;
-                //$state.go('app.contact');
-                defaultFunction('', '', '', '')
+                defaultFunction('', '', '', '');
+                getBuckets();
                 $uibModalInstance.dismiss('cancel');
             }
             else if(response.status_code == 403){
@@ -880,7 +898,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 
 }])
 
-.controller('UploadSingleContactController',['$scope', 'defaultFunction', '$http', '$uibModalInstance', 'buckets', 'CONFIG', function($scope, defaultFunction, $http, $uibModalInstance, buckets, CONFIG){
+.controller('UploadSingleContactController',['$scope', '$window', 'defaultFunction', 'getBuckets', '$http', '$uibModalInstance', 'buckets', 'CONFIG', function($scope, $window, defaultFunction, getBuckets, $http, $uibModalInstance, buckets, CONFIG){
 
     var scope = this;
 
@@ -932,12 +950,12 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
                             break;
                         }
                     }
+                    getBuckets();
                     $uibModalInstance.dismiss('cancel');
                 }
                 else if(response.status_code == 403){
                     scope.backendError = true;
                 }
-                // Session Destroy
                 else if (response.status_code == 400) {
                     $window.location = CONFIG.APP_DOMAIN+'logout';
                 }
@@ -956,6 +974,8 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
         $uibModalInstance.dismiss('cancel');
     })
+
+
 
 }])
 

@@ -6,7 +6,7 @@
   				<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">+ ADD CONTACTS</button>
 				<ul class="dropdown-menu">
 				   	<li><a ng-click="ContactCtrl.contactModal()">ADD CONTACT</a></li>
-				   	<li><a ng-click="ContactCtrl.bucketsModal()" >ADD CONTACTS GROUP</a></li>
+				   	<li><a ng-click="ContactCtrl.bucketsModal()" >CREATE GROUP</a></li>
 				</ul>
 			</div>
 			<div class="bkt-container">
@@ -36,7 +36,7 @@
 				<md-input-container md-no-float="" class="md-block">
 						<img ng-src="public/images/loader/search_loader.gif" alt="buffer" ng-if="ContactCtrl.searchLoader">
 						<input ng-model="ContactCtrl.searchVal" ng-keyup="ContactCtrl.searchRecords(ContactCtrl.searchVal)" placeholder="Search">
-						<img ng-src="public/images/{{ContactCtrl.srcSearch}}" ng-click="ContactCtrl.srcSearch == 'cross.svg' ? ContactCtrl.searchRecords() : ''" alt="feedback_left">
+						<img ng-src="public/images/{{ContactCtrl.srcSearch}}" ng-click="ContactCtrl.srcSearch == 'cross.svg' ? ContactCtrl.searchRecords('') : ''" alt="feedback_left">
 				</md-input-container>
 			</div>
 			<div class="grid-container">

@@ -92,6 +92,7 @@ angular.module('app.dashboard', ['ngMaterial', 'ngMessages'])
 		scope.dashboardLoader = true;
 		if (response.status_code == 200) {
 			var postProgress = response.data.post_progress;
+			scope.dashboardData = response.data;
 			scope.jobsCount = response.data.post_counts;
 			scope.jobsStatusCount = response.data.status_count;
 			scope.referralsList = response.data.post_referrals;
@@ -101,6 +102,9 @@ angular.module('app.dashboard', ['ngMaterial', 'ngMessages'])
 			}
 			if(scope.hiresList.length == 0){
 				scope.noDataHire = true;
+			}
+			if(scope.dashboardData.top_referrals.length == 0){
+				scope.top_referrals_empty = true;
 			}
 			setTimeout(function(){circleProgress(postProgress.contacts, postProgress.jobs, postProgress.rewards)},0);
 		}
@@ -196,6 +200,8 @@ angular.module('app.dashboard', ['ngMaterial', 'ngMessages'])
 	setTimeout(function (){
  		$('footer').hide();
  	},1);
+
+ 	
 	
 }])
  

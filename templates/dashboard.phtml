@@ -20,27 +20,6 @@
 						<span ng-style="{'color' : setColors[$index]}" ng-bind="jobStatusCount"></span>
 						<strong ng-bind="DashCtrl.statusNames[$index]"></strong>
 					</div>
-					<!-- <div class="arrow">
-						<img src="public/images/arrow-buttons-grey.svg">
-					</div> -->
-					<!-- <div class="panel panel-default">
-						<span  style="color: #14A5F8">1,874</span>
-						<strong>Accepted</strong>
-					</div> -->
-					<!-- <div class="arrow">
-						<img src="public/images/arrow-buttons-grey.svg">
-					</div> -->
-					<!-- <div class="panel panel-default">
-						<span style="color: #48BBC0">876</span>
-						<strong>Interviewed</strong>
-					</div> -->
-					<!-- <div class="arrow">
-						<img src="public/images/arrow-buttons-grey.svg">
-					</div> -->
-					<!-- <div class="panel panel-default">
-						<span  style="color: #539F32">256</span>
-						<strong>Hired</strong>
-					</div -->
 				</div>
 				<div style="padding-top: 53px">
 					<div class="dropdown-days" ng-init="days = '30'">
@@ -202,188 +181,31 @@
 			</div>
 		</div>
 
-		<div class="top-contacts" style="border:0">
+		<div class="top-contacts">
 			<div class="container">
-
-				 <div class="first">
-
-					<!-- <div>TOP REFERRERS FROM YOUR <strong>CONTACTS</strong></div> -->
-
-					<!-- <div class="row">
-						<div class="col-lg-4 col-md-6 col-sm-6" ng-repeat="conn in DashCtrl.dashboard_JSON[0].Connections">
-							<div class="box clearfix">
-								<div class="clearfix">
-									<div class="pull-left">
-										<img ng-src="public/images/Ui_Faces/{{conn.name}}.jpg" class="img-responsive img-circle dp">
-									</div>
-									<div class="pull-left" style="line-height: 1.5em;padding: 8px 0 0 8px;">
-										<strong class="name">{{conn.name}}</strong>
-										<p>{{conn.designation}}</p>
-									</div>
-								</div>
-								<hr>
-								<div class="row" style="font-size: 14px;">
-									<div class="col-lg-6">
-										<span>REFERRALS MADE</span><br>
-										<big class="count">{{conn.referral_made}}</big>
-									</div>
-								</div>
+				<div class="head">TOP REFERRERS FROM YOUR <strong>CONTACTS</strong></div>
+				<div class="row">
+					<div class="col-lg-4 col-md-6 col-sm-6" ng-if="!DashCtrl.top_referrals_empty" ng-repeat="topreferrals in DashCtrl.dashboardData.top_referrals">
+						<div class="box clearfix">
+							<div class="pull-left" style="width:18%">
+								<img ng-src="{{topreferrals.image == '' ? 'public/images/avatar.png' : topreferrals.image}}" class="img-responsive img-circle dp">
 							</div>
-						</div>
-					</div> -->
-				</div>
-
-				<!-- <div class="second">
-
-					<div style="padding: 15px 0">Top Contacts by <strong>Department &nbsp;<img src="public/images/arrow-dropdown-black.svg"></strong> &nbsp;and <strong>Location &nbsp;<img src="public/images/arrow-dropdown-black.svg"></strong></div>
-
-					<div class="row">
-						<div class="col-lg-4 col-md-6 col-sm-6">
-							<div class="box clearfix">
-								<div class="clearfix">
-									<div class="pull-left">
-										<img src="public/images/dp.jpg" class="img-responsive img-circle dp">
-									</div>
-									<div class="pull-left" style="line-height: 1.5em;padding: 8px 0 0 8px;">
-										<strong class="name">Johnson</strong>
-										<p>UI/UX Designer</p>
-									</div>
+							<div class="pull-left" style="padding:7px 10px;width:82%">
+								<div class="top">
+									<span class="name" ng-bind="topreferrals.name"></span><br>
+									<span ng-bind="topreferrals.designation" style="font-size:14px;"></span>
 								</div>
-								<hr>
-								<div class="row" style="font-size: 14px;">
-									<div class="col-lg-6">
-										<span>REFERRALS MADE</span><br>
-										<big class="count">40</big>
-									</div>
-									<div class="col-lg-6">
-										<span>TOTAL CONTACTS</span><br>
-										<big class="count">460</big>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-6 col-sm-6">
-							<div class="box clearfix">
-								<div class="clearfix">
-									<div class="pull-left">
-										<img src="public/images/dp.jpg" class="img-responsive img-circle dp">
-									</div>
-									<div class="pull-left" style="line-height: 1.5em;padding: 8px 0 0 8px;">
-										<strong class="name">John Butler</strong>
-										<p>UI/UX Designer</p>
-									</div>
-								</div>
-								<hr>
-								<div class="row" style="font-size: 14px;">
-									<div class="col-lg-6">
-										<span>REFERRALS MADE</span><br>
-										<big class="count">36</big>
-									</div>
-									<div class="col-lg-6">
-										<span>TOTAL CONTACTS</span><br>
-										<big class="count">456</big>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-6 col-sm-6">
-							<div class="box clearfix">
-								<div class="clearfix">
-									<div class="pull-left">
-										<img src="public/images/dp.jpg" class="img-responsive img-circle dp">
-									</div>
-									<div class="pull-left" style="line-height: 1.5em;padding: 8px 0 0 8px;">
-										<strong class="name">Willmark</strong>
-										<p>iOS Developer</p>
-									</div>
-								</div>
-								<hr>
-								<div class="row" style="font-size: 14px;">
-									<div class="col-lg-6">
-										<span>REFERRALS MADE</span><br>
-										<big class="count">36</big>
-									</div>
-									<div class="col-lg-6">
-										<span>TOTAL CONTACTS</span><br>
-										<big class="count">435</big>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-6 col-sm-6">
-							<div class="box clearfix">
-								<div class="clearfix">
-									<div class="pull-left">
-										<img src="public/images/dp.jpg" class="img-responsive img-circle dp">
-									</div>
-									<div class="pull-left" style="line-height: 1.5em;padding: 8px 0 0 8px;">
-										<strong class="name">Christopher</strong>
-										<p>UI Manager</p>
-									</div>
-								</div>
-								<hr>
-								<div class="row" style="font-size: 14px;">
-									<div class="col-lg-6">
-										<span>REFERRALS MADE</span><br>
-										<big class="count">62</big>
-									</div>
-									<div class="col-lg-6">
-										<span>TOTAL CONTACTS</span><br>
-										<big class="count">492</big>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-6 col-sm-6">
-							<div class="box clearfix">
-								<div class="clearfix">
-									<div class="pull-left">
-										<img src="public/images/dp.jpg" class="img-responsive img-circle dp">
-									</div>
-									<div class="pull-left" style="line-height: 1.5em;padding: 8px 0 0 8px;">
-										<strong class="name">Steve Chris</strong>
-										<p>Resource Manager</p>
-									</div>
-								</div>
-								<hr>
-								<div class="row" style="font-size: 14px;">
-									<div class="col-lg-6">
-										<span>REFERRALS MADE</span><br>
-										<big class="count">56</big>
-									</div>
-									<div class="col-lg-6">
-										<span>TOTAL CONTACTS</span><br>
-										<big class="count">480</big>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-6 col-sm-6">
-							<div class="box clearfix">
-								<div class="clearfix">
-									<div class="pull-left">
-										<img src="public/images/dp.jpg" class="img-responsive img-circle dp">
-									</div>
-									<div class="pull-left" style="line-height: 1.5em;padding: 8px 0 0 8px;">
-										<strong class="name">Daniel</strong>
-										<p>Sr. Software Engineer</p>
-									</div>
-								</div>
-								<hr>
-								<div class="row" style="font-size: 14px;">
-									<div class="col-lg-6">
-										<span>REFERRALS MADE</span><br>
-										<big class="count">50</big>
-									</div>
-									<div class="col-lg-6">
-										<span>TOTAL CONTACTS</span><br>
-										<big class="count">479</big>
-									</div>
+								<div class="bottom">
+									<big class="count">{{topreferrals.count}}</big>
+									<span>REFERRALS MADE</span><br>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>  -->
+					<div ng-if="DashCtrl.top_referrals_empty" style="text-align: center;line-height: 130px;">
+						No Data Found
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>

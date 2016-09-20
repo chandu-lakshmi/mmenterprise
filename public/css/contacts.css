@@ -723,8 +723,8 @@
 .bucket-modal .modal-body img[alt='back'],
 .contact-modal .modal-body img[alt='close'],
 .contact-modal .modal-body img[alt='back']{
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     outline: none;
 }
 .bucket-modal .modal-body .heading p{

@@ -440,6 +440,9 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 	display: block;
 	color: gray;
 }
+.confirm-message .modal{
+	top: calc(50% - 128px);
+}
 /*.mid-nav h3 img{
     position: relative;
     top: -2px;

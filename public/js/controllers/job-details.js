@@ -21,7 +21,7 @@ angular.module('app.job.details', [])
 	}
 })
 
-.controller('JobDetailsController', ['$window', '$state', '$http', '$stateParams', 'jobDetails', 'tabsName', 'ajaxData', 'CONFIG', function($window, $state, $http, $stateParams, jobDetails, tabsName, ajaxData, CONFIG){
+.controller('JobDetailsController', ['$scope', '$window', '$state', '$http', '$stateParams', 'jobDetails', 'tabsName', 'ajaxData', '$uibModal',  'CONFIG', function($scope, $window, $state, $http, $stateParams, jobDetails, tabsName, ajaxData, $uibModal, CONFIG){
 	
 	$window.scrollTo(0,0);
 
@@ -64,9 +64,38 @@ angular.module('app.job.details', [])
 	}
 
 	this.closeJob = function() {
+		$uibModal.open({
+            animation: false,
+            backdrop: 'static',
+            keyboard: false,
+            templateUrl: 'templates/dialogs/confirm-message.phtml',
+            openedClass: "referral-status confirm-message",
+            resolve: {
+	            jobParam: function() {
+	                return jobDetails.id;
+	            }
+            },
+            controller: 'ConfirmMessage',
+            controllerAs: 'ConfirmMsgCtrl'
+        });
+	}
+
+ }])
+
+
+.controller('ConfirmMessage',["$scope", "$uibModalInstance", "jobParam", '$window', '$http', '$state', 'CONFIG',   function($scope, $uibModalInstance, jobParam, $window, $http, $state, CONFIG){
+	$window.scrollTo(0, 0);
+	var scope = this;
+
+	this.success_loader = false;
+
+	this.userConfirm = function(){
+		$window.scrollTo(0, 0);
+   		$state.go('app.job');	
+		scope.success_loader = true;
 
 		var closeJobId = $.param({
-			post_id : jobDetails.id
+			post_id : jobParam
 		})
 
 		var closeJob = $http({
@@ -80,17 +109,20 @@ angular.module('app.job.details', [])
 
 		closeJob.success(function(response){
 			if(response.status_code == 200){
+				$state.go('app.job');
 				$window.scrollTo(0, 0);
-   				$state.go('app.job');
 			}
 		})
 		closeJob.error(function(response){
 			console.log(response);	
 		})
-	}	
+	}
 
+	$scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+        $uibModalInstance.dismiss('cancel');
+    })
 
- }]);
+}]);
 
 
 }());

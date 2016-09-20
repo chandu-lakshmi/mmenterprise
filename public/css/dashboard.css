@@ -496,13 +496,18 @@ select:-moz-focusring {
 	color: #E9832E;
 }
 	/* Dashboard Top Contacts */
+.dashboard .top-contacts{
+	min-height: 250px;
+}
 .dashboard .top-contacts .container{
 	padding: 50px 0;
+	font-size: 16px;
 }
 .dashboard .top-contacts .container .head{
 	font-size: 13px;
     letter-spacing: 0.6px;
     font-weight: bold;
+    color: #888;
 }
 .dashboard .top-contacts .container .box{
 	border: 1px solid #cdcdcd;
@@ -513,33 +518,24 @@ select:-moz-focusring {
     height: 145px;
     box-sizing: border-box;
     padding: 10px;
+    color: #666;
 }
-/*.top-contacts .first{
-	padding-bottom: 40px;
-	border-bottom: 1px solid #ccc;
+.dashboard .top-contacts .container .box .name{
+	color: #108bd5;
 }
-.top-contacts .second{
-	padding: 40px 0;
+.dashboard .top-contacts .container .box .top{
+	border-bottom:1px solid #cccccc;
+	padding-bottom: 18px;
 }
-.top-contacts .col-lg-4{
-	margin-bottom: 30px;
+.dashboard .top-contacts .container .box .bottom{
+	padding-top: 5px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
 }
-.top-contacts .box{
-	border: 1px solid #ccc;
-	box-shadow: 1px 1px 5px #ccc;
-	padding: 15px;
-	background: #fff;
+.dashboard .top-contacts .container .box .bottom big{
+	color: #468c26;
+	font-size: 30px;
 }
-.top-contacts .box hr{
-	width: 100%;
-	margin: 10px 0;
-}
-.top-contacts .box big.count{
-	color: #000;
-}
-.top-contacts .box strong.name{
-	color: #108BD8;
-}*/
 
 /*Footer Styles*/
 footer{
