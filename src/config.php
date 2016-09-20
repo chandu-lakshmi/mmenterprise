@@ -10,7 +10,7 @@ switch ($hostName) {
 	case 'mintmesh.com':
 		$environment = '_review';
 		break;
-	case 'mintmeshstg.com':
+	case 'ip-172-31-9-209':
 		$environment = '_staging';
 		break;
 	default:
