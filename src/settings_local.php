@@ -18,19 +18,34 @@ return [
         // Mode
         'mode'   => 'development',
 
+        // Application settings
         'APP' => [
             // Application Name
             'NAME' => 'Mintmesh Enterprise',
 
             // Application Version
-            'VERSION' => '1',
+            'VERSION' => 'v1',
 
-            // Application API Version
-            'API_VERSION' => 'v1',
+            //Api Prefix
+            'PREFIX' => '/enterprise',
+
+            // Angular Application domain
+            'APP_DOMAIN' => 'http://192.168.33.10/mintmesh/mintmesh_slim/',
 
             // Application API domain
-            'API_DOMAIN' => 'my.local/mmslimintegration/',
+            'API_DOMAIN' => 'http://192.168.33.10/mintmesh/mintmeshapi/',
+
+            //Client keys
+            'CLIENT_ID'         => 'G7iLdQoeZy0Ef06C',
+            'CLIENT_SECRET'     => 'Dh0pMLSV6Y82EfDpGKlWN1AyzvWvbvz4',
+
+            //Grant Types
+            'PASSWORD_GRANT'    => 'password',
+
+            //qquploader path
+            'PATH'    => '/var/www/public/mintmesh/mintmeshapi/'
+            
         ],
-        
+    
     ],
 ];

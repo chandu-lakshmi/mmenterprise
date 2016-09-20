@@ -5,14 +5,15 @@
 
 				<!-- logo -->
 				<div class="text-center">
-					<a href=""><img src="public/images/logo.png" alt="logo" class="import_logo"></a>
+					<a href=""><img src="public/images/company_logo.svg" alt="logo" class="import_logo" ></a>
 				</div>
 
 				<!--import contacts header-->
-				<div class="row import_c_box" style='padding-bottom: 17px;'>
+				<div class="row import_c_box" style='padding-bottom: 17px;position:relative'>
+						
 					<div class="col-sm-12" style="border-bottom:1px solid #ccc;">
 						<div style="padding:22px 0px;">
-							<img src="public/images/arrow-back.svg" alt="arrowback" class="pull-left" ng-click="importCtrl.backToCompleteProfile()">
+							<!-- <img src="public/images/arrow-back.svg" alt="arrowback" class="pull-left" ng-click="importCtrl.backToCompleteProfile()"> -->
 							<h3 class="mrZpdZ text-center" style="font-size:1.7em;color:silver">IMPORT YOUR CONTACTS</h3>
 						</div>
 					</div>
@@ -21,80 +22,49 @@
 						<h3 class="mrZpdZ">Upload Contacts</h3>
 						<div class="info-upload">
 							<div>
-								<img src="public/images/info.svg" alt="info">
+								<img src="public/images/info.svg" alt="info" style="width:18px;height:18px"/>
 								<span style="color:gray">Organize your contacts in one of the groups below or create your own</span>
 							</div>
 						</div>
-
-						<div class="div-btn row">
-							<div ng-repeat="bucketName in importCtrl.bucketsName" class="col-lg-4"  ng-init="color=importCtrl.bucketColor[$index]">
-								<div ng-style='{"background":color}' ng-click="importCtrl.fileUploadModal(bucketName, color)">
+					    <div ng-if="importCtrl.loader" style="position:relative;min-height: 558px;">
+				           	<img src="public/images/loader/preloader.gif"  alt="loader" style="position:absolute;top:42.5%;left:31%;width:38%;height:24%">
+				        </div>
+						<div class="div-btn row" ng-if="!importCtrl.loader">
+							<div ng-repeat="bucketName in importCtrl.bucketsName" class="col-lg-4"  ng-init="color=importCtrl.getColor($index)">
+								<div ng-style='{"background":color}' ng-click="importCtrl.fileUploadModal(bucketName.bucket_name, color,bucketName.bucket_id)" style="position:relative">
 								<img src="public/images/upload.svg">
-								{{bucketName | uppercase}}
+								<span class="text-alignment-bucketName" title="{{bucketName.bucket_name | uppercase}}">{{bucketName.bucket_name | uppercase}}</span>
+								<i class="file-name" title="{{importCtrl.fileNames[$index]}}">{{importCtrl.fileNames[$index]}}</i>
 								</div>
-								<h6><a href="">DOWNLOAD TEMPLATE</a></h6>
+								<h6>
+									<a href="" ng-click="importCtrl.downloadSample()" download ng-if="$index != importCtrl.index">DOWNLOAD TEMPLATE</a>
+									<a href="" ng-if="$index == importCtrl.index">{{importCtrl.fileName}}</a>
+								</h6>
 							</div>
-							<!-- <div ng-repeat="bucketName in importCtrl.bucketsName">
-								<div style="background:#229A77">
+							<div  class="col-lg-4" ng-init="obj=['#999','+Add Your Own']">
+								<div  ng-click="importCtrl.fileUploadModal(obj[1], obj[0])" ng-style="{'background':obj[0]}">
 								<img src="public/images/upload.svg">
-								EMPLOYEES
+								{{obj[1] | uppercase}}
 								</div>
-								<h6><a href="">DOWNLOAD TEMPLATE</a></h6>
+								<h6><a href="" ng-click="importCtrl.downloadSample()" download>DOWNLOAD TEMPLATE</a></h6>
 							</div>
-							<div>
-								<div style="background:#21A4AC">
-								<img src="public/images/upload.svg">
-								CLIENTS
-								</div>
-								<h6><a href="">DOWNLOAD TEMPLATE</a></h6>
-							</div>
-							<div>
-								<div style="background:#EE8F3B">
-								<img src="public/images/upload.svg">
-								CANDIDATES
-								</div>
-								<h6><a href="">DOWNLOAD TEMPLATE</a></h6>
-							</div>
-							<div>
-								<div style="background:#2A99E0">
-								<img src="public/images/upload.svg">
-								iOS DEVELOPERS
-								</div>
-								<h6><a href="">DOWNLOAD TEMPLATE</a></h6>
-							</div>
-
-							<div>
-								<div class="add-own">
-								+ Add Your Own
-								</div>
-								<h6><a href="">DOWNLOAD TEMPLATE</a></h6>
-							</div>
-
-							<div>
-								<div class="add-own">
-								+ Add Your Own
-								</div>
-								<h6><a href="">DOWNLOAD TEMPLATE</a></h6>
-							</div>
-
-							<div>
-								<div class="add-own">
-								+ Add Your Own
-								</div>
-								<h6><a href="">DOWNLOAD TEMPLATE</a></h6>
-							</div> -->
 						</div>
+						
 					</div>
 					
-					<div class="col-xs-12 col-sm-7 grid_center text-center" style="color:gray">
-						<sup>_________________________&nbsp;</sup> Or <sup>&nbsp;_________________________</sup>
+					<!-- <div class="col-xs-12 col-sm-7 grid_center text-center" style="color:gray">
+						<div class="hrLine">
+						  <span>
+						    OR
+						  </span>
+						</div>
 					</div>
 
 					<div class="col-xs-12 chos-service">
 						<h4>To import contacts choose any service provider</h4>
 					</div>
 
-					<!--mail services-->
+					mail services
 					<div class="col-xs-8 col-sm-5 grid_center services_type">
 						<a href="">
 							Gmail<img src="public/images/arrow-buttons_black.svg" alt="arrow">
@@ -102,9 +72,10 @@
 						<a>
 							Exchange <img src="public/images/arrow-buttons_black.svg" alt="arrow">
 						</a>
-					</div>
+					</div> -->
+					
 					<div class="col-xs-12 foot_next">
-						<button class="btn btn_up_next" ng-click="importCtrl.selectFile()">NEXT<img src="public/images/arrow-buttons.svg" alt="upload"></button>
+						<button class="btn btn_up_next" ng-click="importCtrl.gridView()">NEXT<img src="public/images/arrow-buttons.svg" alt="upload"></button>
 					</div>
 				</div>
 			</div>

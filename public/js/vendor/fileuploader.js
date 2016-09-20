@@ -290,15 +290,13 @@ qq.FileUploaderBasic = function(o){
 		onError: function(id, fileName, xhr) {},
         // messages                
         messages: {
-            typeError: "Unfortunately, the file(s) you selected weren't the type we were expecting.  {file} has invalid extension. Only {extensions} are allowed.",
-            sizeError: "{file} is too large, maximum file size is {sizeLimit}.",
+            typeError: "Invalid file format. Only [{extensions}] formats are allowed",
+            sizeError: "Maximum file size is {sizeLimit}.",
             minSizeError: "{file} is too small, minimum file size is {minSizeLimit}.",
             emptyError: "{file} is empty, please select files again without it.",
             onLeave: "The files are being uploaded, if you leave now the upload will be cancelled."            
         },
-        showMessage: function(message){
-            alert(message);
-        },
+        showMessage: function(message){},
         inputName: 'qqfile',
         extraDropzones : []
     };
@@ -437,7 +435,7 @@ qq.FileUploaderBasic.prototype = {
         }
     },      
     _validateFile: function(file){
-		console.dir(file)
+		//console.dir(file)
         var name, size;
         
         if (file.value){
@@ -450,9 +448,9 @@ qq.FileUploaderBasic.prototype = {
 			size = (file.fileSize !== null && file.fileSize !== undefined) ? file.fileSize : file.size;
         }
         
-        console.log(file.fileSize);
-        console.log(file.size);
-        console.log(size);
+        //console.log(file.fileSize);
+        //console.log(file.size);
+        //console.log(size);
 		
         if (! this._isAllowedExtension(name)){            
             this._error('typeError', name);
@@ -546,7 +544,7 @@ qq.FileUploader = function(o){
                 '<span class="qq-upload-file"></span>' +
                 '<span class="qq-upload-spinner"></span>' +
                 '<span class="qq-upload-size"></span>' +
-                '<a class="qq-upload-cancel" href="#">{cancelButtonText}</a>' +
+                '<a class="qq-upload-cancel" href="#" style="display:none">{cancelButtonText}</a>' +
                 '<span class="qq-upload-failed-text">{failUploadtext}</span>' +
             '</li>',        
         
@@ -1422,3 +1420,4 @@ qq.DisposeSupport = {
     this.addDisposer(qq.attach.apply(this, arguments));
   }
 };
+

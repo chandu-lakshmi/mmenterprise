@@ -17,3 +17,35 @@ $container['logger'] = function ($c) {
     $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path'], Monolog\Logger::DEBUG));
     return $logger;
 };
+
+// Defining the mintmesh login keystore service in container
+// this can be accessable across app
+$container['mintmeshLoginKeyStoreService'] = function ($c) {
+    $_POST['client_id']     = $c->get('settings')['APP']['CLIENT_ID'];
+    $_POST['client_secret'] = $c->get('settings')['APP']['CLIENT_SECRET'];    
+};
+
+// grant type service provider
+$container['mintmeshLoginGrantTypeService'] = function ($c) {
+    $_POST['grant_type']    = $c->get('settings')['APP']['PASSWORD_GRANT'];
+};
+
+// grant type access token
+$container['mintmeshAccessToken'] = function ($c) {
+    $_POST['access_token']    = isset($_SESSION['access_token'])?$_SESSION['access_token']:"";
+};
+
+// grant type company id
+$container['mintmeshCompanyId'] = function ($c) {
+    $_POST['company_id'] = isset($_SESSION['company']['company_id'])?$_SESSION['company']['company_id']:"";
+    $_POST['company_code'] = isset($_SESSION['company']['company_code'])?$_SESSION['company']['company_code']:"";
+ 
+};
+
+//Company Details
+$container['mintmeshCompanyDetails'] = function ($c) {
+    $_POST['company_name'] = isset($_SESSION['company']['company_name'])?$_SESSION['company']['company_name']:"";
+    $_POST['company_logo'] = isset($_SESSION['company']['company_logo'])?$_SESSION['company']['company_logo']:"";
+};
+
+

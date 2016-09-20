@@ -1,25 +1,56 @@
+
 <div class="sub-header">
 	<div class="container">
-		<div class="mid-nav">
-			<h3>
-				<a ui-sref="^.job"><img src="public/images/back-arrow.svg" alt="back" style="margin-bottom: 4px;">
-				<span>UI/UX Designer</span></a>
-			</h3>
-			<span class="openbox" style="margin:0">OPEN</span>
+		<div class="row">
+			<div class="col-sm-5 sub_left">
+				<div class="mid-nav">
+					<h3>
+						<a ui-sref="^.job" style="min-width:100px;"><img src="public/images/back-arrow.svg" alt="back" style="margin-bottom: 4px;">
+						<span style="min-width:100px;">{{RewardCtrl.job_title | uppercase}}</span></a>
+					</h3>
+					<span class="openbox" style="margin:0" ng-bind="RewardCtrl.subHeaderCount.status == 'ACTIVE' ? 'OPEN' : 'CLOSE'" ng-style="{'background': RewardCtrl.subHeaderCount.status == 'ACTIVE' ? '#488C27' : '#be7276'}"></span>
+				</div>
+				<ul>
+					<li><a ui-sref="^.jobDetails({post_id:RewardCtrl.post_id})" ui-sref-active="active">JOB DETAILS</a></li>
+					<li><a ui-sref="^.engagement/contacts({post_id:RewardCtrl.post_id})" ui-sref-active="active">REFERRALS</a></li>
+					<li><a ui-sref="^.rewards({post_id:RewardCtrl.post_id})" ui-sref-active="active">REWARDS</a></li>
+				</ul>
+			</div>
+			<div class="col-sm-7 text-center sub-right">
+				<ul>
+					<li>
+						<h3>{{RewardCtrl.subHeaderCount.invited_count}}</h3>
+						<span><img src="public/images/invited-header.svg" alt="invited">INVITED</span>
+					</li>
+					<li>
+						<h3>{{RewardCtrl.subHeaderCount.referral_count}}</h3>
+						<span><img src="public/images/referrals-header.svg" alt="referral">REFERRALS</span>
+					</li>
+					<li>
+						<h3>{{RewardCtrl.subHeaderCount.pending_count}}</h3>
+						<span><img src="public/images/referrals-header.svg" alt="pending">PENDING</span>
+					</li>
+					<li>
+						<h3>{{RewardCtrl.subHeaderCount.accepted_count}}</h3>
+						<span><img src="public/images/Applied.svg" alt="accepetd"></i>ACCEPTED</span>
+					</li>
+					<li>
+						<h3>{{RewardCtrl.subHeaderCount.hired_count}}</h3>
+						<span><img src="public/images/hired-header.svg" alt="hired">HIRED</span>
+					</li>
+				</ul>
+			</div>
 		</div>
-		<ul>
-			<li><a ui-sref="^.jobDetails">JOB DETAILS</a></li>
-			<li><a ui-sref="^.engagement/contacts">ENGAGEMENT/CONTACTS</a></li>
-			<li><a ui-sref="^.rewards" class="active">REWARDS</a></li>
-		</ul>
 	</div>
 </div>
+
+
 
 <div class="rewards">
 	<div class="container">
 		<div class="header clearfix">
 			<h2 class="pull-left">Total Rewards for Referrals</h2>
-			<span class="pull-right total col-lg-2 text-right text-hired">&#36; 30.00</span>
+			<span class="pull-right total col-lg-2 text-right text-hired">&#36; 0.00</span>
 		</div>
 		<div class="rewards-list">
 			<div class="row clearfix">
@@ -70,42 +101,5 @@
 			</div>
 		</div>
 		
-					<li ng-repeat="refer in EngContCtrl.contacts[0].referred">
-						<div class="col-lg-3">
-							<div class="pull-left">
-								<img ng-src="public/images/Ui_Faces/{{refer.name}}.jpg" class="img-responsive img-circle border-{{refer.status | lowercase}}">
-							</div>
-							<div class="content pull-left">
-								<big>{{refer.name}}</big>
-								<p style="margin:0">{{refer.designation}}</p>
-							</div>
-						</div>
-						<div class="col-lg-3">
-							<div class="pull-left">
-								<img ng-src="public/images/Ui_Faces/{{refer.referred_by}}.jpg" class="img-responsive img-circle border-default">
-							</div>
-							<div class="content pull-left">
-								<big>{{refer.referred_by}}</big>
-								<p style="margin:0;">{{refer.designation}}</p>
-							</div>
-						</div>
-						<div class="col-lg-2">
-							<span style="display: inline-block;padding: 12px 0;line-height: 1.8em">{{refer.time}}&nbsp;&nbsp;<img src="public/images/time.svg"alt="clock"></span>
-						</div>
-						<div class="col-lg-2 text-right">
-							<span style="display: inline-block;padding: 12px 0;line-height: 1.8em;color: black">{{refer.name}}.pdf &nbsp;&nbsp;<img src="public/images/download.svg" alt="download_svg"></span>
-						</div>
-						<div class="col-lg-2 text-center" style="padding: 10px 0" ng-if="refer.status == 'Pending'">
-							<img src="public/images/tickmark-accept.svg" alt="response">&nbsp;&nbsp;
-							<img src="public/images/closemark-decline.svg" alt="response">
-						</div>
-						<div class="col-lg-2 text-center" style="padding: 15px 0" ng-if="refer.status != 'Pending'">
-							<span class="text-{{refer.status | lowercase}}">{{refer.status | uppercase}}</span>
-						</div>
-					</li>
-		<!-- 		</ul>
-			</div>
-		</div>
-		</div> -->
 	</div>
 </div>

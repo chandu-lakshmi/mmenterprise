@@ -1,41 +1,44 @@
 <div class="container post-job">
 	<div class="row">
 		<div class="job-title text-center">
-			<a ui-sref="^.postJob"><img src="public/images/arrow-back.svg" alt="arrowback"></a>
+			<a ui-sref="^.postJob"><img src="public/images/back-arrow-black.svg" alt="arrowback" style="margin-top: 28px"></a>
 			<h2>Get Ready to Post Your Request</h2>
 		</div>
 		<div class="job-info">
 			<div>
-				<span class="company-name" style="margin:0">Enter Pi</span>
+				<span class="company-name" style="margin:0">{{post2Ctrl.company_name | uppercase}}</span>
 			</div>
 			<div class="job-name">
-				<div class="col-lg-4">
+				<div class="col-lg-5">
 					<div>
 						<span>Job Title:</span>
-						<span>UI/UX Designer</span>
+						<span>{{post2Ctrl.post_job_result.job_title}}</span>
 					</div>
 					<div>
-						<span>Job function:</span>
-						<span>Design</span>
+						<span>Job Function:</span>
+						<span>{{post2Ctrl.post_job_result.job_func.job_function_name}}</span>
 					</div>
 					<div>
 						<span>Location:</span>
-						<span>Plano, Texas</span>
+						<span>{{post2Ctrl.post_job_result.location}}</span>
+					</div>
+					<div>
+						<span>Employement Type:</span>
+						<span>{{post2Ctrl.post_job_result.emp_type.employment_type_name}}</span>
 					</div>
 					<div>
 						<span>Experience:</span>
-						<span>5 - 6 Years</span>
+						<span>{{post2Ctrl.post_job_result.experience.experience_name}}</span>
 					</div>
 					<div>
 						<span>Position ID:</span>
-						<span>EN234</span>
+						<span>{{post2Ctrl.post_job_result.position_id}}</span>
 					</div>
 				</div>
-				<div class="col-lg-8">
+				<div class="col-lg-7">
 					<p style="color: #9A9A9A;font-size:16px;">Job Description:</p>
 					
-					<p>Responsibilities and tasks:<br>
-Execute interaction design as part of a multidisciplinary team. Collaborate on user experience planning with internal and external teams. Researching design and technology trends to integrate into current and future applications. Create wireframes and visual design comps.</p>
+					<p style="font-size: 16px;color: #272727;"><pre class="pre-style">{{post2Ctrl.post_job_result.job_desc}}</pre></p>
 				</div>
 			</div>
 		</div>
@@ -45,59 +48,17 @@ Execute interaction design as part of a multidisciplinary team. Collaborate on u
 	<h2>SELECT THE REWARD </h2>
 	<div class="container" style="padding: 40px 15px">
 		<div class="choose-pay row row-centered">
-			<div class="col-lg-3 col-centered" style="color:#D89731;">
-				<div class="amount-pay amount-s">
-					<h4>FREE</h4>
-					<h1 style="visibility: hidden;">&#36; 0</h1>
-					<h4>JUST A THANK YOU </h4>
-					<input type="radio" name="amount-ref" ng-checked="true">
-					<label></label>
-				</div>
-			</div>
-			<div class="col-lg-3 col-centered">
-				<div class="amount-pay">
-					<h4>PAY</h4>
-					<h1>&#36;10</h1>
-					<h4>PER REFERRAL</h4>
-					<input type="radio" name="amount-ref">
-					<label></label>
-				</div>
-			</div>
-			<div class="col-lg-3 col-centered">
-				<div class="amount-pay">
-					<h4>PAY</h4>
-					<h1>&#36;20</h1>
-					<h4>PER REFERRAL</h4>
-					<input type="radio" name="amount-ref">
-					<label></label>
-				</div>
-			</div>
-			<div class="col-lg-3 col-centered">
-				<div class="amount-pay">
-					<h4>PAY</h4>
-					<h1>&#36;50</h1>
-					<h4>PER REFERRAL</h4>
-					<input type="radio" name="amount-ref">
-					<label></label>
-				</div>
-			</div>
-			<div class="col-lg-3 col-centered">
-				<div class="amount-pay">
-					<h4>PAY</h4>
-					<h1>&#36;100</h1>
-					<h4>PER REFERRAL</h4>
-					<input type="radio" name="amount-ref">
-					<label></label>
-				</div>
-			</div>
-			<div class="col-lg-3 col-centered">
-				<div class="amount-pay">
-					<h4>PAY</h4>
-					<h1>&#36;500</h1>
-					<h4>PER REFERRAL</h4>
-					<input type="radio" name="amount-ref">
-					<label></label>
-				</div>
+			<div class="col-lg-3 col-centered" ng-repeat="rewards in post2Ctrl.rewards" ng-init="radio = 'cond'+$index" >
+				<label style="width:100%;margin-bottom:40px;">
+					<div class="amount-pay" ng-class="{'amount-s':rewards == post2Ctrl.rewardCond}">
+						<h4>{{rewards.pay_status | uppercase}}</h4>
+						<h1 ng-if="$index == 0" style="visibility: hidden;">&#36; {{rewards.amount}}</h1>
+						<h1 ng-if="$index != 0">&#36; {{rewards.amount}}</h1>
+						<h4>{{rewards.message | uppercase}}</h4>
+						<input type="radio" name="amount-ref" ng-model="post2Ctrl.rewardCond" ng-value="rewards" ng-init="$index==0?(post2Ctrl.rewardCond=rewards):''">
+						<span></span>
+					</div>
+				</label>
 			</div>
 		</div>
 	</div>
@@ -106,41 +67,24 @@ Execute interaction design as part of a multidisciplinary team. Collaborate on u
 <div class="container-fluid" style="padding-bottom: 100px;">
 	<div class="container" style="border-top:1px solid #ccc">
 		<h2 class="text-center" style="color: #388A73;padding: 30px 15px 40px;margin:0">SELECT THE DISTRIBUTION LIST </h2>
+		<div class="clearfix"></div>
+		<div class="grid-msg-overlay" ng-if="post2Ctrl.buckLoader" style="position:relative;min-height: 558px;background:transparent">
+          	<div class="msg" style="border:0">
+              	<img src="public/images/loader/preloader.gif"  alt="loader" style="position:absolute;top:42.5%;left:31%;width:38%">
+          	</div>
+		</div>
 		<div class="row select-type row-centered">
-			<div class="col-lg-3 col-centered">
-				<div class="amount-pay" style="background: #3B8670;" >
-					<!-- <i class="fa fa-plus-circle" ng-click="icon = true" ng-if="!icon"></i>
-				    <i class="fa fa-check-circle-o"  ng-click="icon = false" ng-if="icon"></i> -->
-				    
-				    <img src="public/images/add.svg"  ng-click="post2Ctrl.icon = true" ng-if="!post2Ctrl.icon">
-				    <img src="public/images/select.svg"  ng-click="post2Ctrl.icon = false" ng-if="post2Ctrl.icon">
-				    <h3>EMPLOYEES</h3>
-				</div>
-			</div>
-			<div class="col-lg-3 col-centered" >
-				<div class="amount-pay" style="background: #907942;">
-					<img src="public/images/add.svg"  ng-click="post2Ctrl.icon_c = true" ng-if="!post2Ctrl.icon_c">
-				    <img src="public/images/select.svg"  ng-click="post2Ctrl.icon_c = false" ng-if="post2Ctrl.icon_c">
-				    <h3>CLIENTS</h3>
-				</div>
-			</div>
-			<div class="col-lg-3 col-centered">
-				<div class="amount-pay" style="background: #607D8B;">
-					<img src="public/images/add.svg"  ng-click="post2Ctrl.icon_s = true" ng-if="!post2Ctrl.icon_s">
-				    <img src="public/images/select.svg"  ng-click="post2Ctrl.icon_s = false" ng-if="post2Ctrl.icon_s">
-				    <h3>CANDIDATES</h3>
-				</div>
-			</div>
-			<div class="col-lg-3 col-centered">
-				<div class="amount-pay" style="background: #4574A9;">
-					<img src="public/images/add.svg"  ng-click="post2Ctrl.icon_i = true" ng-if="!post2Ctrl.icon_i">
-				    <img src="public/images/select.svg"  ng-click="post2Ctrl.icon_i = false" ng-if="post2Ctrl.icon_i">
-				    <h3>iOS DEVELOPERS</h3>
+			<div class="col-lg-3 col-centered" ng-repeat="buckets in post2Ctrl.bucket_names">
+				<div class="amount-pay" ng-style="{'background':post2Ctrl.getColor($index)}" ng-init="post2Ctrl.bucket_names[$index].src='public/images/add.svg'" ng-click="post2Ctrl.getDataUpdate(buckets.src,$index,buckets.bucket_id)">
+				    <img ng-src="{{buckets.src}}">
+				    <h3 title="{{buckets.bucket_name | uppercase}}">{{buckets.bucket_name | uppercase}}</h3>
 				</div>
 			</div>
 		</div>
+		<div class="error-spacer"></div>
+		<div ng-if="post2Ctrl.bucket_error" class="error-msg-float text-center">Please Choose Atleast One Bucket</div>
 	</div>
 	<div class="text-center" style="padding: 40px 0">
-		<button class="btn btn-style" ng-click="post2Ctrl.requestSuccess()" style="padding: 12px 32px;">POST REQUEST</button>
+		<button class="btn btn-style" ng-click="post2Ctrl.requestSuccess()" style="padding: 12px 32px;" ng-disabled="post2Ctrl.success_cond">POST REQUEST&nbsp;&nbsp;<img src="public/images/loader/butt_loader.gif" style="margin-top: -2px;" ng-if="post2Ctrl.loader"></button>
 	</div>
 </div>

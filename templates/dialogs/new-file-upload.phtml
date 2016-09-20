@@ -1,0 +1,136 @@
+<!-- <div class="modal-header" style="background:#999">
+    <h3 class="modal-title text-center" id="modal-title">+ Add Your Own</h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <form name="new_bucket_form" novalidate>
+        <div ng-if="!UploadContCtrl.modal.successCond">
+            <div style="width:60%">
+                <md-input-container class="md-block" style="margin:0">
+                    <label>Bucket Name</label>
+                    <input type="text" name="bucketName" ng-model="UploadContCtrl.modal.bucketName" required ng-class="{'has-error-border':new_bucket_form.bucketName.$invalid && UploadContCtrl.errorFromData}" check-bucket array-bucket="{{UploadContCtrl.bucketsList}}" bucket-name="{{UploadContCtrl.modal.bucketName}}" autocomplete="off">
+                    <div ng-if="new_bucket_form.bucketName.$error.required && UploadContCtrl.errorFromData" class="has-error-msg">Please Enter Bucket Name</div>
+                    <div ng-if="new_bucket_form.bucketName.$error.bucketmatch && UploadContCtrl.errorFromData && !new_bucket_form.bucketName.$error.required" class="has-error-msg">Bucket Name Already Exists</div>
+                </md-input-container>
+            </div>
+            <div id="new-bucket" style="margin-top:10px;"></div>
+            <div id="progressbar"></div>
+            <div class="has-error-msg remove" ng-if="UploadContCtrl.modal.fileError">Please Choose File</div>
+            <ul style="color: #999;font-size:15px;padding-left:19px;margin-top:25px;">
+                <li>Supported file format: ".CSV", ".XLSX", ".XLS"</li>
+                <li>Max file size (25MB)</li>
+            </ul>
+        </div>
+        <div ng-if="UploadContCtrl.modal.successCond">
+            <img src="public/images/tickmark.svg" alt="tickmark" style="padding: 0px; display: block; margin: 0px auto;">
+            <h2 style="font-size: 16px; text-align: center;">SUCCESSFULLY UPLOADED</h2>
+            <button class="btn" type="button" style="background:transparent;border-color:#999;color:#999;border: 1px solid;display: block; margin: 20px auto; padding: 8px 28px;border-radius:0;font-size:18px;" ng-click="$dismiss()">OK</button>
+        </div>
+    </form>
+</div>
+<div class="modal-footer clearfix" ng-if="!UploadContCtrl.modal.successCond">
+    <img src="public/images/loader/upload_file.gif" alt="loader" style="margin:5px;" ng-if="UploadContCtrl.modal.succesLoader">
+    <span class="btn-upload pull-right" style="border-color:#999;color:#999" ng-click="UploadContCtrl.uploadFile(new_bucket_form.$valid)" ng-style="{'pointer-events':UploadContCtrl.modal.succesLoader ? 'none' : 'auto'}">Upload</span>
+    <span class="btn-cancel pull-left" ng-click="$dismiss()">Cancel</span>
+</div> -->
+<div class="modal-body" id="modal-body" ng-if="!UploadContCtrl.newBucketModal" style="width:100%;height:100%;">
+    <form name="buckets_form">
+
+    <div class="contacts-group">
+
+        <div class="close" ng-click="$dismiss()">
+            <img src="public/images/cross-grey.svg" alt="close">
+        </div>
+        <div class="clearfix"></div>
+
+        <div class="box">
+
+            <div class="box-content text-center">
+                <div class="heading">
+                    <h3 style="margin:0">Upload Contacts</h3>
+                    <p style="margin:14px 0;">
+                        <span style="color:#989898;">Organize your contacts in one of the groups below or create your own</span>
+                    </p>
+                </div>
+                <div class="download">
+                    <span ng-click="UploadContCtrl.downloadSample()" class="text-center">Download Sample Template</span>    
+                </div>
+                <div class="file-uploading">
+                    <div class="row">
+                        <div class="col-sm-4" ng-repeat="bucketList in UploadContCtrl.bucketsList" ng-init="colorCode = UploadContCtrl.colorPicker($index)">
+                            <!-- qq uploader -->
+                            <div class="upload-bucket" ng-style="{'background':colorCode,'border-color':colorCode}"></div>
+                        </div>
+                        <div class="col-sm-4" style="margin-bottom:20px;">
+                            <div class="upload-bucket new-bucket" ng-click="UploadContCtrl.newBucket()">
+                                <p class="own"><i class="fa fa-plus" style="margin-right:3px;"></i>New Group</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    </form>
+
+</div>
+
+<form name="new_bucket_form" novalidate>
+    <div class="modal-body" ng-if="UploadContCtrl.newBucketModal">
+        
+        <div class="new-bucket">
+
+            <div>
+                <img src="public/images/back-arrow-grey.svg" alt="back" class="pull-left" ng-click="UploadContCtrl.back()">
+                <img src="public/images/cross-grey.svg" alt="close" class="pull-right" ng-click="$dismiss()">
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="text-center">
+                 <div class="heading">
+                    <h3 style="margin:0">Add New Group</h3>
+                    <p style="margin:14px 0;">
+                        <span style="color:#989898;">Create your own group and add contacts to the gorup</span>
+                    </p>
+                </div>
+
+                <div class="download">
+                    <span ng-click="UploadContCtrl.downloadSample()" class="text-center">Download Sample Template</span>    
+                </div>
+
+                <div class="content">
+                    <md-input-container class="md-block" style="margin:0">
+                        <label>Enter Group Name</label>
+                        <input type="text" name="bucketName" ng-model="UploadContCtrl.new_bucket.bucketName" required ng-class="{'has-error-border':new_bucket_form.bucketName.$invalid && UploadContCtrl.new_bucket.errorFromData}" check-bucket array-bucket="{{UploadContCtrl.bucketsList}}" bucket-name="{{UploadContCtrl.new_bucket.bucketName}}" autocomplete="off">
+                        <div ng-if="new_bucket_form.bucketName.$error.required && UploadContCtrl.new_bucket.errorFromData" class="has-error-msg">Please Enter Bucket Name</div>
+                        <div ng-if="new_bucket_form.bucketName.$error.bucketmatch && UploadContCtrl.new_bucket.errorFromData && !new_bucket_form.bucketName.$error.required" class="has-error-msg">Bucket Name Already Exists</div>
+                    </md-input-container>
+                    <div id="new-bucket"></div>
+                    <!-- <div class="has-error-msg remove" ng-if="UploadContCtrl.new_bucket.fileError">Please Choose File</div> -->
+                    <div style="clear:both;margin-top:15px;">
+                        <img src="public/images/info.svg" alt="info"/>
+                        <span style="color:#999999">Only .csv and .xlsx files are allowed.<br>File size must not exceed 25MB.</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</form>
+
+<div class="modal-footer clearfix">
+    <div class="pull-left" ng-if="UploadContCtrl.newBucketModal">
+        <span ng-if="UploadContCtrl.new_bucket.succesLoader"><img src="public/images/loader/upload_file.gif" alt="loader" style="margin:5px;" > Uploading</span>
+    </div>
+    <div class="pull-left" ng-if="!UploadContCtrl.newBucketModal">
+        <span ng-if="UploadContCtrl.uploadLoader"><img src="public/images/loader/upload_file.gif" alt="loader" style="margin:5px;"> Uploading</span>
+        <span style="color:#983a3a;line-height:48px;" ng-if="UploadContCtrl.errorUpload"><i class="fa fa-times"></i>&nbsp;Please upload contacts to atleast one group</span>
+    </div>
+    <div class="pull-right disabled">
+        <span class="btn-cancel" ng-click="$dismiss()">Cancel</span>
+        <span class="btn-upload" ng-if="UploadContCtrl.newBucketModal" ng-click="UploadContCtrl.new_bucket.upload(new_bucket_form.$valid)">UPLOAD CONTACTS</span>
+        <span class="btn-upload" ng-if="!UploadContCtrl.newBucketModal" ng-click="UploadContCtrl.uploadContacts()">ADD CONTACTS</span>
+    </div>
+</div>

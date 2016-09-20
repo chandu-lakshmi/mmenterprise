@@ -1,4 +1,7 @@
 <link rel="stylesheet" type="text/css" href="public/css/dashboard.css">
+<link rel="stylesheet" type="text/css" href="public/css/job_style.css">
+<link rel="stylesheet" type="text/css" href="public/css/contacts.css">
+<link rel="stylesheet" type="text/css" href="public/css/settings.css">
 <link rel="stylesheet" type="text/css" href="public/css/jquery.circliful.css">
 <script type="text/javascript" src="public/js/vendor/jquery.circliful.min.js"></script>
 
@@ -8,6 +11,6 @@
 
 	<div ui-view></div>
 
-	<footer ng-include="'templates/footer.phtml'" ng-controller="FooterController"></footer>
+	<footer ng-include="'templates/footer.phtml'" ng-controller="FooterController as footCtrl"></footer>
 
 </div>

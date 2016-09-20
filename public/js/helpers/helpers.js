@@ -1,0 +1,214 @@
+$.extend(App.Helpers, {
+    
+/* VALUMS's plugin for uploading files
+* AJAX kind
+*/
+initUploader: function(opts){
+    var config = {
+        action: false,
+        allowedExtensions: ["jpg", "gif", "png", "jpeg"],
+        buttonClass: false,
+        customParams: {},
+        dragText: "Drop files here to upload",
+        enableDragDrop: true,
+        id: false,
+        multiple: false,
+        size: (2*1024),
+        remove: true,
+        removeItemURL: false,
+        uploadButtonText: "Upload a file",
+        showFileInfo: true,
+        shortMessages: false,
+        file_name: "filename",
+        path_name: "filepath",
+        
+        onCancel: function(id, name){},
+        onComplete: function(id, name, response){},
+        onInvalidExtn: function(){},
+        onProgress: function(id, name, loaded, total){},
+        onRemove: function(){},
+        onRemoveComplete: function(){},
+        onSizeError: function(){},
+        onSubmit: function(id, name){},      
+        showMessage: function(){}
+    };
+    if(opts) $.extend(config, opts);
+
+    if(config.action){
+        new qq.FileUploader({
+            element: document.getElementById(config.id),
+            action: config.action,
+            debug: false,
+            multiple: config.multiple,
+            dragText: config.dragText,
+            uploadButtonText: config.uploadButtonText,
+            enableDragDrop: config.enableDragDrop,
+            onInvalidExtn: config.onInvalidExtn,
+            onSizeError: config.onSizeError,
+            sizeLimit: config.size,
+            allowedExtensions: config.allowedExtensions,
+            hideShowDropArea: false,
+            customParams: config.customParams,
+            buttonClass: config.buttonClass,
+            onCancel: config.onCancel,
+            showMessage: function(msg, obj){
+                $(obj._listElement).html("<li class='qq-upload-fail'><div class='upload-fail'><i class='fa fa-times icon-remove'></i>"+msg+"</div></li>");
+                config.showMessage(msg, obj);
+            },
+            showFileInfo: config.showFileInfo,
+            shortMessages: config.shortMessages,
+            file_name: config.file_name,
+            path_name: config.path_name,
+            onSubmit: config.onSubmit,
+            onComplete: config.onComplete,
+            onProgress: config.onProgress
+        });
+                    
+        $('.qq-upload-list').on('click touchend', '.icon-remove', function(e){
+            var me = $(this);
+            var uploader = me.closest('.qq-uploader');
+            
+            me.closest('li').remove();
+            
+            if(uploader.find('.drag_img').children().length){
+                uploader.find('.drag_txt').fadeOut();
+            }else{
+                uploader.find('.drag_txt').fadeIn();                
+            }
+            
+            config.onRemoveComplete();
+        });            
+
+        if(config.remove){
+            $('#'+config.id).on("click touchend", '.icon-trash', function(){
+                App.Helpers.removeUploadedFiles({
+                    obj: $('#'+config.id),
+                    url: config.removeItemURL,
+                    params: config.customParams,
+                    onComplete: config.onRemove
+                });
+            });
+        }			
+
+    }
+
+},
+
+/*for::: valums plugin: remove uploaded file function */
+removeUploadedFiles: function(opts){
+    var config = {
+        obj: false,
+        url: false,
+        params: {},
+        onComplete: function(){}
+    };
+    if(opts) $.extend(config, opts);
+    
+    if(config.url){
+        $.ajax({
+            type: "POST",
+            data: config.params,
+            url: config.url,
+            dataType:'json',
+            success: function(data){
+                if(data.error){
+                }else{
+                    config.obj.find('.drag_img').html("");
+                    config.obj.find('.qq-upload-list').html("");
+                    config.obj.find('.drag_txt').fadeIn();
+                    config.obj.find('.qq-upload-button').fadeIn();
+                    config.onComplete(config.obj);
+                }                            
+            }
+        });
+    }else{
+        config.obj.find('.drag_img').html("");
+        config.obj.find('.qq-upload-list').html("");
+        config.obj.find('.drag_txt').fadeIn();
+        config.obj.find('.qq-upload-button').fadeIn();
+        config.onComplete(config.obj);
+    }
+
+},
+
+loadImage: function(opts){
+    var config = {
+        css: false,
+        domTarget: false,
+        remove: false,
+        target: false,        
+        url: false,
+        url_prefix: App.base_url,        
+        
+        onComplete: function(){},
+        onError: function(){}
+    };
+    if(opts) $.extend(config, opts);
+
+    if( (config.url && config.target.length) || config.domTarget.length){
+        if(config.target){
+            config.target.html(App.Components.spinner({css: 'small', src: App.url_spinner_small}));
+            config.target.find('img').fadeIn();
+        }
+
+        var image = new Image();
+        image.onload = function(){
+            if(config.domTarget){
+                config.domTarget.fadeIn();
+            }else{
+                config.target.html(image);
+                if(config.remove){
+                    config.target.append("<div class='overlay'></div><i class='fa fa-trash-o icon-trash'></i>");
+                }
+                config.target.find('img').hide().fadeIn();
+            }
+
+            config.onComplete();
+        };
+        image.onerror = function(){
+            if(config.domTarget){
+            }else{
+                config.target.find('img').remove();
+            }
+            
+            config.onError();
+        };
+        
+        if(config.domTarget){
+            image.src = config.domTarget.attr('src');
+        }else{
+            if(config.url_prefix){
+                image.src = config.url_prefix+config.url;
+            }else{
+                image.src = config.url;
+            }
+
+            if(config.css){
+                image.className = config.css;
+            }
+        }
+      
+    }    
+},
+
+setImagePosition: function(){
+    var img = this.target.find('img'),
+        H = this.target.height(),
+        h = img.height();
+
+    img.css('margin-top', ((H - h)/2)+"px");
+},
+
+hasData: function(o) {
+    try{
+        for (var l in o) {
+            if (o.hasOwnProperty(l)) {
+                return true;
+            }
+        }
+    }catch(e){}
+
+    return false;
+}
+    
+});

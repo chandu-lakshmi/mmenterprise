@@ -1,0 +1,105 @@
+<div class="grid-contacts">
+	<div class="container">
+
+		<div class="container-lt">
+			<div class="dropdown">
+  				<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">+ ADD CONTACTS</button>
+				<ul class="dropdown-menu">
+				   	<li><a ng-click="ContactCtrl.contactModal()">ADD CONTACT</a></li>
+				   	<li><a ng-click="ContactCtrl.bucketsModal()" >CREATE GROUP</a></li>
+				</ul>
+			</div>
+			<div class="bkt-container">
+				<span ng-click="ContactCtrl.getGridData('ALL CONTACTS', '0', '','')" 
+					ng-class="{ activeBucketCls : ('ALL CONTACTS' == ContactCtrl.activeBucket) }">ALL CONTACTS{{' (' + ContactCtrl.totalRecords + ')'}}</span>
+				<div ng-repeat="bkt in ContactCtrl.bucketNames | filter:searchGroup" 
+					ng-click="ContactCtrl.getGridData(bkt.bucket_name, bkt.bucket_id, '', '')" 
+					ng-class="{ activeBucketCls : (bkt.bucket_name == ContactCtrl.activeBucket) }"
+					>
+					<span>{{(bkt.bucket_name | uppercase)}}</span>
+					<span> ({{bkt.count}})</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-rt">
+			<div class="search">
+				<span ng-bind="ContactCtrl.activeBucket | uppercase" class="word-ellipsis">
+				</span>
+				<div>
+					<img ng-src="public/images/loader/spin.gif" alt="bufferSpin" ng-if="ContactCtrl.updateLoader">
+					<span class="updateSuccess" style="color:#1d8e70">Successfully Updated</span>
+					<span class="updatefailure">Not Updated</span>
+					<span class="zeroRecords" style="margin-left:-122px;">Please Select Atleast 1 Record</span>
+					<span class="existRecords" style="margin-left:-176px;">Please Choose Another Name EMP ID Already Exists</span>
+				</div>
+				<md-input-container md-no-float="" class="md-block">
+						<img ng-src="public/images/loader/search_loader.gif" alt="buffer" ng-if="ContactCtrl.searchLoader">
+						<input ng-model="ContactCtrl.searchVal" ng-keyup="ContactCtrl.searchRecords(ContactCtrl.searchVal)" placeholder="Search">
+						<img ng-src="public/images/{{ContactCtrl.srcSearch}}" ng-click="ContactCtrl.srcSearch == 'cross.svg' ? ContactCtrl.searchRecords('') : ''" alt="feedback_left">
+				</md-input-container>
+			</div>
+			<div class="grid-container">
+				<div ng-if="!ContactCtrl.refresh"ui-grid="ContactCtrl.gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-validate class="grid" >
+					<div class="grid-msg-overlay" ng-if="ContactCtrl.loaderImg">
+			          	<div class="msg">
+			            	<span>
+			              		<img src="public/images/loader/spin.gif" alt="loader" ng-hide="ContactCtrl.hideLoader">
+			            	</span>
+			          	</div>
+			   		</div>
+			   		<div class="grid-msg-overlay" ng-if="ContactCtrl.loaderNoContacts">
+				        <div class="msg">
+				        	<span>No Contacts Found</span>
+				        </div>
+			    	</div>	
+				</div>
+				<div class="grid-footer">
+					<div class="status pull-left">
+						<span>
+						Change Status to:
+							<select class="form-control" ng-change="ContactCtrl.statusUpdate('status', ContactCtrl.statusName)" ng-model="ContactCtrl.statusName" id="status">
+								<option value="" selected disabled>Default</option>
+								<option value="Active" style="color:#0d8e68">Active</option>
+		   						<option value="Inactive" style="color:#888888">Inactive</option>
+								<option value="Separated" style="color:#c46968">Separated</option>
+							</select>
+							<i class="fa fa-angle-down fa-feedback" ></i>
+						</span>
+						<!-- <span ng-click="ContactCtrl.statusUpdate('delete', '')">Delete Contacts</span>  -->
+					</div>
+					<div class="pages-con pull-left">
+						<div class="pagenation">
+							<div class="arrow-click left" ng-click="ContactCtrl.getPage()">
+								<i class="fa fa-angle-double-left"></i>
+							</div>
+							<div class="pages-container">
+								<span class="pages">
+									<span ng-repeat="x in ContactCtrl.generatePageNo track by $index" ng-class="{'page-active':($index + 1) == ContactCtrl.currentPage}" ng-click="ContactCtrl.getGridData('', '', $index + 1, '')">{{$index + 1}}</span>
+								</span>
+							</div>
+							<div class="arrow-click right" ng-click="ContactCtrl.getPage(true)">
+								<i class="fa fa-angle-double-right"></i>
+							</div>
+						</div>
+					</div>
+					<div class="invite">
+						<span style="display: inline-block;padding: 12px 0;">{{ContactCtrl.selectedContacts.length + (ContactCtrl.selectedContacts.length > 1 ? ' Contacts' : ' Contact')}} selected</span>
+						<div class="btn-invite" ng-click="ContactCtrl.invite()">
+							INVITE SELECTED
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+ 	</div>
+
+ 	<script type="text/ng-template" id="select-drop.html">
+    	<select ui-grid-edit-dropdown class="form-control" ng-model="MODEL_COL_FIELD" append-to-body="true">
+		    <option value="Active" style="color:#0d8e68">Active</option>
+		    <option value="Inactive" style="color:#888888">Inactive</option>
+			<option value="Separated" style="color:#c46968">Separated</option>
+    	</select>
+ 	</script>
+</div>

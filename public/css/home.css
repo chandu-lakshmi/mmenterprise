@@ -1,6 +1,14 @@
 *{
     box-sizing: border-box;
 }
+
+input[type=text]::-ms-clear{
+    display: none;
+}
+select::-ms-expand {
+    display: none;
+}
+
 @font-face{
     font-family: 'Roboto';
     font-style: normal;
@@ -30,6 +38,7 @@ hr{
     z-index: 9999;
     background: url('../images/loader/preloader.gif') 50% 50% no-repeat rgb(255,255,255);
 }
+
 /*Background Image*/
 .bg-image{
     background: url('../images/bg-img.jpg') no-repeat;
@@ -38,7 +47,7 @@ hr{
     height: 100%;
     overflow: auto;
 }
-.bg-image footer{
+.bg-image footer,.forgot-password footer{
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -51,13 +60,13 @@ hr{
     padding: 10px 0 0 0;
     color: white;
 }
-.bg-image footer ul{
+.bg-image footer ul,.forgot-password footer ul{
     list-style: none;
     margin: 0;
     padding: 0;
     text-align: right;
 }
-.bg-image footer ul > li{
+.bg-image footer ul > li,.forgot-password footer ul > li{
     display: inline-block;
     margin-left: 20px;
 }
@@ -79,12 +88,27 @@ hr{
     min-height: 24px;
     min-width: 1px;
 }
+md-input-container .md-input.ng-invalid.ng-dirty{
+    border-width: 0 0 1px;
+}
+md-select.md-default-theme.ng-invalid.ng-touched .md-select-value, md-select.ng-invalid.ng-touched .md-select-value{
+    color: #666 !important;
+    border-bottom-color: rgba(0,0,0,0.12) !important;
+}
 .has-error-border{
     border-color: red !important;
+    border-bottom: 1px solid red !important;
 }
 .md-select-value .md-select-icon:after{
     content: url('../images/arrow-dropdown.svg') !important;
     display: inline !important;
+}
+md-input-container {
+    position: relative;
+}
+md-input-container .md-errors-spacer + div{
+    position: absolute;
+    bottom: 0;
 }
 md-input-container label{
     color: #666;
@@ -94,6 +118,7 @@ md-input-container.md-input-has-value label:not(.md-no-float){
     -webkit-transform: translate3d(0,6px,0) scale(.85);
     transform: translate3d(0,6px,0) scale(.85);
     color: #999;
+    display: block !important; 
 }
 md-input-container:not(.md-input-invalid).md-input-focused .md-input{
     border-color: rgba(0,0,0,0.12);
@@ -140,6 +165,11 @@ input{
         height: auto !important;
     }
 }
+@media (max-height: 550px){
+    .forgot-password footer{
+        position: static !important;
+    }
+}
 @media(max-width: 767px){
     .signin-signup .col-xs-9{
         float: none;
@@ -160,9 +190,18 @@ input{
     }
 }
 
+
+
 /*Signin and Signup Styles*/
 .signin-signup{
     padding: 80px 0;
+}
+.signin-signup button.btn-loader{
+    position: relative;
+}
+.signin-signup button.btn-loader img[alt=loader]{
+    position: absolute;
+    right: 16px;
 }
 .signin-signup .m_left{
     width: 84%;
@@ -177,8 +216,6 @@ input{
     color: #666
 }
 .signin-signup .logo{
-    /*width: 150px;*/
-    width: 200px;
     margin-bottom: 30px;
     padding: 12px 0 0 0;
 }
@@ -192,14 +229,14 @@ input{
 .signin-signup .briefcase img,.signin-signup .chart img{
     margin-bottom: 20px;
 }
-.signin-signup .sign-up-box,.signin-signup .sign-in-box,.signin-signup .verification-box{
+.signin-signup .sign-up-box,.signin-signup .sign-in-box,.signin-signup .verification-box,.signin-signup .forgot-password-box{
     width: 100%;
     border: 1px solid #ccc;
     margin: 0 auto;
     padding: 15px;
     background: #fff;
 }
-.signin-signup .sign-in-box,.signin-signup .verification-box{
+.signin-signup .sign-in-box,.signin-signup .verification-box,.signin-signup .forgot-password-box{
     margin-top: 100px;
 }
 .signin-signup .verification-box{
@@ -248,12 +285,83 @@ input{
     color: #797979;
 }
 
+/*Forgot Password*/
+.signin-signup .sign-in-box a.forgot-link{
+    display: block;
+    margin: 0px 0px 18px;
+    text-align: right;
+    color: #219070;
+}
+.signin-signup .forgot-password-box{
+    padding: 50px 15px 0px;
+}
+.signin-signup .forgot-password-box .forgot-password-header{
+    margin-bottom: 40px;
+}
+.signin-signup .forgot-password-box .forgot-password-header p{
+    font-size: 19px;
+    text-align: center;
+    padding: 0px 0px 20px;
+}
+.signin-signup .forgot-password-box .back-to-home{
+    text-align: center;
+    padding: 20px 0 35px;
+    font-size: 19px
+}
+.signin-signup .forgot-password-box .back-to-home span{
+    cursor: pointer;
+}
+
+/*Retype password*/
+.forgot-password .error-spacer{
+    float: right;
+    min-height: 24px;
+    min-width: 1px;
+}
+.forgot-password header img.logo{
+    margin-bottom: 30px;
+    padding: 12px 0 0 0;
+}
+.forgot-password{
+    height: 100%;
+    background: #f2f2f2;
+}
+.forgot-password section .back-to-home{
+    font-size: 20px;
+    padding: 10px;
+}
+.forgot-password footer div.container{
+    border-top : 1px solid #ccc;
+    padding: 10px 0 0 0;
+}
+.forgot-password button.btn-loader{
+    position: relative;
+    padding: 10px 40px !important;
+}
+.forgot-password button.btn-loader img[alt=loader]{
+    position: absolute;
+    right: 6px;
+}
+/*modal*/
+.reset-pwd .modal{
+    top:calc(50% - 123px);
+    left:calc(50% - 182px);
+}
+.reset-pwd .modal-dialog{
+    width: 364px;
+    margin:0;
+} 
+.reset-pwd .modal-dialog .modal-content{
+    padding: 26px;
+    border-radius: 0px;
+} 
+
+
 /*Verify Styles*/
 .verify-page{
     margin: 100px 0 160px 0;
 }
 .verify-page header .logo{
-    width: 150px;
     margin: 20px 0;
     /*padding: 12px 0 0 0;*/
 }
@@ -283,11 +391,37 @@ input{
 }
 
 
+
 /*Company Profile Styles*/
+.img-upload{
+    position: relative;
+}
+.img-upload input{
+    width: 123px;
+    height: 124px;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+}
+.company-profile .error-spacer{
+    float: right;
+    min-height: 24px;
+    min-width: 1px;
+}
 .company-profile{
     background: #f2f2f2;
     height: 100%;
     /*overflow: hidden;*/
+}
+.company-profile button.btn-loader{
+    position: relative;
+    padding: 10px 40px !important;
+}
+.company-profile button.btn-loader img[alt=loader]{
+    position: absolute;
+    right: 6px;
 }
 .company-profile .btn-default{
     background: #fafafa;
@@ -327,6 +461,15 @@ input{
 .company-content{
     padding: 30px 26px 0px;
     /*border-top: 1px solid #ccc;*/
+}
+.company-content span.url_exmp{
+    float: right;
+    color: #666;
+}
+.company-content span#pdf_name{
+    padding: 10px;
+    font-size: 15px;
+    color: #219070;
 }
 .company-content input#pdf{
     width: 0.1px;
@@ -373,7 +516,7 @@ input{
     color: #BDBDBD;
 }
 .company-content .description{
-    padding: 25px 0 30px 0;
+    padding: 25px 0 40px 0;
     border-bottom: 1px solid #ccc;
 }
 .company-content .description label{
@@ -400,9 +543,6 @@ input{
     font-size: 14px;
     color: #666;
 }
-.company-content md-select.has-error-border .md-select-value{
-    border-bottom-color: red !important;
-}
 .company-footer{
     border-top: 1px solid #ccc;
     padding: 10px 26px;
@@ -428,7 +568,7 @@ input{
 .company-footer ul.indicators li.active{
     background: #01B893;
 }
-.company-footer button.btn-style,.company-footer input[type='button'].btn-style,.company-footer input[type='submit'].btn-style{
+.company-footer button.btn-style,.company-footer span.btn-style,.company-footer input[type='submit'].btn-style{
     padding: 10px 30px;
     /*font-size: 16px*/
 }
@@ -444,12 +584,13 @@ input{
 .company-content .feedback{
     position: absolute;
     right: 10px;
-    top: 10px;
-    width: 15px;
+    top: 13px;
+    width: 13px;
+    outline: none;
 }
-.add-img{
+/*.add-img{
     margin-bottom: 30px;
-}
+}*/
 .upload span,.add-img span{
     display: block;
     padding: 20px 0;
@@ -498,11 +639,12 @@ input{
 }
 .cmp-size ul li > label{
     padding: 15px 0;
-    display: block;
+    display: inline-block;
     margin: 0;
+    width: 100%;
 }
 .go_2 .company-content{
-    min-height: 570px;
+    min-height: 613px;
 }
 .cmp-size span{
     display: block;
@@ -524,14 +666,15 @@ input{
     position: absolute;
     cursor: pointer;
 }
-.cmp-size input[type='radio'] + label{
+.cmp-size input[type='radio'] + div{
     margin: 0;
     clear: none;
+    display: inline-block;
     padding: 20px 10px 10px 20px;
     cursor: pointer;
     background: url('../images/radio-button-unchecked.svg') no-repeat;
 }
-.cmp-size input[type='radio']:checked + label{
+.cmp-size input[type='radio']:checked + div{
     background: url('../images/radio-button-checked.svg') no-repeat;
 }
 .final_state{
@@ -629,7 +772,7 @@ ul > li{
 
 /* ngAnimate*/
 
-.animate.ng-enter, 
+/*.animate.ng-enter, 
 .animate.ng-leave
 { 
     -webkit-transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
@@ -652,7 +795,7 @@ ul > li{
 }
 .animate.ng-leave.animate.ng-leave-active{
     left: -100%;
-}
+}*/
 
 
 
@@ -833,3 +976,106 @@ ul > li{
     font-size: 12px;
     line-height: 1.07142857;
 }*/
+
+
+/* qq-uploader */
+.qq-uploader .qq-upload-list {
+    position: absolute;
+    top: 40%;
+    right: 0;
+    width: 100%;
+    height: 10px;
+}
+.qq-upload-drop-area{
+    width: 100%;
+    height: 100%;
+}
+.qq-upload-drop-area .drag_img{
+    width: 100%;
+    height: 100%;
+}
+.qq-upload-drop-area .drag_img .icon-trash{
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid #ccc;
+    background: #fff;
+    border-radius: 4px;
+    display: none;
+    cursor: pointer;
+}
+.qq-upload-drop-area .drag_img .overlay{
+    display: none;
+    background: #000000;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    opacity: 0.1;
+}
+.qq-upload-drop-area .drag_img:hover .overlay,.qq-upload-drop-area .drag_img:hover .icon-trash{
+    display: block;
+}
+.qq-upload-drop-area .drag_img img{
+    width: 100%;
+    height: 100%;
+}
+.qq-upload-drop-area .drag_img img[alt='download']{
+    width: 25px;
+    height: 25px;
+}
+.qq-upload-button:active{
+    top: 0;
+}
+.qq-upload-button{
+    box-shadow: none;
+}
+.company-profile #referral-bonus .qq-uploader{
+    width: 215px;
+    height: 60px;
+    padding: 13px 0px;
+    margin: 0;
+}
+.company-profile #referral-bonus .qq-upload-button{
+    background: #e6e6e6;
+    border: 1px solid #ccc;
+    box-shadow: none;
+    color: #000;
+    padding: 15px 50px;
+    text-shadow: none;
+    font-weight: normal;
+    width: 100%;
+    margin-top: -10px;  
+}
+.company-profile #referral-bonus .qq-uploader .qq-upload-list{
+    top: 0;
+    width: 100%;
+}
+.company-profile #referral-bonus .qq-uploader .qq-upload-drop-area{
+    background: transparent;
+    text-align: left;
+}
+.company-profile #referral-bonus .qq-uploader .qq-upload-fail{
+    font-size: 13px;
+    color: #983a3a;
+}
+.company-profile #referral-bonus .qq-uploader .drag_img a{
+    line-height: 50px;
+    color: #333;
+}
+.company-profile #referral-bonus .qq-uploader .drag_img a p{
+    padding: 0px 5px;
+    display: inline-block;
+    overflow: hidden;
+    margin: 0;
+    text-overflow: ellipsis;
+    max-width: 160px;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+.company-profile #referral-bonus .qq-upload-fail{
+    font-size: 13px;
+    color: #983a3a;
+}

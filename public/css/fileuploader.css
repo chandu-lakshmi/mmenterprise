@@ -4,6 +4,7 @@
 	position: relative;
 	width: 100%;
 	margin-bottom: 25px;
+	padding-top:20px;
 }
 .qq-upload-button {
 	display: block;
@@ -199,3 +200,81 @@
 .qq-upload-success .qq-progress-bar {
 	display: none;
 }
+
+/*custome style */
+.upload-file-bucket .qq-upload-drop-area{
+	display: block !important;
+	border:1px dashed #000;
+	background: #fff;
+	top: 45px;
+}
+.upload-file-bucket .qq-upload-button{
+	background: none;
+	padding:0px;
+	margin-bottom: 10px;
+	box-shadow: none;
+	color:#808080;
+	text-shadow:none;
+}
+.upload-file-bucket .hints{
+	color:#c0c0c0;
+	padding-left:20px;
+	margin-top:8px;
+}
+.upload-file-bucket .alert-error{
+	position: absolute;
+	top: 82px;
+    color: red;
+}
+.upload-file-bucket .modal-header{
+  padding:0px;
+}
+.upload-file-bucket .modal-header h4{
+  color: #fff;
+  padding: 6px;
+  max-width: 350px;
+  white-space: nowrap;
+  text-overflow:ellipsis;
+  overflow: hidden;
+  margin: 0 auto;
+}
+.upload-file-bucket .modal-footer{
+  padding: 10px;
+}
+.bucket-file{
+	position: relative;
+}
+.upload-file-bucket .modal-body input[type="text"]{
+	width:258px;
+	border:0px;
+	border-bottom:1px solid gray;
+	outline:0;
+	background: transparent;
+}
+
+.bucket .modal{
+	top: calc(50% - 120px);
+	left: calc(50% - 249px);
+}
+.bucket .modal-dialog{
+	width: 500px;
+	margin:0;
+
+}
+.customInput{
+	width: 130px;
+	height: 43px;
+	text-align: center;
+	display: table-cell;
+	vertical-align: middle;
+    cursor: pointer;
+}
+.upload-file-bucket .error-file{
+	color: red;
+}
+.upload-file-bucket #file-name{
+	display: table-cell;
+    vertical-align: middle;
+    padding-left: 12px;
+}
+

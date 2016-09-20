@@ -1,4 +1,11 @@
-/*--------job---------*/
+	/*--------job---------*/
+
+/*p.indent{
+	text-indent: 100px;
+}*/
+p.indent:first-letter{
+	text-transform: uppercase;
+}
 .search-job{
 	margin-top: 3%;
 }
@@ -16,15 +23,21 @@
     position: relative;
 }
 .search-job .left-inner-addon input {
-    padding-left: 30px;
+    padding:0 30px;
 }
-.search-job .left-inner-addon img {
+.search-job .left-inner-addon img[alt='feedback_left'] {
     position: absolute;
     padding: 10px 12px;
     pointer-events: none;
     left: -12px;
     top: -3px;
     font-size: 22px;
+}
+.search-job .left-inner-addon img[alt='feedback_right'] {
+	position: absolute;
+	right: 8px;
+    top: 11px;
+    width: 13px;
 }
 .select-arrow + select{
 	-webkit-appearance: none;
@@ -37,7 +50,7 @@
 	padding:5px 5px;
 }
 .select-arrow{
-	right: 165px;
+	right: 8px;
 	top: 5px;
 	font-size: 24px;
 	pointer-events: none;
@@ -48,6 +61,8 @@
 	padding-right: 48px;
 }
 .search-job button{
+	line-height: 22px;
+	height: 34px;
 	margin-left: 16px;
 	border-radius: 0;
 	background: #229A77;
@@ -64,6 +79,7 @@
 .search-job div .form-group{
 	display: inline-block;
 	float: none;
+	position: relative;	
 }
 .search-job div{
 	padding: 0;
@@ -80,31 +96,53 @@
 .padZ{
 	padding: 0;
 }
+.job-search div[infinite-scroll].over-lay{
+	opacity: 0.5;
+}
+.job-search .total_record{
+	font-size: 18px;
+    color: #666;
+    padding-bottom: 15px;
+}
+.job-search .post_err_msg{
+	text-align: center;
+    font-size: 25px;
+    color: #666;
+    padding: 80px 0;
+}
 .job-search .row{
 	padding: 0 1.4%;
 	border: 1px solid silver;
 	margin-bottom: 3%;
 }
 .job-type{
-	padding: 1.5% 1%;
+	padding: 1.5% 0;
 	border-bottom: 1px solid silver;
+	overflow: hidden;
 }
 .job-type img{
-	width: 28px;
+	width: 28px;    height: 25px;
     margin-top: -10px;
-    margin-right: 5px
+    margin-right: 1px
 }
 .job-type h3{
 	display: inline-block;
-	margin: 0;
+   	margin: 0;
 }
 .job-type h3 img{
 	width: 10px;
-    margin-left: 6px;
+    height: 20px;
+    margin-left: 1px;
     margin-top: 1px;
 }
 .job-type h3 span{
 	color: #219070;
+	overflow: hidden;
+    white-space: nowrap;
+    max-width: 400px;
+    display: inline-block;
+    vertical-align: middle;
+    text-overflow: ellipsis;
 }
 .job-type h3:focus{
 	outline: 0;
@@ -112,6 +150,7 @@
 }
 .job-type h3 + span{
 	float:right;
+	padding: 2px 0;
 }
 .job-type span span{
 	margin: 0 2px;
@@ -120,7 +159,7 @@
 	width: 18px;
     margin: -2px 0 0;
 }
-.job-type span span:first-child,.openbox{
+.job-type span span:not(.date-stamp),.openbox{
 	margin: 0 5px;
     padding: 2px 7px;
     display: inline-block;
@@ -142,11 +181,31 @@
     font-size: 18px !important;
     color: orange !important;
 }
+.job-info .jump a{
+	color: inherit;
+	width: 100%;
+    height: 100%;
+    display: inline-block;
+}
+
+/*Overriding from dashboard*/
+@media (min-width: 768px){
+	.job-info .col-sm-2 {
+	    width: 13.3333339%;
+	}
+}
 .job-info_d{
-	margin: 1% 0;
+	margin: 12.5px 0;
     border-right: 1px solid silver;
     padding: 0;
     font-size: 16px;
+    line-height: 1.5;
+}
+.job-info_d div:last-child{	
+	overflow: hidden;
+    max-width: 98%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .job-info_d div:nth-child(even){
 	margin:3% 0;
@@ -164,27 +223,47 @@
 }
 .job-info_d ~ div span{
 	display: inline-block;
-    padding-bottom: 24px;
+    padding-bottom: 25px;
     font-weight: 900;
 }
-.job-info_d ~ div div{
-	border-bottom: 2px solid #559E33;
-	color: #559E33;
+.job-info  .job-info_d ~ div{
+	position: relative;
 }
-.job-info_d + div div{
-	border-bottom: 2px solid #47BABD;
+.job-info  .job-info_d~div:before{
+	position: absolute;
+    content: '';
+    left: 23px;
+    right: 23px;
+    bottom: -1px;
+}
+.job-info  .invited{
 	color: #47BABD;
 }
-.job-info .referal_s div{
-	border-bottom: 2px solid #FA8116;
+.job-info  .referral{
 	color: #FA8116;
 }
-.job-info .referal_s + div div{
-	border-bottom: 2px solid #16A4FA;
+.job-info  .accepted{
 	color: #16A4FA;
 }
+.job-info  .hired{
+	color: #559E33;
+}
+.job-info  .invited:before{
+	border-bottom: 2px solid #47BABD;
+}
+.job-info  .referral:before{
+	border-bottom: 2px solid #FA8116;
+}
+.job-info  .accepted:before{
+	border-bottom: 2px solid #16A4FA;
+}
+.job-info  .hired:before{
+	border-bottom: 2px solid #559E33;
+}
+
 .job-info h1{
 	color: #000;
+	margin-bottom: 16px;
 }
 .job-info i{
 	font-size: 17px;
@@ -195,8 +274,8 @@
     font-size: 11px;
   }
   .job-info_d{
-  	text-align: center;
   	border: 0;
+  	text-align: left;
   }
   .job-info_d ~ div img{
   	margin-right: 3px;
@@ -222,6 +301,7 @@
 	.job-info_d{
 		font-size: 14px;
 		margin-top: 3%;
+		text-align: center;
 	}
 	.search-job div span {
 	    float: none;
@@ -248,26 +328,25 @@ input+.bar{
 	width: 100%;
 }
 .bar:before, .bar:after     {
- content:'';
- height:2px; 
- width:0;
- bottom:1px; 
- position:absolute;
- background:#01b893; 
- transition:0.2s ease all; 
- -moz-transition:0.2s ease all; 
- -webkit-transition:0.2s ease all;
+ 	content:'';
+ 	height:2px; 
+ 	width:0;
+ 	bottom:1px; 
+ 	position:absolute;
+ 	background:#01b893; 
+ 	transition:0.2s ease all; 
+ 	-moz-transition:0.2s ease all; 
+ 	-webkit-transition:0.2s ease all;
 }
 .bar:before {
- left:50%;
+ 	left:50%;
 }
 .bar:after {
- right:50%; 
-} transition: 0.4s
+ 	right:50%; 
 }
 /* active state */
 input:focus ~ .bar:before, input:focus ~ .bar:after {
- width:50%;
+ 	width:50%;
 }
 /*Job details*/
 /*.job-details-box{
@@ -315,17 +394,43 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 .mid-nav + ul li:hover a{
 	color: #fff;
 }*/
+.close-job{
+    width: 10%;
+    padding: 8px;
+    text-decoration: none;
+    position: absolute;
+    right: 0px;
+    top: 5%;
+    color: #fff;
+    background: #de7674;
+    text-align: center;
+    border-radius: 4px;
+    z-index: 999;
+    cursor: pointer;
+    outline: none;
+}
 .job_des_bo{
 	padding:2% 0;
 	border-bottom: 1px solid silver;
 }
 .job_des_info{
-	width: 35%;
-	background: red;
+	width: 100%;
 	text-align: left;
 }
 .job_des_info div{
 	padding: 5px 0;
+	overflow: hidden;
+}
+.job_des_info div span:first-child{
+	width: 20%;
+	display: inline-block;
+	float: left;
+	color: #666;
+}
+.job_des_info div span:last-child{
+	width: 80%;
+	float: right;
+	color: #000;
 }
 .job_des_info div:first-child{
 	color:gray;
@@ -334,6 +439,9 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 	padding-bottom: 7px;
 	display: block;
 	color: gray;
+}
+.confirm-message .modal{
+	top: calc(50% - 128px);
 }
 /*.mid-nav h3 img{
     position: relative;

@@ -1,0 +1,103 @@
+<div class="edit-company">
+	<div class="container">
+		<div class="head">
+			<h2 class="pull-left">Company Profile</h2>
+			<div ng-if="edit_company_form.$dirty || editCompCtrl.update" class="fade" style="margin-top:10px;">
+				<span class="pull-right btn-update" style="position:relative;" ng-click="editCompCtrl.update_company(edit_company_form.$valid)">UPDATE<img src="public/images/loader/dot.svg" alt="dot" ng-if="editCompCtrl.updateLoader"/></span>
+				<span class="pull-right btn-cancel" style="margin-right:20px;" ng-click="editCompCtrl.cancel();edit_company_form.$setPristine();">CANCEL</span>
+			</div>
+		</div>
+		<div class="error-spacer"></div>
+		<div class="msg" ng-if="editCompCtrl.errorMsgCond">
+			<span>Successfully Updated</span>
+		</div>
+		<div class="edit-box clearfix">
+			<form name="edit_company_form" novalidate>
+				<div class="row">
+	 				<div class="col-sm-6">
+	 					<div style="width:85%">
+	 						<md-input-container class="md-block read-only">
+								<label>COMPANY NAME</label>
+								<input type="text" name="company" ng-model="editCompCtrl.company_details.name" required ng-class="{'has-error-border':edit_company_form.company.$invalid && editCompCtrl.errCond}">
+								<div ng-if="edit_company_form.company.$error.required && editCompCtrl.errCond" class="has-error-msg">Please Enter Company Name</div>
+							</md-input-container>
+							<md-input-container class="md-block">
+					            <label style="display:none;">INDUSTRY</label>
+					            <md-select name="industry" ng-model="editCompCtrl.company_details.industry" ng-class="{'has-error-border':(editCompCtrl.company_details.industry == null || editCompCtrl.company_details.industry == '') && editCompCtrl.errCond}">
+					              	<md-option ng-repeat="industry in editCompCtrl.industry_list" ng-value="industry.industry_id">
+					                	{{industry.industry_name}}
+					              	</md-option>
+					            </md-select>
+					            <div class="md-errors-spacer"></div>
+					            <div ng-if="(editCompCtrl.company_details.industry == null || editCompCtrl.company_details.industry == '') && editCompCtrl.errCond" class="has-error-msg">Please Select Industry</div>
+					        </md-input-container>
+					        <md-input-container class="md-block">
+					            <label style="display:none;">NUMBER OF EMPLOYEES</label>
+					            <md-select name="number_of_employees" ng-model="editCompCtrl.company_details.number_of_employees">
+					              	<md-option ng-repeat="count in editCompCtrl.no_of_emp" ng-value="count">
+					                	{{count}}
+					              	</md-option>
+					            </md-select>
+					        </md-input-container>
+	 					</div>
+	 				</div>
+	 				<div class="col-sm-6">
+	 					<div style="width:85%">
+		 					<md-input-container class="md-block">
+								<label>WEBSITE<span style="color: #999">(URL)</span></label>
+								<input  type="text" name="website" ng-model="editCompCtrl.company_details.website" required ng-pattern="/^(http:\/\/www\.|https:\/\/www\.|www\.|https:\/\/|http:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i" ng-class="{'has-error-border':edit_company_form.website.$invalid && editCompCtrl.errCond}">
+								<div ng-if="edit_company_form.website.$error.required && editCompCtrl.errCond"  class="has-error-msg">Please Enter URL</div>
+								<div ng-if="edit_company_form.website.$error.pattern && editCompCtrl.errCond"  class="has-error-msg">Please Enter Valid URL</div>
+							</md-input-container>
+							<md-input-container class="md-block">
+      							<label>DESCRIPTION</label>
+          						<textarea name="description" ng-model="editCompCtrl.company_details.description" md-maxlength="500" maxlength="500" ng-maxlength="500" style="max-height:106px"></textarea>
+    						</md-input-container>
+						</div>
+	 				</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-6">
+						<div style="width:85%;">
+							<div class="company-logo">
+					        	<span style="color: #999">LOGO <small>(Add your company logo)</small></span>
+					        	<div id="company-logo" style="position:relative"></div>
+					        	<ul style="color: #999;font-size:13px;padding-left:19px;">
+					        		<li>Supported file format: ".JPEG", ".JPG", ".PNG"</li>
+					        		<li>Max file size (1.0MB)</li>
+					        	</ul>
+					        </div>
+					        <div class="referral-bonus">
+					        	<span style="color: #999">REFERRAL BONUS POLICY</span>
+					        	<div id="referral-bonus" style="position:relative"></div>
+					        	<ul style="color: #999;font-size:13px;padding-left:19px;">
+					        		<li>Supported file format: ".DOC", ".PDF", ".CSV", ".DOCX"</li>
+					        		<li>Max file size (10.0MB)</li>
+					        	</ul>
+					        </div>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div style="width:85%;">
+							<div>
+								<span style="color: #999">PHOTOS <small>(Add your company pictures)</small></span>
+								<div class="image-group">
+									<div class="multiple-images"></div>
+									<div class="multiple-images"></div>
+									<br>
+									<div class="multiple-images" style="padding-top:8px;"></div>
+									<div class="multiple-images" style="padding-top:8px;"></div>
+								</div>
+								<ul style="color: #999;font-size:13px;padding-left:19px;margin-top:25px;">
+					        		<li>Supported file format: ".JPEG", ".JPG", ".PNG"</li>
+					        		<li>Max file size (1.0MB)</li>
+					        	</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+</div>
