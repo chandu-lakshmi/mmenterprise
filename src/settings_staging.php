@@ -36,8 +36,8 @@ return [
             'API_DOMAIN' => 'http://staging.mintmesh.com/',
 
             //Client keys
-            'CLIENT_ID'         => 'dA3UFisQBLX23jHW',
-            'CLIENT_SECRET'     => '3mjo0kDSgCbsdLG7ipnhWJxC1iY6RLcX',
+            'CLIENT_ID'         => 'Db9ugKqHf0AZwboX',
+            'CLIENT_SECRET'     => '5nw3q1qyr2wpzY9UMXiJvJHT4ZR77t4x',
 
             //Grant Types
             'PASSWORD_GRANT'    => 'password'
