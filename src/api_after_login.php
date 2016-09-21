@@ -698,7 +698,7 @@ $app->POST('/file_upload',function ($request, $response, $args) {
             $uploader = $file_upload->fileUpload($allowedExtensions, $sizeLimit);
             //return the file original and source name and path
             $path = $args['PATH'];
-            $result = $file_upload->handleUpload(''.$path.'public/uploads/', FALSE, $myfilename);
+            $result = $file_upload->handleUpload(''.$path.'uploads/', FALSE, $myfilename);
             if (isset($result['success']) && $result['success'] == true) {
                     
                
@@ -714,7 +714,7 @@ $app->POST('/file_upload',function ($request, $response, $args) {
                 $fname =  str_replace('_',' ',$org_name);
                 //$result['org_name'] = pathinfo(filterString($fname), PATHINFO_FILENAME);
                 $result['org_name'] = $fname;
-                $result['filename'] = 'public/uploads/'.$myfilename.'.'.$result['ext'];
+                $result['filename'] = 'uploads/'.$myfilename.'.'.$result['ext'];
                 $data['success'] = true;
                 echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
             } else {
@@ -753,7 +753,7 @@ $app->POST('/contacts_file_upload',function ($request, $response, $args) {
             //return the file original and source name and path
             $path = $args['PATH'];
 
-            $result = $file_upload->handleUpload(''.$path.'public/uploads/', FALSE, $myfilename);
+            $result = $file_upload->handleUpload(''.$path.'uploads/', FALSE, $myfilename);
             if (isset($result['success']) && $result['success'] == true) {
                     
                 if (isset($_REQUEST['filename']) || isset($_REQUEST['qqfile'])) {
@@ -766,7 +766,7 @@ $app->POST('/contacts_file_upload',function ($request, $response, $args) {
                
                 $fname =  str_replace('_',' ',$org_name);
                 $result['org_name'] = $fname;
-                $result['filename'] = 'public/uploads/'.$myfilename.'.'.$result['ext'];
+                $result['filename'] = 'uploads/'.$myfilename.'.'.$result['ext'];
                 
                 // dynamically Access Token
                 $this->mintmeshAccessToken;
