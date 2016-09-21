@@ -43,7 +43,7 @@ return [
             'PASSWORD_GRANT'    => 'password',
 
             // for file uploading
-            'PATH'    => '/var/www/html/mmenterprise/'
+            'PATH'    => '/var/www/html/mintmesh/'
         ],
 
         // API settings
