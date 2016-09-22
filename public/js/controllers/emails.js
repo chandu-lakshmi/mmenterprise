@@ -3,14 +3,14 @@
 
 angular.module('app.emails', [])
 
-.controller('EmailVerificationController', ['$state','$stateParams','$http','CONFIG', '$window', function ($state,$stateParams,$http,CONFIG,$window) {
+.controller('EmailVerificationController', ['$state', '$window', 'tokens', '$http', 'CONFIG', function ($state, $window, tokens, $http, CONFIG) {
 
     this.loadCond = true;
 
 		var scope = this;
-		var tokenid = document.getElementById('token').value;        
+
 		var data = $.param({
-            token: tokenid
+            token: tokens.access_token
         });
 
     var email_verify = $http({

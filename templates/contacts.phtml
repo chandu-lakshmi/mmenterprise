@@ -12,7 +12,7 @@
 			<div class="bkt-container">
 				<span ng-click="ContactCtrl.getGridData('ALL CONTACTS', '0', '','')" 
 					ng-class="{ activeBucketCls : ('ALL CONTACTS' == ContactCtrl.activeBucket) }">ALL CONTACTS{{' (' + ContactCtrl.totalRecords + ')'}}</span>
-				<div ng-repeat="bkt in ContactCtrl.bucketNames | filter:searchGroup" 
+				<div ng-repeat="bkt in ContactCtrl.bucketNames" 
 					ng-click="ContactCtrl.getGridData(bkt.bucket_name, bkt.bucket_id, '', '')" 
 					ng-class="{ activeBucketCls : (bkt.bucket_name == ContactCtrl.activeBucket) }"
 					>

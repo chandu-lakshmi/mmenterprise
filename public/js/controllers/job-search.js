@@ -167,6 +167,12 @@ angular.module('app.job.search', ['infinite-scroll'])
         $state.go('^.engagement/contacts',{'post_id':obj.id});
     }
 
+    scope.jobType = [
+        { name : 'All',  id : 2 },
+        { name : 'Paid',  id : 0 },
+        { name : 'Free',  id : 1 },
+    ]
+
 }]);
 
 

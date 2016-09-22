@@ -84,14 +84,15 @@ angular.module('app.job.details', [])
 
 
 .controller('ConfirmMessage',["$scope", "$uibModalInstance", "jobParam", '$window', '$http', '$state', 'CONFIG',   function($scope, $uibModalInstance, jobParam, $window, $http, $state, CONFIG){
-	$window.scrollTo(0, 0);
+	
 	var scope = this;
 
+	this.defaultTemplate = true;
+	this.pendingReferralsTemplate = false;
 	this.success_loader = false;
 
 	this.userConfirm = function(){
-		$window.scrollTo(0, 0);
-   		$state.go('app.job');	
+		
 		scope.success_loader = true;
 
 		var closeJobId = $.param({
@@ -110,7 +111,11 @@ angular.module('app.job.details', [])
 		closeJob.success(function(response){
 			if(response.status_code == 200){
 				$state.go('app.job');
-				$window.scrollTo(0, 0);
+				$window.scrollTo(0, 0);			
+			}
+			else if(response.status_code == 406){
+				scope.defaultTemplate = false;
+				scope.pendingReferralsTemplate = true;
 			}
 		})
 		closeJob.error(function(response){

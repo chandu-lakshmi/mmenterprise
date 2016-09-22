@@ -47,8 +47,8 @@
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>MOBILE</label>
-                        <input type="text" name="mobile" ng-model="SingleContCtrl.newContact.mobile" ng-pattern="/^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$/" ng-class="{'has-error-border':upload_contact_form.mobile.$invalid && SingleContCtrl.errCond}">
-                        <div ng-if="upload_contact_form.mobile.$error.pattern && SingleContCtrl.errCond" class="has-error-msg">Please Enter Valid Mobile Number</div>
+                        <input type="text" name="phone" ng-model="SingleContCtrl.newContact.mobile" ng-pattern="/^\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})$/" ng-class="{'has-error-border':upload_contact_form.phone.$invalid && SingleContCtrl.errCond}">
+                        <div ng-if="upload_contact_form.phone.$error.pattern && SingleContCtrl.errCond" class="has-error-msg">Please Enter Valid Mobile Number</div>
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label style="display:none">STATUS</label>

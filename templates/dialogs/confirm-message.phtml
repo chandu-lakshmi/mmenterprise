@@ -1,8 +1,16 @@
 <div class="modal-header">
 	<img src="public/images/cross_icon.png" alt="close" class="img-close" ng-click="$dismiss()">
 	<div style="padding:40px;overflow:hidden">
-		<p>Are you sure want to <br> close the JOB ?</p>
-		<div ng-click="ConfirmMsgCtrl.userConfirm()" class="load">Yes<img src="public/images/loader/dot.svg" ng-if="ConfirmMsgCtrl.success_loader"/></div>
-		<div style="float:right;background:#fff;border:1px solid red;color:#e66a6a" ng-click="$dismiss()">No</div>
+		<span ng-if="ConfirmMsgCtrl.defaultTemplate">
+			<p>Are you sure want to <br> close the JOB ?</p>
+			<div ng-click="ConfirmMsgCtrl.userConfirm()" class="load">Yes<img src="public/images/loader/dot.svg" ng-if="ConfirmMsgCtrl.
+			success_loader"/></div>
+			<div style="float:right;background:#fff;border:1px solid red;color:#e66a6a" ng-click="$dismiss()">No</div>
+		</span>
+		<span ng-if="ConfirmMsgCtrl.pendingReferralsTemplate">
+			<p>Please close all pending referrals <br> received for this JOB </p>
+			<div ng-click="$dismiss()" class="load" style="margin:0 auto;float:none">OK</div>
+		</span>
+		
 	</div>
 </div>

@@ -11,7 +11,7 @@
 						<span style="min-width:100px;">{{jobDetailsCtrl.post_data.job_title | uppercase}}</span></a>
 					</h3>
 					<span class="openbox" style="margin:0"
-						ng-bind="jobDetailsCtrl.post_data.status == 'ACTIVE' ? 'OPEN' : 'CLOSE'"
+						ng-bind="jobDetailsCtrl.post_data.status == 'ACTIVE' ? 'OPEN' : 'CLOSED'"
 						ng-style="{'background' : jobDetailsCtrl.post_data.status == 'ACTIVE' ? '' : '#be7276'}">
 					</span>
 				</div>

@@ -41,7 +41,7 @@
 							<!-- Forgot Password -->
 							<div class="forgot-password-box" ng-if="homeCtrl.forgot_password_show">
 								<div class="forgot-password-header">
-									<p>We will send an email to your registered email id with the instructions to reset your password</p>
+									<p>We will send an email to your registered email address with instructions to help you reset your password</p>
 								</div>
 								<div class="forgot-password-content">
 									<form name="forgot_password" ng-submit="homeCtrl.forgotPassword(forgot_password.$valid)" novalidate>
@@ -61,7 +61,7 @@
 							<div class="verification-box" ng-if="homeCtrl.forgot_password_success_show">
 								<div class="verification-box-content text-center">
 									<img src="public/images/tickmark.svg" alt="tick">
-									<p class="text">We have sent a password reset link to {{homeCtrl.forgotObj.forgot_email}}.</p>
+									<p class="text">A message containing a link to reset your password has been sent to {{homeCtrl.forgotObj.forgot_email}}</p>
 									<button class="btn btn-style" ng-click="homeCtrl.signin()">OK</button>
 								</div>
 							</div>

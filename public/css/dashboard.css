@@ -342,7 +342,7 @@ header .notifications .user span:not(:last-child){
 }
 .dashboard .circle-stats .col-lg-4 .head{
 	position: relative;
-	top: 38px;
+	top: 20px;
 }
 .dashboard .circle-stats .col-lg-4 .foot{
 	position: relative;
@@ -460,7 +460,7 @@ strong{
 }*/
 /*loader in dashboard */
 .load-status-report{
-	min-height: 358px;
+	min-height: 335px;
     height: 358px;
     background: rgba(240, 244, 247, 0.88);
     position: absolute;
@@ -499,6 +499,13 @@ select:-moz-focusring {
 .dashboard .top-contacts{
 	min-height: 250px;
 }
+.dashboard .top-contacts .elipsis{
+	display: inline-block;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 .dashboard .top-contacts .container{
 	padding: 50px 0;
 	font-size: 16px;
@@ -525,7 +532,8 @@ select:-moz-focusring {
 }
 .dashboard .top-contacts .container .box .top{
 	border-bottom:1px solid #cccccc;
-	padding-bottom: 18px;
+	padding-bottom: 15px;
+	padding-top: 3px;
 }
 .dashboard .top-contacts .container .box .bottom{
 	padding-top: 5px;

@@ -1,45 +1,51 @@
 	/*--------job---------*/
-
-/*p.indent{
-	text-indent: 100px;
-}*/
+	
 p.indent:first-letter{
 	text-transform: uppercase;
+}
+.job-search.container{
+    min-height: calc(100vh - 100px);
 }
 .search-job{
 	margin-top: 3%;
 }
-.search-job input{
-	border:0;
-	font-size: 20px;
-	box-shadow: none;
-}
-.search-job input:focus,.search-job select:focus,.search-job{
-	border-radius: 0;
-	box-shadow: none;
-	border-color:silver !important;
-}
 .search-job .left-inner-addon {
     position: relative;
-}
-.search-job .left-inner-addon input {
-    padding:0 30px;
 }
 .search-job .left-inner-addon img[alt='feedback_left'] {
     position: absolute;
     padding: 10px 12px;
     pointer-events: none;
     left: -12px;
-    top: -3px;
+    top: 1px;
     font-size: 22px;
 }
 .search-job .left-inner-addon img[alt='feedback_right'] {
 	position: absolute;
 	right: 8px;
-    top: 11px;
+    top: 18px;
     width: 13px;
+    outline: 0;
 }
-.select-arrow + select{
+.search-job .ct-search md-input-container input{
+	padding-left: 25px;
+	height: 36px;
+	margin-top: 3px;
+}
+.search-job .ct-search md-input-container .md-errors-spacer{
+	min-height: 0;
+}
+.search-job .ct-search + div span md-select{
+	float: left;
+	margin: 10px 0 0 0;
+}
+.search-job .ct-search + div span md-select md-select-value{
+	width: 96px;
+}
+.search-job .ct-search + div span md-select md-select-menu md-content{
+	min-width: 50px !important;
+}
+/*.select-arrow + select{
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	-o-appearance: none;
@@ -59,22 +65,18 @@ p.indent:first-letter{
 .search-job select{
 	border-radius: 0;
 	padding-right: 48px;
+}*/
+.search-job a{
+	margin-left: 35px;
+    background: #229A77;
+    color: #fff;
+    display: inline-block;
+    padding: 10px;
+    text-decoration: none;
 }
-.search-job button{
-	line-height: 22px;
-	height: 34px;
-	margin-left: 16px;
-	border-radius: 0;
-	background: #229A77;
-	color: #fff;
-}
-.search-job button i{
+.search-job a i{
 	position: relative;
 	top:-1;
-}
-.search-job button:hover,.search-job button:focus{
-	background: #229A77;
-	color: #fff !important;
 }
 .search-job div .form-group{
 	display: inline-block;
@@ -84,17 +86,15 @@ p.indent:first-letter{
 .search-job div{
 	padding: 0;
 }
-.search-job div span{
+.search-job div > span{
 	float:right;
 }
-.sort_g{
-	float: none !important;
-    display: inline-block;
-    padding-right: 10px;
+.filter{
     color: gray;
+    margin: 38px 17px 0 0;
 }
 .padZ{
-	padding: 0;
+	padding: 0 !important;
 }
 .job-search div[infinite-scroll].over-lay{
 	opacity: 0.5;
@@ -113,7 +113,7 @@ p.indent:first-letter{
 .job-search .row{
 	padding: 0 1.4%;
 	border: 1px solid silver;
-	margin-bottom: 3%;
+	margin:0 0 3% 0;
 }
 .job-type{
 	padding: 1.5% 0;
@@ -121,10 +121,17 @@ p.indent:first-letter{
 	overflow: hidden;
 }
 .job-type img{
-	width: 28px;    height: 25px;
-    margin-top: -10px;
-    margin-right: 1px
+	width: 24px;
+    height: 25px;
+    margin-top: -6px;
+    margin-right: 1px;
 }
+.job-type .status{
+	margin-right: 10px;
+    background: rgb(34, 154, 119);
+    width: 64px;
+    text-align: center;
+}  
 .job-type h3{
 	display: inline-block;
    	margin: 0;
@@ -240,7 +247,7 @@ p.indent:first-letter{
 	color: #47BABD;
 }
 .job-info  .referral{
-	color: #FA8116;
+	color: #229A77;
 }
 .job-info  .accepted{
 	color: #16A4FA;
@@ -248,17 +255,23 @@ p.indent:first-letter{
 .job-info  .hired{
 	color: #559E33;
 }
+.job-info  .pending{
+	color: #FA8116;
+}
 .job-info  .invited:before{
 	border-bottom: 2px solid #47BABD;
 }
 .job-info  .referral:before{
-	border-bottom: 2px solid #FA8116;
+	border-bottom: 2px solid #229A77;
 }
 .job-info  .accepted:before{
 	border-bottom: 2px solid #16A4FA;
 }
 .job-info  .hired:before{
 	border-bottom: 2px solid #559E33;
+}
+.job-info  .pending:before{
+	border-bottom: 2px solid #FA8116;
 }
 
 .job-info h1{

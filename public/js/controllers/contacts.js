@@ -154,7 +154,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 	};
 	gridValidtion('charValidation', '');
 	gridValidtion('charOtherId', /^[a-zA-Z0-9-]{1,50}$/);
-	gridValidtion('numValidation', /^[-0-9]{3,25}$/);
+	gridValidtion('numValidation', /^[-0-9]{0,15}$/);
 	gridValidtion('statusValidation', '');
 	
   	
@@ -175,14 +175,13 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
                 updateRowSelection(rows[i]);
             }
         });
-        gridApi.core.on.sortChanged( null, function(grid, sortColumns){
+        gridApi.core.on.sortChanged(null, function(grid, sortColumns){
         	sort = sortColumns[0].sort.direction == 'asc' ? '' : 'desc';
         	colDefName =  sortColumns[0].name;
             colSortObj = sortColumns;
         	scope.getGridData('', '', '', scope.searchVal);
       	});
       
-
         function updateRowSelection(row) {
 	        if (row.isSelected) {
 	            if (scope.selectedContacts.indexOf(row.entity.record_id) == -1) {
@@ -309,7 +308,6 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
     this.updateLoader = false;
     function rowUpdate(oldValue, newValue, rowEntity, colDef, validatorName){
         if (newValue != oldValue) {
-            
             scope.loaderImg = true;
             scope.hideLoader = true;
             scope.updateLoader = true;

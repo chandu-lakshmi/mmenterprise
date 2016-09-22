@@ -127,7 +127,6 @@ angular.module('app.engagement.contacts', [])
                     for(var i in data){
                         ajaxData.addProperty(i,data[i]);
                     }
-                    scope.subHeaderCount = data;
         			scope.referrals = response.data.referrals;
                     if(status == 'ACCEPTED'){
                         awaitingStatusCall(scope.referrals);

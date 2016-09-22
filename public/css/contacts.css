@@ -189,7 +189,9 @@
 	text-transform: uppercase;
 }
 .grid-contacts .ui-grid-cell select{
-	width: 85% !important;
+	width: 75% !important;
+    padding-left: 0;
+    border-radius: 0;
 }
 .grid-contacts .ui-grid-row .ng-scope div{
 	margin-top: -1px;
@@ -203,12 +205,16 @@
 .grid-contacts .grid-other-id{
 	text-transform: uppercase;
 }
-.grid-contacts .grid .ui-grid-contents-wrapper > .ui-grid-render-container .ui-grid-canvas div[ui-grid-row="row"] div:hover:not(.grid-email) div:first-child{
+.grid-contacts .grid .ui-grid-contents-wrapper > .ui-grid-render-container .ui-grid-canvas div[ui-grid-row="row"] div:not(.grid-email):hover div:first-child{
 	border: 1px solid #0990e2;
     width: 71.5%;
     height: 40px;
     line-height: 38px;
 }
+.grid-contacts .grid  .ui-grid-pinned-container.ui-grid-pinned-container-left .ui-grid-header-cell:last-child,
+.grid-contacts .grid  .ui-grid-pinned-container.ui-grid-pinned-container-left .ui-grid-cell:last-child{
+    border-right:0 !important;
+} 
 .grid-contacts .ui-grid-column-menu-button .ui-grid-icon-angle-down{
     display: none;
 }
@@ -224,6 +230,9 @@
 
 .grid-contacts .ui-grid-cell-focus{
   	background: transparent;
+   /* height: 38px;
+    width: 78%;
+    line-height: 38px;*/
 }
 .grid-contacts .ui-grid-focuser:focus {
   	box-shadow: none;
@@ -233,11 +242,11 @@
 }
 .grid-contacts .ui-grid-icon-ok:before{
   	position: relative;
-  	background: url('../images/checkbox_unchecked.svg');
-    width: 18px;
-    height: 18px;
+    background: url('../images/checkbox_unchecked.svg');
+    width: 19px;
+    height: 19px;
     left: 11.5px;
-    top: 3px;
+    top: 6px;
     background-size: 18px 18px;
     background-repeat: no-repeat;
     content: '';
@@ -265,7 +274,7 @@
 /* select row bgcolor */
 .grid-contacts .ui-grid-row.ui-grid-row-selected > [ui-grid-row] > .ui-grid-cell,
 .grid-contacts .ui-grid-row.ui-grid-row-selected .ui-grid-disable-selection div{
-  	background-color: #f0fcfc !important;
+  	background-color: #f9f9f9 !important;
 }
 /* validation & loaders */
 .grid-contacts div.ui-grid-cell-contents.invalid{
@@ -277,7 +286,7 @@
 }
 .grid-contacts .grid-msg-overlay{
 	top: 42px;
-	background-color: rgba(240, 244, 247, 0.5);
+	background-color: rgb(249,249,249, 0.5);
 }
 .grid-contacts .grid-msg-overlay .msg{
 	border: 0;

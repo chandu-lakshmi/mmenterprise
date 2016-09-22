@@ -1,26 +1,39 @@
-
-<div class="job-search container padZ" style="padding-bottom:10%;min-height:1000px">
+<div class="job-search container">
 	<!--Search sort-->
-	<div class="row search-job" style="padding:0;border:0;margin-bottom:1%">
+	<div class="row search-job padZ" style="border:0;margin:1% 0">
 		<div class="left-inner-addon col-xs-12 col-sm-4 ct-search">
-    		<img src="public/images/search.svg" alt="feedback_left" ng-if="!jobSearchCtrl.search_load_cond">
+			<md-input-container md-no-float="" class="md-block">
+				<img src="public/images/search.svg" alt="feedback_left" ng-if="!jobSearchCtrl.search_load_cond">
+				<input type="text" ng-model="jobSearchCtrl.search_value"  placeholder="Search Jobs" ng-keyup="jobSearchCtrl.searchFilter(jobSearchCtrl.pay_status,jobSearchCtrl.search_value)">
+				<img  src="public/images/loader/search_loader.gif" alt="feedback_left" style="width:45px;height:41px;" ng-if="jobSearchCtrl.search_load_cond">
+				<img src="public/images/cross.svg" class="feedback" ng-show="jobSearchCtrl.search_value.length >= 1" ng-click="jobSearchCtrl.search_value = '';jobSearchCtrl.searchFilter(jobSearchCtrl.pay_status,jobSearchCtrl.search_value)" alt="feedback_right">
+			</md-input-container>
+    		<!-- <img src="public/images/search.svg" alt="feedback_left" ng-if="!jobSearchCtrl.search_load_cond">
     		<input type="text" ng-model="jobSearchCtrl.search_value" class="form-control search" placeholder="Search Jobs" ng-keyup="jobSearchCtrl.searchFilter(jobSearchCtrl.pay_status,jobSearchCtrl.search_value)"/>
     		<img src="public/images/loader/search_loader.gif" alt="feedback_left" style="width:45px;height:41px;" ng-if="jobSearchCtrl.search_load_cond"/>
     		<img src="public/images/cross.svg" class="feedback" ng-show="jobSearchCtrl.search_value.length >= 1" ng-click="jobSearchCtrl.search_value = '';jobSearchCtrl.searchFilter(jobSearchCtrl.pay_status,jobSearchCtrl.search_value)" alt="feedback_right">
-           	<span class="bar"></span>
+           	<span class="bar"></span> -->
 		</div>
 		<div class="col-xs-12 col-sm-6 col-sm-offset-2">
 			<span>
-				<span class="sort_g">Filter by</span>
-				<div class="form-group">
+				<div class="pull-left filter">Filter by :</div>
+				<md-input-container>
+					 <label style="display:none !important">Job</label>
+					<md-select  name="job" ng-model="jobSearchCtrl.pay_status" ng-change="jobSearchCtrl.selectFilter(jobSearchCtrl.pay_status,jobSearchCtrl.search_value)">
+		              	<md-option ng-repeat="job in jobSearchCtrl.jobType" ng-value="job.id">
+		                	{{job.name}}
+		              	</md-option>
+					</md-select>
+				</md-input-container>
+				<!-- <div class="form-group">
 					<i class="fa fa-angle-down fa-feedback select-arrow" style="color:#000"></i>
 				  <select class="form-control" style="display:inline-block" ng-model="jobSearchCtrl.pay_status" ng-change="jobSearchCtrl.selectFilter(jobSearchCtrl.pay_status,jobSearchCtrl.search_value)">
 				    <option value="2">All</option>
 				    <option value="0">Paid</option>
 				    <option value="1">Free</option>
 				  </select>
-				</div>
-				<a ui-sref="^.postJob"><button class="btn"><img src="public/images/arrow-top.svg" alt="uparrow" style="margin-top:-3px"> POST REQUEST</button></a>
+				</div> -->
+				<a ui-sref="^.postJob"><img src="public/images/arrow-top.svg" alt="uparrow" style="margin-top:-3px"> POST REQUEST</a>
 			</span>
 		</div>	
 	</div>
@@ -46,11 +59,12 @@
 					</a>
 				</div>
 				<span ng-init="sc=jobList.service_cost;jobList.cost = jobList.free_service == '1' ? 'FREE' : (jobList.service_currency =='DLR' ? '$'+sc+'/Referral' : '&#8377;'+sc+'/Referral')" style="float:right;margin-top:2px">
-					<span style="margin-right:10px;" 
-						ng-bind="jobList.status == 'ACTIVE' ? 'OPEN' : 'CLOSE'"
-						ng-style="{'background' : jobList.status == 'ACTIVE' ? '#229A77' : '#be7276'}"></span>
 					<span ng-class="{'job_free':jobList.free_service == '1'}">
 						{{jobList.cost}}
+					</span>
+					<span class="status" 
+						ng-bind="jobList.status == 'ACTIVE' ? 'OPEN' : 'CLOSED'"
+						ng-style="{'background' : jobList.status == 'ACTIVE' ? '#229A77' : '#be7276'}">
 					</span>
 					<span class="date-stamp">
 						{{jobList.created_at | myDate | date:'dd MMM, yyyy'}}
@@ -83,7 +97,7 @@
 					<div class="jump">
 						<a ng-click="jobSearchCtrl.jumpPage(jobList,'')" title="" style="color:inherit">
 							<h1>{{jobList.referral_count}}</h1>
-							<span><img src="public/images/referrals.svg" alt="invited">REFERRALS</span>
+							<span><img src="public/images/referrals-green.svg" alt="invited">REFERRALS</span>
 						</a>
 					</div>
 				</div>

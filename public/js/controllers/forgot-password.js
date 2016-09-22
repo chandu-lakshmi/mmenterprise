@@ -21,11 +21,9 @@ angular.module('app.forgotPassword', [])
 	}
 })
 
-.controller('ForgotPassword',['$state', '$http', '$uibModal', 'CONFIG', function($state,$http,$uibModal,CONFIG){
+.controller('ForgotPassword',['$state', 'tokens', '$http', '$uibModal', 'CONFIG', function($state, tokens, $http, $uibModal, CONFIG){
 	
 	var scope = this;
-
-	var code = document.getElementById('resetcode').value;
 
 	this.forgot_submit = function(isValid){
 		
@@ -39,7 +37,7 @@ angular.module('app.forgotPassword', [])
 			var reset_params = $.param({
 				password : scope.forgotPassword.new_password,
 				password_confirmation : scope.forgotPassword.re_password,
-				code : code
+				code : tokens.reset_token
 			})
 			var resetPassword = $http({
                 headers: {

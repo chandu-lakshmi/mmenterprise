@@ -183,7 +183,7 @@
 
 		<div class="top-contacts">
 			<div class="container">
-				<div class="head">TOP REFERRERS FROM YOUR <strong>CONTACTS</strong></div>
+				<div class="head">TOP REFERRERS</div>
 				<div class="row">
 					<div class="col-lg-4 col-md-6 col-sm-6" ng-if="!DashCtrl.top_referrals_empty" ng-repeat="topreferrals in DashCtrl.dashboardData.top_referrals">
 						<div class="box clearfix">
@@ -193,7 +193,7 @@
 							<div class="pull-left" style="padding:7px 10px;width:82%">
 								<div class="top">
 									<span class="name" ng-bind="topreferrals.name"></span><br>
-									<span ng-bind="topreferrals.designation" style="font-size:14px;"></span>
+									<span ng-bind="topreferrals.designation" style="font-size:14px;" title="{{topreferrals.designation}}" class="elipsis"></span>
 								</div>
 								<div class="bottom">
 									<big class="count">{{topreferrals.count}}</big>

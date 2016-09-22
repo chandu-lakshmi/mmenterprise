@@ -1,0 +1,76 @@
+<div class="user-profile">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-3">
+				<div class="users">
+					<span class="add-user">+ ADD USER</span>
+					<md-input-container class="md-block">
+                        <label>Search Users</label>
+                        <img src="public/images/search.svg" alt="search" class="feedback">
+                        <input type="text" name="search" ng-model="UserProfileCtrl.search">
+                    </md-input-container>
+                    <ul ng-repeat="users in UserProfileCtrl.users">
+                    	<li ng-click="UserProfileCtrl.getUserData(users)">
+                    		<img ng-src="{{users.image == '' || users.image == null ? 'public/images/avatar.png' : users.image}}" alt="user_dp" class="img-circle">
+                    		<span ng-bind="users.user" class="name ellipsis" style="width:75%;"></span>
+                    	</li>
+                    </ul>
+				</div>
+			</div>
+			<div class="col-sm-9" style="padding-left:0;">
+				<div class="user-data">
+					<div class="head clearfix">
+						<div class="pull-left">
+							<span class="image">
+								<img ng-src="{{UserProfileCtrl.userDataList.image == '' || UserProfileCtrl.userDataList.image == null ? 'public/images/avatar.png' : UserProfileCtrl.userDataList.image}}" alt="user_dp" ng-style="{'border-color': UserProfileCtrl.userDataList.image == '' || UserProfileCtrl.userDataList.image == null ? 'transparent' : '#04a3ff'}" class="img-circle" style="border:2px solid">
+							</span>
+							<span class="text">
+								<h3 ng-bind="UserProfileCtrl.userDataList.user" class="ellipsis" style="width:100%;margin:0"></h3>
+								<p ng-bind="UserProfileCtrl.userDataList.designation" class="ellipsis" style="width:100%"></p>
+							</span>
+						</div>
+						<div class="pull-right">
+							<span>RESET PASSWORD</span>
+						</div>
+					</div>
+					<div class="content">
+						<form name="user_details_form" novalidate>
+			                <div class="pull-left" style="margin-right:50px;">
+			                    <md-input-container class="md-block">
+			                        <label>NAME</label>
+			                        <input type="text" name="name" ng-model="UserProfileCtrl.userDataList.user" required ng-class="{'has-error-border':user_details_form.name.$invalid && UserProfileCtrl.errCond}">
+			                        <div ng-if="user_details_form.name.$error.required && UserProfileCtrl.errCond" class="has-error-msg">Please Enter Name</div>
+			                    </md-input-container>
+			                    <md-input-container class="md-block">
+			                        <label>EMAIL</label>
+			                        <input type="text" name="emailid" ng-model="UserProfileCtrl.userDataList.email" required ng-pattern="/^[a-z0-9A-Z._%+-]+@[a-zA-Z]+\.[a-z]{2,3}$/" ng-class="{'has-error-border':user_details_form.emailid.$invalid && UserProfileCtrl.errCond}">
+			                        <div ng-if="user_details_form.emailid.$error.required && UserProfileCtrl.errCond" class="has-error-msg">Please Enter Email Address</div>
+			                        <div ng-if="user_details_form.emailid.$error.pattern && UserProfileCtrl.errCond" class="has-error-msg">Please Enter Valid Email Address</div>
+			                    </md-input-container>
+			                     <md-input-container class="md-block">
+			                        <label style="display:none">STATUS</label>
+			                        <md-select name="status" ng-model="UserProfileCtrl.userDataList.status">
+			                            <md-option ng-repeat="status in UserProfileCtrl.statusText" ng-value="status">{{status}}</md-option>
+			                        </md-select>
+			                    </md-input-container>
+			                </div>
+			                <div class="pull-left">
+			                    <md-input-container class="md-block">
+			                        <label>DESIGNATION</label>
+			                        <input type="text" name="designation" ng-model="UserProfileCtrl.userDataList.designation" required ng-class="{'has-error-border':user_details_form.designation.$invalid && UserProfileCtrl.errCond}">
+			                        <div ng-if="user_details_form.designation.$error.required && UserProfileCtrl.errCond" class="has-error-msg">Please Enter Designation</div>
+			                    </md-input-container>
+			                    <md-input-container class="md-block">
+			                        <label>LOCATION</label>
+			                        <input type="text" name="location" ng-model="UserProfileCtrl.userDataList.location" ng-class="{'has-error-border':user_details_form.location.$invalid && UserProfileCtrl.errCond}">
+			                        <div ng-if="user_details_form.location.$error.pattern && UserProfileCtrl.errCond" class="has-error-msg">Please Enter Location</div>
+			                    </md-input-container>
+			                    
+			                </div>
+            			</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

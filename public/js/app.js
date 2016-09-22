@@ -156,6 +156,24 @@ angular.module('app', [
         controller: 'SettingsController',
         controllerAs: 'SettingsCtrl'
     })
+    .state('app.settings.companyProfile',{
+        url: '^/settings/company-profile',
+        templateUrl: App.base_url + 'templates/settings-company-profile.phtml',
+        controller: 'UserProfileController',
+        controllerAs: 'UserProfileCtrl'
+    })
+    .state('app.settings.myProfile',{
+        url: '^/settings/my-profile',
+        templateUrl: App.base_url + 'templates/settings-my-profile.phtml',
+        controller: 'UserProfileController',
+        controllerAs: 'UserProfileCtrl'
+    })
+    .state('app.settings.userProfile',{
+        url: '^/settings/user-profile',
+        templateUrl: App.base_url + 'templates/settings-user-profile.phtml',
+        controller: 'UserProfileController',
+        controllerAs: 'UserProfileCtrl'
+    })
 
     $urlRouterProvider.otherwise('/login');
     
