@@ -101,7 +101,7 @@ angular.module('app', [
         controller: 'PostJobController',
         controllerAs: 'PtJobCtrl'
     })
-     .state('app.postJob2',{
+    .state('app.postJob2',{
         url: '^/job/post-job-2',
         templateUrl: App.base_url + 'templates/post-job-2.phtml',
         controller: 'PostJobTwoController',
@@ -165,8 +165,8 @@ angular.module('app', [
     .state('app.settings.myProfile',{
         url: '^/settings/my-profile',
         templateUrl: App.base_url + 'templates/settings-my-profile.phtml',
-        controller: 'UserProfileController',
-        controllerAs: 'UserProfileCtrl'
+        controller: 'MyProfileController',
+        controllerAs: 'MyProfileCtrl'
     })
     .state('app.settings.userProfile',{
         url: '^/settings/user-profile',

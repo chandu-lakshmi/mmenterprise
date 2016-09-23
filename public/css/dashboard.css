@@ -1084,6 +1084,7 @@ ul.new-tabs > li.active > a{
     margin: 0;
     height: 120px;
     font-family: 'Roboto';
+    white-space: pre-line;
 }
 .error-msg-float{
 	color: red;

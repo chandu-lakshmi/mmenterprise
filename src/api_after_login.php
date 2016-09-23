@@ -593,6 +593,21 @@ $app->get('/settings/company-profile',function ($request, $response, $args) use 
     return $this->renderer->render($response, 'index.phtml', $args);
 });
 
+// my profile under settings page
+$app->get('/settings/my-profile',function ($request, $response, $args) use ($app) {
+     
+    //Arguments
+    $this->mintmeshAccessToken;
+    $args  = commonData($this->settings);
+    
+    //Check Logged in or not
+    if(!empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']);
+    }
+
+    return $response->withRedirect($args['APP_DOMAIN']."settings/company-profile");
+});
+
 // user profile under settings page
 $app->get('/settings/user-profile',function ($request, $response, $args) use ($app) {
      

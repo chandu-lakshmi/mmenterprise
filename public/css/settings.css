@@ -1,6 +1,7 @@
 /* Settings Styles */
 .settings{
 	font-size: 14px;
+    background: #eeeff1;
 }
 .settings .ellipsis{
     text-overflow: ellipsis;
@@ -48,11 +49,16 @@
     right: 0px;
     border-bottom: 3px solid #14acff;
 }
+.settings .form-control:focus {
+    border-color: #208d6e;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgb(32, 141, 110, .6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgb(32, 141, 110, .6);
+}
 
 /* user profile */
 .settings .user-profile{
     min-height: calc(100vh - 160px);
-    background: #eeeff1;
     font-size: 16px;
 }
 .settings .user-profile .users{
@@ -80,14 +86,13 @@
 .settings .user-profile .users ul li{
     padding: 5px 12px;
     border-radius: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     cursor: pointer;
 }
-.settings .user-profile .users ul li:hover{
-    background: #dbdfe0;
-}
+.settings .user-profile .users ul li:hover,
 .settings .user-profile .users ul li.active{
     background: #dbdfe0;
+    outline: none;
 }
 .settings .user-profile .users ul li img[alt="user_dp"]{
     width: 50px;
@@ -113,8 +118,8 @@
     padding: 10px;
 }
 .settings .user-profile .user-data .head img[alt="user_dp"]{
-    width: 65px;
-    height: 65px;
+    width: 60px;
+    height: 60px;
 }
 .settings .user-profile .user-data .head .pull-left{
     width: 70%;
@@ -140,21 +145,131 @@
     color: #3f5a51;
 }
 .settings .user-profile .user-data .content{
-    padding: 45px 30px;
+    padding: 70px 38px;
     overflow: hidden;
 }
 .settings .user-profile .user-data .content .pull-left{
-    width: 43%;
+    width: 44.6%;
+}
+.settings .user-profile .user-data .content .user-management{
+    color: #6f6f6f;
+    padding-top: 28px;
+    border-bottom: 1px solid #d8d8d8;
+}
+.settings .user-profile .user-data .content .user-management p{
+    font-size: 18px;
+    color: #4e4e4e;
+}
+.settings .user-profile .user-data .content .user-management .permissions,
+.settings .user-profile .user-data .content .user-management .jobs,
+.settings .user-profile .user-data .content .user-management .user{
+    margin-bottom: 28px;
+}
+.settings .user-profile .user-data .content .user-management .form-group{
+    padding: 18px 0;
+    margin: 0;
+}
+.settings .user-profile .user-data .content .user-management .form-group select{
+    width: 150px;
+    height: 40px;
+}
+.settings .user-profile .user-data .content .user-management .form-group label{
+    font-weight: normal;
+    color: #6f6f6f;
+}
+.settings .user-profile .user-data .content .user-management .form-group .radio-switch{
+    
+}
+.settings .user-profile .user-data .content .user-management .form-group .radio-switch label{
+    margin: 0;
+    margin-left: -4px;
+}
+.settings .user-profile .user-data .content .user-management .form-group .radio-switch span{
+    width: 75px;
+    height: 40px;
+    margin: 0;
+    line-height: 40px;
+    text-align: center;
+    display: inline-block;
+    border: 1px solid #ccc;
+}
+.settings .user-profile .user-data .content .user-management .form-group .radio-switch label input[type="radio"]{
+    display: none;
+}
+.settings .user-profile .user-data .content .user-management .form-group .radio-switch label input[type="radio"]:checked + span{
+    background: #2aa382;
+    color: #fff;
+    border-color: #2aa382
+}
+.settings .user-profile .user-data .content .user-management .form-group .radio-switch label:first-child span{
+    border-radius: 5px 0 0 5px;
+}
+.settings .user-profile .user-data .content .user-management .form-group .radio-switch label:last-child span{
+    border-radius: 0 5px 5px 0;
+}
+.settings .user-profile .user-data .content .footer{
+    padding: 25px 0;
+}
+.settings .user-profile .user-data .content .footer .btn-update{
+    width: 214px;
+    height: 54px;
+    text-align: center;
+    font-size: 18px;
+    line-height: 50px;
+    background: #1c8f6e;
+    border: 1px solid #1c8368;
+    color: #fff;
+    cursor: pointer;
+    outline: none;
+    border-radius: 5px;
+    display: inline-block;
+}
+.settings .user-profile .user-data .content .footer .btn-cancel{
+    margin-right: 22px;
+    font-size: 15px;
+    color: #777777;
 }
 
  /* angular material styles */
+.settings md-input-container .md-input.ng-invalid.ng-dirty,
+.settings md-input-container.md-input-focused .md-input{
+    border-width: 0 0 1px
+}
+.settings md-input-container:not(.md-input-invalid).md-input-focused .md-input,
+.settings md-select:not([disabled]):focus .md-select-value{
+    border-color: #208d6e;
+    border-bottom-width: 1px;
+}
 .settings .user-profile .users md-input-container{
-    margin-bottom: -12px;
+    margin-bottom: -14px;
 }
 .settings .user-profile md-input-container label{
     margin-bottom: 0;
     color: #767877;
- }
+}
+.settings .user-profile .content md-input-container .md-input{
+    padding: 2px 2px 16px;
+}
+.settings .user-profile .content md-input-container{
+    margin-bottom: 30px;
+}
+.settings .user-profile .content md-input-container .md-placeholder,
+.settings .user-profile .content md-input-container label:not(.md-no-float):not(.md-container-ignore){
+    -webkit-transform: translate3d(0,23px,0) scale(1);
+    transform: translate3d(0,23px,0) scale(1);
+}
+.settings .user-profile .content md-input-container.md-input-has-value label:not(.md-no-float),
+.settings .user-profile .content md-input-container:not(.md-input-invalid).md-input-focused label{
+    -webkit-transform: translate3d(0,6px,0) scale(.85);
+    transform: translate3d(0,-8px,0) scale(.85);
+}
+.settings .user-profile .content md-input-container.select-box.md-input-has-value label{
+    -webkit-transform: translate3d(0,2px,0) scale(.85);
+    transform: translate3d(0,2px,0) scale(.85);
+}
+.settings .user-profile .content md-select .md-select-value{
+    padding-bottom: 10px;
+}
 .settings .user-profile .feedback{
     position: absolute;
     outline: none;
@@ -180,6 +295,102 @@
 /* My Profile */
 .settings .my-profile{
     min-height: calc(100vh - 160px);
+    font-size: 16px;
+}
+.settings .my-profile .container .details{
+    background: #fff;
+    min-height: calc(100vh - 160px);
+    text-align: center;
+    padding-top: 104px;
+    padding-bottom: 70px;
+    border: 1px solid #cdcdcd;
+    border-top: 0;
+    box-shadow: 1px 1px 5px #cdcdcd; 
+}
+.settings .my-profile .container .details img[alt="display_pic"]{
+    width: 120px;
+    height: 120px;
+    border: 5px solid #00a5ff;
+}
+.settings .my-profile .container .details p{
+    color: #666666;
+    margin: 10px 0 0;
+}
+.settings .my-profile .container .details .checkbox{
+    color: #9a9a9a;
+    font-size: 13px;
+    margin-top: 2px;
+    letter-spacing: 0.4px;
+    position: relative;
+}
+.settings .my-profile .container .details .checkbox input[type="checkbox"]:before{
+    content: '';
+    border: 1px solid #999999;
+    border-radius: 3px;
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background: #fff;
+    top: -4px;
+    right: 0px;
+}
+.settings .my-profile .container .details .checkbox input[type="checkbox"]:checked:after{
+    content: '\2713';
+    position: absolute;
+    top: -8px;
+    right: -2px;
+    font-size: 24px;
+}
+.settings .my-profile .container .details .content{
+    width: 30%;
+    margin: 0 auto;
+    margin-top: 75px;
+}
+.settings .my-profile .container .details .content p{
+    text-align: left;
+    color: #1f8c6f;
+    font-size: 18px;
+    text-shadow: 1px 1px #1f8c6f;
+    outline: none;
+}
+.settings .my-profile .container .details .content .btn-confirm{
+    height: 60px;
+    text-align: center;
+    font-size: 18px;
+    line-height: 60px;
+    background: #1c8f6e;
+    border: 1px solid #1c8368;
+    color: #fff;
+    cursor: pointer;
+    outline: none;
+    border-radius: 5px;
+    display: block;
+}
+.settings .my-profile .container .details .content .btn-cancel{
+    font-size: 14px;
+    margin-top: 26px;
+    display: block;
+    color: #9d9f9e;
+    cursor: pointer;
+}
+
+/* angular material */
+.settings .my-profile .container .details .content md-input-container{
+    margin-bottom: 45px;
+}
+.settings .my-profile .container .details .content md-input-container label{
+    color: #676767;
+}
+.settings .my-profile .container .details .content md-input-container .md-input{
+    padding-bottom: 15px;
+}
+.settings .my-profile .container .details .content md-input-container.md-input-has-value label:not(.md-no-float){
+    -webkit-transform: translate3d(0,-2px,0) scale(.85);
+    transform: translate3d(0,-2px,0) scale(.85);
+}
+.settings .my-profile .container .details .content md-input-container:not(.md-input-invalid).md-input-focused label{
+    -webkit-transform: translate3d(0,-2px,0) scale(.85);
+    transform: translate3d(0,-2px,0) scale(.85);
 }
 
 

@@ -16,7 +16,7 @@
                     <label style="display:none">SELECT GROUP</label>
                     <md-select name="bucket_id" ng-model="SingleContCtrl.newContact.bucket" required ng-class="{'has-error-border':upload_contact_form.bucket_id.$invalid && SingleContCtrl.errCond}">
                         <md-option ng-repeat="bucket in SingleContCtrl.bucketList" ng-value="bucket.bucket_id">
-                            {{bucket.bucket_name}}
+                            {{bucket.bucket_name | uppercase}}
                         </md-option>
                     </md-select>
                     <div ng-if="upload_contact_form.bucket_id.$error.required && SingleContCtrl.errCond" style="position:absolute" class="has-error-msg">Please Select Group</div>
@@ -64,7 +64,7 @@
 <div class="modal-footer clearfix">
     <div class="pull-left">
         <span ng-if="SingleContCtrl.uploadLoader"><img src="public/images/loader/upload_file.gif" alt="loader" style="margin:5px;"> Uploading</span>
-        <span ng-if="SingleContCtrl.backendError" style="color:#983a3a;line-height:48px;"><i class="fa fa-times"></i>&nbsp;Contact already exist</span>
+        <span ng-if="SingleContCtrl.backendError" style="color:#983a3a;line-height:48px;"><i class="fa fa-times"></i>&nbsp;{{SingleContCtrl.backendMsg}}</span>
     </div>
     <div class="pull-right disabled">
         <span class="btn-cancel" ng-click="$dismiss()">Cancel</span>

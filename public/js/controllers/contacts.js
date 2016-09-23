@@ -953,6 +953,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
                 }
                 else if(response.status_code == 403){
                     scope.backendError = true;
+                    scope.backendMsg = response.message.msg[0];
                 }
                 else if (response.status_code == 400) {
                     $window.location = CONFIG.APP_DOMAIN+'logout';

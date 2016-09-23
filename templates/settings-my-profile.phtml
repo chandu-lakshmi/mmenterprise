@@ -1,3 +1,51 @@
 <div class="my-profile">
-	kumar
+	<div class="container">
+		<div class="details" ng-init="changePassword = false">
+			<form name="my_profile_form">
+				<img ng-src="{{MyProfileCtrl.displayPicture}}" alt="display_pic" class="img-circle">
+				<p>User Photo</p>
+				<div class="checkbox">
+	  				<label><input type="checkbox" value="">Set as Company Profile pic</label>
+				</div>
+				<div class="content">
+					<md-input-container class="md-block">
+	                    <label>USER NAME</label>
+	                    <input type="text" name="username" ng-model="MyProfileCtrl.myProfile.user_name" required ng-class="{'has-error-border':my_profile_form.username.$invalid && MyProfileCtrl.errCond}">
+	                    <div ng-if="my_profile_form.username.$error.required && MyProfileCtrl.errCond" class="has-error-msg">Please Enter Name</div>
+	                </md-input-container>
+	                <md-input-container class="md-block" style="margin-bottom:20px;" ng-style="{'margin-bottom': changePassword == true ? '45px' : '20px'}">
+	                    <label>EMAIL</label>
+	                    <input type="text" name="emailid" ng-model="MyProfileCtrl.myProfile.user_email" required ng-pattern="/^[a-z0-9A-Z._%+-]+@[a-zA-Z]+\.[a-z]{2,3}$/" ng-class="{'has-error-border':my_profile_form.emailid.$invalid && MyProfileCtrl.errCond}">
+	                    <div ng-if="my_profile_form.emailid.$error.required && MyProfileCtrl.errCond" class="has-error-msg">Please Enter Email Address</div>
+	                    <div ng-if="my_profile_form.emailid.$error.pattern && MyProfileCtrl.errCond" class="has-error-msg">Please Enter Valid Email Address</div>
+	                </md-input-container>
+	                <div ng-show="!changePassword">
+	                	<p ng-click="changePassword = true;">Change Password</p>
+	                </div>
+	                <div ng-show="changePassword">
+	                	<md-input-container class="md-block">
+							<label>CURRENT PASSWORD</label>
+								<input type="password" name="current_password" ng-model="MyProfileCtrl.myProfile.current_password" required ng-pattern="/^(?=.*[a-zA-Z0-9]).{6,16}$/"  ng-class="{'has-error-border':myProfile.current_password.$invalid && MyProfileCtrl.errCond}">
+								<div ng-if="myProfile.current_password.$error.required && MyProfileCtrl.errCond" class="has-error-msg">Password Field is Required.</div>
+		                    <div ng-if="myProfile.current_password.$error.pattern && MyProfileCtrl.errCond" class="has-error-msg">Please Enter Atleast 6 characters.</div>
+						</md-input-container>
+						<md-input-container class="md-block">
+							<label>NEW PASSWORD</label>
+								<input type="password" name="new_password" ng-model="MyProfileCtrl.myProfile.new_password" required ng-pattern="/^(?=.*[a-zA-Z0-9]).{6,16}$/"  ng-class="{'has-error-border':myProfile.new_password.$invalid && MyProfileCtrl.errCond}">
+								<div ng-if="myProfile.new_password.$error.required && MyProfileCtrl.errCond" class="has-error-msg">Password Field is Required.</div>
+		                    <div ng-if="myProfile.new_password.$error.pattern && MyProfileCtrl.errCond" class="has-error-msg">Please Enter Atleast 6 characters.</div>
+						</md-input-container>
+						<md-input-container class="md-block" style="margin-bottom: 18px">
+							<label>CONFIRM PASSWORD</label>
+								<input type="password" name="confirm_password" ng-model="MyProfileCtrl.myProfile.confirm_password" required ng-pattern="/^(?=.*[a-zA-Z0-9]).{6,16}$/"  ng-class="{'has-error-border':myProfile.confirm_password.$invalid && MyProfileCtrl.errCond}">
+								<div ng-if="myProfile.confirm_password.$error.required && MyProfileCtrl.errCond" class="has-error-msg">Password Field is Required.</div>
+		                    <div ng-if="myProfile.confirm_password.$error.pattern && MyProfileCtrl.errCond" class="has-error-msg">Please Enter Atleast 6 characters.</div>
+						</md-input-container>
+						<span class="btn-confirm">Confirm Password</span>
+						<span class="btn-cancel">CANCEL</span>
+	                </div>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
