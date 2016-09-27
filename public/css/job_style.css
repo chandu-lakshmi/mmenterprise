@@ -111,25 +111,25 @@ p.indent:first-letter{
     padding: 80px 0;
 }
 .job-search .row{
-	padding: 0 1.4%;
 	border: 1px solid silver;
 	margin:0 0 3% 0;
 }
 .job-type{
-	padding: 1.5% 0;
+	padding: 1.5%;
 	border-bottom: 1px solid silver;
 	overflow: hidden;
+	background-color: #f9f9f9;
 }
 .job-type img{
 	width: 24px;
     height: 25px;
     margin-top: -6px;
-    margin-right: 1px;
+    margin-right: 6px;
 }
 .job-type .status{
 	margin-right: 10px;
     background: rgb(34, 154, 119);
-    width: 64px;
+    width: 92px;
     text-align: center;
 }  
 .job-type h3{
@@ -162,27 +162,24 @@ p.indent:first-letter{
 .job-type span span{
 	margin: 0 2px;
 }
-.job-type span  img{
+/*.job-type span  img{
 	width: 18px;
     margin: -2px 0 0;
-}
+}*/
 .job-type span span:not(.date-stamp),.openbox{
 	margin: 0 5px;
-    padding: 2px 7px;
-    display: inline-block;
-    background: #488C27;
-    color: white;
-    font-weight: 900;
-    border-radius: 2px;
+   	padding: 0 12px;
+   	height: 26px;
+   	border-radius: 4px;
+   	display: inline-block;
+   	background: #488C27 ;
+   	color: white;
+   	font-weight: 900;
+   	line-height: 27px;
 }
 .job_free{
-	margin: 0 5px;
-    padding: 2px 7px;
-    display: inline-block;
-    background: #666666 !important;
-    color: white;
-    font-weight: 900;
-    border-radius: 2px;
+	padding: 0 27px !important;
+	background: #2e89bd !important;
 }
 .job-type span i{
     font-size: 18px !important;
@@ -221,7 +218,7 @@ p.indent:first-letter{
 	color: silver;
 }
 .job-info_d ~ div{
-	padding: 0 2%;
+	padding: 0 0.5%;
 	text-align: center;
 }
 .job-info_d ~ div img{

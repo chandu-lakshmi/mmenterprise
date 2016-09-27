@@ -154,7 +154,7 @@
 .grid-contacts .ui-grid-header-viewport{
   	height: 40px;
     line-height: 40px;
-    color: #999999;
+    color: #6e6f6f;
     background: #eeeff1;
 }
 .grid-contacts .ui-grid-header-cell{
@@ -181,13 +181,16 @@
     padding: 0;
 }
 .grid-contacts .ui-grid-cell-contents-hidden + .ng-scope input{
-    border: 1px solid #0990e2 !important;
-    height: 40px;
+    border-color: #0990e2 !important;
+    /*height: 40px;
     width: 80%;
-    line-height: 20px;
+    line-height: 20px;*/
 }
 .grid-contacts .grid-other-id .ui-grid-cell-contents-hidden + .ng-scope input{
 	text-transform: uppercase;
+}
+.grid-contacts .ui-grid-canvas{
+    padding: 0;
 }
 .grid-contacts .ui-grid-cell select{
 	width: 75% !important;
@@ -195,22 +198,25 @@
     border-radius: 0;
 }
 .grid-contacts .ui-grid-row .ng-scope div{
-	margin-top: -1px;
-    pointer-events: none;
-    padding-right: 14px;
+	padding-right: 14px;
     border: 1px solid transparent;
+    position: relative;
+   /* margin-top: -1px;
+    pointer-events: none;*/
 }
-.grid-contacts .ui-grid-disable-selection.ng-scope{
+/*.grid-contacts .ui-grid-disable-selection.ng-scope{
 	height: 74px !important;
-}
+}*/
 .grid-contacts .grid-other-id{
 	text-transform: uppercase;
 }
-.grid-contacts .grid .ui-grid-contents-wrapper > .ui-grid-render-container .ui-grid-canvas div[ui-grid-row="row"] div:not(.grid-email):hover div:first-child{
-	border: 1px solid #0990e2;
-    width: 71.5%;
-    height: 40px;
-    line-height: 38px;
+.grid-contacts .grid .ui-grid-contents-wrapper > .ui-grid-render-container .ui-grid-canvas div[ui-grid-row="row"] div:not(.grid-email):hover div:first-child:before{
+	content: '';
+    position: absolute;
+    border: 1px solid #0990e2;
+    width: 89%;
+    height: 66px;
+    /*line-height: 38px;*/
 }
 .grid-contacts .grid  .ui-grid-pinned-container.ui-grid-pinned-container-left .ui-grid-header-cell:last-child,
 .grid-contacts .grid  .ui-grid-pinned-container.ui-grid-pinned-container-left .ui-grid-cell:last-child{
@@ -239,7 +245,7 @@
   	box-shadow: none;
 }
 .grid-contacts .ui-grid-pinned-container .ui-grid-header .ui-grid-icon-ok:before{
-	top: 4px !important;
+	top: 6px !important;
 }
 .grid-contacts .ui-grid-icon-ok:before{
   	position: relative;
@@ -247,7 +253,7 @@
     width: 19px;
     height: 19px;
     left: 11.5px;
-    top: 6px;
+    top: 3px;
     background-size: 18px 18px;
     background-repeat: no-repeat;
     content: '';
@@ -277,12 +283,13 @@
 .grid-contacts .ui-grid-row.ui-grid-row-selected .ui-grid-disable-selection div{
   	background-color: #f9f9f9 !important;
 }
+
 /* validation & loaders */
 .grid-contacts div.ui-grid-cell-contents.invalid{
 	margin-right: 24px;
-    height: 38px;
-    line-height: 38px;
-    width: 70%;
+    /*height: 38px;
+    line-height: 38px;*/
+    width: 89%;
     border: 1px solid red;
 }
 .grid-contacts .grid-msg-overlay{
@@ -323,11 +330,12 @@
   	appearance:none;
   	width: 100px;
   	cursor: pointer;
+    line-height: 21px;
 }
 .grid-contacts .container .container-rt .grid-footer .status span i{
 	position: absolute;
     pointer-events: none;
-    right: 6px;
+    right: 7px;
     font-size: 22px;
     top: -2px;
     color: #000;

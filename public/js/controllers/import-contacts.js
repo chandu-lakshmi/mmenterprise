@@ -292,7 +292,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
             rowHeight: 40,
 
             columnDefs: [{
-                name: 'other_id',
+                name: 'employeeid',
                 displayName: 'Employee ID/Other ID'
             }, {
                 name: 'firstname',
@@ -304,7 +304,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
                 name: 'emailid',
                 displayName: 'Email ID '
             }, {
-                name: 'contact_number',
+                name: 'phone',
                 displayName: 'Cell Phone'
             }, {
                 name: 'status',
@@ -342,7 +342,6 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
                     selectedContacts.splice(index, 1);
                 }
             }
-            console.log(selectedContacts + "jaya")
         }
 
         if(canceller){
@@ -500,7 +499,6 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
             });
         }
         else{
-            console.log(selectedContacts+"dasdas")
             $uibModal.open({
                 animation: true,
                 keyboard: false,
@@ -624,7 +622,6 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
             }
         })
         invite_contacts.error(function(response){
-            console.log(response)
             scope.invite_cond = false;
         })
 

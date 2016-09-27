@@ -73,7 +73,7 @@
 			                <!-- Permissions -->
 		                <div class="user-management clearfix">
 		                	<div class="pull-left">
-			                	<form class="" name="user_management_form">
+			                	<!-- <form class="" name="user_management_form">
 				                	<div class="permissions">
 				                		<p>Permissions</p>
 			                			<div class="form-group">
@@ -172,7 +172,8 @@
 											</div>
 										</div>
 				                	</div>
-				                </form>
+				                </form> -->
+				                <div ng-repeat="permissions in UserProfileCtrl.admin" ng-include="UserProfileCtrl.permission_template"></div>
 				            </div>
 		                </div>
 

@@ -159,8 +159,8 @@ angular.module('app', [
     .state('app.settings.companyProfile',{
         url: '^/settings/company-profile',
         templateUrl: App.base_url + 'templates/settings-company-profile.phtml',
-        controller: 'UserProfileController',
-        controllerAs: 'UserProfileCtrl'
+        controller: 'SettingsCompanyProfileController',
+        controllerAs: 'CompanyProfileCtrl'
     })
     .state('app.settings.myProfile',{
         url: '^/settings/my-profile',

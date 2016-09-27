@@ -40,7 +40,7 @@
 				</md-input-container>
 			</div>
 			<div class="grid-container">
-				<div ng-if="!ContactCtrl.refresh"ui-grid="ContactCtrl.gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-validate class="grid" >
+				<div ng-if="!ContactCtrl.refresh" ui-grid="ContactCtrl.gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-validate class="grid" >
 					<div class="grid-msg-overlay" ng-if="ContactCtrl.loaderImg">
 			          	<div class="msg">
 			            	<span>
@@ -58,7 +58,7 @@
 					<div class="status pull-left">
 						<span>
 						Change Status to:
-							<select class="form-control" ng-change="ContactCtrl.statusUpdate('status', ContactCtrl.statusName)" ng-model="ContactCtrl.statusName" id="status">
+							<select class="form-control" ng-disabled="ContactCtrl.selectedContacts.length == 0" ng-change="ContactCtrl.statusUpdate('status', ContactCtrl.statusName)" ng-model="ContactCtrl.statusName" id="status">
 								<option value="" selected disabled>Default</option>
 								<option value="Active" style="color:#0d8e68">Active</option>
 		   						<option value="Inactive" style="color:#888888">Inactive</option>

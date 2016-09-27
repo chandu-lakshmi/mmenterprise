@@ -3,14 +3,14 @@
 		<div class="col-lg-2">
 			<a ui-sref=".dashboard"><img src="public/images/company_logo.svg" alt="brand-logo"></a>
 		</div>
-		<div class="menu col-lg-7">
-			<ul class="opt">
-				<li><a ui-sref=".dashboard" ui-sref-active="active">DASHBOARD</a></li>
-				<li><a ui-sref=".job" ng-class="{active: ('app.job' | includedByState) || ('app.postJob' | includedByState) || ('app.postJob2' | includedByState) || ('app.jobDetails' | includedByState) || ('app.rewards' | includedByState) || ('app.engagement/contacts' | includedByState)}">JOBS</a></li>
+		<div class="menu col-lg-7" style="padding:0">
+			<ul class="opt" style="text-align:left">
+				<li style="margin:0"><a ui-sref=".dashboard" ui-sref-active="active">DASHBOARD</a></li>
+				<li><a ui-sref=".job" ng-class="{active: ('app.job' | includedByState) || ('app.postJob' | includedByState) || ('app.postJob2' | includedByState), highlight: ('app.jobDetails' | includedByState) || ('app.rewards' | includedByState) || ('app.engagement/contacts' | includedByState)}">JOBS</a></li>
 				<li><a ui-sref=".contact" ng-class="{active: ('app.contact' | includedByState) || ('app.uploadContact' | includedByState)}">CONTACTS</a></li>
 				<li><a ui-sref=".candidates" ui-sref-active="active">CANDIDATES</a></li>
 				<!-- <li><a ui-sref=".importContactsList" ng-class="{'active':selectedTab === 'contacts'}" ng-click="selectedTab = 'contacts'">CONTACTS</a></li> -->
-				<!-- <li><a ui-sref=".settings.companyProfile" ui-sref-active="active">SETTINGS</a></li> -->
+				<!-- <li><a ui-sref=".settings.companyProfile" ng-class="{highlight: ('app.settings.myProfile' | includedByState) || ('app.settings.companyProfile' | includedByState) || ('app.settings.userProfile' | includedByState)}">SETTINGS</a></li> -->
 			</ul>
 
 		</div>
@@ -22,7 +22,7 @@
 				</div>
 				<div class="dropdown pull-right">
   					<button class="btn dropdown-toggle " type="button" data-toggle="dropdown">
-						<span class="user_dp"><img ng-src="{{headCtrl.logo}}" class="image-responsive img-circle" alt="dp" style="width: 40px;height:40px;display: inline-block;" ng-if="headCtrl.logo"><img src="public/images/avatar.png" class="image-responsive" alt="dp" style="width: 40px;height:40px;display:inline-block;" ng-if="!headCtrl.logo"></span>
+						<span class="user_dp"><img ng-src="{{headCtrl.logo}}" class="image-responsive img-circle" alt="dp" style="width: 40px;height:40px;display: inline-block;border:2px solid #fff" ng-if="headCtrl.logo"><img src="public/images/avatar.png" class="image-responsive" alt="dp" style="width: 40px;height:40px;display:inline-block;" ng-if="!headCtrl.logo"></span>
   						<span class="user_name">{{headCtrl.user_name}}</span>
 						<span style="margin: 0 0 0 10px"><img src="public/images/arrow-dropdown-white.svg" style="margin-top:4px"></span>
   					</button>

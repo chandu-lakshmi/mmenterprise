@@ -317,7 +317,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
                 other_id : rowEntity.employeeid,
                 firstname : rowEntity.firstname,
                 lastname : rowEntity.lastname,
-                contact_number : rowEntity.contact_number,
+                contact_number : rowEntity.phone,
                 emailid : rowEntity.emailid,
                 status : rowEntity.status
                 //[colDef.name] : newValue
@@ -343,7 +343,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
                         $('.updateSuccess').show();
                         $('.updateSuccess').fadeOut(3000);
                     }
-                    else if (response.message.msg[0] == 'emp_id already exists') {
+                    else if (response.message.msg[0] == 'empid already exists') {
                         $('.existRecords').show();
                         $('.existRecords').fadeOut(3000);
                         

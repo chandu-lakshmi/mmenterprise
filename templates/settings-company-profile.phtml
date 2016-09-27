@@ -1,3 +1,91 @@
 <div class="company-profile">
-	shiva
+	<div class="container">
+		<div class="details">
+			<div class="row">
+				<div class="col-sm-9">
+					<form name="companyDetails_form">
+						<div class="company-name">
+							<span>COMPANY NAME</span>
+							<h3 ng-bind="CompanyProfileCtrl.companyDetails.name"></h3>
+						</div>
+						<div class="company-details">
+							<div class="clearfix">
+								<md-input-container class="md-block select-box">
+						            <label style="display:none;">INDUSTRY</label>
+						            <md-select name="industry" ng-model="CompanyProfileCtrl.companyDetails.industry" ng-class="{'has-error-border':(CompanyProfileCtrl.companyDetails.industry == null || CompanyProfileCtrl.companyDetails.industry == '') && CompanyProfileCtrl.errCond}">
+						              	<md-option ng-repeat="industry in CompanyProfileCtrl.industry_list" ng-value="industry.industry_id">
+						                	{{industry.industry_name}}
+						              	</md-option>
+						            </md-select>
+						            <div class="md-errors-spacer"></div>
+						            <div ng-if="(CompanyProfileCtrl.companyDetails.industry == null || CompanyProfileCtrl.companyDetails.industry == '') && CompanyProfileCtrl.errCond" class="has-error-msg">Please Select Industry</div>
+						        </md-input-container>
+								<md-input-container class="md-block select-box">
+						            <label style="display:none;">COMPANY TYPE</label>
+						            <md-select name="company_type" ng-model="CompanyProfileCtrl.companyDetails.company_type" ng-class="{'has-error-border':(CompanyProfileCtrl.companyDetails.company_type == null || CompanyProfileCtrl.companyDetails.company_type == '') && CompanyProfileCtrl.errCond}">
+						              	<md-option ng-repeat="company_type in CompanyProfileCtrl.company_type" ng-value="company_type.company_type_id">
+						                	{{company_type.company_type_name}}
+						              	</md-option>
+						            </md-select>
+						            <div class="md-errors-spacer"></div>
+						            <div ng-if="(CompanyProfileCtrl.companyDetails.company_type == null || CompanyProfileCtrl.companyDetails.company_type == '') && CompanyProfileCtrl.errCond" class="has-error-msg">Please Select Comapany Type</div>
+						        </md-input-container>
+							</div>
+							<div class="clearfix">
+								<md-input-container class="md-block select-box">
+					            	<label style="display:none;">NUMBER OF EMPLOYEES</label>
+						            <md-select name="number_of_employees" ng-model="CompanyProfileCtrl.companyDetails.number_of_employees">
+						              	<md-option ng-repeat="count in CompanyProfileCtrl.number_of_employees" ng-value="count">
+						                	{{count}}
+						              	</md-option>
+						            </md-select>
+						            <div class="md-errors-spacer"></div>
+						        </md-input-container>
+						        <md-input-container class="md-block">
+									<label>FOUNDED IN</label>
+									<input type="text" name="founded_in" ng-model="CompanyProfileCtrl.companyDetails.founded_in" required ng-class="{'has-error-border':companyDetails_form.founded_in.$invalid && CompanyProfileCtrl.errCond}" ng-pattern="/^[0-9]{2,4}$/">
+									<div ng-if="companyDetails_form.founded_in.$error.required && CompanyProfileCtrl.errCond" class="has-error-msg">Please Enter Established Year</div>
+									<div ng-if="companyDetails_form.founded_in.$error.pattern && CompanyProfileCtrl.errCond" class="has-error-msg">Please Enter Valid Year</div>
+								</md-input-container>
+							</div>
+							<div class="clearfix">
+								<md-input-container class="md-block">
+									<label>PHONE</label>
+									<input type="text" name="phone" ng-model="CompanyProfileCtrl.companyDetails.phone" required ng-class="{'has-error-border':companyDetails_form.phone.$invalid && CompanyProfileCtrl.errCond}">
+									<div ng-if="companyDetails_form.phone.$error.required && CompanyProfileCtrl.errCond" class="has-error-msg">Please Enter Phone Number</div>
+								</md-input-container>
+								<md-input-container class="md-block">
+									<label>WEBSITE<span style="color: #999">(URL)</span></label>
+									<input type="text" name="website" ng-model="CompanyProfileCtrl.companyDetails.website" required ng-pattern="/^(http:\/\/www\.|https:\/\/www\.|www\.|https:\/\/|http:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i" ng-class="{'has-error-border':companyDetails_form.website.$invalid && CompanyProfileCtrl.errCond}">
+									<div ng-if="companyDetails_form.website.$error.required && CompanyProfileCtrl.errCond"  class="has-error-msg">Please Enter URL</div>
+									<div ng-if="companyDetails_form.website.$error.pattern && CompanyProfileCtrl.errCond"  class="has-error-msg">Please Enter Valid URL</div>
+								</md-input-container>
+							</div>
+							<div class="form-group">
+							  	<label for="description">DESCRIPTION</label>
+							 	<textarea class="form-control" ng-model="CompanyProfileCtrl.companyDetails.description" rows="6" id="description" name="description" maxlength="500" ng-class="{'has-error-border':companyDetails_form.description.$invalid && CompanyProfileCtrl.errCond}" required></textarea>
+							 	<div class="md-errors-spacer"></div>
+							 	<div ng-if="companyDetails_form.description.$error.required && CompanyProfileCtrl.errCond" class="has-error-msg">Job Description Field is Required</div>
+							 	<span class="max_length">Remaining {{500 - CompanyProfileCtrl.companyDetails.description.length}} / 500 left</span>
+							</div>
+							<!-- <div class="form-group">
+							  	<label for="specialties">SPECIALTIES</label>
+							 	<textarea class="form-control" rows="7" id="specialties" name="specialties"></textarea>
+							</div> -->
+							<div class="specialties">
+								<span>SPECIALTIES</span>
+								<p ng-bind="CompanyProfileCtrl.companyDetails.specialties"></p>
+							</div>
+							<div class="referral-bonus-policy">
+								<span>REFERRAL BONUS POLICY</span>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="col-sm-3">
+					
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

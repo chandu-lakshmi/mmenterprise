@@ -66,7 +66,7 @@
 
 <div class="container-fluid" style="padding-bottom: 100px;">
 	<div class="container" style="border-top:1px solid #ccc">
-		<h2 class="text-center" style="color: #388A73;padding: 30px 15px 40px;margin:0">SELECT THE DISTRIBUTION LIST </h2>
+		<h2 class="text-center" style="color: #388A73;padding: 30px 15px 40px;margin:0">SELECT THE GROUP</h2>
 		<div class="clearfix"></div>
 		<div class="grid-msg-overlay" ng-if="post2Ctrl.buckLoader" style="position:relative;min-height: 558px;background:transparent">
           	<div class="msg" style="border:0">
@@ -82,7 +82,7 @@
 			</div>
 		</div>
 		<div class="error-spacer"></div>
-		<div ng-if="post2Ctrl.bucket_error" class="error-msg-float text-center">Please Choose Atleast One Bucket</div>
+		<div ng-if="post2Ctrl.bucket_error" class="error-msg-float text-center">Please Choose Atleast One Group</div>
 	</div>
 	<div class="text-center" style="padding: 40px 0">
 		<button class="btn btn-style" ng-click="post2Ctrl.requestSuccess()" style="padding: 12px 32px;" ng-disabled="post2Ctrl.success_cond">POST REQUEST&nbsp;&nbsp;<img src="public/images/loader/butt_loader.gif" style="margin-top: -2px;" ng-if="post2Ctrl.loader"></button>

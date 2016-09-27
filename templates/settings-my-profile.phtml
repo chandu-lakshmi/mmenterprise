@@ -42,7 +42,7 @@
 		                    <div ng-if="myProfile.confirm_password.$error.pattern && MyProfileCtrl.errCond" class="has-error-msg">Please Enter Atleast 6 characters.</div>
 						</md-input-container>
 						<span class="btn-confirm">Confirm Password</span>
-						<span class="btn-cancel">CANCEL</span>
+						<span class="btn-cancel" ng-click="changePassword = false">CANCEL</span>
 	                </div>
 				</div>
 			</form>

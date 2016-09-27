@@ -155,8 +155,8 @@ angular.module('app.engagement.contacts', [])
     }
 
     // process function
-    var status_arr = ["accept","interviewed","offermade","hired"];
-    var interviewed = ['accept'],offermade = ['accept','interviewed'],hired = ['accept','interviewed','offermade'];
+    var status_arr = ["accept","interviewed","offered","hired"];
+    var interviewed = ['accept'],offermade = ['accept','interviewed'],hired = ['accept','interviewed','offered'];
 
     // initial disable unwanted clicks action
     function awaitingStatusCall(obj){
@@ -171,7 +171,7 @@ angular.module('app.engagement.contacts', [])
                 }
                 if(obj[i].awaiting_action_status == 'OFFERMADE'){
                     console.log(obj[i].awaiting_action_status)
-                    $('.offermade').eq(i).css('pointerEvents','none');
+                    $('.offered').eq(i).css('pointerEvents','none');
                     for(var j in offermade){
                         $('.'+offermade[j]).eq(i).removeClass('bg-accepted');
                         $('.'+offermade[j]).eq(i).css('pointerEvents','none');
@@ -231,7 +231,7 @@ angular.module('app.engagement.contacts', [])
                         $('.'+interviewed[i]).eq(index).css('pointerEvents','none');
                     }
                 }
-                if(status == 'OFFERMADE'){
+                if(status == 'OFFERED'){
                     className = response.data.awaiting_action_status.toLowerCase();
                     $('.status_details').eq(index).find('span').remove();
                     $('.status_details').eq(index).append('<span>Status changed to '+className+' by '+response.data.awaiting_action_by+' on '+response.data.awaiting_action_updated_at+'</span>');

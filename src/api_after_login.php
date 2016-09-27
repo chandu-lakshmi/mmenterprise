@@ -415,26 +415,23 @@ $app->get('/job/rewards/{id}',function ($request, $response, $args) use ($app) {
 });
 
 //Update Status Details
-/*$app->post('/get_services',function ($request, $response, $args) use ($app) {
-    
-      // dynamically Access Token
-  $this->mintmeshAccessToken;
-     
-   // getting API endpoint from settings
-  $apiEndpoint = getapiEndpoint($this->settings, 'process_job');
-  $_POST["service_type"] = "global";
-  $_POST["user_country"] = "all";
+$app->post('/get_services',function ($request, $response, $args) use ($app) {
+    
+    // dynamically Access Token
+    $this->mintmeshAccessToken;  
+    // getting API endpoint from settings
+   $apiEndpoint = getapiEndpoint($this->settings, 'get_services');
+   $_POST['service_type'] = "global";
+   $_POST['user_country'] = "all";
 
-   $getServicesDetails    = new Curl(array(
-       'url'           => $apiEndpoint,
-       'postData'      => $_POST
-    ));
-   
-   return checkJsonResult( $getServicesDetails->loadCurl() );
+    $statusDetails    = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
 
-});*/
-
-
+    return checkJsonResult( $statusDetails->loadCurl() );
+       
+});
 
 // edit company profile
 $app->get('/edit-company-profile',function ($request, $response, $args) use ($app) {

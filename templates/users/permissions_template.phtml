@@ -1,0 +1,13 @@
+<div ng-switch on="permissions.type">
+        <div ng-switch-when="check">
+           <!--  <input type="checkbox" name="permission[{{permissions.id}}]" value="1" ng-checked="!!UserProfileCtrl.user_permissions_view.permissions[permissions.id]" ng-click="changePermission(p, $event)" /> -->
+        </div>
+        <div ng-switch-default class="clearfix">
+            <div class="pull-left">{{permissions.label}}</div>
+            <input type="hidden" name="permission[{{permissions.id}}]" value="{{UserProfileCtrl.user_permissions_view.permissions[permissions.id]}}" />
+            <div class="btn-group btn-group-xs btn-toggle" style="pull-right">
+                <button ng-repeat="switch in UserProfileCtrl.permission_switches[permissions.length]" class="btn" ng-class="UserProfileCtrl.user_permissions_view.permissions[permissions.id]==switch.id?'btn-primary':'btn-default'" ng-click="UserProfileCtrl.changePermission(permissions, switch)">{{switch.label}}</button>
+            </div>
+            {{UserProfileCtrl.user_permissions_view.permissions[permissions.id]}}
+        </div>
+    </div>

@@ -240,6 +240,10 @@
     border-color: #208d6e;
     border-bottom-width: 1px;
 }
+.settings md-input-container.md-input-has-value .md-select-value .md-select-icon::after {
+    content: url("../images/arrow-dropdown-active.svg") !important;
+    display: inline !important;
+}
 .settings .user-profile .users md-input-container{
     margin-bottom: -14px;
 }
@@ -299,7 +303,7 @@
 }
 .settings .my-profile .container .details{
     background: #fff;
-    min-height: calc(100vh - 160px);
+    min-height: 1018px;
     text-align: center;
     padding-top: 104px;
     padding-bottom: 70px;
@@ -333,6 +337,7 @@
     background: #fff;
     top: -4px;
     right: 0px;
+    cursor: pointer;
 }
 .settings .my-profile .container .details .checkbox input[type="checkbox"]:checked:after{
     content: '\2713';
@@ -340,6 +345,7 @@
     top: -8px;
     right: -2px;
     font-size: 24px;
+    cursor: pointer;
 }
 .settings .my-profile .container .details .content{
     width: 30%;
@@ -372,6 +378,7 @@
     display: block;
     color: #9d9f9e;
     cursor: pointer;
+    outline: none;
 }
 
 /* angular material */
