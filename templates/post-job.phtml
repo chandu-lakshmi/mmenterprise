@@ -12,7 +12,7 @@
 			<div class="content">
 				<form role="form" name="post_job" ng-submit="PtJobCtrl.postJob(post_job.$valid)" novalidate onkeypress="return (event.keyCode == 13 && event.target.tagName != 'TEXTAREA') ? false : true ">
 					<div class="row">
-						<div class="col-lg-4">
+						<!-- <div class="col-lg-4">
 							<div class="form-group">
 								<label for="job_title">Job Title*</label>
 								<div angucomplete-alt id="ex1"
@@ -27,13 +27,13 @@
 									  input-class="form-control"
 									  match-class="highlight">
 								</div>
-							</div>
-							<!-- <div class="form-group ui-widget">
+							</div> -->
+							<div class="form-group ui-widget">
 								<label for="job_title">Job Title*</label>
 							  	<input type="text" class="form-control" id="job_title" name="job_title" ng-model="PtJobCtrl.postJob1.job_title" value="" required ng-keyup="PtJobCtrl.job_title_suggestion(PtJobCtrl.postJob1.job_title)" autocomplete="off">
 							  	<div class="error-spacer"></div>
 							  	<div ng-if="post_job.job_title.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Job Title Field is Required.</div>
-							</div> -->
+							</div>
 						</div>
 						<div class="col-lg-4">
 							<div class="form-group">
