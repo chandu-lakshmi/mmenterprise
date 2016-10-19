@@ -50,10 +50,15 @@ angular.module('app.job.details', [])
 
 		post_details.success(function(response){
 			scope.job_details_loader = false;
-			scope.post_data = response.data.posts[0];
-			ajaxData.setData(scope.post_data);
-			ajaxData.bol = true;
-			jobDetails.job_title = scope.post_data.job_title;
+			if(response.status_code == 200){
+				scope.post_data = response.data.posts[0];
+				ajaxData.setData(scope.post_data);
+				ajaxData.bol = true;
+				jobDetails.job_title = scope.post_data.job_title;
+			}
+			else if(response.status_code == 400){
+				$window.location = CONFIG.APP_DOMAIN + 'logout';
+			}
 		})
 		post_details.error(function(response){
 			console.log(response);	
@@ -62,6 +67,31 @@ angular.module('app.job.details', [])
 	else{
 		scope.post_data = ajaxData.getData();
 	}
+
+	this.getRewardsView = function(rewards){
+		if(rewards.rewards_type == 'paid'){
+			return (rewards.currency_type == 1 ? '$' : '₹') + rewards.rewards_value + '/' + rewards.rewards_name;
+		}
+		else if(rewards.rewards_type=='points'){
+			return rewards.rewards_value + ' Points' + '/' + rewards.rewards_name;
+		}
+		else{
+			return 'Free';	
+		}
+	}
+	
+	// this.getRewardsView = function(rewards, rewardsType) {
+	// 	for(var i=0; i < rewards.length;i++){
+	// 		if(rewards[i].rewards_name == rewardsType){
+	// 			if(rewards[i].rewards_type == 'paid'){
+ //            		return  (rewards[i].currency_type == 1 ? '$' : '₹') + rewards[i].rewards_value + '/' + rewards[i].rewards_name;
+	//         	}
+	//         	else if(rewards[i].rewards_type == 'points'){
+	//         		return  rewards[i].rewards_value + ' Points' + '/' + rewards[i].rewards_name;	
+	//         	}
+	// 		}
+	// 	}
+	// }
 
 	this.closeJob = function() {
 		$uibModal.open({
@@ -116,6 +146,9 @@ angular.module('app.job.details', [])
 			else if(response.status_code == 406){
 				scope.defaultTemplate = false;
 				scope.pendingReferralsTemplate = true;
+			}
+			else if(response.status_code == 400){
+				$window.location = CONFIG.APP_DOMAIN + 'logout';
 			}
 		})
 		closeJob.error(function(response){

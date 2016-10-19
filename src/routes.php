@@ -126,8 +126,11 @@ $app->get('/reset_password', function ($request, $response, $args) {
 
     //$args['resetToken'] = $app->request()->get('resetToken');
     $allGetVars = $request->getQueryParams();
+    if(!empty($allGetVars['resetcode'])){
     $args['resetcode'] = $allGetVars['resetcode'];
-    
+    }else{
+    $args['setcode'] = $allGetVars['setcode'];
+    }
     // Render index view
     return $this->renderer->render($response, 'index.phtml', $args);
 });
@@ -149,6 +152,33 @@ $app->post('/reset_password', function ($request, $response, $args) {
      ));
 
     return checkJsonResult($restPassword->loadCurl());
+});
+
+//Set password
+$app->post('/set_password', function ($request, $response, $args) {
+
+    // dynamically Access Token
+    $this->mintmeshAccessToken;
+
+    // need to take a look later    
+    $args = commonArgs($this->settings);
+
+    $apiEndpoint = getapiEndpoint($this->settings, 'set_password');
+    
+    $restPassword     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+
+    return checkJsonResult($restPassword->loadCurl());
+});
+
+// 404 page not found
+$app->get('/404', function ($request, $response, $args) {
+   
+    $args = commonArgs($this->settings);
+    // Render index view
+    return $this->renderer->render($response, 'index.phtml', $args);
 });
 
 // download sample csv

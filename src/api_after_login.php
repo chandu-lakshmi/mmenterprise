@@ -11,7 +11,7 @@ $app->post('/update_company', function ($request, $response, $args) use ($app) {
     $this->mintmeshCompanyId;
 
     $_POST["code"] = $_POST["company_code"];
-
+    
     if(isset($_FILES['company_logo']['tmp_name']) && !empty($_FILES['company_logo']['tmp_name'])){
         $_POST['company_logo'] = $_FILES['company_logo'];
     }
@@ -35,7 +35,6 @@ $app->post('/update_company', function ($request, $response, $args) use ($app) {
         'url'           => $apiEndpoint,
         'postData'      => $_POST
      ));
-
     $jsonResult = checkJsonResult( $updateCompany->loadCurl() );
     $result = json_decode($jsonResult);
     $arrayList["company"] = array(
@@ -50,19 +49,36 @@ $app->post('/update_company', function ($request, $response, $args) use ($app) {
     return $jsonResult;
 });
 
+$app->post('/get_user_permissions', function ($request, $response, $args) use ($app) {
+
+    $apiEndpoint = getapiEndpoint($this->settings, 'get_user_permissions');
+     $this->mintmeshAccessToken;
+    $userPermissions     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    $jsonResult = checkJsonResult( $userPermissions->loadCurl() );
+    $result = json_decode($jsonResult);
+    $arrayList['userPermissions'] = array(
+        $result->data);
+    
+    
+    
+    return $jsonResult;
+});
+
 //company profile page
 $app->get('/company-profile', function ($request, $response, $args) {
-$this->mintmeshAccessToken;
+    $this->mintmeshAccessToken;
     // need to take a look later    
     $args = commonData($this->settings);
-
     //Check Logged in or not
     if(!empty(authenticate())){
       return $response->withRedirect($args['APP_DOMAIN']);
     }
 
     $args['comp_data'] = companyProfile($this->settings);
- 
+//    $args['user_data'] = userPermissions($this->settings);
     // Render index view
     return $this->renderer->render($response, 'index.phtml', $args);
         
@@ -70,7 +86,7 @@ $this->mintmeshAccessToken;
 
 //import contacts page
 $app->get('/import-contacts', function ($request, $response, $args) {
-$this->mintmeshAccessToken;
+    $this->mintmeshAccessToken;
     // need to take a look later    
     $args = commonData($this->settings);
 
@@ -80,7 +96,7 @@ $this->mintmeshAccessToken;
     }
 
     $args['comp_data'] = companyProfile($this->settings);
-
+//    $args['user_data'] = userPermissions($this->settings);
     // Render index view
     return $this->renderer->render($response, 'index.phtml', $args);
         
@@ -165,16 +181,20 @@ $app->get('/dashboard',function ($request, $response, $args) use ($app) {
     //Arguments
      $this->mintmeshAccessToken;
     $args       = commonData($this->settings);
-   
-    //Check Logged in or not
     if(!empty(authenticate())){
       return $response->withRedirect($args['APP_DOMAIN']);
     }
-
+    else if($_SESSION['userPermissions']['dashboard']==1)
+    {
+    //Check Logged in or not
+   
     $args['comp_data'] = companyProfile($this->settings);
 
     // Render dashboard view
     return $this->renderer->render($response, 'index.phtml', $args);
+    }else{
+        return $response->withRedirect($args['APP_DOMAIN'].'404');
+    }
 });
 
 //Post Job Page
@@ -189,7 +209,6 @@ $app->get('/job',function ($request, $response, $args) use ($app) {
     }
 
     $args['comp_data'] = companyProfile($this->settings);
-
     // Render dashboard view
     return $this->renderer->render($response, 'index.phtml', $args);
 });
@@ -199,30 +218,38 @@ $app->get('/job/post-job',function ($request, $response, $args) use ($app) {
     //Arguments
     $this->mintmeshAccessToken;
     $args       = commonData($this->settings);
-    
-    //Check Logged in or not
+     //Check Logged in or not
     if(!empty(authenticate())){
       return $response->withRedirect($args['APP_DOMAIN']);
     }
-
+    else if($_SESSION['userPermissions']['post_jobs']==1)
+     {
     $args['comp_data'] = companyProfile($this->settings);
-
+//    $args['user_data'] = userPermissions($this->settings);
+    
     // Render dashboard view
     return $this->renderer->render($response, 'index.phtml', $args);
+     }else{
+         return $response->withRedirect($args['APP_DOMAIN'].'404');
+     }
 });
 
 //Post Job Page
 $app->get('/job/post-job-2',function ($request, $response, $args) use ($app) {
-     
-     //Arguments
-    $args       = commonData($this->settings);
-    
-    //Check Logged in or not
-    if(!empty(authenticate())){
+     $args       = commonData($this->settings);
+     if(!empty(authenticate())){
       return $response->withRedirect($args['APP_DOMAIN']);
     }
+     //Arguments
+    else if($_SESSION['userPermissions']['post_jobs']==1)
+     {
+   
+    //Check Logged in or not
 
      return $response->withRedirect($args['APP_DOMAIN']."job/post-job");
+     }else{
+        return $response->withRedirect($args['APP_DOMAIN'].'404');
+     }
 });
 
 //Post job Page
@@ -230,16 +257,23 @@ $app->get('/postJob',function ($request, $response, $args) use ($app) {
 	//Arguments
     $this->mintmeshAccessToken;
     $args       = commonData($this->settings);
-    
-    //Check Logged in or not
     if(!empty(authenticate())){
       return $response->withRedirect($args['APP_DOMAIN']);
     }
+    else if($_SESSION['userPermissions']['post_jobs']==1)
+    {
+    
+    //Check Logged in or not
+   
 
     $args['comp_data'] = companyProfile($this->settings);
+//    $args['user_data'] = userPermissions($this->settings);
 
     // Render dashboard view
     return $this->renderer->render($response, 'post-job.phtml', $args);
+    }else{
+        return $response->withRedirect($args['APP_DOMAIN'].'404');
+    }
 });
 
 //Job Post
@@ -249,7 +283,10 @@ $app->post('/post_job',function ($request, $response, $args) use ($app) {
     $this->mintmeshAccessToken;
     $this->mintmeshCompanyId;
     $this->mintmeshCompanyDetails;
+    $args       = commonData($this->settings);
     // getting API endpoint from settings
+     if($_SESSION['userPermissions']['post_jobs']==1)
+      {
     $apiEndpoint = getapiEndpoint($this->settings, 'post_job');
     
     $session = new Session();
@@ -261,6 +298,9 @@ $app->post('/post_job',function ($request, $response, $args) use ($app) {
      ));
 
      return checkJsonResult( $postJob->loadCurl() );
+      }else{
+           return $response->withRedirect($args['APP_DOMAIN'].'404');
+      }
 });
 
 //Job List
@@ -269,7 +309,6 @@ $app->post('/jobs_list',function ($request, $response, $args) use ($app) {
     // dynamically Access Token, Company Details
     $this->mintmeshAccessToken;
     $this->mintmeshCompanyId;
-    
     // getting API endpoint from settings
    $apiEndpoint = getapiEndpoint($this->settings, 'jobs_list');
    
@@ -279,7 +318,6 @@ $app->post('/jobs_list',function ($request, $response, $args) use ($app) {
      ));
     
     return checkJsonResult( $jobList->loadCurl() );
-    
 });
 
 //Job Details
@@ -307,7 +345,9 @@ $app->post('/deactivate_post',function ($request, $response, $args) use ($app) {
     // dynamically Access Token, Company Details 
    $this->mintmeshAccessToken;
    $this->mintmeshCompanyId;
-    
+   $args       = commonData($this->settings);
+   if($_SESSION['userPermissions']['close_jobs']==1)
+   {
     // getting API endpoint from settings
    $apiEndpoint = getapiEndpoint($this->settings, 'deactivate_post');
    
@@ -317,7 +357,9 @@ $app->post('/deactivate_post',function ($request, $response, $args) use ($app) {
      ));
     
     return checkJsonResult( $deactivate_post->loadCurl() );
-    
+   }else{
+       return $response->withRedirect($args['APP_DOMAIN'].'404');
+   }
 });
 
 //Job Referral Details
@@ -354,7 +396,7 @@ $this->mintmeshAccessToken;
         }
 
         $args['comp_data'] = companyProfile($this->settings);
-
+//        $args['user_data'] = userPermissions($this->settings);
         // Render dashboard view
         return $this->renderer->render($response, 'index.phtml', $args);
     }else{
@@ -445,7 +487,6 @@ $app->get('/edit-company-profile',function ($request, $response, $args) use ($ap
     }
 
     $args['comp_data'] = companyProfile($this->settings);
-
     // Render dashboard view
     return $this->renderer->render($response, 'index.phtml', $args);
 });
@@ -454,17 +495,21 @@ $app->get('/edit-company-profile',function ($request, $response, $args) use ($ap
 $app->post('/view_dashboard',function ($request, $response, $args) use ($app) {
     
     // dynamically Access Token
-    $this->mintmeshAccessToken;  
+    $this->mintmeshAccessToken; 
+    $args       = commonData($this->settings);
+   if($_SESSION['userPermissions']['dashboard']==1)
+      {
     // getting API endpoint from settings
    $apiEndpoint = getapiEndpoint($this->settings, 'view_dashboard');
-   
     $statusDetails    = new Curl(array(
         'url'           => $apiEndpoint,
         'postData'      => $_POST
      ));
 
     return checkJsonResult( $statusDetails->loadCurl() );
-       
+      }else{
+         return $response->withRedirect($args['APP_DOMAIN'].'404');
+      }
 });
 
 // awating action
@@ -498,24 +543,8 @@ $app->get('/contacts',function ($request, $response, $args) use ($app) {
     }
 
     $args['comp_data'] = companyProfile($this->settings);
-
     // Render dashboard view
     return $this->renderer->render($response, 'index.phtml', $args);
-});
-
-// Upload contacts -> if reload redirect to contacts page
-$app->get('/contacts/upload-contacts',function ($request, $response, $args) use ($app) {
-     
-    //Arguments
-    $this->mintmeshAccessToken;
-    $args  = commonData($this->settings);
-    
-    //Check Logged in or not
-    if(!empty(authenticate())){
-      return $response->withRedirect($args['APP_DOMAIN']);
-    }
-
-    return $response->withRedirect($args['APP_DOMAIN']."contacts");
 });
 
 //create_bucket
@@ -538,7 +567,7 @@ $app->post('/create_bucket',function ($request, $response, $args) use ($app) {
 });
 
 //candidates
-$app->get('/candidates',function ($request, $response, $args) use ($app) {
+$app->get('/candidates/resume-room',function ($request, $response, $args) use ($app) {
     //Arguments
     $this->mintmeshAccessToken;
     $args       = commonData($this->settings);
@@ -549,7 +578,6 @@ $app->get('/candidates',function ($request, $response, $args) use ($app) {
     }
 
     $args['comp_data'] = companyProfile($this->settings);
-
     // Render dashboard view
     return $this->renderer->render($response, 'index.phtml', $args);
 });
@@ -574,7 +602,7 @@ $app->post('/upload_contacts',function ($request, $response, $args) use ($app) {
 });
 
 //Settings Page
-$app->get('/settings/company-profile',function ($request, $response, $args) use ($app) {
+/*$app->get('/settings/company-profile',function ($request, $response, $args) use ($app) {
     //Arguments
     $this->mintmeshAccessToken;
     $args       = commonData($this->settings);
@@ -585,10 +613,9 @@ $app->get('/settings/company-profile',function ($request, $response, $args) use 
     }
 
     $args['comp_data'] = companyProfile($this->settings);
-
     // Render dashboard view
     return $this->renderer->render($response, 'index.phtml', $args);
-});
+});*/
 
 // my profile under settings page
 $app->get('/settings/my-profile',function ($request, $response, $args) use ($app) {
@@ -600,13 +627,19 @@ $app->get('/settings/my-profile',function ($request, $response, $args) use ($app
     //Check Logged in or not
     if(!empty(authenticate())){
       return $response->withRedirect($args['APP_DOMAIN']);
+    }else if($_SESSION['userPermissions']['settings']==1)
+    {
+    $args['comp_data'] = companyProfile($this->settings);
+    // Render dashboard view
+    return $this->renderer->render($response, 'index.phtml', $args);
+    } else{
+        return $response->withRedirect($args['APP_DOMAIN'].'404');
     }
-
-    return $response->withRedirect($args['APP_DOMAIN']."settings/company-profile");
+    //return $response->withRedirect($args['APP_DOMAIN']."settings/company-profile");
 });
 
 // user profile under settings page
-$app->get('/settings/user-profile',function ($request, $response, $args) use ($app) {
+$app->get('/settings/user-group',function ($request, $response, $args) use ($app) {
      
     //Arguments
     $this->mintmeshAccessToken;
@@ -616,8 +649,8 @@ $app->get('/settings/user-profile',function ($request, $response, $args) use ($a
     if(!empty(authenticate())){
       return $response->withRedirect($args['APP_DOMAIN']);
     }
-
-    return $response->withRedirect($args['APP_DOMAIN']."settings/company-profile");
+    return $response->withRedirect($args['APP_DOMAIN']."settings/my-profile");
+    //return $response->withRedirect($args['APP_DOMAIN']."settings/company-profile");
 });
 
 
@@ -651,7 +684,9 @@ $app->post('/update_contacts_list',function ($request, $response, $args) use ($a
     
     // dynamically Access Token
     $this->mintmeshAccessToken;
-    
+    $args  = commonData($this->settings);
+     if($_SESSION['userPermissions']['edit_contacts']==1)
+      {
     // getting API endpoint from settings
     $apiEndpoint = getapiEndpoint($this->settings, 'update_contacts_list');
    
@@ -661,6 +696,9 @@ $app->post('/update_contacts_list',function ($request, $response, $args) use ($a
      ));
 
      return checkJsonResult( $companyDetails->loadCurl() );
+      }else{
+          return $response->withRedirect($args['APP_DOMAIN'].'404');
+      }
 });
 
 //Company Details
@@ -669,7 +707,9 @@ $app->post('/other_edits_in_contact_list',function ($request, $response, $args) 
     // dynamically Access Token
     $this->mintmeshAccessToken;
     $this->mintmeshCompanyId;
-    
+    $args  = commonData($this->settings);
+    if($_SESSION['userPermissions']['edit_contacts']==1)
+     {
     // getting API endpoint from settings
     $apiEndpoint = getapiEndpoint($this->settings, 'other_edits_in_contact_list');
    
@@ -679,6 +719,9 @@ $app->post('/other_edits_in_contact_list',function ($request, $response, $args) 
      ));
 
      return checkJsonResult( $companyDetails->loadCurl() );
+      }else{
+          return $response->withRedirect($args['APP_DOMAIN'].'404');
+      }
 });
 
 //Company Details
@@ -687,7 +730,9 @@ $app->post('/add_contact',function ($request, $response, $args) use ($app) {
     // dynamically Access Token
     $this->mintmeshAccessToken;
     $this->mintmeshCompanyId;
-    
+    $args  = commonData($this->settings);
+    if($_SESSION['userPermissions']['add_contacts']==1)
+      {
     // getting API endpoint from settings
     $apiEndpoint = getapiEndpoint($this->settings, 'add_contact');
    
@@ -695,8 +740,143 @@ $app->post('/add_contact',function ($request, $response, $args) use ($app) {
         'url'           => $apiEndpoint,
         'postData'      => $_POST
      ));
+     return checkJsonResult( $companyDetails->loadCurl() );
+    }else{
+       return $response->withRedirect($args['APP_DOMAIN'].'404');
+    }
+});
+
+$app->post('/permissions',function ($request, $response, $args) use ($app) {
+    
+    // dynamically Access Token
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    $args  = commonData($this->settings);
+  if($_SESSION['userPermissions']['settings']==1)
+      {
+    // getting API endpoint from settings
+    $apiEndpoint = getapiEndpoint($this->settings, 'permissions');
+   
+    $companyDetails     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
 
      return checkJsonResult( $companyDetails->loadCurl() );
+      }else{
+          return $response->withRedirect($args['APP_DOMAIN'].'404');
+      }
+});
+
+$app->post('/add_user',function ($request, $response, $args) use ($app) {
+    
+    // dynamically Access Token
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    $args  = commonData($this->settings);
+     if($_SESSION['userPermissions']['settings']==1)
+      {
+    // getting API endpoint from settings
+    $apiEndpoint = getapiEndpoint($this->settings, 'add_user');
+   
+    $companyDetails     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+
+     return checkJsonResult( $companyDetails->loadCurl() );
+      }  else {
+            return $response->withRedirect($args['APP_DOMAIN'].'404');
+      }
+});
+
+$app->post('/add_group',function ($request, $response, $args) use ($app) {
+    
+    // dynamically Access Token
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    $args  = commonData($this->settings);
+  if($_SESSION['userPermissions']['settings']==1)
+      {
+    // getting API endpoint from settings
+    $apiEndpoint = getapiEndpoint($this->settings, 'add_group');
+   
+    $companyDetails     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+
+     return checkJsonResult( $companyDetails->loadCurl() );
+    return $jsonResult;
+      }else{
+           return $response->withRedirect($args['APP_DOMAIN'].'404');
+      }
+});
+
+$app->post('/get_groups',function ($request, $response, $args) use ($app) {
+    
+    // dynamically Access Token
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    $args  = commonData($this->settings);
+   if($_SESSION['userPermissions']['settings']==1)
+      {
+    // getting API endpoint from settings
+    $apiEndpoint = getapiEndpoint($this->settings, 'get_groups');
+   
+    $companyDetails     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    
+     return checkJsonResult( $companyDetails->loadCurl() );
+      }else{
+           return $response->withRedirect($args['APP_DOMAIN'].'404');
+      }
+});
+
+$app->post('/update_user',function ($request, $response, $args) use ($app) {
+    
+    // dynamically Access Token
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    $args  = commonData($this->settings);
+   if($_SESSION['userPermissions']['settings']==1)
+      {
+    // getting API endpoint from settings
+    $apiEndpoint = getapiEndpoint($this->settings, 'update_user');
+   
+    $companyDetails     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    
+     return checkJsonResult( $companyDetails->loadCurl() );
+      }else{
+           return $response->withRedirect($args['APP_DOMAIN'].'404');
+      }
+});
+
+$app->post('/change_password',function ($request, $response, $args) use ($app) {
+    
+    // dynamically Access Token
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    $args  = commonData($this->settings);
+   if($_SESSION['userPermissions']['settings']==1)
+      {
+    // getting API endpoint from settings
+    $apiEndpoint = getapiEndpoint($this->settings, 'change_password');
+   
+    $companyDetails     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    
+     return checkJsonResult( $companyDetails->loadCurl() );
+      }else{
+          return $response->withRedirect($args['APP_DOMAIN'].'404');
+      }
 });
 
 //Company Details
@@ -762,7 +942,6 @@ $app->POST('/contacts_file_upload',function ($request, $response, $args) {
     require 'library/fileupload_library.php';
     $file_upload = new fileupload_library; 
     $args        = commonData($this->settings);
-    
         if (!isset($_REQUEST['filename']) && !isset($_FILES['qqfile'])) {
             $_REQUEST['filename'] = $_REQUEST['qqfile'];
         }

@@ -22,13 +22,14 @@ angular.module('app.job.search', ['infinite-scroll'])
     ajaxData.bol = false;
 
     scope.pay_status = "2";
+    scope.jobFilter = "0";
 
     this.search_load_cond = false;
     scope.post_count = 0;
     var canceller;
     var page_no = 1,total_pages = 1,data = [],initial = 0;
 
-    function postList(status,input){
+    function postList(filter1, filter2, input){
 
         if(canceller){
             canceller.resolve();
@@ -37,7 +38,8 @@ angular.module('app.job.search', ['infinite-scroll'])
         canceller = $q.defer();
 
         var job_list_param = $.param({
-            request_type : status,
+            request_type : filter1,
+            post_by:filter2,
             search_for : input,
             page_no : page_no
         });
@@ -99,7 +101,7 @@ angular.module('app.job.search', ['infinite-scroll'])
         })
     }
 
-    scope.selectFilter = function(status,input){
+    scope.selectFilter = function(filter1, filter2, input){
 
         scope.init_no_posts_found = false;
         scope.no_posts_found = false;
@@ -111,12 +113,12 @@ angular.module('app.job.search', ['infinite-scroll'])
         //scope.busy = true;
 
         page_no = 1;
-        postList(status,input);
+        postList(filter1, filter2, input);
     }
 
     var time;
     scope.overLoader = false;
-    scope.searchFilter = function(status,input){
+    scope.searchFilter = function(filter1, filter2, input){
 
         scope.init_no_posts_found = false;
         scope.no_posts_found = false;
@@ -133,11 +135,11 @@ angular.module('app.job.search', ['infinite-scroll'])
         scope.search_load_cond = true;
         page_no = 1;
         time = setTimeout(function(){
-            postList(status,input);
+            postList(filter1, filter2, input);
         },500);
     }
 
-    scope.nextPage = function(status,input){
+    scope.nextPage = function(filter1, filter2, input){
         if(total_pages >= page_no && total_pages != 0){
             if(scope.busy){
                 return;
@@ -145,7 +147,7 @@ angular.module('app.job.search', ['infinite-scroll'])
 
             scope.busy = true;
 
-            postList(status,input);
+            postList(filter1, filter2, input);
         }
     }
 
@@ -171,7 +173,24 @@ angular.module('app.job.search', ['infinite-scroll'])
         { name : 'All',  id : 2 },
         { name : 'Paid',  id : 0 },
         { name : 'Free',  id : 1 },
-    ]
+    ];
+
+    scope.filterBy = [
+        { id:0 , label : 'All' },
+        { id:1 , label : 'My Jobs' }
+    ];
+
+    scope.getRewardsView = function(rewards) {
+        if(rewards.rewards_type == 'paid'){
+           return  (rewards.currency_type == 1 ? '$' : '₹') +  rewards.rewards_value + '/' + rewards.rewards_name;
+        }
+        else if(rewards.rewards_type == 'points'){
+            return  rewards.rewards_value + ' Points' + '/' + rewards.rewards_name;  
+        }
+        else{
+            return '';
+        }
+    }
 
 }]);
 

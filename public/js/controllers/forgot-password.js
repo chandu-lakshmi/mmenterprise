@@ -34,7 +34,55 @@ angular.module('app.forgotPassword', [])
 		}
 		else{
 			scope.load_cond_reset = true;
-			var reset_params = $.param({
+            var token;
+            if(tokens.reset_token){
+                token = tokens.reset_token;
+                resetPassword(token, 'reset_password');
+            }
+            else if(tokens.set_token){
+                token = tokens.set_token;
+                resetPassword(token, 'set_password')
+            }
+        }
+    }
+
+    function resetPassword(code, url){
+        var reset_params = $.param({
+            password : scope.forgotPassword.new_password,
+            password_confirmation : scope.forgotPassword.re_password,
+            code : code
+        })
+        var resetPassword = $http({
+            headers: {
+               'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
+            method: 'POST',
+            url: CONFIG.APP_DOMAIN + url,                               
+            data: reset_params
+        })
+
+        resetPassword.success(function(response){
+            scope.load_cond_reset = false;
+            if(response.status_code == 200){
+                $uibModal.open({
+                    animation: true,
+                    keyboard: false,
+                    backdrop: 'static',
+                    templateUrl: 'templates/dialogs/reset-success.phtml',
+                    openedClass: "reset-pwd",
+                });
+            }
+            if(response.status_code == 403){
+                scope.backendError = true;
+                scope.backendMsg = response.message.msg[0];
+            }
+        })
+        resetPassword.error(function(response){
+            scope.load_cond_reset = false;
+            console.log(response)
+        })
+    }
+			/*var reset_params = $.param({
 				password : scope.forgotPassword.new_password,
 				password_confirmation : scope.forgotPassword.re_password,
 				code : tokens.reset_token
@@ -68,9 +116,9 @@ angular.module('app.forgotPassword', [])
             resetPassword.error(function(response){
             	scope.load_cond_reset = false;
             	console.log(response)
-            })
-		}
-	}
+            })*/
+		/*}
+	}*/
 
 
 	// cancel button

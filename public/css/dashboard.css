@@ -209,6 +209,10 @@ header .notifications .dropdown button .user_name{
 	margin:0 10px;
 	vertical-align: middle;
 	text-transform: capitalize;
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
 }
 header .notifications .drop-custom{
 	left: 0;
@@ -347,6 +351,28 @@ header .notifications .user span:not(:last-child){
 	top: -26px;
     left: 8px;
 }
+.dashboard .dashboard-container .letter{
+	width: 60px;
+    height: 60px;
+    display: inline-block;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 60px;
+    color: #fff;
+    font-size: 20px;
+    text-transform: capitalize;
+    position: relative;
+}
+.dashboard .dashboard-container .letter.letter-small{
+	position: absolute ;
+    width: 30px;
+    height: 30px;
+    left: 32px;
+    top: 33px;
+    font-size: 16px;
+    line-height: 30px;
+    z-index: 9999;
+} 
 .referrals-hires{
 	color: #878787;
 	padding: 44px 0;
@@ -366,7 +392,7 @@ header .notifications .user span:not(:last-child){
 .referrals-hires .ref-hire-list .load-status-report{
 	height: 348px;
 	min-height: 348px;
-	z-index: 10000;
+	z-index: 10;
 }
 .referrals .dp,.hires .dp,.top-contacts .dp{
 	width: 60px;
@@ -380,10 +406,15 @@ header .notifications .user span:not(:last-child){
 .referrals .content strong,.referrals-hires .ref-hire-list strong{
 	font-weight: 200;
 	text-transform: capitalize;
+    max-width: 140px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: middle;
+    white-space: nowrap;
 }
 .hires .content{
 	display: inline-block;
-	line-height: 2em;
 	padding-left: 15px;
 	padding-top: 5px;
 }
@@ -397,10 +428,21 @@ header .notifications .user span:not(:last-child){
 .dropdown-days{
 	position: relative;
 	display: inline-block;
-	padding: 15px 0;
+	padding: 15px 0 0;
 	font-size: 14px;
 }
-.dropdown-days select{
+.dropdown-days md-input-container{
+	top:-5px;
+	margin:0;
+	color: #000;
+}
+.dropdown-days md-input-container .md-select-icon:after{
+	content: url("../images/arrow-dropdown-black.svg") !important;
+}
+.dropdown-days md-input-container md-select-value{
+	border-color: transparent !important;
+}
+/*.dropdown-days select{
 	border: 0;
     background: transparent;
     outline: 0;
@@ -418,7 +460,7 @@ header .notifications .user span:not(:last-child){
 	top: 13px;
     pointer-events: none;
     color: #000;
-}
+}*/
 /*.referrals .status{
 	padding: 30px 0 0 0;
 	line-height: 2em;
@@ -432,9 +474,13 @@ strong{
 }
 .referrals-hires .no-data{
 	position: absolute;
-    top: calc(50% - 18px);
+    top: calc(50% - 80px);
     width: 100%;
     text-align: center;
+}
+.referrals-hires .no-data img{
+	width: 120px;
+	height: auto;
 }
 .referrals-hires ul{
 	margin: 0;
@@ -459,8 +505,8 @@ strong{
 /*loader in dashboard */
 .load-status-report{
 	min-height: 335px;
-    height: 358px;
-    background: rgba(240, 244, 247, 0.88);
+    height: 335px;
+    background: rgba(246, 248, 249, 0.68);
     position: absolute;
     width: 99.5%;
     top: 1px;
@@ -509,7 +555,7 @@ select:-moz-focusring {
 	font-size: 16px;
 }
 .dashboard .top-contacts .container .head{
-	font-size: 13px;
+	font-size: 14px;
     letter-spacing: 0.6px;
     font-weight: bold;
     color: #888;
@@ -1011,8 +1057,8 @@ ul.new-tabs > li.active > a{
 .post-job .form-control:focus {
     border-color: #208d6e;
     outline: 0;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgb(32, 141, 110, .6);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgb(32, 141, 110, .6);
+    -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(32, 141, 110, 0.6);
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(32, 141, 110, 0.6);
 }
 .post-job span.max_length{
     float: right;
@@ -1578,10 +1624,10 @@ ul.new-tabs > li.active > a{
 	width: 100%;
 	height: 100%;
 }
-.qq-upload-drop-area .drag_img img[alt='download']{
+/*.qq-upload-drop-area .drag_img img[alt='download']{
 	width: 25px;
 	height: 25px;
-}
+}*/
 .qq-upload-button:active{
 	top: 0;
 }
@@ -1612,7 +1658,7 @@ ul.new-tabs > li.active > a{
 	height: 100%;
 }
 .edit-company .edit-box .referral-bonus .qq-uploader{
-	width: 215px;
+	width: 280px;
 	height: 60px;
 	padding: 13px 0px;
 	margin: 0;
@@ -1641,18 +1687,32 @@ ul.new-tabs > li.active > a{
 	color: #983a3a;
 }
 .edit-company .edit-box .referral-bonus .qq-uploader .drag_img a{
+	display: inline-block;
+}
+.edit-company .edit-box .referral-bonus .qq-uploader .drag_img a.view{
 	line-height: 50px;
 	color: #333;
+	width: 78%;
 }
-.edit-company .edit-box .referral-bonus .qq-uploader .drag_img a p{
+.edit-company .edit-box .referral-bonus .qq-uploader .drag_img a.view img{
+	width: 25px;
+	height: 25px;
+}
+.edit-company .edit-box .referral-bonus .qq-uploader .drag_img img{
+	width: 30px;
+	height: 30px;
+	cursor: pointer;
+}
+.edit-company .edit-box .referral-bonus .qq-uploader .drag_img a.view p{
 	padding: 0px 5px;
 	display: inline-block;
 	overflow: hidden;
     margin: 0;
     text-overflow: ellipsis;
-    max-width: 160px;
+    max-width: 87%;
     white-space: nowrap;
     vertical-align: middle;
+    font-size: 16px;
 }
 .edit-company .edit-box .referral-bonus .qq-upload-fail{
 	font-size: 13px;

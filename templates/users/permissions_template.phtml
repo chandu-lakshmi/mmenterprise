@@ -1,13 +1,60 @@
 <div ng-switch on="permissions.type">
-        <div ng-switch-when="check">
-           <!--  <input type="checkbox" name="permission[{{permissions.id}}]" value="1" ng-checked="!!UserProfileCtrl.user_permissions_view.permissions[permissions.id]" ng-click="changePermission(p, $event)" /> -->
-        </div>
-        <div ng-switch-default class="clearfix">
-            <div class="pull-left">{{permissions.label}}</div>
-            <input type="hidden" name="permission[{{permissions.id}}]" value="{{UserProfileCtrl.user_permissions_view.permissions[permissions.id]}}" />
-            <div class="btn-group btn-group-xs btn-toggle" style="pull-right">
-                <button ng-repeat="switch in UserProfileCtrl.permission_switches[permissions.length]" class="btn" ng-class="UserProfileCtrl.user_permissions_view.permissions[permissions.id]==switch.id?'btn-primary':'btn-default'" ng-click="UserProfileCtrl.changePermission(permissions, switch)">{{switch.label}}</button>
+    <div ng-switch-when="check">
+        <!-- <input type="checkbox" name="permission[{{permissions.id}}]" value="1" ng-checked="!!UserGroupCtrl.permissions[permissions.id]" ng-click="changePermission(p, $event)" /> -->
+    </div>
+    <div ng-switch-when="select">
+        <div class="form-group">
+            <label for="type" class="control-label">{{permissions.label}}</label>
+            <div class="pull-right" style="margin-top: -10px;">
+                <select class="form-control" id="type" name="permission[{{permissions.id}}]">
+                    <option value="{{switch.id}}" ng-repeat="switch in permissions.options">{{switch.label}}</option>
+                </select>
             </div>
-            {{UserProfileCtrl.user_permissions_view.permissions[permissions.id]}}
         </div>
     </div>
+    <div ng-switch-default class="clearfix">
+        <div class="new-styles clearfix">
+            <!-- <label class="control-label">{{permissions.label}}</label> -->
+            <div class="pull-left">{{permissions.label}}</div>
+            <div class="pull-right" style="margin-top: -10px;">
+                <!-- <label ng-repeat="switch in UserGroupCtrl.permission_switches[permissions.length || 2]">
+                    <input type="radio" name="permission[{{permissions.id}}]" value="{{switch.id}}" ng-checked="UserGroupCtrl.permissions[permissions.id] == switch.id" ng-model="UserGroupCtrl.groupPermissions[permissions.id]">
+                    <span>{{switch.label}}</span>
+                </label> -->
+                <input type="hidden" name="permission[{{permissions.id}}]" value="{{UserGroupCtrl.permissions[permissions.id]}}">
+                <div class="btn-group">
+                    <button type="button" class="btn" ng-repeat="switch in UserGroupCtrl.permission_switches[permissions.length || 2]" ng-class="(UserGroupCtrl.permissions[permissions.id] == switch.id ? 'btn-primary' : 'btn-default')" ng-click="UserGroupCtrl.changePermission(permissions, switch)"><span>{{switch.label}}</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide" ng-if="permissions.children && permissions.children.length > 0" ng-show="UserGroupCtrl.permissions[permissions.id] == 1">
+    <div ng-repeat="children in permissions.children">
+        <div ng-switch on="children.type">
+            <div ng-switch-when="check">
+                
+            </div>
+            <div ng-switch-when="select">
+                
+            </div>
+            <div ng-switch-default>
+                <div class="new-styles clearfix">
+                    <!-- <label class="control-label">{{children.label}}</label> -->
+                    <div class="pull-left">{{children.label}}</div>
+                    <div class="pull-right" style="margin-top: -10px;">
+                        <!-- <label ng-repeat="switch in UserGroupCtrl.permission_switches[permissions.length || 2]">
+                            <input type="radio" name="child[{{permissions.id}}][{{children.id}}]" value="{{switch.id}}" ng-checked="UserGroupCtrl.permissions[permissions.id+'_'+children.id]==switch.id" ng-model="UserGroupCtrl.groupPermissions[permissions.id+'_'+children.id]">
+                            <span>{{switch.label}}</span>
+                        </label> -->
+                        <input type="hidden" name="child[{{permissions.id}}][{{children.id}}]" value="{{UserGroupCtrl.permissions[permissions.id+'_'+children.id]}}" />
+                        <div class="btn-group">
+                            <button type="button" class="btn" ng-repeat="switch in UserGroupCtrl.permission_switches[permissions.length || 2]" ng-class="(UserGroupCtrl.permissions[permissions.id+'_'+children.id]==switch.id ? 'btn-primary' : 'btn-default')" ng-click="UserGroupCtrl.changePermission(children, switch, permissions.id)">{{switch.label}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -16,7 +16,7 @@ angular.module('app.post.job', ['ngAutocomplete', 'angucomplete-alt'])
     }
 })
 
-.controller('PostJobController', ['$state','$window', '$http', '$scope', '$uibModal', 'gettingData', 'CompanyDetails', 'CONFIG', function($state,$window,$http,$scope,$uibModal,gettingData,CompanyDetails,CONFIG){
+.controller('PostJobController', ['$state', '$timeout', '$window', '$http', '$scope', '$uibModal', 'gettingData', 'CompanyDetails', 'CONFIG', function($state, $timeout, $window,$http,$scope,$uibModal,gettingData,CompanyDetails,CONFIG){
 
   $window.scrollTo(0,0);
 
@@ -28,7 +28,49 @@ angular.module('app.post.job', ['ngAutocomplete', 'angucomplete-alt'])
   this.company_name = CompanyDetails.company_name;
   this.postJob1 = gettingData.getObj();
 
-$scope.countries = [
+  // job title autocomplete
+  this.getServices = function(userInputString, timeoutPromise){
+    var services = [];
+    //.post(CONFIG.APP_DOMAIN + 'get_services', {search : userInputString}, {timeout: timeoutPromise})
+    return $http({
+      headers: {
+           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        },
+        method: 'POST',
+        data: $.param({search: userInputString}),
+        url: CONFIG.APP_DOMAIN + 'get_services',
+        timeout: timeoutPromise
+    })
+    .then(function(response){
+      services = response.data.data.services;
+      return  {"data": services}
+    })
+
+      // $http({
+      //   headers: {
+      //      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+      //   },
+      //   method: 'POST',
+      //   data: $.param({search: userInputString}),
+      //   url: CONFIG.APP_DOMAIN + 'get_services'
+      // })
+      // .then(function(response){
+      //   console.log(response)
+      //   services = response.data.data.services;
+      //   setTimeout(function(){return  {"data": services}},1000);
+      //   /*angular.element('.disabled').css('pointer-events','auto');
+      //   if(response.data.status_code == 200){
+      //     scope.updateLoader = false;
+      //     scope.message = true;
+      //     setTimeout(function(){scope.message = false;$scope.$apply()},3000);
+      //   }*/
+      // },function(response){
+      //   console.log(response)
+      // })
+  }
+
+
+/*$scope.countries = [
       {name: 'Afghanistan', code: 'AF'},
       {name: 'Aland Islands', code: 'AX'},
       {name: 'Albania', code: 'AL'},
@@ -272,7 +314,7 @@ $scope.countries = [
       {name: 'Yemen', code: 'YE'},
       {name: 'Zambia', code: 'ZM'},
       {name: 'Zimbabwe', code: 'ZW'}
-    ];
+    ];*/
 
   // Autocomplete for job title
   /*var result = [];
@@ -393,127 +435,236 @@ $scope.countries = [
 
 .controller('PostJobTwoController', ['$window', '$uibModal', 'gettingData', 'CompanyDetails', '$http', 'CONFIG', function($window,$uibModal,gettingData,CompanyDetails,$http,CONFIG){
 
-  $window.scrollTo(0,0);
+    $window.scrollTo(0,0);
 
-  this.company_name = CompanyDetails.company_name;
+    this.company_name = CompanyDetails.company_name;
   
-  gettingData.bol = true;
-  this.buckLoader = true;
-  var bucketColor = ["#229A77", "#21A4AC", "#EE8F3B", "#2A99E0", "#154c50", "#103954", "#342158", "#5B5B29", "#004D40", "#3e110d"];
-  var bucketColor = ["#229A77", "#21A4AC", "#EE8F3B", "#2A99E0", "#154c50", "#103954", "#342158", "#5B5B29", "#004D40", "#6f2b25"];
-  
-  this.getColor = function(ind) {
-    return bucketColor[String(ind).slice(-1)];
-  }
-
-  this.rewards = [
-    {'pay_status':'free','amount':'0','message':'just a thank you','currency':'DLR','pay_fee':'1'},
-    {'pay_status':'pay','amount':'10','message':'per referral','currency':'DLR','pay_fee':'0'},
-    {'pay_status':'pay','amount':'20','message':'per referral','currency':'DLR','pay_fee':'0'},
-    {'pay_status':'pay','amount':'50','message':'per referral','currency':'DLR','pay_fee':'0'},
-    {'pay_status':'pay','amount':'100','message':'per referral','currency':'DLR','pay_fee':'0'},
-    {'pay_status':'pay','amount':'500','message':'per referral','currency':'DLR','pay_fee':'0'}
-  ]
-
-  this.post_job_result = gettingData.getObj();
-
-  var scope = this;
-
-  // getting bucket names dynamically
-  var get_buckets = $http({
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-    },
-    method: 'POST',
-    url: CONFIG.APP_DOMAIN+'buckets_list'
-  })
-  get_buckets.success(function(response){
-    scope.bucket_names = response.data.buckets_list;
-    scope.buckLoader = false;
-  });
-  get_buckets.error(function(response){
-    console.log(response);
-  })
-
-  var bucket_count = [];
-
-  this.getDataUpdate = function(src,ind,bucketId){
-    if(src == "public/images/add.svg"){
-      bucket_count.push(bucketId);
-      scope.bucket_names[ind].src = "public/images/select.svg";
+    gettingData.bol = true;
+    this.buckLoader = true;
+    var bucketColor = ["#229A77", "#21A4AC", "#EE8F3B", "#2A99E0", "#154c50", "#103954", "#342158", "#5B5B29", "#004D40", "#3e110d"];
+    var bucketColor = ["#229A77", "#21A4AC", "#EE8F3B", "#2A99E0", "#154c50", "#103954", "#342158", "#5B5B29", "#004D40", "#6f2b25"];
+      
+    this.getColor = function(ind) {
+        return bucketColor[String(ind).slice(-1)];
     }
-    else{
-      var index = bucket_count.indexOf(bucketId);
-      bucket_count.splice(index,1);
-      scope.bucket_names[ind].src="public/images/add.svg";
-    }
-  }
 
-  scope.success_cond = false;
-	this.requestSuccess =function  () {
-    scope.bucket_error = false;
-    var buckets = bucket_count.toString();
-    scope.success_cond = true;
-    scope.loader = true;
+    this.post_job_result = gettingData.getObj();
 
+    var scope = this;
 
-    var post_job = $.param({
-      job_title : scope.post_job_result.job_title,
-      location : scope.post_job_result.location,
-      industry : scope.post_job_result.industry.industry_id,
-      employment_type : scope.post_job_result.emp_type.employment_type_id,
-      job_description : scope.post_job_result.job_desc,
-      experience_range : scope.post_job_result.experience.experience_id,
-      job_function : scope.post_job_result.job_func.job_function_id,
-      free_job : scope.rewardCond.pay_fee,
-      job_currency : scope.rewardCond.currency,
-      job_cost : scope.rewardCond.amount,
-      job_period : 'immediate', 
-      bucket_id : buckets,
-      position_id : scope.post_job_result.position_id,
-      requistion_id : scope.post_job_result.requistion_id,
-      job_type : 'global'
+      // getting bucket names dynamically
+    var get_buckets = $http({
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        },
+        method: 'POST',
+        url: CONFIG.APP_DOMAIN+'buckets_list'
+    })
+    get_buckets.success(function(response){
+        scope.bucket_names = response.data.buckets_list;
+        scope.buckLoader = false;
+    });
+    get_buckets.error(function(response){
+        console.log(response);
     })
 
-    var post_job_api = $http({
-      headers: {
-         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-      },
-      method: 'POST',
-      url: CONFIG.APP_DOMAIN+'post_job',                               
-      data: post_job
-    })
+    var bucket_count = [];
 
-    post_job_api.success(function(response){
-      if(response.status_code == 200){
-        scope.success_cond = false;
-        scope.loader = false;
-        gettingData.setData({});
-        $uibModal.open({
-          animation: false,
-          keyboard: false,
-          backdrop: 'static',
-          templateUrl: 'templates/dialogs/post-success.phtml',
-          openedClass: "posted-success",
-          controller: 'SuccessController',
-          controllerAs:"succCtrl"
-        });
-      }
-      if(response.status_code == 406){
-        if(response.message.hasOwnProperty('bucket_id')){
-          scope.success_cond = false;
-          scope.loader = false;
-          scope.bucket_error = true;
+    this.getDataUpdate = function(src,ind,bucketId){
+        if(src == "public/images/add.svg"){
+          bucket_count.push(bucketId);
+          scope.bucket_names[ind].src = "public/images/select.svg";
         }
-      }
-    })
+        else{
+          var index = bucket_count.indexOf(bucketId);
+          bucket_count.splice(index, 1);
+          scope.bucket_names[ind].src="public/images/add.svg";
+        }
+        scope.userSelOnebkt = false;
+    }
 
-    post_job_api.error(function(response){
-      scope.success_cond = false;
-      console.log(response)
-    })
+    this.currencyInfo = [
+        { id : 1, code : '$' },
+        { id : 2, code : '₹' }
+    ];
 
-	}
+    this.code = '1';
+
+    this.reset = function(para){
+        if(para == ""){
+            scope.discoveryPoints = "";
+            scope.discoveryCurrency = "";
+            scope.code = '1';
+        }
+        else if(para == "paid"){
+            scope.discoveryPoints = "";
+            scope.discoveryRewardsType = 'paid';
+        }
+        else{
+            scope.discoveryCurrency = "";
+            scope.code = "1";
+            scope.discoveryRewardsType = 'points';
+        }
+        scope.bolFormValid = false; 
+    }
+
+    this.code1 = '1';
+    this.reset1 = function(para){
+        if(para == ""){
+            scope.referralPoints = "";
+            scope.referralCurrency = "";
+            scope.code1 = '1';
+        }
+        else if(para == "paid"){
+            scope.referralPoints = "";
+            scope.referralRewardsType = 'paid';
+        }
+        else{
+            scope.referralCurrency = "";
+            scope.code1 = "1";
+            scope.referralRewardsType = 'points';
+        }
+        scope.bolForm2Valid = false;
+    }
+
+    this.toggleDiscoveryReward = function(bolChk){
+        if(bolChk){
+            scope.discoveryRewardsType = 'free';
+        }
+        else{
+            scope.discoveryRewardsType = '';
+            scope.code = '1';
+            scope.discoveryCurrency = '';
+        }
+        scope.userSelRewards = false; 
+    }
+
+    this.toggleReferralReward = function(bolChk){
+        if(bolChk){
+            scope.referralRewardsType = 'free';
+        }
+        else{
+            scope.referralRewardsType = '';
+            scope.code1 = '1';
+            scope.referralCurrency = '';
+        }
+        scope.userSelRewards = false; 
+    }
+
+
+    this.success_cond = 
+    this.bolFormValid =  
+    this.bolForm2Valid = 
+    this.userSelOnebkt = 
+    this.userSelRewards = false;
+	this.requestSuccess =function (bolForm, bolForm2) {
+      
+        if (!bolForm || !bolForm2) {
+            !bolForm ? scope.bolFormValid = true : '';
+            !bolForm2 ? scope.bolForm2Valid = true : '';
+            return false;     
+        }
+
+        if (bucket_count.length == 0) {
+            scope.userSelRewards = false;
+            scope.userSelOnebkt = true;
+            return false;    
+        }
+        else if($(".select-rewards input[type='checkbox']").serializeArray().length == 0) {
+            scope.userSelOnebkt = false;
+            scope.userSelRewards = true;
+            return false;
+        }
+
+        var rewardsObj = [];
+        function rewards(type, rewards_value){
+            var obj =  {
+                type : type,
+                rewards_type : scope[type + 'RewardsType'],
+                currency_type : scope[rewards_value],
+                rewards_value : scope[type + 'Points'] || scope[type + 'Currency'] 
+            }
+            rewardsObj.push(obj);
+        }
+
+        if(scope.discoveryRewards){
+            rewards('discovery', 'code');    
+        }
+        if(scope.referralRewards){
+            rewards('referral', 'code1');    
+        }
+
+        var freeJob;
+        var disRwds = scope.discoveryRewardsType;
+        var refReds = scope.referralRewardsType;
+        if(disRwds == 'paid' ||  disRwds == 'points' || refReds == 'paid' || refReds == 'points' ) {
+            freeJob = 0;
+        }
+        else{
+            freeJob = 1;     
+        }
+        scope.bucket_error = false;
+        var buckets = bucket_count.toString();
+        scope.success_cond = true;
+        scope.loader = true;
+
+        var post_job = $.param({
+            rewards : rewardsObj,
+            job_title : scope.post_job_result.job_title,
+            location : scope.post_job_result.location,
+            industry : scope.post_job_result.industry.industry_id,
+            employment_type : scope.post_job_result.emp_type.employment_type_id,
+            job_description : scope.post_job_result.job_desc,
+            experience_range : scope.post_job_result.experience.experience_id,
+            job_function : scope.post_job_result.job_func.job_function_id,
+            free_job : freeJob ,
+            // job_currency : scope.rewardCond.currency,
+            // job_cost : scope.rewardCond.amount,
+            job_period : 'immediate', 
+            bucket_id : buckets,
+            position_id : scope.post_job_result.position_id,
+            requistion_id : scope.post_job_result.requistion_id,
+            job_type : 'global'
+        })
+        var post_job_api = $http({
+          headers: {
+             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+          },
+          method: 'POST',
+          url: CONFIG.APP_DOMAIN + 'post_job',                               
+          data: post_job
+        })
+
+        post_job_api.success(function(response) {
+          if(response.status_code == 200){
+            scope.success_cond = false;
+            scope.loader = false;
+            gettingData.setData({});
+            $uibModal.open({
+              animation: false,
+              keyboard: false,
+              backdrop: 'static',
+              templateUrl: 'templates/dialogs/post-success.phtml',
+              openedClass: "posted-success",
+              controller: 'SuccessController',
+              controllerAs:"succCtrl"
+            });
+          }
+          if(response.status_code == 406){
+            if(response.message.hasOwnProperty('bucket_id')){
+              scope.success_cond = false;
+              scope.loader = false;
+              scope.bucket_error = true;
+            }
+          }
+        })
+
+        post_job_api.error(function(response){
+          scope.success_cond = false;
+          console.log(response)
+        })
+
+    }
 
 
 }])

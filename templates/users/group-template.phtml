@@ -1,0 +1,40 @@
+<div class="group-cond">
+    <span class="title" ng-if="!UserGroupCtrl.newUser">{{UserGroupCtrl.title | uppercase}}({{UserGroupCtrl.groupData.count_of_users}})</span>
+    <span class="title" ng-if="UserGroupCtrl.newUser">ADD USER GROUP</span>
+    <div class="form-data">
+        <form name="new_group_form" novalidate>
+            <div class="user-inputs">
+                <md-input-container class="md-block md-no-float">
+                    <label>GROUP NAME</label>
+                    <input type="text" name="name" ng-model="UserGroupCtrl.groupData.name" placeholder="Enter Group Name" required ng-class="{'has-error-border':(new_group_form.name.$invalid && UserGroupCtrl.errCond) || UserGroupCtrl.backendError}">
+                    <div ng-if="new_group_form.name.$error.required && UserGroupCtrl.errCond" class="has-error-msg">Please Enter Group Name</div>
+                    <div ng-if="UserGroupCtrl.backendError" class="has-error-msg" ng-bind="UserGroupCtrl.backendError" style="text-transform: capitalize;"></div>
+                </md-input-container>
+                <md-input-container class="md-block select-box">
+                    <label style="display:none">STATUS</label>
+                    <md-select name="status" ng-model="UserGroupCtrl.groupData.status" required ng-class="{'has-error-border':new_group_form.status.$invalid && UserGroupCtrl.errCond}">
+                        <md-option ng-repeat="status in UserGroupCtrl.statusText" ng-value="status">{{status}}</md-option>
+                    </md-select>
+                    <div class="error-spacer"></div>
+                    <div ng-if="new_group_form.status.$error.required && UserGroupCtrl.errCond" class="has-error-msg">Please Select Status</div>
+                </md-input-container>
+            </div>
+            <div class="user-permissions">
+                <p class="title">PERMISSIONS</p>
+                <div ng-repeat="permissions in UserGroupCtrl.permissionsList" ng-include="UserGroupCtrl.permission_template"></div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="footer clearfix">
+    <div class="pull-left">
+        <span style="line-height:50px;">
+            <span ng-if="UserGroupCtrl.loader"><img src="public/images/loader/upload_file.gif" alt="loader" style="margin:5px;"><span ng-bind="UserGroupCtrl.newUser ? 'Creating' : 'Updating'"></span></span>
+            <span class="message fade" ng-if="UserGroupCtrl.message" ng-bind="UserGroupCtrl.backendMsg"></span>
+        </span>
+    </div>
+    <div class="pull-right disabled">
+        <span class="btn-cancel ripplelink" data-ripple-color="#757575" ng-click="UserGroupCtrl.reset('group', UserGroupCtrl.newUser)">CANCEL</span>
+        <span class="btn-save-changes ripplelink" ng-click="UserGroupCtrl.createGroup(new_group_form.$valid,  UserGroupCtrl.groupData.group_id, UserGroupCtrl.newUser)" ng-bind="UserGroupCtrl.newUser ? 'ADD USER GROUP' : 'SAVE CHANGES' "></span>
+    </div>
+</div>     

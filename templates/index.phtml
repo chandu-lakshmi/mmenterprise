@@ -21,6 +21,7 @@ and open the template in the editor.
         <link rel="stylesheet" type="text/css" href="public/css/home.css">
         <link rel="stylesheet" type="text/css" href="public/css/import-contacts.css">
         <link rel="stylesheet" type="text/css" href="public/css/fileuploader.css">
+        <link rel="stylesheet" type="text/css" href="public/css/ripple-effect.css">
         <script type="text/javascript" src="public/js/vendor/jquery-1.12.4.js"></script>
         <!-- <script type="text/javascript" src="public/js/vendor/jquery-ui.js"></script> -->
         <script type="text/javascript" src="public/js/vendor/bootstrap.min.js"></script>
@@ -55,21 +56,24 @@ and open the template in the editor.
                 })
                 .value('tokens',{
                     access_token:'<?php echo isset($data["token"])?$data['token']:""; ?>',
-                    reset_token:'<?php echo isset($data["resetcode"])?$data['resetcode']:"" ?>'
+                    reset_token:'<?php echo isset($data["resetcode"])?$data['resetcode']:"" ?>',
+                    set_token:'<?php echo isset($data["setcode"])?$data['setcode']:"" ?>'
                 })
-                .value('UserDetails',<?php echo isset($data['user_details'])?$data['user_details']:'{}';?>)
-                .value('CompanyDetails',<?php echo isset($data['comp_data'])?$data['comp_data']:'{}';?>)
+                .value('UserDetails',<?php echo (isset($data['user_details']) && isset($data['comp_data']['userDetails']))?json_encode($data['comp_data']['userDetails']):'{}';?>)
+                .value('CompanyDetails',<?php echo (isset($data['comp_data']) && isset($data['comp_data']['companyDetails']))?json_encode($data['comp_data']['companyDetails']):'{}';?>)
                 .value('jobDetails',{
                     id:'<?php echo isset($data['post_id'])?$data['post_id']:'';?>',
                     job_title : ''
                 })
+                .constant('userPermissions',<?php echo (isset($data['comp_data']) && isset($data['comp_data']['userPermissions']))?json_encode($data['comp_data']['userPermissions']):'{}';?>)
             }());
             
         </script>
     </head>
     <body>
         <div data-ui-view style="height: 100%" ng-cloak></div>
-    
+        
+        <script type="text/javascript" src="public/js/helpers/ripple-effect.js"></script>
         <script type="text/javascript" src="public/js/controllers/home.js"></script>
         <script type="text/javascript" src="public/js/controllers/forgot-password.js"></script>
         <script type="text/javascript" src="public/js/controllers/company-profile.js"></script>

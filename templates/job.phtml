@@ -1,22 +1,45 @@
 <div class="job-search container">
 	<!--Search sort-->
-	<div class="row search-job padZ" style="border:0;margin:1% 0">
+	<div class="row search-job padZ" style="border:0;margin: 2.5% 0 1% 0">
 		<div class="left-inner-addon col-xs-12 col-sm-4 ct-search">
 			<md-input-container md-no-float="" class="md-block">
 				<img src="public/images/search.svg" alt="feedback_left" ng-if="!jobSearchCtrl.search_load_cond">
-				<input type="text" ng-model="jobSearchCtrl.search_value"  placeholder="Search Jobs" ng-keyup="jobSearchCtrl.searchFilter(jobSearchCtrl.pay_status,jobSearchCtrl.search_value)">
+				<input type="text" ng-model="jobSearchCtrl.search_value"  placeholder="Search Jobs" ng-keyup="jobSearchCtrl.searchFilter(jobSearchCtrl.pay_status, jobSearchCtrl.jobFilter, jobSearchCtrl.search_value)">
 				<img  src="public/images/loader/search_loader.gif" alt="feedback_left" style="width:45px;height:41px;" ng-if="jobSearchCtrl.search_load_cond">
-				<img src="public/images/cross.svg" class="feedback" ng-show="jobSearchCtrl.search_value.length >= 1" ng-click="jobSearchCtrl.search_value = '';jobSearchCtrl.searchFilter(jobSearchCtrl.pay_status,jobSearchCtrl.search_value)" alt="feedback_right">
+				<img src="public/images/cross.svg" class="feedback" ng-show="jobSearchCtrl.search_value.length >= 1" ng-click="jobSearchCtrl.search_value = '';jobSearchCtrl.searchFilter(jobSearchCtrl.pay_status, jobSearchCtrl.jobFilter, jobSearchCtrl.search_value)" alt="feedback_right">
 			</md-input-container>
-    		<!-- <img src="public/images/search.svg" alt="feedback_left" ng-if="!jobSearchCtrl.search_load_cond">
-    		<input type="text" ng-model="jobSearchCtrl.search_value" class="form-control search" placeholder="Search Jobs" ng-keyup="jobSearchCtrl.searchFilter(jobSearchCtrl.pay_status,jobSearchCtrl.search_value)"/>
-    		<img src="public/images/loader/search_loader.gif" alt="feedback_left" style="width:45px;height:41px;" ng-if="jobSearchCtrl.search_load_cond"/>
-    		<img src="public/images/cross.svg" class="feedback" ng-show="jobSearchCtrl.search_value.length >= 1" ng-click="jobSearchCtrl.search_value = '';jobSearchCtrl.searchFilter(jobSearchCtrl.pay_status,jobSearchCtrl.search_value)" alt="feedback_right">
-           	<span class="bar"></span> -->
+    		
 		</div>
 		<div class="col-xs-12 col-sm-6 col-sm-offset-2">
-			<span>
-				<div class="pull-left filter">Filter by :</div>
+			<span class="filter-group">
+				<div ng-show="{{::userPermissions.is_primary == 0}}">
+					<span class="filter">Filter by :</span>
+					<md-input-container>
+						<label style="display:none !important">Job</label>
+						<md-select  name="job" ng-model="jobSearchCtrl.jobFilter" ng-change="jobSearchCtrl.selectFilter(jobSearchCtrl.pay_status, jobSearchCtrl.jobFilter, jobSearchCtrl.search_value)">
+			              	<md-option ng-repeat="job in jobSearchCtrl.filterBy" ng-value="job.id">
+			                	{{job.label}}
+			              	</md-option>
+						</md-select>
+					</md-input-container>
+				</div>
+
+				<div class="filter-type">
+					<span class="filter">Type :</span>
+					<md-input-container>
+						 <label style="display:none !important">Job</label>
+						<md-select  name="job" ng-model="jobSearchCtrl.pay_status" ng-change="jobSearchCtrl.selectFilter(jobSearchCtrl.pay_status, jobSearchCtrl.jobFilter, jobSearchCtrl.search_value)">
+			              	<md-option ng-repeat="job in jobSearchCtrl.jobType" ng-value="job.id">
+			                	{{job.name}}
+			              	</md-option>
+						</md-select>
+					</md-input-container>
+				</div>
+				<a ui-sref="^.postJob" ng-show="{{::userPermissions.post_jobs == 1}}">POST JOB</a>
+
+			</span>
+			<!-- <span>
+				<span class="filter">Type :</span>
 				<md-input-container>
 					 <label style="display:none !important">Job</label>
 					<md-select  name="job" ng-model="jobSearchCtrl.pay_status" ng-change="jobSearchCtrl.selectFilter(jobSearchCtrl.pay_status,jobSearchCtrl.search_value)">
@@ -25,16 +48,9 @@
 		              	</md-option>
 					</md-select>
 				</md-input-container>
-				<!-- <div class="form-group">
-					<i class="fa fa-angle-down fa-feedback select-arrow" style="color:#000"></i>
-				  <select class="form-control" style="display:inline-block" ng-model="jobSearchCtrl.pay_status" ng-change="jobSearchCtrl.selectFilter(jobSearchCtrl.pay_status,jobSearchCtrl.search_value)">
-				    <option value="2">All</option>
-				    <option value="0">Paid</option>
-				    <option value="1">Free</option>
-				  </select>
-				</div> -->
-				<a ui-sref="^.postJob"><img src="public/images/arrow-top.svg" alt="uparrow" style="margin-top:-3px"> POST REQUEST</a>
-			</span>
+				
+				<a ui-sref="^.postJob" ng-show="{{::userPermissions.post_jobs == 1}}">POST JOB</a>
+			</span> -->
 		</div>	
 	</div>
 
@@ -45,7 +61,7 @@
 	<div class="post_err_msg" ng-if="jobSearchCtrl.init_no_posts_found">There are no open Job Requests  at this time.<br> Would you like to create a new Job Request?</div>
 	<div class="post_err_msg" ng-if="jobSearchCtrl.no_posts_found">No Jobs Found</div>
 	<!-- infinite scroll -->
-	<div infinite-scroll='jobSearchCtrl.nextPage(jobSearchCtrl.pay_status,jobSearchCtrl.search_value)' infinite-scroll-disabled='jobSearchCtrl.busy' infinite-scroll-distance='2' style="position:relative" ng-style="{'opacity':jobSearchCtrl.overLoader ? '0.5' : ''}">
+	<div infinite-scroll='jobSearchCtrl.nextPage(jobSearchCtrl.pay_status, jobSearchCtrl.jobFilter, jobSearchCtrl.search_value)' infinite-scroll-disabled='jobSearchCtrl.busy' infinite-scroll-distance='2' style="position:relative" ng-style="{'opacity':jobSearchCtrl.overLoader ? '0.5' : ''}">
 		<!--Typeof Job -->
 		<div class="row" ng-repeat="jobList in jobSearchCtrl.jobDetails">
 			<div class="job-type">
@@ -58,13 +74,22 @@
 						</h3>
 					</a>
 				</div>
-				<span ng-init="sc=jobList.service_cost;jobList.cost = jobList.free_service == '1' ? 'FREE' : (jobList.service_currency =='DLR' ? '$'+sc+'/Referral' : '&#8377;'+sc+'/Referral')" style="float:right;margin-top:2px">
+				<span  class="job-rewards">
 					<span class="date-stamp" style="font-size: 15px">
 						{{jobList.created_at | myDate | date:'dd MMM, yyyy'}}
 					</span>
-					<span ng-class="{'job_free':jobList.free_service == '1'}">
-						{{jobList.cost}}
+					<!-- <span ng-show="jobList.rewards.length == 0" class="job_free">
+						Free
 					</span>
+					<span ng-class="{'job_free':jobList.free_service == '1'}" ng-repeat="rewardType in jobList.rewards">
+						{{ jobList.free_service == '1' ? 'Free' : jobSearchCtrl.getRewardsView(rewardType) }}
+					</span> -->
+					<span ng-if="jobList.free_service == '1'" class="job_free">
+						Free
+					</span>
+					<span ng-if="!(jobList.free_service == '1')" ng-repeat="list in jobList.rewards" ng-class='{"pad-mar-zero":list.rewards_type== "free"}' ng-bind="jobSearchCtrl.getRewardsView(list)">
+					</span>
+
 					<span class="status" 
 						ng-bind="jobList.status == 'ACTIVE' ? 'OPEN' : 'CLOSED'"
 						ng-style="{'background' : jobList.status == 'ACTIVE' ? '#229A77' : '#e46f6f'}">

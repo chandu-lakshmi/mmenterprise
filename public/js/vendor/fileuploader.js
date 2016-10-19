@@ -17,6 +17,7 @@
 
 var qq = qq || {};
 
+
 /**
  * Adds all missing properties from second obj to first obj
  */ 
@@ -926,6 +927,7 @@ qq.UploadButton.prototype = {
                 
         input.setAttribute("type", "file");
         input.setAttribute("name", this._options.name);
+        input.setAttribute("title", " ");
         
         qq.css(input, {
             position: 'absolute',

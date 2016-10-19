@@ -13,7 +13,7 @@
 				<div class="col-sm-8 col-sm-offset-2" style="margin-bottom: 20px;height: 690px;">
 					<form role="form" name="company_form" novalidate  enctype="multipart/form-data" method="post">
 
-						<div class="company go_0 animate same" ng-if="compCtrl.go_0">
+						<div class="company go_0" ng-if="compCtrl.go_0">
 							<!-- <div class="company-header">
 								<p><img src="public/images/tickmark.svg">&nbsp;&nbsp;Thank you for verifying your email.</p>
 							</div> -->
@@ -39,8 +39,8 @@
 								</div>
 								<div class="description">
 									<label for="desc">COMPANY DESCRIPTION</label>
-									<textarea rows="4" class="form-control" id="desc" spellcheck="false" ng-model="compCtrl.desc" maxlength="500"></textarea>
-									<span class="max_length">Remaining {{500 - compCtrl.desc.length}} / 500 left</span>
+									<textarea rows="4" class="form-control" id="desc" spellcheck="false" ng-model="compCtrl.desc" maxlength="5000"></textarea>
+									<span class="max_length">Remaining {{5000 - compCtrl.desc.length}} / 5000 left</span>
 								</div>
 							</div>
 							<div class="company-footer text-center clearfix">
@@ -55,7 +55,7 @@
 							</div>
 						</div>
 
-						<div class="company go_2 animate same" ng-if="compCtrl.go_1">
+						<div class="company go_2" ng-if="compCtrl.go_1">
 							<div class="company-content">
 								<h3 style="margin:20px 0 50px 0">Complete your company profile:</h3>
 								<div style="width: 60%;margin-bottom:30px">
@@ -95,7 +95,7 @@
 							</div>
 						</div>
 
-						<div class="company go_1 animate same" ng-if="compCtrl.go_2" style="color: #666;">
+						<div class="company go_1" ng-if="compCtrl.go_2" style="color: #666;">
 							<div class="company-content">
 								<div class="upload">
 									<span>LOGO <small style="color: #999">(Add your company logo)</small></span>
@@ -151,7 +151,7 @@
 							</div>
 						</div>
 						
-						<div class="company go_3 animate same" ng-if="compCtrl.go_3">
+						<div class="company go_3" ng-if="compCtrl.go_3">
 							<div class="company-content">
 								<div class="final_state row text-center">
 									<img src="public/images/tickmark.svg">

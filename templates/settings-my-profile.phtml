@@ -1,51 +1,43 @@
 <div class="my-profile">
 	<div class="container">
-		<div class="details" ng-init="changePassword = false">
-			<form name="my_profile_form">
-				<img ng-src="{{MyProfileCtrl.displayPicture}}" alt="display_pic" class="img-circle">
-				<p>User Photo</p>
-				<div class="checkbox">
-	  				<label><input type="checkbox" value="">Set as Company Profile pic</label>
-				</div>
-				<div class="content">
-					<md-input-container class="md-block">
-	                    <label>USER NAME</label>
-	                    <input type="text" name="username" ng-model="MyProfileCtrl.myProfile.user_name" required ng-class="{'has-error-border':my_profile_form.username.$invalid && MyProfileCtrl.errCond}">
-	                    <div ng-if="my_profile_form.username.$error.required && MyProfileCtrl.errCond" class="has-error-msg">Please Enter Name</div>
-	                </md-input-container>
-	                <md-input-container class="md-block" style="margin-bottom:20px;" ng-style="{'margin-bottom': changePassword == true ? '45px' : '20px'}">
-	                    <label>EMAIL</label>
-	                    <input type="text" name="emailid" ng-model="MyProfileCtrl.myProfile.user_email" required ng-pattern="/^[a-z0-9A-Z._%+-]+@[a-zA-Z]+\.[a-z]{2,3}$/" ng-class="{'has-error-border':my_profile_form.emailid.$invalid && MyProfileCtrl.errCond}">
-	                    <div ng-if="my_profile_form.emailid.$error.required && MyProfileCtrl.errCond" class="has-error-msg">Please Enter Email Address</div>
-	                    <div ng-if="my_profile_form.emailid.$error.pattern && MyProfileCtrl.errCond" class="has-error-msg">Please Enter Valid Email Address</div>
-	                </md-input-container>
-	                <div ng-show="!changePassword">
-	                	<p ng-click="changePassword = true;">Change Password</p>
-	                </div>
-	                <div ng-show="changePassword">
-	                	<md-input-container class="md-block">
-							<label>CURRENT PASSWORD</label>
-								<input type="password" name="current_password" ng-model="MyProfileCtrl.myProfile.current_password" required ng-pattern="/^(?=.*[a-zA-Z0-9]).{6,16}$/"  ng-class="{'has-error-border':myProfile.current_password.$invalid && MyProfileCtrl.errCond}">
-								<div ng-if="myProfile.current_password.$error.required && MyProfileCtrl.errCond" class="has-error-msg">Password Field is Required.</div>
-		                    <div ng-if="myProfile.current_password.$error.pattern && MyProfileCtrl.errCond" class="has-error-msg">Please Enter Atleast 6 characters.</div>
-						</md-input-container>
+		<div class="details">
+			<div class="content">
+				<form name="my_profile_form" novalidate>
+					<div id="display_pic"></div>
+					<p class='add-text'>User Photo</p>
+					<div class="checkbox" ng-style="{'pointer-events': MyProfileCtrl.has_image == true ? 'auto' : 'none'}" ng-show="{{::userPermissions.is_primary == 1}}">
+	  					<input id="disabled" type="hidden" name="flag" value="0">
+	  					<input id="checkbox" type="checkbox" name="flag" value="1" onchange="angular.element(this).scope().MyProfileCtrl.change()">
+	  					<label for="checkbox">Set as Company Profile pic</label>
+					</div>
+					<div class="first">
 						<md-input-container class="md-block">
-							<label>NEW PASSWORD</label>
-								<input type="password" name="new_password" ng-model="MyProfileCtrl.myProfile.new_password" required ng-pattern="/^(?=.*[a-zA-Z0-9]).{6,16}$/"  ng-class="{'has-error-border':myProfile.new_password.$invalid && MyProfileCtrl.errCond}">
-								<div ng-if="myProfile.new_password.$error.required && MyProfileCtrl.errCond" class="has-error-msg">Password Field is Required.</div>
-		                    <div ng-if="myProfile.new_password.$error.pattern && MyProfileCtrl.errCond" class="has-error-msg">Please Enter Atleast 6 characters.</div>
-						</md-input-container>
-						<md-input-container class="md-block" style="margin-bottom: 18px">
-							<label>CONFIRM PASSWORD</label>
-								<input type="password" name="confirm_password" ng-model="MyProfileCtrl.myProfile.confirm_password" required ng-pattern="/^(?=.*[a-zA-Z0-9]).{6,16}$/"  ng-class="{'has-error-border':myProfile.confirm_password.$invalid && MyProfileCtrl.errCond}">
-								<div ng-if="myProfile.confirm_password.$error.required && MyProfileCtrl.errCond" class="has-error-msg">Password Field is Required.</div>
-		                    <div ng-if="myProfile.confirm_password.$error.pattern && MyProfileCtrl.errCond" class="has-error-msg">Please Enter Atleast 6 characters.</div>
-						</md-input-container>
-						<span class="btn-confirm">Confirm Password</span>
-						<span class="btn-cancel" ng-click="changePassword = false">CANCEL</span>
-	                </div>
+		                    <label>USER NAME</label>
+		                    <input type="text" name="name" ng-model="MyProfileCtrl.myProfile.user_name" required ng-class="{'has-error-border':my_profile_form.name.$invalid && MyProfileCtrl.errCond}" autofocus>
+		                    <div ng-if="my_profile_form.name.$error.required && MyProfileCtrl.errCond" class="has-error-msg">Please Enter Name</div>
+		                </md-input-container>
+		                <md-input-container class="md-block" style="margin-bottom:0;pointer-events:none;">
+		                    <label>EMAIL</label>
+		                    <input type="text" name="emailid" ng-model="MyProfileCtrl.myProfile.user_email" required ng-pattern="/^[a-z0-9A-Z._%+-]+@[a-zA-Z]+\.[a-z]{2,3}$/" ng-class="{'has-error-border':my_profile_form.emailid.$invalid && MyProfileCtrl.errCond}">
+		                    <div ng-if="my_profile_form.emailid.$error.required && MyProfileCtrl.errCond" class="has-error-msg">Please Enter Email Address</div>
+		                    <div ng-if="my_profile_form.emailid.$error.pattern && MyProfileCtrl.errCond" class="has-error-msg">Please Enter Valid Email Address</div>
+		                </md-input-container>
+		                <p ng-click="MyProfileCtrl.setPassword();" class="change">Change Password</p>
+		            </div>
+		        </form>
+		    </div>
+		    <div class="footer clearfix">
+		    	<div class="pull-left">
+					<span style="line-height:50px;">
+						<span ng-if="MyProfileCtrl.loader"><img src="public/images/loader/upload_file.gif" alt="loader" style="margin:5px;"> Saving Changes</span>
+						<span class="message fade" ng-if="MyProfileCtrl.message" ng-bind="MyProfileCtrl.successMsg"></span>
+					</span>
 				</div>
-			</form>
+				<div class="pull-right disabled">
+					<span class="btn-cancel ripplelink" data-ripple-color="#757575" ng-click="MyProfileCtrl.cancel('user');">CANCEL</span>
+					<span class="btn-save-changes ripplelink" ng-click="MyProfileCtrl.saveChanges(my_profile_form.$valid)">Save Changes</span>
+				</div>
+		    </div>
 		</div>
 	</div>
 </div>

@@ -44,7 +44,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
     }
 })
 
-.controller('ContactsController',['$scope', '$http', '$q', '$interval', 'buckets', 'uiGridValidateService', '$uibModal', 'CONFIG', function($scope, $http, $q, $interval, buckets, uiGridValidateService, $uibModal, CONFIG){
+.controller('ContactsController',['$scope', '$http', '$q', '$interval', 'buckets', 'uiGridValidateService', '$uibModal', 'CONFIG', 'userPermissions', function($scope, $http, $q, $interval, buckets, uiGridValidateService, $uibModal, CONFIG, userPermissions){
 	
 	var scope = this;
 	this.loaderImg = false;
@@ -92,10 +92,18 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
         }   
     }
 
+    var edit_feature;
+    if(userPermissions.edit_contacts == 1){
+        edit_feature = true;
+    }
+    else{
+        edit_feature = false;
+    }
 
     this.selectedContacts = [];
     this.gridOptions = {
     	rowHeight : 70,
+        cellEditableCondition : edit_feature,
     	enableCellEditOnFocus : true,
     	selectionRowHeaderWidth : 56,
     	enableHorizontalScrollbar: 0,
@@ -108,13 +116,17 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
             { name: 'employeeid', displayName: 'ID', cellClass:'grid-other-id' ,validators: { charOtherId:''}, cellTemplate: 'ui-grid/cellTitleValidator'},
             { name: 'status',
               displayName: 'Status',
-              editableCellTemplate: 'select-drop.html', 
+              editableCellTemplate: userPermissions.edit_contacts == 1 ? 'select-drop.html' : '', 
               sort: { direction: 'asc'}, 
-              cellEditableCondition:true,
               enableSorting:true,
               cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
                 var text = grid.getCellValue(row ,col).toLowerCase();
-                return (text == 'separated') ?  'separated-s' : ((text == 'active') ? 'active-s' :'inactive-s');
+                if(userPermissions.edit_contacts == 1){
+                    return (text == 'separated') ?  'separated-s' : ((text == 'active') ? 'active-s' :'inactive-s');
+                }
+                else{
+                    return '';
+                }
               }, 
               validators: {required: true, statusValidation:''}, 
               cellTemplate: 'ui-grid/cellTitleValidator' 

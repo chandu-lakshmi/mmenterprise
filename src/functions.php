@@ -32,54 +32,59 @@ function getapiEndpoint($settings=array(), $endpoint) {
 
 //USER AND COMPANY DETAILS For arguments
 function commonData ($settings = array()) {
-	
 	$companyDetails = array(
 		'company_name' => $_SESSION['company']['company_name'],
 		'company_logo' => $_SESSION['company']['company_logo']);
 	$userDetails = array(
 		'user_name' => $_SESSION['user']->firstname,
-		'user_email' => $_SESSION['user']->emailid);
-
+		'user_id' => $_SESSION['user']->id,
+		'user_email' => $_SESSION['user']->emailid,
+                'user_dp'   => $_SESSION['user']->user_dp);
+        $userPermissions = $_SESSION['userPermissions'];
 	return array(
 			'API_DOMAIN' 	=> $settings['APP']['API_DOMAIN'],
 			'APP_DOMAIN' 	=> $settings['APP']['APP_DOMAIN'],
 			'PATH'          => $settings['APP']['PATH'],
 			'user_details'	=> isset($userDetails)?json_encode($userDetails):array(),
 			'company_details' => isset($companyDetails)?json_encode($companyDetails):array(),
+                        'userPermissions' => isset($userPermissions)?json_encode($userPermissions):array(),
 		);
 }
 
 function companyProfile($settings){
     //echo "<pre>";
        //print_r($settings);exit;
-    
     // getting API endpoint from settings
     $apiEndpoint = getapiEndpoint($settings, 'get_company_profile');
-  
+
     $companyDetails     = new Curl(array(
         'url'           => $apiEndpoint,
         'postData'      => $_POST
      ));
-    
      $data = json_decode($companyDetails->loadCurl(),true);
      if(isset($data['data'])){
-  
-       return json_encode($data['data']['companyDetails']);  
+       //update the user permissions userPermissions  
+        if(isset($_SESSION['userPermissions'])){
+              $arrayList["userPermissions"] = $data['data']['userPermissions'];
+              $arrayList["userDetails"] = $data['data']['userDetails'];
+            //Update Session
+            updateSession($arrayList);
+         }
+         
+       return ($data['data']);  
      }else{
         return array(); 
      }
-     
+          
      
 }
 
+
 //Session Details
 function setSession($result = "") {
-
 	$result = json_decode($result);
-
 	$session = new Session();
 	$data = Array();
-
 	if(!empty($result->data)) {
 
 		if(isset($result->data->access_token) && !empty($result->data->access_token)) {
@@ -95,15 +100,18 @@ function setSession($result = "") {
 				"company_name" => $result->data->company->name,
 				"company_logo" => $result->data->company->logo,
 			);
-	
+                $data['userPermissions'] = get_object_vars($result->data->userPermissions);
     	$session->set($data);
 	}
 }
 
 //Update Session in array
 function updateSession($resultArray = array()){
-	
 	$session = new Session();
+//        if(isset($_SESSION['userPermissions'])){
+//            $session->delete('userPermissions');
+//        
+//        }
 	$session->updateArray($resultArray);
 }
 
@@ -113,6 +121,7 @@ function sessionDestroy(){
 	$session->delete('access_token');
 	$session->delete('user');
 	$session->delete('company');
+        $session->delete('userPermissions');
 	$session->destroy();
 }
 

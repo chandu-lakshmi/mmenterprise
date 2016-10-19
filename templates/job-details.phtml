@@ -50,50 +50,76 @@
 </div>
 
 
-<div class="container" style="font-size:16px;min-height:873px" ng-if="!jobDetailsCtrl.job_details_loader">
-	<div class="row" style="margin:0;position:relative">
-		<span class="close-job" ng-click="jobDetailsCtrl.closeJob()" ng-if="jobDetailsCtrl.post_data.status == 'ACTIVE'">
+<div class="container new-job-details" style="font-size:16px;min-height:873px" ng-if="!jobDetailsCtrl.job_details_loader">
+	<div class="row info-box" style="margin:0;position:relative">
+		<span class="close-job" ng-click="jobDetailsCtrl.closeJob()" ng-if="jobDetailsCtrl.post_data.status == 'ACTIVE'" ng-show="{{::userPermissions.close_jobs == 1}}">
 			CLOSE JOB
 		</span>
-		<div class="col-xs-12 job_des_bo">
-			<div class="job_des_info">
-				<div>
-					<span>Job Function:</span>
-					<span>{{jobDetailsCtrl.post_data.job_function}}</span>
+		<div class="col-sm-6 lt">
+			<div class="row">
+				<span class="col-sm-5">Job Function:</span>
+				<span class="col-sm-7">{{jobDetailsCtrl.post_data.job_function}}</span>
+			</div>
+			<div class="row">
+				<span class="col-sm-5">Industry:</span>
+				<span class="col-sm-7">{{jobDetailsCtrl.post_data.industry_name}}</span>
+			</div>
+			<div class="row">
+				<span class="col-sm-5">Location:</span>
+				<span class="col-sm-7">{{jobDetailsCtrl.post_data.location}}</span>
+			</div>
+			<div class="row">
+				<span class="col-sm-5">Experience:</span>
+				<span class="col-sm-7">{{jobDetailsCtrl.post_data.experience_range}}</span>
+			</div>
+			<div class="row">
+				<span class="col-sm-5">Employment Type:</span>
+				<span class="col-sm-7">{{jobDetailsCtrl.post_data.employment_type}}</span>
+			</div>
+			<div class="row">
+				<span class="col-sm-5">Position ID:</span>
+				<span class="col-sm-7">{{jobDetailsCtrl.post_data.position_id}}</span>
+			</div>
+			<div class="row">
+				<span class="col-sm-5">Requisition ID:</span>
+				<span class="col-sm-7">{{jobDetailsCtrl.post_data.requistion_id}}</span>
+			</div>
+		</div>
+		<div class="col-sm-6 rt">
+			<div class="currency">
+				<h4 style="color:#777777;font-weight: 700;">Job Rewards:</h4>
+				<div ng-repeat="rewards in jobDetailsCtrl.post_data.rewards" ng-style="{'padding':$last ? '15px 0px 48px' : ''}">
+					<span ng-bind="(rewards.rewards_name) + ' Rewards'"></span>
+					<h4 ng-bind="jobDetailsCtrl.getRewardsView(rewards)"
+						ng-style="{'color': rewards.rewards_name == 'Discovery' ? '#3e7b1c' :' #2174a6'}">	
+					</h4>
 				</div>
-				<div>
-					<span>Industry:</span>
-					<span>{{jobDetailsCtrl.post_data.industry_name}}</span>
+				<!-- <div class="discovery-rewards">
+					<span>Discovery Rewards</span>
+					<h4 ng-bind="jobDetailsCtrl.post_data.free_service == '1' ? 'Free' : jobDetailsCtrl.getRewardsView(jobDetailsCtrl.post_data.rewards, 'Discovery')"></h4>
 				</div>
+
+				<div class="referral-rewards" style="padding: 15px 0px 48px;">
+					<span>Referral Rewards</span>
+					<h4 ng-bind="jobDetailsCtrl.post_data.free_service == '1' ? 'Free' : jobDetailsCtrl.getRewardsView(jobDetailsCtrl.post_data.rewards, 'Referral')"></h4>
+				</div> -->
 				<div>
-					<span>Location:</span>
-					<span>{{jobDetailsCtrl.post_data.location}}</span>
-				</div>
-				<div>
-					<span>Experience:</span>
-					<span>{{jobDetailsCtrl.post_data.experience_range}}</span>
-				</div>
-				<div>
-					<span>Employment Type:</span>
-					<span>{{jobDetailsCtrl.post_data.employment_type}}</span>
-				</div>
-				<div>
-					<span>Position ID:</span>
-					<span>{{jobDetailsCtrl.post_data.position_id}}</span>
-				</div>
-				<div>
-					<span>Requisition ID:</span>
-					<span>{{jobDetailsCtrl.post_data.requistion_id}}</span>
+					<h4>Invited Groups:</h4>
+					<h4><span style="color:inherit" ng-repeat="bktName in jobDetailsCtrl.post_data.bucket_name">{{bktName + ($last ? '' : ',&nbsp;') }}</span></h4>
 				</div>
 			</div>
 		</div>
-		<div class="col-xs-12 job-des-text job_des_bo">
-			<p>Job Description:</p>
-			<p class="indent" style="white-space: pre-line;">{{jobDetailsCtrl.post_data.job_description}}</p>
-			
-		</div>
-		<div class="col-xs-12 job-des-text job_des_bo" style="border:0">
-			<p>Company Description:</p>
-			<p class="indent" style="white-space: pre-line;">{{jobDetailsCtrl.post_data.company_description}}</p>
-		</div>
+	</div>
+	<div class="job-des-text job_des_bo">
+		<p>Job Description:</p>
+		<pre>
+			{{jobDetailsCtrl.post_data.job_description}}
+		</pre>
+	</div>
+	<div class="job-des-text job_des_bo" style="border:0">
+		<p>Company Description:</p>
+		<pre>
+			{{jobDetailsCtrl.post_data.company_description}}
+		</pre>
+	</div>
 </div>

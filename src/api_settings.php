@@ -62,6 +62,10 @@ return [
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/reset_password'
             ],
+            'set_password' => [
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/set_password'
+            ],
             'jobs_list' => [
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/jobs_list'
@@ -130,7 +134,34 @@ return [
             'upload_contacts' => [
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/upload_contacts'
-            ]
-           
+            ],
+            'permissions' => [
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/permissions'
+            ],
+            'add_user' => [
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/add_user'
+            ],
+             'add_group' => [
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/add_group'
+            ],
+            'get_groups' => [
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_groups'
+            ],
+            'get_user_permissions' => [
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_user_permissions'
+            ],
+            'update_user' => [
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/update_user'
+            ], 
+            'change_password' => [
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/change_password'
+            ], 
     ];
         

@@ -57,7 +57,7 @@
     border-color: #1d8e70;
 }
 .grid-contacts .container .container-lt .dropdown ul{
-	min-width: 231px;
+	width: 100%;
 	margin: 0;
 	padding: 0;
 }
@@ -210,7 +210,7 @@
 .grid-contacts .grid-other-id{
 	text-transform: uppercase;
 }
-.grid-contacts .grid .ui-grid-contents-wrapper > .ui-grid-render-container .ui-grid-canvas div[ui-grid-row="row"] div:not(.grid-email):hover div:first-child:before{
+.grid-contacts .hover-enable .ui-grid-contents-wrapper > .ui-grid-render-container .ui-grid-canvas div[ui-grid-row="row"] div:not(.grid-email):hover div:not(.invalid):first-child:before{
 	content: '';
     position: absolute;
     border: 1px solid #0990e2;

@@ -6,26 +6,28 @@
 			<div class="job-title" style="padding-left:0px;">
 				<a ui-sref="^.job"><img src="public/images/back-arrow-black.svg" alt="arrowback" style="margin-top:30px;"></a>
 				<span class="company-name">{{PtJobCtrl.company_name | uppercase}}</span>
-				<h2 class="text-center">Create Your Request</h2>
+				<h2 class="text-center">Create Your Job</h2>
 			</div>
 
 			<div class="content">
 				<form role="form" name="post_job" ng-submit="PtJobCtrl.postJob(post_job.$valid)" novalidate onkeypress="return (event.keyCode == 13 && event.target.tagName != 'TEXTAREA') ? false : true ">
 					<div class="row">
-						 <div class="col-lg-4">
-							<!--<div class="form-group">
+						<div class="col-sm-4">
+							<!-- <div class="form-group">
 								<label for="job_title">Job Title*</label>
 								<div angucomplete-alt id="ex1"
 									  placeholder="Search Jobs"
 									  maxlength="50"
 									  pause="100"
-									  selected-object="selectedCountry"
-									  local-data="countries"
+									  remote-api-handler="PtJobCtrl.getServices"
+									  title-field="service_name"
+									  selected-object="PtJobCtrl.postJob1.job_title"
 									  search-fields="name"
 									  title-field="name"
 									  minlength="1"
 									  input-class="form-control"
-									  match-class="highlight">
+									  match-class="highlight"
+									  field-required="true">
 								</div>
 							</div> -->
 							<div class="form-group ui-widget">
@@ -35,7 +37,7 @@
 							  	<div ng-if="post_job.job_title.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Job Title Field is Required.</div>
 							</div>
 						</div>
-						<div class="col-lg-4">
+						<div class="col-sm-4">
 							<div class="form-group">
 								<label for="job_func">Job Function*</label>
 								<i class="fa fa-angle-down fa-feedback" style="color: #F46113"></i>
@@ -46,17 +48,17 @@
 								<div ng-if="post_job.job_func.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Job Function Field is Required.</div>
 							</div>
 						</div>
-						<div class="col-lg-4">
+						<div class="col-sm-4">
 							<div class="form-group">
 								<label for="location">Location*</label>
-								<input id="location" class="form-control" ng-model="PtJobCtrl.postJob1.location" name="location" ng-autocomplete="PtJobCtrl.geo_location" details="PtJobCtrl.geo_details" options="PtJobCtrl.geo_options" required class="has-error-border">
+								<input id="location" class="form-control" ng-model="PtJobCtrl.postJob1.location" name="location" ng-autocomplete="PtJobCtrl.geo_location" details="PtJobCtrl.geo_details" options="PtJobCtrl.geo_options" required class="has-error-border" apiplaceholder="Please Choose Location">
 								<div class="error-spacer"></div>
 								<div ng-if="post_job.location.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Location Field is Required.</div>
 							</div>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-lg-4">
+						<div class="col-sm-4">
 							<div class="form-group">
 								<label for="industry">Industry*</label>
 								<i class="fa fa-angle-down fa-feedback" style="color: #F46113"></i>
@@ -67,7 +69,7 @@
 								<div ng-if="post_job.industry.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Industry Field is Required.</div>
 							</div>
 						</div>
-						<div class="col-lg-4">
+						<div class="col-sm-4">
 							<div class="form-group">
 								<label for="emp_type">Employment Type*</label>
 								<i class="fa fa-angle-down fa-feedback" style="color: #F46113"></i>
@@ -78,7 +80,7 @@
 								<div ng-if="post_job.emp_type.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Employment Type Field is Required.</div>
 							</div>
 						</div>
-						<div class="col-lg-4">
+						<div class="col-sm-4">
 							<div class="form-group">
 								<label for="experience">Experience*</label>
 								<i class="fa fa-angle-down fa-feedback" style="color: #F46113"></i>
@@ -91,13 +93,13 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-lg-4">
+						<div class="col-sm-4">
 							<div class="form-group">
 								<label for="pos-id">Position ID</label>
 								<input type="text" class="form-control" id="pos-id" value="" ng-model="PtJobCtrl.postJob1.position_id">
 							</div>
 						</div>
-						<div class="col-lg-4">
+						<div class="col-sm-4">
 							<div class="form-group">
 								<label for="req-id">Requisition ID</label>
 								<input type="text" class="form-control" id="req-id" value="" ng-model="PtJobCtrl.postJob1.requistion_id">
@@ -105,20 +107,20 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-lg-12">
+						<div class="col-sm-8">
 							<div class="form-group">
 								<label for="job_desc">Job Description*</label>
-								<textarea class="form-control" id="job_desc" rows="6" ng-model="PtJobCtrl.postJob1.job_desc" name="job_desc" required maxlength="500"></textarea>
+								<textarea class="form-control" id="job_desc" rows="6" ng-model="PtJobCtrl.postJob1.job_desc" name="job_desc" required maxlength="5000"></textarea>
 								<div class="error-spacer"></div>
 								<div>
 									<div ng-if="post_job.job_desc.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Job Description Field is Required.</div>
-								    <span class="max_length">Remaining {{500 - PtJobCtrl.postJob1.job_desc.length}} / 500 left</span>
+								    <span class="max_length">Remaining {{5000 - PtJobCtrl.postJob1.job_desc.length}} / 5000 left</span>
 								</div>
 							</div>
 						</div>
 					</div>
 					<!-- <div class="row">
-						<div class="col-lg-12">
+						<div class="col-sm-12">
 							<div class="form-group">
 								<label for="company-description">Company Description*</label>
 								<textarea class="form-control" rows="6" id="company-description">Lorem Ipsum is simply dummy text of  the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknow printer took a gallery of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting , remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passanges, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</textarea>

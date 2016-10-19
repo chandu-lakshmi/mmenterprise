@@ -35,9 +35,37 @@ angular.module('app.dashboard', ['ngMaterial', 'ngMessages'])
 		else 
 			return ''; 
 	}
+
+	this.colorCode = ["#21A4AC", "#EE8F3B", "#2A99E0", "#154c50", "#103954", "#342158", "#5B5B29", "#004D40", "#229A77", "#6f2b25"];    
+	this.colorCode2 = ["#4337c1", "#55b567", "#caba34", "#9e9e9e", "#110613", "#b54019", "#cdc39", "#607D8B", "#FFB300", "#424242"];
+    this.colorPicker = function(ind, bol) {
+        return scope[bol == 1 ? 'colorCode' : 'colorCode2' ][String(ind).slice(-1)];
+	}
+
 	this.getSrc = function(arg){
 		return (arg != '' || arg == 'null')  ? arg : 'public/images/avatar.png';   
 	}
+	this.daysList = [
+		{ days:7,label:'7 Days' },
+		{ days:30,label:'30 Days' },
+		{ days:360,label:'1 Year' }
+	];
+
+	this.rewardsView = function(rewards) {
+		for(var i in rewards){
+			if(rewards[i].rewards_name == 'Referral'){
+				if(rewards[i].rewards_type == 'paid'){
+	           		return  (rewards[i].currency_type == 1 ? '$' : '₹') +  rewards[i].rewards_value + '/' + rewards[i].rewards_name;
+	        	}
+	        	else if(rewards.rewards_type == 'points'){
+	            	return  rewards[i].rewards_value + ' Points' + '/' + rewards[i].rewards_name;  
+	        	}
+	        	else{
+	            	return  'Free';  
+	        	}	
+			}
+		}
+    }
 	this.username = UserDetails.user_name;
 	
 	function circleProgress(contact,job,reward){

@@ -1,9 +1,9 @@
 (function () {
 "use strict";
 
-angular.module('app.home', ['ngMaterial','ngMessages'])
+angular.module('app.home', ['ngMaterial', 'ngMessages'])
 
-.controller('HomeController', ['$state','$window', '$http', 'CONFIG',function ($state,$window,$http,CONFIG) {    
+.controller('HomeController', ['$state', '$window', '$http', 'CONFIG', 'userPermissions', function ($state, $window, $http, CONFIG, userPermissions) {    
     var scope = this;
     var signin_form = {};
     var signup_form = {};
@@ -179,7 +179,12 @@ angular.module('app.home', ['ngMaterial','ngMessages'])
                 scope.load_cond_signin = false;
                 scope.default_signin = true;
                 if(response.status_code == 200){
-                    $window.location = CONFIG.APP_DOMAIN+'dashboard';
+                    if(response.data.userPermissions.dashboard == '1'){
+                        $window.location = CONFIG.APP_DOMAIN+'dashboard';
+                    }
+                    else{
+                        $window.location = CONFIG.APP_DOMAIN+'job';
+                    }
                     //$state.go('app.dashboard');
                 }
                 else if(response.status_code == 403){

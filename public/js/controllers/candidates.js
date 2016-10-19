@@ -10,6 +10,14 @@ angular.module('app.candidates', [])
 
 }])
 
+.controller('CandidatesResumeRoomController',function(){
+
+
+
+
+	
+})
+
 
 
     

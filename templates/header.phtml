@@ -5,12 +5,11 @@
 		</div>
 		<div class="menu col-lg-7" style="padding:0">
 			<ul class="opt" style="text-align:left">
-				<li style="margin:0"><a ui-sref=".dashboard" ui-sref-active="active">DASHBOARD</a></li>
+				<li style="margin:0"><a ui-sref=".dashboard" ui-sref-active="active" ng-show="{{::userPermissions.dashboard == 1}}">DASHBOARD</a></li>
 				<li><a ui-sref=".job" ng-class="{active: ('app.job' | includedByState) || ('app.postJob' | includedByState) || ('app.postJob2' | includedByState), highlight: ('app.jobDetails' | includedByState) || ('app.rewards' | includedByState) || ('app.engagement/contacts' | includedByState)}">JOBS</a></li>
 				<li><a ui-sref=".contact" ng-class="{active: ('app.contact' | includedByState) || ('app.uploadContact' | includedByState)}">CONTACTS</a></li>
-				<li><a ui-sref=".candidates" ui-sref-active="active">CANDIDATES</a></li>
-				<!-- <li><a ui-sref=".importContactsList" ng-class="{'active':selectedTab === 'contacts'}" ng-click="selectedTab = 'contacts'">CONTACTS</a></li> -->
-				<!-- <li><a ui-sref=".settings.companyProfile" ng-class="{highlight: ('app.settings.myProfile' | includedByState) || ('app.settings.companyProfile' | includedByState) || ('app.settings.userProfile' | includedByState)}">SETTINGS</a></li> -->
+				<li><a ui-sref=".candidates.resumeRoom" ui-sref-active="active">CANDIDATES</a></li>
+				<li><a ui-sref=".settings.myProfile" ng-class="{highlight: ('app.settings.myProfile' | includedByState) || ('app.settings.companyProfile' | includedByState) || ('app.settings.userGroups' | includedByState)}" ng-show="{{::userPermissions.settings == 1}}">SETTINGS</a></li>
 			</ul>
 
 		</div>

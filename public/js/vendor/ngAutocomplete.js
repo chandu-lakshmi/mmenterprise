@@ -101,7 +101,8 @@ angular.module( "ngAutocomplete", [])
           initOpts()
           newAutocomplete()
           //element[0].value = '';
-          element[0].placeholder = 'Please Choose Location';
+          //console.log(attrs)
+          element[0].placeholder = attrs.apiplaceholder;
           scope.ngAutocomplete = element.val();
         }, true);
       }

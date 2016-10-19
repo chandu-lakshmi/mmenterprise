@@ -1,7 +1,7 @@
 (function () {
 "use strict";
 
-angular.module('app', [
+angular.module('app', ['ripple',
     'ui.router', 'ui.bootstrap',
     'app.constants', 'app.home', 'app.forgotPassword', 'app.company.profile', 'app.import.contacts', 'app.emails', 'app.dashboard',
     'app.engagement.contacts', 'app.post.job', 'app.job.search', 'app.job.details', 'app.rewards', 'app.edit.company', 'app.contact',
@@ -17,7 +17,7 @@ angular.module('app', [
     'CLIENT_SECRET' : 'Dh0pMLSV6Y82EfDpGKlWN1AyzvWvbvz4'
 })
 
-.config(function ($stateProvider, $urlRouterProvider, $locationProvider, App, CONFIG) {
+.config(function ($stateProvider, $urlRouterProvider, $locationProvider, App, CONFIG, userPermissions) {
     
     $locationProvider.html5Mode(true);
     //$locationProvider.html5Mode(false).hashPrefix('!');
@@ -27,157 +27,158 @@ angular.module('app', [
     CONFIG.APP_API_DOMAIN = App.API_DOMAIN;
     CONFIG.APP_DOMAIN     = App.base_url;
     
-    $stateProvider
-    .state('home', {
+    $stateProvider.state('home', {
         url: '/login',
         templateUrl: App.base_url + 'templates/home.phtml',
         controller: 'HomeController',
         controllerAs:'homeCtrl',
         // data : { pageTitle: 'Home' }
     })
-    .state('forgotPassword',{
+    $stateProvider.state('forgotPassword',{
         url:'/reset_password',
         templateUrl : App.base_url + 'templates/forgot-password.phtml',
         controller:'ForgotPassword',
         controllerAs:'forgotCtrl'
     })
-    .state('companyProfile', {
+    $stateProvider.state('companyProfile', {
         url: '/company-profile',
         templateUrl: App.base_url + 'templates/company-profile.phtml',
         controller: 'CompanyProfileController',
         controllerAs:'compCtrl'
     })
-    .state('importContacts', {
+    $stateProvider.state('importContacts', {
         url: '/import-contacts',
         templateUrl: App.base_url + 'templates/import-contacts.phtml',
         controller: 'ImportContactsController',
         controllerAs:'importCtrl'
     })
-    .state('importContactsList',{
+    $stateProvider.state('importContactsList',{
         url:'/import-contacts',
         templateUrl: App.base_url + 'templates/import-contacts-list.phtml',
         controller:'ImportContactsListController',
         controllerAs:'ipContactListCtrl'
     })
-    .state('emailVerify', {
+    $stateProvider.state('emailVerify', {
         url: '/email-verify',
         templateUrl: App.base_url + 'templates/emails/verify.phtml',
         controller: 'EmailVerificationController',
         controllerAs:'emailCtrl'
     })
-     .state('invitecontacts', {
-        url: '/invite-contacts',
-        templateUrl: App.base_url + 'templates/invite-to-MM-contacts.phtml',
-        controller: 'InviteContacts',
-        controllerAs:'invConts'
-    })
-    .state('app',{
+    $stateProvider.state('app',{
         abstract: true,
         url: '/dash',
         templateUrl: App.base_url + 'templates/app.phtml',
         controller: ''
     })
-    .state('app.dashboard',{
-        url: '^/dashboard',
-        templateUrl: App.base_url + 'templates/dashboard.phtml',
-        controller:'DashboardController',
-        controllerAs:'DashCtrl'
-    })
-    .state('app.engagement/contacts',{
-        url: '^/job/engagement-contacts/:post_id',
-        templateUrl: App.base_url + 'templates/engagement-contacts.phtml',
-        controller: 'EngagementContactsController',
-        controllerAs: 'EngContCtrl'
-    })
-    .state('app.job',{
+    if(userPermissions.dashboard == '1'){
+        $stateProvider.state('app.dashboard',{
+            url: '^/dashboard',
+            templateUrl: App.base_url + 'templates/dashboard.phtml',
+            controller:'DashboardController',
+            controllerAs:'DashCtrl'
+        })
+    }
+    $stateProvider.state('app.job',{
         url: '^/job',
         templateUrl: App.base_url + 'templates/job.phtml',
         controller: 'JobSearchController',
         controllerAs: 'jobSearchCtrl'
     })
-    .state('app.postJob',{
+    $stateProvider.state('app.postJob',{
         url: '^/job/post-job',
         templateUrl: App.base_url + 'templates/post-job.phtml',
         controller: 'PostJobController',
         controllerAs: 'PtJobCtrl'
     })
-    .state('app.postJob2',{
+    $stateProvider.state('app.postJob2',{
         url: '^/job/post-job-2',
         templateUrl: App.base_url + 'templates/post-job-2.phtml',
         controller: 'PostJobTwoController',
         controllerAs: 'post2Ctrl'
 
     })
-    .state('app.jobDetails',{
+    $stateProvider.state('app.jobDetails',{
         url: '^/job/job-details/:post_id',
         templateUrl: App.base_url + 'templates/job-details.phtml',
         controller: 'JobDetailsController',
         controllerAs: 'jobDetailsCtrl'
     })
-    .state('app.importContactsList',{
-        url:'^/import-contacts-list',
-        templateUrl: App.base_url + 'templates/import-contacts-list.phtml',
-        controller:'ImportContactsListController',
-        controllerAs:'ipContactListCtrl'
+    $stateProvider.state('app.engagement/contacts',{
+        url: '^/job/engagement-contacts/:post_id',
+        templateUrl: App.base_url + 'templates/engagement-contacts.phtml',
+        controller: 'EngagementContactsController',
+        controllerAs: 'EngContCtrl'
     })
-    .state('app.rewards',{
+    $stateProvider.state('app.rewards',{
         url: '^/job/rewards/:post_id',
         templateUrl: App.base_url + 'templates/rewards.phtml',
         controller: 'RewardsController',
         controllerAs: 'RewardCtrl'
     })
-    .state('app.editCompanyProfile',{
-        url: '^/edit-company-profile',
-        templateUrl: App.base_url + 'templates/edit-company-profile.phtml',
-        controller: 'editCompanyProfileController',
-        controllerAs: 'editCompCtrl'
-    })
-    .state('app.contact',{
+    $stateProvider.state('app.contact',{
         url: '^/contacts',
         templateUrl: App.base_url + 'templates/contacts.phtml',
         controller: 'ContactsController',
         controllerAs: 'ContactCtrl'
     })
-    .state('app.uploadContact',{
-        url: '^/contacts/upload-contacts',
-        templateUrl: App.base_url + 'templates/upload-contacts.phtml',
-        controller: 'UploadContactsController',
-        controllerAs: 'UploadContCtrl'
-    })
-    .state('app.candidates',{
+    $stateProvider.state('app.candidates',{
         url: '^/candidates',
         templateUrl: App.base_url + 'templates/candidates.phtml',
         controller: 'CandidatesController',
         controllerAs: 'CandidatesCtrl'
     })
-    .state('app.settings',{
-        url: '^/settings',
-        templateUrl: App.base_url + 'templates/settings.phtml',
-        controller: 'SettingsController',
-        controllerAs: 'SettingsCtrl'
+    $stateProvider.state('app.candidates.resumeRoom',{
+        url: '^/candidates/resume-room',
+        templateUrl: App.base_url + 'templates/candidates-resume-room.phtml',
+        controller: 'CandidatesResumeRoomController',
+        controllerAs: 'CandidatesResumeRoomCtrl'
     })
-    .state('app.settings.companyProfile',{
-        url: '^/settings/company-profile',
-        templateUrl: App.base_url + 'templates/settings-company-profile.phtml',
-        controller: 'SettingsCompanyProfileController',
-        controllerAs: 'CompanyProfileCtrl'
+    if(userPermissions.settings == '1'){
+        $stateProvider.state('app.settings',{
+            url: '^/settings',
+            templateUrl: App.base_url + 'templates/settings.phtml',
+            controller: 'SettingsController',
+            controllerAs: 'SettingsCtrl'
+        })
+        $stateProvider.state('app.settings.companyProfile',{
+            url: '^/settings/company-profile',
+            templateUrl: App.base_url + 'templates/settings-company-profile.phtml',
+            controller: 'SettingsCompanyProfileController',
+            controllerAs: 'CompanyProfileCtrl'
+        })
+        $stateProvider.state('app.settings.myProfile',{
+            url: '^/settings/my-profile',
+            templateUrl: App.base_url + 'templates/settings-my-profile.phtml',
+            controller: 'MyProfileController',
+            controllerAs: 'MyProfileCtrl'
+        })
+        $stateProvider.state('app.settings.userGroups',{
+            url: '^/settings/user-group',
+            templateUrl: App.base_url + 'templates/settings-user-group.phtml',
+            controller: 'UserGroupController',
+            controllerAs: 'UserGroupCtrl'
+        })
+    }
+    $stateProvider.state('app.editCompanyProfile',{
+        url: '^/edit-company-profile',
+        templateUrl: App.base_url + 'templates/edit-company-profile.phtml',
+        controller: 'editCompanyProfileController',
+        controllerAs: 'editCompCtrl'
     })
-    .state('app.settings.myProfile',{
-        url: '^/settings/my-profile',
-        templateUrl: App.base_url + 'templates/settings-my-profile.phtml',
-        controller: 'MyProfileController',
-        controllerAs: 'MyProfileCtrl'
-    })
-    .state('app.settings.userProfile',{
-        url: '^/settings/user-profile',
-        templateUrl: App.base_url + 'templates/settings-user-profile.phtml',
-        controller: 'UserProfileController',
-        controllerAs: 'UserProfileCtrl'
+
+
+    $stateProvider.state('404',{
+        url: '/404',
+        templateUrl: App.base_url + 'templates/admin/404.phtml',
     })
 
     $urlRouterProvider.otherwise('/login');
     
 })
+
+.run(function ($rootScope, userPermissions) {
+    $rootScope.userPermissions = userPermissions;
+});
 
 /*.run([ '$rootScope', '$state', '$stateParams',
     function ($rootScope, $state, $stateParams) {

@@ -1,90 +1,261 @@
-<div class="container post-job">
-	<div class="row">
-		<div class="job-title text-center">
-			<a ui-sref="^.postJob"><img src="public/images/back-arrow-black.svg" alt="arrowback" style="margin-top: 28px"></a>
-			<h2>Get Ready to Post Your Request</h2>
-		</div>
-		<div class="job-info">
-			<div>
-				<span class="company-name" style="margin:0">{{post2Ctrl.company_name | uppercase}}</span>
-			</div>
-			<div class="job-name">
-				<div class="col-lg-5">
-					<div>
-						<span>Job Title:</span>
-						<span>{{post2Ctrl.post_job_result.job_title}}</span>
-					</div>
-					<div>
-						<span>Job Function:</span>
-						<span>{{post2Ctrl.post_job_result.job_func.job_function_name}}</span>
-					</div>
-					<div>
-						<span>Location:</span>
-						<span>{{post2Ctrl.post_job_result.location}}</span>
-					</div>
-					<div>
-						<span>Employement Type:</span>
-						<span>{{post2Ctrl.post_job_result.emp_type.employment_type_name}}</span>
-					</div>
-					<div>
-						<span>Experience:</span>
-						<span>{{post2Ctrl.post_job_result.experience.experience_name}}</span>
-					</div>
-					<div>
-						<span>Position ID:</span>
-						<span>{{post2Ctrl.post_job_result.position_id}}</span>
-					</div>
-				</div>
-				<div class="col-lg-7">
-					<p style="color: #9A9A9A;font-size:16px;">Job Description:</p>
-					
-					<p style="font-size: 16px;color: #272727;"><pre class="pre-style">{{post2Ctrl.post_job_result.job_desc}}</pre></p>
-				</div>
-			</div>
+<div class="post-request">
+	
+	<div class="title">
+		<div class="container">
+			<a ui-sref="^.postJob">
+				<img src="public/images/back-arrow-black.svg" class="pull-left" alt="arrow-previous">
+			</a>
+			<h2 class="pull-left">Get Ready to Post Your Request</h2>
 		</div>
 	</div>
-</div>
-<div class="container-fluid reward-ref"  style="border-top:1px solid silver;padding-top:2%">
-	<h2>SELECT THE REWARD </h2>
-	<div class="container" style="padding: 40px 15px">
-		<div class="choose-pay row row-centered">
-			<div class="col-lg-3 col-centered" ng-repeat="rewards in post2Ctrl.rewards" ng-init="radio = 'cond'+$index" >
-				<label style="width:100%;margin-bottom:40px;">
-					<div class="amount-pay" ng-class="{'amount-s':rewards == post2Ctrl.rewardCond}">
-						<h4>{{rewards.pay_status | uppercase}}</h4>
-						<h1 ng-if="$index == 0" style="visibility: hidden;">&#36; {{rewards.amount}}</h1>
-						<h1 ng-if="$index != 0">&#36; {{rewards.amount}}</h1>
-						<h4>{{rewards.message | uppercase}}</h4>
-						<input type="radio" name="amount-ref" ng-model="post2Ctrl.rewardCond" ng-value="rewards" ng-init="$index==0?(post2Ctrl.rewardCond=rewards):''">
-						<span></span>
-					</div>
-				</label>
-			</div>
-		</div>
-	</div>
-</div>
 
-<div class="container-fluid" style="padding-bottom: 100px;">
-	<div class="container" style="border-top:1px solid #ccc">
-		<h2 class="text-center" style="color: #388A73;padding: 30px 15px 40px;margin:0">SELECT THE GROUP</h2>
-		<div class="clearfix"></div>
-		<div class="grid-msg-overlay" ng-if="post2Ctrl.buckLoader" style="position:relative;min-height: 558px;background:transparent">
-          	<div class="msg" style="border:0">
-              	<img src="public/images/loader/preloader.gif"  alt="loader" style="position:absolute;top:42.5%;left:31%;width:38%">
-          	</div>
+
+	<div class="job-info">
+		<div class="container">
+			<div ng-bind="post2Ctrl.companyName" class="company-name"></div>
+			<div class="row">
+				<div class="col-sm-6 lt">
+					<div class="row">
+						<div class="clearfix">
+						</div>
+						<div class="clearfix">
+							<span class="pull-left col-sm-4">Job Title:</span>
+							<span class="pull-right col-sm-8">{{post2Ctrl.post_job_result.job_title}}</span>
+						</div>
+						<div class="clearfix">
+							<span class="pull-left col-sm-4">Job Function:</span>
+							<span class="pull-right col-sm-8">{{post2Ctrl.post_job_result.job_func.job_function_name}}</span>
+						</div>
+						<div class="clearfix">
+							<span class="pull-left col-sm-4">Location:</span>
+							<span class="pull-right col-sm-8">{{post2Ctrl.post_job_result.location}}</span>
+						</div>
+						<div class="clearfix">
+							<span class="pull-left col-sm-4">Employement Type:</span>
+							<span class="pull-right col-sm-8">{{post2Ctrl.post_job_result.emp_type.employment_type_name}}</span>
+						</div>
+						<div class="clearfix">
+							<span class="pull-left col-sm-4">Experience:</span>
+							<span class="pull-right col-sm-8">{{post2Ctrl.post_job_result.experience.experience_name}}</span>
+						</div>
+						<div class="clearfix">
+							<span class="pull-left col-sm-4">Position ID:</span>
+							<span class="pull-right col-sm-8">{{post2Ctrl.post_job_result.position_id}}</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 rt">
+					<div>
+						<div>
+							Job Description:
+						</div>
+						<div>
+							<pre>{{post2Ctrl.post_job_result.job_desc}} 
+							</pre>
+						</div>
+					</div>
+				</div>	
+			</div>
 		</div>
-		<div class="row select-type row-centered">
-			<div class="col-lg-3 col-centered" ng-repeat="buckets in post2Ctrl.bucket_names">
-				<div class="amount-pay" ng-style="{'background':post2Ctrl.getColor($index)}" ng-init="post2Ctrl.bucket_names[$index].src='public/images/add.svg'" ng-click="post2Ctrl.getDataUpdate(buckets.src,$index,buckets.bucket_id)">
-				    <img ng-src="{{buckets.src}}">
-				    <h3 title="{{buckets.bucket_name | uppercase}}">{{buckets.bucket_name | uppercase}}</h3>
+	</div>
+
+
+	<div class="select-rewards">
+		<div class="container">
+			<h2 class="text-center">Select The Rewards</h2>
+			<div class="row">
+				<div class="col-sm-6 lt">
+					<div class="rewards-box" 
+						 ng-style="{'border-color' : post2Ctrl.discoveryRewards == true ? '#34b893' : ''}">
+						<div class="chk">
+							<input type="checkbox" name="post2Ctrl.discoveryRewards" id="discovery" 
+							 ng-model="post2Ctrl.discoveryRewards" 
+							 ng-click="post2Ctrl.toggleDiscoveryReward(post2Ctrl.discoveryRewards)">
+							<label for="discovery">Discovery Rewards</label>
+							<img src="public/images/info.svg" alt="info" onmouseover="this.src='public/images/info-blue.svg'" onmouseout="this.src='public/images/info.svg'"
+							" uib-popover="This is about the Discovery Rewards,This is about the Discovery RewardsThis is about the Discovery Rewards" popover-placement="right-left"  popover-trigger="'mouseenter'">
+						</div>
+						<form name="myForm">
+						<div class="radio">
+							<div>
+								<input type="radio" name="discoveryRewardsType" id="free" value="free" 
+								    ng-model="post2Ctrl.discoveryRewardsType" ng-disabled="!post2Ctrl.discoveryRewards" ng-click="post2Ctrl.reset('')">
+								<label for="free">
+									Free - Just A Thankyou
+									<div class="chkout" style="top:0"></div>
+									<div class="chkin" style="top:0"></div>
+								</label>
+							</div>
+							<div class="currency">
+								<input type="radio" name="discoveryRewardsType" id="currency" value="paid" 
+									ng-model="post2Ctrl.discoveryRewardsType" ng-disabled="!post2Ctrl.discoveryRewards" ng-click="post2Ctrl.reset('paid')">
+								<label for="currency">
+									<span class="field">
+										<input name="amount" 
+											ng-focus="post2Ctrl.reset('paid')" 
+											ng-model="post2Ctrl.discoveryCurrency" 
+											ng-disabled="!post2Ctrl.discoveryRewards" 
+											ng-required="post2Ctrl.discoveryRewardsType=='paid'" 
+											ng-pattern="/^[0-9]{0,30}$/" onkeypress='return event.charCode >= 48 && event.charCode <= 57' >
+										<md-input-container>
+											<label style="display:none !important">Currency</label>
+											<md-select  name="job" ng-model="post2Ctrl.code" ng-disabled="!post2Ctrl.discoveryRewards">
+								              	<md-option ng-repeat="currency in post2Ctrl.currencyInfo" ng-value="currency.id">
+								                	{{currency.code}}
+								              	</md-option>
+											</md-select>
+										</md-input-container>
+									</span>
+									<div class="chkout"></div>
+									<div class="chkin"></div>
+								</label>
+								<div class="error-msg">
+									<div ng-show="myForm.amount.$error.pattern ||  (myForm.amount.$error.required && post2Ctrl.bolFormValid)">Please enter valid amount</div>
+								</div>
+							</div>
+							<div>
+								<input type="radio" name="discoveryRewardsType" value="points" id="points"
+									ng-model="post2Ctrl.discoveryRewardsType" ng-disabled="!post2Ctrl.discoveryRewards" ng-click="post2Ctrl.reset('points')">
+								<label for="points">
+									<span class="field">
+										<input name="points" 
+											ng-focus="post2Ctrl.reset('points')"  
+											ng-model="post2Ctrl.discoveryPoints" 
+											ng-disabled="!post2Ctrl.discoveryRewards"
+											ng-pattern="/^[0-9]{0,30}$/"
+											ng-required="post2Ctrl.discoveryRewardsType=='points'" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+										<div style="display:inherit">POINTS</div>
+									</span>
+									<div class="chkout"></div>
+									<div class="chkin"></div>
+								</label>
+								<div class="error-msg">
+									<div ng-show="myForm.points.$error.pattern ||  (myForm.points.$error.required && post2Ctrl.bolFormValid)">Please enter points</div>
+								</div>
+							</div>
+						</div>
+						</form>
+					</div>	
+				</div>
+				<div class="col-sm-6 rt">
+					<div class="rewards-box" ng-style="{'border-color' : post2Ctrl.referralRewards == true ? '#34b893' : ''}">
+						<div class="chk">
+							<input type="checkbox" name="referralRewardsType" id="referral" ng-model="post2Ctrl.referralRewards"
+							ng-click="post2Ctrl.toggleReferralReward(post2Ctrl.referralRewards)">
+							<label for="referral">Referral Rewards</label>
+							<img src="public/images/info.svg" alt="info" onmouseover="this.src='public/images/info-blue.svg'" onmouseout="this.src='public/images/info.svg'"
+							" uib-popover="This is about the Discovery Rewards,This is about the Discovery RewardsThis is about the Referral Rewards" popover-placement="right-left"  popover-trigger="'mouseenter'">	
+						</div>
+						<div class="radio" ng-form="myForm2">
+							<div>
+								<input type="radio" name="referralRewardsType" id="frees" value="free" 
+								    ng-model="post2Ctrl.referralRewardsType" ng-disabled="!post2Ctrl.referralRewards" ng-click="post2Ctrl.reset1('')">
+								<label for="frees">
+									Free - Just A Thankyou
+									<div class="chkout" style="top:0"></div>
+									<div class="chkin" style="top:0"></div>
+								</label>
+							</div>
+							<div class="currency">
+								<input type="radio" name="referralRewardsType" id="currency1" value="paid" 
+									ng-model="post2Ctrl.referralRewardsType" ng-disabled="!post2Ctrl.referralRewards" ng-click="post2Ctrl.reset1('paid')">
+								<label for="currency1">
+									<span class="field">
+										<input name="amountR" 
+											ng-focus="post2Ctrl.reset1('paid')" 
+											ng-model="post2Ctrl.referralCurrency" 
+											ng-disabled="!post2Ctrl.referralRewards" 
+											ng-required="post2Ctrl.referralRewardsType=='paid'" 
+											ng-pattern="/^[0-9]{0,30}$/" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+										<md-input-container>
+											<label style="display:none !important">Currency</label>
+											<md-select  name="job" ng-model="post2Ctrl.code1" ng-disabled="!post2Ctrl.referralRewards">
+								              	<md-option ng-repeat="currency in post2Ctrl.currencyInfo" ng-value="currency.id">
+								                	{{currency.code}}
+								              	</md-option>
+											</md-select>
+										</md-input-container>
+									</span>
+									<div class="chkout"></div>
+									<div class="chkin"></div>
+								</label>
+								<div class="error-msg">
+									<div ng-show="myForm2.amountR.$error.pattern ||  (myForm2.amountR.$error.required && post2Ctrl.bolForm2Valid)">Please enter valid amount</div>
+								</div>
+							</div>
+							<div>
+								<input type="radio" name="referralRewardsType" value="points" id="points1" 
+									ng-model="post2Ctrl.referralRewardsType" ng-disabled="!post2Ctrl.referralRewards" ng-click="post2Ctrl.reset1('points')">
+								<label for="points1">
+									<span class="field">
+										<input name="pointsR" 
+											ng-focus="post2Ctrl.reset1('points')"  
+											ng-model="post2Ctrl.referralPoints" 
+											ng-disabled="!post2Ctrl.referralRewards"
+											ng-pattern="/^[0-9]{0,30}$/"
+											ng-required="post2Ctrl.referralRewardsType=='points'" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+										<div style="display:inherit">POINTS</div>
+									</span>
+									<div class="chkout"></div>
+									<div class="chkin"></div>
+								</label>
+								<div class="error-msg">
+									<div ng-show="myForm2.pointsR.$error.pattern ||  (myForm2.pointsR.$error.required && post2Ctrl.bolForm2Valid)">Please enter points</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+	<div class="buckets-container">
+		<div class="container">
+			<h2 class="text-center">Select The Group</h2>
+			<div class="buckets">
+				<div class="row">
+					<div class="col-sm-3" ng-repeat="buckets in post2Ctrl.bucket_names"
+						ng-style="{'background':post2Ctrl.getColor($index)}"
+						ng-init="post2Ctrl.bucket_names[$index].src='public/images/add.svg'"
+						ng-click="buckets.count == 0 ? '' : post2Ctrl.getDataUpdate(buckets.src, $index, buckets.bucket_id)">
+						<div class="box" popover-enable='buckets.count == 0' uib-popover="No contacts Found"   popover-trigger="'mouseenter'">
+							<img ng-src="{{buckets.src}}" class="pull-right" alt="selecticon">
+							<div class="text-center">
+								<p title="{{buckets.bucket_name | uppercase}}" style="margin:0">
+									<!-- <a ui-sref="app.contact({bucketObj:'1'})" target="_blank"> -->{{buckets.bucket_name | uppercase}}
+									<!-- </a> -->
+								</p>
+								<p>
+									{{buckets.count}} contact(s)
+								</p>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-		<div class="error-spacer"></div>
-		<div ng-if="post2Ctrl.bucket_error" class="error-msg-float text-center">Please Choose Atleast One Group</div>
 	</div>
-	<div class="text-center" style="padding: 40px 0">
-		<button class="btn btn-style" ng-click="post2Ctrl.requestSuccess()" style="padding: 12px 32px;" ng-disabled="post2Ctrl.success_cond">POST REQUEST&nbsp;&nbsp;<img src="public/images/loader/butt_loader.gif" style="margin-top: -2px;" ng-if="post2Ctrl.loader"></button>
+	
+
+	<div class="footer">
+		<div class="container">
+			<div class="pull-left">
+				<h4 ng-show="post2Ctrl.userSelOnebkt">Please Select Atleast One Group</h4>
+				<h4 ng-show="post2Ctrl.userSelRewards">Please Select Rewards</h4>
+			</div>
+			<div>
+				<span class="btn-cancel">
+					<a ui-sref="app.job">Cancel</a>
+				</span>
+				<span class="btn-post" ng-click="post2Ctrl.requestSuccess(myForm.$valid, myForm2.$valid)">
+					POST REQUEST
+					<img src="public/images/loader/butt_loader.gif" ng-if="post2Ctrl.loader">
+				</span>
+			</div>
+		</div>
 	</div>
+
 </div>

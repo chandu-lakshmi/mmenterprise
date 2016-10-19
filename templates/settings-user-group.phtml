@@ -1,0 +1,54 @@
+<md-progress-linear md-mode="determinate" id="borderLoader" value="{{UserGroupCtrl.borderInc}}" style="top:120px !important"></md-progress-linear>
+<div class="user-group" ng-style="{'opacity': UserGroupCtrl.pageLoader ? '1' : '0'}">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-3">
+				<div class="side-list">
+					<div class="head clearfix">
+						<span class="pull-left">USER GROUPS</span>
+						<md-button class="md-icon-button pull-right" ng-click="UserGroupCtrl.addNew('group')">
+          					<md-icon md-svg-src="public/images/material_icons/add.svg" aria-label="Close dialog"></md-icon>
+        				</md-button>
+					</div>
+					<div class="list" id="dropmenu">
+						<ul ng-repeat="list in UserGroupCtrl.groupsList" class="panel">
+							<li data-toggle="collapse" data-target="#groups{{$index}}" data-parent="#dropmenu" class="active clearfix" ng-click="UserGroupCtrl.getGroupData($index)" ng-class="{'collapsed': $index != UserGroupCtrl.tab, 'highlight': $index == UserGroupCtrl.tab}">
+								<span class="group-name ellipsis">{{list.name | uppercase}}({{list.count_of_users}})</span>
+								<span class="image"></span>
+							</li>
+							<ul class="sub-menu collapse" id="groups{{$index}}" ng-class="{'in': $index == UserGroupCtrl.tab}">
+								<li ng-repeat="user in list.users" ng-click="UserGroupCtrl.getPersonData($index)" ng-class="{'highlight':UserGroupCtrl.activeClass == user.fullname}">
+									<div ng-if="user.photo == '' || user.photo == null">
+										<span ng-bind="user.fullname | limitTo : 1" class="letter" ng-style="{'background':UserGroupCtrl.colorPicker($index)}"></span>
+										<span class="name ellipsis" ng-bind="user.fullname"></span>
+									</div>
+									<div ng-if="!(user.photo == '' || user.photo == null)">
+										<img ng-src="{{user.photo}}" alt="" class="img-circle no-letter">
+										<span class="name ellipsis" ng-bind="user.fullname"></span>
+									</div>
+								</li>
+							</ul>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-9">
+				<div class="box">
+					<div class="templates">
+						<div class="group" ng-show="UserGroupCtrl.group" ng-include src="UserGroupCtrl.group_template" ng-style="{'pointer-events': UserGroupCtrl.groupData.is_primary == 1 ? 'none' : 'auto'}"></div>
+						<div class="person" ng-show="!UserGroupCtrl.group" ng-include src="UserGroupCtrl.person_template"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+		<a class="btn-floating btn-large mm-color ripplelink">
+			<img src="public/images/material_icons/create.svg" alt="">
+		</a>
+		<ul>
+			<li uib-popover="Add Group" popover-trigger="'mouseenter'" popover-placement="left-top"><a class="btn-floating ripplelink" ng-click="UserGroupCtrl.addNew('group')"><img src="public/images/material_icons/add-group.svg" alt=""></a></li>
+			<li uib-popover="Add User" popover-trigger="'mouseenter'" popover-placement="left-top"><a class="btn-floating ripplelink" ng-click="UserGroupCtrl.addNew('person')"><img src="public/images/material_icons/add-person.svg" alt=""></a></li>
+		</ul>
+	</div>
+</div>

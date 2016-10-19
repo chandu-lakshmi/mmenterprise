@@ -1,0 +1,64 @@
+<div class="content">
+	<form name="new_user_form" novalidate>
+		<div class="display-pic">
+			<div id="display_pic" class="change"></div>
+			<p class='add-text' ng-bind="UserGroupCtrl.textCondition ? 'USER PHOTO' : 'ADD PHOTO'">ADD PHOTO</p>
+		</div>
+		<div class="clearfix">
+			<md-input-container class="md-block">
+	            <label>NAME</label>
+	            <input type="text" name="fullname" ng-model="UserGroupCtrl.personDetails.fullname" required ng-class="{'has-error-border':new_user_form.fullname.$invalid && UserGroupCtrl.errCond}">
+	            <div ng-if="new_user_form.fullname.$error.required && UserGroupCtrl.errCond" class="has-error-msg">Please Enter Username</div>
+	        </md-input-container>
+	        <md-input-container class="md-block">
+	            <label>DESIGNATION</label>
+	            <input type="text" name="designation" ng-model="UserGroupCtrl.personDetails.designation" required ng-class="{'has-error-border':new_user_form.designation.$invalid && UserGroupCtrl.errCond}">
+	            <div ng-if="new_user_form.designation.$error.required && UserGroupCtrl.errCond" class="has-error-msg">Please Enter Designation</div>
+	        </md-input-container>
+		</div>
+		<div class="clearfix">
+			<md-input-container class="md-block">
+	            <label>EMAIL</label>
+	            <input type="text" name="emailid" ng-model="UserGroupCtrl.personDetails.emailid" required ng-pattern="/^[a-z0-9A-Z._%+-]+@[a-zA-Z]+\.[a-z]{2,3}$/" ng-class="{'has-error-border':(new_user_form.emailid.$invalid && UserGroupCtrl.errCond) || UserGroupCtrl.backendError}">
+	            <div ng-if="new_user_form.emailid.$error.required && UserGroupCtrl.errCond" class="has-error-msg">Please Enter Email Address</div>
+	            <div ng-if="new_user_form.emailid.$error.pattern && UserGroupCtrl.errCond" class="has-error-msg">Please Enter Valid Email Address</div>
+	            <div ng-if="UserGroupCtrl.backendError" class="has-error-msg" ng-bind="UserGroupCtrl.backendError" style="text-transform: capitalize;"></div>
+	        </md-input-container>
+	        <md-input-container class="md-block">
+	            <label>LOCATION</label>
+	            <input type="text" name="location" ng-model="UserGroupCtrl.personDetails.location" required ng-class="{'has-error-border':new_user_form.location.$invalid && UserGroupCtrl.errCond}" ng-autocomplete="UserGroupCtrl.geo_location" details="UserGroupCtrl.geo_details" options="UserGroupCtrl.geo_options" apiplaceholder="">
+	            <div ng-if="new_user_form.location.$error.required && UserGroupCtrl.errCond" class="has-error-msg">Please Enter Location</div>
+	        </md-input-container>
+		</div>
+		<div class="clearfix">
+			<md-input-container class="md-block select-box">
+	            <label style="display:none">STATUS</label>
+	            <md-select name="status" ng-model="UserGroupCtrl.personDetails.status" required ng-class="{'has-error-border':new_user_form.status.$invalid && UserGroupCtrl.errCond}">
+	                <md-option ng-repeat="status in UserGroupCtrl.statusText" ng-value="status">{{status}}</md-option>
+	            </md-select>
+	            <div class="error-spacer"></div>
+				<div ng-if="new_user_form.status.$error.required && UserGroupCtrl.errCond"  class="has-error-msg">Please Select Status</div>
+	        </md-input-container>
+	        <md-input-container class="md-block select-box">
+	            <label style="display:none">USER GROUP</label>
+	            <md-select name="group_id" ng-model="UserGroupCtrl.personDetails.group_id" required ng-class="{'has-error-border':new_user_form.group_id.$invalid && UserGroupCtrl.errCond}">
+	                <md-option ng-repeat="group in UserGroupCtrl.groupNames" ng-value="group.group_id">{{group.name | uppercase}}</md-option>
+	            </md-select>
+	            <div class="error-spacer"></div>
+				<div ng-if="new_user_form.group_id.$error.required && UserGroupCtrl.errCond"  class="has-error-msg">Please Select Group</div>
+	        </md-input-container>
+		</div>
+	</form>
+</div>
+<div class="footer clearfix">
+	<div class="pull-left">
+		<span style="line-height:50px;">
+			<span ng-if="UserGroupCtrl.loader"><img src="public/images/loader/upload_file.gif" alt="loader" style="margin:5px;"><span ng-bind="UserGroupCtrl.newPerson ? 'Creating' : 'Updating'"></span></span>
+			<span class="message fade" ng-if="UserGroupCtrl.message" ng-bind="UserGroupCtrl.backendMsg"></span>
+		</span>
+	</div>
+	<div class="pull-right disabled">
+		<span class="btn-cancel ripplelink" data-ripple-color="#757575" ng-click="UserGroupCtrl.reset('person', UserGroupCtrl.newPerson)">CANCEL</span>
+		<span class="btn-add-new-user ripplelink" ng-click="UserGroupCtrl.addPerson(new_user_form.$valid, UserGroupCtrl.personDetails.user_id, UserGroupCtrl.newPerson)" ng-bind="UserGroupCtrl.newPerson ? 'ADD NEW USER' : 'SAVE CHANGES'"></span>
+	</div>
+</div>
