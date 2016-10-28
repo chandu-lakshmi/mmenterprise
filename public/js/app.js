@@ -123,15 +123,15 @@ angular.module('app', ['ripple',
     })
     $stateProvider.state('app.candidates',{
         url: '^/candidates',
-        templateUrl: App.base_url + 'templates/candidates.phtml',
-        controller: 'CandidatesController',
-        controllerAs: 'CandidatesCtrl'
+        templateUrl: App.base_url + 'templates/candidates/candidates.phtml',
+        controller: 'CandidateController',
+        controllerAs: 'CandidateCtrl'
     })
     $stateProvider.state('app.candidates.resumeRoom',{
         url: '^/candidates/resume-room',
-        templateUrl: App.base_url + 'templates/candidates-resume-room.phtml',
-        controller: 'CandidatesResumeRoomController',
-        controllerAs: 'CandidatesResumeRoomCtrl'
+        templateUrl: App.base_url + 'templates/candidates/candidates-resume-room.phtml',
+        controller: 'ResumeRoomController',
+        controllerAs: 'ResumeRoomCtrl'
     })
     if(userPermissions.settings == '1'){
         $stateProvider.state('app.settings',{
@@ -164,6 +164,13 @@ angular.module('app', ['ripple',
         templateUrl: App.base_url + 'templates/edit-company-profile.phtml',
         controller: 'editCompanyProfileController',
         controllerAs: 'editCompCtrl'
+    })
+    $stateProvider.state('app.mintbot', {
+        url: '^/mintbot',
+        templateUrl: App.base_url + 'templates/mintbot.phtml',
+        controller: '',
+        controllerAs:'',
+        // data : { pageTitle: 'Home' }
     })
 
 

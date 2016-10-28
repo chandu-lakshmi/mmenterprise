@@ -1,0 +1,107 @@
+<div class="resume-room">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-3">
+				<div class="filter">
+					<form name="candidates_filter_form">
+						<p class="title">FILTERS</p>
+						<ul>
+							<li>
+								<div class="checkbox">
+								  	<input type="checkbox" value="1" name="campaigns_type" id="campaigns_type" ng-model="ResumeRoomCtrl.campaignCheck">
+								  	<label for="campaigns_type">Accepted (80)</label>
+								</div>
+								<ul>
+									<li>
+										<div class="checkbox">
+										  	<input type="checkbox" value="1" name="campaigns_type1" id="campaigns_type1" ng-checked="ResumeRoomCtrl.campaignCheck">
+										  	<label for="campaigns_type1">Interviewed (54)</label>
+										</div>
+									</li>
+									<li>
+										<div class="checkbox">
+										  	<input type="checkbox" value="1" name="campaigns_type2" id="campaigns_type2" ng-checked="ResumeRoomCtrl.campaignCheck">
+										  	<label for="campaigns_type2">Offered (26)</label>
+										</div>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<div class="checkbox">
+								  	<input type="checkbox" value="1" id="Unsolicited" ng-model="ResumeRoomCtrl.Unsolicited">
+								  	<label for="Unsolicited">Unsolicited (44)</label>
+								</div>
+							</li>
+							<li>
+								<div class="checkbox">
+								  	<input type="checkbox" value="1" id="Declined" ng-model="ResumeRoomCtrl.Declined">
+								  	<label for="Declined">Declined</label>
+								</div>
+							</li>
+							<li>
+								<div class="checkbox">
+								  	<p style="margin:30px 0 0 -6px">Job/Position</p>
+									<div class="form-group modern-select" style="margin-top:5px;">
+										<div class="controls">
+											<select data-rel="chosen" id="mul_select" data-placeholder="Select Your Options" class="form-control" multiple>
+												<option value=""></option>
+												<option>UI/UX</option>
+												<option>PHP DEVELOPER</option>
+												<option selected>IOS DEVELOPER</option>
+												<option>QA ASSOCIATE</option>
+												<option>JAVA DEVELOPER</option>
+											</select>
+										</div>
+									</div>	
+								</div>
+							</li>
+						</ul>
+					</form>
+				</div>
+				<div class="action">
+					<div>
+						<span ng-click="ResumeRoomCtrl.cancel()" style="color:#979998;">CLEAR</span>
+						<span ng-click="ResumeRoomCtrl.applyFilter()" style="color:#138b67;">APPLY FILTERS</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-9" style="padding-bottom:50px">
+				<div class="box">
+					<div class="box-header clearfix">
+						<div class="pull-left">
+							<span>CANDIDATES (254) </span>
+						</div>
+						<div class="pull-right">
+							<div class="has-feedback search">
+								<img src="public/images/cross.svg" class="feedback right" ng-show="ResumeRoomCtrl.search.length >= 1" ng-click="ResumeRoomCtrl.search = '';ResumeRoomCtrl.close()">
+								<input type="text" name="search" ng-model="ResumeRoomCtrl.search" ng-keyup="ResumeRoomCtrl.searchFunc($event)">
+								<img src="public/images/search.svg" class="feedback left">
+							</div>
+						</div>
+					</div>
+					<div class="box-content">
+						<div id="grid" ui-grid="ResumeRoomCtrl.gridOptions" class="grid" ui-grid-selection style="border: 0;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+<!--cellTemplate for status change like Accept or Decline-->
+<script type="text/ng-template" id="status-change.html">
+	<div class="ui-grid-cell-contents ui-grid-img-status">
+		<div ng-init="colTemp=COL_FIELD">
+			<div ng-if="colTemp=='Accept'" class="status">
+				<img class="pull-left" src="public/images/tickmark-accept.svg" alt="accept" ng-click="grid.appScope.statusUpdate(row, 1)">
+				{{ COL_FIELD }}
+				<img class="pull-right" alt="decline" src="public/images/closemark-decline.svg" ng-click="grid.appScope.statusUpdate(row, 0)">
+			</div>
+			<div ng-if="colTemp != 'Accept'" class="status-default">
+				{{ COL_FIELD }}
+			</div>
+		</div>
+	</div>
+</script>

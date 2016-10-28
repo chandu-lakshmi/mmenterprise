@@ -16,9 +16,9 @@
         text-decoration: none;
         display: inline-block;
         letter-spacing: 0.5px; }
-        .candidates .sub-header ul li a:hover, .candidates .sub-header ul li a:focus {
+        .candidates .sub-header ul li a:hover, .candidates .sub-header ul li a:focus, .candidates .sub-header ul li a.active {
           color: #fff; }
-          .candidates .sub-header ul li a:hover:before, .candidates .sub-header ul li a:focus:before {
+          .candidates .sub-header ul li a:hover:before, .candidates .sub-header ul li a:focus:before, .candidates .sub-header ul li a.active:before {
             position: absolute;
             color: #fff;
             content: '';
@@ -27,9 +27,191 @@
             left: 0px;
             right: 0px;
             border-bottom: 3px solid #14acff; }
-        .candidates .sub-header ul li a.active {
-          color: #fff; }
 .candidates .resume-room {
   min-height: calc(100vh - 160px); }
+  .candidates .resume-room .filter {
+    padding-top: 25px;
+    border-bottom: 1px solid #cccdcf; }
+    .candidates .resume-room .filter p.title {
+      color: #4e5f69;
+      font-size: 16px;
+      font-weight: bold; }
+    .candidates .resume-room .filter ul {
+      margin: 0;
+      padding: 0 8px;
+      list-style: none; }
+      .candidates .resume-room .filter ul li {
+        margin-bottom: 20px; }
+        .candidates .resume-room .filter ul li ul {
+          margin-left: 16px; }
+          .candidates .resume-room .filter ul li ul li {
+            font-size: 15px;
+            margin: 12px 0; }
+    .candidates .resume-room .filter .checkbox {
+      margin: 12px 0; }
+      .candidates .resume-room .filter .checkbox input[type='checkbox'] {
+        opacity: 0; }
+        .candidates .resume-room .filter .checkbox input[type='checkbox'] + label {
+          position: relative; }
+          .candidates .resume-room .filter .checkbox input[type='checkbox'] + label:before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            border: 1px solid #999;
+            left: -8px;
+            border-radius: 2px; }
+        .candidates .resume-room .filter .checkbox input[type='checkbox']:checked + label:before {
+          background: #2393d3;
+          border-color: #2393d3; }
+        .candidates .resume-room .filter .checkbox input[type='checkbox']:checked + label:after {
+          content: '';
+          width: 8px;
+          height: 15px;
+          position: absolute;
+          border: 2px solid #fff;
+          transform: rotate(45deg);
+          border-top: 0;
+          border-left: 0;
+          left: -2px; }
+      .candidates .resume-room .filter .checkbox .modern-select {
+        margin: 16px 0 0 -6px; }
+        .candidates .resume-room .filter .checkbox .modern-select .chosen-container {
+          width: 100% !important; }
+          .candidates .resume-room .filter .checkbox .modern-select .chosen-container ul.chosen-choices {
+            margin: 0; }
+            .candidates .resume-room .filter .checkbox .modern-select .chosen-container ul.chosen-choices li {
+              height: 30px;
+              line-height: 24px;
+              margin: 6px 0; }
+            .candidates .resume-room .filter .checkbox .modern-select .chosen-container ul.chosen-choices li.search-choice {
+              background: #f4f6f5;
+              border-color: #e1e3e2;
+              margin-right: 5px; }
+              .candidates .resume-room .filter .checkbox .modern-select .chosen-container ul.chosen-choices li.search-choice:hover {
+                border-color: #46b8ff; }
+              .candidates .resume-room .filter .checkbox .modern-select .chosen-container ul.chosen-choices li.search-choice .search-choice-close {
+                top: 9px; }
+            .candidates .resume-room .filter .checkbox .modern-select .chosen-container ul.chosen-choices li.search-field input {
+              height: 100%; }
+          .candidates .resume-room .filter .checkbox .modern-select .chosen-container .chosen-drop ul {
+            margin: 0; }
+            .candidates .resume-room .filter .checkbox .modern-select .chosen-container .chosen-drop ul li {
+              margin: 7px 0; }
+  .candidates .resume-room .action div {
+    text-align: right; }
+    .candidates .resume-room .action div span {
+      padding: 15px 10px;
+      display: inline-block;
+      font-size: 14px;
+      outline: none; }
+  .candidates .resume-room .box {
+    border: 1px solid #cdcdcd;
+    box-shadow: 1px 4px 10px #cdcdcd;
+    -webkit-box-shadow: 1px 4px 10px #cdcdcd;
+    background: #fff; }
+    .candidates .resume-room .box .box-header {
+      padding: 7px 15px;
+      line-height: 48px; }
+      .candidates .resume-room .box .box-header .search.has-feedback {
+        position: relative; }
+        .candidates .resume-room .box .box-header .search.has-feedback .feedback {
+          position: absolute;
+          z-index: 2;
+          display: block;
+          width: 20px;
+          height: 20px;
+          line-height: 30px;
+          text-align: center;
+          pointer-events: none; }
+          .candidates .resume-room .box .box-header .search.has-feedback .feedback.right {
+            top: 18px;
+            right: 0;
+            width: 17px;
+            height: 17px;
+            pointer-events: auto; }
+          .candidates .resume-room .box .box-header .search.has-feedback .feedback.left {
+            top: 14px;
+            left: 0; }
+      .candidates .resume-room .box .box-header .search input {
+        border: 0;
+        border-bottom: 1px solid #c8d1d0;
+        border-radius: 0;
+        box-shadow: none;
+        height: 34px;
+        padding: 5px 30px;
+        outline: none; }
+        .candidates .resume-room .box .box-header .search input:focus {
+          border-color: #208d6e; }
+    .candidates .resume-room .box .box-content .grid {
+      border: 0 !important;
+      border-top: 1px solid #ccc !important; }
+      .candidates .resume-room .box .box-content .grid .ui-grid-contents-wrapper .ui-grid-pinned-container .ui-grid-selection-row-header-buttons {
+        outline: none;
+        opacity: 1;
+        margin: 8px 0 0 5px; }
+        .candidates .resume-room .box .box-content .grid .ui-grid-contents-wrapper .ui-grid-pinned-container .ui-grid-selection-row-header-buttons:before {
+          content: '';
+          width: 18px;
+          height: 18px;
+          border: 1px solid #ccc;
+          position: absolute;
+          border-radius: 2px;
+          background: #fff; }
+      .candidates .resume-room .box .box-content .grid .ui-grid-contents-wrapper .ui-grid-pinned-container .ui-grid-all-selected:before, .candidates .resume-room .box .box-content .grid .ui-grid-contents-wrapper .ui-grid-pinned-container .ui-grid-row-selected:before {
+        background: #0b8fe2;
+        border: 1px solid transparent; }
+      .candidates .resume-room .box .box-content .grid .ui-grid-contents-wrapper .ui-grid-pinned-container .ui-grid-all-selected:after, .candidates .resume-room .box .box-content .grid .ui-grid-contents-wrapper .ui-grid-pinned-container .ui-grid-row-selected:after {
+        content: '';
+        position: absolute;
+        top: 14px;
+        left: 19px;
+        width: 6px;
+        height: 13px;
+        border: 2px solid #fff;
+        transform: rotate(45deg);
+        border-top: 0;
+        border-left: 0;
+        pointer-events: none; }
+      .candidates .resume-room .box .box-content .grid .ui-grid-contents-wrapper .ui-grid-pinned-container .ui-grid-viewport .ui-grid-row {
+        position: relative; }
+      .candidates .resume-room .box .box-content .grid .ui-grid-contents-wrapper .ui-grid-pinned-container .ui-grid-viewport .ui-grid-selection-row-header-buttons {
+        margin: 21px 0 0 5px; }
+      .candidates .resume-room .box .box-content .grid .ui-grid-contents-wrapper .ui-grid-pinned-container .ui-grid-viewport .ui-grid-all-selected:after, .candidates .resume-room .box .box-content .grid .ui-grid-contents-wrapper .ui-grid-pinned-container .ui-grid-viewport .ui-grid-row-selected:after {
+        top: 27px; }
+      .candidates .resume-room .box .box-content .grid .ui-grid-contents-wrapper .ui-grid-render-container .ui-grid-header .ui-grid-header-viewport {
+        background: #eeeff1;
+        color: #6d6d6d;
+        height: 40px;
+        line-height: 36px; }
+      .candidates .resume-room .box .box-content .grid .ui-grid-contents-wrapper .ui-grid-render-container .ui-grid-header .ui-grid-header-cell {
+        border-right: 0; }
+      .candidates .resume-room .box .box-content .grid .ui-grid-contents-wrapper .ui-grid-render-container .ui-grid-header .ui-grid-cell-contents {
+        outline: none; }
+      .candidates .resume-room .box .box-content .grid .ui-grid-contents-wrapper .ui-grid-render-container .ui-grid-header .ui-grid-column-menu-button i {
+        display: none; }
+      .candidates .resume-room .box .box-content .grid .ui-grid-contents-wrapper .ui-grid-render-container .ui-grid-viewport .ui-grid-cell {
+        border: 0; }
+      .candidates .resume-room .box .box-content .grid .ui-grid-contents-wrapper .ui-grid-render-container .ui-grid-viewport .ui-grid-cell {
+        background: #fff;
+        line-height: 60px;
+        border-bottom: 1px solid #e2e2e2;
+        color: #323232; }
+      .candidates .resume-room .box .box-content .grid .ui-grid-contents-wrapper .ui-grid-render-container .ui-grid-viewport .ui-grid-row.ui-grid-row-selected > [ui-grid-row] > .ui-grid-cell {
+        background: #f9f9f9; }
+      .candidates .resume-room .box .box-content .grid .ui-grid-contents-wrapper .ui-grid-render-container .ui-grid-viewport .ui-grid-img-down {
+        outline: none;
+        background: url("../images/referrals.png") no-repeat 0% 72.7%;
+        background-size: 24px;
+        padding-left: 27px; }
+      .candidates .resume-room .box .box-content .grid .ui-grid-contents-wrapper .ui-grid-render-container .ui-grid-viewport .ui-grid-img-status .status {
+        color: #309e7f; }
+      .candidates .resume-room .box .box-content .grid .ui-grid-contents-wrapper .ui-grid-render-container .ui-grid-viewport .ui-grid-img-status .status-default {
+        color: #777777; }
+      .candidates .resume-room .box .box-content .grid .ui-grid-contents-wrapper .ui-grid-render-container .ui-grid-viewport .ui-grid-img-status img {
+        margin-top: 20px;
+        margin-right: 7px;
+        width: 20px;
+        outline: none; }
 
 /*# sourceMappingURL=candidates.css.map */

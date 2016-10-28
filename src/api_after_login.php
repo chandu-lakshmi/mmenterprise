@@ -1010,3 +1010,19 @@ $app->POST('/contacts_file_upload',function ($request, $response, $args) {
     $this->mintmeshAccessToken;
   print_r(companyProfile($this->settings));
 });
+
+ // mintbot
+ $app->get('/mintbot',function ($request, $response, $args) use ($app) {
+     
+    //Arguments
+    $this->mintmeshAccessToken;
+    $args  = commonData($this->settings);
+    
+    //Check Logged in or not
+    if(!empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']);
+    }
+    $args['comp_data'] = companyProfile($this->settings);
+    // Render dashboard view
+    return $this->renderer->render($response, 'index.phtml', $args);
+});
