@@ -209,7 +209,7 @@ header .notifications .dropdown button .user_name{
 	margin:0 10px;
 	vertical-align: middle;
 	text-transform: capitalize;
-    max-width: 160px;
+    max-width: 130px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: inline-block;
