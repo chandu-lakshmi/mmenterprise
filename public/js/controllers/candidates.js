@@ -139,37 +139,51 @@
 	
 	  		this.searchFunc = function(e){
   				if(vm.search.length >= 2){
-  					vm.gridOptions.columnDefs.push({name: 'confidenceScore', displayName: 'Confidence Score', headerTooltip : 'Confidence Score',
-  						cellTemplate: ' <div class="progress" style="margin:25px 0;"> <div class="progress-bar progress-bar-info progress-bar-striped" style="width:{{COL_FIELD}}%">{{COL_FIELD}}%</div> </div>'});
-  					vm.gridOptions.data = [
-  						{
-						   "candidateName":"John",
-						   "referredBy":"Kristene Scot",
-						   "job":"Project Manager",
-						   "resume":"John_PM.pdf",
-						   "time":"19 May 2016",
-						   "status":"Accept",
-						   "confidenceScore":"86"
-						 },
-						 {
-						   "candidateName":"Steve",
-						   "referredBy":"Armen Hodge",
-						   "job":"Fresher",
-						   "resume":"Steven.doc",
-						   "time":"20 May 2016",
-						   "status":"Declined",
-						   "confidenceScore":"75"
-						 },
-						 {
-						   "candidateName":"Kristene",
-						   "referredBy":"Watson",
-						   "job":"iOS Developer",
-						   "resume":"Resume.pdf",
-						   "time":"23 May 2016",
-						   "status":"Unsolicited",
-						   "confidenceScore":"64"
-						 }
-					]
+  					vm.gridOptions = {
+  						columnDefs : [
+				            { name: 'candidateName', displayName: 'Candidate Name', headerTooltip: 'Candidate Name'},
+				            { name: 'referredBy', displayName: 'Referred By', headerTooltip: 'Referred By'},
+				            { name: 'job', displayName: 'Job/Position', headerTooltip: 'Job/Position'},
+				            { name: 'resume', displayName: 'Resume', headerTooltip: 'Resume',
+							  cellTemplate: '<div class="ui-grid-cell-contents ui-grid-img-down" ng-click="grid.appScope.downloadResume(row)">{{ COL_FIELD }}</div>'
+				            },
+				            { name: 'time', displayName: 'Time', headerTooltip: 'Time'},
+				            { name: 'status', displayName: 'Status', headerTooltip: 'Status',
+				              cellTemplate: 'status-change.html'	
+				        	},
+				        	{ name: 'confidenceScore', displayName: 'Confidence Score', headerTooltip : 'Confidence Score',
+  								cellTemplate: ' <div class="progress" style="margin:25px 0;"> <div class="progress-bar progress-bar-info progress-bar-striped" style="width:{{COL_FIELD}}%">{{COL_FIELD}}%</div> </div>'}
+				        ],
+  						data : [
+	  						{
+							   "candidateName":"John",
+							   "referredBy":"Kristene Scot",
+							   "job":"Project Manager",
+							   "resume":"John_PM.pdf",
+							   "time":"19 May 2016",
+							   "status":"Accept",
+							   "confidenceScore":"86"
+							 },
+							 {
+							   "candidateName":"Steve",
+							   "referredBy":"Armen Hodge",
+							   "job":"Fresher",
+							   "resume":"Steven.doc",
+							   "time":"20 May 2016",
+							   "status":"Declined",
+							   "confidenceScore":"75"
+							 },
+							 {
+							   "candidateName":"Kristene",
+							   "referredBy":"Watson",
+							   "job":"iOS Developer",
+							   "resume":"Resume.pdf",
+							   "time":"23 May 2016",
+							   "status":"Unsolicited",
+							   "confidenceScore":"64"
+							 }
+						]
+					}
   				}
   				else if(vm.search.length == 0){
   					vm.close();
@@ -177,7 +191,7 @@
 	  		}
 
 	  		this.close = function(){
-	  			vm.gridOptions.columnDefs = [
+	  			vm.gridOptions = {columnDefs : [
 		            { name: 'candidateName', displayName: 'Candidate Name', headerTooltip: 'Candidate Name'},
 		            { name: 'referredBy', displayName: 'Referred By', headerTooltip: 'Referred By'},
 		            { name: 'job', displayName: 'Job/Position', headerTooltip: 'Job/Position'},
@@ -188,8 +202,9 @@
 		            { name: 'status', displayName: 'Status', headerTooltip: 'Status',
 		              cellTemplate: 'status-change.html'	
 		        	}
-		        ]
-	  			vm.gridOptions.data = obj;
+		        ],
+		  			data : obj
+		  		}
 	  		}
 	  	}
 
