@@ -1,0 +1,15 @@
+<div class="bucket-container">
+   <h5>SELECT CONTACTS GROUP TO PUBLISH CAMPAIGN</h5>
+   <div class="bucket-each" ng-repeat="bucket in buckets">
+      <div class="bucket" ng-style="{'background':getColor($index)}" 
+         ng-init="bucket.src = checkIds.indexOf(bucket.bucket_id) >= 0 ? 'public/images/select.svg' : 'public/images/add.svg'"
+         ng-click="bucket.count == 0 ? '' : addBucketContact(bucket.src, $index, bucket.bucket_id)">
+         <div class="" popover-enable='bucket.count == 0' uib-popover="No contacts Found" popover-trigger="'mouseenter'">
+            <img ng-src="{{bucket.src}}" alt="" ng-init="initFn(bucket.src, bucket.bucket_id)">
+            <h4><p ng-bind="bucket.bucket_name" title="{{bucket.bucket_name}}"></p></h4>
+            <span ng-bind="bucket.count+' contact(s)'"></span>
+         </div>
+      </div>
+   </div>
+   <input type="hidden" name="selectedBuckets" required value="{{selectedBktsString}}" ng-model="selectedBktsString">
+</div>

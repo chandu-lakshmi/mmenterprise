@@ -49,6 +49,7 @@ button::-moz-focus-inner {
 .post-request .job-info .container .row .lt .row div .pull-right,
 .post-request .job-info .container .row .rt  div div:last-child{
 	color: #212121;
+    word-wrap: break-word;
 }
 .post-request .job-info .container .row .rt{
 	padding:0 0 0 32px;
@@ -179,7 +180,7 @@ button::-moz-focus-inner {
 }
 .post-request .select-rewards .container .row div .rewards-box .radio .currency .md-text{
     display: block;
-    text-align: center;
+    margin-left: 12px;
     font-size: 20px;
 }
 .post-request .select-rewards .container .row div .rewards-box .radio div label .field{
@@ -214,7 +215,10 @@ button::-moz-focus-inner {
 .post-request .select-rewards .container .row div .rewards-box .radio div label .field md-select[disabled] .md-select-value{
     background-repeat: no-repeat;
 }
-
+.post-request .select-rewards .container .row div .rewards-box .radio .points{
+    display: inline;
+    margin-left: 17px;
+}
 
 .post-request .buckets-container{
 	border-top: 1px solid #e9edec;

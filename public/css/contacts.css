@@ -197,6 +197,7 @@
     padding-left: 0;
     border-radius: 0;
 }
+
 .grid-contacts .ui-grid-row .ng-scope div{
 	padding-right: 14px;
     border: 1px solid transparent;
@@ -222,6 +223,12 @@
 .grid-contacts .grid  .ui-grid-pinned-container.ui-grid-pinned-container-left .ui-grid-cell:last-child{
     border-right:0 !important;
 } 
+.grid-contacts .grid .ui-grid-render-container-body .ui-grid-viewport{
+    overflow-y: auto !important; 
+}
+.grid-contacts .grid .ui-grid-render-container-body .ui-grid-viewport .ui-grid-canvas{
+    width: 100%;
+}
 .grid-contacts .ui-grid-column-menu-button .ui-grid-icon-angle-down{
     display: none;
 }

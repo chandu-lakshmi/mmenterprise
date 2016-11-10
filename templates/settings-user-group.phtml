@@ -34,21 +34,21 @@
 			</div>
 			<div class="col-sm-9">
 				<div class="box">
-					<div class="templates">
+					<div class="templates" style="position:relative;">
 						<div class="group" ng-show="UserGroupCtrl.group" ng-include src="UserGroupCtrl.group_template" ng-style="{'pointer-events': UserGroupCtrl.groupData.is_primary == 1 ? 'none' : 'auto'}"></div>
 						<div class="person" ng-show="!UserGroupCtrl.group" ng-include src="UserGroupCtrl.person_template"></div>
+						<div class="fixed-action-btn horizontal" style="position:absolute;top:20px;bottom:auto">
+							<a class="btn-floating btn-large mm-color ripplelink">
+								<img src="public/images/material_icons/create.svg" alt="">
+							</a>
+							<ul>
+								<li uib-popover="Add Group" popover-trigger="'mouseenter'" popover-placement="top-center"><a class="btn-floating ripplelink" ng-click="UserGroupCtrl.addNew('group')"><img src="public/images/material_icons/add-group.svg" alt=""></a></li>
+								<li uib-popover="Add User" popover-trigger="'mouseenter'" popover-placement="top-center"><a class="btn-floating ripplelink" ng-click="UserGroupCtrl.addNew('person')"><img src="public/images/material_icons/add-person.svg" alt=""></a></li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-		<a class="btn-floating btn-large mm-color ripplelink">
-			<img src="public/images/material_icons/create.svg" alt="">
-		</a>
-		<ul>
-			<li uib-popover="Add Group" popover-trigger="'mouseenter'" popover-placement="left-top"><a class="btn-floating ripplelink" ng-click="UserGroupCtrl.addNew('group')"><img src="public/images/material_icons/add-group.svg" alt=""></a></li>
-			<li uib-popover="Add User" popover-trigger="'mouseenter'" popover-placement="left-top"><a class="btn-floating ripplelink" ng-click="UserGroupCtrl.addNew('person')"><img src="public/images/material_icons/add-person.svg" alt=""></a></li>
-		</ul>
 	</div>
 </div>

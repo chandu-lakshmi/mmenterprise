@@ -21,7 +21,7 @@ angular.module('app.forgotPassword', [])
 	}
 })
 
-.controller('ForgotPassword',['$state', 'tokens', '$http', '$uibModal', 'CONFIG', function($state, tokens, $http, $uibModal, CONFIG){
+.controller('ForgotPassword',['$state', '$window', 'tokens', '$http', '$uibModal', 'CONFIG', function($state, $window, tokens, $http, $uibModal, CONFIG){
 	
 	var scope = this;
 
@@ -72,9 +72,12 @@ angular.module('app.forgotPassword', [])
                     openedClass: "reset-pwd",
                 });
             }
-            if(response.status_code == 403){
+            else if(response.status_code == 403){
                 scope.backendError = true;
                 scope.backendMsg = response.message.msg[0];
+            }
+            else if(response.status_code == 400){
+                $window.location = CONFIG.APP_DOMAIN + 'logout';
             }
         })
         resetPassword.error(function(response){
@@ -82,44 +85,6 @@ angular.module('app.forgotPassword', [])
             console.log(response)
         })
     }
-			/*var reset_params = $.param({
-				password : scope.forgotPassword.new_password,
-				password_confirmation : scope.forgotPassword.re_password,
-				code : tokens.reset_token
-			})
-			var resetPassword = $http({
-                headers: {
-                   'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                },
-                method: 'POST',
-                url: CONFIG.APP_DOMAIN+'reset_password',                               
-                data: reset_params
-            })
-
-            resetPassword.success(function(response){
-            	scope.load_cond_reset = false;
-            	if(response.status_code == 200){
-                    $uibModal.open({
-                        animation: true,
-                        keyboard: false,
-                        backdrop: 'static',
-                        templateUrl: 'templates/dialogs/reset-success.phtml',
-                        openedClass: "reset-pwd",
-                        controller: 'InviteZero'
-                    });
-            	}
-            	if(response.status_code == 403){
-            		scope.backendError = true;
-            		scope.backendMsg = response.message.msg[0];
-            	}
-            })
-            resetPassword.error(function(response){
-            	scope.load_cond_reset = false;
-            	console.log(response)
-            })*/
-		/*}
-	}*/
-
 
 	// cancel button
 	this.forgot_cancel = function(){

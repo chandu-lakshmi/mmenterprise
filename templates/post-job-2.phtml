@@ -19,28 +19,36 @@
 						<div class="clearfix">
 						</div>
 						<div class="clearfix">
-							<span class="pull-left col-sm-4">Job Title:</span>
-							<span class="pull-right col-sm-8">{{post2Ctrl.post_job_result.job_title}}</span>
+							<span class="pull-left col-sm-5">Job Title:</span>
+							<span class="pull-right col-sm-7">{{post2Ctrl.post_job_result.job_title}}</span>
 						</div>
 						<div class="clearfix">
-							<span class="pull-left col-sm-4">Job Function:</span>
-							<span class="pull-right col-sm-8">{{post2Ctrl.post_job_result.job_func.job_function_name}}</span>
+							<span class="pull-left col-sm-5">Job Function:</span>
+							<span class="pull-right col-sm-7">{{post2Ctrl.post_job_result.job_func.job_function_name}}</span>
 						</div>
 						<div class="clearfix">
-							<span class="pull-left col-sm-4">Location:</span>
-							<span class="pull-right col-sm-8">{{post2Ctrl.post_job_result.location}}</span>
+							<span class="pull-left col-sm-5">Location:</span>
+							<span class="pull-right col-sm-7">{{post2Ctrl.post_job_result.location}}</span>
 						</div>
 						<div class="clearfix">
-							<span class="pull-left col-sm-4">Employement Type:</span>
-							<span class="pull-right col-sm-8">{{post2Ctrl.post_job_result.emp_type.employment_type_name}}</span>
+							<span class="pull-left col-sm-5">Employement Type:</span>
+							<span class="pull-right col-sm-7">{{post2Ctrl.post_job_result.emp_type.employment_type_name}}</span>
 						</div>
 						<div class="clearfix">
-							<span class="pull-left col-sm-4">Experience:</span>
-							<span class="pull-right col-sm-8">{{post2Ctrl.post_job_result.experience.experience_name}}</span>
+							<span class="pull-left col-sm-5">Number of Vacancies:</span>
+							<span class="pull-right col-sm-7">{{post2Ctrl.post_job_result.no_of_vacancies}}</span>
 						</div>
 						<div class="clearfix">
-							<span class="pull-left col-sm-4">Position ID:</span>
-							<span class="pull-right col-sm-8">{{post2Ctrl.post_job_result.position_id}}</span>
+							<span class="pull-left col-sm-5">Experience:</span>
+							<span class="pull-right col-sm-7">{{post2Ctrl.post_job_result.experience.experience_name}}</span>
+						</div>
+						<div class="clearfix" ng-if="post2Ctrl.post_job_result.position_id != ''">
+							<span class="pull-left col-sm-5">Position ID:</span>
+							<span class="pull-right col-sm-7">{{post2Ctrl.post_job_result.position_id}}</span>
+						</div>
+						<div class="clearfix" ng-if="jobDetailsCtrl.post_data.requistion_id != ''">
+							<span class="pull-left col-sm-5">Requisition ID:</span>
+							<span class="pull-right col-sm-7">{{post2Ctrl.post_job_result.requistion_id}}</span>
 						</div>
 					</div>
 				</div>
@@ -81,7 +89,7 @@
 								<input type="radio" name="discoveryRewardsType" id="free" value="free" 
 								    ng-model="post2Ctrl.discoveryRewardsType" ng-disabled="!post2Ctrl.discoveryRewards" ng-click="post2Ctrl.reset('')">
 								<label for="free">
-									Free - Just A Thankyou
+									Free - Just A Thank You
 									<div class="chkout" style="top:0"></div>
 									<div class="chkin" style="top:0"></div>
 								</label>
@@ -124,7 +132,7 @@
 											ng-disabled="!post2Ctrl.discoveryRewards"
 											ng-pattern="/^[0-9]{0,30}$/"
 											ng-required="post2Ctrl.discoveryRewardsType=='points'" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
-										<div style="display:inherit">POINTS</div>
+										<div class="points">POINTS</div>
 									</span>
 									<div class="chkout"></div>
 									<div class="chkin"></div>
@@ -151,7 +159,7 @@
 								<input type="radio" name="referralRewardsType" id="frees" value="free" 
 								    ng-model="post2Ctrl.referralRewardsType" ng-disabled="!post2Ctrl.referralRewards" ng-click="post2Ctrl.reset1('')">
 								<label for="frees">
-									Free - Just A Thankyou
+									Free - Just A Thank You
 									<div class="chkout" style="top:0"></div>
 									<div class="chkin" style="top:0"></div>
 								</label>
@@ -194,7 +202,7 @@
 											ng-disabled="!post2Ctrl.referralRewards"
 											ng-pattern="/^[0-9]{0,30}$/"
 											ng-required="post2Ctrl.referralRewardsType=='points'" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
-										<div style="display:inherit">POINTS</div>
+										<div class="points">POINTS</div>
 									</span>
 									<div class="chkout"></div>
 									<div class="chkin"></div>

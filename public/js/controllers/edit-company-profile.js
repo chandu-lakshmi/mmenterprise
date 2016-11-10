@@ -4,9 +4,9 @@
 angular.module('app.edit.company', [])
 
 
-.controller('editCompanyProfileController', ['$scope', '$http', '$window', 'CompanyDetails', '$compile', 'CONFIG', function($scope, $http, $window, CompanyDetails, $compile, CONFIG){
+.controller('editCompanyProfileController', ['$scope', '$http', '$q', '$window', 'CompanyDetails', '$compile', 'CONFIG', function($scope, $http, $q, $window, CompanyDetails, $compile, CONFIG){
 
-	var scope = this,dublicateData;
+	var scope = this,dublicateData,canceller;
     var image_path = '',mul_image_path = [],bonus_file_path = '';
 
 	scope.update = false;
@@ -29,6 +29,7 @@ angular.module('app.edit.company', [])
 	// cancel button
 	this.cancel = function(){
 		reset();
+		canceller.resolve();
 		scope.update = false;
 		scope.errCond = false;
 		$('.qq-upload-fail').remove();
@@ -217,13 +218,20 @@ angular.module('app.edit.company', [])
 			scope.errCond = false;
 			scope.updateLoader = true;
 			
+			if(canceller){
+	            canceller.resolve();
+	        }
+
+	        canceller = $q.defer();
+
 			var update_company = $http({
 	            headers: {
 	                "content-type": 'application/x-www-form-urlencoded'
 	            },
 	            method : 'POST',
 	            url : CONFIG.APP_DOMAIN+'update_company',
-	            data : param
+	            data : param,
+	            timeout : canceller.promise
 	        });
 
 	        update_company.success(function(response){

@@ -44,7 +44,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
     }
 })
 
-.controller('ContactsController',['$scope', '$http', '$q', '$interval', 'buckets', 'uiGridValidateService', '$uibModal', 'CONFIG', 'userPermissions', function($scope, $http, $q, $interval, buckets, uiGridValidateService, $uibModal, CONFIG, userPermissions){
+.controller('ContactsController',['$scope', '$window',  '$http', '$q', '$interval', 'buckets', 'uiGridValidateService', '$uibModal', 'CONFIG', 'userPermissions', function($scope, $window, $http, $q, $interval, buckets, uiGridValidateService, $uibModal, CONFIG, userPermissions){
 	
 	var scope = this;
 	this.loaderImg = false;
@@ -235,7 +235,18 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
     	bucketId = 0;
     this.activeBucket = 'ALL CONTACTS';
     this.currentPage = 1;
-    this.getGridData = function(bktName, bktID, pageNo, searchVal) {
+    this.getGridData = function(bktName, bktID, pageNo, searchVal, flag) {
+
+        if(flag == 1){
+            $('.modalSuccess').show();
+            $('.modalSuccess').fadeOut(3000);
+            scope.modalSuccessMsg = 'Contact Added Successfully';
+        }
+        else if(flag == 0){
+            $('.modalSuccess').show();
+            $('.modalSuccess').fadeOut(3000);
+            scope.modalSuccessMsg = 'Successfully Updated';
+        }
     	
     	if (bktName != "") {
             colSortObj != "" ? colSortObj[0].sort.direction = '' : '';
@@ -304,7 +315,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 
 	        }
 	        // Session Destroy
-	        else if (response.status_code == 400) {
+	        else if (response.status_code == 400) {console.log("shiva")
 	            $window.location = CONFIG.APP_DOMAIN + 'logout';
 	        }
     	});
@@ -571,6 +582,9 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
                 scope.invite_cond = false;
                 scope.successMsg = true;
                 listContacts.resetSelectedCts();
+            }
+            else if(response.status_code == 400){
+                $window.location = CONFIG.APP_DOMAIN + 'logout';
             }
         })
         invite_contacts.error(function(response){
@@ -878,7 +892,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
             if(response.status_code == 200){
                 scope.uploadLoader = false;
                 scope.errorUpload = false;
-                defaultFunction('', '', '', '');
+                defaultFunction('', '', '', '', 0);
                 getBuckets();
                 $uibModalInstance.dismiss('cancel');
             }
@@ -956,7 +970,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
                     var obj = buckets.getData();
                     for(var i = 0; i < obj.length; i++){
                         if(obj[i].bucket_id == scope.newContact.bucket){
-                            defaultFunction(obj[i].bucket_name, scope.newContact.bucket, '', '');
+                            defaultFunction(obj[i].bucket_name, scope.newContact.bucket, '', '', 1);
                             break;
                         }
                     }

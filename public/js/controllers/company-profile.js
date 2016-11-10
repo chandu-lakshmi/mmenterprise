@@ -158,7 +158,7 @@ angular.module('app.company.profile', [])
         var formData = new FormData();
         formData.append('company',scope.comp_name);
         formData.append('industry',scope.industry.industry_id);
-        formData.append('description',scope.desc);
+        formData.append('description',scope.desc || '');
         formData.append('number_of_employees',scope.groupSize);
         formData.append('website',scope.website);
 

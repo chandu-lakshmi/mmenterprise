@@ -37,7 +37,7 @@ angular.module('app.dashboard', ['ngMaterial', 'ngMessages'])
 	}
 
 	this.colorCode = ["#21A4AC", "#EE8F3B", "#2A99E0", "#154c50", "#103954", "#342158", "#5B5B29", "#004D40", "#229A77", "#6f2b25"];    
-	this.colorCode2 = ["#4337c1", "#55b567", "#caba34", "#9e9e9e", "#110613", "#b54019", "#cdc39", "#607D8B", "#FFB300", "#424242"];
+	this.colorCode2 = ["#4337c1", "#55b567", "#caba34", "#9e9e9e", "#110613", "#b54019", "#cdc309", "#607D8B", "#FFB300", "#424242"];
     this.colorPicker = function(ind, bol) {
         return scope[bol == 1 ? 'colorCode' : 'colorCode2' ][String(ind).slice(-1)];
 	}
@@ -74,7 +74,9 @@ angular.module('app.dashboard', ['ngMaterial', 'ngMessages'])
 		    percent: contact,
 		    foregroundBorderWidth: 9,
 		    backgroundBorderWidth: 9,
-		    backgroundColor: '#d4dfe5'
+		    backgroundColor: '#d4dfe5',
+		    icon : 'public/images/contacts_img_small.png',
+	        iconSize : 30
 		});
 
 		$('.circlestat1').circliful({
@@ -82,7 +84,9 @@ angular.module('app.dashboard', ['ngMaterial', 'ngMessages'])
 		    percent: job,
 		    foregroundBorderWidth: 9,
 		    backgroundBorderWidth: 9,
-		    backgroundColor: '#d4dfe5'
+		    backgroundColor: '#d4dfe5',
+		    icon : 'public/images/jobs_img_small.png',
+	        iconSize : 30
 		});
 
 		$('.circlestat2').circliful({
@@ -90,7 +94,9 @@ angular.module('app.dashboard', ['ngMaterial', 'ngMessages'])
 	        percent: reward,
 	        foregroundBorderWidth: 9,
 	        backgroundBorderWidth: 9,
-	        backgroundColor: '#d4dfe5'
+	        backgroundColor: '#d4dfe5',
+	        icon : 'public/images/no_rewards.png',
+	        iconSize : 30
 		});
 	}
 	
@@ -217,6 +223,9 @@ angular.module('app.dashboard', ['ngMaterial', 'ngMessages'])
 					// $.when($('.circlestat').circliful({percent: postProgress.contacts})).then($('.circlestat svg:last-child').remove());	
 				}	
 			}
+			else if(response.status_code == 400){
+	            $window.location = CONFIG.APP_DOMAIN + 'logout';
+	        }
 		})
 
 		dashboard_job_details.error(function(response){

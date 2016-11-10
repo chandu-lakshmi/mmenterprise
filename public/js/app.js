@@ -5,7 +5,7 @@ angular.module('app', ['ripple',
     'ui.router', 'ui.bootstrap',
     'app.constants', 'app.home', 'app.forgotPassword', 'app.company.profile', 'app.import.contacts', 'app.emails', 'app.dashboard',
     'app.engagement.contacts', 'app.post.job', 'app.job.search', 'app.job.details', 'app.rewards', 'app.edit.company', 'app.contact',
-    'app.candidates', 'app.settings'
+    'app.candidates', 'app.campaigns', 'app.settings'
 ])
 
 .constant('CONFIG', {
@@ -121,18 +121,51 @@ angular.module('app', ['ripple',
         controller: 'ContactsController',
         controllerAs: 'ContactCtrl'
     })
-    $stateProvider.state('app.candidates',{
+        $stateProvider.state('app.candidates',{
         url: '^/candidates',
         templateUrl: App.base_url + 'templates/candidates/candidates.phtml',
         controller: 'CandidateController',
         controllerAs: 'CandidateCtrl'
-    })
+	})
     $stateProvider.state('app.candidates.resumeRoom',{
         url: '^/candidates/resume-room',
         templateUrl: App.base_url + 'templates/candidates/candidates-resume-room.phtml',
         controller: 'ResumeRoomController',
         controllerAs: 'ResumeRoomCtrl'
     })
+    $stateProvider.state('app.campaigns',{
+        url: '^/campaigns',
+        templateUrl: App.base_url + 'templates/campaigns/campaigns.phtml',
+        controller: 'CampaignsController',
+        controllerAs: 'CampaignsCtrl'
+    })
+    $stateProvider.state('app.campaigns.allCampaigns',{
+        url: '^/campaigns/all-campaigns',
+        params: {
+            all_campaigns: 1
+        },
+        data : {all : 0},
+        templateUrl: App.base_url + 'templates/campaigns/all-campaigns.phtml',
+        controller: 'AllCampaignsController',
+        controllerAs: 'AllCampaignsCtrl'
+    })
+    $stateProvider.state('app.campaigns.myCampaigns',{
+        url: '^/campaigns/my-campaigns',
+        params: {
+            all_campaigns: 0
+        },
+        data : {all : 1},
+        templateUrl: App.base_url + 'templates/campaigns/all-campaigns.phtml',
+        controller: 'AllCampaignsController',
+        controllerAs: 'AllCampaignsCtrl'
+    })
+    $stateProvider.state('app.campaigns.editCampaigns',{
+        url: '^/campaigns/edit-campaigns',
+        templateUrl: App.base_url + 'templates/campaigns/edit-campaigns.phtml',
+        controller: 'EditCampaignsController',
+        controllerAs: 'EditCampaignsCtrl'
+    })
+
     if(userPermissions.settings == '1'){
         $stateProvider.state('app.settings',{
             url: '^/settings',
@@ -185,13 +218,13 @@ angular.module('app', ['ripple',
 
 .run(function ($rootScope, userPermissions) {
     $rootScope.userPermissions = userPermissions;
-});
+})
 
-/*.run([ '$rootScope', '$state', '$stateParams',
+.run([ '$rootScope', '$state', '$stateParams',
     function ($rootScope, $state, $stateParams) {
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
     }
-])*/
+])
     
 }());

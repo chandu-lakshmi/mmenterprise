@@ -38,6 +38,9 @@ angular.module('app.emails', [])
                     //$state.go('companyProfile');
                 }
             }
+            else if(response.status_code == 400){
+                $window.location = CONFIG.APP_DOMAIN + 'logout';
+            }
             else{
                 scope.loadCond = false;
                 scope.verified = false;

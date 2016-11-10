@@ -21,7 +21,7 @@ p.indent:first-letter{
 }
 .search-job .left-inner-addon img[alt='feedback_right'] {
 	position: absolute;
-	right: 40px;
+	right: 22px;
     top: 16px;
     width: 13px;
     outline: 0;
@@ -388,15 +388,19 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 .new-job-details .info-box .lt .col-sm-7{
 	padding: 0;
 }
+.new-job-details .info-box .lt{
+	border-right: 1px solid #ccc;
+	margin-bottom: 35px;
+}
 .new-job-details .info-box .lt .row{
 	padding-bottom: 20px;
+	width: 100%;
 }
 .new-job-details .info-box .lt .col-sm-5{
 	color: #666666;
 }
 .new-job-details .info-box .rt .currency{
 	padding: 0 0 34px 17px;
-	border-left: 1px solid #ccc;
 }
 .new-job-details .info-box .rt .currency h4{
 	margin:0;
@@ -404,6 +408,7 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 .new-job-details .info-box .rt .currency span{
 	display: inline-block;
     padding: 8px 0px 3px 0;
+    text-transform: capitalize;
     color: #666666;
 }
 .new-job-details .info-box .rt .currency .discovery-rewards h4{
@@ -445,7 +450,6 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
     font-size: 16px;
     padding: 0;
     margin: 0;
-    height: 125px;
     font-family: 'Roboto';
     white-space: pre-line;
 }

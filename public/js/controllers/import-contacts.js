@@ -128,7 +128,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
 
 }])
 
-.controller("fileUpload", ["$uibModalInstance", "$scope", "bucket", "$rootScope", "$http", "CONFIG", function($uibModalInstance, $scope, bucket, $rootScope, $http, CONFIG) {
+.controller("fileUpload", ["$uibModalInstance", "$window", "$scope", "bucket", "$rootScope", "$http", "CONFIG", function($uibModalInstance, $window, $scope, bucket, $rootScope, $http, CONFIG) {
 
     var scope = this;
 
@@ -230,6 +230,8 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
                     } else {
                         scope.inValidFile = response.message[0];
                     }
+                } else if(response.status_code == 400){
+                    $window.location = CONFIG.APP_DOMAIN + 'logout';
                 }
             });
 
@@ -533,6 +535,7 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
 
     })
 }])
+
 .controller('InviteContacts', ['$window', '$state', '$scope', '$http', '$log', '$timeout', 'uiGridConstants', '$uibModal', function($window, $state, $scope, $http, $log, $timeout, uiGridConstants, $uibModal) {
 
     $scope.gridOptions = {
@@ -619,6 +622,9 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
             if(response.status_code == 200){
                 scope.invite_cond = false;
                 scope.successMsg = true;
+            }
+            else if(response.status_code == 400){
+                $window.location = CONFIG.APP_DOMAIN + 'logout';
             }
         })
         invite_contacts.error(function(response){

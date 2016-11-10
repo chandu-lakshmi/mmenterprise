@@ -1,0 +1,323 @@
+<div class="edit-campaigns">
+	<div class="container">
+		<div class="head">
+			<a ui-sref="app.campaigns.allCampaigns" title=""><img src="public/images/back-arrow-black.svg" alt="back"><span>Back to all Campaigns</span></a>
+		</div>
+		<div class="box">
+			<div class="box-content">
+				<div class="row">
+					<div class="col-sm-10">
+						<form name="edit_campaigns_form" novalidate autocomplete="off">
+							<input type="hidden" name="campaign_id" value="{{EditCampaignsCtrl.campaignDetails.id}}">
+							<div class="content">
+								<div class="clearfix">
+									<md-input-container class="md-block select-box">
+							            <label style="display:none">CAMPAIGN TYPE</label>
+							            <md-select name="campaign_type" ng-model="EditCampaignsCtrl.campaignDetails.campaign_type" required ng-class="{'has-error-border':edit_campaigns_form.campaign_type.$invalid && EditCampaignsCtrl.errCond}">
+							                <md-option ng-repeat="type in EditCampaignsCtrl.campaign" ng-value="type">{{type | uppercase}}</md-option>
+							            </md-select>
+							            <div class="error-spacer"></div>
+										<div ng-if="edit_campaigns_form.campaign_type.$error.required && EditCampaignsCtrl.errCond"  class="has-error-msg">Please Select Campaign Type</div>
+							        </md-input-container>
+							        <md-input-container class="md-block">
+							            <label>CAMPAIGN NAME</label>
+							            <input type="text" name="campaign_name" ng-model="EditCampaignsCtrl.campaignDetails.campaign_name" required ng-class="{'has-error-border':edit_campaigns_form.campaign_name.$invalid && EditCampaignsCtrl.errCond}">
+							            <div ng-if="edit_campaigns_form.campaign_name.$error.required && EditCampaignsCtrl.errCond" class="has-error-msg">Please Enter Campaign Name</div>
+							        </md-input-container>
+								</div>
+								<div class="clearfix">
+									<p>Location</p>
+									<md-radio-group ng-model="EditCampaignsCtrl.radioButtons.address">
+								      	<md-radio-button value="online" class="md-primary">Online</md-radio-button>
+								      	<md-radio-button value="onsite" class="md-primary">On Site</md-radio-button>
+    								</md-radio-group>
+    								<input type="hidden" name="location_type" value="{{EditCampaignsCtrl.radioButtons.address}}">
+								</div>
+								<!-- <div class="location" style="margin-top: 40px;" ng-if="EditCampaignsCtrl.radioButtons.address == 'online'">
+									<div class="clearfix">
+										<md-input-container class="md-block">
+								            <label>URL</label>
+								            <input type="text" name="url" ng-model="EditCampaignsCtrl.campaignDetails.location.url" ng-required="EditCampaignsCtrl.radioButtons.address == 'online'" ng-class="{'has-error-border':edit_campaigns_form.url.$invalid && EditCampaignsCtrl.errCond}">
+								            <div ng-if="edit_campaigns_form.url.$error.required && EditCampaignsCtrl.errCond" class="has-error-msg">Please Enter Url</div>
+								        </md-input-container>
+							       	</div>
+								</div> -->
+								<div class="location" style="margin-top: 40px;" ng-if="EditCampaignsCtrl.radioButtons.address == 'onsite'">
+									<div class="clearfix">
+										<md-input-container class="md-block">
+								            <label>ADDRESS</label>
+								            <input type="text" name="address" ng-model="EditCampaignsCtrl.campaignDetails.location.address" ng-required="EditCampaignsCtrl.radioButtons.address == 'onsite'" ng-class="{'has-error-border':edit_campaigns_form.address.$invalid && EditCampaignsCtrl.errCond}">
+								            <div ng-if="edit_campaigns_form.address.$error.required && EditCampaignsCtrl.errCond" class="has-error-msg">Please Enter Address</div>
+								        </md-input-container>
+								        <md-input-container class="md-block">
+								            <label>CITY</label>
+								            <input type="text" name="city" ng-model="EditCampaignsCtrl.campaignDetails.location.city" ng-required="EditCampaignsCtrl.radioButtons.address == 'onsite'" ng-class="{'has-error-border':edit_campaigns_form.city.$invalid && EditCampaignsCtrl.errCond}">
+								            <div ng-if="edit_campaigns_form.city.$error.required && EditCampaignsCtrl.errCond" class="has-error-msg">Please Enter City</div>
+								        </md-input-container>
+								    </div>
+							    	<div class="clearfix">
+							    		<md-input-container class="md-block">
+									            <label>ZIP CODE</label>
+									            <input type="text" name="zip_code" ng-model="EditCampaignsCtrl.campaignDetails.location.zip_code" ng-class="{'has-error-border':edit_campaigns_form.zip_code.$invalid && EditCampaignsCtrl.errCond}" onkeypress='return event.charCode >= 48 && event.charCode <= 57' ng-pattern="/^[0-9]{5,6}$/" >
+									            <div ng-if="edit_campaigns_form.zip_code.$error.pattern && EditCampaignsCtrl.errCond" class="has-error-msg">Please Enter Valid Zip Code</div>
+							        	</md-input-container>
+								        <md-input-container class="md-block">
+								            <label>STATE</label>
+								            <input type="text" name="state" ng-model="EditCampaignsCtrl.campaignDetails.location.state" ng-required="EditCampaignsCtrl.radioButtons.address == 'onsite'" ng-class="{'has-error-border':edit_campaigns_form.state.$invalid && EditCampaignsCtrl.errCond}">
+								            <div ng-if="edit_campaigns_form.state.$error.required && EditCampaignsCtrl.errCond" class="has-error-msg">Please Enter State</div>
+								        </md-input-container>
+									</div>
+									<div class="clearfix">
+										<md-input-container class="md-block">
+								            <label>COUNTRY</label>
+								            <input type="text" name="country" ng-model="EditCampaignsCtrl.campaignDetails.location.country" ng-required="EditCampaignsCtrl.radioButtons.address == 'onsite'" ng-class="{'has-error-border':edit_campaigns_form.country.$invalid && EditCampaignsCtrl.errCond}">
+								            <div ng-if="edit_campaigns_form.country.$error.required && EditCampaignsCtrl.errCond" class="has-error-msg">Please Enter Country</div>
+								        </md-input-container>
+									</div>
+								</div>
+								<div class="clearfix date" ng-style="{'margin-top': EditCampaignsCtrl.address == 'online' ? '40px' : '30px'}">
+          							<div class="clearfix" ng-repeat="length in EditCampaignsCtrl.scheduleTime">
+          								<a href="#" class="close" data-dismiss="alert" aria-label="close" ng-click="EditCampaignsCtrl.closeSchedule(length)" ng-hide="$first">&times;</a>
+          								<div class="start">
+	          								<p>STARTS ON</p>
+	          								<mdp-date-picker mdp-placeholder="dd/mm/yyyy" name="startDate{{length}}" mdp-min-date="EditCampaignsCtrl.currentDate | date:'yyyy-MM-dd'" mdp-max-date="EditCampaignsCtrl.campaignDetails.date[length].end_on_date" ng-model="EditCampaignsCtrl.campaignDetails.date[length].start_on_date" required ng-class="{'has-error-border':edit_campaigns_form['startDate'+length].$invalid && EditCampaignsCtrl.errCond}">
+	          									<div ng-if="edit_campaigns_form['startDate'+length].$error.required && EditCampaignsCtrl.errCond" class="has-error-msg">Please Enter Start Date</div>
+	          								</mdp-date-picker>
+	          								<input type="hidden" name="schedule[{{$index}}][start_on_date]" value="{{EditCampaignsCtrl.campaignDetails.date[length].start_on_date | date: 'dd-MM-yyyy'}}">
+	          								<input type="hidden" name="schedule[{{$index}}][schedule_id]" value="{{EditCampaignsCtrl.campaignDetails.date[length].schedule_id}}">
+	          								<mdp-time-picker mdp-placeholder="HH:MM" name="startTime{{length}}" ng-model="EditCampaignsCtrl.campaignDetails.date[length].start_on_time" required ng-class="{'has-error-border':edit_campaigns_form['startTime'+length].$invalid && EditCampaignsCtrl.errCond}">
+							                  	<div ng-if="edit_campaigns_form['startTime'+length].$error.required && EditCampaignsCtrl.errCond" class="has-error-msg">Please Enter Start Time</div>
+	          								</mdp-time-picker>
+	          								<input type="hidden" name="schedule[{{$index}}][start_on_time]" value="{{EditCampaignsCtrl.campaignDetails.date[length].start_on_time | date: 'HH:mm'}}"> 
+	          							</div>
+	          							<div class="ends">
+	          								<p>ENDS ON</p>
+	          								<mdp-date-picker mdp-placeholder="dd/mm/yyyy" name="endDate{{length}}" mdp-min-date="EditCampaignsCtrl.campaignDetails.date[length].start_on_date" ng-model="EditCampaignsCtrl.campaignDetails.date[length].end_on_date" required ng-class="{'has-error-border':edit_campaigns_form['endDate'+length].$invalid && EditCampaignsCtrl.errCond}">
+	          									<div ng-if="edit_campaigns_form['endDate'+length].$error.required && EditCampaignsCtrl.errCond" class="has-error-msg">Please Enter End Date</div>
+	          								</mdp-date-picker>
+	          								<input type="hidden" name="schedule[{{$index}}][end_on_date]" value="{{EditCampaignsCtrl.campaignDetails.date[length].end_on_date | date: 'dd-MM-yyyy'}}">
+	          								<mdp-time-picker mdp-placeholder="HH:MM" name="endTime{{length}}" ng-model="EditCampaignsCtrl.campaignDetails.date[length].end_on_time" required ng-class="{'has-error-border':edit_campaigns_form['endTime'+length].$invalid && EditCampaignsCtrl.errCond}">
+	          									<div ng-if="edit_campaigns_form['endTime'+length].$error.required && EditCampaignsCtrl.errCond" class="has-error-msg">Please Enter End Time</div>
+	          								</mdp-time-picker>
+	          								<input type="hidden" name="schedule[{{$index}}][end_on_time]" value="{{EditCampaignsCtrl.campaignDetails.date[length].end_on_time | date: 'HH:mm'}}">
+	          							</div>
+          							</div>
+								</div>
+								<div class="clearfix add-schedule">
+									<md-checkbox ng-model="EditCampaignsCtrl.checkbox.schedule" aria-label="Checkbox 1" class="md-primary">
+            							Schedule Multiple Times
+          							</md-checkbox>
+          							<a href="" title="" ng-style="{'pointer-events': EditCampaignsCtrl.checkbox.schedule ? 'auto' : 'none'}" ng-click="EditCampaignsCtrl.addSchedule()">ADD SCHEDULE</a>
+								</div>
+								<div class="clearfix tag-jobs">
+									<div class="drop">
+										<p>SELECT JOBS</p>
+										<div class="form-group modern-select">
+											<div class="controls">
+												<select data-rel="chosen" id="mul_select" name="jobs[]" ng-model="EditCampaignsCtrl.campaignDetails.job_ids" data-placeholder="Select Your Options" class="form-control" multiple required ng-class="{'has-error-border': edit_campaigns_form['jobs[]'].$invalid && EditCampaignsCtrl.errCond}">
+													<option value=""></option>
+													<option ng-if="EditCampaignsCtrl.jobsList.length > 0" ng-repeat="list in EditCampaignsCtrl.jobsList" ng-bind="list.job_title + ' ( ' + list.no_of_vacancies + ' )'" ng-value="list.id"></option>
+													<option ng-if="EditCampaignsCtrl.jobsList.length == 0" value="" disabled>No jobs found</option>
+												</select>
+												<div style="min-height:30px">
+									              	<div ng-show="edit_campaigns_form['jobs[]'].$invalid && EditCampaignsCtrl.jobsList.length > 0 && EditCampaignsCtrl.errCond" class="has-error-msg">Please Select Atleast One Job</div>
+									              	<div ng-show="edit_campaigns_form['jobs[]'].$invalid && EditCampaignsCtrl.jobsList.length == 0 && EditCampaignsCtrl.errCond" class="has-error-msg">No jobs found. (Please post atleast one job from JOBS TAB)</div>
+									           </div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- <div class="clearfix">
+									<md-input-container class="md-block">
+							            <label>NUMBER OF VACANCIES</label>
+							            <input type="text" name="total_vacancies" ng-model="EditCampaignsCtrl.campaignDetails.total_vacancies" required ng-pattern="/^[0-9]{1,}$/" ng-class="{'has-error-border': edit_campaigns_form.total_vacancies.$invalid && EditCampaignsCtrl.errCond}">
+							            <div class="error-spacer"></div>
+										<div ng-if="edit_campaigns_form.total_vacancies.$error.required && EditCampaignsCtrl.errCond"  class="has-error-msg">Please Enter Total Number of Vacancies</div>
+										<div ng-if="edit_campaigns_form.total_vacancies.$error.pattern && EditCampaignsCtrl.errCond"  class="has-error-msg">Please Enter Only Number</div>
+							        </md-input-container>
+								</div> -->
+								<div class="clearfix upload-contacts">
+									<buckets-view buckets="EditCampaignsCtrl.bucketsName" check-ids="EditCampaignsCtrl.checkedBuckets" set-fn="EditCampaignsCtrl.directiveCall(dirFn)"></buckets-view>
+									<div style="min-height:30px">
+						              	<div ng-show="edit_campaigns_form.selectedBuckets.$invalid && EditCampaignsCtrl.errCond" class="has-error-msg">Please Select Atleast One Group to Publish Campaign</div>
+						           </div>
+								</div>
+								<div class="clearfix social-media">
+									<md-checkbox ng-model="EditCampaignsCtrl.checkbox.socialNetworks" aria-label="Checkbox 1" class="md-primary">
+            							Post on Social Networks
+          							</md-checkbox>
+									<div ng-style="{'pointer-events': EditCampaignsCtrl.checkbox.socialNetworks ? 'auto' : 'none'}">
+										<ul class="nav nav-tabs">
+										  	<li class="active">
+										  		<a data-toggle="tab" data-target="#twitter">
+										  			<span class="twitter"><i class="fa fa-twitter"></i></span>
+										  		</a>
+									  		</li>
+										  	<li>
+										  		<a data-toggle="tab" data-target="#facebook">
+										  			<span class="facebook"><i class="fa fa-facebook"></i></span>
+										  		</a>
+									  		</li>
+										  	<li>
+										  		<a data-toggle="tab" data-target="#gmail">
+										  			<span class="gmail"><i class="fa fa-google-plus"></i></span>
+										  		</a>
+									  		</li>
+										</ul>
+										<div class="tab-content">
+											<div id="twitter" class="tab-pane fade in active">
+												<!-- <textarea ng-model="EditCampaignsCtrl.campaignDetails.twitter"></textarea> -->
+												<div class="media">
+													<div class="company-name ellipsis" title="{{EditCampaignsCtrl.company_name}}" ng-bind="EditCampaignsCtrl.company_name"></div>
+													<div class="campaign-description">
+														<b ng-bind="EditCampaignsCtrl.campaignDetails.campaign_name" class="ellipsis"></b><br>
+														<p ng-bind="EditCampaignsCtrl.campaignDetails.campaign_type"></p>
+														<span style="font-weight:bold;">Starts On: &nbsp;</span><span ng-bind="(EditCampaignsCtrl.campaignDetails.schedule[0].start_on_date | date: 'dd-MMM-yyyy') + ' - ' + EditCampaignsCtrl.campaignDetails.schedule[0].start_on_time"></span>
+													</div>
+													<div class="location"><img src="public/images/material_icons/location.svg" alt=""><p>Location</p></div>
+												</div>
+												<div class="action">
+											    	<span>{{EditCampaignsCtrl.campaignDetails.twitter.length || 0}}</span>
+											    	<span class="action-btn" style="background:#55acee">Tweet</span>
+											    </div>
+											</div>
+											<div id="facebook" class="tab-pane fade">
+											    <!-- <textarea ng-model="EditCampaignsCtrl.campaignDetails.facebook"></textarea> -->
+											    <div class="media">
+													<div class="company-name ellipsis" title="{{EditCampaignsCtrl.company_name}}" ng-bind="EditCampaignsCtrl.company_name"></div>
+													<div class="campaign-description">
+														<b ng-bind="EditCampaignsCtrl.campaignDetails.campaign_name" class="ellipsis"></b><br>
+														<p ng-bind="EditCampaignsCtrl.campaignDetails.campaign_type"></p>
+														<span style="font-weight:bold;">Starts On: &nbsp;</span><span ng-bind="(EditCampaignsCtrl.campaignDetails.schedule[0].start_on_date | date: 'dd-MMM-yyyy') + ' - ' + EditCampaignsCtrl.campaignDetails.schedule[0].start_on_time"></span>
+													</div>
+													<div class="location"><img src="public/images/material_icons/location.svg" alt=""><p>Location</p></div>
+												</div>
+											    <div class="action">
+											    	<span>{{EditCampaignsCtrl.campaignDetails.facebook.length || 0}}</span>
+											    	<span class="action-btn" style="background:#3b5998">Share</span>
+											    </div>
+											</div>
+											<div id="gmail" class="tab-pane fade">
+											    <!-- <textarea ng-model="EditCampaignsCtrl.campaignDetails.gmail"></textarea> -->
+											    <div class="media">
+													<div class="company-name ellipsis" title="{{EditCampaignsCtrl.company_name}}" ng-bind="EditCampaignsCtrl.company_name"></div>
+													<div class="campaign-description">
+														<b ng-bind="EditCampaignsCtrl.campaignDetails.campaign_name" class="ellipsis"></b><br>
+														<p ng-bind="EditCampaignsCtrl.campaignDetails.campaign_type"></p>
+														<span style="font-weight:bold;">Starts On: &nbsp;</span><span ng-bind="(EditCampaignsCtrl.campaignDetails.schedule[0].start_on_date | date: 'dd-MMM-yyyy') + ' - ' + EditCampaignsCtrl.campaignDetails.schedule[0].start_on_time"></span>
+													</div>
+													<div class="location"><img src="public/images/material_icons/location.svg" alt=""><p>Location</p></div>
+												</div>
+											    <div class="action">
+											    	<span>{{EditCampaignsCtrl.campaignDetails.gmail.length || 0}}</span>
+											    	<span class="action-btn" style="background:#dd4b39">Post</span>
+											    </div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="clearfix social-media">
+									<md-checkbox ng-model="EditCampaignsCtrl.checkbox.myNetworks" aria-label="Checkbox 1" class="md-primary">
+            							Add my Own Social Networks
+          							</md-checkbox>
+									<div ng-style="{'pointer-events': EditCampaignsCtrl.checkbox.myNetworks ? 'auto' : 'none'}">
+										<ul class="nav nav-tabs">
+										  	<li class="active">
+										  		<a data-toggle="tab" data-target="#myTwitter">
+										  			<span class="twitter"><i class="fa fa-twitter"></i></span>
+										  		</a>
+									  		</li>
+										  	<li>
+										  		<a data-toggle="tab" data-target="#myFacebook">
+										  			<span class="facebook"><i class="fa fa-facebook"></i></span>
+										  		</a>
+									  		</li>
+										  	<li>
+										  		<a data-toggle="tab" data-target="#myGmail">
+										  			<span class="gmail"><i class="fa fa-google-plus"></i></span>
+										  		</a>
+									  		</li>
+										</ul>
+										<div class="tab-content">
+											<div id="myTwitter" class="tab-pane fade in active">
+											    <!-- <textarea ng-model="EditCampaignsCtrl.campaignDetails.myTwitter"></textarea> -->
+											    <div class="media">
+													<div class="company-name ellipsis" title="{{EditCampaignsCtrl.company_name}}" ng-bind="EditCampaignsCtrl.company_name"></div>
+													<div class="campaign-description">
+														<b ng-bind="EditCampaignsCtrl.campaignDetails.campaign_name" class="ellipsis"></b><br>
+														<p ng-bind="EditCampaignsCtrl.campaignDetails.campaign_type"></p>
+														<span style="font-weight:bold;">Starts On: &nbsp;</span><span ng-bind="(EditCampaignsCtrl.campaignDetails.schedule[0].start_on_date | date: 'dd-MMM-yyyy') + ' - ' + EditCampaignsCtrl.campaignDetails.schedule[0].start_on_time"></span>
+													</div>
+													<div class="location"><img src="public/images/material_icons/location.svg" alt=""><p>Location</p></div>
+												</div>
+												<div class="action">
+											    	<span>{{EditCampaignsCtrl.campaignDetails.myTwitter.length || 0}}</span>
+											    	<span class="action-btn" style="background:#55acee">Tweet</span>
+											    </div>
+											</div>
+											<div id="myFacebook" class="tab-pane fade">
+											    <!-- <textarea ng-model="EditCampaignsCtrl.campaignDetails.myFacebook"></textarea> -->
+											    <div class="media">
+													<div class="company-name ellipsis" title="{{EditCampaignsCtrl.company_name}}" ng-bind="EditCampaignsCtrl.company_name"></div>
+													<div class="campaign-description">
+														<b ng-bind="EditCampaignsCtrl.campaignDetails.campaign_name" class="ellipsis"></b><br>
+														<p ng-bind="EditCampaignsCtrl.campaignDetails.campaign_type"></p>
+														<span style="font-weight:bold;">Starts On: &nbsp;</span><span ng-bind="(EditCampaignsCtrl.campaignDetails.schedule[0].start_on_date | date: 'dd-MMM-yyyy') + ' - ' + EditCampaignsCtrl.campaignDetails.schedule[0].start_on_time"></span>
+													</div>
+													<div class="location"><img src="public/images/material_icons/location.svg" alt=""><p>Location</p></div>
+												</div>
+												<div class="action">
+											    	<span>{{EditCampaignsCtrl.campaignDetails.myFacebook.length || 0}}</span>
+											    	<span class="action-btn" style="background:#3b5998">Share</span>
+											    </div>
+											</div>
+											<div id="myGmail" class="tab-pane fade">
+											    <!-- <textarea ng-model="EditCampaignsCtrl.campaignDetails.myGmail"></textarea> -->
+											    <div class="media">
+													<div class="company-name ellipsis" title="{{EditCampaignsCtrl.company_name}}" ng-bind="EditCampaignsCtrl.company_name"></div>
+													<div class="campaign-description">
+														<b ng-bind="EditCampaignsCtrl.campaignDetails.campaign_name" class="ellipsis"></b><br>
+														<p ng-bind="EditCampaignsCtrl.campaignDetails.campaign_type"></p>
+														<span style="font-weight:bold;">Starts On: &nbsp;</span><span ng-bind="(EditCampaignsCtrl.campaignDetails.schedule[0].start_on_date | date: 'dd-MMM-yyyy') + ' - ' + EditCampaignsCtrl.campaignDetails.schedule[0].start_on_time"></span>
+													</div>
+													<div class="location"><img src="public/images/material_icons/location.svg" alt=""><p>Location</p></div>
+												</div>
+												<div class="action">
+											    	<span>{{EditCampaignsCtrl.campaignDetails.myGmail.length || 0}}</span>
+											    	<span class="action-btn" style="background:#dd4b39">Post</span>
+											    </div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="clearfix upload-files">
+									<div>
+										<md-checkbox ng-model="EditCampaignsCtrl.checkbox.ceoPitch" aria-label="Checkbox 1" class="md-primary">
+            								Upload CEO's Pitch
+          								</md-checkbox>
+          								<div ng-style="{'pointer-events': EditCampaignsCtrl.checkbox.ceoPitch ? 'auto' : 'none'}" class="upload-pitch">BROWSE FILE</div>
+									</div>
+          							<div>
+          								<md-checkbox ng-model="EditCampaignsCtrl.checkbox.employeePitch" aria-label="Checkbox 2" class="md-primary">
+            								Upload Employees's Pitch
+          								</md-checkbox>
+          								<div ng-style="{'pointer-events': EditCampaignsCtrl.checkbox.employeePitch ? 'auto' : 'none'}" class="upload-pitch">BROWSE FILE</div>
+          							</div>
+								</div>	
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+				<div class="pull-left" ng-if="EditCampaignsCtrl.loader">
+			        <span ><img src="public/images/loader/upload_file.gif" alt="loader" style="margin:5px;" > Updating</span>
+			    </div>
+			    <div class="pull-right disabled">
+			        <span class="btn-cancel ripplelink" data-ripple-color="#757575" ng-click="EditCampaignsCtrl.resetCampaign()">RESET</span>
+			        <span class="btn-update ripplelink" ng-click="EditCampaignsCtrl.updateCampaign(edit_campaigns_form.$valid)">Update Campaign</span>
+			    </div>
+			</div>
+		</div>
+	</div>
+</div>

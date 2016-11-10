@@ -76,7 +76,7 @@ return [
             ],
             'deactivate_post' => [
                 'VERSION' => 'v1',
-                'ENDPOINT' => '/referral/deactivate_post'
+                'ENDPOINT' => '/enterprise/deactivate_post'
             ],
            /* 'get_user_details' => [
                 'VERSION' => 'v1',
@@ -162,6 +162,22 @@ return [
             'change_password' => [
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/change_password'
-            ], 
+            ],
+            'job_rewards' => [
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/job_rewards'
+            ],
+            'add_campaign' => [
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/add_campaign'
+            ],
+            'campaigns_list' => [
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/campaigns_list'
+            ],
+            'view_campaign' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/view_campaign'
+            ]
     ];
         

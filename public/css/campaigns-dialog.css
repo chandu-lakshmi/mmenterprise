@@ -1,0 +1,317 @@
+.new-campaign {
+  overflow: hidden; }
+  .new-campaign .modal {
+    overflow-y: auto; }
+    .new-campaign .modal .modal-dialog {
+      width: 986px;
+      position: relative;
+      top: 90px; }
+      .new-campaign .modal .modal-dialog .modal-content {
+        border-radius: 0; }
+        .new-campaign .modal .modal-dialog .modal-content .modal-header {
+          padding: 24px 20px;
+          background: #eeeeee; }
+          .new-campaign .modal .modal-dialog .modal-content .modal-header h3 {
+            display: inline-block;
+            margin: 0;
+            margin-left: 26px;
+            color: #333333; }
+          .new-campaign .modal .modal-dialog .modal-content .modal-header img {
+            width: 25px;
+            height: 25px;
+            outline: none; }
+          .new-campaign .modal .modal-dialog .modal-content .modal-header img.pull-left {
+            width: 30px;
+            height: 26px; }
+        .new-campaign .modal .modal-dialog .modal-content .modal-body {
+          padding: 35px 92px 8px 92px; }
+          .new-campaign .modal .modal-dialog .modal-content .modal-body .process-steps {
+            width: 79%;
+            margin: 16px auto;
+            height: 66px; }
+            .new-campaign .modal .modal-dialog .modal-content .modal-body .process-steps .step-four {
+              width: 0 !important; }
+            .new-campaign .modal .modal-dialog .modal-content .modal-body .process-steps .step {
+              width: 33.3333%;
+              border-bottom: 3px solid #dddddd;
+              position: relative;
+              float: left; }
+              .new-campaign .modal .modal-dialog .modal-content .modal-body .process-steps .step .step-radio {
+                position: absolute;
+                left: -12px;
+                top: -14px; }
+                .new-campaign .modal .modal-dialog .modal-content .modal-body .process-steps .step .step-radio md-radio-group {
+                  pointer-events: none;
+                  background: #dddddd; }
+                  .new-campaign .modal .modal-dialog .modal-content .modal-body .process-steps .step .step-radio md-radio-group md-radio-button.md-checked .md-on {
+                    background: #33a486; }
+                  .new-campaign .modal .modal-dialog .modal-content .modal-body .process-steps .step .step-radio md-radio-group md-radio-button.md-checked .md-off {
+                    border-color: #33a486; }
+                  .new-campaign .modal .modal-dialog .modal-content .modal-body .process-steps .step .step-radio md-radio-group md-radio-button.md-checked .md-label {
+                    color: #33a486; }
+                  .new-campaign .modal .modal-dialog .modal-content .modal-body .process-steps .step .step-radio md-radio-group .md-container {
+                    background: #fff;
+                    width: 24px;
+                    height: 25px; }
+                  .new-campaign .modal .modal-dialog .modal-content .modal-body .process-steps .step .step-radio md-radio-group .md-off, .new-campaign .modal .modal-dialog .modal-content .modal-body .process-steps .step .step-radio md-radio-group .md-on {
+                    width: 24px;
+                    height: 24px;
+                    border-color: #ddd;
+                    border-width: 3px; }
+                  .new-campaign .modal .modal-dialog .modal-content .modal-body .process-steps .step .step-radio md-radio-group .md-on {
+                    background: #ddd;
+                    transform: scale(0.5);
+                    border-width: 1px; }
+                  .new-campaign .modal .modal-dialog .modal-content .modal-body .process-steps .step .step-radio md-radio-group .md-label {
+                    display: block;
+                    width: 166px;
+                    text-align: center;
+                    position: absolute;
+                    top: 14px;
+                    left: -101px;
+                    color: #999999; }
+          .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div md-input-container {
+            width: 45%; }
+            .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div md-input-container:first-child {
+              float: left; }
+            .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div md-input-container:last-child {
+              float: right; }
+          .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div md-radio-group md-radio-button {
+            float: left;
+            margin: 6px 66px 0 3px;
+            font-size: 18px; }
+            .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div md-radio-group md-radio-button.md-checked .md-off {
+              border-color: #2992d3; }
+            .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div md-radio-group md-radio-button.md-checked .md-on {
+              background: #2992d3; }
+          .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div md-radio-group .md-ripple-container {
+            display: none !important; }
+          .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-date-picker.has-error-border input, .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-time-picker.has-error-border input {
+            border-color: red; }
+          .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-date-picker .layout-align-start-start, .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-time-picker .layout-align-start-start {
+            width: 30%;
+            float: left;
+            position: relative;
+            margin-right: 8px; }
+            .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-date-picker .layout-align-start-start button, .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-time-picker .layout-align-start-start button {
+              overflow: visible;
+              padding: 18px 0 0 0;
+              top: 0;
+              z-index: 999999;
+              left: -8px; }
+              .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-date-picker .layout-align-start-start button md-icon, .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-time-picker .layout-align-start-start button md-icon {
+                position: absolute;
+                width: auto;
+                top: -5px;
+                left: 5px; }
+          .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-date-picker .md-input-focused label, .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-date-picker .md-input-has-value label, .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-time-picker .md-input-focused label, .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-time-picker .md-input-has-value label {
+            display: none !important; }
+          .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-date-picker label, .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-time-picker label {
+            font-size: 19px;
+            min-height: 26px;
+            margin: 0 0 -2px -8px; }
+          .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-date-picker md-input-container, .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-time-picker md-input-container {
+            width: 100% !important;
+            margin-top: 10px; }
+            .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-date-picker md-input-container .md-errors-spacer + div, .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-time-picker md-input-container .md-errors-spacer + div {
+              top: 33px;
+              left: -34px; }
+            .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-date-picker md-input-container input, .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-time-picker md-input-container input {
+              position: absolute;
+              left: -36px;
+              padding-left: 30px; }
+          .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign md-checkbox.md-checked .md-icon {
+            background: #2393d3; }
+          .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .post li.facebook a i {
+            background: #4d71ab; }
+          .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .post li.google a i {
+            background: #e04a39; }
+          .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .post li {
+            width: auto !important;
+            height: auto !important;
+            border: 0px;
+            background: transparent;
+            margin-bottom: -5px; }
+            .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .post li.active a {
+              border: 2px solid #52aaf1 !important;
+              border-bottom: 0 !important; }
+            .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .post li a {
+              padding: 7px !important;
+              padding-bottom: 11px !important;
+              line-height: normal !important;
+              border: 2px solid transparent;
+              border-top: 2px solid transparent !important; }
+              .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .post li a i {
+                background: #52aaf1;
+                color: #fff;
+                width: 44px;
+                height: 42px;
+                font-size: 36px;
+                padding-top: 4px; }
+          .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .post .tab-content {
+            border: 2px solid #4faaf0;
+            margin-bottom: 54px; }
+            .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .post .tab-content .tab-pane {
+              position: relative;
+              /*textarea{border: 0;width: 100%;font-size: 16px;resize:none;padding:12px;
+              	&:focus{outline:none;}
+              }*/ }
+              .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .post .tab-content .tab-pane .media {
+                border: 1px solid #ccc;
+                padding: 10px;
+                margin: 8px; }
+                .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .post .tab-content .tab-pane .media div {
+                  float: left; }
+                .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .post .tab-content .tab-pane .media .company-name {
+                  width: 20%;
+                  font-size: 20px;
+                  text-transform: capitalize;
+                  line-height: 75px; }
+                .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .post .tab-content .tab-pane .media .campaign-description {
+                  width: 60%;
+                  border-width: 0 1px 0 1px;
+                  border-style: solid;
+                  border-color: #ccc;
+                  text-transform: capitalize;
+                  padding: 0 20px; }
+                  .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .post .tab-content .tab-pane .media .campaign-description b {
+                    font-size: 20px; }
+                .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .post .tab-content .tab-pane .media .location {
+                  width: 20%;
+                  text-align: center;
+                  padding: 10px 0;
+                  color: #2693d6; }
+                  .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .post .tab-content .tab-pane .media .location img {
+                    width: 35px;
+                    height: 35px; }
+                  .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .post .tab-content .tab-pane .media .location p {
+                    margin: 0; }
+              .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .post .tab-content .tab-pane .tab-buttons {
+                position: absolute;
+                bottom: -66px;
+                width: 100%;
+                text-align: right; }
+                .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .post .tab-content .tab-pane .tab-buttons span {
+                  display: inline-block;
+                  padding: 8px 32px;
+                  background: #50abf1;
+                  margin-left: 10px;
+                  border-radius: 4px;
+                  outline: none;
+                  color: #fff;
+                  cursor: pointer; }
+                .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .post .tab-content .tab-pane .tab-buttons span.share {
+                  background: #4d71ab; }
+                .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .post .tab-content .tab-pane .tab-buttons span.post {
+                  background: #e04a39; }
+          .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .modern-select {
+            width: 50%;
+            margin-top: 10px; }
+            .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .modern-select select.has-error-border + div .chosen-choices {
+              border: 1px solid #ff0000;
+              box-shadow: none; }
+            .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .modern-select .chosen-container {
+              width: 98% !important; }
+              .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .modern-select .chosen-container ul .search-choice {
+                margin: 5px 0 3px 5px;
+                padding: 6px 20px 7px 5px; }
+              .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .modern-select .chosen-container ul li a {
+                top: 7px; }
+              .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .modern-select .chosen-container ul li input {
+                height: 36px;
+                width: 100px !important; }
+          .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .alert {
+            position: relative;
+            padding: 0;
+            margin: 0;
+            margin-top: 25px; }
+            .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .alert a.close {
+              position: absolute;
+              left: 54%;
+              font-size: 25px;
+              top: -34px;
+              float: none;
+              vertical-align: middle; }
+          .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .start, .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .ends {
+            overflow: hidden;
+            margin-bottom: 20px; }
+            .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .start p, .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .ends p {
+              margin: 0; }
+          .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .bucket-container .bucket-each {
+            width: 18% !important; }
+          .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .upload-pitch {
+            display: inline-block;
+            vertical-align: middle;
+            position: relative; }
+            .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .upload-pitch .qq-uploader {
+              margin-bottom: 18px; }
+              .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .upload-pitch .qq-uploader .qq-upload-button {
+                padding: 0;
+                font-weight: bold;
+                font-size: 13px;
+                margin-left: 5px;
+                background: transparent;
+                letter-spacing: 0.6px;
+                color: #219070;
+                text-shadow: none;
+                font-size: 14px;
+                text-transform: uppercase; }
+            .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .upload-pitch .qq-upload-fail {
+              top: 18px;
+              left: 123%;
+              position: absolute;
+              white-space: nowrap;
+              color: #ff0000; }
+            .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .upload-pitch + .upload-box {
+              border: 1px solid #ccc;
+              margin-bottom: 20px;
+              min-height: 50px; }
+              .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .upload-pitch + .upload-box .file {
+                position: relative;
+                padding: 15px; }
+                .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .upload-pitch + .upload-box .file .progress-bar {
+                  width: 300px;
+                  position: absolute;
+                  height: 25px; }
+                .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .upload-pitch + .upload-box .file .filename div.logo {
+                  background: url("../images/Applied.svg"); }
+                .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .upload-pitch + .upload-box .file .filename .name {
+                  color: #000;
+                  width: 50%;
+                  display: inline-block;
+                  vertical-align: middle;
+                  margin: 0 12px; }
+                .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .upload-pitch + .upload-box .file .filename img {
+                  width: 20px;
+                  height: 20px; }
+        .new-campaign .modal .modal-dialog .modal-content .modal-footer {
+          background: #eeeeee;
+          padding: 14px; }
+          .new-campaign .modal .modal-dialog .modal-content .modal-footer .msgs {
+            width: 50%; }
+            .new-campaign .modal .modal-dialog .modal-content .modal-footer .msgs .message {
+              color: #1c8f6e; }
+          .new-campaign .modal .modal-dialog .modal-content .modal-footer .btns {
+            width: 50%;
+            font-size: 18px; }
+            .new-campaign .modal .modal-dialog .modal-content .modal-footer .btns .btn-reset {
+              margin-right: 36px;
+              color: #777777;
+              cursor: pointer;
+              outline: none; }
+            .new-campaign .modal .modal-dialog .modal-content .modal-footer .btns .btn-next {
+              color: #fff;
+              background: #1d8e70;
+              padding: 12px 52px;
+              border-radius: 4px;
+              display: inline-block;
+              outline: none; }
+  .new-campaign .md-select-menu-container, .new-campaign .md-dialog-container {
+    z-index: 1100; }
+  .new-campaign .md-ripple-container {
+    display: none !important; }
+
+html.remove-scroll {
+  overflow: hidden !important; }
+
+/*# sourceMappingURL=campaigns-dialog.css.map */

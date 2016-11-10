@@ -1,0 +1,723 @@
+/* modal new campaigns*/
+/* Buckets View */
+.bucket-container {
+  overflow: hidden; }
+  .bucket-container h5 {
+    color: #767676;
+    margin-bottom: 22px; }
+  .bucket-container .bucket-each {
+    width: 16.5%;
+    margin: 0 18px 18px 0;
+    float: left;
+    height: 145px; }
+    .bucket-container .bucket-each .bucket {
+      color: #fff;
+      text-align: center;
+      border-radius: 4px;
+      outline: none;
+      cursor: pointer; }
+      .bucket-container .bucket-each .bucket img {
+        width: 16px;
+        float: right;
+        margin: 10px 10px; }
+      .bucket-container .bucket-each .bucket h4 {
+        padding-top: 54px;
+        margin: 0;
+        text-transform: uppercase;
+        width: 90%; }
+        .bucket-container .bucket-each .bucket h4 p {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          margin: 0 auto; }
+      .bucket-container .bucket-each .bucket span {
+        display: inline-block;
+        padding-bottom: 50px;
+        width: 100%; }
+      .bucket-container .bucket-each .bucket div.popover {
+        color: #000;
+        top: 137px;
+        left: 91px;
+        border-radius: 0; }
+        .bucket-container .bucket-each .bucket div.popover .popover-content {
+          padding: 2px 10px; }
+
+/* mdpicker */
+md-dialog md-dialog-content div[layout='column'] md-toolbar .mdp-datepicker-year {
+  font-size: 18px; }
+md-dialog md-dialog-content div[layout='column'] md-toolbar .mdp-datepicker-date {
+  font-size: 25px; }
+md-dialog md-dialog-content .mdp-calendar .mdp-calendar-monthyear {
+  font-size: 12px; }
+md-dialog md-dialog-content .mdp-calendar .mdp-calendar-week-days {
+  font-size: 13px; }
+md-dialog md-dialog-actions button.md-primary {
+  color: #fff !important; }
+
+.campaigns {
+  font-size: 14px;
+  background: #eeeff1;
+  /* sub header */
+  /* md-input-container */
+  /* mdPicker Styles */
+  /* qq-uploader */ }
+  .campaigns .sub-header {
+    background: #0e2d3f;
+    height: 60px; }
+    .campaigns .sub-header ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      clear: both; }
+      .campaigns .sub-header ul li {
+        display: inline-block;
+        position: relative;
+        padding: 27px 0px 6px 0px;
+        margin: 0 15px; }
+        .campaigns .sub-header ul li:first-child {
+          margin-left: 0; }
+        .campaigns .sub-header ul li a {
+          color: #6b8b9a;
+          outline: none;
+          text-decoration: none;
+          display: inline-block;
+          letter-spacing: 0.5px; }
+          .campaigns .sub-header ul li a:hover, .campaigns .sub-header ul li a.active {
+            color: #fff; }
+            .campaigns .sub-header ul li a:hover .background.one, .campaigns .sub-header ul li a.active .background.one {
+              background-position: 0 130px; }
+            .campaigns .sub-header ul li a:hover .background.two, .campaigns .sub-header ul li a.active .background.two {
+              background-position: 0 79px; }
+            .campaigns .sub-header ul li a:hover .background.three, .campaigns .sub-header ul li a.active .background.three {
+              background-position: 0 30px; }
+            .campaigns .sub-header ul li a:hover:before, .campaigns .sub-header ul li a.active:before {
+              position: absolute;
+              color: #fff;
+              content: '';
+              top: 0px;
+              bottom: 0;
+              left: 0px;
+              right: 0px;
+              border-bottom: 3px solid #14acff; }
+          .campaigns .sub-header ul li a:focus {
+            color: #fff; }
+          .campaigns .sub-header ul li a span.background {
+            background: url("../images/settings.png");
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            margin-right: 5px; }
+          .campaigns .sub-header ul li a .background.two {
+            background-position: 0 105px; }
+          .campaigns .sub-header ul li a .background.three {
+            background-position: 0 211px;
+            width: 25px; }
+          .campaigns .sub-header ul li a span.text {
+            vertical-align: text-bottom; }
+        .campaigns .sub-header ul li:last-child {
+          float: right;
+          padding: 0;
+          margin: 7px 0;
+          outline: none; }
+          .campaigns .sub-header ul li:last-child span {
+            width: 215px;
+            height: 44px;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 44px;
+            background: #1c8f6e;
+            border: 1px solid #1c8368;
+            color: #fff;
+            /*cursor: pointer;*/
+            outline: none;
+            border-radius: 5px;
+            display: inline-block;
+            text-align: center;
+            text-transform: uppercase; }
+  .campaigns md-input-container .md-placeholder, .campaigns md-input-container label:not(.md-no-float):not(.md-container-ignore) {
+    -webkit-transform: translate3d(0, 35px, 0) scale(1);
+    transform: translate3d(0, 35px, 0) scale(1);
+    color: #767877; }
+  .campaigns md-input-container.md-input-has-value .md-select-value .md-select-icon:after {
+    content: url("../images/arrow-dropdown-active.svg") !important;
+    display: inline !important; }
+  .campaigns md-input-container.md-input-has-value label:not(.md-no-float) {
+    -webkit-transform: translate3d(0, 5px, 0) scale(0.87);
+    transform: translate3d(0, 5px, 0) scale(0.87);
+    color: #767877; }
+  .campaigns md-input-container:not(.md-input-invalid).md-input-focused label {
+    -webkit-transform: translate3d(0, 5px, 0) scale(0.87);
+    transform: translate3d(0, 5px, 0) scale(0.87);
+    color: #767877; }
+  .campaigns md-input-container:not(.md-input-invalid).md-input-focused .md-input {
+    border-width: 0 0 1px; }
+  .campaigns md-input-container .md-input {
+    padding: 2px 2px 8px !important;
+    height: 35px; }
+  .campaigns md-input-container md-select:not([disabled]):focus .md-select-value {
+    border-bottom-width: 1px; }
+  .campaigns md-input-container md-select .md-select-value {
+    padding-bottom: 6px !important; }
+  .campaigns mdp-date-picker .layout-align-start-start {
+    width: 50%;
+    float: left;
+    position: relative;
+    margin-right: 38px; }
+    .campaigns mdp-date-picker .layout-align-start-start .md-icon-button {
+      position: absolute;
+      width: auto;
+      z-index: 1 !important;
+      left: -8px; }
+      .campaigns mdp-date-picker .layout-align-start-start .md-icon-button md-icon {
+        width: 20px;
+        height: 20px;
+        color: #757575; }
+    .campaigns mdp-date-picker .layout-align-start-start md-input-container {
+      width: 100% !important; }
+      .campaigns mdp-date-picker .layout-align-start-start md-input-container .md-input {
+        padding: 0 0 0 25px !important; }
+  .campaigns mdp-time-picker .layout-align-start-start {
+    width: 40%;
+    float: left;
+    position: relative; }
+    .campaigns mdp-time-picker .layout-align-start-start .md-icon-button {
+      position: absolute;
+      width: auto;
+      z-index: 1 !important;
+      left: -8px; }
+      .campaigns mdp-time-picker .layout-align-start-start .md-icon-button md-icon {
+        width: 20px;
+        height: 20px;
+        color: #757575; }
+    .campaigns mdp-time-picker .layout-align-start-start md-input-container {
+      width: 100% !important; }
+      .campaigns mdp-time-picker .layout-align-start-start md-input-container .md-input {
+        padding: 0 0 0 25px !important; }
+  .campaigns .qq-uploader {
+    margin: 0;
+    padding: 0;
+    height: 100%; }
+    .campaigns .qq-uploader .qq-upload-button {
+      background: transparent;
+      height: 100%;
+      width: 100%;
+      text-shadow: none;
+      font-weight: normal;
+      text-transform: uppercase; }
+      .campaigns .qq-uploader .qq-upload-button .align-title {
+        position: absolute;
+        top: 35%;
+        width: 100%;
+        left: 0;
+        font-size: 18px;
+        text-transform: capitalize; }
+        .campaigns .qq-uploader .qq-upload-button .align-title p {
+          width: 80%;
+          margin: 10px auto 0;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden; }
+    .campaigns .qq-uploader .qq-upload-drop-area .file-name {
+      width: 100%;
+      height: 100%; }
+      .campaigns .qq-uploader .qq-upload-drop-area .file-name .name {
+        position: absolute;
+        width: 90%;
+        bottom: 17px;
+        font-size: 15px;
+        left: 6%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        color: #fff; }
+      .campaigns .qq-uploader .qq-upload-drop-area .file-name .overlay {
+        display: none;
+        background: #000000;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        opacity: 0.1; }
+      .campaigns .qq-uploader .qq-upload-drop-area .file-name i.fa {
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        padding: 3px;
+        border: 1px solid #ccc;
+        background: #fff;
+        border-radius: 4px;
+        display: none;
+        cursor: pointer; }
+      .campaigns .qq-uploader .qq-upload-drop-area .file-name:hover .overlay, .campaigns .qq-uploader .qq-upload-drop-area .file-name:hover i.fa {
+        display: block; }
+    .campaigns .qq-uploader .qq-upload-list {
+      z-index: -1;
+      top: 65%; }
+      .campaigns .qq-uploader .qq-upload-list li {
+        height: 15px; }
+        .campaigns .qq-uploader .qq-upload-list li span:not(.qq-progress-bar) {
+          visibility: hidden; }
+  .campaigns .qq-upload-fail {
+    position: absolute;
+    font-size: 13px;
+    color: #983a3a;
+    white-space: nowrap;
+    bottom: -25px; }
+  .campaigns .all-campaigns {
+    min-height: calc(100vh - 160px);
+    font-size: 16px; }
+    .campaigns .all-campaigns md-input-container.search {
+      margin: 0; }
+    .campaigns .all-campaigns .filter {
+      padding-top: 25px;
+      border-bottom: 1px solid #cccdcf; }
+      .campaigns .all-campaigns .filter p.title {
+        color: #4e5f69;
+        font-size: 16px;
+        font-weight: bold; }
+      .campaigns .all-campaigns .filter ul {
+        margin: 0;
+        padding: 0;
+        list-style: none; }
+        .campaigns .all-campaigns .filter ul li {
+          margin-bottom: 20px; }
+          .campaigns .all-campaigns .filter ul li ul {
+            margin-left: 26px; }
+            .campaigns .all-campaigns .filter ul li ul li {
+              font-size: 15px;
+              margin: 12px 0; }
+      .campaigns .all-campaigns .filter .checkbox {
+        margin: 12px 0;
+        /*input[type='checkbox']{opacity: 0;
+        	+label{position: relative;
+        		&:before{content: '';width: 20px;height: 20px;position: absolute;border: 1px solid #999;
+        			left: -8px;border-radius: 2px;}
+        	}
+        	&:checked{
+        		+label:before{background: #2393d3;border-color: #2393d3;}
+        		+label:after{content: '';width: 8px;height: 15px;position: absolute;border: 2px solid #fff;
+        		transform: rotate(45deg);border-top: 0;border-left: 0;left: -2px;}
+        	};
+        }*/ }
+        .campaigns .all-campaigns .filter .checkbox md-checkbox {
+          margin-bottom: 2px; }
+          .campaigns .all-campaigns .filter .checkbox md-checkbox .md-label {
+            margin-left: 26px; }
+          .campaigns .all-campaigns .filter .checkbox md-checkbox:not([disabled]).md-primary.md-checked .md-icon {
+            background-color: #2992d3; }
+          .campaigns .all-campaigns .filter .checkbox md-checkbox:not([disabled]).md-primary.md-checked .md-ink-ripple {
+            color: rgba(41, 146, 211, 0.54); }
+        .campaigns .all-campaigns .filter .checkbox .modern-select {
+          margin: 16px 0; }
+          .campaigns .all-campaigns .filter .checkbox .modern-select .chosen-container {
+            width: 100% !important; }
+            .campaigns .all-campaigns .filter .checkbox .modern-select .chosen-container ul.chosen-choices {
+              margin: 0;
+              padding-left: 5px; }
+              .campaigns .all-campaigns .filter .checkbox .modern-select .chosen-container ul.chosen-choices li {
+                height: 30px;
+                line-height: 24px;
+                margin: 6px 0; }
+              .campaigns .all-campaigns .filter .checkbox .modern-select .chosen-container ul.chosen-choices li.search-choice {
+                background: #f4f6f5;
+                border-color: #e1e3e2;
+                margin-right: 5px; }
+                .campaigns .all-campaigns .filter .checkbox .modern-select .chosen-container ul.chosen-choices li.search-choice:hover {
+                  border-color: #46b8ff; }
+                .campaigns .all-campaigns .filter .checkbox .modern-select .chosen-container ul.chosen-choices li.search-choice .search-choice-close {
+                  top: 9px; }
+              .campaigns .all-campaigns .filter .checkbox .modern-select .chosen-container ul.chosen-choices li.search-field input {
+                height: 100%; }
+            .campaigns .all-campaigns .filter .checkbox .modern-select .chosen-container .chosen-drop ul {
+              margin: 0; }
+              .campaigns .all-campaigns .filter .checkbox .modern-select .chosen-container .chosen-drop ul li {
+                margin: 7px 0; }
+    .campaigns .all-campaigns .action div {
+      text-align: right; }
+      .campaigns .all-campaigns .action div span {
+        padding: 15px 10px;
+        display: inline-block;
+        font-size: 14px;
+        outline: none; }
+    .campaigns .all-campaigns .box {
+      border: 1px solid #cdcdcd;
+      box-shadow: 1px 4px 10px #cdcdcd;
+      -webkit-box-shadow: 1px 4px 10px #cdcdcd;
+      background: #fff; }
+      .campaigns .all-campaigns .box .box-header {
+        padding: 7px 15px;
+        line-height: 48px; }
+        .campaigns .all-campaigns .box .box-header .search.has-feedback {
+          position: relative; }
+          .campaigns .all-campaigns .box .box-header .search.has-feedback .feedback {
+            position: absolute;
+            z-index: 2;
+            display: block;
+            width: 20px;
+            height: 20px;
+            line-height: 30px;
+            text-align: center; }
+            .campaigns .all-campaigns .box .box-header .search.has-feedback .feedback.right {
+              top: 18px;
+              right: 0;
+              width: 17px;
+              height: 17px; }
+            .campaigns .all-campaigns .box .box-header .search.has-feedback .feedback.left {
+              top: 14px;
+              left: 0;
+              pointer-events: none; }
+        .campaigns .all-campaigns .box .box-header .search input {
+          border: 0;
+          border-bottom: 1px solid #c8d1d0;
+          border-radius: 0;
+          box-shadow: none;
+          height: 34px;
+          padding: 5px 30px;
+          outline: none; }
+          .campaigns .all-campaigns .box .box-header .search input:focus {
+            border-color: #208d6e; }
+      .campaigns .all-campaigns .box .box-content .grid {
+        height: calc(100vh - 240px) !important;
+        overflow: hidden;
+        min-height: 411px; }
+        .campaigns .all-campaigns .box .box-content .grid .grid-msg-overlay {
+          top: 45px; }
+        .campaigns .all-campaigns .box .box-content .grid .ui-grid-header {
+          height: 45px;
+          line-height: 33px;
+          border-top: 1px solid #c8d1d0;
+          border-bottom: 1px solid #c8d1d0; }
+          .campaigns .all-campaigns .box .box-content .grid .ui-grid-header .ui-grid-top-panel {
+            background: #f3f7f8; }
+            .campaigns .all-campaigns .box .box-content .grid .ui-grid-header .ui-grid-top-panel .ui-grid-header-cell-row .ui-grid-header-cell {
+              border-right: 0;
+              padding-left: 15px;
+              padding-right: 15px; }
+              .campaigns .all-campaigns .box .box-content .grid .ui-grid-header .ui-grid-top-panel .ui-grid-header-cell-row .ui-grid-header-cell:focus {
+                outline: none; }
+              .campaigns .all-campaigns .box .box-content .grid .ui-grid-header .ui-grid-top-panel .ui-grid-header-cell-row .ui-grid-header-cell div[role='columnheader'] .ui-grid-cell-contents {
+                color: #959698;
+                font-size: 12px; }
+                .campaigns .all-campaigns .box .box-content .grid .ui-grid-header .ui-grid-top-panel .ui-grid-header-cell-row .ui-grid-header-cell div[role='columnheader'] .ui-grid-cell-contents:focus {
+                  outline: none; }
+              .campaigns .all-campaigns .box .box-content .grid .ui-grid-header .ui-grid-top-panel .ui-grid-header-cell-row .ui-grid-header-cell div[role='columnheader']:focus {
+                outline: none; }
+        .campaigns .all-campaigns .box .box-content .grid .ui-grid-viewport {
+          overflow-y: auto !important; }
+          .campaigns .all-campaigns .box .box-content .grid .ui-grid-viewport .ui-grid-row {
+            line-height: 70px;
+            border-bottom: 1px solid #ececec; }
+            .campaigns .all-campaigns .box .box-content .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell {
+              font-weight: normal;
+              text-transform: capitalize; }
+              .campaigns .all-campaigns .box .box-content .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell.first-col {
+                font-weight: bold; }
+            .campaigns .all-campaigns .box .box-content .grid .ui-grid-viewport .ui-grid-row div[ui-grid-row='row'] {
+              height: 100%; }
+            .campaigns .all-campaigns .box .box-content .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell {
+              height: 100%;
+              background: #fff;
+              border-right: 0;
+              padding-left: 15px;
+              padding-right: 15px;
+              color: #4a4848; }
+              .campaigns .all-campaigns .box .box-content .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell.open {
+                color: #2db084; }
+              .campaigns .all-campaigns .box .box-content .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell.closed {
+                color: #d85c5e; }
+            .campaigns .all-campaigns .box .box-content .grid .ui-grid-viewport .ui-grid-row:nth-child(even) .ui-grid-cell {
+              background: #fff; }
+        .campaigns .all-campaigns .box .box-content .grid .ui-grid-row:hover > [ui-grid-row] > .ui-grid-cell {
+          background-color: #f8fcff  !important;
+          cursor: pointer; }
+  .campaigns .my-campaigns {
+    min-height: calc(100vh - 160px);
+    font-size: 16px; }
+  .campaigns .edit-campaigns {
+    min-height: calc(100vh - 160px);
+    font-size: 16px; }
+    .campaigns .edit-campaigns .head {
+      margin: 32px 0; }
+      .campaigns .edit-campaigns .head a {
+        font-size: 16px;
+        font-weight: bold;
+        color: #555; }
+        .campaigns .edit-campaigns .head a img {
+          width: 20px;
+          height: 20px; }
+        .campaigns .edit-campaigns .head a span {
+          vertical-align: middle;
+          margin-left: 15px; }
+    .campaigns .edit-campaigns .box {
+      border: 1px solid #cdcdcd;
+      box-shadow: 1px 1px 10px #cdcdcd;
+      -webkit-box-shadow: 1px 1px 10px #cdcdcd;
+      background: #fff;
+      padding: 40px; }
+      .campaigns .edit-campaigns .box .content {
+        color: #767877; }
+        .campaigns .edit-campaigns .box .content .clearfix md-input-container {
+          width: 45%;
+          float: left; }
+          .campaigns .edit-campaigns .box .content .clearfix md-input-container:first-child {
+            margin-right: 68px; }
+          .campaigns .edit-campaigns .box .content .clearfix md-input-container md-select md-select-value .md-text {
+            color: #000;
+            font-weight: bold; }
+        .campaigns .edit-campaigns .box .content .clearfix md-radio-group {
+          font-size: 18px; }
+          .campaigns .edit-campaigns .box .content .clearfix md-radio-group md-radio-button {
+            float: left;
+            margin: 0;
+            color: #767877; }
+            .campaigns .edit-campaigns .box .content .clearfix md-radio-group md-radio-button.md-checked {
+              color: #000; }
+            .campaigns .edit-campaigns .box .content .clearfix md-radio-group md-radio-button .md-label {
+              margin-left: 27px; }
+            .campaigns .edit-campaigns .box .content .clearfix md-radio-group md-radio-button:not(:first-child) {
+              margin-left: 63px; }
+        .campaigns .edit-campaigns .box .content .location md-input-container {
+          margin: 10px 0; }
+        .campaigns .edit-campaigns .box .content .date p {
+          margin: 0; }
+        .campaigns .edit-campaigns .box .content .date md-input-container label {
+          left: 25px; }
+        .campaigns .edit-campaigns .box .content .date md-input-container.md-input-focused label, .campaigns .edit-campaigns .box .content .date md-input-container.md-input-has-value label {
+          display: none !important; }
+        .campaigns .edit-campaigns .box .content .date div.start, .campaigns .edit-campaigns .box .content .date div.ends {
+          width: 45%;
+          float: left;
+          margin-right: 68px; }
+        .campaigns .edit-campaigns .box .content .date div.ends {
+          margin: 0; }
+        .campaigns .edit-campaigns .box .content .date mdp-date-picker.has-error-border .md-input, .campaigns .edit-campaigns .box .content .date mdp-time-picker.has-error-border .md-input {
+          border-color: red; }
+        .campaigns .edit-campaigns .box .content .add-schedule, .campaigns .edit-campaigns .box .content .upload-files {
+          font-size: 18px;
+          font-weight: bold;
+          margin-bottom: 30px; }
+          .campaigns .edit-campaigns .box .content .add-schedule a, .campaigns .edit-campaigns .box .content .upload-files a {
+            font-weight: bold;
+            font-size: 13px;
+            margin-left: 5px;
+            letter-spacing: 0.6px; }
+            .campaigns .edit-campaigns .box .content .add-schedule a:hover, .campaigns .edit-campaigns .box .content .upload-files a:hover, .campaigns .edit-campaigns .box .content .add-schedule a:focus, .campaigns .edit-campaigns .box .content .upload-files a:focus, .campaigns .edit-campaigns .box .content .add-schedule a:active, .campaigns .edit-campaigns .box .content .upload-files a:active {
+              color: #38a48a;
+              text-decoration: none; }
+          .campaigns .edit-campaigns .box .content .add-schedule md-checkbox.md-checked .md-icon:after, .campaigns .edit-campaigns .box .content .upload-files md-checkbox.md-checked .md-icon:after {
+            left: 7.67px;
+            top: 3.22px; }
+        .campaigns .edit-campaigns .box .content .tag-jobs {
+          margin-bottom: 30px;
+          font-size: 14px;
+          font-weight: bold; }
+          .campaigns .edit-campaigns .box .content .tag-jobs .drop {
+            width: 45%;
+            float: left;
+            margin-right: 68px; }
+            .campaigns .edit-campaigns .box .content .tag-jobs .drop p {
+              margin-bottom: 20px; }
+            .campaigns .edit-campaigns .box .content .tag-jobs .drop .modern-select .chosen-container {
+              width: 100% !important;
+              min-height: 34px; }
+              .campaigns .edit-campaigns .box .content .tag-jobs .drop .modern-select .chosen-container .search-choice {
+                margin: 4px 0 4px 5px;
+                padding: 8px 20px 8px 5px; }
+                .campaigns .edit-campaigns .box .content .tag-jobs .drop .modern-select .chosen-container .search-choice .search-choice-close {
+                  top: 8px; }
+              .campaigns .edit-campaigns .box .content .tag-jobs .drop .modern-select .chosen-container .search-field input {
+                height: 34px; }
+              .campaigns .edit-campaigns .box .content .tag-jobs .drop .modern-select .chosen-container .chosen-drop {
+                border-top: 1px solid #aaa;
+                top: 110%; }
+            .campaigns .edit-campaigns .box .content .tag-jobs .drop .modern-select .has-error-border + .chosen-container .chosen-choices {
+              border-color: red; }
+            .campaigns .edit-campaigns .box .content .tag-jobs .drop .has-error-msg {
+              font-size: 16px;
+              font-weight: normal; }
+        .campaigns .edit-campaigns .box .content .upload-contacts {
+          margin-bottom: 45px;
+          /*p.title{font-size: 16px;margin: 0 0 16px;}
+          .upload-bucket{width: 17%;border: 1px solid #ccc;height: 140px;position: relative;
+          	font-size: 18px;float: left;margin-right: 25px;border-radius: 5px;
+          	&.new-bucket{background: #f3f7fa;border-style: dashed;border-width: 2px;color: #777;font-weight: bold;
+          		p{position: absolute;top: 42%;width: 100%;left: 0;font-size: 18px;text-align: center;}
+          	}
+          }*/ }
+        .campaigns .edit-campaigns .box .content .social-media {
+          margin-bottom: 60px; }
+          .campaigns .edit-campaigns .box .content .social-media md-checkbox {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 30px; }
+            .campaigns .edit-campaigns .box .content .social-media md-checkbox.md-checked .md-icon:after {
+              left: 7.67px;
+              top: 3.22px; }
+          .campaigns .edit-campaigns .box .content .social-media .nav {
+            border-bottom: 2px solid #50abf2; }
+            .campaigns .edit-campaigns .box .content .social-media .nav li {
+              width: 75px;
+              height: 75px;
+              background: transparent;
+              border: 0;
+              margin-right: 10px;
+              margin-bottom: -2px; }
+              .campaigns .edit-campaigns .box .content .social-media .nav li a {
+                padding: 9px;
+                border-width: 2px !important; }
+                .campaigns .edit-campaigns .box .content .social-media .nav li a i {
+                  font-size: 52px;
+                  color: #fff; }
+                .campaigns .edit-campaigns .box .content .social-media .nav li a span {
+                  display: block; }
+                  .campaigns .edit-campaigns .box .content .social-media .nav li a span.twitter {
+                    height: 56px;
+                    width: 56px;
+                    background: #55acee; }
+                  .campaigns .edit-campaigns .box .content .social-media .nav li a span.facebook {
+                    height: 56px;
+                    width: 56px;
+                    background: #3b5998; }
+                  .campaigns .edit-campaigns .box .content .social-media .nav li a span.gmail {
+                    height: 56px;
+                    width: 56px;
+                    background: #dd4b39; }
+                .campaigns .edit-campaigns .box .content .social-media .nav li a:hover {
+                  border-color: transparent; }
+              .campaigns .edit-campaigns .box .content .social-media .nav li.active a {
+                border-color: #50abf2;
+                border-width: 2px;
+                border-top: 2px solid #50abf2 !important;
+                border-bottom: 0; }
+                .campaigns .edit-campaigns .box .content .social-media .nav li.active a:hover {
+                  border-color: #50abf2; }
+          .campaigns .edit-campaigns .box .content .social-media .tab-content {
+            border: 2px solid #50abf2;
+            border-top: 0;
+            padding: 15px;
+            position: relative; }
+            .campaigns .edit-campaigns .box .content .social-media .tab-content textarea {
+              border: 0;
+              width: 100%;
+              resize: none; }
+              .campaigns .edit-campaigns .box .content .social-media .tab-content textarea:focus {
+                outline: none; }
+            .campaigns .edit-campaigns .box .content .social-media .tab-content .action {
+              position: absolute;
+              bottom: -52px;
+              right: 0;
+              /* padding: 10px; */
+              height: 42px;
+              text-align: center;
+              line-height: 42px;
+              border-radius: 5px; }
+              .campaigns .edit-campaigns .box .content .social-media .tab-content .action .action-btn {
+                width: 126px;
+                height: 100%;
+                display: inline-block;
+                border-radius: 5px;
+                color: #fff;
+                margin-left: 20px; }
+            .campaigns .edit-campaigns .box .content .social-media .tab-content .media {
+              border: 1px solid #ccc;
+              padding: 10px; }
+              .campaigns .edit-campaigns .box .content .social-media .tab-content .media div {
+                float: left; }
+              .campaigns .edit-campaigns .box .content .social-media .tab-content .media .company-name {
+                width: 20%;
+                font-size: 20px;
+                text-transform: capitalize;
+                line-height: 75px; }
+              .campaigns .edit-campaigns .box .content .social-media .tab-content .media .campaign-description {
+                width: 60%;
+                border-width: 0 1px 0 1px;
+                border-style: solid;
+                border-color: #ccc;
+                text-transform: capitalize;
+                padding: 0 20px; }
+                .campaigns .edit-campaigns .box .content .social-media .tab-content .media .campaign-description b {
+                  font-size: 20px; }
+              .campaigns .edit-campaigns .box .content .social-media .tab-content .media .location {
+                width: 20%;
+                text-align: center;
+                padding: 10px 0;
+                color: #2693d6; }
+                .campaigns .edit-campaigns .box .content .social-media .tab-content .media .location img {
+                  width: 35px;
+                  height: 35px; }
+                .campaigns .edit-campaigns .box .content .social-media .tab-content .media .location p {
+                  margin: 0; }
+        .campaigns .edit-campaigns .box .content .upload-files {
+          /*a.upload-file{display: inline-block;vertical-align: middle;
+          	.qq-uploader{
+          		.qq-upload-button{color: #219070;font-weight: bold;text-align: left;padding: 0}
+          	}
+          }*/ }
+          .campaigns .edit-campaigns .box .content .upload-files .upload-pitch {
+            display: inline-block;
+            vertical-align: middle;
+            position: relative; }
+            .campaigns .edit-campaigns .box .content .upload-files .upload-pitch .qq-uploader .qq-upload-button {
+              padding: 0;
+              font-weight: bold;
+              font-size: 13px;
+              margin-left: 5px;
+              letter-spacing: 0.6px;
+              color: #219070; }
+            .campaigns .edit-campaigns .box .content .upload-files .upload-pitch .qq-upload-fail {
+              top: 0;
+              left: 123%; }
+            .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box {
+              border: 1px solid #ccc;
+              margin-bottom: 20px;
+              min-height: 50px; }
+              .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file {
+                position: relative;
+                padding: 15px; }
+                .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file .progress-bar {
+                  width: 300px;
+                  position: absolute;
+                  height: 25px; }
+                .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file .filename div.logo {
+                  background: url("../images/Applied.svg"); }
+                .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file .filename .name {
+                  color: #000;
+                  width: 50%;
+                  display: inline-block;
+                  vertical-align: middle;
+                  margin: 0 12px; }
+                .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file .filename img {
+                  width: 20px;
+                  height: 20px; }
+      .campaigns .edit-campaigns .box .box-footer {
+        border-top: 1px solid #ccc;
+        padding: 20px 0; }
+        .campaigns .edit-campaigns .box .box-footer .pull-right .btn-cancel {
+          width: 100px;
+          height: 60px;
+          display: inline-block;
+          line-height: 60px;
+          /*margin-right: $margin;*/
+          text-align: center;
+          font-size: 15px;
+          color: #777;
+          cursor: pointer;
+          outline: none; }
+        .campaigns .edit-campaigns .box .box-footer .pull-right .btn-update {
+          width: 215px;
+          height: 60px;
+          font-size: 18px;
+          font-weight: 600;
+          line-height: 60px;
+          background: #1c8f6e;
+          border: 1px solid #1c8368;
+          color: #fff;
+          /*cursor: pointer;*/
+          outline: none;
+          border-radius: 5px;
+          display: inline-block;
+          text-align: center;
+          text-transform: uppercase; }
+
+/*# sourceMappingURL=campaigns.css.map */

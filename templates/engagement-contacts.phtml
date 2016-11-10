@@ -93,7 +93,9 @@
 								<li ng-repeat="allReferrals in EngContCtrl.referrals">
 									<div class="col-lg-3">
 										<div class="pull-left">
-											<img ng-src="{{allReferrals.dp_image == null ? 'public/images/avatar.png' : allReferrals.dp_image}}" class="img-responsive img-circle border-{{allReferrals.status | lowercase}}" ng-style="{'border': allReferrals.dp_image == null ? '0': ''}">
+											<img ng-if="!(allReferrals.dp_image == null || allReferrals.dp_image == '')" ng-src="{{allReferrals.dp_image}}" class="img-responsive img-circle border-{{allReferrals.status | lowercase}}" ng-style="{'border': allReferrals.dp_image == null ? '0': ''}">
+											<span ng-if="(allReferrals.dp_image == null || allReferrals.dp_image == '')" ng-bind="allReferrals.name | limitTo : 1" class='letter' ng-style="{'background':EngContCtrl.colorPicker($index)}">
+											</span>
 										</div>
 										<div class="content pull-left" ng-style="{'padding-top': allReferrals.designation == ''? '18px' : ''}" style="width:75%">
 											<big class="ellipsis" title="{{allReferrals.name}}">{{allReferrals.name}}</big>
@@ -102,7 +104,9 @@
 									</div>
 									<div class="col-lg-3" style="padding: 0">
 										<div class="pull-left">
-											<img ng-src="{{allReferrals.referred_by_dp_image == null ? 'public/images/avatar.png' : allReferrals.referred_by_dp_image}}" class="img-responsive img-circle border-default">
+											<img ng-if="!(allReferrals.referred_by_dp_image == null || allReferrals.referred_by_dp_image == '')" ng-src="{{allReferrals.referred_by_dp_image}}" class="img-responsive img-circle border-default">
+											<span ng-if="(allReferrals.referred_by_dp_image == null || allReferrals.referred_by_dp_image == '')" ng-bind="allReferrals.referred_by_name | limitTo : 1" class='letter' ng-style="{'background':EngContCtrl.colorPicker($index + 5)}">
+											</span>
 										</div>
 										<div class="content pull-left" ng-style="{'padding-top': allReferrals.ref_designation == ''? '18px' : ''}" style="width:75%">
 											<big class="ellipsis" title="{{allReferrals.referred_by_name}}">{{allReferrals.referred_by_name}}</big>
@@ -166,7 +170,12 @@
 								<li ng-repeat="pendingReferrals in EngContCtrl.referrals">
 									<div class="col-lg-3">
 										<div class="pull-left">
-											<img ng-src="{{pendingReferrals.dp_image == null ? 'public/images/avatar.png' : pendingReferrals.dp_image}}" class="img-responsive img-circle border-{{pendingReferrals.status | lowercase}}" ng-style="{'border': pendingReferrals.dp_image == null ? '0': ''}">
+
+											<img ng-if="!(pendingReferrals.dp_image == null || pendingReferrals.dp_image == '')" ng-src="{{pendingReferrals.dp_image}}" class="img-responsive img-circle border-{{pendingReferrals.status | lowercase}}" ng-style="{'border': pendingReferrals.dp_image == null ? '0': ''}">
+											
+											<span ng-if="(pendingReferrals.dp_image == null || pendingReferrals.dp_image == '')" ng-bind="pendingReferrals.name | limitTo : 1" class='letter' ng-style="{'background':EngContCtrl.colorPicker($index)}">
+											</span>
+
 										</div>
 										<div class="content pull-left" ng-style="{'padding-top': pendingReferrals.designation == ''? '18px' : ''}" style="width:75%;">
 											<big class="ellipsis" title="{{pendingReferrals.name}}">{{pendingReferrals.name}}</big>
@@ -175,15 +184,18 @@
 									</div>
 									<div class="col-lg-3" style="padding: 0">
 										<div class="pull-left">
-											<img ng-src="{{pendingReferrals.referred_by_dp_image == null ? 'public/images/avatar.png' : pendingReferrals.referred_by_dp_image}}" class="img-responsive img-circle border-default">
+											<span ng-if="pendingReferrals.referred_by_dp_image == null || pendingReferrals.referred_by_dp_image == ''" ng-bind="pendingReferrals.referred_by_name | limitTo : 1" class='letter' ng-style="{'background':EngContCtrl.colorPicker($index + 5)}"></span>
+
+											<img ng-if="!(pendingReferrals.referred_by_dp_image == null || pendingReferrals.referred_by_dp_image == '')" ng-src="{{pendingReferrals.referred_by_dp_image}}" class="img-responsive img-circle border-default">
+
 										</div>
-										<div class="content pull-left" ng-style="{'padding-top': pendingReferrals.ref_designation == ''? '18px' : ''}"style="width:75%">
+										<div class="content pull-left" ng-style="{'padding-top': pendingReferrals.ref_designation == ''? '18px' : ''}" style="width:75%">
 											<big class="ellipsis" title="{{pendingReferrals.referred_by_name}}">{{pendingReferrals.referred_by_name}}</big>
 											<p style="margin:0;" class="ellipsis" title="{{pendingReferrals.ref_designation}}">{{pendingReferrals.ref_designation}}</p>
 										</div>
 									</div>
 									<div class="col-lg-2" style="padding-top:6px;">
-										<img src="public/images/clock.png"alt="clock">&nbsp;&nbsp;
+										<img src="public/images/clock.png" alt="clock">&nbsp;&nbsp;
 										<span style="display: inline-block;padding: 12px 0;line-height: 1.8em">{{pendingReferrals.created_at}}</span>
 									</div>
 									<div class="col-lg-2" style="padding-top:6px;">
@@ -230,13 +242,15 @@
 										RESUME
 									</div>
 									<div class="col-lg-4">
-										AWAITING ACTION
+										STATUS
 									</div>
 								</li>
 								<li ng-repeat="activeReferrals in EngContCtrl.referrals" style="padding:16px 0!important">
 									<div class="col-lg-3">
 										<div class="pull-left">
-											<img ng-src="{{activeReferrals.dp_image == null ? 'public/images/avatar.png' : activeReferrals.dp_image}}" class="img-responsive img-circle border-{{activeReferrals.status | lowercase}}" ng-style="{'border': activeReferrals.dp_image == null ? '0': ''}">
+											<span ng-if="activeReferrals.dp_image == null || activeReferrals.dp_image == ''" ng-bind="activeReferrals.name | limitTo : 1" class='letter' ng-style="{'background':EngContCtrl.colorPicker($index)}">
+											</span>
+											<img ng-if="!(activeReferrals.dp_image == null || activeReferrals.dp_image == '')" ng-src="{{activeReferrals.dp_image}}" class="img-responsive img-circle border-{{activeReferrals.status | lowercase}}" ng-style="{'border': activeReferrals.dp_image == null ? '0': ''}">
 										</div>
 										<div class="content pull-left" ng-style="{'padding-top': activeReferrals.designation == ''? '18px' : ''}" style="width:75%">
 											<big class="ellipsis" title="{{activeReferrals.name}}">{{activeReferrals.name}}</big>
@@ -245,7 +259,9 @@
 									</div>
 									<div class="col-lg-3" style="padding: 0">
 										<div class="pull-left">
-											<img ng-src="{{activeReferrals.referred_by_dp_image == null ? 'public/images/avatar.png' : activeReferrals.referred_by_dp_image}}" class="img-responsive img-circle border-default">
+											<span ng-if="activeReferrals.referred_by_dp_image == null || activeReferrals.referred_by_dp_image == ''" ng-bind="activeReferrals.referred_by_name | limitTo : 1" class='letter' ng-style="{'background':EngContCtrl.colorPicker($index + 5)}"></span>
+
+											<img ng-if="!(activeReferrals.referred_by_dp_image == null || activeReferrals.referred_by_dp_image == '')" ng-src="{{activeReferrals.referred_by_dp_image}}" class="img-responsive img-circle border-default">
 										</div>
 										<div class="content pull-left" ng-style="{'padding-top': activeReferrals.ref_designation == ''? '18px' : ''}" style="width:75%;">
 											<big class="ellipsis" title="{{activeReferrals.referred_by_name}}">{{activeReferrals.referred_by_name}}</big>

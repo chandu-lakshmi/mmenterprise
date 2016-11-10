@@ -1,0 +1,11 @@
+<div>
+	<div ng-repeat="buckets in EditCampaignsCtrl.bucketsName" ng-init="colorCode = EditCampaignsCtrl.colorPicker($index)">
+		<!-- qq uploader -->
+		<div class="upload-bucket" ng-style="{'background':colorCode,'border-color':colorCode}"></div>
+	</div>
+	<div>
+		<div class="upload-bucket new-bucket">
+			<p>Add New</p>
+		</div>
+	</div>
+</div>

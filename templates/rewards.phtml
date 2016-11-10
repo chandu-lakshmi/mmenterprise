@@ -50,53 +50,85 @@
 	<div class="container">
 		<div class="header clearfix">
 			<h2 class="pull-left">Total Rewards for Referrals</h2>
-			<span class="pull-right total col-lg-2 text-right text-hired">&#36; 0.00</span>
+			<span class="pull-right total  text-right text-hired" 
+				ng-if="RewardCtrl.rewards.total_cash > 0"
+				ng-bind="RewardCtrl.rewardsCurrencyType + RewardCtrl.rewards.total_cash">
+			</span>
 		</div>
 		<div class="rewards-list">
 			<div class="row clearfix">
-				<div class="col-lg-12">
-					<ul>
+				<div class="col-sm-12">
+					<ul class="list">
 						<li class="t_head clearfix">
-							<div class="col-lg-4">
+							<div class="col-sm-3">
 								NAME
 							</div>
-							<div class="col-lg-4">
+							<div class="col-sm-3">
 								REFERRED
 							</div>
-							<div class="col-lg-2">
+							<div class="col-sm-2">
 								REWARDED ON
 							</div>
-							<div class="col-lg-2 text-right">
-								REWARDED
+							<div class="col-sm-2 text-right">
+								DISCOVERY
+							</div>
+							<div class="col-sm-2 text-right">
+								REFERRAL 
 							</div>
 						</li>
-						<li class="clearfix" ng-repeat="reward in RewardCtrl.rewards[0].referred" ng-if="reward.status == 'Accepted'">
-							<div class="col-lg-4">
-								<div class="pull-left">
-									<img ng-src="public/images/Ui_Faces/{{reward.referred_by}}.jpg" class="img-responsive img-circle border-default">
+						<div infinite-scroll='RewardCtrl.getRewardsData()' infinite-scroll-disabled='RewardCtrl.busy' infinite-scroll-distance='2' style="position:relative">
+							<li class="clearfix" ng-repeat="reward in RewardCtrl.rewards.referrals">
+								<div class="col-sm-3">
+									<div class="pull-left">
+										<span ng-if="reward.dp_image == null || reward.dp_image == ''"
+											ng-bind="reward.name | limitTo : 1"  
+											ng-style="{'background':RewardCtrl.colorPicker($index)}" class="letter">
+										</span>
+										<img ng-if="!(reward.dp_image == null || reward.dp_image == '')" 
+											ng-src="{{reward.dp_image}}" class="img-responsive img-circle border-default">
+									</div>
+									<div class="content pull-left">
+										<span class="text-name text-ellipsis" 
+											ng-bind="reward.name" 
+											ng-style="{'line-height':reward.designation == '' ? '48px' : ''}"
+											title="{{reward.name}}">
+										</span>
+										<p ng-bind="reward.designation" class="text-ellipsis" title="{{reward.designation}}"></p>
+									</div>
 								</div>
-								<div class="content pull-left">
-									<span class="text-name">{{reward.referred_by}}</span>
-									<p>{{reward.ref_designation}}</p>
+								<div class="col-sm-3">
+									<div class="pull-left">
+										<span ng-if="reward.referred_by_dp_image == null || reward.referred_by_dp_image == ''"
+											ng-bind="reward.referred_by_name | limitTo : 1"  
+											ng-style="{'background':RewardCtrl.colorPicker($index + 5)}" class="letter">
+										</span>
+										<img ng-if="!(reward.referred_by_dp_image == null || reward.referred_by_dp_image == '')" 
+											ng-src="{{reward.referred_by_dp_image}}" class="img-responsive img-circle border-default">
+									</div>
+									<div class="content pull-left">
+										<big ng-bind="reward.referred_by_name" 
+											ng-style="{'line-height':reward.ref_designation == '' ? '48px' : ''}" class="text-ellipsis" title="{{reward.referred_by_name}}"></big>
+										<p ng-bind="reward.ref_designation" class="text-ellipsis" title="{{reward.ref_designation}}"></p>
+									</div>
 								</div>
-							</div>
-							<div class="col-lg-4">
-								<div class="pull-left">
-									<img ng-src="public/images/Ui_Faces/{{reward.name}}.jpg" class="img-responsive img-circle border-default">
+								<div class="col-sm-2">
+									<span class="time">{{reward.created_at}}&nbsp;&nbsp;<img src="public/images/time.svg" alt="clock"></span>
 								</div>
-								<div class="content pull-left">
-									<big>{{reward.name}}</big>
-									<p>{{reward.designation}}</p>
+								<div class="col-sm-2 text-right" ng-init="discovery = RewardCtrl.currencyView(reward.rewards, 'discovery')">
+									<span class="text-hired reward" ng-bind="discovery" ng-style="{'margin-right': discovery == '-' ? '34px' : ''}"></span>
 								</div>
-							</div>
-							<div class="col-lg-2">
-								<span class="time">{{reward.time}}&nbsp;&nbsp;<img src="public/images/time.svg" alt="clock"></span>
-							</div>
-							<div class="col-lg-2 text-right">
-								<span class="text-hired reward">&#36; {{reward.rewarded}}</span>
-							</div>
+								<div class="col-sm-2 text-right" ng-init="referral = RewardCtrl.currencyView(reward.rewards, 'referral')">
+									<span class="text-hired reward" ng-bind="referral" ng-style="{'margin-right': referral == '-' ? '34px' : ''}"></span>
+								</div>
+							</li>
+						</div>
+						<li ng-if="RewardCtrl.noRewards" class="no-rewards">
+							<h3 ng-bind="RewardCtrl.noRewardsMsg" class="text-center"></h3>
 						</li>
 					</ul>
+					<h1 class="text-center" ng-if="RewardCtrl.busy">
+						<img src="public/images/loader/spin.gif" alt="spinner" width="50px" height="50px"> 
+					</h1>
 				</div>
 			</div>
 		</div>

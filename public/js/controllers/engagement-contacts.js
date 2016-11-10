@@ -308,9 +308,14 @@ angular.module('app.engagement.contacts', [])
         }
     }
 
+    this.colorCode = ["#21A4AC", "#EE8F3B", "#2A99E0", "#154c50", "#103954", "#342158", "#5B5B29", "#004D40", "#229A77", "#6f2b25"];    
+    this.colorPicker = function(index) {
+        return scope.colorCode[String(index).slice(-1)];
+    }
+
 }])
 
-.controller('ReferralStatus',["$scope", "$uibModalInstance", "referralObj", "$http", "ajaxService", "CONFIG", function($scope, $uibModalInstance, referralObj, $http, ajaxService, CONFIG){
+.controller('ReferralStatus',["$scope", "$window", "$uibModalInstance", "referralObj", "$http", "ajaxService", "CONFIG", function($scope, $window, $uibModalInstance, referralObj, $http, ajaxService, CONFIG){
 
 	var scope = this;
 

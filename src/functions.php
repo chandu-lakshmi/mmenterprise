@@ -10,6 +10,7 @@ function commonArgs ($settings=array()) {
 			'VERSION'		=> $settings['APP']['VERSION'],
 			'PREFIX' 		=> $settings['APP']['PREFIX'],
 			'PASSWORD_GRANT' => $settings['APP']['PASSWORD_GRANT'],
+                        'APP_VERSION'    => $settings['APP']['APP_VERSION'],
 			
 			);
 }
@@ -45,6 +46,7 @@ function commonData ($settings = array()) {
 			'API_DOMAIN' 	=> $settings['APP']['API_DOMAIN'],
 			'APP_DOMAIN' 	=> $settings['APP']['APP_DOMAIN'],
 			'PATH'          => $settings['APP']['PATH'],
+                        'APP_VERSION'   => $settings['APP']['APP_VERSION'],
 			'user_details'	=> isset($userDetails)?json_encode($userDetails):array(),
 			'company_details' => isset($companyDetails)?json_encode($companyDetails):array(),
                         'userPermissions' => isset($userPermissions)?json_encode($userPermissions):array(),

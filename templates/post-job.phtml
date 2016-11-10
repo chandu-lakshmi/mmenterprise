@@ -10,7 +10,7 @@
 			</div>
 
 			<div class="content">
-				<form role="form" name="post_job" ng-submit="PtJobCtrl.postJob(post_job.$valid)" novalidate onkeypress="return (event.keyCode == 13 && event.target.tagName != 'TEXTAREA') ? false : true ">
+				<form role="form" name="post_job" ng-submit="PtJobCtrl.postJob(post_job.$valid)" novalidate onkeypress="return (event.keyCode == 13 && event.target.tagName != 'TEXTAREA') ? false : true " autocomplete="off">
 					<div class="row">
 						<div class="col-sm-4">
 							<!-- <div class="form-group">
@@ -30,7 +30,7 @@
 									  field-required="true">
 								</div>
 							</div> -->
-							<div class="form-group ui-widget">
+							<div class="form-group">
 								<label for="job_title">Job Title*</label>
 							  	<input type="text" class="form-control" id="job_title" name="job_title" ng-model="PtJobCtrl.postJob1.job_title" value="" required ng-keyup="PtJobCtrl.job_title_suggestion(PtJobCtrl.postJob1.job_title)" autocomplete="off">
 							  	<div class="error-spacer"></div>
@@ -95,6 +95,15 @@
 					<div class="row">
 						<div class="col-sm-4">
 							<div class="form-group">
+								<label for="vacancy">Number of Vacancies*</label>
+								<input type="text" class="form-control" id="vacancy" name="vacancy" value="" ng-model="PtJobCtrl.postJob1.no_of_vacancies" required ng-pattern="/^[0-9]{1,}$/">
+								<div class="error-spacer"></div>
+							  	<div ng-if="post_job.vacancy.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Number of Vacancy Field is Required.</div>
+							  	<div ng-if="post_job.vacancy.$error.pattern && PtJobCtrl.job_post_error" class="has-error-msg">Please Enter Only Numeric Value.</div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
 								<label for="pos-id">Position ID</label>
 								<input type="text" class="form-control" id="pos-id" value="" ng-model="PtJobCtrl.postJob1.position_id">
 							</div>
@@ -107,7 +116,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-8">
+						<div class="col-sm-12">
 							<div class="form-group">
 								<label for="job_desc">Job Description*</label>
 								<textarea class="form-control" id="job_desc" rows="6" ng-model="PtJobCtrl.postJob1.job_desc" name="job_desc" required maxlength="5000"></textarea>

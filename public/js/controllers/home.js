@@ -84,7 +84,7 @@ angular.module('app.home', ['ngMaterial', 'ngMessages'])
                     scope.forgot_password_show = false;
                     scope.forgot_password_success_show = true;
                 }
-                if(response.status_code == 403){
+                else if(response.status_code == 403){
                     scope.backend_error = true;
                     if(response.message.hasOwnProperty('emailid')){
                         scope.invalid_error = response.message.emailid[0];
@@ -92,6 +92,9 @@ angular.module('app.home', ['ngMaterial', 'ngMessages'])
                     else{
                         scope.invalid_error = response.message.msg[0];
                     }
+                }
+                else if(response.status_code == 400){
+                    $window.location = CONFIG.APP_DOMAIN + 'logout';
                 }
             })
             forgot_password.error(function(response){
@@ -140,7 +143,9 @@ angular.module('app.home', ['ngMaterial', 'ngMessages'])
                 }else if (response.status_code == 403) {
                     scope.dublicate_email = true;
                     scope.invalid_new_user = response.message.emailid[0];
-                };
+                }else if(response.status_code == 400){
+                    $window.location = CONFIG.APP_DOMAIN + 'logout';
+                }
                 
             })
             signup.error(function(response){
@@ -154,7 +159,7 @@ angular.module('app.home', ['ngMaterial', 'ngMessages'])
     scope.dublicate_invalid = false;
     scope.login_show_error = false;
     scope.submitLoginForm = function(isValid){
-
+        scope.dublicate_invalid = false;
     	if(!isValid){
     		scope.login_show_error = true;
     	}
@@ -190,6 +195,9 @@ angular.module('app.home', ['ngMaterial', 'ngMessages'])
                 else if(response.status_code == 403){
                     scope.dublicate_invalid = true;
                     scope.invalid_user = response.message.msg[0];
+                }
+                else if(response.status_code == 400){
+                    $window.location = CONFIG.APP_DOMAIN + 'logout';
                 }
             });
 

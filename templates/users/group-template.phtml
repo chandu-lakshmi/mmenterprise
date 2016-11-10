@@ -6,7 +6,7 @@
             <div class="user-inputs">
                 <md-input-container class="md-block md-no-float">
                     <label>GROUP NAME</label>
-                    <input type="text" name="name" ng-model="UserGroupCtrl.groupData.name" placeholder="Enter Group Name" required ng-class="{'has-error-border':(new_group_form.name.$invalid && UserGroupCtrl.errCond) || UserGroupCtrl.backendError}">
+                    <input type="text" name="name" ng-model="UserGroupCtrl.groupData.name" placeholder="Enter Group Name" required ng-class="{'has-error-border':(new_group_form.name.$invalid && UserGroupCtrl.errCond) || UserGroupCtrl.backendError}" style="text-transform:uppercase">
                     <div ng-if="new_group_form.name.$error.required && UserGroupCtrl.errCond" class="has-error-msg">Please Enter Group Name</div>
                     <div ng-if="UserGroupCtrl.backendError" class="has-error-msg" ng-bind="UserGroupCtrl.backendError" style="text-transform: capitalize;"></div>
                 </md-input-container>
@@ -33,8 +33,8 @@
             <span class="message fade" ng-if="UserGroupCtrl.message" ng-bind="UserGroupCtrl.backendMsg"></span>
         </span>
     </div>
-    <div class="pull-right disabled">
-        <span class="btn-cancel ripplelink" data-ripple-color="#757575" ng-click="UserGroupCtrl.reset('group', UserGroupCtrl.newUser)">CANCEL</span>
+    <div class="pull-right disabled" ng-style="{'opacity': UserGroupCtrl.groupData.is_primary == 1 ? '0.5' : '1'}">
+        <span class="btn-cancel ripplelink" data-ripple-color="#757575" ng-click="UserGroupCtrl.reset('group', UserGroupCtrl.newUser)">Reset</span>
         <span class="btn-save-changes ripplelink" ng-click="UserGroupCtrl.createGroup(new_group_form.$valid,  UserGroupCtrl.groupData.group_id, UserGroupCtrl.newUser)" ng-bind="UserGroupCtrl.newUser ? 'ADD USER GROUP' : 'SAVE CHANGES' "></span>
     </div>
 </div>     

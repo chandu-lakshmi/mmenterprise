@@ -11,9 +11,9 @@
 		.directive('pwMatch', pwMatch)
 
 	SettingsController.$inject = [];
-	SettingsCompanyProfileController.$inject = ['CompanyDetails', '$http', 'CONFIG'];
-	MyProfileController.$inject = ['$http', '$scope', '$uibModal', 'rippleService', 'CompanyDetails', 'UserDetails', 'CONFIG'];
-	UserGroupController.$inject = ['$scope', 'CONFIG', '$http', '$interval', '$q', 'rippleService', 'permissionsService'];
+	SettingsCompanyProfileController.$inject = ['$window', 'CompanyDetails', '$http', 'CONFIG'];
+	MyProfileController.$inject = ['$http', '$scope', '$window', '$uibModal', 'rippleService', 'CompanyDetails', 'UserDetails', 'CONFIG'];
+	UserGroupController.$inject = ['$scope', '$window', 'CONFIG', '$http', '$interval', '$q', 'rippleService', 'permissionsService'];
 
 	function permissionsService(){
 		var permissionData = {};
@@ -54,7 +54,7 @@
 
 	}
 
-	function SettingsCompanyProfileController(CompanyDetails, $http, CONFIG){
+	function SettingsCompanyProfileController($window, CompanyDetails, $http, CONFIG){
 		
 		var vm = this;
 		var APP_URL = CONFIG.APP_DOMAIN;
@@ -90,6 +90,9 @@
 	    	if(response.data.status_code == 200){
 	    		vm.companyDetails = response.data.data.companyDetails
 	    	}
+	    	else if(response.data.status_code == 400){
+	            $window.location = CONFIG.APP_DOMAIN + 'logout';
+	        }
 	    	
 	    }, function(response){
 
@@ -97,7 +100,7 @@
 
 	}
 
-	function MyProfileController($http, $scope, $uibModal, rippleService, CompanyDetails, UserDetails, CONFIG){
+	function MyProfileController($http, $scope, $window, $uibModal, rippleService, CompanyDetails, UserDetails, CONFIG){
 
 		var vm = this,
 		$display_pic,image_path = '',org_name = '';
@@ -108,7 +111,7 @@
 		vm.message = false;
 		vm.has_image = false;
 		vm.displayPicture = '';
-		vm.myProfile = UserDetails;
+		vm.myProfile = angular.copy(UserDetails);
 		vm.passwords = {};
 		vm.backendMsg = '';
 		vm.successMsg = '';
@@ -204,6 +207,9 @@
 						vm.successMsg = response.message.msg[0];
 						setTimeout(function(){vm.message = false;$scope.$apply()},2000);
 			    	}
+			    	else if(response.status_code == 400){
+						$window.location = CONFIG.APP_DOMAIN + 'logout';
+					}
 			    })
 
 			    updateUser.error(function(response){
@@ -248,6 +254,9 @@
 			    	else if(response.status_code == 403){
 			    		vm.backendMsg = response.message.msg[0];
 			    	}
+			    	else if(response.status_code == 400){
+						$window.location = CONFIG.APP_DOMAIN + 'logout';
+					}
 			    })
 
 			    changePassword.error(function(response){
@@ -273,7 +282,7 @@
 		function cancel(flag){
 			if(flag == 'user'){
 				$display_pic.find('.qq-upload-fail').remove();
-				vm.myProfile = angular.copy(UserDetails);
+				vm.myProfile = UserDetails;
 				if(UserDetails.user_dp != '' && UserDetails.user_dp != null){
 					image_path = UserDetails.user_dp;
 					org_name = UserDetails.user_dp.split('/').pop();
@@ -377,7 +386,7 @@
 	}
 
 
-	function UserGroupController($scope, CONFIG, $http, $interval, $q, rippleService, permissionsService){
+	function UserGroupController($scope, $window, CONFIG, $http, $interval, $q, rippleService, permissionsService){
 
 		var vm = this,
 		APP_URL = CONFIG.APP_DOMAIN,
@@ -483,8 +492,13 @@
 		        url: APP_URL + 'permissions'
 		    })
 		    .then(function(response){
-		    	permissionsService.setPermissions(response.data.data.permissions);
-		    	getGroups();
+		    	if(response.data.status_code == 200){
+		    		permissionsService.setPermissions(response.data.data.permissions);
+		    		getGroups();
+		    	}
+		    	else if(response.data.status_code == 400){
+		            $window.location = CONFIG.APP_DOMAIN + 'logout';
+		        }
 
 		    },function(response){
 		    	console.log(response)
@@ -518,6 +532,10 @@
 			    else if(response.data.status_code == 403){
 			    	vm.backendError = response.data.message.msg[0];
 			    }
+			    else if(response.data.status_code == 400){
+		            $window.location = CONFIG.APP_DOMAIN + 'logout';
+		        }
+
 		    },function(response){
 		    	console.log(response)
 		    })
@@ -654,6 +672,9 @@
 				    else if(response.data.status_code == 403){
 				    	vm.backendError = response.data.message.msg[0];
 				    }
+				    else if(response.data.status_code == 400){
+			            $window.location = CONFIG.APP_DOMAIN + 'logout';
+			        }
 			    },function(response){
 			    	console.log(response)
 			    })
@@ -663,6 +684,7 @@
 		// add single person
 		function addPerson(isValid, userId, flag){
 			flag = flag == true ? 0 : 1;
+			vm.backendError = '';
 			if(!isValid){
 				vm.errCond = true;
 			}
@@ -721,8 +743,10 @@
 				    	else{
 				    		vm.backendError = response.data.message.msg[0];
 				    	}
-				    	
 				    }
+				    else if(response.data.status_code == 400){
+			            $window.location = CONFIG.APP_DOMAIN + 'logout';
+			        }
 			    },function(response){
 			    	console.log(response)
 			    })

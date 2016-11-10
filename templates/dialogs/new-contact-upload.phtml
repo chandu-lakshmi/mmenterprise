@@ -28,13 +28,12 @@
                         <div ng-if="upload_contact_form.firstname.$error.required && SingleContCtrl.errCond" class="has-error-msg">Please Enter First Name</div>
                     </md-input-container>
                      <md-input-container class="md-block">
-                        <label>EMP ID</label>
-                        <input type="text" name="other_id" ng-model="SingleContCtrl.newContact.otherid" required ng-class="{'has-error-border':upload_contact_form.other_id.$invalid && SingleContCtrl.errCond}">
-                        <div ng-if="upload_contact_form.other_id.$error.required && SingleContCtrl.errCond" class="has-error-msg">Please Enter Employee ID</div>
+                        <label>ID</label>
+                        <input type="text" name="other_id" ng-model="SingleContCtrl.newContact.otherid">
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>EMAIL</label>
-                        <input type="text" name="emailid" ng-model="SingleContCtrl.newContact.email" required ng-pattern="/^[a-z0-9A-Z._%+-]+@[a-zA-Z]+\.[a-z]{2,3}$/" ng-class="{'has-error-border':upload_contact_form.emailid.$invalid && SingleContCtrl.errCond}">
+                        <input type="text" name="emailid" ng-model="SingleContCtrl.newContact.email" required ng-pattern="/^[a-z0-9A-Z._%+-]+@[a-zA-Z]+\.[a-z]{2,3}$/i" ng-class="{'has-error-border':upload_contact_form.emailid.$invalid && SingleContCtrl.errCond}">
                         <div ng-if="upload_contact_form.emailid.$error.required && SingleContCtrl.errCond" class="has-error-msg">Please Enter Email Address</div>
                         <div ng-if="upload_contact_form.emailid.$error.pattern && SingleContCtrl.errCond" class="has-error-msg">Please Enter Valid Email Address</div>
                     </md-input-container>
@@ -42,8 +41,7 @@
                 <div class="pull-right">
                     <md-input-container class="md-block">
                         <label>LAST NAME</label>
-                        <input type="text" name="lastname" ng-model="SingleContCtrl.newContact.lastname" required ng-class="{'has-error-border':upload_contact_form.lastname.$invalid && SingleContCtrl.errCond}">
-                        <div ng-if="upload_contact_form.lastname.$error.required && SingleContCtrl.errCond" class="has-error-msg">Please Enter Last Name</div>
+                        <input type="text" name="lastname" ng-model="SingleContCtrl.newContact.lastname">
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>MOBILE</label>

@@ -43,7 +43,11 @@ return [
             'PASSWORD_GRANT'    => 'password',
 
             // for file uploading
-            'PATH'    => '/var/www/html/mintmesh/'
+            'PATH'    => '/var/www/html/mintmesh/',
+
+            
+            //Version
+            'APP_VERSION' => '1.1'    
         ],
 
         // API settings

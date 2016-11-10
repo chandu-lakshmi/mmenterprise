@@ -52,7 +52,7 @@
 
 <div class="container new-job-details" style="font-size:16px;min-height:873px" ng-if="!jobDetailsCtrl.job_details_loader">
 	<div class="row info-box" style="margin:0;position:relative">
-		<span class="close-job" ng-click="jobDetailsCtrl.closeJob()" ng-if="jobDetailsCtrl.post_data.status == 'ACTIVE'" ng-show="{{::userPermissions.close_jobs == 1}}">
+		<span class="close-job" ng-click="jobDetailsCtrl.closeJob()" ng-if="jobDetailsCtrl.post_data.status == 'ACTIVE'" ng-show="::jobDetailsCtrl.post_data.is_close == '1'">
 			CLOSE JOB
 		</span>
 		<div class="col-sm-6 lt">
@@ -77,10 +77,14 @@
 				<span class="col-sm-7">{{jobDetailsCtrl.post_data.employment_type}}</span>
 			</div>
 			<div class="row">
+				<span class="col-sm-5">Number of Vacancies:</span>
+				<span class="col-sm-7">{{jobDetailsCtrl.post_data.no_of_vacancies}}</span>
+			</div>
+			<div class="row" ng-if="jobDetailsCtrl.post_data.position_id != ''">
 				<span class="col-sm-5">Position ID:</span>
 				<span class="col-sm-7">{{jobDetailsCtrl.post_data.position_id}}</span>
 			</div>
-			<div class="row">
+			<div class="row" ng-if="jobDetailsCtrl.post_data.requistion_id != ''">
 				<span class="col-sm-5">Requisition ID:</span>
 				<span class="col-sm-7">{{jobDetailsCtrl.post_data.requistion_id}}</span>
 			</div>
