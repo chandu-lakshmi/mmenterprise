@@ -11,7 +11,6 @@
 				<li><a ui-sref=".candidates.resumeRoom" ui-sref-active="active">CANDIDATES</a></li>
 				<li><a ui-sref=".campaigns.allCampaigns" ng-class="{highlight: ('app.campaigns.allCampaigns' | includedByState) || ('app.campaigns.myCampaigns' | includedByState) || ('app.campaigns.editCampaigns' | includedByState)}">CAMPAIGNS</a></li>
 				<li><a ui-sref=".settings.myProfile" ng-class="{highlight: ('app.settings.myProfile' | includedByState) || ('app.settings.companyProfile' | includedByState) || ('app.settings.userGroups' | includedByState)}" ng-show="{{::userPermissions.settings == 1}}">SETTINGS</a></li>
-				<li><a ui-sref=".mintbot" ui-sref-active="active">INVOKE MINTBOT</a></li>
 			</ul>
 
 		</div>
