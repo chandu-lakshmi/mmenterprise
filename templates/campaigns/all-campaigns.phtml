@@ -49,8 +49,9 @@
           							</md-checkbox>
 									<div class="form-group modern-select" ng-style="{'pointer-events': AllCampaignsCtrl.locationCheck ? 'auto' : 'none' }">
 										<div class="controls">
-											<select data-rel="chosen" id="mul_select" data-placeholder="Select Your Options" class="form-control" name="location[]" multiple>
+											<select data-rel="chosen" id="mul_select" data-placeholder="Select Your Options" class="form-control" name="location[]" multiple ng-model="AllCampaignsCtrl.selectedCountries">
 												<option value=""></option>
+												<!-- <option ng-repeat="options in AllCampaignsCtrl.searchResults track by $index">{{options}}</option> -->
 												<option>Option 1</option>
 												<option>Option 2</option>
 												<option>Option 3</option>

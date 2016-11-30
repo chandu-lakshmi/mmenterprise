@@ -472,6 +472,46 @@
 			      	vm[arr] = vm[obj].slice(0);
 			    }
 			}
+
+			// vm.location = location('ind');
+			vm.searchResults = [];
+			
+			/*function location(search){
+
+            	console.log(vm.selectedCountries);
+            	
+				if(canceler){
+					canceler.resolve()
+				}
+				else{
+					if(vm.selectedCountries){
+	            		for(var i = 0; i < vm.selectedCountries.length; i++){
+	            			console.log(vm.searchResults.indexof(vm.selectedCountries[i]))
+	            			if(vm.searchResults.indexof(vm.selectedCountries[i]) == -1){
+	            				vm.searchResults.push(vm.selectedCountries[i])
+	            			}
+	            		}
+	            	}
+				}
+
+				canceler = $q.defer();
+
+				return $http({
+	                headers: {
+	                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+	                },
+	                method: 'GET',
+	                url: '//restcountries.eu/rest/v1/name/'+search,
+	                timeout: canceler.promise
+	            })
+                .then(function(response){
+                	for(var i = 0; i < response.data.length; i++){
+                		vm.searchResults.push(response.data[i].name);
+                		// $('.chosen-drop').find('.chosen-results').append('<li class="active-result" data-option-array-index="'+i+'">'+ response.data[i].name +'</li>')
+                	}
+            		setTimeout(function(){$('#mul_select').trigger('chosen:updated')},100);
+		    	})
+			}*/
 			
 
 			vm.clear = clear;
@@ -484,6 +524,12 @@
 
 			// modern select
 			$('#mul_select').chosen();
+			/*$('.chosen-container').bind('keyup', function(e){
+				var val = $(this).find('input').val();
+				if(val.length >= 2){
+					location(val)
+				}
+			})*/
 
 			// google api for location field
 			vm.geo_location = '';
@@ -803,6 +849,11 @@
 					}
 					vm.campaignDetails.job_ids = arr;
 					$('#mul_select').trigger('chosen:updated');
+					setTimeout(function(){
+						for(var i = 0; i < vm.campaignDetails.job_ids.length; i++){
+							$('.chosen-choices li').eq(i).find('a').remove();
+						}
+					},100)
 				}
 		    }
 		    resetJobs();

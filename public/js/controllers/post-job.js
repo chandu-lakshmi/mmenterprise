@@ -188,6 +188,12 @@ angular.module('app.post.job', ['ngAutocomplete', 'angucomplete-alt'])
         this.job_post_error = true;
       }
       else{
+        if (!scope.postJob1.hasOwnProperty("requistion_id")) {
+            scope.postJob1.requistion_id = '';
+        }
+        if(!scope.postJob1.hasOwnProperty("position_id")){
+            scope.postJob1.position_id = '';   
+        }
         gettingData.setData(scope.postJob1)
         $window.scrollTo(0,0);
         $state.go('^.postJob2');
@@ -197,10 +203,9 @@ angular.module('app.post.job', ['ngAutocomplete', 'angucomplete-alt'])
 }])
 
 
-.controller('PostJobTwoController', ['$window', '$uibModal', 'gettingData', 'CompanyDetails', '$http', 'CONFIG', function($window,$uibModal,gettingData,CompanyDetails,$http,CONFIG){
+.controller('PostJobTwoController', ['$window', '$uibModal', 'gettingData', 'CompanyDetails', '$http', 'CONFIG', function($window, $uibModal, gettingData, CompanyDetails, $http, CONFIG){
 
     $window.scrollTo(0,0);
-
     this.company_name = CompanyDetails.company_name;
   
     gettingData.bol = true;
@@ -371,7 +376,6 @@ angular.module('app.post.job', ['ngAutocomplete', 'angucomplete-alt'])
         var buckets = bucket_count.toString();
         scope.success_cond = true;
         scope.loader = true;
-        console.log(scope.post_job_result)
         var post_job = $.param({
             rewards : rewardsObj,
             country_code : scope.post_job_result.country_code,
@@ -392,7 +396,6 @@ angular.module('app.post.job', ['ngAutocomplete', 'angucomplete-alt'])
             requistion_id : scope.post_job_result.requistion_id,
             job_type : 'global'
         })
-        console.log(post_job)
         var post_job_api = $http({
           headers: {
              'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'

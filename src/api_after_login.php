@@ -900,6 +900,24 @@ $app->post('/view_campaign',function ($request, $response, $args) use ($app) {
     
      return checkJsonResult( $companyDetails->loadCurl() );
 });
+
+//mintbot
+$app->get('/mintbot', function ($request, $response, $args) {
+    $this->mintmeshAccessToken;
+    // need to take a look later    
+    $args = commonData($this->settings);
+
+    //Check Logged in or not
+    if(!empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']);
+    }
+
+    $args['comp_data'] = companyProfile($this->settings);
+//    $args['user_data'] = userPermissions($this->settings);
+    // Render index view
+    return $this->renderer->render($response, 'index.phtml', $args);
+        
+});
 //Company Details
 $app->POST('/file_upload',function ($request, $response, $args) {
 

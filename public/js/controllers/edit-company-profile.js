@@ -29,7 +29,9 @@ angular.module('app.edit.company', [])
 	// cancel button
 	this.cancel = function(){
 		reset();
-		canceller.resolve();
+		if(canceller){
+            canceller.resolve();
+        }
 		scope.update = false;
 		scope.errCond = false;
 		$('.qq-upload-fail').remove();

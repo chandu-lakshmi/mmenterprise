@@ -96,7 +96,7 @@
 						<div class="col-sm-4">
 							<div class="form-group">
 								<label for="vacancy">Number of Vacancies*</label>
-								<input type="text" class="form-control" id="vacancy" name="vacancy" value="" ng-model="PtJobCtrl.postJob1.no_of_vacancies" required ng-pattern="/^[0-9]{1,}$/">
+								<input type="text" class="form-control" id="vacancy" name="vacancy" value="" ng-model="PtJobCtrl.postJob1.no_of_vacancies" required ng-pattern="/^[0-9]{1,}$/" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
 								<div class="error-spacer"></div>
 							  	<div ng-if="post_job.vacancy.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Number of Vacancy Field is Required.</div>
 							  	<div ng-if="post_job.vacancy.$error.pattern && PtJobCtrl.job_post_error" class="has-error-msg">Please Enter Only Numeric Value.</div>

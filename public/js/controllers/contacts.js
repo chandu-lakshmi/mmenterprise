@@ -165,7 +165,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 		);	
 	};
 	gridValidtion('charValidation', '');
-	gridValidtion('charOtherId', /^[a-zA-Z0-9-]{1,50}$/);
+	gridValidtion('charOtherId', /^[a-zA-Z0-9-]{0,50}$/);
 	gridValidtion('numValidation', /^[-0-9]{0,15}$/);
 	gridValidtion('statusValidation', '');
 	
@@ -368,6 +368,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
                     }
                     else if (response.message.msg[0] == 'empid already exists') {
                         $('.existRecords').show();
+                        scope.rowIdExistsMsg = 'Employee ID Already Exists'
                         $('.existRecords').fadeOut(3000);
                         
                         if (!rowEntity['$$errors' + colDef.name]) {

@@ -170,6 +170,8 @@ header .menu ul > li{
  	display: block;
  	padding: 0;
 	color: #7792a0;
+	text-decoration: none;
+	outline: 0;
 }
 header .menu ul > li > a.active:before,
 header .menu ul > li > a:hover:before{
@@ -183,11 +185,8 @@ header .menu ul > li > a:hover:before{
 }
 header .menu ul > li > a.active,
 header .menu ul > li > a:hover,
-header .menu ul > li > a:focus,
 header .menu ul > li > a.highlight{
 	color: white;
-	text-decoration: none;
-	outline: 0;
 }
 /* header .notifications{
 	margin: -10px 0;

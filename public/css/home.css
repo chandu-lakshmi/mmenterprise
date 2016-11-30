@@ -405,6 +405,7 @@ input{
     top: 0;
     left: 0;
     display: block;
+    cursor: pointer;
 }
 .company-profile .error-spacer{
     float: right;

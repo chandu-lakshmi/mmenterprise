@@ -114,7 +114,7 @@
 										<p>SELECT JOBS</p>
 										<div class="form-group modern-select">
 											<div class="controls">
-												<select data-rel="chosen" id="mul_select" name="jobs[]" ng-model="EditCampaignsCtrl.campaignDetails.job_ids" data-placeholder="Select Your Options" class="form-control" multiple required ng-class="{'has-error-border': edit_campaigns_form['jobs[]'].$invalid && EditCampaignsCtrl.errCond}">
+												<select data-rel="chosen" id="mul_select" name="job_ids[]" ng-model="EditCampaignsCtrl.campaignDetails.job_ids" data-placeholder="Select Your Options" class="form-control" multiple required ng-class="{'has-error-border': edit_campaigns_form['jobs[]'].$invalid && EditCampaignsCtrl.errCond}">
 													<option value=""></option>
 													<option ng-if="EditCampaignsCtrl.jobsList.length > 0" ng-repeat="list in EditCampaignsCtrl.jobsList" ng-bind="list.job_title + ' ( ' + list.no_of_vacancies + ' )'" ng-value="list.id"></option>
 													<option ng-if="EditCampaignsCtrl.jobsList.length == 0" value="" disabled>No jobs found</option>

@@ -9,11 +9,12 @@
 		.controller('UserGroupController', UserGroupController)
 		.service('permissionsService',permissionsService)
 		.directive('pwMatch', pwMatch)
+		.service('userData', userData)
 
 	SettingsController.$inject = [];
 	SettingsCompanyProfileController.$inject = ['$window', 'CompanyDetails', '$http', 'CONFIG'];
-	MyProfileController.$inject = ['$http', '$scope', '$window', '$uibModal', 'rippleService', 'CompanyDetails', 'UserDetails', 'CONFIG'];
-	UserGroupController.$inject = ['$scope', '$window', 'CONFIG', '$http', '$interval', '$q', 'rippleService', 'permissionsService'];
+	MyProfileController.$inject = ['$http', '$scope', '$window', '$uibModal', 'rippleService', 'CompanyDetails', 'UserDetails', 'userData', 'CONFIG'];
+	UserGroupController.$inject = ['$scope', '$window', 'CONFIG', '$http', '$interval', '$q', 'rippleService', 'userData', 'permissionsService'];
 
 	function permissionsService(){
 		var permissionData = {};
@@ -32,6 +33,23 @@
 	
 	}
 
+	function userData(){
+		var obj = {};
+		this.bol = true;
+
+		this.setData = function(data){
+			obj = data;
+		}
+
+		this.getData = function(){
+			return obj
+		}
+
+		this.addProperty = function(key, val){
+			obj[key] = val;
+		}
+	}
+
 	function pwMatch(){
 		return {
 	  		require: 'ngModel',
@@ -41,7 +59,6 @@
 	    		elem.add(rePassword).on('keyup', function () {
 	          		scope.$apply(function () {
 	            		var v = elem.val()===$(rePassword).val();
-	            		// alert(v);
 	            		ctrl.$setValidity('pwmatch', v);
 	          		});
 	    		});
@@ -100,7 +117,7 @@
 
 	}
 
-	function MyProfileController($http, $scope, $window, $uibModal, rippleService, CompanyDetails, UserDetails, CONFIG){
+	function MyProfileController($http, $scope, $window, $uibModal, rippleService, CompanyDetails, UserDetails, userData, CONFIG){
 
 		var vm = this,
 		$display_pic,image_path = '',org_name = '';
@@ -111,7 +128,12 @@
 		vm.message = false;
 		vm.has_image = false;
 		vm.displayPicture = '';
-		vm.myProfile = angular.copy(UserDetails);
+		if(userData.bol == true){
+			userData.setData(UserDetails);
+		}
+		vm.myProfile = angular.copy(userData.getData());
+
+
 		vm.passwords = {};
 		vm.backendMsg = '';
 		vm.successMsg = '';
@@ -126,8 +148,8 @@
 
 		rippleService.wave();
 
-		if(UserDetails.user_dp != null && UserDetails.user_dp != ''){
-			vm.displayPicture = UserDetails.user_dp;
+		if(userData.getData().user_dp != null && userData.getData().user_dp != ''){
+			vm.displayPicture = userData.getData().user_dp;
 		}
 		else{
 			vm.displayPicture = '';
@@ -192,9 +214,9 @@
 			    		if(checkedStatus){
 			    			angular.element('header .user_dp img').attr('src', image_path);
 			    		}
-			    		UserDetails = vm.myProfile;
-			    		UserDetails.user_dp = response.data.user_dp;
-			    		angular.element('header .user_dp + .user_name').text(UserDetails.user_name);
+			    		userData.setData(vm.myProfile);
+			    		userData.addProperty('user_dp', response.data.user_dp);
+			    		angular.element('header .user_dp + .user_name').text(userData.getData().user_name);
 			    		if(response.data.user_dp != ''){
 			    			image_path = response.data.user_dp;
 			    			org_name = response.data.user_dp.split('/').pop();
@@ -282,10 +304,10 @@
 		function cancel(flag){
 			if(flag == 'user'){
 				$display_pic.find('.qq-upload-fail').remove();
-				vm.myProfile = UserDetails;
-				if(UserDetails.user_dp != '' && UserDetails.user_dp != null){
-					image_path = UserDetails.user_dp;
-					org_name = UserDetails.user_dp.split('/').pop();
+				vm.myProfile = angular.copy(userData.getData());
+				if(userData.getData().user_dp != '' && userData.getData().user_dp != null){
+					image_path = userData.getData().user_dp;
+					org_name = userData.getData().user_dp.split('/').pop();
 					setImage(org_name, image_path);
 				}
 				else{
@@ -386,11 +408,13 @@
 	}
 
 
-	function UserGroupController($scope, $window, CONFIG, $http, $interval, $q, rippleService, permissionsService){
+	function UserGroupController($scope, $window, CONFIG, $http, $interval, $q, rippleService, userData, permissionsService){
 
 		var vm = this,
 		APP_URL = CONFIG.APP_DOMAIN,
-		$display_pic,image_path = '',org_name;	
+		$display_pic,image_path = '',org_name;
+
+		userData.bol = false;	
 
 		// google api for location field
 		this.geo_location = '';
@@ -713,12 +737,12 @@
 			    			getGroups();
 			    		}
 			    		else{
-			    			if(vm.groupsList[vm.tab].users[vm.subTab].user_id == vm.personDetails.group_id){
+			    			/*if(vm.groupsList[vm.tab].users[vm.subTab].user_id == vm.personDetails.group_id){
 			    				alert();
 			    			}
 			    			else{
 			    				console.log('dasd')
-			    			}
+			    			}*/
 			    			vm.groupsList[vm.tab].users[vm.subTab] = angular.copy(vm.personDetails);
 			    			vm.groupsList[vm.tab].users[vm.subTab].photo = angular.copy(response.data.data.photo);
 			    			vm.groupData.users[vm.subTab] = angular.copy(vm.personDetails);
