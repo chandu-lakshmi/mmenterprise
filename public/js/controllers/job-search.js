@@ -118,7 +118,15 @@ angular.module('app.job.search', ['infinite-scroll'])
 
     var time;
     scope.overLoader = false;
-    scope.searchFilter = function(filter1, filter2, input){
+    var inputPrev = "";
+    scope.searchFilter = function(filter1, filter2, input, event){
+        
+        //first char space restrict
+        input = input || '';
+        if(event.keyCode === 32 && input.length === 0 || inputPrev == input){
+            return false;
+        }
+        inputPrev = input;
 
         scope.init_no_posts_found = false;
         scope.no_posts_found = false;

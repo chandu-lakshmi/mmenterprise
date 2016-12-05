@@ -51,12 +51,18 @@ p.indent:first-letter{
 	display:inline-block;
 }
 .search-job .filter-group .filter-type{
-	float: right;
-    padding-right: 140px;
+	position: absolute;
+    right: 162px;
+    top: -4px;
+}
+.search-job .filter-group .filter-by{
+	position: absolute;
+    right: 336px;
+    top: -2px;
 }
 .search-job  md-input-container{
 	margin:0;
-	padding:0  20px 15px 0;
+	padding: 0 80px 15px 0;
 }
 /*.select-arrow + select{
 	-webkit-appearance: none;

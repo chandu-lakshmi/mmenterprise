@@ -225,23 +225,8 @@
 			<h2 class="text-center">Select The Group</h2>
 			<div class="buckets">
 				<div class="row">
-					<div class="col-sm-3" ng-repeat="buckets in post2Ctrl.bucket_names"
-						ng-style="{'background':post2Ctrl.getColor($index)}"
-						ng-init="post2Ctrl.bucket_names[$index].src='public/images/add.svg'"
-						ng-click="buckets.count == 0 ? '' : post2Ctrl.getDataUpdate(buckets.src, $index, buckets.bucket_id)">
-						<div class="box" popover-enable='buckets.count == 0' uib-popover="No contacts Found"   popover-trigger="'mouseenter'">
-							<img ng-src="{{buckets.src}}" class="pull-right" alt="selecticon">
-							<div class="text-center">
-								<p title="{{buckets.bucket_name | uppercase}}" style="margin:0">
-									<!-- <a ui-sref="app.contact({bucketObj:'1'})" target="_blank"> -->{{buckets.bucket_name | uppercase}}
-									<!-- </a> -->
-								</p>
-								<p>
-									{{buckets.count}} contact(s)
-								</p>
-							</div>
-						</div>
-					</div>
+					<buckets-view buckets="post2Ctrl.bucket_names" check-ids="" set-fn="">
+            		</buckets-view>
 				</div>
 			</div>
 		</div>
@@ -258,7 +243,7 @@
 				<span class="btn-cancel">
 					<a ui-sref="app.job">Cancel</a>
 				</span>
-				<span class="btn-post" ng-click="post2Ctrl.requestSuccess(myForm.$valid, myForm2.$valid)">
+				<span class="btn-post" ng-click="post2Ctrl.loader == false ? post2Ctrl.requestSuccess(myForm.$valid, myForm2.$valid) : ''">
 					POST REQUEST
 					<img src="public/images/loader/butt_loader.gif" ng-if="post2Ctrl.loader">
 				</span>

@@ -1,4 +1,7 @@
 /* contactsEdit in dashbaord */
+
+ select.form-control option[value="? string:unknown ?"]{display: none}
+
 .grid-contacts{
   	background: #eeeff1;
   	font-size: 16px;
@@ -149,7 +152,7 @@
     border-left:0;
     border-right: 0;
     overflow: hidden;
-    height: calc(100vh - 275px) !important;
+    height: calc(100vh - 275px);
 }
 .grid-contacts .ui-grid-header-viewport{
   	height: 40px;
@@ -189,9 +192,9 @@
 .grid-contacts .grid-other-id .ui-grid-cell-contents-hidden + .ng-scope input{
 	text-transform: uppercase;
 }
-.grid-contacts .ui-grid-canvas{
+/*.grid-contacts .ui-grid-canvas{
     padding: 0;
-}
+}*/
 .grid-contacts .ui-grid-cell select{
 	width: 75% !important;
     padding-left: 0;
@@ -287,7 +290,8 @@
 }*/
 /* select row bgcolor */
 .grid-contacts .ui-grid-row.ui-grid-row-selected > [ui-grid-row] > .ui-grid-cell,
-.grid-contacts .ui-grid-row.ui-grid-row-selected .ui-grid-disable-selection div{
+.grid-contacts .ui-grid-row.ui-grid-row-selected .ui-grid-disable-selection div,
+.grid-contacts .ui-grid-row.ui-grid-row-selected{
   	background-color: #f9f9f9 !important;
 }
 
@@ -351,11 +355,11 @@
 	position: relative;
 }
 .grid-contacts .container .container-rt .grid-footer .status span:last-child{
-    cursor: pointer;
     outline: none;
 }
 .grid-contacts .container .container-rt .grid-footer .pages-con{
 	width: 33%;
+    height: 1px;
 	text-align: center;
 }
 .grid-contacts .container .container-rt .grid-footer .invite .btn-invite{
@@ -825,7 +829,85 @@
     left: 16%;
 }
 
+/* shiva */
 .bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+.bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader .qq-upload-button{
+    background: transparent;
+}
+.bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader .qq-upload-button input[type="file"]{
+    width: 100%;
+    height: 100%;
+}
+.bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader .qq-upload-button span.align-title{
+    position: absolute;
+    top: 35%;
+    width: 100%;
+    left: 0;
+    font-size: 18px;
+    text-transform: capitalize;
+}
+.bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader .qq-upload-button span.align-title p{
+    width: 80%;
+    margin: 10px auto 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-upload-fail{
+    position: absolute;
+    font-size: 13px;
+    color: #983a3a;
+    white-space: nowrap;
+    bottom: -18px;
+}
+.bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader .qq-upload-drop-area .file-name{
+    width: 100%;
+    height: 100%;
+}
+.bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader .qq-upload-drop-area .file-name p.name{
+    position: absolute;
+    width: 90%;
+    bottom: 17px;
+    font-size: 15px;
+    left: 6%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    color: #fff;
+}
+.bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader .qq-upload-drop-area .file-name .overlay{
+    display: none;
+    background: #000000;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    opacity: 0.1;
+}
+.bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader .qq-upload-drop-area .file-name i.fa{
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid #ccc;
+    background: #fff;
+    border-radius: 4px;
+    display: none;
+    cursor: pointer;
+}
+.bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader .qq-upload-drop-area .file-name:hover .overlay,
+.bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader .qq-upload-drop-area .file-name:hover i.fa{
+    display: block;
+}
+.bucket-modal .modal-body .qq-uploader .drag_img{display: none;}
+
+/*.bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader{
 	height: 100%;
 	margin-bottom: 0;
 	padding-top: 0;
@@ -846,8 +928,8 @@
 	text-transform: uppercase;
 }
 .bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader .qq-upload-list{
-	z-index: 1;
-	top: 65%;
+	z-index: -1;
+	top: 0;
 }
 .bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader .qq-upload-button span.align-title{
 	position: absolute;
@@ -904,7 +986,7 @@
 .bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader .qq-upload-drop-area .file-name:hover i.fa{
 	display: block;
 }
-
+*/
 
 
 /* new bucket modal */
@@ -920,6 +1002,7 @@
     height: 50px;
 }
 .bucket-modal .modal-body #new-bucket .qq-uploader{
+    width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
@@ -929,7 +1012,7 @@
     color: #983a3a;
     white-space: nowrap;
 }
-.bucket-modal .modal-body #new-bucket .qq-uploader .qq-upload-button{
+/*.bucket-modal .modal-body #new-bucket .qq-uploader .qq-upload-button{
     height: 100%;
     width: 100%;
     text-shadow: none;
@@ -937,6 +1020,14 @@
     border: 2px solid #cccccc;
     color: #a0a0a0;
     background: #f8f8f8;
+}*/
+.bucket-modal .modal-body #new-bucket .qq-uploader .qq-upload-button input[type="file"]{
+    width: 100%;
+    height: 100%;
+}
+.bucket-modal .modal-body .qq-uploader .qq-upload-button input[type="file"]{
+    width: 100%;
+    height: 100%;
 }
 .bucket-modal .modal-body #new-bucket .qq-uploader .qq-upload-button span.name{
     position: absolute;

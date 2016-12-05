@@ -1,7 +1,7 @@
 (function() {
 "use strict";
 
-angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.infiniteScroll'])
+angular.module('app.import.contacts', ['ui.grid'])
 
 // Required input[type=file]
 .directive('validFile', function() {
@@ -248,293 +248,312 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
     })
 }])
 
-.controller('ImportContactsListController', ['$rootScope', '$q', '$window', '$state', '$scope', '$http', '$log', '$timeout', 'uiGridConstants', '$uibModal', 'CONFIG', function($rootScope, $q, $window, $state, $scope, $http, $log, $timeout, uiGridConstants, $uibModal, CONFIG) {
+// .controller('ImportContactsListController', ['$rootScope', '$q', '$window', '$state', '$scope', '$http', '$log', '$timeout', 'uiGridConstants', '$uibModal', 'CONFIG', function($rootScope, $q, $window, $state, $scope, $http, $log, $timeout, uiGridConstants, $uibModal, CONFIG) {
 
-    var scope = this;
-    scope.loadingTabs = true;
+//     var scope = this;
+//     scope.loadingTabs = true;
 
-    //scope.loadingInitGrid = true;
-    this.currentTab = 'all';
-    this.getActive = function(param){   
-        scope.currentTab = param;
-    }
+//     //scope.loadingInitGrid = true;
+//     this.currentTab = 'all';
+//     this.getActive = function(param){   
+//         scope.currentTab = param;
+//     }
 
-    // For getting bucket names
-    var get_buckets = $http({
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-        },
-        method: 'POST',
-        url: CONFIG.APP_DOMAIN+'buckets_list'
-    })
-    get_buckets.success(function(response) {
-        scope.bucket_names = response.data.buckets_list;
-        scope.loadingTabs = false;
-    });
-    get_buckets.error(function(response) {
-        console.log(response);
-    })
+//     // For getting bucket names
+//     var get_buckets = $http({
+//         headers: {
+//             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+//         },
+//         method: 'POST',
+//         url: CONFIG.APP_DOMAIN + 'buckets_list'
+//     })
+//     get_buckets.success(function(response) {
+//         scope.bucket_names = response.data;
+//         scope.loadingTabs = false;
+//     });
+//     get_buckets.error(function(response) {
+//         console.log(response);
+//     })
 
-    var selectedContacts = [];
+//     var selectedContacts = [];
 
-    var API_CALL = CONFIG.APP_DOMAIN+'contact_list';
-    var bucketId,canceller;
+//     var API_CALL = CONFIG.APP_DOMAIN+'contact_list';
+//     var bucketId,canceller;
 
-    this.importContactGrid = function(url, id, type) {
-        bucketId = id;
-        scope.gridNoData = false;
-        scope.loading = true;
 
-        $scope.gridOptions = {
-            infiniteScrollRowsFromEnd: 50,
-            enableFullRowSelection: true,
-            infiniteScrollUp: true,
-            infiniteScrollDown: true,
-            enableHorizontalScrollbar: 1,
-            rowHeight: 40,
+//     this.gridOptions = {
+//         enableRowSelection: true,
+//         enableSelectAll: true,
+//         selectionRowHeaderWidth: 35,
+//         rowHeight: 35,
+//         showGridFooter:true
+//     };
+ 
+//     this.gridOptions.columnDefs = [
+//         { name: 'id' },
+//         { name: 'name'},
+//         { name: 'age', displayName: 'Age (not focusable)', allowCellFocus : false },
+//         { name: 'address' }
+//     ];
 
-            columnDefs: [{
-                name: 'employeeid',
-                displayName: 'Employee ID/Other ID'
-            }, {
-                name: 'firstname',
-                displayName: 'First Name'
-            }, {
-                name: 'lastname',
-                displayName: 'Last Name'
-            }, {
-                name: 'emailid',
-                displayName: 'Email ID '
-            }, {
-                name: 'phone',
-                displayName: 'Cell Phone'
-            }, {
-                name: 'status',
-                displayName: 'Status'
-            }, ],
+//     this.gridOptions.data = [
+//         { id : '2', name : 'jaya', age : 24, address : 'hyd'}
+//     ];
+//     // this.importContactGrid = function(url, id, type) {
+//     //     bucketId = id;
+//     //     scope.gridNoData = false;
+//     //     scope.loading = true;
 
-            data: 'data',
+//     //     $scope.gridOptions = {
+//     //         infiniteScrollRowsFromEnd: 50,
+//     //         enableFullRowSelection: true,
+//     //         infiniteScrollUp: true,
+//     //         infiniteScrollDown: true,
+//     //         enableHorizontalScrollbar: 1,
+//     //         rowHeight: 40,
 
-            onRegisterApi: function(gridApi) {
-                gridApi.infiniteScroll.on.needLoadMoreData($scope, $scope.getDataDown);
-                //gridApi.infiniteScroll.on.needLoadMoreDataTop($scope, $scope.getDataUp);
-                $scope.gridApi = gridApi;
+//     //         columnDefs: [{
+//     //             name: 'employeeid',
+//     //             displayName: 'Employee ID/Other ID'
+//     //         }, {
+//     //             name: 'firstname',
+//     //             displayName: 'First Name'
+//     //         }, {
+//     //             name: 'lastname',
+//     //             displayName: 'Last Name'
+//     //         }, {
+//     //             name: 'emailid',
+//     //             displayName: 'Email ID '
+//     //         }, {
+//     //             name: 'phone',
+//     //             displayName: 'Cell Phone'
+//     //         }, {
+//     //             name: 'status',
+//     //             displayName: 'Status'
+//     //         }, ],
 
-                gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-                    updateRowSelection(row);
-                });
+//     //         data: 'data',
 
-                gridApi.selection.on.rowSelectionChangedBatch($scope, function(rows) {
-                    for (var i = 0; i < rows.length; i++) {
-                        updateRowSelection(rows[i]);
-                    }
-                });
-            }
-        };
+//     //         onRegisterApi: function(gridApi) {
+//     //             gridApi.infiniteScroll.on.needLoadMoreData($scope, $scope.getDataDown);
+//     //             //gridApi.infiniteScroll.on.needLoadMoreDataTop($scope, $scope.getDataUp);
+//     //             $scope.gridApi = gridApi;
 
-        function updateRowSelection(row) {
+//     //             gridApi.selection.on.rowSelectionChanged($scope, function(row) {
+//     //                 updateRowSelection(row);
+//     //             });
 
-            if (row.isSelected) {
-                if (selectedContacts.indexOf(row.entity.record_id) == -1) {
-                    selectedContacts.push(row.entity.record_id);
-                }
-            } else {
-                var index = selectedContacts.indexOf(row.entity.record_id);
-                if (index > -1) {
-                    selectedContacts.splice(index, 1);
-                }
-            }
-        }
+//     //             gridApi.selection.on.rowSelectionChangedBatch($scope, function(rows) {
+//     //                 for (var i = 0; i < rows.length; i++) {
+//     //                     updateRowSelection(rows[i]);
+//     //                 }
+//     //             });
+//     //         }
+//     //     };
 
-        if(canceller){
-            canceller.resolve();
-        }
+//     //     function updateRowSelection(row) {
 
-        canceller = $q.defer();
+//     //         if (row.isSelected) {
+//     //             if (selectedContacts.indexOf(row.entity.record_id) == -1) {
+//     //                 selectedContacts.push(row.entity.record_id);
+//     //             }
+//     //         } else {
+//     //             var index = selectedContacts.indexOf(row.entity.record_id);
+//     //             if (index > -1) {
+//     //                 selectedContacts.splice(index, 1);
+//     //             }
+//     //         }
+//     //     }
 
-        $scope.data = [];
+//     //     if(canceller){
+//     //         canceller.resolve();
+//     //     }
 
-        $scope.firstPage = 0;
-        $scope.lastPage = 0;
+//     //     canceller = $q.defer();
 
-        $scope.page_no = 1;
+//     //     $scope.data = [];
 
-        $scope.getFirstData = function() {
-            var list = $.param({
-                bucket_id: bucketId,
-                page_no: $scope.page_no
-            });
-            return $http({
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                },
-                method: 'POST',
-                url: url,
-                data: list,
-                timeout : canceller.promise
-            })
+//     //     $scope.firstPage = 0;
+//     //     $scope.lastPage = 0;
 
-            .then(function(response) {
+//     //     $scope.page_no = 1;
 
-                // Session Destroy
-                if(response.status_code == 400){
-                    $window.location = CONFIG.APP_DOMAIN+'logout';
-                }
+//     //     $scope.getFirstData = function() {
+//     //         var list = $.param({
+//     //             bucket_id: bucketId,
+//     //             page_no: $scope.page_no
+//     //         });
+//     //         return $http({
+//     //             headers: {
+//     //                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+//     //             },
+//     //             method: 'POST',
+//     //             url: url,
+//     //             data: list,
+//     //             timeout : canceller.promise
+//     //         })
 
-                scope.totalRows = response.data.data.total_records[0].total_count;
+//     //         .then(function(response) {
 
-                scope.total_pages = Math.ceil(scope.totalRows / 50);
-                var newData = $scope.getPage(response.data.data.Contacts_list);
-                if(newData.length==0){
-                    scope.loading = false;
-                    scope.gridNoData = true;
-                    return false;
-                }
+//     //             // Session Destroy
+//     //             if(response.status_code == 400){
+//     //                 $window.location = CONFIG.APP_DOMAIN+'logout';
+//     //             }
+
+//     //             scope.totalRows = response.data.data.total_records[0].total_count;
+
+//     //             scope.total_pages = Math.ceil(scope.totalRows / 50);
+//     //             var newData = $scope.getPage(response.data.data.Contacts_list);
+//     //             if(newData.length==0){
+//     //                 scope.loading = false;
+//     //                 scope.gridNoData = true;
+//     //                 return false;
+//     //             }
                 
-                var selectedCount = 0;
-                $scope.gridApi.grid.selection.selectAll = false;
-                scope.loading = false;
+//     //             var selectedCount = 0;
+//     //             $scope.gridApi.grid.selection.selectAll = false;
+//     //             scope.loading = false;
                 
-                setTimeout(function() {
-                    for (var i = 0; i < selectedContacts.length; i++) {
-                        for (var j = 0; j < newData.length; j++) {
-                            if (selectedContacts[i] == newData[j].other_id) {
-                                $scope.gridApi.selection.selectRow(newData[j])
-                                selectedCount++;
-                                break;
-                            }
-                        }
-                    }
-                    if (newData.length == selectedCount && newData.length != 0) {
-                        $scope.gridApi.grid.selection.selectAll = true;
-                    }
-                })
-                $scope.data = $scope.data.concat(newData);
-            })
+//     //             setTimeout(function() {
+//     //                 for (var i = 0; i < selectedContacts.length; i++) {
+//     //                     for (var j = 0; j < newData.length; j++) {
+//     //                         if (selectedContacts[i] == newData[j].other_id) {
+//     //                             $scope.gridApi.selection.selectRow(newData[j])
+//     //                             selectedCount++;
+//     //                             break;
+//     //                         }
+//     //                     }
+//     //                 }
+//     //                 if (newData.length == selectedCount && newData.length != 0) {
+//     //                     $scope.gridApi.grid.selection.selectAll = true;
+//     //                 }
+//     //             })
+//     //             $scope.data = $scope.data.concat(newData);
+//     //         })
 
-        };
+//     //     };
 
-        $scope.getDataDown = function() {
+//     //     $scope.getDataDown = function() {
 
-            $scope.page_no++;
+//     //         $scope.page_no++;
 
-            var list = $.param({
-                bucket_id: bucketId,
-                page_no: $scope.page_no
-            });
-            return $http({
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                },
-                method: 'POST',
-                url: url,
-                data: list,
-                timeout : canceller.promise
-            })
+//     //         var list = $.param({
+//     //             bucket_id: bucketId,
+//     //             page_no: $scope.page_no
+//     //         });
+//     //         return $http({
+//     //             headers: {
+//     //                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+//     //             },
+//     //             method: 'POST',
+//     //             url: url,
+//     //             data: list,
+//     //             timeout : canceller.promise
+//     //         })
 
-            .then(function(response) {
+//     //         .then(function(response) {
 
-                // Session Destroy
-                if(response.status_code == 400){
-                    $window.location = CONFIG.APP_DOMAIN+'logout';
-                }
+//     //             // Session Destroy
+//     //             if(response.status_code == 400){
+//     //                 $window.location = CONFIG.APP_DOMAIN+'logout';
+//     //             }
 
-                $scope.lastPage++;
-                var newData = $scope.getPage(response.data.data.Contacts_list);
-                $scope.gridApi.infiniteScroll.saveScrollPercentage();
-                $scope.data = $scope.data.concat(newData);
+//     //             $scope.lastPage++;
+//     //             var newData = $scope.getPage(response.data.data.Contacts_list);
+//     //             $scope.gridApi.infiniteScroll.saveScrollPercentage();
+//     //             $scope.data = $scope.data.concat(newData);
 
-                return $scope.gridApi.infiniteScroll.dataLoaded($scope.firstPage > 0, $scope.page_no < scope.total_pages).then(function() {
-                    //$scope.checkDataLength('up');
-                });
+//     //             return $scope.gridApi.infiniteScroll.dataLoaded($scope.firstPage > 0, $scope.page_no < scope.total_pages).then(function() {
+//     //                 //$scope.checkDataLength('up');
+//     //             });
 
-            })
-            .catch(function(error) {
-                return $scope.gridApi.infiniteScroll.dataLoaded();
-            });
+//     //         })
+//     //         .catch(function(error) {
+//     //             return $scope.gridApi.infiniteScroll.dataLoaded();
+//     //         });
 
-        };
+//     //     };
 
         
 
-        $scope.getPage = function(data) {
-            var res = [];
-            for (var i = (0 * 50); i < (0 + 1) * 50 && i < data.length; ++i) {
-                res.push(data[i]);
-            }
-            return res;
-        };
+//     //     $scope.getPage = function(data) {
+//     //         var res = [];
+//     //         for (var i = (0 * 50); i < (0 + 1) * 50 && i < data.length; ++i) {
+//     //             res.push(data[i]);
+//     //         }
+//     //         return res;
+//     //     };
 
 
-        $scope.getFirstData().then(function() {
-            $timeout(function() {
-                // timeout needed to allow digest cycle to complete,and grid to finish ingesting the data
-                // you need to call resetData once you've loaded your data if you want to enable scroll up,
-                // it adjusts the scroll position down one pixel so that we can generate scroll up events
-                $scope.gridApi.infiniteScroll.resetScroll($scope.firstPage > 0, $scope.page_no < scope.total_pages);
-            });
-        });
+//     //     $scope.getFirstData().then(function() {
+//     //         $timeout(function() {
+//     //             // timeout needed to allow digest cycle to complete,and grid to finish ingesting the data
+//     //             // you need to call resetData once you've loaded your data if you want to enable scroll up,
+//     //             // it adjusts the scroll position down one pixel so that we can generate scroll up events
+//     //             $scope.gridApi.infiniteScroll.resetScroll($scope.firstPage > 0, $scope.page_no < scope.total_pages);
+//     //         });
+//     //     });
 
-    }
-        //default calling all contacts
-    scope.importContactGrid(API_CALL, 0, "all");
+//     // }
+//     //     //default calling all contacts
+//     // scope.importContactGrid(API_CALL, 0, "all");
 
-    this.getInfo = function(id, type) {
-        scope.loading = true;
-        scope.importContactGrid(API_CALL, id, type);
-    }
+//     this.getInfo = function(id, type) {
+//         scope.loading = true;
+//         scope.importContactGrid(API_CALL, id, type);
+//     }
 
    
-    this.jumpPage = function(){
-        $window.location = CONFIG.APP_DOMAIN+'dashboard';
-    }
+//     this.jumpPage = function(){
+//         $window.location = CONFIG.APP_DOMAIN+'dashboard';
+//     }
 
-    this.importSelect = function() {
-        if(selectedContacts.length == 0){
-            //model for zero records selected
-            $uibModal.open({
-                animation: true,
-                templateUrl: 'templates/dialogs/invite_zero.phtml',
-                openedClass: "import-zero",
-                size:'sm',
-                controller: 'InviteZero'
-            });
-        }
-        else{
-            $uibModal.open({
-                animation: true,
-                keyboard: false,
-                backdrop: 'static',
-                templateUrl: 'templates/dialogs/custom-msg.phtml',
-                openedClass: "import_verify",
-                controller: 'modalCtrl',
-                size:'sm',
-                controllerAs: "ctrl",
-                resolve: {
-                listContacts: function() {
-                    return selectedContacts;
-                }
-            }
-            });
-        }
-    }
+//     this.importSelect = function() {
+//         if(selectedContacts.length == 0){
+//             //model for zero records selected
+//             $uibModal.open({
+//                 animation: true,
+//                 templateUrl: 'templates/dialogs/invite_zero.phtml',
+//                 openedClass: "import-zero",
+//                 size:'sm',
+//                 controller: 'InviteZero'
+//             });
+//         }
+//         else{
+//             $uibModal.open({
+//                 animation: true,
+//                 keyboard: false,
+//                 backdrop: 'static',
+//                 templateUrl: 'templates/dialogs/custom-msg.phtml',
+//                 openedClass: "import_verify",
+//                 controller: 'modalCtrl',
+//                 size:'sm',
+//                 controllerAs: "ctrl",
+//                 resolve: {
+//                 listContacts: function() {
+//                     return selectedContacts;
+//                 }
+//             }
+//             });
+//         }
+//     }
 
-    this.backtoUploadCon = function() {
-        $scope.data = [];
-        $window.scrollTo(0, 0);
-        $state.go('importContacts');
-    }
+//     this.backtoUploadCon = function() {
+//         $scope.data = [];
+//         $window.scrollTo(0, 0);
+//         $state.go('importContacts');
+//     }
 
     
 
-}])
-.controller('InviteZero',["$scope", "$uibModalInstance", function($scope, $uibModalInstance){
+// }])
+// .controller('InviteZero',["$scope", "$uibModalInstance", function($scope, $uibModalInstance){
     
-    $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
-        $uibModalInstance.dismiss('cancel');
+//     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+//         $uibModalInstance.dismiss('cancel');
 
-    })
-}])
+//     })
+// }])
 
 .controller('InviteContacts', ['$window', '$state', '$scope', '$http', '$log', '$timeout', 'uiGridConstants', '$uibModal', function($window, $state, $scope, $http, $log, $timeout, uiGridConstants, $uibModal) {
 
@@ -593,56 +612,56 @@ angular.module('app.import.contacts', ['ui.grid', 'ui.grid.selection', 'ui.grid.
 
 }])
 
-.controller('modalCtrl', ['$scope', '$uibModalInstance', 'listContacts', '$http', '$window', 'CONFIG', function($scope, $uibModalInstance,listContacts,$http,$window,CONFIG) {
+// .controller('modalCtrl', ['$scope', '$uibModalInstance', 'listContacts', '$http', '$window', 'CONFIG', function($scope, $uibModalInstance,listContacts,$http,$window,CONFIG) {
 
-    this.successMsg = false;
+//     this.successMsg = false;
 
-    this.subject = "MintMesh Enterprise Invitation";
-    this.body = "We bring this powerful referral  platform to you. Please download the app and sign up. We are excited to have you be a part of our success here at MintMesh Enterprise.";
+//     this.subject = "MintMesh Enterprise Invitation";
+//     this.body = "We bring this powerful referral  platform to you. Please download the app and sign up. We are excited to have you be a part of our success here at MintMesh Enterprise.";
 
-    var scope = this;
+//     var scope = this;
 
-    this.invite = function() {
-        scope.invite_cond = true;
-        var list = listContacts.toString();
-        var paramas = $.param({
-            invite_contacts : list,
-            email_subject : scope.subject,
-            email_body :scope.body
-        });
-        var invite_contacts = $http({
-            headers: {
-               'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-            },
-            method: 'POST',
-            url: CONFIG.APP_DOMAIN+'email_invitation',
-            data: paramas
-        })
-        invite_contacts.success(function(response){
-            if(response.status_code == 200){
-                scope.invite_cond = false;
-                scope.successMsg = true;
-            }
-            else if(response.status_code == 400){
-                $window.location = CONFIG.APP_DOMAIN + 'logout';
-            }
-        })
-        invite_contacts.error(function(response){
-            scope.invite_cond = false;
-        })
+//     this.invite = function() {
+//         scope.invite_cond = true;
+//         var list = listContacts.toString();
+//         var paramas = $.param({
+//             invite_contacts : list,
+//             email_subject : scope.subject,
+//             email_body :scope.body
+//         });
+//         var invite_contacts = $http({
+//             headers: {
+//                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+//             },
+//             method: 'POST',
+//             url: CONFIG.APP_DOMAIN+'email_invitation',
+//             data: paramas
+//         })
+//         invite_contacts.success(function(response){
+//             if(response.status_code == 200){
+//                 scope.invite_cond = false;
+//                 scope.successMsg = true;
+//             }
+//             else if(response.status_code == 400){
+//                 $window.location = CONFIG.APP_DOMAIN + 'logout';
+//             }
+//         })
+//         invite_contacts.error(function(response){
+//             scope.invite_cond = false;
+//         })
 
-    };
+//     };
 
-    this.jumpPage = function(){
-        $window.location = CONFIG.APP_DOMAIN+'dashboard';
-    }
+//     this.jumpPage = function(){
+//         $window.location = CONFIG.APP_DOMAIN+'dashboard';
+//     }
     
-    $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+//     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
 
-        $uibModalInstance.dismiss('cancel');
+//         $uibModalInstance.dismiss('cancel');
 
-    })
+//     })
 
-}]);
+// }]);
 
 }());

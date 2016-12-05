@@ -9,6 +9,12 @@ $container['renderer'] = function ($c) {
     return new Slim\Views\PhpRenderer($settings['template_path']);
 };
 
+// email parser view renderer
+$container['email_renderer'] = function ($c) {
+    $settings = $c->get('settings')['email_renderer'];
+    return new Slim\Views\PhpRenderer($settings['template_path']);
+};
+
 // monolog
 $container['logger'] = function ($c) {
     $settings = $c->get('settings')['logger'];

@@ -2,7 +2,7 @@
 	"use strict";
 
 	angular
-		.module('app.campaigns', ['ui.grid', 'ui.grid.infiniteScroll', 'ui.grid.selection', 'mdPickers', 'ngMessages'])
+		.module('app.campaigns', ['app.components', 'ui.grid', 'ui.grid.infiniteScroll', 'ui.grid.selection', 'mdPickers', 'ngMessages', 'ngAutocomplete'])
 		.controller('CampaignsController', CampaignsController)
 		.controller('NewCampaignController', NewCampaignController)
 		.controller('AllCampaignsController', AllCampaignsController)
@@ -11,13 +11,12 @@
 		.service('CampaignsData', CampaignsData)
 		.service('contactBuckets', contactBuckets)
 		.service('jobListData', jobListData)
-		.directive('bucketsView', bucketsView)
 
 		CampaignsController.$inject = ['$http', 'CONFIG', 'contactBuckets', '$uibModal', 'jobListData'];
 		NewCampaignController.$inject = ['$scope','$state', 'contactBuckets', 'jobListData', 'CampaignsData', '$uibModalInstance', '$http', 'CompanyDetails', 'CONFIG'];
 		AllCampaignsController.$inject = ['$state', '$http', '$q', '$timeout', 'uiGridConstants', 'CampaignsData', 'userPermissions', '$stateParams', 'CONFIG'];
 		MyCampaignsController.$inject = [];
-		EditCampaignsController.$inject = ['$state', 'CompanyDetails', 'CampaignsData', 'contactBuckets', 'jobListData', 'rippleService', '$window', '$http', 'CONFIG'];
+		EditCampaignsController.$inject = ['$scope', '$state', 'CompanyDetails', 'CampaignsData', 'contactBuckets', 'jobListData', 'rippleService', '$window', '$http', 'CONFIG'];
 
 
 		function contactBuckets(){
@@ -64,58 +63,7 @@
 			this.addCampaigns = function(prop, val){
 				campaigns[prop] = val;
 			}
-		
 		}
-
-		function bucketsView(){
-			return{
-				restrict:'AE',
-				scope:{
-					buckets:'=',
-					checkIds:'=',
-					setFn: '&'
-				},
-				templateUrl:'templates/campaigns/template-bucket.phtml',
-				link:function(scope, element, attr){
-
-					
-		   			var bucketColor = ["#229A77", "#21A4AC", "#EE8F3B", "#2A99E0", "#154c50", "#103954", "#342158", "#5B5B29", "#004D40", "#6f2b25"];
-				    scope.getColor = function(ind) {
-				        return bucketColor[String(ind).slice(-1)];
-				    }
-
-				    scope.selectedBktsString;
-				    scope.selectedBkts = [];
-
-				    var copy = angular.copy(scope.buckets);
-				    scope.addBucketContact = function(src, ind, bucketId){
-				        if(src == "public/images/add.svg"){
-				          scope.selectedBkts.push(bucketId);
-				          scope.buckets[ind].src = "public/images/select.svg";
-				        }
-				        else{
-				          var index = scope.selectedBkts.indexOf(bucketId);
-				          scope.selectedBkts.splice(index, 1);
-				          scope.buckets[ind].src="public/images/add.svg";
-				        }
-				        scope.selectedBktsString = scope.selectedBkts.toString();
-		    		}
-		    		scope.initFn = function(src, bktId){
-		    			if(src == 'public/images/select.svg'){
-		    				scope.selectedBkts.push(bktId);
-		    				scope.selectedBktsString = scope.selectedBkts.toString();
-		    			}
-		    		}
-		    		scope.reset = function(){
-		    			scope.buckets  = angular.copy(copy);  			
-		    			scope.selectedBkts = [];
-		    			scope.selectedBktsString = scope.selectedBkts.toString();
-		    		}
-		    		scope.setFn({dirFn:scope.reset});
-				}
-			}
-		}
-
 
 		function CampaignsController($http, CONFIG, contactBuckets, $uibModal, jobListData){
 
@@ -134,7 +82,6 @@
 		                contactBuckets.setBucket(response.data.buckets_list);
 		                vm.bucketListApi = true;
 		            }
-		            // Session Destroy
 		            else if (response.status_code == 400) {
 		                $window.location = CONFIG.APP_DOMAIN + 'logout';
 		            }
@@ -204,6 +151,9 @@
 			$('html').addClass('remove-scroll');
 			this.currentDate = new Date();
 			this.bucketsName = this.bucketsNamedata;
+			this.geo_location = '';
+  			this.geo_options = {types:'(cities)'};
+  			this.geo_details = '';
 
 
 			this.switchSteps = switchSteps;
@@ -223,7 +173,8 @@
 					if($scope[formName].$invalid){
 						vm['errCond' + formName]= true;
 						return;
-					}	
+					}
+					vm['errCond' + formName]= false;
 					vm["step" + vm.currentStep] = false;
 					vm.currentStep++;
 					vm.listSteps[vm.currentStep - 1].status = true;
@@ -265,6 +216,10 @@
 			this.currentTimeSheet = 1;
 
 			function addTimeSheet(){
+				if(vm.timeSheetGroups.length == 5){
+					vm.frm2.checkbox = false;
+					return;
+				}
 				vm.currentTimeSheet++
 				vm.timeSheetGroups.push(vm.currentTimeSheet);
 			}
@@ -354,7 +309,6 @@
 					    	else{
 					    		param = 'employees_pitch';
 					    	}
-		                	$('.progress-bar').hide();
 		                	eval("$upload_pitch"+index).find('.qq-upload-fail').remove();
 		                	eval("$upload_pitch"+index).find('.qq-upload-success').hide();
 		                    eval("$upload_pitch"+index).find('.qq-upload-list').css('z-index','-1');
@@ -365,22 +319,19 @@
 		                    eval("$upload_pitch"+index).next('.upload-box').append("<input type='hidden' name='"+ param +"_name' value='" + response.org_name + "' />").show();
 		                }
 		                else{
-		                    for(var i = 0; i < 2; i++){
-			                    eval("$upload_pitch"+i).find('.qq-upload-fail').remove();
-			                }
+			                eval("$upload_pitch"+index).next('.upload-box').remove();
 		                    eval("$upload_pitch"+index).append("<div class='qq-upload-fail'><i class='fa fa-times'></i>&nbsp;<span>"+response.msg+"</span></div>");
 		                }
+		                $('.progress-bar').hide();
 		            },
 		            onProgress: function(id, fileName, loaded, total){
 		            	var percent = Math.round((loaded / total) * 100);
-		            	$('.progress-bar').eq(index).progressbar({
+		            	eval("$upload_pitch"+index).next().find('.progress-bar').progressbar({
 					      	value: percent
 					    });
 		            },
 		            showMessage: function(msg){
-		            	for(var i = 0; i < 2; i++){
-		                    eval("$upload_pitch"+i).find('.qq-upload-fail').remove();
-		                }
+		            	eval("$upload_pitch"+index).find('.qq-upload-fail').remove();
 		                eval("$upload_pitch"+index).append("<div class='qq-upload-fail'><i class='fa fa-times'></i>&nbsp;<span>"+msg+"</span></div>");
 		            }
 		        });
@@ -388,6 +339,7 @@
 
 		    function trash(index){
 		    	eval("$upload_pitch"+index).next('.upload-box').remove();
+		    	eval("$upload_pitch"+index).find('.qq-upload-fail').remove();
 		    }
 			
 			function closeModal(){
@@ -395,6 +347,38 @@
 				$uibModalInstance.dismiss('cancel');
 			}
 
+			var componentForm = {
+		        locality: 'long_name',
+		        administrative_area_level_1: 'long_name',
+		        country: 'long_name',
+		        postal_code: 'short_name'
+      		};
+
+      		var locationModalName = {
+      			locality: 'city',
+		        administrative_area_level_1: 'state',
+		        country: 'country',
+		        postal_code: 'zip_code'	
+      		}
+
+			$scope.$watch(function() {
+			    return vm.geo_details;
+			  }, function(location) {
+			    if (location) {
+			      if(location.hasOwnProperty('address_components')){
+			      	vm.frm1.location.zip_code = '';
+			      	for (var i = 0; i < location.address_components.length; i++) {
+			         	var addressType = location.address_components[i].types[0];
+			          	if (componentForm[addressType]) {
+			            	var val = location.address_components[i][componentForm[addressType]];
+			           		vm.frm1.location[locationModalName[addressType]] = val;
+			          	}
+			        }
+			        vm.lat = location.geometry.location.lat();
+			        vm.lng = location.geometry.location.lng();
+			      }
+			    }
+			});
 
 			this.listSteps = [
 				{ label:'CAMPAIGN DETAILS', status: true},
@@ -412,10 +396,6 @@
 	           		$('body').find('.md-select-menu-container').addClass('md-leave');
        			}
    			}
-
-
-
-
 		}
 
 
@@ -473,8 +453,46 @@
 			    }
 			}
 
-			// vm.location = location('ind');
+
 			vm.searchResults = [];
+			function location(search){
+            	
+				if(canceler){
+					canceler.resolve()
+				}
+
+				canceler = $q.defer();
+
+				return $http({
+	                headers: {
+	                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+	                },
+	                method: 'GET',
+	                url: '//restcountries.eu/rest/v1/name/'+search,
+	                timeout: canceler.promise
+	            })
+                .then(function(response){
+                	var filterCountries = [];
+                	for(var i = 0; i < response.data.length; i++){
+                		filterCountries.unshift(response.data[i].name);
+                	}
+
+                	if(vm.selectedCountries){
+                		for(var j = 0; j < vm.selectedCountries.length; j++){
+                			if(filterCountries.indexOf(vm.selectedCountries[j]) == -1){
+                				filterCountries.push(vm.selectedCountries[j]);
+                			}
+                		}
+                	}
+                	vm.searchResults = [];
+                	vm.searchResults = filterCountries;
+                	var searchData = $('.search-field input').val();
+            		setTimeout(function(){
+            			$('#mul_select').trigger('chosen:updated');
+            			$('.search-field input').val(searchData).focus();
+            		},0);
+		    	})
+			}
 			
 			/*function location(search){
 
@@ -524,12 +542,12 @@
 
 			// modern select
 			$('#mul_select').chosen();
-			/*$('.chosen-container').bind('keyup', function(e){
+			$('.chosen-container').bind('keypress', function(e){
 				var val = $(this).find('input').val();
 				if(val.length >= 2){
 					location(val)
 				}
-			})*/
+			})
 
 			// google api for location field
 			vm.geo_location = '';
@@ -556,7 +574,7 @@
 			vm.gridOptions.columnDefs = [
 				{ field: 'campaign_name', displayName:'CAMPAIGN NAME', cellClass: 'first-col', width: '20%', enableSorting: false },
 			    { field: 'campaign_type', displayName:'CAMPAIGN TYPE', width: '25%', enableSorting: true, sortDirectionCycle: ['asc', 'desc', ''] },
-			    { field: 'total_vacancies', displayName:'#JOB VACANCIES', width: '20%', enableSorting: false },
+			    { field: 'total_vacancies', displayName:'#VACANCIES', width: '20%', enableSorting: false },
 			    { field: 'start_on_date', displayName:'START & END DATES', width: '25%', enableSorting: false, cellTemplate: '<span>{{row.entity.start_on_date | date: "MMM dd"}} - {{row.entity.end_on_date | date: "MMM dd, yyyy "}}</span>' },
 			    { field : 'status', displayName:'STATUS', width: '15%', enableSorting: false,
 			    	cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
@@ -767,7 +785,15 @@
 		    	}
 		    }
 
-		    function searchFilter(val){
+		    var inputPrev = "";
+		    function searchFilter(val, event){
+
+		    	val = val || '';
+		        if(event.keyCode === 32 && val.length === 0 || inputPrev == val){
+		            return false;
+		        }
+		        inputPrev = val;
+
 		    	if(val.length >= 2){
 		    		applyFilter(val, true);
 		    	}
@@ -816,7 +842,7 @@
 
 		}
 
-		function EditCampaignsController($state, CompanyDetails, CampaignsData, contactBuckets, jobListData, rippleService, $window, $http, CONFIG){
+		function EditCampaignsController($scope, $state, CompanyDetails, CampaignsData, contactBuckets, jobListData, rippleService, $window, $http, CONFIG){
 		
 			var vm = this;
 
@@ -829,6 +855,44 @@
 			vm.radioButtons = {};
 			vm.checkBox = {};
 			vm.campaign = ['Mass Recruitment', 'Military Veterans', 'Campus Hires'];
+
+			//location
+			vm.geo_location = '';
+  			vm.geo_options = {types:'(cities)'};
+  			vm.geo_details = '';
+
+  			var componentForm = {
+		        locality: 'long_name',
+		        administrative_area_level_1: 'long_name',
+		        country: 'long_name',
+		        postal_code: 'short_name'
+      		};
+
+      		var locationModalName = {
+      			locality: 'city',
+		        administrative_area_level_1: 'state',
+		        country: 'country',
+		        postal_code: 'zip_code'	
+      		}
+
+			$scope.$watch(function() {
+			    return vm.geo_details;
+			  }, function(location) {
+			    if (location) {
+			      if(location.hasOwnProperty('address_components')){
+			      	vm.campaignDetails.location.zip_code = '';
+			      	for (var i = 0; i < location.address_components.length; i++) {
+			         	var addressType = location.address_components[i].types[0];
+			          	if (componentForm[addressType]) {
+			            	var val = location.address_components[i][componentForm[addressType]];
+			            	vm.campaignDetails.location[locationModalName[addressType]] = val;
+			          	}
+			        }
+			        vm.lat = location.geometry.location.lat();
+			        vm.lng = location.geometry.location.lng();
+			      }
+			    }
+			});
 
 			vm.updateCampaign = updateCampaign;
 			vm.resetCampaign = resetCampaign;
@@ -887,6 +951,13 @@
 				pitchUpload(i);
 			}
 
+			function resetErrors(){
+				vm.errCond = false;
+				for(var i = 0; i < 2; i++){
+                    eval("$upload_pitch"+i).find('.qq-upload-fail').remove();
+                }
+			}
+
 
 			vm.currentDate = new Date();
 			function schedule(){
@@ -913,6 +984,10 @@
 			}
 			schedule();
 			vm.addSchedule = function(){
+				if(vm.scheduleTime.length == 5){
+					vm.checkbox.schedule = false;
+					return;
+				}
 				vm.currentTimeLength++;
 				vm.scheduleTime.push(vm.currentTimeLength);
 			}
@@ -943,15 +1018,22 @@
 					for(var i = 0; i < resetFilesArray.length; i++){
 						var indx = resetFilesArray[i];
 						if(indx == 0){
+							trash(indx, false);
 							vm.checkBox.ceoPitch = true;
 				    		param = 'ceos_pitch_s3';
 				    		hasFile(param, vm.campaignDetails.files[indx], indx, false);
 				    	}
-				    	else{
+				    	else if(indx == 1){
+							trash(indx, false);
 				    		vm.checkBox.employeePitch = true;
 				    		param = 'employees_pitch_s3';
 				    		hasFile(param, vm.campaignDetails.files[indx], indx, false);
 				    	}
+					}
+				}
+				else{
+					for(var i = 0; i < 2; i++){
+						trash(i, false);
 					}
 				}
 				resetFilesArray = [];
@@ -996,42 +1078,46 @@
 		                	hasFile(param, response, index, true);
 		                }
 		                else{
-		                    for(var i = 0; i < 2; i++){
-			                    eval("$upload_pitch"+i).find('.qq-upload-fail').remove();
-			                }
+		                	$('.progress-bar').eq(index).hide();
+		                	eval("$upload_pitch"+index).find('.qq-upload-fail').remove();
 			                eval("$upload_pitch"+index).next('.upload-box').remove();
 		                    eval("$upload_pitch"+index).append("<div class='qq-upload-fail'><i class='fa fa-times'></i>&nbsp;<span>"+response.msg+"</span></div>");
 		                }
 		            },
 		            onProgress: function(id, fileName, loaded, total){
 		            	var percent = Math.round((loaded / total) * 100);
-		            	$('.progress-bar').progressbar({
+		            	eval("$upload_pitch"+index).next().find('.progress-bar').progressbar({
 					      	value: percent
 					    });
 		            },
 		            showMessage: function(msg){
-		                for(var i = 0; i < 2; i++){
-		                    eval("$upload_pitch"+i).find('.qq-upload-fail').remove();
-		                }
+		                eval("$upload_pitch"+index).find('.qq-upload-fail').remove();
 		                eval("$upload_pitch"+index).append("<div class='qq-upload-fail'><i class='fa fa-times'></i>&nbsp;<span>"+msg+"</span></div>");
 		            }
 		        });
 		    }
 
-		    function trash(index){
-		    	resetFilesArray.push(index);
+		    function trash(index, cond){
+		    	if(cond){
+		    		if(resetFilesArray.indexOf(index) == -1){
+                		resetFilesArray.push(index);
+                	}
+		    	}
 		    	eval("$upload_pitch"+index).next('.upload-box').remove();
 		    }
 
 		    function hasFile(name, response, index, cond){
                 if(cond){
+                	if(resetFilesArray.indexOf(index) == -1){
+                		resetFilesArray.push(index);
+                	}
 			    	$('.progress-bar').eq(index).hide();
 					eval("$upload_pitch"+index).find('.qq-upload-fail').remove();
 	            	eval("$upload_pitch"+index).find('.qq-upload-success').hide();
 	                eval("$upload_pitch"+index).find('.qq-upload-list').css('z-index','-1');
                 	eval("$upload_pitch"+index).next('.upload-box').find('.filename').append('<img src="public/images/video.png">');
             		eval("$upload_pitch"+index).next('.upload-box').find('.filename').append('<p class="name ellipsis">'+response.org_name+'</p>');
-            		eval("$upload_pitch"+index).next('.upload-box').find('.filename').append('<img src="public/images/material_icons/circle-close.svg" onclick="angular.element(this).scope().EditCampaignsCtrl.trash('+index+')">');
+            		eval("$upload_pitch"+index).next('.upload-box').find('.filename').append('<img src="public/images/material_icons/circle-close.svg" onclick="angular.element(this).scope().EditCampaignsCtrl.trash('+index+', true)">');
                 	eval("$upload_pitch"+index).next('.upload-box').append("<input type='hidden' name='"+ name +"_file' value='" + response.filename + "' />").show();
                 	eval("$upload_pitch"+index).next('.upload-box').append("<input type='hidden' name='"+ name +"_name' value='" + response.org_name + "' />").show();
                 }
@@ -1042,7 +1128,7 @@
 	                	eval("$upload_pitch"+index).next('.upload-box').find('.progress-bar').hide();
 	                	eval("$upload_pitch"+index).next('.upload-box').find('.filename').append('<img src="public/images/video.png">');
 	            		eval("$upload_pitch"+index).next('.upload-box').find('.filename').append('<p class="name ellipsis">'+org_name+'</p>');
-	            		eval("$upload_pitch"+index).next('.upload-box').find('.filename').append('<img src="public/images/material_icons/circle-close.svg" onclick="angular.element(this).scope().EditCampaignsCtrl.trash('+index+')">');
+	            		eval("$upload_pitch"+index).next('.upload-box').find('.filename').append('<img src="public/images/material_icons/circle-close.svg" onclick="angular.element(this).scope().EditCampaignsCtrl.trash('+index+', true)">');
 	                	eval("$upload_pitch"+index).next('.upload-box').append("<input type='hidden' name='"+ name +"' value='" + response + "' />").show();
                 	},100)
                 }
@@ -1082,6 +1168,7 @@
 
 		    function resetCampaign(){
 		    	vm.campaignDetails = angular.copy(vm.cacheData);
+		    	resetErrors();
 		    	schedule();
 		    	radioButton();
 		    	vm.resetBuckects();

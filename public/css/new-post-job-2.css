@@ -222,47 +222,46 @@ button::-moz-focus-inner {
 
 .post-request .buckets-container{
 	border-top: 1px solid #e9edec;
-	border-bottom: 1px solid #e9edec;	
+	border-bottom: 1px solid #e9edec;
+
 }
 .post-request .buckets-container .container{
 	padding-top: 68px;	
 }
-/*.post-request .buckets-container .container h4{
-    text-align: center;
-    color: red;
-}*/
-.post-request .buckets-container .container .buckets{
-	padding: 50px 0 32px 71px;
-}
-.post-request .buckets-container .container .buckets .row .col-sm-3{
-	width: 20.5%;
-    margin: 0 28px 28px 0;
-    background-color: gray;
-    border-radius: 6px;
-    height: 220px;
-    outline: none;
-    padding: 0;
-}
-.post-request .buckets-container .container .buckets .row .col-sm-3 .box{
-	padding: 11px;
-    overflow: hidden;
-    height: inherit;
-    cursor: pointer;
-}
-.post-request .buckets-container .container .buckets .row .col-sm-3 .box div{
-	color: #fff;
-    font-size: 20px;
-    clear: both;
-    margin-top: 80px;
+.post-request .buckets-container .bucket-container{
+    padding:50px 0 0 78px;
 } 
-.post-request .buckets-container .container .buckets .row .col-sm-3 .box div p a{
-    color: #fff;
+.post-request .buckets-container .bucket-container h5{
+    display: none;
 }
-.post-request .buckets-container .container .buckets .row .col-sm-3 .box div p a:hover{
-    text-decoration: underline !important;
+.post-request .buckets-container .container .bucket{
+    position: relative;
 }
-.post-request .buckets-container .container .buckets div[uib-popover-popup]{
-    left:42 !important;
+.post-request .buckets-container .container .bucket{
+    padding-bottom: 66px;
+}
+.post-request .buckets-container .container .bucket h4{
+    width: 100%;
+    font-size: 20px;
+    padding-top: 84px;
+}
+.post-request .buckets-container .container .bucket-each{
+    width: 20.9%;
+    margin: 0 25px 25px 0;
+    height: initial;
+}
+.post-request .buckets-container .container .bucket-each img{
+    width: 22px;
+}
+.post-request .buckets-container .container .bucket-each span{
+    padding-bottom: 18px;
+    font-size: 18px;
+    margin-top: 7px;
+}
+.post-request .buckets-container .container div[uib-popover-popup]{
+    position: absolute;
+    left: 44px !important;
+    top: -27px !important;
 }
 
 

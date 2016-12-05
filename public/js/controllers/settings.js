@@ -13,8 +13,8 @@
 
 	SettingsController.$inject = [];
 	SettingsCompanyProfileController.$inject = ['$window', 'CompanyDetails', '$http', 'CONFIG'];
-	MyProfileController.$inject = ['$http', '$scope', '$window', '$uibModal', 'rippleService', 'CompanyDetails', 'UserDetails', 'userData', 'CONFIG'];
-	UserGroupController.$inject = ['$scope', '$window', 'CONFIG', '$http', '$interval', '$q', 'rippleService', 'userData', 'permissionsService'];
+	MyProfileController.$inject = ['$http', '$scope', '$timeout', '$window', '$uibModal', 'rippleService', 'CompanyDetails', 'UserDetails', 'userData', 'CONFIG', 'App'];
+	UserGroupController.$inject = ['$scope', '$window', '$element', 'CONFIG', '$http', '$interval', '$timeout', '$q', 'rippleService', 'userData', 'permissionsService', 'userPermissions', 'App'];
 
 	function permissionsService(){
 		var permissionData = {};
@@ -117,7 +117,7 @@
 
 	}
 
-	function MyProfileController($http, $scope, $window, $uibModal, rippleService, CompanyDetails, UserDetails, userData, CONFIG){
+	function MyProfileController($http, $scope, $timeout, $window, $uibModal, rippleService, CompanyDetails, UserDetails, userData, CONFIG, App){
 
 		var vm = this,
 		$display_pic,image_path = '',org_name = '';
@@ -127,8 +127,9 @@
 		vm.modalLoader = false;
 		vm.message = false;
 		vm.has_image = false;
+		vm.changeFound = false;
 		vm.displayPicture = '';
-		if(userData.bol == true){
+		if(userData.bol){
 			userData.setData(UserDetails);
 		}
 		vm.myProfile = angular.copy(userData.getData());
@@ -139,12 +140,11 @@
 		vm.successMsg = '';
 		vm.modalInstance = '';
 
-		vm.change = change;
+		// vm.change = change;
 		vm.setPassword = setPassword;
 		vm.saveChanges = saveChanges;
 		vm.changePassword = changePassword;
 		vm.cancel = cancel;
-		vm.trash = trash;
 
 		rippleService.wave();
 
@@ -156,7 +156,7 @@
 		}
 
 		// sending checkbox value when checked and unchecked
-		var checkedStatus;
+		/*var checkedStatus;
 		function change(checkCondition){
 			var checkbox = document.querySelector('#checkbox');
 			var hidden = document.querySelector('#disabled');
@@ -175,7 +175,7 @@
 				hidden.disabled = false;
 				checkedStatus = false;
 			}
-		}
+		}*/
 
 		// Reseting errors
 		function resetErrors(){
@@ -211,20 +211,32 @@
 			    	angular.element('.disabled').css('pointer-events','auto');
 			    	vm.loader = false;
 			    	if(response.status_code == 200){
-			    		if(checkedStatus){
+			    		/*if(checkedStatus){
 			    			angular.element('header .user_dp img').attr('src', image_path);
-			    		}
+			    		}*/
 			    		userData.setData(vm.myProfile);
 			    		userData.addProperty('user_dp', response.data.user_dp);
 			    		angular.element('header .user_dp + .user_name').text(userData.getData().user_name);
-			    		if(response.data.user_dp != ''){
-			    			image_path = response.data.user_dp;
-			    			org_name = response.data.user_dp.split('/').pop();
-			    			$display_pic.find('.qq-upload-list li').remove();
-			    			$display_pic.find('.qq-upload-list').append("<li><input type='hidden' name='photo_org_name_s3'"+
-			    															"value='"+org_name+"' /><input type='hidden' value='" +
-			    															image_path + "' name='photo_s3'/></li>").show();
+			    		if(response.data.hasOwnProperty('user_dp')){
+			    			if(response.data.user_dp != ''){
+				    			image_path = response.data.user_dp;
+				    			App.Helpers.loadImage({
+					                target: $display_pic.find('.drag_img'),
+					                css: 'img-circle',
+					                remove: true,
+					                url_prefix: false,
+					                url: image_path,
+					                onComplete: function(){
+					                	$display_pic.find('.qq-upload-list').append("<li><input type='hidden' name='photo_org_name_s3' value='" + image_path.split('/').pop() + "' /><input type='hidden' value='" + image_path + "' name='photo_s3'/></li>").show();
+					                },
+					                onError: function() {
+					                    $display_pic.find('.qq-upload-button').show();
+					                }
+					            });
+				    		}
 			    		}
+						$scope.my_profile_form.$setPristine();
+						vm.changeFound = false;
 			    		vm.message = true;
 						vm.successMsg = response.message.msg[0];
 						setTimeout(function(){vm.message = false;$scope.$apply()},2000);
@@ -302,16 +314,34 @@
 
 		// reset previous data for user details and empty password fields
 		function cancel(flag){
+			if(vm.changeFound){
+				$timeout(function(){vm.changeFound = false});
+			}
+			$scope.my_profile_form.$setPristine();
 			if(flag == 'user'){
-				$display_pic.find('.qq-upload-fail').remove();
 				vm.myProfile = angular.copy(userData.getData());
 				if(userData.getData().user_dp != '' && userData.getData().user_dp != null){
 					image_path = userData.getData().user_dp;
-					org_name = userData.getData().user_dp.split('/').pop();
-					setImage(org_name, image_path);
+					$display_pic.find('.qq-upload-drop-area').css('display','block');
+					App.Helpers.loadImage({
+		                target: $display_pic.find('.drag_img'),
+		                css: 'img-circle',
+		                remove: true,
+		                url_prefix: false,
+		                url: vm.displayPicture,
+		                onComplete: function(){
+		                	$display_pic.find('.qq-upload-list').append("<li><input type='hidden' name='photo_org_name_s3' value='" + image_path.split('/').pop() + "' /><input type='hidden' value='" + image_path + "' name='photo_s3'/></li>").show();
+		                },
+		                onError: function() {
+		                	$display_pic.find('.qq-upload-drop-area').hide();
+		                    $display_pic.find('.qq-upload-button').show();
+		                }
+		            });
 				}
 				else{
-					trash(0);
+					App.Helpers.removeUploadedFiles({
+		   				obj: $display_pic
+		   			})
 				}
 			}
 			else if(flag == 'password'){
@@ -321,94 +351,90 @@
 
 
 		// qq-uploader
-		function qqUploader(){
-			$display_pic = angular.element('#display_pic');
-			var uploader = new qq.FileUploader({
-			    element: document.getElementById('display_pic'),
-			    dragText: "",
-				uploadButtonText: "<img src='public/images/avatar.png'>",
-				multiple : false,
-				sizeLimit: (1*1024*1024),
-				allowedExtensions: ["JPG", "JPEG", "PNG"],
-			    action: CONFIG.APP_DOMAIN+'file_upload',
+		var $display_pic = $('#display_pic');
+	    App.Helpers.initUploader({
+	        id: "display_pic",
+	        dragText: "",
+	        uploadButtonText: "",
+	        size: (10 * 1024 * 1024),
+	        allowedExtensions: ["jpg", "jpeg", "png"],
+	        action: App.base_url + "file_upload",
+	        showFileInfo: false,
+	        shortMessages: true,
+	        remove: true,
+	        file_name : 'photo_org_name',
+		    path_name : 'photo',
+	        onSubmit: function(id, name) {
+	            $display_pic.find('.qq-upload-list').css('z-index','0');
+	        },
+	        onComplete: function(id, name, response) {
+	            if (response.success) {
+	                $display_pic.find('.qq-upload-list').css('z-index','-1');
+		    		$display_pic.find('.qq-upload-drop-area').css({
+		    			'display':'block',
+		    			'background':'transparent'
+		    		});
+		    		$display_pic.find('.drag_img').css('background','transparent');
+		    		vm.has_image = true;
+		    		vm.changeFound = true;
+		    		$scope.$apply();
+	                App.Helpers.loadImage({
+	                    target: $display_pic.find('.drag_img'),
+	                    css: 'img-circle',
+	                    remove: true,
+	                    url_prefix: App.API_DOMAIN,
+	                    url: response.filename,
+	                    onComplete: App.Helpers.setImagePosition,
+	                    onError: function() {
+	                    	$display_pic.find('.qq-upload-drop-area').hide();
+	                        $display_pic.find('.qq-upload-button').show();
+	                    }
+	                });
+	            }
+	        },
+	        showMessage: function(msg, obj) {
+	            $display_pic.closest('.form-group').find('div.error').hide();
+	            $display_pic.find('.qq-upload-list').css('z-index','0');
+	            $(obj._listElement).fadeIn();
+	        },
+	        onRemove: function() {
+	        	vm.has_image = false;
+	        	vm.changeFound = true;
+	            $scope.$apply();
+	        },
+	        onRemoveComplete: function() {
+	        	$display_pic.find('.qq-upload-list').css('z-index','-1');
+	        }
+	    });
 
-			    onSubmit: function(id, name){
-			    	$display_pic.find('.drag_txt').hide();
-		            $display_pic.find('.qq-upload-list').css('z-index','0');
-		            $display_pic.find('.qq-upload-list').show();
-			    },
-			    onComplete: function(id, name, response){
-			    	if(response.success){
-			    		vm.has_image = true;
-			    		$scope.$apply();
-			    		image_path = CONFIG.APP_API_DOMAIN+response.filename;
-			    		$display_pic.find('.qq-upload-button').hide();
-			    		$display_pic.find('.qq-upload-fail').remove();
-			    		$display_pic.find('.qq-upload-success').hide();
-		            	$display_pic.find('.qq-upload-list').css('z-index','-1');
-			    		$display_pic.find('.qq-upload-drop-area').css('display','block');
-			    		$display_pic.find('.qq-upload-drop-area').html('<div class="drag_img"><img src="'+image_path+'" class="img-circle"/></div>');
-			    		$display_pic.find('.qq-upload-list').append("<li><input type='hidden' name='photo_org_name' value='" + response.org_name + "' /><input type='hidden' value='" + response.filename + "' name='photo'/></li>").show();
-			    		$display_pic.find('.drag_img').append('<div class="overlay"></div><i class="fa fa-trash-o icon-trash" onclick="angular.element(this).scope().MyProfileCtrl.trash()"></i>');
-			    	}
-			    	else{
-			    		$display_pic.find('.qq-upload-button').show();
-			    		$display_pic.find('.qq-upload-fail').remove();
-			    		$display_pic.append("<div class='qq-upload-fail'><span>"+response.msg+"</span></div>")
-			    	}
-			    },
-			    showMessage: function(msg){
-			    	$display_pic.find('.qq-upload-button').show();
-			    	$display_pic.find('.qq-upload-fail').remove();
-			    	$display_pic.append("<div class='qq-upload-fail'><span>"+msg+"</span></div>");
-			    }
-
-			})
-			
-			if(vm.displayPicture != ''){
-				vm.has_image = true;
-			    image_path = vm.displayPicture;
-				org_name =  image_path.split('/').pop();
-	    		setImage(org_name, image_path);
-		    }
-		}
-
-		qqUploader();
-
-		function setImage(org_name, image_path){
-			$display_pic.find('.qq-upload-button').hide();
-			$display_pic.find('.qq-upload-fail').remove();
-    		$display_pic.find('.qq-upload-success').hide();
-        	$display_pic.find('.qq-upload-list').css('z-index','-1');
-    		$display_pic.find('.qq-upload-drop-area').css('display','block');
-    		$display_pic.find('.qq-upload-drop-area').html('<div class="drag_img"><img src="'+image_path+'" class="img-circle"/></div>');
-    		$display_pic.find('.qq-upload-list').append("<li><input type='hidden' name='photo_org_name_s3' value='"+org_name+"' />"+
-    														"<input type='hidden' value='" + image_path + "' name='photo_s3'/></li>").show();
-    		$display_pic.find('.drag_img').append('<div class="overlay"></div><i class="fa fa-trash-o icon-trash"'+
-    												 'onclick="angular.element(this).scope().MyProfileCtrl.trash()"></i>');	
-		}
-
-		//  move to trash deleted images
-		function trash(flag){
-			change(0);
-			vm.has_image = false;
-			if(flag != 0){
-				$scope.$apply();
-			}
-			image_path = '';
-			org_name = '';
-			$display_pic.find('.qq-upload-button').show();
-			$display_pic.find('.drag_img').find('img').removeAttr('src');
-			$display_pic.find('.qq-upload-list li').remove();
-			$display_pic.find('.qq-upload-drop-area').css('display','none');
-			$display_pic.find('.qq-upload-drop-area .drag_img').remove();
-			$display_pic.find('.qq-upload-button .add-text').text('ADD PHOTO');
-		}
+		if(vm.displayPicture != ''){
+			$display_pic.find('.qq-upload-drop-area').css({
+    			'display':'block',
+    			'background':'transparent'
+    		});
+    		$display_pic.find('.drag_img').css('background','transparent');
+    		vm.has_image = true;
+		    image_path = vm.displayPicture;
+    		App.Helpers.loadImage({
+                target: $display_pic.find('.drag_img'),
+                css: 'img-circle',
+                remove: true,
+                url_prefix: false,
+                url: vm.displayPicture,
+                onComplete: function(){
+                	$display_pic.find('.qq-upload-list').append("<li><input type='hidden' name='photo_org_name_s3' value='" + image_path.split('/').pop() + "' /><input type='hidden' value='" + image_path + "' name='photo_s3'/></li>").show();
+                },
+                onError: function() {
+                	$display_pic.find('.qq-upload-drop-area').hide();
+                    $display_pic.find('.qq-upload-button').show();
+                }
+            });
+	    }
 	
 	}
 
 
-	function UserGroupController($scope, $window, CONFIG, $http, $interval, $q, rippleService, userData, permissionsService){
+	function UserGroupController($scope, $window, $element, CONFIG, $http, $interval, $timeout, $q, rippleService, userData, permissionsService, userPermissions, App){
 
 		var vm = this,
 		APP_URL = CONFIG.APP_DOMAIN,
@@ -425,6 +451,11 @@
 		vm.errCond = false;
 		vm.loader = false;
 		vm.group = true;
+		vm.changeFound = {
+			group : false,
+			person : false
+		};
+		vm.readable = false;
 		vm.personDetails = {};
 		vm.permissions = {};
 		vm.backendError = '';
@@ -438,14 +469,15 @@
 		vm.addNew = addNew;
 		vm.createGroup = createGroup;
 		vm.addPerson = addPerson;
+		vm.resendActivation = resendActivation;
 		vm.reset = reset;
-		vm.trash = trash;
+		//vm.trash = trash;
 
 		rippleService.wave();
 
-		vm.permission_template = "templates/users/permissions_template.phtml";
-		vm.group_template = "templates/users/group-template.phtml";
-		vm.person_template = "templates/users/person-template.phtml";
+		vm.permission_template = "templates/settings/permissions_template.phtml";
+		vm.group_template = "templates/settings/group-template.phtml";
+		vm.person_template = "templates/settings/person-template.phtml";
 
 		// color picker
 	    var colorCode = ["#21A4AC", "#EE8F3B", "#2A99E0", "#154c50", "#103954", "#342158", "#5B5B29", "#004D40", "#229A77", "#6f2b25"];
@@ -503,6 +535,10 @@
 	    	vm.backendError = '';
 	    	image_path = '';
 			vm.message = false;
+			vm.changeFound = {
+				group : false,
+				person : false
+			};
 	    }
 
 
@@ -576,13 +612,21 @@
 			vm.permissionsList = permissionsService.getPermissions();
 			vm.groupData = angular.copy(vm.groupsList[id]);
 			vm.permissions = angular.copy(vm.groupsList[id].permissions);
-			if(vm.groupData.is_primary != 1){
-				$('form[name="new_group_form"] input[type="text"]:first').focus();
+			if(vm.groupData.is_primary != 1 && userPermissions.is_primary == 1){
+				setTimeout(function(){$('form[name="new_group_form"] input[type="text"]:first').focus()},10);
+			}
+			
+			if(userPermissions.is_primary == 0 || vm.groupData.is_primary == 1){
+				vm.readable = true;
+			}
+			else{
+				vm.readable = false;
 			}
 		}
 
 		// change permissions
 		function changePermission(permission, btn, parent_id){
+			vm.changeFound.group = true;
 	        if(permission.type == 'check'){
 	            if(parent_id){
 	                vm.permissions[parent_id+'_'+permission.id] = btn.target.checked;
@@ -618,13 +662,19 @@
 			vm.activeClass = vm.groupData.users[index].fullname;
 			vm.personDetails = angular.copy(vm.groupData.users[index]);
 			vm.personDetails.group_id = vm.groupData.group_id;
-			setTimeout(function(){$('form[name="new_user_form"] input[type="text"]:first').focus();},100);
+			if(userPermissions.is_primary == 1){
+				vm.readable = false;
+				setTimeout(function(){$('form[name="new_user_form"] input[type="text"]:first').focus();},100);
+			}
+			else{
+				vm.readable = true;
+			}
 		}
 
 		// add New group or person
 		function addNew(cond){
-			vm.errCond = false;
 			resetErrors();
+			vm.readable = false;
 			if(cond == 'group'){
 				vm.group = true;
 				vm.newUser = true;
@@ -681,6 +731,12 @@
 			    	angular.element('.disabled').css('pointer-events','auto');
 			    	if(response.data.status_code == 200){
 			    		vm.backendError = '';
+			    		if(vm.changeFound.group){
+			    			vm.changeFound.group = false;
+			    		}
+			    		var formController = $element.find('form[name="new_group_form"]').eq(0).controller('form');
+			    		formController.$setPristine();
+			    		//$scope.new_group_form.$setPristine();
 			    		if(flag == 0){
 			    			getGroups();
 			    		}
@@ -733,27 +789,54 @@
 			    	angular.element('.disabled').css('pointer-events','auto');
 			    	if(response.data.status_code == 200){
 			    		vm.backendError = '';
+						if(vm.changeFound.person){
+							vm.changeFound.person = false;
+						}
+						var formController = $element.find('form[name="new_user_form"]').eq(0).controller('form');
+			    		formController.$setPristine();
 			    		if(flag == 0){
 			    			getGroups();
 			    		}
 			    		else{
-			    			/*if(vm.groupsList[vm.tab].users[vm.subTab].user_id == vm.personDetails.group_id){
-			    				alert();
+			    			if(vm.groupsList[vm.tab].group_id != vm.personDetails.group_id){
+			    				for(var i = 0; i < vm.groupsList.length; i++){
+			    					if(vm.groupsList[i].group_id == vm.personDetails.group_id){
+			    						var obj = vm.personDetails;
+			    						vm.groupsList[i].users.push(obj);
+			    						vm.groupsList[i].count_of_users++;
+			    						vm.groupsList[vm.tab].users.splice(vm.subTab, 1);
+			    						vm.groupsList[vm.tab].count_of_users--;
+			    					}
+			    				}
 			    			}
 			    			else{
-			    				console.log('dasd')
+			    				vm.groupsList[vm.tab].users[vm.subTab] = angular.copy(vm.personDetails);
+			    				vm.groupsList[vm.tab].users[vm.subTab].photo = angular.copy(response.data.data.photo);
 			    			}*/
-			    			vm.groupsList[vm.tab].users[vm.subTab] = angular.copy(vm.personDetails);
+			    			/*vm.groupsList[vm.tab].users[vm.subTab] = angular.copy(vm.personDetails);
 			    			vm.groupsList[vm.tab].users[vm.subTab].photo = angular.copy(response.data.data.photo);
 			    			vm.groupData.users[vm.subTab] = angular.copy(vm.personDetails);
-			    			vm.groupData.users[vm.subTab].photo = angular.copy(response.data.data.photo);
+			    			vm.groupData.users[vm.subTab].photo = angular.copy(response.data.data.photo);*/
 			    			if(response.data.data.photo != ''){
 				    			image_path = response.data.data.photo;
 				    			org_name = response.data.data.photo.split('/').pop();
-				    			$display_pic.find('.qq-upload-list li').remove();
-				    			$display_pic.find('.qq-upload-list').append("<li><input type='hidden' name='photo_org_name_s3'"+
-				    															"value='"+org_name+"' /><input type='hidden' value='" +
-				    															image_path + "' name='photo_s3'/></li>").show();
+				    			App.Helpers.loadImage({
+					                target: $('#display_pic').find('.drag_img'),
+					                css: 'img-circle',
+					                remove: true,
+					                url_prefix: false,
+					                url: image_path,
+					                onComplete: function(){
+					                	$('#display_pic').find('.qq-upload-list').html('');
+					                	$('#display_pic').find('.qq-upload-list').append("<li><input type='hidden' name='photo_org_name_s3' value='"+
+																		org_name+"' /><input type='hidden' value='" + image_path +
+																		"' name='photo_s3'/></li>").show();
+					                },
+					                onError: function() {
+					                	$('#display_pic').find('.qq-upload-drop-area').hide();
+					                    $('#display_pic').find('.qq-upload-button').show();
+					                }
+					            });
 				    		}
 			    		}
 			    		vm.message = true;
@@ -777,21 +860,53 @@
 			}
 		}
 
+		// resend activation
+		function resendActivation(el){
+			$('.'+el.target.className).eq(vm.subTab).css('pointer-events','none');
+			$http({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'POST',
+                url: CONFIG.APP_DOMAIN + 'resend_activation_link',
+                data: $.param({
+                	emailid: vm.personDetails.emailid
+                }),
+            })
+            .then(function(response){
+            	$('.'+el.target.className).eq(vm.subTab).css('pointer-events','auto');
+            	if(response.data.status_code == 200){
+            		vm.groupsList[vm.tab].users[vm.subTab].expired = 0;
+            		vm.personDetails.expired = 0;
+            		$('#resend_activation').modal();
+            	}
+            	else if(response.data.status_code == 400) {
+	                $window.location = CONFIG.APP_DOMAIN + 'logout';
+	            }
+
+	    	})
+		}
+
 		// form reset
 		function reset(tab, flag){
 			vm.errCond = false;
+			vm.backendError = '';
 			if(tab == 'person'){
-				$display_pic.find('.qq-upload-fail').remove();
+				vm.changeFound.person = false;
+				//$display_pic.find('.qq-upload-fail').remove();
 				if(flag){
 					vm.personDetails = {};
 					vm.personDetails.emailid = '';
-					trash(0);
+					App.Helpers.removeUploadedFiles({
+		   				obj: $('#display_pic')
+		   			})
 				}
 				else{
 					getPersonData(vm.subTab);
 				}
 			}
 			else{
+				vm.changeFound.group = false;
 				if(flag){
 					vm.groupData = {};
 					vm.permissions = {}
@@ -814,88 +929,89 @@
 
 		// qq-uploader
 		function qquploader(flag, img){
-			$display_pic = $('#display_pic');
-			var uploader = new qq.FileUploader({
-			    element: document.getElementById('display_pic'),
-			    dragText: "",
-				uploadButtonText: "<img src='public/images/avatar.png'>",
-				multiple : false,
-				sizeLimit: (1*1024*1024),
-				allowedExtensions: ["JPG", "JPEG", "PNG"],
-			    action: CONFIG.APP_DOMAIN+'file_upload',
-
-			    onSubmit: function(id, name){
-			    	$display_pic.find('.drag_txt').hide();
+			var $display_pic = $('#display_pic');
+		    App.Helpers.initUploader({
+		        id: "display_pic",
+		        dragText: "",
+		        uploadButtonText: "",
+		        size: (10 * 1024 * 1024),
+		        allowedExtensions: ["jpg", "jpeg", "png"],
+		        action: App.base_url + "file_upload",
+		        showFileInfo: false,
+		        shortMessages: true,
+		        remove: true,
+		        file_name : 'photo_org_name',
+			    path_name : 'photo',
+		        onSubmit: function(id, name) {
 		            $display_pic.find('.qq-upload-list').css('z-index','0');
-		            $display_pic.find('.qq-upload-list').show();
-			    },
-			    onComplete: function(id, name, response){
-			    	if(response.success){
+		        },
+		        onComplete: function(id, name, response) {
+		            if (response.success) {
+		                $display_pic.find('.qq-upload-list').css('z-index','-1');
+			    		$display_pic.find('.qq-upload-drop-area').css({
+			    			'display':'block',
+			    			'background':'transparent'
+			    		});
+			    		$display_pic.find('.drag_img').css('background','transparent');
 			    		vm.textCondition = true;
+			    		vm.changeFound.person = true;
 			    		$scope.$apply();
-			    		image_path = CONFIG.APP_API_DOMAIN+response.filename;
-			    		$display_pic.find('.qq-upload-fail').remove();
-			    		$display_pic.find('.qq-upload-success').hide();
-		            	$display_pic.find('.qq-upload-list').css('z-index','-1');
-			    		$display_pic.find('.qq-upload-drop-area').css('display','block');
-			    		$display_pic.find('.qq-upload-drop-area').html('<div class="drag_img"><img src="'+
-			    															image_path+'" class="img-circle"/></div>');
-			    		$display_pic.find('.qq-upload-list').append("<li><input type='hidden' name='photo_org_name'"+
-			    														"value='" + response.org_name + "' />"+
-		    															"<input type='hidden' value='" +
-		    															response.filename + "' name='photo'/></li>").show();
-			    		$display_pic.find('.drag_img').append('<div class="overlay"></div><i class="fa fa-trash-o icon-trash"'+
-			    												'onclick="angular.element(this).scope().UserGroupCtrl.trash()"></i>');
-			    	}
-			    	else{
-			    		vm.textCondition = false;
-			    		$scope.$apply();
-			    		$display_pic.find('.qq-upload-fail').remove();
-			    		$display_pic.append("<div class='qq-upload-fail'><span>"+
-	    										response.msg+"</span></div>")
-			    	}
-			    },
-			    showMessage: function(msg){
-			    	$display_pic.find('.qq-upload-fail').remove();
-			    	$display_pic.append("<div class='qq-upload-fail'><span>"+msg+"</span></div>");
-			    }
-			})
+		                App.Helpers.loadImage({
+		                    target: $display_pic.find('.drag_img'),
+		                    css: 'img-circle',
+		                    remove: true,
+		                    url_prefix: App.API_DOMAIN,
+		                    url: response.filename,
+		                    onComplete: App.Helpers.setImagePosition,
+		                    onError: function() {
+		                    	$display_pic.find('.qq-upload-drop-area').hide();
+		                        $display_pic.find('.qq-upload-button').show();
+		                    }
+		                });
+		            }
+		        },
+		        showMessage: function(msg, obj) {
+		            $display_pic.closest('.form-group').find('div.error').hide();
+		            $display_pic.find('.qq-upload-list').css('z-index','0');
+		            $(obj._listElement).fadeIn();
+		        },
+		        onRemove: function() {
+		        	vm.has_image = false;
+		        	vm.changeFound.person = true;
+		            $scope.$apply();
+		        },
+		        onRemoveComplete: function() {
+		        	$display_pic.find('.qq-upload-list').css('z-index','-1');
+		        }
 
-			if(flag == 1 && img != ''){
+		    });
+ 			if(flag == 1 && img != ''){
 				vm.textCondition = true;
 	    		$scope.$apply();
 				image_path = img;
 				org_name =  img.split('/').pop();
-	    		setImage(org_name, image_path);
+				$display_pic.find('.qq-upload-drop-area').css({
+	    			'display':'block',
+	    			'background':'transparent'
+	    		});
+	    		$display_pic.find('.drag_img').css('background','transparent');
+	    		App.Helpers.loadImage({
+	                target: $display_pic.find('.drag_img'),
+	                css: 'img-circle',
+	                remove: true,
+	                url_prefix: false,
+	                url: image_path,
+	                onComplete: function(){
+	                	$display_pic.find('.qq-upload-list').append("<li><input type='hidden' name='photo_org_name_s3' value='"+
+														org_name+"' /><input type='hidden' value='" + image_path +
+														"' name='photo_s3'/></li>").show();
+	                },
+	                onError: function() {
+	                	$display_pic.find('.qq-upload-drop-area').hide();
+	                    $display_pic.find('.qq-upload-button').show();
+	                }
+	            });
 			}
-		}
-
-		function setImage(org_name, image_path){
-			$display_pic.find('.qq-upload-fail').remove();
-    		$display_pic.find('.qq-upload-success').hide();
-        	$display_pic.find('.qq-upload-list').css('z-index','-1');
-    		$display_pic.find('.qq-upload-drop-area').css('display','block');
-    		$display_pic.find('.qq-upload-drop-area').html('<div class="drag_img"><img src="'+
-    															image_path+'" class="img-circle"/></div>');
-    		$display_pic.find('.qq-upload-list').append("<li><input type='hidden' name='photo_org_name_s3' value='"+
-    														org_name+"' /><input type='hidden' value='" + image_path +
-    														"' name='photo_s3'/></li>").show();
-    		$display_pic.find('.drag_img').append('<div class="overlay"></div><i class="fa fa-trash-o icon-trash"'+
-    												'onclick="angular.element(this).scope().UserGroupCtrl.trash()"></i>');
-		}
-
-		// delete image
-		function trash(flag){
-			vm.textCondition = false;
-    		if(flag != 0){
-				$scope.$apply();
-			}
-			image_path = '';
-			org_name = '';
-			$display_pic.find('.drag_img').find('img').removeAttr('src');
-			$display_pic.find('.qq-upload-list li').remove();
-			$display_pic.find('.qq-upload-drop-area').css('display','none');
-			$display_pic.find('.qq-upload-drop-area .drag_img').remove();
 		}
 
 	}

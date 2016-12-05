@@ -1,0 +1,51 @@
+<div class="drop-box">
+	<div class="container">
+		<section>
+			<h1 class="logo">
+				<img src="../public/images/logo.png" alt="logo">
+			</h1>
+			<div class="row">
+				<form name="dropBox" autocomplete="off" novalidate>
+					<h3 class="title">Candidate Details</h3>
+					<div class="col-sm-6 form-style">
+						<div class="form-group">
+						    <label for="fname">Full Name<sup>*</sup></label>
+						    <input name="fname" class="form-control input-lg"  required id="fname" type="text" maxlength="50" ng-model="fname">
+						    <span ng-show="dropBox.fname.$error.required && CandidateDetailsCtrl.errorRequired" class="has-error-msg">Please Enter Full Name</span>
+					    </div>
+					</div>
+					<div class="col-sm-6 form-style">
+						<div class="form-group">
+						    <label for="email">Email Id<sup>*</sup></label>
+						    <input name="email" class="form-control input-lg" id="email" type="text" required maxlength="50" ng-pattern="/^[a-z0-9A-Z._%+-]+@[a-zA-Z]+\.[a-z]{2,3}$/i" ng-model="email">
+						    <span ng-show="dropBox.email.$error.required && CandidateDetailsCtrl.errorRequired" class="has-error-msg">Please Enter Email Id</span>
+						    <span ng-show="dropBox.email.$error.pattern && CandidateDetailsCtrl.errorRequired" class="has-error-msg">Please Enter Valid Email Id</span>
+					    </div>
+					</div>
+					<div class="col-sm-6 form-style">
+						<div class="form-group gap">
+						    <label for="can-mobile">Phone Number</label>
+						    <input name="tel" class="form-control input-lg" id="can-mobile" type="text" type="tel" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 0' maxlength="50">
+					    </div>
+					</div>
+					<div class="col-sm-6 form-style">
+					    <div class="file">
+						    <label for="can-upload">Upload CV<sup>*</sup></label>
+						    <span class="file-name" ng-bind="CandidateDetailsCtrl.fileName" title="{{CandidateDetailsCtrl.fileName}}"></span>
+						    <div class="cv-upload">
+						  	</div>
+						  	<span class="has-error-msg"  style="left:0;z-index:1;" id="errorMsgFileUp"></span>
+						  	<span class="has-error-msg" ng-show="(dropBox.logo_org_name.$error.required || dropBox.logo_image.$error.required) && CandidateDetailsCtrl.errorRequired && CandidateDetailsCtrl.errorFileUp" style="left:0">Please Select File</span>
+						  	<input type='hidden' name='logo_org_name' value="{{CandidateDetailsCtrl.logo_org_name}}" required ng-model="CandidateDetailsCtrl.logo_org_name">
+						  	<input type='hidden' name='logo_image' value="{{CandidateDetailsCtrl.logo_image}}" required ng-model="CandidateDetailsCtrl.logo_image">       
+					    </div> 
+					</div>
+				</form>
+			</div>
+			<div class="action">
+				<span class="cancel"><a ui-sref="allJobs">Cancel</a></span>
+				<span class="submit" ng-click="CandidateDetailsCtrl.postFormData(dropBox.$invalid)">SUBMIT</span>
+			</div>
+		</section>
+	</div>
+</div>

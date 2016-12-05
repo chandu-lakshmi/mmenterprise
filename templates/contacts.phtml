@@ -36,8 +36,8 @@
 				</div>
 				<md-input-container md-no-float="" class="md-block">
 						<img ng-src="public/images/loader/search_loader.gif" alt="buffer" ng-if="ContactCtrl.searchLoader">
-						<input ng-model="ContactCtrl.searchVal" ng-keyup="ContactCtrl.searchRecords(ContactCtrl.searchVal)" placeholder="Search">
-						<img ng-src="public/images/{{ContactCtrl.srcSearch}}" ng-click="ContactCtrl.srcSearch == 'cross.svg' ? ContactCtrl.searchRecords('') : ''" alt="feedback_left">
+						<input ng-model="ContactCtrl.searchVal" ng-keyup="ContactCtrl.searchRecords(ContactCtrl.searchVal, $event)" placeholder="Search" onkeypress="return ((!(event.which==32))  || !this.selectionStart==0)">
+						<img ng-src="public/images/{{ContactCtrl.srcSearch}}" ng-click="ContactCtrl.srcSearch == 'cross.svg' ? ContactCtrl.searchRecords('', $event) : ''" alt="feedback_left">
 				</md-input-container>
 			</div>
 			<div class="grid-container">
@@ -70,7 +70,7 @@
 						<!-- <span ng-click="ContactCtrl.statusUpdate('delete', '')">Delete Contacts</span>  -->
 					</div>
 					<div class="pages-con pull-left">
-						<div class="pagenation">
+						<div class="pagenation" ng-show="ContactCtrl.pageNos > 1">
 							<div class="arrow-click left" ng-click="ContactCtrl.getPage()">
 								<i class="fa fa-angle-double-left"></i>
 							</div>
@@ -86,8 +86,11 @@
 					</div>
 					<div class="invite">
 						<span style="display: inline-block;padding: 12px 0;">{{ContactCtrl.selectedContacts.length + (ContactCtrl.selectedContacts.length > 1 ? ' Contacts' : ' Contact')}} selected</span>
-						<div class="btn-invite" ng-click="ContactCtrl.invite()">
+						<div class="btn-invite" ng-click="ContactCtrl.loaderImg ? '' : ContactCtrl.invite()">
 							INVITE SELECTED
+						</div>
+						<div class="pull-right skip" ng-if="!ContactCtrl.goDashboard">
+							<a ng-click="ContactCtrl.skip()">SKIP</a>
 						</div>
 					</div>
 				</div>

@@ -5,11 +5,11 @@
 				<form name="my_profile_form" novalidate>
 					<div id="display_pic"></div>
 					<p class='add-text'>User Photo</p>
-					<div class="checkbox" ng-style="{'pointer-events': MyProfileCtrl.has_image == true ? 'auto' : 'none'}" ng-show="{{::userPermissions.is_primary == 1}}">
+					<!-- <div class="checkbox" ng-style="{'pointer-events': MyProfileCtrl.has_image == true ? 'auto' : 'none'}" ng-show="{{::userPermissions.is_primary == 1}}">
 	  					<input id="disabled" type="hidden" name="flag" value="0">
 	  					<input id="checkbox" type="checkbox" name="flag" value="1" onchange="angular.element(this).scope().MyProfileCtrl.change()">
 	  					<label for="checkbox">Set as Company Profile pic</label>
-					</div>
+					</div> -->
 					<div class="first">
 						<md-input-container class="md-block">
 		                    <label>USER NAME</label>
@@ -18,11 +18,11 @@
 		                </md-input-container>
 		                <md-input-container class="md-block" style="margin-bottom:0;pointer-events:none;">
 		                    <label>EMAIL</label>
-		                    <input type="text" name="emailid" ng-model="MyProfileCtrl.myProfile.user_email" required ng-pattern="/^[a-z0-9A-Z._%+-]+@[a-zA-Z]+\.[a-z]{2,3}$/" ng-class="{'has-error-border':my_profile_form.emailid.$invalid && MyProfileCtrl.errCond}">
+		                    <input type="text" name="emailid" ng-model="MyProfileCtrl.myProfile.user_email" required ng-pattern="/^[a-z0-9A-Z._%+-]+@[a-zA-Z]+\.[a-z]{2,3}$/" ng-class="{'has-error-border':my_profile_form.emailid.$invalid && MyProfileCtrl.errCond}" tabindex="-1">
 		                    <div ng-if="my_profile_form.emailid.$error.required && MyProfileCtrl.errCond" class="has-error-msg">Please Enter Email Address</div>
 		                    <div ng-if="my_profile_form.emailid.$error.pattern && MyProfileCtrl.errCond" class="has-error-msg">Please Enter Valid Email Address</div>
 		                </md-input-container>
-		                <p ng-click="MyProfileCtrl.setPassword();" class="change">Change Password</p>
+		                <span ng-click="MyProfileCtrl.setPassword();" class="change">Change Password</span>
 		            </div>
 		        </form>
 		    </div>
@@ -33,7 +33,7 @@
 						<span class="message fade" ng-if="MyProfileCtrl.message" ng-bind="MyProfileCtrl.successMsg"></span>
 					</span>
 				</div>
-				<div class="pull-right disabled">
+				<div class="pull-right disabled" ng-style="{'pointer-events': my_profile_form.$dirty || MyProfileCtrl.changeFound ? 'auto' : 'none', 'opacity': my_profile_form.$dirty || MyProfileCtrl.changeFound ? '1' : '0.5'}">
 					<span class="btn-cancel ripplelink" data-ripple-color="#757575" ng-click="MyProfileCtrl.cancel('user');">Reset</span>
 					<span class="btn-save-changes ripplelink" ng-click="MyProfileCtrl.saveChanges(my_profile_form.$valid)">Save Changes</span>
 				</div>

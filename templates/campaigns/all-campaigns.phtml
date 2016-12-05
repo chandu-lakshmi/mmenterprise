@@ -50,13 +50,12 @@
 									<div class="form-group modern-select" ng-style="{'pointer-events': AllCampaignsCtrl.locationCheck ? 'auto' : 'none' }">
 										<div class="controls">
 											<select data-rel="chosen" id="mul_select" data-placeholder="Select Your Options" class="form-control" name="location[]" multiple ng-model="AllCampaignsCtrl.selectedCountries">
-												<option value=""></option>
-												<!-- <option ng-repeat="options in AllCampaignsCtrl.searchResults track by $index">{{options}}</option> -->
-												<option>Option 1</option>
+												<option ng-repeat="options in AllCampaignsCtrl.searchResults track by $index">{{options}}</option>
+												<!-- <option>Option 1</option>
 												<option>Option 2</option>
 												<option>Option 3</option>
 												<option>Option 4</option>
-												<option>Option 5</option>
+												<option>Option 5</option> -->
 											</select>
 										</div>
 									</div>	
@@ -81,8 +80,8 @@
 						<div class="pull-right">
 							<div class="has-feedback search">
 								<img src="public/images/loader/search_loader.gif" class="feedback right" ng-show="AllCampaignsCtrl.searchLoader">
-								<img src="public/images/cross.svg" class="feedback right" ng-show="AllCampaignsCtrl.searchLoader != true && AllCampaignsCtrl.search.length >= 1" ng-click="AllCampaignsCtrl.search = '';AllCampaignsCtrl.searchFilter(AllCampaignsCtrl.search)">
-								<input type="text" name="search" ng-model="AllCampaignsCtrl.search" ng-keyup="AllCampaignsCtrl.searchFilter(AllCampaignsCtrl.search)">
+								<img src="public/images/cross.svg" class="feedback right" ng-show="AllCampaignsCtrl.searchLoader != true && AllCampaignsCtrl.search.length >= 1" ng-click="AllCampaignsCtrl.search = '';AllCampaignsCtrl.searchFilter(AllCampaignsCtrl.search, $event)">
+								<input type="text" name="search" ng-model="AllCampaignsCtrl.search" onkeypress="return ((!(event.which==32))  || !this.selectionStart==0)" ng-keyup="AllCampaignsCtrl.searchFilter(AllCampaignsCtrl.search, $event)">
 								<img src="public/images/search.svg" class="feedback left">
 							</div>
 						</div>

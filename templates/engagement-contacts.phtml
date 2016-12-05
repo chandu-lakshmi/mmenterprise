@@ -124,7 +124,7 @@
 												<div style="background:url('public/images/referrals.png') no-repeat 0 -257px" class="multiple-images"></div>
 											</a>
 											<a href="{{allReferrals.resume_path}}" target="_blank">
-												<span class="resume_file" title="{{allReferrals.resume_path | fileName}}">{{allReferrals.resume_path | fileName}}</span>
+												<span class="resume_file" title="{{allReferrals.resume_original_name}}">{{allReferrals.resume_original_name}}</span>
 											</a>
 										</div>
 										<div ng-if="allReferrals.resume_path == ''" style="padding-top:15px;">
@@ -205,7 +205,7 @@
 												<div style="background:url('public/images/referrals.png') no-repeat 0 -257px" class="multiple-images"></div>
 											</a>
 											<a href="{{pendingReferrals.resume_path}}" target="_blank">
-												<span class="resume_file" title="{{pendingReferrals.resume_path | fileName}}">{{pendingReferrals.resume_path | fileName}}</span>
+												<span class="resume_file" title="{{pendingReferrals.resume_original_name}}">{{pendingReferrals.resume_original_name}}</span>
 											</a>
 										</div>
 										<div ng-if="pendingReferrals.resume_path == ''" style="padding-top:15px;">
@@ -275,7 +275,7 @@
 												<div style="background:url('public/images/referrals.png') no-repeat 0 -257px" class="multiple-images"></div>
 											</a>
 											<a href="{{activeReferrals.resume_path}}" target="_blank">
-												<span class="resume_file" title="{{activeReferrals.resume_path | fileName}}">{{activeReferrals.resume_path | fileName}}</span>
+												<span class="resume_file" title="{{activeReferrals.resume_original_name}}">{{activeReferrals.resume_original_name}}</span>
 											</a>
 										</div>
 										<div ng-if="activeReferrals.resume_path == ''" style="padding-top:15px;">

@@ -1,0 +1,73 @@
+<div class="drop-box">
+	<div class="container">
+		<section>
+			<h1 class="logo">
+				<img src="../public/images/logo.png" alt="logo">
+			</h1>
+			<div class="row">
+				<form name="dropBox" autocomplete="off" novalidate>
+					<h3 class="title">Employee Details</h3>
+					<div class="col-sm-6 form-style">
+						<div class="form-group gap">
+						    <label for="emp-email">Employee Email ID<sup>*</sup></label>
+						    <input type="text" name="emp_email" class="form-control input-lg" id="emp-email" required ng-pattern="/^[a-z0-9A-Z._%+-]+@[a-zA-Z]+\.[a-z]{2,3}$/i" ng-model="ReferralDetailsCtrl.empEmail">
+						    <span ng-show="dropBox.emp_email.$error.required && ReferralDetailsCtrl.errorRequired" class="has-error-msg">Please Enter Employee Email Id</span>
+						     <span ng-show="dropBox.emp_email.$error.pattern && ReferralDetailsCtrl.errorRequired" class="has-error-msg">Please Enter Valid Email Id</span>
+					    </div>
+					</div>
+					<h3 class="title candidate">Candidate Details</h3>
+					<div class="col-sm-6 form-style">
+						<div class="form-group">
+						    <label for="can-fname">First Name<sup>*</sup></label>
+						    <input name="can_fname" class="form-control input-lg" id="can-fname" type="text" required ng-model="ReferralDetailsCtrl.canFname">
+						    <span ng-show="dropBox.can_fname.$error.required && ReferralDetailsCtrl.errorRequired" class="has-error-msg">Please Enter Candidate First Name</span>
+					    </div>
+					</div>
+					<div class="col-sm-6 form-style">
+						<div class="form-group">
+						    <label for="can-email">Email Id<sup>*</sup></label>
+						    <input name="can_email" class="form-control input-lg" id="can-email" type="text" required ng-model="ReferralDetailsCtrl.canEmail" ng-pattern="/^[a-z0-9A-Z._%+-]+@[a-zA-Z]+\.[a-z]{2,3}$/i">
+						    <span ng-show="dropBox.can_email.$error.required && ReferralDetailsCtrl.errorRequired" class="has-error-msg">Please Enter Candidate Email Id</span>
+						     <span ng-show="dropBox.can_email.$error.pattern && ReferralDetailsCtrl.errorRequired" class="has-error-msg">Please Enter Valid Email Id</span>
+					    </div>
+					</div>
+					<div class="col-sm-6 form-style">
+						<div class="form-group">
+						    <label for="can-mobile">Phone Number</label>
+						    <input class="form-control input-lg" id="can-mobile" type="text" type="tel"  onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 0' maxlength="50">
+					    </div>
+					</div>
+					<div class="col-sm-6 form-style">
+						<div class="form-group gap">
+					      <label for="can-dep">Department<sup>*</sup></label>
+					      <i class="fa fa-angle-down fa-feedback" style="color: #ccc"></i>
+					      <select name="can_dep" class="form-control input-lg" id="can-dep" required ng-model="ReferralDetailsCtrl.canDep">
+					      	<option value="" disabled >Select Department</option>
+					        <option>1</option>
+					        <option>2</option>
+					        <option>3</option>
+					      </select>
+					      <span ng-show="dropBox.can_dep.$error.required && ReferralDetailsCtrl.errorRequired" class="has-error-msg">Please Select Department</span>
+					    </div>
+					</div>
+					<div class="col-sm-6 form-style" style="margin-bottom:38px">
+						<div class="file">
+						    <label for="can-upload">Upload CV<sup>*</sup></label>
+						    <span class="file-name" ng-bind="ReferralDetailsCtrl.fileName" title="{{ReferralDetailsCtrl.fileName}}"></span>
+						    <div class="cv-upload">
+						  	</div>
+						  	<span class="has-error-msg"  style="left:0;z-index:1;" id="errorMsgFileUp"></span>
+						  	<span class="has-error-msg" ng-show="(dropBox.logo_org_name.$error.required || dropBox.logo_image.$error.required) && ReferralDetailsCtrl.errorRequired && ReferralDetailsCtrl.errorFileUp" style="left:0">Please Select File</span>
+						  	<input type='hidden' name='logo_org_name' value="{{ReferralDetailsCtrl.logo_org_name}}" required ng-model="ReferralDetailsCtrl.logo_org_name">
+						  	<input type='hidden' name='logo_image' value="{{ReferralDetailsCtrl.logo_image}}" required ng-model="ReferralDetailsCtrl.logo_image">       
+					    </div> 
+					</div>
+				</form>
+			</div>
+			<div class="action">
+				<span class="cancel"><a ui-sref="allJobs">Cancel</a></span>
+				<span class="submit" ng-click="ReferralDetailsCtrl.postFormData(dropBox.$invalid)">SUBMIT</span>
+			</div>
+		</section>
+	</div>
+</div>

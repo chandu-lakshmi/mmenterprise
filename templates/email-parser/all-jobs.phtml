@@ -1,0 +1,110 @@
+<div class="all-jobs">
+	<div class="container">
+		<header>
+			<img src="../public/images/logo.png" alt="company-logo">			
+		</header>
+		<section>
+			<div class="row">
+				<div class="col-sm-8">
+					<h4>Enterpi Software Solutions Pvt Ltd.</h4>
+					<h4 class="job-title">Senior UI/UX Designer</h4>
+					<div class="fields">
+						<div class="labels">Experience:</div>
+						<div class="value">5-6 Years</div>
+						<div class="labels">Location:</div>
+						<div class="value">Hyderabad, Telengana</div>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<span class="btn-apply">
+						<a ui-sref="candidateDetails">APPLY JOB</a>
+					</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-8">
+					<h4>Enterpi Software Solutions Pvt Ltd.</h4>
+					<h4 class="job-title">Senior UI/UX Designer</h4>
+					<div class="fields">
+						<div class="labels">Experience:</div>
+						<div class="value">5-6 Years</div>
+						<div class="labels">Location:</div>
+						<div class="value">Hyderabad, Telengana</div>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<span class="btn-apply">
+						<a ui-sref="candidateDetails">APPLY JOB</a>
+					</span>
+				</div>
+			</div>
+		</section>
+		<footer>
+			<div class="social-media">
+				Share Jobs
+				<div class="icon">
+					<span><i class="fa fa-facebook " aria-hidden="true"></i></span>
+					<span><i class="fa fa-linkedin" aria-hidden="true"></i></span>
+					<span><i class="fa fa-twitter" aria-hidden="true"></i></span>
+					<span><i class="fa fa-google-plus" aria-hidden="true"></i></span>
+					<span><i class="fa fa-whatsapp" aria-hidden="true"></i></span>
+				</div>
+				<div class="link">
+					<div class="form-group">
+						<div class="field">
+							<input type="text" class="form-control" id="website" value="http://www.mintmesh.com">		
+						</div>
+						<div class="btns" data-copytarget="#website">
+							COPY JOBS LINK
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="drop-cv">
+				Couldn't find a matching job for your friend ? &nbsp;<span><a ui-sref="referralDetails">Drop CV here</a></span>
+			</div>
+		</footer>
+	</div>
+</div>
+<script>
+(function() {
+
+	'use strict';
+  
+  // click events
+  document.body.addEventListener('click', copy, true);
+
+	// event handler
+	function copy(e) {
+
+    // find target element
+    var 
+      t = e.target,
+      c = t.dataset.copytarget,
+      inp = (c ? document.querySelector(c) : null);
+      
+    // is element selectable?
+    if (inp && inp.select) {
+      
+      // select text
+      inp.select();
+
+      try {
+        // copy text
+        document.execCommand('copy');
+        inp.blur();
+        
+        // copied animation
+        t.classList.add('copied');
+        setTimeout(function() { t.classList.remove('copied'); }, 1500);
+      }
+      catch (err) {
+        alert('please press Ctrl/Cmd+C to copy');
+      }
+      
+    }
+    
+	}
+
+})();
+</script>

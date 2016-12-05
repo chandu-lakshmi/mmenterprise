@@ -6,7 +6,7 @@
 				<div class="side-list">
 					<div class="head clearfix">
 						<span class="pull-left">USER GROUPS</span>
-						<md-button class="md-icon-button pull-right" ng-click="UserGroupCtrl.addNew('group')">
+						<md-button class="md-icon-button pull-right" ng-click="::userPermissions.is_primary == 1 ? UserGroupCtrl.addNew('group') : ''">
           					<md-icon md-svg-src="public/images/material_icons/add.svg" aria-label="Close dialog"></md-icon>
         				</md-button>
 					</div>
@@ -35,9 +35,9 @@
 			<div class="col-sm-9">
 				<div class="box">
 					<div class="templates" style="position:relative;">
-						<div class="group" ng-show="UserGroupCtrl.group" ng-include src="UserGroupCtrl.group_template" ng-style="{'pointer-events': UserGroupCtrl.groupData.is_primary == 1 ? 'none' : 'auto'}"></div>
+						<div class="group" ng-show="UserGroupCtrl.group" ng-include src="UserGroupCtrl.group_template"></div>
 						<div class="person" ng-show="!UserGroupCtrl.group" ng-include src="UserGroupCtrl.person_template"></div>
-						<div class="fixed-action-btn horizontal" style="position:absolute;top:20px;bottom:auto">
+						<div class="fixed-action-btn horizontal" style="position:absolute;top:20px;bottom:auto" ng-show="{{::userPermissions.is_primary == 1}}">
 							<a class="btn-floating btn-large mm-color ripplelink">
 								<img src="public/images/material_icons/create.svg" alt="">
 							</a>

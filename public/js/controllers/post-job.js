@@ -1,7 +1,7 @@
 (function () {
 "use strict";
 
-angular.module('app.post.job', ['ngAutocomplete', 'angucomplete-alt'])
+angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplete-alt'])
 
 .service('gettingData',function(){
     var obj = {};
@@ -210,12 +210,6 @@ angular.module('app.post.job', ['ngAutocomplete', 'angucomplete-alt'])
   
     gettingData.bol = true;
     this.buckLoader = true;
-    var bucketColor = ["#229A77", "#21A4AC", "#EE8F3B", "#2A99E0", "#154c50", "#103954", "#342158", "#5B5B29", "#004D40", "#3e110d"];
-    var bucketColor = ["#229A77", "#21A4AC", "#EE8F3B", "#2A99E0", "#154c50", "#103954", "#342158", "#5B5B29", "#004D40", "#6f2b25"];
-      
-    this.getColor = function(ind) {
-        return bucketColor[String(ind).slice(-1)];
-    }
 
     this.post_job_result = gettingData.getObj();
 
@@ -236,21 +230,6 @@ angular.module('app.post.job', ['ngAutocomplete', 'angucomplete-alt'])
     get_buckets.error(function(response){
         console.log(response);
     })
-
-    var bucket_count = [];
-
-    this.getDataUpdate = function(src,ind,bucketId){
-        if(src == "public/images/add.svg"){
-          bucket_count.push(bucketId);
-          scope.bucket_names[ind].src = "public/images/select.svg";
-        }
-        else{
-          var index = bucket_count.indexOf(bucketId);
-          bucket_count.splice(index, 1);
-          scope.bucket_names[ind].src="public/images/add.svg";
-        }
-        scope.userSelOnebkt = false;
-    }
 
     this.currencyInfo = [
         { id : 1, code : '$' },
@@ -320,7 +299,7 @@ angular.module('app.post.job', ['ngAutocomplete', 'angucomplete-alt'])
         scope.userSelRewards = false; 
     }
 
-
+    this.loader = 
     this.success_cond = 
     this.bolFormValid =  
     this.bolForm2Valid = 
@@ -334,7 +313,8 @@ angular.module('app.post.job', ['ngAutocomplete', 'angucomplete-alt'])
             return false;     
         }
 
-        if (bucket_count.length == 0) {
+        var buckets = $('input[name="selectedBuckets"]').val();
+        if (!buckets) {
             scope.userSelRewards = false;
             scope.userSelOnebkt = true;
             return false;    
@@ -373,7 +353,6 @@ angular.module('app.post.job', ['ngAutocomplete', 'angucomplete-alt'])
             freeJob = 1;     
         }
         scope.bucket_error = false;
-        var buckets = bucket_count.toString();
         scope.success_cond = true;
         scope.loader = true;
         var post_job = $.param({
@@ -388,8 +367,6 @@ angular.module('app.post.job', ['ngAutocomplete', 'angucomplete-alt'])
             job_function : scope.post_job_result.job_func.job_function_id,
             free_job : freeJob ,
             no_of_vacancies : scope.post_job_result.no_of_vacancies,
-            // job_currency : scope.rewardCond.currency,
-            // job_cost : scope.rewardCond.amount,
             job_period : 'immediate', 
             bucket_id : buckets,
             position_id : scope.post_job_result.position_id,

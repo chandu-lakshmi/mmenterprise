@@ -1,0 +1,156 @@
+<div class="resume-room">
+	<div class="container">
+		<div class="row">
+			<!-- <div class="col-sm-3">
+				<div class="filter">
+					<form name="candidates_filter_form">
+						<p class="title">FILTERS</p>
+						<ul>
+							<li>
+								<div class="checkbox">
+									<md-checkbox aria-label="Accepted" ng-checked="ResumeRoomCtrl.isChecked('accepted', 'selectedType')" ng-click="ResumeRoomCtrl.toggleAll('accepted', 'selectedType')" class="md-primary">
+          								Accepted (44)
+            						</md-checkbox>
+									<input type="hidden" name="campaign_type" value="{{ResumeRoomCtrl.isChecked('accepted', 'selectedType')}}">
+								</div>
+								<ul>
+									<li ng-repeat="type in ResumeRoomCtrl.accepted">
+										<div class="checkbox">
+											<md-checkbox aria-label="{{type.label}}" ng-checked="ResumeRoomCtrl.exists(type, ResumeRoomCtrl.selectedType)" ng-click="ResumeRoomCtrl.toggle(type, ResumeRoomCtrl.selectedType)" class="md-primary">
+               									{{ type.label }}
+              								</md-checkbox>
+											<input type="hidden" name="{{type.name}}" value="{{ResumeRoomCtrl.exists(type, ResumeRoomCtrl.selectedType)}}">
+										</div>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<div class="checkbox">
+									<md-checkbox name="unsolicited" ng-model="ResumeRoomCtrl.unsolicited" aria-label="Unsolicited" class="md-primary">
+							            Unsolicited (44)
+						          	</md-checkbox>
+						          	<input type="hidden" name="unsolicited" value="{{ResumeRoomCtrl.unsolicited}}">
+								</div>
+							</li>
+							<li>
+								<div class="checkbox">
+								  	<md-checkbox name="declined" ng-model="ResumeRoomCtrl.declined" aria-label="Declined" class="md-primary">
+							            Declined (44)
+						          	</md-checkbox>
+						          	<input type="hidden" name="declined" value="{{ResumeRoomCtrl.unsolicited}}">
+								</div>
+							</li>
+							<li>
+								<div class="checkbox">
+								  	<p style="margin:30px 0 0 -6px">Job/Position</p>
+									<div class="form-group modern-select" style="margin-top:5px;">
+										<div class="controls">
+											<select data-rel="chosen" id="mul_select" data-placeholder="Select Your Options" class="form-control" multiple>
+												<option value=""></option>
+												<option>UI/UX</option>
+												<option>PHP DEVELOPER</option>
+												<option selected>IOS DEVELOPER</option>
+												<option>QA ASSOCIATE</option>
+												<option>JAVA DEVELOPER</option>
+											</select>
+										</div>
+									</div>	
+								</div>
+							</li>
+						</ul>
+					</form>
+				</div>
+				<div class="action">
+					<div>
+						<span ng-click="ResumeRoomCtrl.clear(ResumeRoomCtrl.search, false)" style="color:#979998;">CLEAR</span>
+						<span ng-click="ResumeRoomCtrl.applyFilter(ResumeRoomCtrl.search, false)" style="color:#138b67;">APPLY FILTERS</span>
+					</div>
+				</div>
+			</div> -->
+			<div class="col-sm-12" style="padding-bottom:50px">
+				<div class="box">
+					<div class="box-header clearfix">
+							
+						<div class="col-sm-4">
+							<span>CANDIDATES ( <span ng-bind="ResumeRoomCtrl.count"></span> ) </span>
+						</div>
+						<div class="form-group modern-select col-sm-4">
+							<div class="controls">
+								<select data-rel="chosen" data-placeholder="Select Your Options" class="form-control" name="filter[]" multiple>
+									<option>Accepeted</option>
+									<option>Interviewed</option>
+									<option>Hired</option>
+									<option>Unsolicited</option>
+									<option>Declined</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="has-feedback search pull-right">
+								<img src="public/images/loader/search_loader.gif" class="feedback right" ng-show="ResumeRoomCtrl.searchLoader">
+								<img src="public/images/cross.svg" class="feedback right" ng-show="ResumeRoomCtrl.searchLoader != true && ResumeRoomCtrl.search.length >= 1" ng-click="ResumeRoomCtrl.search = '';ResumeRoomCtrl.searchFilter(ResumeRoomCtrl.search, $event)">
+								<input type="text" name="search" ng-model="ResumeRoomCtrl.search" onkeypress="return ((!(event.which==32))  || !this.selectionStart==0)" ng-keyup="ResumeRoomCtrl.searchFilter(ResumeRoomCtrl.search, $event)" >
+								<img src="public/images/search.svg" class="feedback left">
+							</div>
+						</div>
+					</div>
+					<div class="box-content">
+						<div id="grid" ui-grid="ResumeRoomCtrl.gridOptions" class="grid" ui-grid-infinite-scroll ui-grid-selection style="border: 0;">
+							<div class="grid-msg-overlay" ng-if="ResumeRoomCtrl.loader || ResumeRoomCtrl.searchLoader">
+					          	<div class="msg">
+					            	<span>
+					              		<img src="public/images/loader/spin.gif" alt="loader" width="25%">
+					            	</span>
+					          	</div>
+					   		</div>
+					   		<div class="grid-msg-overlay" ng-if="ResumeRoomCtrl.noCandidates">
+						        <div class="msg">
+						        	<span>No Campaigns Found</span>
+						        </div>
+					    	</div>
+						</div>
+					</div>
+					<div class="box-footer clearfix">
+						<div class="status pull-left">
+							<span style="padding-right:10px;">Change Status to:</span>
+				            <md-select name="status" ng-model="ResumeRoomCtrl.status" placeholder="Status" class="md-no-underline">
+				              	<md-option ng-repeat="options in ResumeRoomCtrl.statusOptions" ng-value="options">
+				                	{{options}}
+				              	</md-option>
+				            </md-select>
+						</div>
+						<div class="pull-right">
+							<span ng-bind="ResumeRoomCtrl.selectionCount"></span>
+							<span class="download">DOWNLOAD RESUME</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+<!--cellTemplate for status change like Accept or Decline-->
+<script type="text/ng-template" id="status-change.html">
+	<div class="ui-grid-cell-contents ui-grid-status">
+		<div ng-init="colTemp=COL_FIELD">
+			<div ng-if="colTemp=='PENDING'" class="status">
+				<img class="pull-left" src="public/images/tickmark-accept.svg" alt="accept" ng-click="grid.appScope.statusUpdate(row, 1)">
+				{{ COL_FIELD }}
+				<img class="pull-right" alt="decline" src="public/images/closemark-decline.svg" ng-click="grid.appScope.statusUpdate(row, 0)">
+			</div>
+			<div ng-if="colTemp != 'PENDING'" class="status-default">
+				{{ COL_FIELD }}
+			</div>
+		</div>
+	</div>
+</script>
+
+<script type="text/ng-template" id="download-resume.html">
+	<div class="ui-grid-cell-contents ui-grid-download" title="{{ COL_FIELD }}">
+		<div class="download" ng-click="grid.appScope.downloadResume(row)"></div>
+		{{ COL_FIELD }}
+	</div>
+</script>

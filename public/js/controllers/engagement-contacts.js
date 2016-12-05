@@ -3,12 +3,12 @@
 
 angular.module('app.engagement.contacts', [])
 
-.filter('fileName', function() {
+/*.filter('fileName', function() {
    return function(x) {
        var file_name = x.split("/").pop();
        return file_name;
    };
-})
+})*/
 
 // ajax in factory method
 .factory('ajaxService', function($http,$q,jobDetails,CONFIG) {
@@ -156,37 +156,47 @@ angular.module('app.engagement.contacts', [])
 
     // process function
     var status_arr = ["accept","interviewed","offered","hired"];
-    var interviewed = ['accept'],offermade = ['accept','interviewed'],hired = ['accept','interviewed','offered'];
+    var accept = ["offered","hired"],interviewed = ['accept','hired'],offermade = ['accept','interviewed'],hired = ['accept','interviewed','offered'];
 
     // initial disable unwanted clicks action
     function awaitingStatusCall(obj){
         setTimeout(function(){
            for(var i = 0; i < obj.length; i++){
-                if(obj[i].awaiting_action_status == 'INTERVIEWED'){
-                    $('.interviewed').eq(i).css('pointerEvents','none');
-                    for(var j in interviewed){
-                        $('.'+interviewed[j]).eq(i).removeClass('bg-accepted');
-                        $('.'+interviewed[j]).eq(i).css('pointerEvents','none');
-                    }
-                }
-                if(obj[i].awaiting_action_status == 'OFFERMADE'){
-                    console.log(obj[i].awaiting_action_status)
-                    $('.offered').eq(i).css('pointerEvents','none');
-                    for(var j in offermade){
-                        $('.'+offermade[j]).eq(i).removeClass('bg-accepted');
-                        $('.'+offermade[j]).eq(i).css('pointerEvents','none');
-                    }
-                }
-                if(obj[i].awaiting_action_status == 'HIRED'){
-                    $('.hired').eq(i).css('pointerEvents','none');
-                    for(var j in hired){
-                        $('.'+hired[j]).eq(i).removeClass('bg-accepted');
-                        $('.'+hired[j]).eq(i).css('pointerEvents','none');
-                    }
-                }
+                pointerEvent(obj[i], i)
             } 
         },100)
             
+    }
+
+    function pointerEvent(obj, index){
+        if(obj.awaiting_action_status == 'ACCEPTED'){
+            $('.accept').eq(index).css('pointerEvents','none');
+            for(var j in accept){
+                $('.'+accept[j]).eq(index).removeClass('bg-accepted');
+                $('.'+accept[j]).eq(index).css('pointerEvents','none');
+            }
+        }
+        if(obj.awaiting_action_status == 'INTERVIEWED'){
+            $('.interviewed').eq(index).css('pointerEvents','none');
+            for(var j in interviewed){
+                $('.'+interviewed[j]).eq(index).removeClass('bg-accepted');
+                $('.'+interviewed[j]).eq(index).css('pointerEvents','none');
+            }
+        }
+        if(obj.awaiting_action_status == 'OFFERED'){
+            $('.offered').eq(index).css('pointerEvents','none');
+            for(var j in offermade){
+                $('.'+offermade[j]).eq(index).removeClass('bg-accepted');
+                $('.'+offermade[j]).eq(index).css('pointerEvents','none');
+            }
+        }
+        if(obj.awaiting_action_status == 'HIRED'){
+            $('.hired').eq(index).css('pointerEvents','none');
+            for(var j in hired){
+                $('.'+hired[j]).eq(index).removeClass('bg-accepted');
+                $('.'+hired[j]).eq(index).css('pointerEvents','none');
+            }
+        }
     }
 
     var canceller;
@@ -225,33 +235,23 @@ angular.module('app.engagement.contacts', [])
                     $('.status_details').eq(index).find('span').remove();
                     $('.status_details').eq(index).append('<span>Status changed to '+className+' by '+response.data.awaiting_action_by+' on '+response.data.awaiting_action_updated_at+'</span>');
                     $('.'+className).eq(index).addClass('bg-accepted');
-                    $('.'+className).eq(index).css('pointerEvents','none');
-                    for(var i in interviewed){
-                        $('.'+interviewed[i]).eq(index).removeClass('bg-accepted');
-                        $('.'+interviewed[i]).eq(index).css('pointerEvents','none');
-                    }
+                    $('.offered').eq(index).css('pointerEvents','auto');
+                    pointerEvent(response.data, index);
                 }
                 if(status == 'OFFERED'){
                     className = response.data.awaiting_action_status.toLowerCase();
                     $('.status_details').eq(index).find('span').remove();
                     $('.status_details').eq(index).append('<span>Status changed to '+className+' by '+response.data.awaiting_action_by+' on '+response.data.awaiting_action_updated_at+'</span>');
                     $('.'+className).eq(index).addClass('bg-accepted');
-                    $('.'+className).eq(index).css('pointerEvents','none');
-                    for(var i in offermade){
-                        $('.'+offermade[i]).eq(index).removeClass('bg-accepted');
-                        $('.'+offermade[i]).eq(index).css('pointerEvents','none');
-                    }
+                    $('.hired').eq(index).css('pointerEvents','auto');
+                    pointerEvent(response.data, index);
                 }
                 if(status == 'HIRED'){
                     className = response.data.awaiting_action_status.toLowerCase();
                     $('.status_details').eq(index).find('span').remove();
                     $('.status_details').eq(index).append('<span>Status changed to '+className+' by '+response.data.awaiting_action_by+' on '+response.data.awaiting_action_updated_at+'</span>');
                     $('.'+className).eq(index).addClass('bg-accepted');
-                    $('.'+className).eq(index).css('pointerEvents','none');
-                    for(var i in hired){
-                        $('.'+hired[i]).eq(index).removeClass('bg-accepted');
-                        $('.'+hired[i]).eq(index).css('pointerEvents','none');
-                    }
+                    pointerEvent(response.data, index);
                 } 
             }
             else if(response.status_code == 400){

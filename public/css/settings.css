@@ -1,3 +1,116 @@
+.qq-uploader .qq-upload-drop-area {
+  width: 100%;
+  height: 100%; }
+  .qq-uploader .qq-upload-drop-area .drag_img {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2); }
+    .qq-uploader .qq-upload-drop-area .drag_img .img-thumbnail {
+      width: 100%;
+      height: 100%; }
+    .qq-uploader .qq-upload-drop-area .drag_img .img-circle {
+      width: 100%;
+      height: 100%; }
+    .qq-uploader .qq-upload-drop-area .drag_img .icon-trash {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      padding: 3px;
+      border: 1px solid #ccc;
+      background: #fff;
+      border-radius: 4px;
+      display: none;
+      cursor: pointer; }
+    .qq-uploader .qq-upload-drop-area .drag_img .overlay {
+      display: none;
+      background: #000000;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      opacity: 0.1; }
+    .qq-uploader .qq-upload-drop-area .drag_img:hover .overlay, .qq-uploader .qq-upload-drop-area .drag_img:hover .icon-trash {
+      display: block; }
+    .qq-uploader .qq-upload-drop-area .drag_img .spinner {
+      margin-top: 40%; }
+      .qq-uploader .qq-upload-drop-area .drag_img .spinner.small {
+        width: 25px;
+        height: 25px; }
+.qq-uploader .qq-upload-button {
+  box-shadow: none;
+  width: 100%;
+  height: 100%;
+  text-shadow: none;
+  font-weight: normal; }
+.qq-uploader .qq-upload-list {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  z-index: -1; }
+  .qq-uploader .qq-upload-list li:not(.qq-upload-success) {
+    background: rgba(0, 0, 0, 0.5);
+    height: 100%; }
+    .qq-uploader .qq-upload-list li:not(.qq-upload-success) .progress-text {
+      text-align: center;
+      margin-bottom: 5px; }
+
+.edit-company .edit-box .company-logo .qq-uploader, .edit-company .edit-box .image-group .qq-uploader {
+  width: 125px;
+  height: 125px;
+  margin: 0;
+  padding: 0; }
+  .edit-company .edit-box .company-logo .qq-uploader .qq-upload-drop-area, .edit-company .edit-box .image-group .qq-uploader .qq-upload-drop-area {
+    background: transparent; }
+  .edit-company .edit-box .company-logo .qq-uploader .qq-upload-button, .edit-company .edit-box .image-group .qq-uploader .qq-upload-button {
+    background: url("../images/icon.png"); }
+    .edit-company .edit-box .company-logo .qq-uploader .qq-upload-button input[type='file'], .edit-company .edit-box .image-group .qq-uploader .qq-upload-button input[type='file'] {
+      width: 100%;
+      height: 100%; }
+.edit-company .edit-box .referral-bonus .qq-uploader {
+  width: 280px;
+  height: 60px;
+  padding: 0px;
+  margin: 0; }
+  .edit-company .edit-box .referral-bonus .qq-uploader .qq-upload-drop-area {
+    background: transparent; }
+    .edit-company .edit-box .referral-bonus .qq-uploader .qq-upload-drop-area .drag_img a {
+      display: inline-block; }
+      .edit-company .edit-box .referral-bonus .qq-uploader .qq-upload-drop-area .drag_img a.view {
+        line-height: 50px;
+        color: #333;
+        width: 78%; }
+        .edit-company .edit-box .referral-bonus .qq-uploader .qq-upload-drop-area .drag_img a.view img {
+          width: 25px;
+          height: 25px; }
+        .edit-company .edit-box .referral-bonus .qq-uploader .qq-upload-drop-area .drag_img a.view p {
+          padding: 0px 5px;
+          display: inline-block;
+          margin: 0;
+          max-width: 87%;
+          vertical-align: middle;
+          font-size: 16px;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden; }
+      .edit-company .edit-box .referral-bonus .qq-uploader .qq-upload-drop-area .drag_img a img {
+        width: 30px;
+        height: 30px; }
+    .edit-company .edit-box .referral-bonus .qq-uploader .qq-upload-drop-area .drag_img img {
+      cursor: pointer; }
+  .edit-company .edit-box .referral-bonus .qq-uploader .qq-upload-button {
+    background: #e6e6e6;
+    border: 1px solid #ccc;
+    color: #000;
+    line-height: 45px;
+    font-size: 18px; }
+    .edit-company .edit-box .referral-bonus .qq-uploader .qq-upload-button input[type='file'] {
+      width: 100%;
+      height: 100%; }
+
 md-dialog {
   max-width: 35%;
   max-height: 60%; }
@@ -119,6 +232,22 @@ body.set-password {
   /* fab icon from materialize.css */
   /* angular material styles */
   /* qq-uploader */
+  /*#display_pic{width: 120px;height: 120px;margin: 0 auto;position: relative;*/
+  	/*.qq-uploader{padding: 0;height: 100%;
+  		.qq-upload-drop-area{background: transparent;
+  			.drag_img{
+  				img{border: 4px solid #30b391;}
+  				.overlay{border-radius: 50%;}
+  			}
+  		}
+  		.qq-upload-button{background: transparent;text-shadow: none;padding: 0;width: 100%;
+  			img{width: 100%;height: 100%}			
+  		}
+  	}
+  	.qq-upload-fail{text-align: center;margin: 5px 0;color: #983a3a;position: absolute;left: 100%;top: 0;
+  		margin: 15px;width: 250px;
+  	}
+  }*/
   /* sub header */ }
   .settings div[uib-popover-popup] {
     top: -35px;
@@ -256,37 +385,10 @@ body.set-password {
   .settings .set-password .modal .modal-dialog .modal-content .modal-body md-select:not([disabled]):focus .md-select-value, .set-password .modal .modal-dialog .modal-content .modal-body .settings md-select:not([disabled]):focus .md-select-value, .settings md-select:not([disabled]):focus .md-select-value {
     border-color: #208d6e;
     border-bottom-width: 1px; }
-  .settings #display_pic {
-    width: 120px;
-    height: 120px;
-    margin: 0 auto;
-    position: relative; }
-    .settings #display_pic .qq-uploader {
-      padding: 0;
-      height: 100%; }
-      .settings #display_pic .qq-uploader .qq-upload-drop-area {
-        background: transparent; }
-        .settings #display_pic .qq-uploader .qq-upload-drop-area .drag_img img {
-          border: 4px solid #30b391; }
-        .settings #display_pic .qq-uploader .qq-upload-drop-area .drag_img .overlay {
-          border-radius: 50%; }
-      .settings #display_pic .qq-uploader .qq-upload-button {
-        background: transparent;
-        text-shadow: none;
-        padding: 0;
-        width: 100%; }
-        .settings #display_pic .qq-uploader .qq-upload-button img {
-          width: 100%;
-          height: 100%; }
-    .settings #display_pic .qq-upload-fail {
-      text-align: center;
-      margin: 5px 0;
-      color: #983a3a;
-      position: absolute;
-      left: 100%;
-      top: 0;
-      margin: 15px;
-      width: 250px; }
+  .settings .md-input[disabled], .settings md-select[disabled] .md-select-value, .settings md-select[disabled] .set-password .modal .modal-dialog .modal-content .modal-body md-select:not([disabled]):focus .md-select-value, .set-password .modal .modal-dialog .modal-content .modal-body md-select:not([disabled]):focus .settings md-select[disabled] .md-select-value, .settings md-select[disabled] md-select:not([disabled]):focus .md-select-value, .settings md-select:not([disabled]):focus md-select[disabled] .md-select-value {
+    border-bottom-color: rgba(0, 0, 0, 0.12);
+    background-image: none;
+    color: rgba(0, 0, 0, 0.87); }
   .settings .sub-header {
     background: #0e2d3f;
     height: 60px; }
@@ -431,7 +533,6 @@ body.set-password {
     .settings .my-profile .details {
       background: #fff;
       padding: 30px;
-      text-align: center;
       border: 1px solid #cdcdcd;
       border-top: 0;
       box-shadow: 1px 1px 5px #cdcdcd; }
@@ -439,49 +540,53 @@ body.set-password {
         min-height: 700px;
         padding-top: 50px;
         width: 40%;
-        margin: 0 auto; }
-        .settings .my-profile .details .content .checkbox {
-          color: #9a9a9a;
-          font-size: 13px;
-          margin: 0;
-          letter-spacing: 0.4px;
+        margin: 0 auto;
+        /*.checkbox{color: #9a9a9a;font-size: 13px;margin: 0;letter-spacing: 0.4px;position: relative;text-align: center;
+        	input[type='checkbox']{
+        		&:before{content: '';border: 1px solid #999999;border-radius: 3px;position: absolute;
+        		width: 18px;height: 18px;background: #fff;top: -4px;right: 0px;cursor: pointer;};
+        		&:checked:after{content: '\2713';position: absolute;top: -8px;right: -2px;
+        		font-size: 24px;cursor: pointer;}
+        	}
+        	input[type='checkbox']{opacity: 0;
+        		+label{position: relative;
+        			&:before{content: '';width: 20px;height: 20px;position: absolute;border: 1px solid #999;
+        				left: -8px;border-radius: 2px;}
+        		}
+        		&:checked{
+        			+label:after{content: '';width: 8px;height: 15px;position: absolute;border: 2px solid #999;
+        			transform: rotate(45deg);border-top: 0;border-left: 0;left: -2px;}
+        		};
+        	}
+        }*/ }
+        .settings .my-profile .details .content #display_pic {
+          width: 120px;
+          height: 120px;
+          margin: 0 auto;
           position: relative; }
-          .settings .my-profile .details .content .checkbox input[type='checkbox'] {
-            /*&:before{content: '';border: 1px solid #999999;border-radius: 3px;position: absolute;
-            width: 18px;height: 18px;background: #fff;top: -4px;right: 0px;cursor: pointer;};
-            &:checked:after{content: '\2713';position: absolute;top: -8px;right: -2px;
-            font-size: 24px;cursor: pointer;}*/ }
-          .settings .my-profile .details .content .checkbox input[type='checkbox'] {
-            opacity: 0; }
-            .settings .my-profile .details .content .checkbox input[type='checkbox'] + label {
-              position: relative; }
-              .settings .my-profile .details .content .checkbox input[type='checkbox'] + label:before {
-                content: '';
-                width: 20px;
-                height: 20px;
-                position: absolute;
-                border: 1px solid #999;
-                left: -8px;
-                border-radius: 2px; }
-            .settings .my-profile .details .content .checkbox input[type='checkbox']:checked + label:after {
-              content: '';
-              width: 8px;
-              height: 15px;
-              position: absolute;
-              border: 2px solid #999;
-              transform: rotate(45deg);
-              border-top: 0;
-              border-left: 0;
-              left: -2px; }
+          .settings .my-profile .details .content #display_pic .qq-uploader {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0; }
+            .settings .my-profile .details .content #display_pic .qq-uploader .qq-upload-drop-area .drag_img img.img-circle {
+              border: 4px solid #30b391; }
+            .settings .my-profile .details .content #display_pic .qq-uploader .qq-upload-button {
+              background: url("../images/avatar.png") no-repeat;
+              background-size: 100% 100%; }
+              .settings .my-profile .details .content #display_pic .qq-uploader .qq-upload-button input[type='file'] {
+                width: 100%;
+                height: 100%; }
         .settings .my-profile .details .content p.add-text {
           color: #676767;
           margin: 8px 0;
-          font-size: 16px; }
+          font-size: 16px;
+          text-align: center; }
         .settings .my-profile .details .content .first {
           width: 85%;
           margin: 0 auto;
           margin-top: 70px; }
-          .settings .my-profile .details .content .first p.change {
+          .settings .my-profile .details .content .first span.change {
             text-align: left;
             color: #1f8c6f;
             font-size: 18px;
@@ -523,8 +628,6 @@ body.set-password {
         .settings .my-profile .details .footer .message {
           color: #1c8f6e;
           text-transform: capitalize; }
-    .settings .my-profile .qq-uploader .drag_img img {
-      border-color: #00a5fe !important; }
   .settings .user-group {
     min-height: calc(100vh - 160px);
     font-size: 16px; }
@@ -618,7 +721,9 @@ body.set-password {
                     padding-left: 10px;
                     float: left; }
                 .settings .user-group .side-list .list ul li + ul li.highlight {
-                  border-left: 5px solid #14acff; }
+                  /*background: #88c5b4;*/
+                  border-left: 5px solid #14acff;
+                  /*div span.name{color: #fff}*/ }
     .settings .user-group .box {
       border: 1px solid #cdcdcd;
       box-shadow: 1px 1px 10px #cdcdcd;
@@ -626,6 +731,8 @@ body.set-password {
       background: #fff;
       margin: 40px 0;
       min-height: 800px; }
+      .settings .user-group .box .pointer {
+        pointer-events: none !important; }
       .settings .user-group .box .templates .group .group-cond {
         padding: 32px;
         min-height: 715px; }
@@ -636,24 +743,40 @@ body.set-password {
           width: 47%; }
           .settings .user-group .box .templates .group .group-cond .form-data .user-inputs {
             padding: 50px 0 30px 0; }
-          .settings .user-group .box .templates .group .group-cond .form-data .user-permissions .btn-primary {
-            background: #2aa382; }
-          .settings .user-group .box .templates .group .group-cond .form-data .user-permissions p.title {
-            color: #9a9e9f; }
-          .settings .user-group .box .templates .group .group-cond .form-data .user-permissions .new-styles {
-            margin-bottom: 25px; }
-            .settings .user-group .box .templates .group .group-cond .form-data .user-permissions .new-styles:first-child {
-              margin: 25px 0; }
-            .settings .user-group .box .templates .group .group-cond .form-data .user-permissions .new-styles .pull-left {
-              color: #6f6f6f; }
-            .settings .user-group .box .templates .group .group-cond .form-data .user-permissions .new-styles .pull-right .btn-group button {
-              width: 75px;
-              height: 40px; }
-          .settings .user-group .box .templates .group .group-cond .form-data .user-permissions .slide {
-            min-height: 100px;
-            border: 1px solid #ccc;
-            margin-left: 15px;
-            padding: 0 22px; }
+          .settings .user-group .box .templates .group .group-cond .form-data .user-permissions {
+            /*.form-group{padding: 18px 0;margin: 0;
+            	select{width: 150px;height: 40px;}
+            	label{font-weight: normal;color: #6f6f6f;}
+            	.radio-switch{
+            		span{width: 75px;height: 40px;margin: 0;line-height: 40px;text-align: center;
+            			display: inline-block;border: 1px solid #ccc;}
+            		label{
+            			input[type='radio']{display: none;
+            				&:checked + span{background: #2aa382;color: #fff;border-color: #2aa382}
+            			}
+            			&:first-child span{border-radius: 5px 0 0 5px;margin-right: -1px}
+            			&:last-child span{border-radius: 0 5px 5px 0;}
+            		}
+            	}
+            }*/ }
+            .settings .user-group .box .templates .group .group-cond .form-data .user-permissions .btn-primary {
+              background: #2aa382; }
+            .settings .user-group .box .templates .group .group-cond .form-data .user-permissions p.title {
+              color: #9a9e9f; }
+            .settings .user-group .box .templates .group .group-cond .form-data .user-permissions .new-styles {
+              margin-bottom: 25px; }
+              .settings .user-group .box .templates .group .group-cond .form-data .user-permissions .new-styles:first-child {
+                margin: 25px 0; }
+              .settings .user-group .box .templates .group .group-cond .form-data .user-permissions .new-styles .pull-left {
+                color: #6f6f6f; }
+              .settings .user-group .box .templates .group .group-cond .form-data .user-permissions .new-styles .pull-right .btn-group button {
+                width: 75px;
+                height: 40px; }
+            .settings .user-group .box .templates .group .group-cond .form-data .user-permissions .slide {
+              min-height: 100px;
+              border: 1px solid #ccc;
+              margin-left: 15px;
+              padding: 0 22px; }
       .settings .user-group .box .templates .group .footer {
         padding: 15px 20px;
         border-top: 1px solid #d8d8d8; }
@@ -713,12 +836,41 @@ body.set-password {
           width: 46%;
           float: left; }
         .settings .user-group .box .templates .person .content div.display-pic {
+          /*margin-bottom: 112px;*/
           min-height: 180px; }
           .settings .user-group .box .templates .person .content div.display-pic #display_pic {
-            width: 100px;
-            height: 100px; }
-            .settings .user-group .box .templates .person .content div.display-pic #display_pic .qq-uploader p.add-text {
-              font-size: 13px; }
+            width: 120px;
+            height: 120px;
+            margin: 0 auto;
+            position: relative; }
+            .settings .user-group .box .templates .person .content div.display-pic #display_pic .qq-uploader {
+              width: 100%;
+              height: 100%;
+              margin: 0;
+              padding: 0; }
+              .settings .user-group .box .templates .person .content div.display-pic #display_pic .qq-uploader .qq-upload-drop-area .drag_img img.img-circle {
+                border: 4px solid #30b391; }
+              .settings .user-group .box .templates .person .content div.display-pic #display_pic .qq-uploader .qq-upload-button {
+                background: url("../images/avatar.png") no-repeat;
+                background-size: 100% 100%; }
+                .settings .user-group .box .templates .person .content div.display-pic #display_pic .qq-uploader .qq-upload-button input[type='file'] {
+                  width: 100%;
+                  height: 100%; }
+        .settings .user-group .box .templates .person .content .resend-activation {
+          width: 140px;
+          height: 40px;
+          font-size: 12px;
+          font-weight: 600;
+          line-height: 40px;
+          background: #1c8f6e;
+          border: 1px solid #1c8368;
+          color: #fff;
+          cursor: pointer;
+          outline: none;
+          border-radius: 5px;
+          display: inline-block;
+          text-align: center;
+          text-transform: uppercase; }
         .settings .user-group .box .templates .person .content p.add-text {
           color: #676767;
           margin: 8px auto;
@@ -772,5 +924,18 @@ body.set-password {
         .settings .user-group .box .templates .person .footer .message {
           color: #1c8f6e;
           text-transform: capitalize; }
+      .settings .user-group .box .templates .person .modal#resend_activation .modal-header {
+        text-align: center; }
+      .settings .user-group .box .templates .person .modal#resend_activation .modal-body {
+        height: 100px; }
+      .settings .user-group .box .templates .person .modal#resend_activation .modal-footer {
+        padding: 10px 15px; }
+        .settings .user-group .box .templates .person .modal#resend_activation .modal-footer .btn {
+          width: 80px;
+          height: 40px;
+          background: #1c8f6e;
+          border-color: #1c8f6e;
+          outline: none;
+          color: #fff; }
 
 /*# sourceMappingURL=settings.css.map */

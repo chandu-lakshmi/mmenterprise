@@ -111,6 +111,9 @@ md-input-container .md-errors-spacer + div{
     position: absolute;
     bottom: 0;
 }
+md-input-container.md-input-focused:not(.md-input-has-value) md-select .md-select-value{
+    color: #666 !important;
+}
 md-input-container label{
     color: #666;
     font-weight: normal;
@@ -138,6 +141,8 @@ md-select .md-select-value.md-select-placeholder{
 md-select:not([disabled]):focus .md-select-value{
     border-bottom-color: rgba(0,0,0,0.12);
     border-color: #01B893;
+    padding-bottom: 1px;
+    border-bottom-width: 1px;
 }
 md-select-menu{
     max-height: 260px;
@@ -981,7 +986,7 @@ ul > li{
 
 
 /* qq-uploader */
-.qq-uploader .qq-upload-list {
+/*.qq-uploader .qq-upload-list {
     position: absolute;
     top: 40%;
     right: 0;
@@ -1033,7 +1038,7 @@ ul > li{
 }
 .qq-upload-button{
     box-shadow: none;
-}
+}*/
 .company-profile #referral-bonus .qq-uploader{
     width: 215px;
     height: 60px;

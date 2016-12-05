@@ -12,7 +12,7 @@
             </div>
         </div>
     </div>
-    <div ng-switch-default class="clearfix">
+    <div ng-switch-default class="clearfix" ng-if="permissions.label != 'Settings'">
         <div class="new-styles clearfix">
             <!-- <label class="control-label">{{permissions.label}}</label> -->
             <div class="pull-left">{{permissions.label}}</div>
@@ -23,7 +23,7 @@
                 </label> -->
                 <input type="hidden" name="permission[{{permissions.id}}]" value="{{UserGroupCtrl.permissions[permissions.id]}}">
                 <div class="btn-group">
-                    <button type="button" class="btn" ng-repeat="switch in UserGroupCtrl.permission_switches[permissions.length || 2]" ng-class="(UserGroupCtrl.permissions[permissions.id] == switch.id ? 'btn-primary' : 'btn-default')" ng-click="UserGroupCtrl.changePermission(permissions, switch)"><span>{{switch.label}}</span></button>
+                    <button type="button" ng-disabled='UserGroupCtrl.readable' class="btn" ng-repeat="switch in UserGroupCtrl.permission_switches[permissions.length || 2]" ng-class="(UserGroupCtrl.permissions[permissions.id] == switch.id ? 'btn-primary' : 'btn-default')" ng-click="UserGroupCtrl.changePermission(permissions, switch)"><span>{{switch.label}}</span></button>
                 </div>
             </div>
         </div>

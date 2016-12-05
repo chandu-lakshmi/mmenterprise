@@ -1,0 +1,165 @@
+.drop-box .container section {
+  width: 620px;
+  min-height: 470px;
+  margin: 0 auto;
+  overflow: hidden;
+  padding-bottom: 120px; }
+  .drop-box .container section .logo {
+    width: 304px;
+    text-align: center;
+    margin: 0 auto;
+    padding: 34px 0;
+    border-bottom: 1px solid #e8e8e8; }
+    .drop-box .container section .logo img {
+      width: 62px;
+      height: 62px; }
+  .drop-box .container section .row {
+    border-bottom: 1px solid #e8e8e8; }
+    .drop-box .container section .row .title {
+      padding: 24px 14px;
+      clear: both;
+      margin: 0; }
+    .drop-box .container section .row .title.candidate {
+      border-top: 1px solid #e8e8e8;
+      clear: both; }
+    .drop-box .container section .row .form-style .form-group, .drop-box .container section .row .form-style .file {
+      margin-bottom: 35px; }
+      .drop-box .container section .row .form-style .form-group label, .drop-box .container section .row .form-style .file label {
+        color: #5b5b5b;
+        font-weight: initial;
+        margin-bottom: 7px; }
+        .drop-box .container section .row .form-style .form-group label sup, .drop-box .container section .row .form-style .file label sup {
+          top: 1px;
+          font-size: 18px;
+          left: 3px; }
+      .drop-box .container section .row .form-style .form-group input, .drop-box .container section .row .form-style .form-group select, .drop-box .container section .row .form-style .file input, .drop-box .container section .row .form-style .file select {
+        border-radius: 0;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        font-size: 16px;
+        border-color: #b9b9b9; }
+      .drop-box .container section .row .form-style .form-group select::-ms-expand, .drop-box .container section .row .form-style .file select::-ms-expand {
+        display: none; }
+      .drop-box .container section .row .form-style .form-group select, .drop-box .container section .row .form-style .file select {
+        -webkit-appearance: none;
+        appearance: none;
+        line-height: 26px; }
+      .drop-box .container section .row .form-style .form-group i, .drop-box .container section .row .form-style .file i {
+        position: absolute;
+        right: 16px;
+        font-size: 40px;
+        padding: 3px 12px;
+        display: block;
+        pointer-events: none; }
+      .drop-box .container section .row .form-style .form-group .intl-tel-input, .drop-box .container section .row .form-style .file .intl-tel-input {
+        width: 100%; }
+        .drop-box .container section .row .form-style .form-group .intl-tel-input .selected-flag, .drop-box .container section .row .form-style .file .intl-tel-input .selected-flag {
+          outline: none;
+          border-right: 1px solid #b9b9b9;
+          background: #f3f3f3; }
+          .drop-box .container section .row .form-style .form-group .intl-tel-input .selected-flag .iti-arrow, .drop-box .container section .row .form-style .file .intl-tel-input .selected-flag .iti-arrow {
+            right: 3px;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 6px solid #888888; }
+        .drop-box .container section .row .form-style .form-group .intl-tel-input .country-list, .drop-box .container section .row .form-style .file .intl-tel-input .country-list {
+          overflow-x: hidden;
+          max-width: 295px;
+          max-height: 195px; }
+    .drop-box .container section .row .form-style .form-group.gap {
+      margin-bottom: 35px; }
+    .drop-box .container section .row .form-style .file {
+      position: relative; }
+      .drop-box .container section .row .form-style .file label + span {
+        position: absolute;
+        top: 40px;
+        left: 18px;
+        max-width: 140px;
+        text-overflow: ellipsis;
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden; }
+      .drop-box .container section .row .form-style .file .cv-upload .qq-uploader {
+        padding-top: 0; }
+        .drop-box .container section .row .form-style .file .cv-upload .qq-uploader .qq-upload-button {
+          color: #248261;
+          position: absolute !important;
+          top: -23px;
+          right: 1px;
+          box-shadow: none;
+          border-left: 1px solid #b9b9b9;
+          border-radius: 0;
+          text-shadow: none;
+          width: 121px;
+          padding: 12px 10px;
+          background-color: #F9F9F9;
+          background-image: -webkit-linear-gradient(#F9F9F9, #cfcfcf);
+          background-image: -o-linear-gradient(#F9F9F9, #cfcfcf);
+          background-image: linear-gradient(#F9F9F9, #cfcfcf);
+          filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#F9F9F9, endColorstr=#cfcfcf); }
+        .drop-box .container section .row .form-style .file .cv-upload .qq-uploader .qq-upload-list {
+          position: absolute;
+          width: 100%;
+          top: 27px; }
+          .drop-box .container section .row .form-style .file .cv-upload .qq-uploader .qq-upload-list li {
+            padding: 3px; }
+            .drop-box .container section .row .form-style .file .cv-upload .qq-uploader .qq-upload-list li .qq-upload-file {
+              text-overflow: ellipsis;
+              overflow: hidden;
+              max-width: 130px;
+              display: inline-block;
+              white-space: nowrap; }
+      .drop-box .container section .row .form-style .file input {
+        opacity: 0; }
+      .drop-box .container section .row .form-style .file label {
+        position: relative; }
+        .drop-box .container section .row .form-style .file label:after {
+          content: '';
+          position: absolute;
+          border: 1px solid #b9b9b9;
+          height: 45px;
+          width: 295px;
+          left: 0;
+          top: 28px; }
+      .drop-box .container section .row .form-style .file .file-name {
+        position: absolute;
+        top: 40px;
+        left: 18px;
+        max-width: 140px; }
+  .drop-box .container section .action {
+    padding-top: 22px;
+    font-size: 18px; }
+    .drop-box .container section .action .cancel {
+      color: #878787;
+      line-height: 50px; }
+      .drop-box .container section .action .cancel a {
+        text-decoration: none;
+        color: inherit; }
+    .drop-box .container section .action .submit {
+      color: #fff;
+      background: #248261;
+      float: right;
+      padding: 12px 32px;
+      color: #fff; }
+.drop-box *[ng-click] {
+  cursor: pointer;
+  outline: none; }
+
+.error-spacer {
+  float: right;
+  min-height: 24px;
+  min-width: 1px; }
+
+.has-error-msg {
+  color: red;
+  float: left;
+  min-height: 24px;
+  min-width: 1px;
+  white-space: nowrap;
+  position: absolute;
+  top: 74px;
+  left: 16px;
+  background: #fff;
+  z-index: -1; }
+
+/*# sourceMappingURL=email-parser.css.map */

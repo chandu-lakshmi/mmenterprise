@@ -1,49 +1,16 @@
-<div class="preloader" ng-if="ipContactListCtrl.loadingTabs"></div>
-<div  style="background:#F2F2F2">
+<div  class="grid-contacts import-contacts">
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12">
 
-				<!-- logo -->
 				<div class="im-c-head">
-					<h3 class="mrZpdZ pull-left" style="color:#808080"><img src="public/images/back-arrow-black.svg" alt="arrowback" ng-click="ipContactListCtrl.backtoUploadCon()"> Import Contacts</h3>
+					<h3 class="mrZpdZ pull-left" style="color:#808080"><a ui-sref="importContacts"><img src="public/images/back-arrow-black.svg" alt="arrowback"> Import Contacts</a></h3>
 					<a href=""><img src="public/images/company_logo.svg" alt="logo" class="import_logo"></a>
 				</div>
 
-				<!--import contacts-->
-				<div class="import_c_box">
-						<div style="min-height:38px;overflow-x: auto;overflow-y: hidden;margin-bottom:-1px">
-           	 				<div style="white-space:nowrap" id="disablePointer">
-                				<span class="tab-active"><a ng-click="ipContactListCtrl.getActive('all');ipContactListCtrl.getInfo(0, 'all')" ng-class="{active:(ipContactListCtrl.currentTab=='all')}">ALL</a></span><span class="tab-active" ng-repeat="bucket in ipContactListCtrl.bucket_names";><a ng-click="ipContactListCtrl.getActive(bucket.bucket_name);ipContactListCtrl.getInfo(bucket.bucket_id, bucket.bucket_name)" ng-class="{active:(ipContactListCtrl.currentTab==bucket.bucket_name)}">{{bucket.bucket_name}}</a></span>
-            				</div>
-        				</div>
-					<!-- </ul> -->
-
-					<!--angular grid-->
-					<div class="col-sm-12 grid-ic" style="padding:0;border-top:1px solid #ccc;">
-						<div ui-grid="gridOptions" ui-grid-infinite-scroll ui-grid-selection class="grid import-con-grid"></div>
-						<div class="grid-msg-overlay" ng-if="ipContactListCtrl.loading">
-				          <div class="msg">
-				            <span>
-				              <img src="public/images/loader/spin.gif" alt="loader">
-				            </span>
-				          </div>
-				        </div>	
-				        <div class="grid-msg-overlay" ng-if="ipContactListCtrl.gridNoData">
-				          <div class="msg">
-				            <span>No Contacts Found</span>
-				          </div>
-				        </div>
-					</div>
-
-					<!--footer-->
-					<div class="col-sm-12 im_c_foot">
-					
-						<a ng-click="ipContactListCtrl.jumpPage()"><button class="btn btn-lg pull-right">SKIP<img src="public/images/arrow-buttons_black.svg" alt="arrow"></button></a>
-
-						<button class="btn btn-lg pull-right" ng-click="ipContactListCtrl.importSelect()">INVITE SELECTED<img src="public/images/arrow-buttons.svg" alt="arrow"></button>
-					</div>
+				<div ng-include="'templates/contacts.phtml'">
 				</div>
+				
 			</div>
 		</div>
 	</div>

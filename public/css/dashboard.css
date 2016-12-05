@@ -437,8 +437,13 @@ header .notifications .user span:not(:last-child){
 }
 .hires .content{
 	display: inline-block;
+	vertical-align: middle;
 	padding-left: 15px;
-	padding-top: 5px;
+}
+.hires .content i.ellipsis{
+	color:#000 !important;
+	display:inline-block;
+	width:140px;
 }
 .hires li > div.pull-right{
 	width: 35%;
@@ -555,7 +560,7 @@ select:-moz-focusring {
     height: 30px;
     left: 32px;
     top: 33px;
-    z-index: 9999;
+    z-index: 10;
     border: 2px solid white;
 }
 .fa-clock-o{
@@ -714,7 +719,7 @@ footer a:hover{
   margin:5px
 }
 .hires .vr{
-	margin-left: 50px;
+	margin-left: 10px;
 }
 
 
@@ -1615,7 +1620,7 @@ ul.new-tabs > li.active > a{
 
 
 /*qq uploader styles*/
-.border-dynamic{
+/*.border-dynamic{
 	border: 1px solid #ccc;
 	border-radius: 5px;
 }
@@ -1671,23 +1676,23 @@ ul.new-tabs > li.active > a{
 	width: 100%;
 	height: 100%;
 }
-/*.qq-upload-drop-area .drag_img img[alt='download']{
+.qq-upload-drop-area .drag_img img[alt='download']{
 	width: 25px;
 	height: 25px;
-}*/
+}
 .qq-upload-button:active{
 	top: 0;
 }
 .qq-upload-button{
 	box-shadow: none;
-}
+}*/
 .edit-company .edit-box #company-logo,.edit-company .edit-box #referral-bonus{
 	margin: 20px 0;
 }
 .edit-company .edit-box .image-group div.multiple-images{
 	margin: 20px 0 10px 0;
 }
-.edit-company .edit-box .image-group .qq-upload-fail{
+/*.edit-company .edit-box .image-group .qq-upload-fail{
     position: absolute;
     font-size: 13px;
     color: #983a3a;
@@ -1764,5 +1769,5 @@ ul.new-tabs > li.active > a{
 .edit-company .edit-box .referral-bonus .qq-upload-fail{
 	font-size: 13px;
     color: #983a3a;
-}
+}*/
 

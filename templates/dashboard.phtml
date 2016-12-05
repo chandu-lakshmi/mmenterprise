@@ -126,7 +126,7 @@
 											<strong ng-bind="refList.job_title"></strong>
 										</span>
 										<br>
-										<span>by {{refList.referred_by}}</span>
+										<span style="width: 208px;display: inline-block;vertical-align: middle;" class="ellipsis">by {{refList.referred_by}}</span>
 										<span>
 											<span class="vr"></span>
 											<span ng-bind="refList.created_at"></span> 
@@ -185,7 +185,7 @@
 											</span>
 											<br>
 											<span>
-												<i style="color:#000">{{hireList.referred_by}}</i>
+												<i class="ellipsis">{{hireList.referred_by}}</i>
 											</span>
 											<span class="vr"></span>
 											<span ng-bind="hireList.created_at"></span> 
@@ -220,7 +220,7 @@
 							</div>
 							<div class="pull-left" style="padding:7px 10px;width:82%">
 								<div class="top">
-									<span class="name" ng-bind="topreferrals.name"></span><br>
+									<span class="name ellipsis" ng-bind="topreferrals.name"></span><br>
 									<span ng-bind="topreferrals.designation" style="font-size:14px;" title="{{topreferrals.designation}}" class="elipsis"></span>
 								</div>
 								<div class="bottom">

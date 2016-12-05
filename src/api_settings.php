@@ -178,6 +178,14 @@ return [
             'view_campaign' =>[
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/view_campaign'
+            ],
+            'resend_activation_link' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/resend_activation_link'
+            ],
+            'get_company_all_referrals' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_company_all_referrals'
             ]
     ];
         

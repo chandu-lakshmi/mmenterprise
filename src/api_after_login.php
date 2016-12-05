@@ -565,6 +565,24 @@ $app->get('/candidates/resume-room',function ($request, $response, $args) use ($
     return $this->renderer->render($response, 'index.phtml', $args);
 });
 
+$app->post('/get_company_all_referrals',function ($request, $response, $args) use ($app) {
+   
+    // dynamically Access Token 
+   $this->mintmeshAccessToken;
+    
+    // getting API endpoint from settings
+   $apiEndpoint = getapiEndpoint($this->settings, 'get_company_all_referrals');
+   
+    $candidatesList    = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+
+    return checkJsonResult( $candidatesList->loadCurl() );
+    
+});
+
+
 // upload contacts new
 $app->post('/upload_contacts',function ($request, $response, $args) use ($app) {
    
@@ -857,7 +875,7 @@ $app->post('/campaigns_list',function ($request, $response, $args) use ($app) {
     $args  = commonData($this->settings);
     // getting API endpoint from settings
     $apiEndpoint = getapiEndpoint($this->settings, 'campaigns_list');
-   
+    $_POST['time_zone'] = $_SESSION['time_zone'];
     $companyDetails     = new Curl(array(
         'url'           => $apiEndpoint,
         'postData'      => $_POST
@@ -874,7 +892,7 @@ $app->post('/add_campaign',function ($request, $response, $args) use ($app) {
     $args  = commonData($this->settings);
 
     $apiEndpoint = getapiEndpoint($this->settings, 'add_campaign');
-   
+    $_POST['time_zone'] = $_SESSION['time_zone'];
     $companyDetails     = new Curl(array(
         'url'           => $apiEndpoint,
         'postData'      => $_POST
@@ -892,7 +910,7 @@ $app->post('/view_campaign',function ($request, $response, $args) use ($app) {
     $args  = commonData($this->settings);
     
     $apiEndpoint = getapiEndpoint($this->settings, 'view_campaign');
-   
+   $_POST['time_zone'] = $_SESSION['time_zone'];
     $companyDetails     = new Curl(array(
         'url'           => $apiEndpoint,
         'postData'      => $_POST
@@ -917,6 +935,22 @@ $app->get('/mintbot', function ($request, $response, $args) {
     // Render index view
     return $this->renderer->render($response, 'index.phtml', $args);
         
+});
+
+$app->post('/resend_activation_link',function ($request, $response, $args) use ($app) {
+    
+    // dynamically Access Token
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    $args  = commonData($this->settings);
+    
+    $apiEndpoint = getapiEndpoint($this->settings, 'resend_activation_link');
+    $companyDetails     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    
+     return checkJsonResult( $companyDetails->loadCurl() );
 });
 //Company Details
 $app->POST('/file_upload',function ($request, $response, $args) {

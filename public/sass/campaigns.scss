@@ -216,6 +216,8 @@ md-dialog{
 				}
 				.modern-select{margin: 16px 0;
 					.chosen-container{width: 100% !important;
+						input{width: auto !important;}
+						&.chosen-container-active{input{width: 80px !important;}}
 						ul.chosen-choices{margin: 0;padding-left: 5px;
 							li{height: 30px;line-height: 24px;margin: 6px 0;}
 							li.search-choice{background: #f4f6f5;border-color: #e1e3e2;margin-right: 5px;
@@ -254,7 +256,7 @@ md-dialog{
 				}
 			}
 			.box-content{
-				.grid{height: calc(100vh - 240px) !important;overflow: hidden;min-height: 411px;
+				.grid{height: calc(100vh - 275px) !important;overflow: hidden;min-height: 411px;
 					.grid-msg-overlay{top: 45px;}
 					.ui-grid-header{height: 45px;line-height: 33px;border-top: 1px solid #c8d1d0;border-bottom: 1px solid #c8d1d0;
 						.ui-grid-top-panel{background: #f3f7f8;
@@ -345,7 +347,7 @@ md-dialog{
 					a{font-weight: bold;font-size: 13px;margin-left: 5px;letter-spacing: 0.6px;
 						&:hover, &:focus, &:active{color: #38a48a;text-decoration: none;};
 					}
-					md-checkbox.md-checked .md-icon:after{left: 7.67px;top: 3.22px;}
+					md-checkbox.md-checked .md-icon:after{left: 6.67px;top: 2.22px;}
 				}
 				.tag-jobs{margin-bottom: 30px;font-size: 14px;font-weight: bold;
 					.drop{width: 45%;float: left;margin-right: 68px;

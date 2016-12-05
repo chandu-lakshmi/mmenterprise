@@ -3,7 +3,9 @@
 
 angular.module('app', ['ripple',
     'ui.router', 'ui.bootstrap',
-    'app.constants', 'app.home', 'app.forgotPassword', 'app.company.profile', 'app.import.contacts', 'app.emails', 'app.dashboard',
+    'app.constants',
+    'app.components', 'app.helpers',
+    'app.home', 'app.forgotPassword', 'app.company.profile', 'app.import.contacts', 'app.emails', 'app.dashboard',
     'app.engagement.contacts', 'app.post.job', 'app.job.search', 'app.job.details', 'app.rewards', 'app.edit.company', 'app.contact',
     'app.candidates', 'app.campaigns', 'app.settings'
 ])
@@ -55,8 +57,11 @@ angular.module('app', ['ripple',
     $stateProvider.state('importContactsList',{
         url:'/import-contacts',
         templateUrl: App.base_url + 'templates/import-contacts-list.phtml',
-        controller:'ImportContactsListController',
-        controllerAs:'ipContactListCtrl'
+        params: {
+            rowEdit: 0
+        },
+        controller:'ContactsController',
+        controllerAs:'ContactCtrl'
     })
     $stateProvider.state('emailVerify', {
         url: '/email-verify',
@@ -118,6 +123,9 @@ angular.module('app', ['ripple',
     $stateProvider.state('app.contact',{
         url: '^/contacts',
         templateUrl: App.base_url + 'templates/contacts.phtml',
+         params: {
+            rowEdit: 1
+        },
         controller: 'ContactsController',
         controllerAs: 'ContactCtrl'
     })
@@ -129,7 +137,7 @@ angular.module('app', ['ripple',
 	})
     $stateProvider.state('app.candidates.resumeRoom',{
         url: '^/candidates/resume-room',
-        templateUrl: App.base_url + 'templates/candidates/candidates-resume-room.phtml',
+        templateUrl: App.base_url + 'templates/candidates/resume-room.phtml',
         controller: 'ResumeRoomController',
         controllerAs: 'ResumeRoomCtrl'
     })
@@ -166,32 +174,32 @@ angular.module('app', ['ripple',
         controllerAs: 'EditCampaignsCtrl'
     })
 
-    if(userPermissions.settings == '1'){
+    // if(userPermissions.settings == '1'){
         $stateProvider.state('app.settings',{
             url: '^/settings',
-            templateUrl: App.base_url + 'templates/settings.phtml',
+            templateUrl: App.base_url + 'templates/settings/settings.phtml',
             controller: 'SettingsController',
             controllerAs: 'SettingsCtrl'
         })
         $stateProvider.state('app.settings.companyProfile',{
             url: '^/settings/company-profile',
-            templateUrl: App.base_url + 'templates/settings-company-profile.phtml',
+            templateUrl: App.base_url + 'templates/settings/company-profile.phtml',
             controller: 'SettingsCompanyProfileController',
             controllerAs: 'CompanyProfileCtrl'
         })
         $stateProvider.state('app.settings.myProfile',{
             url: '^/settings/my-profile',
-            templateUrl: App.base_url + 'templates/settings-my-profile.phtml',
+            templateUrl: App.base_url + 'templates/settings/my-profile.phtml',
             controller: 'MyProfileController',
             controllerAs: 'MyProfileCtrl'
         })
         $stateProvider.state('app.settings.userGroups',{
             url: '^/settings/user-group',
-            templateUrl: App.base_url + 'templates/settings-user-group.phtml',
+            templateUrl: App.base_url + 'templates/settings/user-group.phtml',
             controller: 'UserGroupController',
             controllerAs: 'UserGroupCtrl'
         })
-    }
+    // }
     $stateProvider.state('app.editCompanyProfile',{
         url: '^/edit-company-profile',
         templateUrl: App.base_url + 'templates/edit-company-profile.phtml',

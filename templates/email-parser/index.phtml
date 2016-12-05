@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="emailParser">
+	<head>
+		<title ng-bind="$state.current.data.pageTitle">Mintmesh</title>
+		<base href="<?php echo $data['EMAIL_PARSER_DOMAIN']; ?>" target="_blank, _self, _parent, _top">
+		<link rel="shortcut icon" href="../public/images/favicon.png"/>
+		<link rel="stylesheet" type="text/css" href="../public/css/font-awesome.min.css?v=<?php echo $data['APP_VERSION']; ?>">
+		<link rel="stylesheet" type="text/css" href="../public/css/bootstrap.css?v=<?php echo $data['APP_VERSION']; ?>">
+		<link rel="stylesheet" type="text/css" href="../public/css/intlTelInput.css?v=<?php echo $data['APP_VERSION']; ?>">
+		<link rel="stylesheet" type="text/css" href="../public/css/fileuploader.css?v=<?php echo $data['APP_VERSION']; ?>">
+		<link rel="stylesheet" type="text/css" href="../public/css/email-parser.css?v=<?php echo $data['APP_VERSION']; ?>">
+		<link rel="stylesheet" type="text/css" href="../public/css/email-parser-jobs.css?v=<?php echo $data['APP_VERSION']; ?>">
+		
+
+		<script type="text/javascript" src="../public/js/vendor/jquery.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
+		<script type="text/javascript" src="../public/js/vendor/angular.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
+		<script type="text/javascript" src="../public/js/vendor/angular-ui-router.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
+		<script type="text/javascript" src="../public/js/vendor/intlTelInput.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
+		<script type="text/javascript" src="../public/js/vendor/fileuploader.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
+	</head>
+	<body>
+
+		<script type="text/javascript">
+
+			(function () {
+                "use strict";
+                
+                angular.module('app.constants', [])
+                .constant('App', {
+                    base_url   : '<?php echo $data['APP_DOMAIN']; ?>',
+                    API_DOMAIN : '<?php echo $data['API_DOMAIN']; ?>'
+                })
+            }());
+            
+	    </script>
+
+		<div ui-view></div>
+
+
+		<script type="text/javascript" src="../public/js/controllers/email-parser/app.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
+		<script type="text/javascript" src="../public/js/controllers/email-parser/all-jobs.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
+		<script type="text/javascript" src="../public/js/controllers/email-parser/candidate-details.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
+		<script type="text/javascript" src="../public/js/controllers/email-parser/referral-details.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
+	</body>
+</html>

@@ -1,0 +1,55 @@
+.qq-uploader{
+	.qq-upload-drop-area{width: 100%;height: 100%;
+		.drag_img{width: 100%;height: 100%;background: rgba(0, 0, 0, 0.2);
+			.img-thumbnail{width: 100%;height: 100%;}
+			.img-circle{width: 100%;height: 100%;}
+			.icon-trash{position: absolute;top: 5px;right: 10px;padding: 3px;border: 1px solid #ccc;
+				background: #fff;border-radius: 4px;display: none;cursor: pointer;}
+			.overlay{display: none;background: #000000;position: absolute;left: 0;right: 0;top: 0;bottom: 0; opacity: 0.1;}
+			&:hover .overlay, &:hover .icon-trash{display: block};
+			.spinner{margin-top: 40%;
+				&.small{width: 25px;height: 25px;}
+			}
+		}
+	}
+	.qq-upload-button{box-shadow: none;width: 100%;height: 100%;text-shadow: none;font-weight: normal;}
+	.qq-upload-list{position: absolute;top: 0;right: 0;width: 100%;height: 100%;margin: 0;z-index: -1;
+		li:not(.qq-upload-success){background: rgba(0, 0, 0, 0.5);height: 100%;
+			.progress-text{text-align: center;margin-bottom: 5px;}
+		}
+	}
+}
+
+.edit-company{
+	.edit-box{
+		.company-logo{
+			.qq-uploader{width: 125px;height: 125px;margin: 0;padding: 0;
+				.qq-upload-drop-area{background: transparent;}
+				.qq-upload-button{background: url('../images/icon.png');
+					input[type='file']{width: 100%;height: 100%}
+				}
+			}
+		}
+		.image-group{@extend .company-logo}
+		.referral-bonus{
+			.qq-uploader{width: 280px;height: 60px;padding: 0px;margin: 0;
+				.qq-upload-drop-area{background: transparent;
+					.drag_img{
+						a{display: inline-block;
+							&.view{line-height: 50px;color: #333;width: 78%;
+								img{width: 25px;height: 25px;}
+								p{padding: 0px 5px;display: inline-block;margin: 0;max-width: 87%;vertical-align: middle;font-size: 16px;
+									text-overflow: ellipsis;white-space: nowrap;overflow: hidden;}
+							}
+							img{width: 30px;height: 30px;}
+						}
+						img{cursor: pointer;}
+					}
+				}
+				.qq-upload-button{background: #e6e6e6;border: 1px solid #ccc;color: #000;line-height: 45px;font-size: 18px;
+					input[type='file']{width: 100%;height: 100%}
+				}
+			}
+		}
+	}
+}

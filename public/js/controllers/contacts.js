@@ -44,7 +44,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
     }
 })
 
-.controller('ContactsController',['$scope', '$window',  '$http', '$q', '$interval', 'buckets', 'uiGridValidateService', '$uibModal', 'CONFIG', 'userPermissions', function($scope, $window, $http, $q, $interval, buckets, uiGridValidateService, $uibModal, CONFIG, userPermissions){
+.controller('ContactsController',['$scope', '$window',  '$http', '$q', '$interval', 'buckets', 'uiGridValidateService', '$uibModal', 'CONFIG', 'userPermissions', '$stateParams', function($scope, $window, $http, $q, $interval, buckets, uiGridValidateService, $uibModal, CONFIG, userPermissions, $stateParams){
 	
 	var scope = this;
 	this.loaderImg = false;
@@ -93,7 +93,8 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
     }
 
     var edit_feature;
-    if(userPermissions.edit_contacts == 1){
+    this.goDashboard = $stateParams.rowEdit;
+    if(userPermissions.edit_contacts == 1 && $stateParams.rowEdit){
         edit_feature = true;
     }
     else{
@@ -110,7 +111,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
     	rowEditWaitInterval: -1,
     	columnDefs : [
             { name: 'firstname', displayName: 'First Name', validators: {charValidation:''}, cellTemplate: 'ui-grid/cellTitleValidator'},
-            { name: 'lastname', displayName: 'Last Name', validators: {charValidation:''}, cellTemplate: 'ui-grid/cellTitleValidator'},
+            { name: 'lastname', displayName: 'Last Name', validators: {charValidationReq:''}, cellTemplate: 'ui-grid/cellTitleValidator'},
             { name: 'emailid', displayName: 'Email', enableCellEdit: false, cellClass:'grid-email', width: '20%'},
             { name: 'phone', displayName: 'Mobile' , validators: {numValidation:''}, cellTemplate: 'ui-grid/cellTitleValidator'},
             { name: 'employeeid', displayName: 'ID', cellClass:'grid-other-id' ,validators: { charOtherId:''}, cellTemplate: 'ui-grid/cellTitleValidator'},
@@ -165,7 +166,8 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 		);	
 	};
 	gridValidtion('charValidation', '');
-	gridValidtion('charOtherId', /^[a-zA-Z0-9-]{0,50}$/);
+    gridValidtion('charValidationReq', /^[a-zA-Z0-9-]{0,100}$/);
+	gridValidtion('charOtherId', /^[a-zA-Z0-9-]{0,100}$/);
 	gridValidtion('numValidation', /^[-0-9]{0,15}$/);
 	gridValidtion('statusValidation', '');
 	
@@ -213,7 +215,15 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
     var time;
     this.srcSearch = 'search.svg';
     this.searchLoader = false;
-   	this.searchRecords = function(arg) {
+    var inputPrev = '';
+   	this.searchRecords = function(arg, event) {
+        
+        arg = arg || '';
+        if(event.keyCode === 32 && arg.length === 0 || inputPrev == arg){
+            return false;
+        }
+        inputPrev = arg;
+
    		if (arg == "") {
    			scope.srcSearch = 'search.svg';
    			scope.searchVal = '';
@@ -236,7 +246,6 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
     this.activeBucket = 'ALL CONTACTS';
     this.currentPage = 1;
     this.getGridData = function(bktName, bktID, pageNo, searchVal, flag) {
-
         if(flag == 1){
             $('.modalSuccess').show();
             $('.modalSuccess').fadeOut(3000);
@@ -301,13 +310,13 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 
 	            var totRec = response.data.total_records[0].total_count;
    				var pageNos = Math.ceil(Number(totRec) / 50);
-
+                scope.pageNos = pageNos;
    				rightLimit = (pageNos - 4) * -34;
 	            scope.generatePageNo = new Array(pageNos);
 
 	            var width = pageNos < 4 ? pageNos * 34 : '136';
-                $(".pages-container").css("width", width + "px");
-                
+                //$("").css("width", width + "px");
+                setTimeout(function(){angular.element('.pages-container').css("width", width + "px")}, 0);
                 //scope.allRecCount = ( scope.activeBucket == 'ALL CONTACTS' ) ? totRec : scope.allRecCount; 
 
 	            scope.searchLoader = false;
@@ -497,6 +506,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
             resolve: {
 		        listContacts: function() {
 		        	var obj = {};
+                    obj.goDashboard = !scope.goDashboard;
 		        	obj.selectedCts = scope.selectedContacts;
 		        	obj.resetSelectedCts = function(){
 		        		scope.gridApi.selection.clearSelectedRows();
@@ -505,6 +515,16 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 		        }
            	}
         });
+    }
+
+
+    this.skip = function(){
+        if(userPermissions.dashboard == '1'){
+            $window.location = CONFIG.APP_DOMAIN+'dashboard';
+        }
+        else{
+            $window.location = CONFIG.APP_DOMAIN+'job';
+        }
     }
 
 	// buckets modal
@@ -553,7 +573,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 
 }])
 
-.controller('contactsInviteController', ['$scope', '$uibModalInstance', 'listContacts', '$http', '$window', 'CONFIG', function($scope, $uibModalInstance,listContacts,$http,$window,CONFIG) {
+.controller('contactsInviteController', ['$scope', '$state', '$uibModalInstance', 'listContacts', '$http', '$window', 'userPermissions', 'CONFIG', function($scope, $state, $uibModalInstance, listContacts, $http, $window, userPermissions,CONFIG) {
 
     this.successMsg = false;
 
@@ -597,7 +617,13 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 
     this.jumpPage = function(){
     	$uibModalInstance.dismiss('cancel');
-        //$window.location = CONFIG.APP_DOMAIN+'dashboard';
+
+        if(userPermissions.dashboard == '1' && listContacts.goDashboard){
+            $window.location = CONFIG.APP_DOMAIN+'dashboard';
+        }
+        else if(userPermissions.dashboard == '0' && listContacts.goDashboard){
+            $window.location = CONFIG.APP_DOMAIN+'job';
+        }    
     }
     
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
@@ -655,6 +681,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
                 $scope.$apply();
                 eval("$contacts_upload_"+index).find('.drag_txt').hide();
                 eval("$contacts_upload_"+index).find('.qq-upload-list').show();
+                eval("$contacts_upload_"+index).find('.qq-upload-list').css('z-index','0');
             },
             onComplete: function(id, name, response){
                 if(response.success){
@@ -669,6 +696,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
                         'display':'block',
                         'background':'transparent'
                     });
+                    eval("$contacts_upload_"+index).find('.drag_img').css({'background' : 'transparent', 'display' : 'none'});
                     eval("$contacts_upload_"+index).find('.qq-upload-list').css('z-index','-1');
                     eval("$contacts_upload_"+index).find('.qq-upload-drop-area').append('<div class="file-name"><p class="name">'+response.org_name+'</p></div>');
                     eval("$contacts_upload_"+index).find('.qq-upload-drop-area .file-name').append('<div class="overlay"></div><i class="fa fa-trash-o icon-trash" onclick="angular.element(this).scope().UploadContCtrl.trash('+index+')"></i>');
@@ -679,6 +707,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
                     for(var i = 0; i < scope.bucketsList.length; i++){
                         eval("$contacts_upload_"+i).find('.qq-upload-fail').remove();
                     }
+                    eval("$contacts_upload_"+index).find('.qq-upload-list').css('z-index','-1');
                     eval("$contacts_upload_"+index).append("<div class='qq-upload-fail'><i class='fa fa-times'></i>&nbsp;<span>"+response.msg+"</span></div>");
                 }
             },
@@ -738,6 +767,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
                         filename = response.filename;
                         $new_bucket.find('.qq-upload-fail').remove();
                         $new_bucket.find('.qq-upload-success').hide();
+                        $new_bucket.find('.drag_img').css({'background' : 'transparent', 'display' : 'none'});
                         $new_bucket.find('.qq-upload-list').css('z-index','-1');
                         $new_bucket.find('.qq-upload-drop-area').css('display','block');
                         $new_bucket.find('.qq-upload-drop-area').append('<div class="file-name"><img src="public/images/Applied.svg" alt="file"><p class="name">'+response.org_name+'</p><img src="public/images/close-popup-grey.svg" alt="cancel" onclick="angular.element(this).scope().UploadContCtrl.delete()"></div>');
@@ -842,7 +872,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
         eval("$contacts_upload_"+index).find('.qq-upload-drop-area').css('display','none');
         eval("$contacts_upload_"+index).find('.qq-upload-drop-area .file-name').remove();
         eval("$contacts_upload_"+index).find('.qq-upload-list li').remove();
-        eval("$contacts_upload_"+index).find('.qq-upload-list').css('z-index','0');
+        eval("$contacts_upload_"+index).find('.qq-upload-list').css('z-index','-1');
     }
 
     // delete new bucket file
