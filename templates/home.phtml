@@ -8,7 +8,7 @@
 						<div class="m_right">
 
 							<!-- SIGNIN BOX -->
-							<div class="sign-in-box" ng-if="homeCtrl.signin_show">
+							<div class="sign-in-box slideInDown animated" ng-if="homeCtrl.signin_show">
 								<div class="sign-in-box-header text-center">
 									<span class="title">Start Your Journey</span>
 									<span>LOG IN TO YOUR ENTERPRISE ACCOUNT</span>
@@ -39,7 +39,7 @@
 							</div>
 
 							<!-- Forgot Password -->
-							<div class="forgot-password-box" ng-if="homeCtrl.forgot_password_show">
+							<div class="forgot-password-box slideInDown animated" ng-if="homeCtrl.forgot_password_show">
 								<div class="forgot-password-header">
 									<p>We will send an email to your registered email address with instructions to help you reset your password</p>
 								</div>
@@ -58,7 +58,7 @@
 								</div>
 							</div>
 							<!-- Forgot Password Success -->
-							<div class="verification-box" ng-if="homeCtrl.forgot_password_success_show">
+							<div class="verification-box slideInRight animated" ng-if="homeCtrl.forgot_password_success_show">
 								<div class="verification-box-content text-center">
 									<img src="public/images/tickmark.svg" alt="tick">
 									<p class="text">A message containing a link to reset your password has been sent to {{homeCtrl.forgotObj.forgot_email}}</p>
@@ -67,7 +67,7 @@
 							</div>
 
 							<!-- SIGNUP BOX -->
-							<div class="sign-up-box" ng-if="homeCtrl.signup_show" id="signup_form">
+							<div class="sign-up-box slideInDown animated" ng-if="homeCtrl.signup_show" id="signup_form">
 								<div class="sign-up-box-header text-center">
 									<span class="title">Join Now and Start Your Journey</span>
 									<span>CREATE AN ACCOUNT</span>
@@ -108,7 +108,7 @@
 							</div>
 
 							<!-- VERIFICATION -->
-							<div class="verification-box" ng-if="homeCtrl.verfication_show">
+							<div class="verification-box slideInRight animated" ng-if="homeCtrl.verfication_show">
 								<div class="verification-box-content text-center">
 									<img src="public/images/tickmark.svg" alt="tick">
 									<span class="thanks">Thank You for Signing Up!</span>

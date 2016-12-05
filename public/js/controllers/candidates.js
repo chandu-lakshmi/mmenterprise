@@ -87,8 +87,9 @@
 				enableSorting:true,
 				enableColumnMenus:false,
 				enableRowSelection: true,
-				enableRowHeaderSelection: true,
-				enableFullRowSelection: true,
+				enableRowHeaderSelection: false,
+				/*enableRowHeaderSelection: true,
+				enableFullRowSelection: true,*/
 				/*multiSelect: false,
 				modifierKeysToMultiSelect: false,
 				noUnselect: true,*/
@@ -155,7 +156,7 @@
 			  	vm.pageNo = 1;
 			  	vm.totalPages = 1;
 			  	vm.noCandidates = false;
-			  }
+			}
 
 		    vm.getFirstData = function(search, searchLoader) {
 		    	resetGrid();
@@ -173,14 +174,14 @@
 
 		    	canceler = $q.defer();
 
-			    var data = $("form[name='candidates_filter_form']").serialize();
+			    // var data = $("form[name='candidates_filter_form']").serialize();
 			    return $http({
 	                headers: {
 	                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
 	                },
 	                method: 'POST',
 	                url: gridApiCall,
-	                data: data + '&' + $.param({
+	                data: $.param({
 	                	search : search,
 	                	page_no : vm.pageNo,
 	                }),
@@ -213,7 +214,7 @@
 
 			vm.getDataDown = function() {
 			    vm.pageNo++;
-			    var data = $("form[name='filter_form']").serialize();
+			    // var data = $("form[name='filter_form']").serialize();
 			    vm.loader = true;
 			    return $http({
 	                headers: {
@@ -221,7 +222,7 @@
 	                },
 	                method: 'POST',
 	                url: gridApiCall,
-	                data: data + '&' + $.param({
+	                data: $.param({
 	                	search : vm.search,
 	                	page : vm.pageNo
 	                })

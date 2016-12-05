@@ -145,7 +145,7 @@ $background : #eeeff1;
             .box-content{
                 .grid{height: calc(100vh - 346px) !important;overflow: hidden;min-height: 450px;
                     .grid-msg-overlay{top: 45px;}
-                    .ui-grid-pinned-container{
+                    /*.ui-grid-pinned-container{
                         .ui-grid-header{
                             .ui-grid-selection-row-header-buttons{margin-top: 6px}
                             .ui-grid-all-selected:after{top:14px;}
@@ -165,7 +165,7 @@ $background : #eeeff1;
                                 .ui-grid-cell{padding: 0;border-color: #ececec;}
                             }
                         }
-                    }
+                    }*/
                     .ui-grid-header{height: 45px;line-height: 33px;border-top: 1px solid #c8d1d0;border-bottom: 1px solid #c8d1d0;
                         .ui-grid-top-panel{background: #f3f7f8;
                             .ui-grid-header-cell-row{

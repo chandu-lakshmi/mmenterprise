@@ -174,51 +174,30 @@
       .candidates .resume-room .box .box-content .grid {
         height: calc(100vh - 346px) !important;
         overflow: hidden;
-        min-height: 450px; }
+        min-height: 450px;
+        /*.ui-grid-pinned-container{
+            .ui-grid-header{
+                .ui-grid-selection-row-header-buttons{margin-top: 6px}
+                .ui-grid-all-selected:after{top:14px;}
+            }
+            .ui-grid-header-cell{padding: 0 !important;}
+            .ui-grid-selection-row-header-buttons{outline: none;opacity: 1;margin:19px 0 0 5px;pointer-events: all;
+                &:before{content: '';width: 20px;height: 20px;border:1px solid #ccc;position: absolute;border-radius: 2px;background: #fff;}
+            }
+            .ui-grid-all-selected,.ui-grid-row-selected{
+                &:before{background: #0b8fe2 ;border: 1px solid transparent;}
+                &:after{content: '';position: absolute;top: 26px;left: 19px;width: 6px;height: 13px;border: 2px solid #fff;
+                    transform: rotate(45deg);border-top: 0;border-left: 0;pointer-events: none;
+                }
+            }
+            .ui-grid-viewport{overflow: hidden !important;
+                .ui-grid-row{border-bottom: 0;position: relative;
+                    .ui-grid-cell{padding: 0;border-color: #ececec;}
+                }
+            }
+        }*/ }
         .candidates .resume-room .box .box-content .grid .grid-msg-overlay {
           top: 45px; }
-        .candidates .resume-room .box .box-content .grid .ui-grid-pinned-container .ui-grid-header .ui-grid-selection-row-header-buttons {
-          margin-top: 6px; }
-        .candidates .resume-room .box .box-content .grid .ui-grid-pinned-container .ui-grid-header .ui-grid-all-selected:after {
-          top: 14px; }
-        .candidates .resume-room .box .box-content .grid .ui-grid-pinned-container .ui-grid-header-cell {
-          padding: 0 !important; }
-        .candidates .resume-room .box .box-content .grid .ui-grid-pinned-container .ui-grid-selection-row-header-buttons {
-          outline: none;
-          opacity: 1;
-          margin: 19px 0 0 5px;
-          pointer-events: all; }
-          .candidates .resume-room .box .box-content .grid .ui-grid-pinned-container .ui-grid-selection-row-header-buttons:before {
-            content: '';
-            width: 20px;
-            height: 20px;
-            border: 1px solid #ccc;
-            position: absolute;
-            border-radius: 2px;
-            background: #fff; }
-        .candidates .resume-room .box .box-content .grid .ui-grid-pinned-container .ui-grid-all-selected:before, .candidates .resume-room .box .box-content .grid .ui-grid-pinned-container .ui-grid-row-selected:before {
-          background: #0b8fe2;
-          border: 1px solid transparent; }
-        .candidates .resume-room .box .box-content .grid .ui-grid-pinned-container .ui-grid-all-selected:after, .candidates .resume-room .box .box-content .grid .ui-grid-pinned-container .ui-grid-row-selected:after {
-          content: '';
-          position: absolute;
-          top: 26px;
-          left: 19px;
-          width: 6px;
-          height: 13px;
-          border: 2px solid #fff;
-          transform: rotate(45deg);
-          border-top: 0;
-          border-left: 0;
-          pointer-events: none; }
-        .candidates .resume-room .box .box-content .grid .ui-grid-pinned-container .ui-grid-viewport {
-          overflow: hidden !important; }
-          .candidates .resume-room .box .box-content .grid .ui-grid-pinned-container .ui-grid-viewport .ui-grid-row {
-            border-bottom: 0;
-            position: relative; }
-            .candidates .resume-room .box .box-content .grid .ui-grid-pinned-container .ui-grid-viewport .ui-grid-row .ui-grid-cell {
-              padding: 0;
-              border-color: #ececec; }
         .candidates .resume-room .box .box-content .grid .ui-grid-header {
           height: 45px;
           line-height: 33px;

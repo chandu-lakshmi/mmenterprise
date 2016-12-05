@@ -11,8 +11,7 @@
     padding: 34px 0;
     border-bottom: 1px solid #e8e8e8; }
     .drop-box .container section .logo img {
-      width: 62px;
-      height: 62px; }
+      width: 160px; }
   .drop-box .container section .row {
     border-bottom: 1px solid #e8e8e8; }
     .drop-box .container section .row .title {
@@ -79,38 +78,75 @@
         display: inline-block;
         white-space: nowrap;
         overflow: hidden; }
-      .drop-box .container section .row .form-style .file .cv-upload .qq-uploader {
-        padding-top: 0; }
-        .drop-box .container section .row .form-style .file .cv-upload .qq-uploader .qq-upload-button {
-          color: #248261;
-          position: absolute !important;
-          top: -23px;
-          right: 1px;
-          box-shadow: none;
-          border-left: 1px solid #b9b9b9;
-          border-radius: 0;
-          text-shadow: none;
-          width: 121px;
-          padding: 12px 10px;
-          background-color: #F9F9F9;
-          background-image: -webkit-linear-gradient(#F9F9F9, #cfcfcf);
-          background-image: -o-linear-gradient(#F9F9F9, #cfcfcf);
-          background-image: linear-gradient(#F9F9F9, #cfcfcf);
-          filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#F9F9F9, endColorstr=#cfcfcf); }
-        .drop-box .container section .row .form-style .file .cv-upload .qq-uploader .qq-upload-list {
+      .drop-box .container section .row .form-style .file #upload-resume .qq-uploader .qq-upload-button {
+        border-right: 1px solid #b9b9b9;
+        position: absolute;
+        right: 0;
+        top: 2px;
+        width: 46%;
+        height: 43px;
+        padding: 0;
+        line-height: 43px;
+        cursor: pointer;
+        color: #248261;
+        box-shadow: none;
+        border-left: 1px solid #b9b9b9;
+        border-radius: 0;
+        text-shadow: none;
+        background-color: #F9F9F9;
+        background-image: -webkit-linear-gradient(#F9F9F9, #cfcfcf);
+        background-image: -o-linear-gradient(#F9F9F9, #cfcfcf);
+        background-image: linear-gradient(#F9F9F9, #cfcfcf);
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#F9F9F9, endColorstr=#cfcfcf); }
+        .drop-box .container section .row .form-style .file #upload-resume .qq-uploader .qq-upload-button input {
+          cursor: pointer;
+          width: 100%; }
+      .drop-box .container section .row .form-style .file #upload-resume .qq-uploader .qq-upload-list {
+        position: absolute;
+        top: 0px;
+        margin: 0px;
+        width: 100%;
+        									/*li{padding:3px;
+        										.qq-upload-file{text-overflow: ellipsis;overflow: hidden;max-width: 130px;display: inline-block; white-space: nowrap;
+        
+        										}
+        									}*/ }
+        .drop-box .container section .row .form-style .file #upload-resume .qq-uploader .qq-upload-list .qq-upload-fail {
           position: absolute;
-          width: 100%;
-          top: 27px; }
-          .drop-box .container section .row .form-style .file .cv-upload .qq-uploader .qq-upload-list li {
-            padding: 3px; }
-            .drop-box .container section .row .form-style .file .cv-upload .qq-uploader .qq-upload-list li .qq-upload-file {
-              text-overflow: ellipsis;
-              overflow: hidden;
-              max-width: 130px;
-              display: inline-block;
-              white-space: nowrap; }
-      .drop-box .container section .row .form-style .file input {
-        opacity: 0; }
+          top: 42px;
+          background: transparent;
+          color: red; }
+          .drop-box .container section .row .form-style .file #upload-resume .qq-uploader .qq-upload-list .qq-upload-fail i {
+            display: none; }
+        .drop-box .container section .row .form-style .file #upload-resume .qq-uploader .qq-upload-list .qq-upload-progress {
+          background: gray !important; }
+        .drop-box .container section .row .form-style .file #upload-resume .qq-uploader .qq-upload-list li.qq-upload-success .upload-success {
+          background: none !important; }
+      .drop-box .container section .row .form-style .file #upload-resume .qq-uploader .qq-upload-drop-area .drag_img {
+        width: 100%;
+        height: 100%;
+        background: #f3f3f3 !important; }
+        .drop-box .container section .row .form-style .file #upload-resume .qq-uploader .qq-upload-drop-area .drag_img a.view {
+          line-height: 50px;
+          color: #333;
+          width: 78%; }
+          .drop-box .container section .row .form-style .file #upload-resume .qq-uploader .qq-upload-drop-area .drag_img a.view img {
+            width: 25px;
+            height: 25px; }
+          .drop-box .container section .row .form-style .file #upload-resume .qq-uploader .qq-upload-drop-area .drag_img a.view p {
+            padding: 0px 5px;
+            display: inline-block;
+            margin: 0;
+            max-width: 87%;
+            vertical-align: middle;
+            font-size: 16px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden; }
+      .drop-box .container section .row .form-style .file #upload-resume .qq-upload-fail i {
+        display: none; }
+      .drop-box .container section .row .form-style .file #upload-resume .qq-upload-fail span {
+        color: red; }
       .drop-box .container section .row .form-style .file label {
         position: relative; }
         .drop-box .container section .row .form-style .file label:after {
@@ -119,7 +155,7 @@
           border: 1px solid #b9b9b9;
           height: 45px;
           width: 295px;
-          left: 0;
+          left: 1px;
           top: 28px; }
       .drop-box .container section .row .form-style .file .file-name {
         position: absolute;

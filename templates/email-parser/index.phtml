@@ -27,8 +27,12 @@
                 
                 angular.module('app.constants', [])
                 .constant('App', {
+                	Components : {},
+                    Helpers : {},
                     base_url   : '<?php echo $data['APP_DOMAIN']; ?>',
-                    API_DOMAIN : '<?php echo $data['API_DOMAIN']; ?>'
+                    API_DOMAIN : '<?php echo $data['API_DOMAIN']; ?>',
+                     url_spinner : '<?php echo $data['APP_DOMAIN']; ?>public/images/spinner.gif',
+                    url_spinner_small: '<?php echo $data['APP_DOMAIN']; ?>public/images/spinner_small.gif'
                 })
             }());
             
@@ -36,10 +40,10 @@
 
 		<div ui-view></div>
 
-
-		<script type="text/javascript" src="../public/js/controllers/email-parser/app.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
+		<script type="text/javascript" src="../public/js/components/helpers.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
 		<script type="text/javascript" src="../public/js/controllers/email-parser/all-jobs.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
 		<script type="text/javascript" src="../public/js/controllers/email-parser/candidate-details.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
 		<script type="text/javascript" src="../public/js/controllers/email-parser/referral-details.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
+		<script type="text/javascript" src="../public/js/controllers/email-parser/app.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
 	</body>
 </html>

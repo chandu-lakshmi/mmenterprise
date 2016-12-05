@@ -6,8 +6,7 @@
     border-bottom: 1px solid #dedede;
     margin-bottom: 28px; }
     .all-jobs .container header img {
-      width: 62px;
-      height: 62px; }
+      width: 160px; }
   .all-jobs .container section .row {
     margin: 0;
     border: 1px solid #ebebeb;
@@ -27,18 +26,18 @@
       color: #252525; }
     .all-jobs .container section .row .btn-apply {
       background: #227f60;
-      cursor: pointer;
       color: #fff;
       font-size: 14px;
-      display: inline-block;
-      padding: 8px 20px;
       border-radius: 3px;
-      outline: none;
       float: right;
       margin-top: 36px; }
       .all-jobs .container section .row .btn-apply a {
         color: inherit;
-        text-decoration: none; }
+        text-decoration: none;
+        display: inline-block;
+        padding: 8px 20px;
+        cursor: pointer;
+        outline: none; }
   .all-jobs .container footer .social-media {
     padding: 25px 0;
     border: 1px solid #ebebeb;
@@ -100,16 +99,16 @@
     padding: 26px; }
     .all-jobs .container footer .drop-cv span {
       font-size: 14px;
-      padding: 2px 10px;
-      display: inline-block;
-      color: #252525;
-      border-radius: 2px;
-      outline: none;
-      cursor: pointer;
-      border: 1px solid #252525; }
+      color: #252525; }
       .all-jobs .container footer .drop-cv span a {
+        border-radius: 2px;
         color: inherit;
-        text-decoration: none; }
+        text-decoration: none;
+        padding: 2px 10px;
+        outline: none;
+        display: inline-block;
+        cursor: pointer;
+        border: 1px solid #252525; }
 
 .copied::after {
   position: absolute;

@@ -87,7 +87,7 @@
 					            onProgress: config.onProgress
 					        });
 					                    
-					        $('.qq-upload-list').on('click touchend', '.icon-remove', function(e){
+					        $('#'+config.id+' .qq-upload-list').on('click touchend', '.icon-remove', function(e){
 					            var me = $(this);
 					            var uploader = me.closest('.qq-uploader');
 					            

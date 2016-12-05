@@ -3,7 +3,7 @@
 
 	angular
 		.module('emailParser', ['ui.router',
-			'app.constants','app.all.jobs','app.candidate.details','app.referral.details'
+			'app.constants', 'app.all.jobs','app.candidate.details','app.referral.details','app.lib'
 		])
 
 
@@ -22,15 +22,15 @@
 			    .state('candidateDetails', {
 			        url: '/candidate-details',
 			        templateUrl: App.base_url + 'templates/email-parser/candidate-details.phtml',
-			        controller: 'CandidateDetailsController',
-			        controllerAs:'CandidateDetailsCtrl',
+			        controller: 'UploadController',
+			        controllerAs:'UploadCtrl',
 			        data : { pageTitle: 'Mintmesh ( Upload CV )' }
 			    })
 			    .state('referralDetails', {
 			        url: '/referral-details',
 			        templateUrl: App.base_url + 'templates/email-parser/referral-details.phtml',
-			        controller: 'ReferralDetailsController',
-			        controllerAs:'ReferralDetailsCtrl',
+			        controller: 'UploadController',
+			        controllerAs:'UploadCtrl',
 			        data : { pageTitle: 'Mintmesh ( Drop CV )' }
 			    })
 
