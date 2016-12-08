@@ -95,6 +95,7 @@
             <div class="alert fade in" ng-repeat="group in NewCampaignCtrl.timeSheetGroups">
                <a href="#" class="close" data-dismiss="alert" aria-label="close" ng-click="NewCampaignCtrl.closeTimeSheet(group)" ng-hide="$first">&times;</a>
                <div class="start">
+                  <p>STARTS ON</p>
                   <mdp-date-picker mdp-open-on-click mdp-placeholder="dd/mm/yyyy" name="startDate{{group}}" mdp-min-date="NewCampaignCtrl.currentDate | date:'yyyy-MM-dd'" mdp-max-date="NewCampaignCtrl.frm2.date[group].endOnDate" required  ng-model="NewCampaignCtrl.frm2.date[group].startOnDate" required ng-class="{'has-error-border':frm2['startDate'+group].$invalid && NewCampaignCtrl.errCondfrm2}">
                      <div ng-if="frm2['startDate'+group].$error.required && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Please Enter Start Date</div>
                      <!-- <div ng-if="frm2['startDate'+group].$error.format && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Invalid Date Format</div>
