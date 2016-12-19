@@ -2,8 +2,9 @@
 "use strict";
 
 	angular
-		.module('emailParser', ['ui.router',
-			'app.constants', 'app.all.jobs','app.candidate.details','app.referral.details','app.lib'
+		.module('emailParser', ['ui.router', 'ui.bootstrap',
+			'app.constants', 'app.components','app.helpers',
+			'app.email.parser'
 		])
 
 
@@ -13,25 +14,32 @@
 
     		$stateProvider
     			.state('allJobs', {
-			        url: '/all-jobs',
+			        url: '/all-jobs?ref',
 			        templateUrl: App.base_url + 'templates/email-parser/all-jobs.phtml',
 			        controller: 'AllJobsController',
 			        controllerAs:'AllJobsCtrl',
 			        data : { pageTitle: 'Mintmesh ( Jobs )' }
 			    })
 			    .state('candidateDetails', {
-			        url: '/candidate-details',
+			        url: '/candidate-details?ref&flag',
 			        templateUrl: App.base_url + 'templates/email-parser/candidate-details.phtml',
-			        controller: 'UploadController',
-			        controllerAs:'UploadCtrl',
+			        controller: 'ApplyJobController',
+			        controllerAs:'ApplyJobCtrl',
 			        data : { pageTitle: 'Mintmesh ( Upload CV )' }
 			    })
 			    .state('referralDetails', {
-			        url: '/referral-details',
+			        url: '/referral-details?ref&flag',
 			        templateUrl: App.base_url + 'templates/email-parser/referral-details.phtml',
-			        controller: 'UploadController',
-			        controllerAs:'UploadCtrl',
+			        controller: 'ApplyJobController',
+			        controllerAs:'ApplyJobCtrl',
 			        data : { pageTitle: 'Mintmesh ( Drop CV )' }
+			    })
+			    .state('jobDetails', {
+			        url: '/job-details/:job_name?ref',
+			        templateUrl: App.base_url + 'templates/email-parser/job-details.phtml',
+			        controller: 'JobDetailsController',
+			        controllerAs:'JobDetailsCtrl',
+			        data : { pageTitle: 'Mintmesh' }
 			    })
 
     		$urlRouterProvider.otherwise('/all-jobs');
@@ -39,9 +47,11 @@
 		})
 
 
-		.run([ '$rootScope', '$state', '$stateParams',
-		    function ($rootScope, $state, $stateParams) {
+		.run([ '$rootScope', '$state', '$stateParams', 'App', 'ReferralDetails',
+		    function ($rootScope, $state, $stateParams, App, ReferralDetails) {
+		    	$rootScope.$root = App;
 		        $rootScope.$state = $state;
+		        $rootScope.ReferralDetails = ReferralDetails;
 		        $rootScope.$stateParams = $stateParams;
 		    }
 		])

@@ -154,7 +154,9 @@ input{
 .md-select-value > span > div.md-text{
     font-size: 18px;
 }
-
+input::-webkit-calendar-picker-indicator{
+    display: none;
+}
 
 
 /*RESPONSIVE STYLES*/

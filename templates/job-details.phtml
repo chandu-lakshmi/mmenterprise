@@ -76,7 +76,7 @@
 				<span class="col-sm-5">Employment Type:</span>
 				<span class="col-sm-7">{{jobDetailsCtrl.post_data.employment_type}}</span>
 			</div>
-			<div class="row">
+			<div class="row" ng-if="jobDetailsCtrl.post_data.no_of_vacancies != 0">
 				<span class="col-sm-5">Number of Vacancies:</span>
 				<span class="col-sm-7">{{jobDetailsCtrl.post_data.no_of_vacancies}}</span>
 			</div>
@@ -92,21 +92,14 @@
 		<div class="col-sm-6 rt">
 			<div class="currency">
 				<h4 style="color:#777777;font-weight: 700;">Job Rewards:</h4>
-				<div ng-repeat="rewards in jobDetailsCtrl.post_data.rewards" ng-style="{'padding':$last ? '15px 0px 48px' : ''}">
-					<span ng-bind="(rewards.rewards_name) + ' Rewards'"></span>
-					<h4 ng-bind="jobDetailsCtrl.getRewardsView(rewards)"
-						ng-style="{'color': rewards.rewards_name == 'Discovery' ? '#3e7b1c' :' #2174a6'}">	
-					</h4>
+				<div class="box-rewards">
+					<div ng-repeat="rewards in jobDetailsCtrl.post_data.rewards">
+						<span ng-bind="(rewards.rewards_name) + ' Rewards'"></span>
+						<h4 ng-bind="jobDetailsCtrl.getRewardsView(rewards)"
+							ng-style="{'color': rewards.rewards_name == 'Discovery' ? '#3e7b1c' :' #2174a6'}">	
+						</h4>
+					</div>
 				</div>
-				<!-- <div class="discovery-rewards">
-					<span>Discovery Rewards</span>
-					<h4 ng-bind="jobDetailsCtrl.post_data.free_service == '1' ? 'Free' : jobDetailsCtrl.getRewardsView(jobDetailsCtrl.post_data.rewards, 'Discovery')"></h4>
-				</div>
-
-				<div class="referral-rewards" style="padding: 15px 0px 48px;">
-					<span>Referral Rewards</span>
-					<h4 ng-bind="jobDetailsCtrl.post_data.free_service == '1' ? 'Free' : jobDetailsCtrl.getRewardsView(jobDetailsCtrl.post_data.rewards, 'Referral')"></h4>
-				</div> -->
 				<div>
 					<h4>Invited Groups:</h4>
 					<h4><span style="color:inherit" ng-repeat="bktName in jobDetailsCtrl.post_data.bucket_name">{{bktName + ($last ? '' : ',&nbsp;') }}</span></h4>

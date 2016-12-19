@@ -1,325 +1,335 @@
-<div ng-click="NewCampaignCtrl.closeDropdown()" role="btn">
-   <div class="modal-header text-center">
-      <img src="public/images/back-arrow-grey.svg" alt="back" ng-hide="NewCampaignCtrl.currentStep == 1" ng-click="NewCampaignCtrl.switchSteps()" class="pull-left">
-      <h3>Create New Campaign</h3>
-      <img src="public/images/cross-grey.svg" alt="close" class="pull-right" ng-click="NewCampaignCtrl.closeModal()" class="pull-right">
-   </div>   
+<div>
+    <div ng-click="NewCampaignCtrl.closeDropdown()" role="btn" ng-show="!NewCampaignCtrl.showJobTemplate">
+       <div class="modal-header text-center">
+          <img src="public/images/back-arrow-grey.svg" alt="back" ng-hide="NewCampaignCtrl.currentStep == 1" ng-click="NewCampaignCtrl.switchSteps()" class="pull-left">
+          <h3>Create New Campaign</h3>
+          <img src="public/images/cross-grey.svg" alt="close" class="pull-right" ng-click="NewCampaignCtrl.closeModal()" class="pull-right">
+       </div>   
 
-   <div class="modal-body" >
-      
-      <!--Step progress view-->
-      <div class="process-steps">
-         <div class="step step-one" ng-repeat="step in NewCampaignCtrl.listSteps" ng-style="{'width':$last ? '0' : '', 'border-color': NewCampaignCtrl.listSteps[$index+1].status ? '#33a486' :''}">
-            <div class="step-radio">
-               <md-radio-group ng-model="step.status">
-                  <md-radio-button value="1">{{step.label}}</md-radio-button>
-               </md-radio-group>
-            </div>
-         </div>
-      </div>
-      <!--Step progress view-->
+       <div class="modal-body" >
+          
+          <!--Step progress view-->
+          <div class="process-steps">
+             <div class="step step-one" ng-repeat="step in NewCampaignCtrl.listSteps" ng-style="{'width':$last ? '0' : '', 'border-color': NewCampaignCtrl.listSteps[$index+1].status ? '#33a486' :''}">
+                <div class="step-radio">
+                   <md-radio-group ng-model="step.status">
+                      <md-radio-button value="1">{{step.label}}</md-radio-button>
+                   </md-radio-group>
+                </div>
+             </div>
+          </div>
+          <!--Step progress view-->
 
-      
-      <!--Steps 1-fields -->
-      <div class="box-campaign" style="min-height: 294px;" ng-show="NewCampaignCtrl.step1">
-         <form name="frm1" id="frm1" novalidate>
-            <div class="clearfix">
-               <md-input-container class="md-block select-box">
-                  <label style="display:none">CAMPAIGN TYPE</label>
-                  <md-select name="campaign_type" ng-model="NewCampaignCtrl.frm1.campaign_type" required ng-class="{'has-error-border':frm1.campaign_type.$invalid && NewCampaignCtrl.errCondfrm1}">
-                     <md-option ng-repeat="type in NewCampaignCtrl.campaign" ng-value="type">{{type | uppercase}}</md-option>
-                  </md-select>
-                  <div class="error-spacer"></div>
-                  <div ng-if="frm1.campaign_type.$error.required && NewCampaignCtrl.errCondfrm1"  class="has-error-msg">Please Select Campaign Type</div>
-               </md-input-container>
-               <md-input-container class="md-block">
-                  <label>CAMPAIGN NAME</label>
-                  <input type="text" name="campaign_name" ng-model="NewCampaignCtrl.frm1.campaign_name" required ng-class="{'has-error-border':frm1.campaign_name.$invalid && NewCampaignCtrl.errCondfrm1}">
-                  <div ng-if="frm1.campaign_name.$error.required && NewCampaignCtrl.errCondfrm1" class="has-error-msg">Please Enter Campaign Name</div>
-               </md-input-container>
-            </div>
+          
+          <!--Steps 1-fields -->
+          <div class="box-campaign" style="min-height: 294px;" ng-show="NewCampaignCtrl.step1">
+             <form name="frm1" id="frm1" novalidate>
+                <div class="clearfix">
+                   <md-input-container class="md-block select-box">
+                      <label style="display:none">CAMPAIGN TYPE</label>
+                      <md-select name="campaign_type" ng-model="NewCampaignCtrl.frm1.campaign_type" required ng-class="{'has-error-border':frm1.campaign_type.$invalid && NewCampaignCtrl.errCondfrm1}">
+                         <md-option ng-repeat="type in NewCampaignCtrl.campaign" ng-value="type">{{type | uppercase}}</md-option>
+                      </md-select>
+                      <div class="error-spacer"></div>
+                      <div ng-if="frm1.campaign_type.$error.required && NewCampaignCtrl.errCondfrm1"  class="has-error-msg">Please Select Campaign Type.</div>
+                   </md-input-container>
+                   <md-input-container class="md-block">
+                      <label>CAMPAIGN NAME</label>
+                      <input type="text" name="campaign_name" ng-model="NewCampaignCtrl.frm1.campaign_name" required ng-class="{'has-error-border':frm1.campaign_name.$invalid && NewCampaignCtrl.errCondfrm1}">
+                      <div ng-if="frm1.campaign_name.$error.required && NewCampaignCtrl.errCondfrm1" class="has-error-msg">Please Enter Campaign Name.</div>
+                   </md-input-container>
+                </div>
 
-            <div class="clearfix">
-               <p>LOCATION</p>
-               <md-radio-group ng-init="NewCampaignCtrl.frm1.location.location_type='online'" ng-model="NewCampaignCtrl.frm1.location.location_type">
-                     <md-radio-button value="online" class="md-primary">Online</md-radio-button>
-                     <md-radio-button value="onsite" class="md-primary">On Site</md-radio-button>
-               </md-radio-group>
-               <input type="hidden" name="location_type" value={{NewCampaignCtrl.frm1.location.location_type}}>
-            </div>
+                <div class="clearfix">
+                   <p>LOCATION</p>
+                   <md-radio-group ng-init="NewCampaignCtrl.frm1.location.location_type='online'" ng-model="NewCampaignCtrl.frm1.location.location_type">
+                         <md-radio-button value="online" class="md-primary">Online</md-radio-button>
+                         <md-radio-button value="onsite" class="md-primary">On Site</md-radio-button>
+                   </md-radio-group>
+                   <input type="hidden" name="location_type" value={{NewCampaignCtrl.frm1.location.location_type}}>
+                </div>
 
-            <div class="location" style="margin-top: 40px;" ng-if="NewCampaignCtrl.frm1.location.location_type == 'onsite'">
-               <div class="clearfix">
-                  <md-input-container class="md-block">
-                        <label>ADDRESS</label>
-                        <input type="text" name="address" ng-model="NewCampaignCtrl.frm1.location.address" required ng-class="{'has-error-border':frm1.address.$invalid && NewCampaignCtrl.errCondfrm1}">
-                        <div ng-if="frm1.address.$error.required && NewCampaignCtrl.errCondfrm1" class="has-error-msg">Please Enter Address</div>
-                    </md-input-container>
-                    <md-input-container class="md-block">
-                        <label>CITY</label>
-                        <input type="text" name="city" ng-model="NewCampaignCtrl.frm1.location.city" required ng-class="{'has-error-border':frm1.city.$invalid && NewCampaignCtrl.errCondfrm1}" id="location" ng-autocomplete="NewCampaignCtrl.geo_location" details="NewCampaignCtrl.geo_details" options="NewCampaignCtrl.geo_options" apiplaceholder="">
-                        <div ng-if="frm1.city.$error.required && NewCampaignCtrl.errCondfrm1" class="has-error-msg">Please Select City</div>
-                    </md-input-container>
-               </div>
-               <div class="clearfix">
-                    <md-input-container class="md-block">
-                        <label>ZIP CODE</label>
-                        <input type="text" name="zip_code" ng-model="NewCampaignCtrl.frm1.location.zip_code" onkeypress='return event.charCode >= 48 && event.charCode <= 57' ng-class="{'has-error-border':frm1.zip_code.$invalid && NewCampaignCtrl.errCondfrm1}" ng-pattern="/^[0-9]{5,6}$/">
-                        <div ng-if="frm1.zip_code.$error.pattern && NewCampaignCtrl.errCondfrm1" class="has-error-msg">Please Enter Valid Zip Code</div>
-                    </md-input-container>
-                    <md-input-container class="md-block">
-                        <label>STATE</label>
-                        <input type="text" name="state" ng-model="NewCampaignCtrl.frm1.location.state" required ng-class="{'has-error-border':frm1.state.$invalid && NewCampaignCtrl.errCondfrm1}">
-                        <div ng-if="frm1.state.$error.required && NewCampaignCtrl.errCondfrm1" class="has-error-msg">Please Enter State</div>
-                    </md-input-container>
-               </div>
-               <div class="clearfix">
-                 <md-input-container class="md-block pull-left">
-                     <label>COUNTRY</label>
-                     <input type="text" name="country" ng-model="NewCampaignCtrl.frm1.location.country" required ng-class="{'has-error-border':frm1.country.$invalid && NewCampaignCtrl.errCondfrm1}">
-                     <div ng-if="frm1.country.$error.required && NewCampaignCtrl.errCondfrm1" class="has-error-msg">Please Enter Country</div>
-                 </md-input-container>
-                 <input type="hidden" name="latitude" value="{{NewCampaignCtrl.lat}}">
-                 <input type="hidden" name="longitude" value="{{NewCampaignCtrl.lng}}">
-               </div>
-            </div>
-         </form>
-      </div>
-      <!--/Steps 1-fields -->
-
-
-
-      <!--Steps 2-fields -->
-      <div class="box-campaign" ng-show="NewCampaignCtrl.step2">   
-         <form name="frm2" id="frm2" novalidate> 
-            <div class="alert fade in" ng-repeat="group in NewCampaignCtrl.timeSheetGroups">
-               <a href="#" class="close" data-dismiss="alert" aria-label="close" ng-click="NewCampaignCtrl.closeTimeSheet(group)" ng-hide="$first">&times;</a>
-               <div class="start">
-                  <p>STARTS ON</p>
-                  <mdp-date-picker mdp-open-on-click mdp-placeholder="dd/mm/yyyy" name="startDate{{group}}" mdp-min-date="NewCampaignCtrl.currentDate | date:'yyyy-MM-dd'" mdp-max-date="NewCampaignCtrl.frm2.date[group].endOnDate" required  ng-model="NewCampaignCtrl.frm2.date[group].startOnDate" required ng-class="{'has-error-border':frm2['startDate'+group].$invalid && NewCampaignCtrl.errCondfrm2}">
-                     <div ng-if="frm2['startDate'+group].$error.required && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Please Enter Start Date</div>
-                     <!-- <div ng-if="frm2['startDate'+group].$error.format && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Invalid Date Format</div>
-                     <div ng-if="!frm2['startDate'+group].$error.format && NewCampaignCtrl.errCondfrm2">
-                       <div ng-if="frm2['startDate'+group].$error.maxDate || frm2['startDate'+group].$error.minDate" class="has-error-msg">Invalid Date</div>
-                     </div> -->
-                  </mdp-date-picker>
-                  <input type="hidden" name="schedule[{{$index}}][start_on_date]" currentDate value="{{NewCampaignCtrl.frm2.date[group].startOnDate | date :'dd-MM-yyyy'}}">
-                  
-                  <mdp-time-picker mdp-open-on-click mdp-placeholder="HH:MM" name="startTime{{group}}" required ng-model="NewCampaignCtrl.frm2.date[group].startOnTime" ng-class="{'has-error-border':frm2['startTime'+group].$invalid && NewCampaignCtrl.errCondfrm2}">
-                      <div ng-if="frm2['startTime'+group].$error.required && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Please Enter Start Time</div>
-                  </mdp-time-picker>
-                  <input type="hidden" name="schedule[{{$index}}][start_on_time]" value="{{NewCampaignCtrl.frm2.date[group].startOnTime | date :'HH:mm' }}">
-               </div>
-               <div class="ends">
-                  <p>ENDS ON</p>
-                  <mdp-date-picker mdp-open-on-click name="endDate{{group}}" mdp-placeholder="dd/mm/yyyy" required mdp-min-date="NewCampaignCtrl.frm2.date[group].startOnDate || NewCampaignCtrl.currentDate | date:'yyyy-MM-dd'" ng-model="NewCampaignCtrl.frm2.date[group].endOnDate" ng-class="{'has-error-border':frm2['endDate'+group].$invalid && NewCampaignCtrl.errCondfrm2}">
-                     <div ng-if="frm2['endDate'+group].$error.required && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Please Enter End Date</div>
-                     <!-- <div ng-if="frm2['endDate'+group].$error.format && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Invalid Date Format</div>
-                     <div ng-if="!frm2['endDate'+group].$error.format && NewCampaignCtrl.errCondfrm2">
-                       <div ng-if="frm2['endDate'+group].$error.maxDate || frm2['endDate'+group].$error.minDate" class="has-error-msg">Invalid Date</div>
-                     </div> -->
-                  </mdp-date-picker>
-                  <input type="hidden" name="schedule[{{$index}}][end_on_date]" value="{{NewCampaignCtrl.frm2.date[group].endOnDate | date :'dd-MM-yyyy'}}">
-                  
-                  <mdp-time-picker mdp-open-on-click name="endTime{{group}}" mdp-placeholder="HH:MM" required ng-model="NewCampaignCtrl.frm2.date[group].endOnTime" ng-class="{'has-error-border':frm2['endTime'+group].$invalid && NewCampaignCtrl.errCondfrm2}">
-                     <div ng-if="frm2['endTime'+group].$error.required && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Please Enter End Time</div>
-                  </mdp-time-picker>
-                  <input type="hidden" name="schedule[{{$index}}][end_on_time]" value="{{NewCampaignCtrl.frm2.date[group].endOnTime | date :'HH:mm' }}">
-                  
-               </div>
-            </div>
-
-            <div class="clearfix add-schedule">
-               <md-checkbox ng-model="NewCampaignCtrl.frm2.checkbox" ng-disabled="NewCampaignCtrl.timeSheetGroups.length==5" aria-label="Checkbox 1" class="md-primary">
-                  Schedule Multiple Times &nbsp;
-               </md-checkbox>
-               <a href="" title="" ng-click="NewCampaignCtrl.addTimeSheet()" ng-style="{'pointer-events': NewCampaignCtrl.frm2.checkbox ? 'auto' : 'none'}"> ADD SCHEDULE
-               </a>
-            </div>  
-            <div class="clearfix">
-               <div class="form-group modern-select pull-left">
-                  <div class="controls">
-                    <p>SELECT JOBS</p>
-                     <select data-rel="chosen" name="job_ids[]" required id="selectJob" ng-model="NewCampaignCtrl.frm2.job_ids" data-placeholder="Select Job" class="form-control" multiple ng-class="{'has-error-border':!frm2['job_ids[]'].$valid && NewCampaignCtrl.errCondfrm2 }">
-                        <option ng-if="NewCampaignCtrl.jobLists.length > 0" ng-repeat="jobList in NewCampaignCtrl.jobLists" value="{{jobList.id}}" ng-bind="(jobList.job_title) +' ( ' +(jobList.no_of_vacancies)+ ' )'" id="{{jobList.id}}" class="{{jobList.no_of_vacancies}}"></option>
-                        <option ng-if="NewCampaignCtrl.jobLists.length == 0" value="" disabled>No jobs found</option>
-                     </select>
-                  </div>
-                  <div style="min-height:25px">
-                   <div ng-show="!frm2['job_ids[]'].$valid && NewCampaignCtrl.errCondfrm2 && NewCampaignCtrl.jobLists.length > 0" class="has-error-msg">Please Select Atleast One Job</div>
-                   <div ng-show="!frm2['job_ids[]'].$valid && NewCampaignCtrl.errCondfrm2 && NewCampaignCtrl.jobLists.length == 0" class="has-error-msg">No jobs found. (Please post atleast one job from JOBS tab)</div>
-                  </div>
-               </div>
-            </div>
-         </form>
-      </div>
-      <!--/Steps 2-fields -->
+                <div class="location" style="margin-top: 40px;" ng-if="NewCampaignCtrl.frm1.location.location_type == 'onsite'">
+                   <div class="clearfix">
+                      <md-input-container class="md-block">
+                            <label>ADDRESS</label>
+                            <input type="text" name="address" ng-model="NewCampaignCtrl.frm1.location.address" required ng-class="{'has-error-border':frm1.address.$invalid && NewCampaignCtrl.errCondfrm1}">
+                            <div ng-if="frm1.address.$error.required && NewCampaignCtrl.errCondfrm1" class="has-error-msg">Please Enter Address.</div>
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>CITY</label>
+                            <input type="text" name="city" ng-model="NewCampaignCtrl.frm1.location.city" ng-keyup="NewCampaignCtrl.resetLocation(NewCampaignCtrl.frm1.location.city)" required ng-class="{'has-error-border':frm1.city.$invalid && NewCampaignCtrl.errCondfrm1}" id="location" ng-autocomplete="NewCampaignCtrl.geo_location" details="NewCampaignCtrl.geo_details" options="NewCampaignCtrl.geo_options" apiplaceholder="">
+                            <div ng-if="frm1.city.$error.required && NewCampaignCtrl.errCondfrm1" class="has-error-msg">Please Select City.</div>
+                        </md-input-container>
+                   </div>
+                   <div class="clearfix">
+                        <md-input-container class="md-block">
+                            <label>ZIP CODE</label>
+                            <input type="text" name="zip_code" ng-model="NewCampaignCtrl.frm1.location.zip_code" onkeypress='return event.charCode >= 48 && event.charCode <= 57' ng-class="{'has-error-border':frm1.zip_code.$invalid && NewCampaignCtrl.errCondfrm1}" ng-pattern="/^[0-9]{5,6}$/">
+                             <div ng-if="frm1.zip_code.$error.pattern && NewCampaignCtrl.errCondfrm1" class="has-error-msg">Please Enter Valid Zip Code.</div>
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>STATE</label>
+                            <input type="text" name="state" ng-model="NewCampaignCtrl.frm1.location.state" required ng-class="{'has-error-border':frm1.state.$invalid && NewCampaignCtrl.errCondfrm1}">
+                            <div ng-if="frm1.state.$error.required && NewCampaignCtrl.errCondfrm1" class="has-error-msg">Please Enter State.</div>
+                        </md-input-container>
+                   </div>
+                   <div class="clearfix">
+                     <md-input-container class="md-block pull-left">
+                         <label>COUNTRY</label>
+                         <input type="text" name="country" ng-model="NewCampaignCtrl.frm1.location.country" required ng-class="{'has-error-border':frm1.country.$invalid && NewCampaignCtrl.errCondfrm1}">
+                         <div ng-if="frm1.country.$error.required && NewCampaignCtrl.errCondfrm1" class="has-error-msg">Please Enter Country.</div>
+                     </md-input-container>
+                     <input type="hidden" name="latitude" value="{{NewCampaignCtrl.lat}}">
+                     <input type="hidden" name="longitude" value="{{NewCampaignCtrl.lng}}">
+                   </div>
+                </div>
+             </form>
+          </div>
+          <!--/Steps 1-fields -->
 
 
 
-      <!--Steps 3-fields -->      
-      <div class="box-campaign" ng-show="NewCampaignCtrl.step3">
-         <form name="frm3" id="frm3" novalidate>
-            <buckets-view buckets="NewCampaignCtrl.bucketsName" check-ids="NewCampaignCtrl.checkBuckets" set-fn="NewCampaignCtrl.setDirectiveFn(dirFn)">
-            </buckets-view>
-            <div style="min-height:25px">
-               <div ng-show="!frm3.selectedBuckets.$valid && NewCampaignCtrl.errCondfrm3" class="has-error-msg">Please Select Atleast One Group to Publish Campaign</div>
-            </div>
-            <div class="clearfix upload-files">
-               <div>
-                  <md-checkbox ng-model="NewCampaignCtrl.frm3.ceoPitch" aria-label="Checkbox 1" class="md-primary">
-                        Upload CEO's Pitch
-                  </md-checkbox>
-                  <div ng-style="{'pointer-events': NewCampaignCtrl.frm3.ceoPitch ? 'auto' : 'none'}" class="upload-pitch">BROWSE FILE</div>
-               </div>
-               <div>
-                  <md-checkbox ng-model="NewCampaignCtrl.frm3.employeePitch" aria-label="Checkbox 2" class="md-primary">
-                     Upload Employees's Pitch
-                  </md-checkbox>
-                  <div ng-style="{'pointer-events': NewCampaignCtrl.frm3.employeePitch ? 'auto' : 'none'}" class="upload-pitch">BROWSE FILE</div>
-               </div>
-            </div>   
-         </form>
-      </div>
-      <!--/Steps 3-fields -->
+          <!--Steps 2-fields -->
+          <div class="box-campaign" ng-show="NewCampaignCtrl.step2">   
+             <form name="frm2" id="frm2" novalidate> 
+                <div class="alert fade in" ng-repeat="group in NewCampaignCtrl.timeSheetGroups">
+                   <a href="#" class="close" data-dismiss="alert" aria-label="close" ng-click="NewCampaignCtrl.closeTimeSheet(group)" ng-hide="$first">&times;</a>
+                   <div class="start">
+                      <p>STARTS ON</p>
+                      <mdp-date-picker mdp-placeholder="dd/mm/yyyy" name="startDate{{group}}" mdp-min-date="NewCampaignCtrl.currentDate | date:'yyyy-MM-dd'" mdp-max-date="NewCampaignCtrl.frm2.date[group].endOnDate" required  ng-model="NewCampaignCtrl.frm2.date[group].startOnDate" required ng-class="{'has-error-border':frm2['startDate'+group].$invalid && NewCampaignCtrl.errCondfrm2}">
+                         <div ng-if="frm2['startDate'+group].$error.required && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Please Enter Start Date</div>
+                         <div ng-if="frm2['startDate'+group].$error.format && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Invalid Date Format</div>
+                         <div ng-if="!frm2['startDate'+group].$error.format && NewCampaignCtrl.errCondfrm2">
+                           <div ng-if="frm2['startDate'+group].$error.maxDate || frm2['startDate'+group].$error.minDate" class="has-error-msg">Invalid Date</div>
+                         </div>
+                      </mdp-date-picker>
+                      <input type="hidden" name="schedule[{{$index}}][start_on_date]" currentDate value="{{NewCampaignCtrl.frm2.date[group].startOnDate | date :'dd-MM-yyyy'}}">
+                      <mdp-time-picker 
+                        date="{{NewCampaignCtrl.frm2.date[group].startOnDate  | date:'yyyy-MM-dd'}}" time=""
+                          mdp-placeholder="HH:MM" name="startTime{{group}}" required ng-model="NewCampaignCtrl.frm2.date[group].startOnTime" ng-class="{'has-error-border':frm2['startTime'+group].$invalid && NewCampaignCtrl.errCondfrm2}">
+                          <div ng-if="frm2['startTime'+group].$error.required && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Please Enter Start Time.</div>
+                          <div ng-if="frm2['startTime'+group].$error.format && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Please Enter Valid Time.</div>
+                      </mdp-time-picker>
+                      <input type="hidden" name="schedule[{{$index}}][start_on_time]" value="{{NewCampaignCtrl.frm2.date[group].startOnTime | date :'HH:mm' }}">
+                   </div>
+                   <div class="ends">
+                      <p>ENDS ON</p>
+                      <mdp-date-picker  name="endDate{{group}}" mdp-placeholder="dd/mm/yyyy" required mdp-min-date="NewCampaignCtrl.frm2.date[group].startOnDate || NewCampaignCtrl.currentDate | date:'yyyy-MM-dd'" ng-model="NewCampaignCtrl.frm2.date[group].endOnDate" ng-class="{'has-error-border':frm2['endDate'+group].$invalid && NewCampaignCtrl.errCondfrm2}">
+                         <div ng-if="frm2['endDate'+group].$error.required && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Please Enter End Date.</div>
+                         <div ng-if="frm2['endDate'+group].$error.format && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Invalid Date Format</div>
+                         <div ng-if="!frm2['endDate'+group].$error.format && NewCampaignCtrl.errCondfrm2">
+                           <div ng-if="frm2['endDate'+group].$error.maxDate || frm2['endDate'+group].$error.minDate" class="has-error-msg">Invalid Date.</div>
+                         </div>
+                      </mdp-date-picker>
+                      <input type="hidden" name="schedule[{{$index}}][end_on_date]" value="{{NewCampaignCtrl.frm2.date[group].endOnDate | date :'dd-MM-yyyy'}}">
+                      
+                      <mdp-time-picker  date="{{NewCampaignCtrl.frm2.date[group].endOnDate | date:'yyyy-MM-dd' }}" time="{{NewCampaignCtrl.frm2.date[group].startOnTime | date :'HH:mm' }}"  name="endTime{{group}}" mdp-placeholder="HH:MM" required ng-model="NewCampaignCtrl.frm2.date[group].endOnTime" ng-class="{'has-error-border':frm2['endTime'+group].$invalid && NewCampaignCtrl.errCondfrm2}">
+                         <div ng-if="frm2['endTime'+group].$error.required && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Please Enter End Time.</div>
+                         <div ng-if="frm2['endTime'+group].$error.format && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Please Enter Valid Time.</div>
+                      </mdp-time-picker>
+                      <input type="hidden" name="schedule[{{$index}}][end_on_time]" value="{{NewCampaignCtrl.frm2.date[group].endOnTime | date :'HH:mm' }}">
+                      
+                   </div>
+                </div>
+
+                <div class="clearfix add-schedule">
+                   <md-checkbox ng-model="NewCampaignCtrl.frm2.checkbox" ng-disabled="NewCampaignCtrl.timeSheetGroups.length==5" aria-label="Checkbox 1" class="md-primary">
+                      Schedule Multiple Times &nbsp;
+                   </md-checkbox>
+                   <a href="" title="" ng-click="NewCampaignCtrl.addTimeSheet()" ng-style="{'pointer-events': NewCampaignCtrl.frm2.checkbox ? 'auto' : 'none'}"> ADD SCHEDULE
+                   </a>
+                </div>  
+                <div class="clearfix">
+                   <div class="form-group modern-select pull-left">
+                      <div class="controls">
+                        <p class="job">
+                            <span>SELECT JOBS</span>
+                            <span class="pull-right" ng-click="NewCampaignCtrl.jobTemplate()">CREATE JOB</span>
+                        </p>
+                        <select data-rel="chosen" name="job_ids[]" id="selectJob" ng-model="NewCampaignCtrl.frm2.job_ids" data-placeholder="Select Job" class="form-control" multiple ng-class="{'has-error-border':NewCampaignCtrl.errCondfrm2 && NewCampaignCtrl.frm2.job_ids.length == 0}">
+                            <option ng-if="NewCampaignCtrl.jobLists.length > 0" ng-repeat="jobList in NewCampaignCtrl.jobLists" value="{{jobList.id}}" ng-bind="(jobList.job_title) +' ( ' +(jobList.no_of_vacancies)+ ' )'" id="{{jobList.id}}" class="{{jobList.no_of_vacancies}}"></option>
+                            <option ng-if="NewCampaignCtrl.jobLists.length == 0" value="" disabled>No jobs found.</option>
+                         </select>
+                      </div>
+                      <div style="min-height:25px">
+                       <div ng-show="NewCampaignCtrl.errCondfrm2 && NewCampaignCtrl.frm2.job_ids.length == 0" class="has-error-msg">Please Select Atleast One Job.</div>
+                       <div ng-show="!frm2['job_ids[]'].$valid && NewCampaignCtrl.errCondfrm2 && NewCampaignCtrl.jobLists.length == 0" class="has-error-msg">No jobs found. (Please post atleast one job from JOBS tab.)</div>
+                      </div>
+                   </div>
+                </div>
+             </form>
+          </div>
+          <!--/Steps 2-fields -->
 
 
 
-      <!--Steps 4-fields -->
-      <div class="box-campaign" ng-show="NewCampaignCtrl.step4">
-         <div class="post">
-            <md-checkbox ng-model="NewCampaignCtrl.chk.postOnSocial" aria-label="Checkbox 1" class="md-primary">
-               Post on Social Network
-            </md-checkbox>
-           
-            <ul class="nav nav-tabs" ng-style="{'pointer-events': NewCampaignCtrl.chk.postOnSocial ? 'auto' : 'none'}">
-               <li class="active"><a data-toggle="tab" data-target="#tweet"><i class="fa fa-twitter"  aria-hidden="true"></i></a></li>
-               <li class="facebook"><a data-toggle="tab" data-target="#share"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-               <li class="google"><a data-toggle="tab" data-target="#post"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-            </ul>
+          <!--Steps 3-fields -->      
+          <div class="box-campaign" ng-show="NewCampaignCtrl.step3">
+             <form name="frm3" id="frm3" novalidate>
+                <buckets-view buckets="NewCampaignCtrl.bucketsName" check-ids="NewCampaignCtrl.checkBuckets" set-fn="NewCampaignCtrl.setDirectiveFn(dirFn)">
+                </buckets-view>
+                <div style="min-height:25px">
+                   <div ng-show="!frm3.selectedBuckets.$valid && NewCampaignCtrl.errCondfrm3" class="has-error-msg">Please Select Atleast One Group to Publish Campaign.</div>
+                </div>
+                <div class="clearfix upload-files">
+                   <div>
+                      <md-checkbox ng-model="NewCampaignCtrl.frm3.ceoPitch" aria-label="Checkbox 1" class="md-primary">
+                            Upload CEO's Pitch
+                      </md-checkbox>
+                      <div ng-style="{'pointer-events': NewCampaignCtrl.frm3.ceoPitch ? 'auto' : 'none'}" class="upload-pitch">BROWSE FILE</div>
+                   </div>
+                   <div>
+                      <md-checkbox ng-model="NewCampaignCtrl.frm3.employeePitch" aria-label="Checkbox 2" class="md-primary">
+                         Upload Employees's Pitch
+                      </md-checkbox>
+                      <div ng-style="{'pointer-events': NewCampaignCtrl.frm3.employeePitch ? 'auto' : 'none'}" class="upload-pitch">BROWSE FILE</div>
+                   </div>
+                </div>   
+             </form>
+          </div>
+          <!--/Steps 3-fields -->
 
-            <div class="tab-content" ng-style="{'pointer-events': NewCampaignCtrl.chk.postOnSocial ? 'auto' : 'none'}">
-               <div id="tweet" class="tab-pane fade in active">
-                    <div class="media">
-                        <div class="company-name ellipsis" title="{{NewCampaignCtrl.company_name}}" ng-bind="NewCampaignCtrl.company_name"></div>
-                        <div class="campaign-description">
-                            <b ng-bind="NewCampaignCtrl.frm1.campaign_name" class="ellipsis"></b><br>
-                            <p ng-bind="NewCampaignCtrl.frm1.campaign_type"></p>
-                            <span style="font-weight:bold;">Starts On: &nbsp;</span><span ng-bind="(NewCampaignCtrl.frm2.date[1].startOnDate | date: 'dd-MMM-yyyy') + ' - ' + (NewCampaignCtrl.frm2.date[1].startOnTime | date: 'HH:mm')"></span>
+
+
+          <!--Steps 4-fields -->
+          <div class="box-campaign" ng-show="NewCampaignCtrl.step4">
+             <div class="post">
+                <md-checkbox ng-model="NewCampaignCtrl.chk.postOnSocial" aria-label="Checkbox 1" class="md-primary">
+                   Post on Social Network
+                </md-checkbox>
+               
+                <ul class="nav nav-tabs" ng-style="{'pointer-events': NewCampaignCtrl.chk.postOnSocial ? 'auto' : 'none'}">
+                   <li class="active"><a data-toggle="tab" data-target="#tweet"><i class="fa fa-twitter"  aria-hidden="true"></i></a></li>
+                   <li class="facebook"><a data-toggle="tab" data-target="#share"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                   <li class="google"><a data-toggle="tab" data-target="#post"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                </ul>
+
+                <div class="tab-content" ng-style="{'pointer-events': NewCampaignCtrl.chk.postOnSocial ? 'auto' : 'none'}">
+                   <div id="tweet" class="tab-pane fade in active">
+                        <div class="media">
+                            <div class="company-name ellipsis" title="{{NewCampaignCtrl.company_name}}" ng-bind="NewCampaignCtrl.company_name"></div>
+                            <div class="campaign-description">
+                                <b ng-bind="NewCampaignCtrl.frm1.campaign_name" class="ellipsis"></b><br>
+                                <p ng-bind="NewCampaignCtrl.frm1.campaign_type"></p>
+                                <span style="font-weight:bold;">Starts On: &nbsp;</span><span ng-bind="(NewCampaignCtrl.frm2.date[1].startOnDate | date: 'dd-MMM-yyyy') + ' - ' + (NewCampaignCtrl.frm2.date[1].startOnTime | date: 'HH:mm')"></span>
+                            </div>
+                            <div class="location"><img src="public/images/material_icons/location.svg" alt=""><p>Location</p></div>
                         </div>
-                        <div class="location"><img src="public/images/material_icons/location.svg" alt=""><p>Location</p></div>
-                    </div>
-                  <div class="tab-buttons">
-                     <span>Tweet</span>
-                  </div>
-               </div>
-               <div id="share" class="tab-pane fade">
-                  <div class="media">
-                        <div class="company-name ellipsis" title="{{NewCampaignCtrl.company_name}}" ng-bind="NewCampaignCtrl.company_name"></div>
-                        <div class="campaign-description">
-                            <b ng-bind="NewCampaignCtrl.frm1.campaign_name" class="ellipsis"></b><br>
-                            <p ng-bind="NewCampaignCtrl.frm1.campaign_type"></p>
-                            <span style="font-weight:bold;">Starts On: &nbsp;</span><span ng-bind="(NewCampaignCtrl.frm2.date[1].startOnDate | date: 'dd-MMM-yyyy') + ' - ' + (NewCampaignCtrl.frm2.date[1].startOnTime | date: 'HH:mm')"></span>
+                      <div class="tab-buttons">
+                         <span>Tweet</span>
+                      </div>
+                   </div>
+                   <div id="share" class="tab-pane fade">
+                      <div class="media">
+                            <div class="company-name ellipsis" title="{{NewCampaignCtrl.company_name}}" ng-bind="NewCampaignCtrl.company_name"></div>
+                            <div class="campaign-description">
+                                <b ng-bind="NewCampaignCtrl.frm1.campaign_name" class="ellipsis"></b><br>
+                                <p ng-bind="NewCampaignCtrl.frm1.campaign_type"></p>
+                                <span style="font-weight:bold;">Starts On: &nbsp;</span><span ng-bind="(NewCampaignCtrl.frm2.date[1].startOnDate | date: 'dd-MMM-yyyy') + ' - ' + (NewCampaignCtrl.frm2.date[1].startOnTime | date: 'HH:mm')"></span>
+                            </div>
+                            <div class="location"><img src="public/images/material_icons/location.svg" alt=""><p>Location</p></div>
                         </div>
-                        <div class="location"><img src="public/images/material_icons/location.svg" alt=""><p>Location</p></div>
-                    </div>
-                  <div class="tab-buttons">
-                     <span class="share">Share</span>
-                  </div>
-               </div>
-               <div id="post" class="tab-pane fade">
-                  <div class="media">
-                        <div class="company-name ellipsis" title="{{NewCampaignCtrl.company_name}}" ng-bind="NewCampaignCtrl.company_name"></div>
-                        <div class="campaign-description">
-                            <b ng-bind="NewCampaignCtrl.frm1.campaign_name" class="ellipsis"></b><br>
-                            <p ng-bind="NewCampaignCtrl.frm1.campaign_type"></p>
-                            <span style="font-weight:bold;">Starts On: &nbsp;</span><span ng-bind="(NewCampaignCtrl.frm2.date[1].startOnDate | date: 'dd-MMM-yyyy') + ' - ' + (NewCampaignCtrl.frm2.date[1].startOnTime | date: 'HH:mm')"></span>
+                      <div class="tab-buttons">
+                         <span class="share">Share</span>
+                      </div>
+                   </div>
+                   <div id="post" class="tab-pane fade">
+                      <div class="media">
+                            <div class="company-name ellipsis" title="{{NewCampaignCtrl.company_name}}" ng-bind="NewCampaignCtrl.company_name"></div>
+                            <div class="campaign-description">
+                                <b ng-bind="NewCampaignCtrl.frm1.campaign_name" class="ellipsis"></b><br>
+                                <p ng-bind="NewCampaignCtrl.frm1.campaign_type"></p>
+                                <span style="font-weight:bold;">Starts On: &nbsp;</span><span ng-bind="(NewCampaignCtrl.frm2.date[1].startOnDate | date: 'dd-MMM-yyyy') + ' - ' + (NewCampaignCtrl.frm2.date[1].startOnTime | date: 'HH:mm')"></span>
+                            </div>
+                            <div class="location"><img src="public/images/material_icons/location.svg" alt=""><p>Location</p></div>
                         </div>
-                        <div class="location"><img src="public/images/material_icons/location.svg" alt=""><p>Location</p></div>
-                    </div>
-                  <div class="tab-buttons">
-                     <span class="post">Post</span>
-                  </div>
-               </div>
-            </div>
+                      <div class="tab-buttons">
+                         <span class="post">Post</span>
+                      </div>
+                   </div>
+                </div>
 
-            <md-checkbox  ng-model="NewCampaignCtrl.chk.postOnOwnSocial" aria-label="Checkbox 1" class="md-primary">
-               Add my Own Social Page 
-            </md-checkbox>
-           
-             <ul class="nav nav-tabs" ng-style="{'pointer-events': NewCampaignCtrl.chk.postOnOwnSocial ? 'auto' : 'none'}">
-               <li class="active"><a data-toggle="tab" data-target="#tweetOwn"><i class="fa fa-twitter"  aria-hidden="true"></i></a></li>
-               <li class="facebook"><a data-toggle="tab" data-target="#shareOwn"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-               <li class="google"><a data-toggle="tab" data-target="#postOwn"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-            </ul>
+                <md-checkbox  ng-model="NewCampaignCtrl.chk.postOnOwnSocial" aria-label="Checkbox 1" class="md-primary">
+                   Add my Own Social Page 
+                </md-checkbox>
+               
+                 <ul class="nav nav-tabs" ng-style="{'pointer-events': NewCampaignCtrl.chk.postOnOwnSocial ? 'auto' : 'none'}">
+                   <li class="active"><a data-toggle="tab" data-target="#tweetOwn"><i class="fa fa-twitter"  aria-hidden="true"></i></a></li>
+                   <li class="facebook"><a data-toggle="tab" data-target="#shareOwn"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                   <li class="google"><a data-toggle="tab" data-target="#postOwn"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                </ul>
 
-            <div class="tab-content" ng-style="{'pointer-events': NewCampaignCtrl.chk.postOnOwnSocial ? 'auto' : 'none'}">
-               <div id="tweetOwn" class="tab-pane fade in active">
-                    <div class="media">
-                        <div class="company-name ellipsis" title="{{NewCampaignCtrl.company_name}}" ng-bind="NewCampaignCtrl.company_name"></div>
-                        <div class="campaign-description">
-                            <b ng-bind="NewCampaignCtrl.frm1.campaign_name" class="ellipsis"></b><br>
-                            <p ng-bind="NewCampaignCtrl.frm1.campaign_type"></p>
-                            <span style="font-weight:bold;">Starts On: &nbsp;</span><span ng-bind="(NewCampaignCtrl.frm2.date[1].startOnDate | date: 'dd-MMM-yyyy') + ' - ' + (NewCampaignCtrl.frm2.date[1].startOnTime | date: 'HH:mm')"></span>
+                <div class="tab-content" ng-style="{'pointer-events': NewCampaignCtrl.chk.postOnOwnSocial ? 'auto' : 'none'}">
+                   <div id="tweetOwn" class="tab-pane fade in active">
+                        <div class="media">
+                            <div class="company-name ellipsis" title="{{NewCampaignCtrl.company_name}}" ng-bind="NewCampaignCtrl.company_name"></div>
+                            <div class="campaign-description">
+                                <b ng-bind="NewCampaignCtrl.frm1.campaign_name" class="ellipsis"></b><br>
+                                <p ng-bind="NewCampaignCtrl.frm1.campaign_type"></p>
+                                <span style="font-weight:bold;">Starts On: &nbsp;</span><span ng-bind="(NewCampaignCtrl.frm2.date[1].startOnDate | date: 'dd-MMM-yyyy') + ' - ' + (NewCampaignCtrl.frm2.date[1].startOnTime | date: 'HH:mm')"></span>
+                            </div>
+                            <div class="location"><img src="public/images/material_icons/location.svg" alt=""><p>Location</p></div>
                         </div>
-                        <div class="location"><img src="public/images/material_icons/location.svg" alt=""><p>Location</p></div>
-                    </div>
-                    <div class="tab-buttons">
-                        <span>Tweet</span>
-                    </div>
-               </div>
-               <div id="shareOwn" class="tab-pane fade">
-                    <div class="media">
-                        <div class="company-name ellipsis" title="{{NewCampaignCtrl.company_name}}" ng-bind="NewCampaignCtrl.company_name"></div>
-                        <div class="campaign-description">
-                            <b ng-bind="NewCampaignCtrl.frm1.campaign_name" class="ellipsis"></b><br>
-                            <p ng-bind="NewCampaignCtrl.frm1.campaign_type"></p>
-                            <span style="font-weight:bold;">Starts On: &nbsp;</span><span ng-bind="(NewCampaignCtrl.frm2.date[1].startOnDate | date: 'dd-MMM-yyyy') + ' - ' + (NewCampaignCtrl.frm2.date[1].startOnTime | date: 'HH:mm')"></span>
+                        <div class="tab-buttons">
+                            <span>Tweet</span>
                         </div>
-                        <div class="location"><img src="public/images/material_icons/location.svg" alt=""><p>Location</p></div>
-                    </div>
-                    <div class="tab-buttons">
-                        <span class="share">Share</span>
-                    </div>
-               </div>
-               <div id="postOwn" class="tab-pane fade">
-                  <div class="media">
-                        <div class="company-name ellipsis" title="{{NewCampaignCtrl.company_name}}" ng-bind="NewCampaignCtrl.company_name"></div>
-                        <div class="campaign-description">
-                            <b ng-bind="NewCampaignCtrl.frm1.campaign_name" class="ellipsis"></b><br>
-                            <p ng-bind="NewCampaignCtrl.frm1.campaign_type"></p>
-                            <span style="font-weight:bold;">Starts On: &nbsp;</span><span ng-bind="(NewCampaignCtrl.frm2.date[1].startOnDate | date: 'dd-MMM-yyyy') + ' - ' + (NewCampaignCtrl.frm2.date[1].startOnTime | date: 'HH:mm')"></span>
+                   </div>
+                   <div id="shareOwn" class="tab-pane fade">
+                        <div class="media">
+                            <div class="company-name ellipsis" title="{{NewCampaignCtrl.company_name}}" ng-bind="NewCampaignCtrl.company_name"></div>
+                            <div class="campaign-description">
+                                <b ng-bind="NewCampaignCtrl.frm1.campaign_name" class="ellipsis"></b><br>
+                                <p ng-bind="NewCampaignCtrl.frm1.campaign_type"></p>
+                                <span style="font-weight:bold;">Starts On: &nbsp;</span><span ng-bind="(NewCampaignCtrl.frm2.date[1].startOnDate | date: 'dd-MMM-yyyy') + ' - ' + (NewCampaignCtrl.frm2.date[1].startOnTime | date: 'HH:mm')"></span>
+                            </div>
+                            <div class="location"><img src="public/images/material_icons/location.svg" alt=""><p>Location</p></div>
                         </div>
-                        <div class="location"><img src="public/images/material_icons/location.svg" alt=""><p>Location</p></div>
-                    </div>
-                    <div class="tab-buttons">
-                        <span class="post">Post</span>
-                    </div>
-               </div>
-            </div>
-         </div>
-      </div>
-      <!--/Steps 4-fields -->
-   </div>
+                        <div class="tab-buttons">
+                            <span class="share">Share</span>
+                        </div>
+                   </div>
+                   <div id="postOwn" class="tab-pane fade">
+                      <div class="media">
+                            <div class="company-name ellipsis" title="{{NewCampaignCtrl.company_name}}" ng-bind="NewCampaignCtrl.company_name"></div>
+                            <div class="campaign-description">
+                                <b ng-bind="NewCampaignCtrl.frm1.campaign_name" class="ellipsis"></b><br>
+                                <p ng-bind="NewCampaignCtrl.frm1.campaign_type"></p>
+                                <span style="font-weight:bold;">Starts On: &nbsp;</span><span ng-bind="(NewCampaignCtrl.frm2.date[1].startOnDate | date: 'dd-MMM-yyyy') + ' - ' + (NewCampaignCtrl.frm2.date[1].startOnTime | date: 'HH:mm')"></span>
+                            </div>
+                            <div class="location"><img src="public/images/material_icons/location.svg" alt=""><p>Location</p></div>
+                        </div>
+                        <div class="tab-buttons">
+                            <span class="post">Post</span>
+                        </div>
+                   </div>
+                </div>
+             </div>
+          </div>
+          <!--/Steps 4-fields -->
+       </div>
 
 
-   <div class="modal-footer">
-      <div class="msgs pull-left">
-         <span style="line-height:50px;" class="pull-left">
-            <span ng-if="!!NewCampaignCtrl.postLoader"><img src="public/images/loader/upload_file.gif" alt="loader" style="margin:5px;"> ADDING CAMPAIGN</span>
-            <span class="message fade" ng-if="!!NewCampaignCtrl.message" ng-bind="NewCampaignCtrl.successMsg"></span>
-         </span>
-      </div>
-      <div class="btns pull-right">
-         <span class="btn-reset" ng-click="NewCampaignCtrl.reset()">
-            RESET
-         </span>
-         <span ng-if="!(NewCampaignCtrl.currentStep == 4)" class="btn-next" ng-click="NewCampaignCtrl.switchSteps('next')">
-            NEXT
-         </span>
-         <span ng-if="NewCampaignCtrl.currentStep == 4" class="btn-next" ng-style="{'pointer-events': !NewCampaignCtrl.postPointer ? 'auto' : 'none'}" ng-click="NewCampaignCtrl.postNewCampaign()" style="padding: 12px 25px;">
-           PUBLISH CAMPAIGN
-         </span>
-      </div>
-   </div>
+       <div class="modal-footer">
+          <div class="msgs pull-left">
+             <span style="line-height:50px;" class="pull-left">
+                <span ng-if="!!NewCampaignCtrl.postLoader"><img src="public/images/loader/upload_file.gif" alt="loader" style="margin:5px;"> ADDING CAMPAIGN</span>
+                <span class="message fade" ng-if="!!NewCampaignCtrl.message" ng-bind="NewCampaignCtrl.successMsg"></span>
+             </span>
+          </div>
+          <div class="btns pull-right">
+             <span ng-if="!(NewCampaignCtrl.currentStep == 4)" class="btn-next" ng-click="NewCampaignCtrl.switchSteps('next')">
+                NEXT
+             </span>
+             <span ng-if="NewCampaignCtrl.currentStep == 4" class="btn-next" ng-style="{'pointer-events': !NewCampaignCtrl.postPointer ? 'auto' : 'none'}" ng-click="NewCampaignCtrl.postNewCampaign()" style="padding: 12px 25px;">
+               PUBLISH CAMPAIGN
+             </span>
+          </div>
+       </div>
+    </div>
+
+
+    <div ng-click="NewCampaignCtrl.closeDropdown()" role="btn" ng-show="NewCampaignCtrl.showJobTemplate">
+        <create-job close-template="NewCampaignCtrl.jobTemplate()" set-fn="NewCampaignCtrl.createJobData(dirFn)" edit-campagin="NewCampaignCtrl.campState" close-modals="NewCampaignCtrl.closeModal()"></create-job>
+    </div>
 </div>

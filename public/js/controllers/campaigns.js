@@ -11,13 +11,17 @@
 		.service('CampaignsData', CampaignsData)
 		.service('contactBuckets', contactBuckets)
 		.service('jobListData', jobListData)
+		.service('createJobData', createJobData)
+		.directive('createJob', createJob)
+
 
 		CampaignsController.$inject = ['$http', 'CONFIG', 'contactBuckets', '$uibModal', 'jobListData'];
-		NewCampaignController.$inject = ['$scope','$state', 'contactBuckets', 'jobListData', 'CampaignsData', '$uibModalInstance', '$http', 'CompanyDetails', 'CONFIG'];
-		AllCampaignsController.$inject = ['$state', '$http', '$q', '$timeout', 'uiGridConstants', 'CampaignsData', 'userPermissions', '$stateParams', 'CONFIG'];
+		NewCampaignController.$inject = ['$scope', '$state', '$timeout', 'contactBuckets', 'jobListData', 'CampaignsData', '$uibModalInstance', '$http', 'CompanyDetails', 'createCampaign', 'createJobData', 'CONFIG'];
+		AllCampaignsController.$inject = ['$state', '$http', '$q', '$timeout', '$window', 'uiGridConstants', 'CampaignsData', 'userPermissions', '$stateParams', 'CONFIG'];
 		MyCampaignsController.$inject = [];
 		EditCampaignsController.$inject = ['$scope', '$state', 'CompanyDetails', 'CampaignsData', 'contactBuckets', 'jobListData', 'rippleService', '$window', '$http', 'CONFIG'];
-
+		createJobData.$inject = ['$rootScope'];
+		createJob.$inject = ['App', '$http', '$window', '$timeout', 'createJobData'];
 
 		function contactBuckets(){
 			var buckets = {};
@@ -36,7 +40,7 @@
 		}
 
 		function jobListData(){
-			var jobList = {};
+			var jobList = [];
 
 			this.setJobListData = function(data){
 				jobList = data;
@@ -44,6 +48,10 @@
 
 			this.getJobListData = function(){
 				return jobList;
+			}
+
+			this.addJobData = function(data){
+				jobList.push(data)
 			}
 		}
 
@@ -62,6 +70,17 @@
 
 			this.addCampaigns = function(prop, val){
 				campaigns[prop] = val;
+			}
+		}
+
+		function createJobData($rootScope){
+			this.UpdateDataInCtrl = function(data){
+				if(data.editCampagin){
+					$rootScope.$broadcast('newJobDataEditCmp', data);
+				}
+				else{
+					$rootScope.$broadcast('newJobData', data);
+				}
 			}
 		}
 
@@ -128,24 +147,120 @@
 
 		    this.createNewCampaign = createNewCampaign;
 		
-			function createNewCampaign(){
+			function createNewCampaign(boolCreatNewCamp){
 				$uibModal.open({
 		            animation: false,
 		            backdrop: 'static',
 		            keyboard: false,
 		            templateUrl: 'templates/campaigns/new-campaign-dialog.phtml',
 		            openedClass: "new-campaign",
+		            resolve : { 
+					    createCampaign : function() {
+					       return boolCreatNewCamp;
+					    }
+  					},
 		            controller:'NewCampaignController',
 		     		controllerAs: 'NewCampaignCtrl'
 		        });
 			};
 		}
 
-		function NewCampaignController($scope, $state, contactBuckets, jobListData, CampaignsData, $uibModalInstance, $http, CompanyDetails, CONFIG){
+		function createJob(App, $http, $window, $timeout, createJobData){
+			return{
+				restrict:'AE',
+				scope:{
+					setFn: '&',
+					closeTemplate : '&',
+					closeModals : '&',
+					editCampagin : '=' 
+				},
+				templateUrl:'templates/campaigns/template-create-job.phtml',
+				link : function(scope){
+					//google api location
+					scope.geo_location = '';
+  					scope.geo_options = '';
+  					scope.geo_details = '';
+  					scope.$watch(function() {
+					    return scope.geo_details;
+					  }, function(location) {
+			    	});
+
+					scope.postJob = function(invalid){
+						if(invalid){
+							scope.errCond = true;
+							return;
+						}
+						scope.apiCallStart = true;
+						$http({
+							headers: {
+					          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+					        },
+					        method: 'post',
+					        data: $('form[name="create_job"').serialize()+ '&' + $.param({
+			        			job_period:'immediate',
+								job_type:'global'
+			        		}),
+					        url: App.base_url + 'job_post_from_campaigns'
+						}).success(function(response){
+							if(response.status_code == 200){
+								scope.apiCallStart = false;
+								scope.apiSuccessMsg = response.message.msg[0];
+								response.data['editCampagin'] = scope.editCampagin.bol
+								$timeout(function(){ scope.editCampagin.bol ? scope.closeDismiss() : scope.close()}, 800);
+								createJobData.UpdateDataInCtrl(response.data);
+								$timeout(function(){scope.apiSuccessMsg = ""}, 900);
+			    			}
+					    	else if(response.status_code == 400){
+				                $window.location = CONFIG.APP_DOMAIN + 'logout';
+				            }
+						});
+					}
+
+					scope.close = function(){
+						scope.closeTemplate();
+						scope.errCond = false;
+						scope.jobData = {};
+					}
+					
+					function getData(){
+						var apiCall = ['get_job_functions', 'get_industries', 'get_employment_types', 'get_experiences'];
+
+						for(var i = 0; i < apiCall.length; i++){
+							$http({
+								headers: {
+						          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+						        },
+						        method: 'GET',
+						        url: App.base_url + apiCall[i]
+							}).success(function(response){
+								if(response.status_code == 200){
+									var label = Object.keys(response.data)[0];
+			    					scope[label] = response.data[label]; 
+
+				    			}
+						    	else if(response.status_code == 400){
+					                $window.location = CONFIG.APP_DOMAIN + 'logout';
+					            }
+							});
+						}
+					}
+
+					if(scope.editCampagin.bol){
+						getData();
+					}
+					scope.setFn({dirFn:getData});
+					scope.closeDismiss = function(){
+						scope.closeModals();
+					}
+				}
+			}
+		}
+
+		function NewCampaignController($scope, $state, $timeout, contactBuckets, jobListData, CampaignsData, $uibModalInstance, $http, CompanyDetails, createCampaign, createJobData, CONFIG){
 
 			var vm = this;
-			vm.company_name = CompanyDetails.name;
-			this.bucketsNamedata = contactBuckets.getBucket();
+			this.company_name = CompanyDetails.name;
+			this.bucketsNamedata = angular.copy(contactBuckets.getBucket());
 			this.jobLists = jobListData.getJobListData();
 			setTimeout(function(){$('#selectJob').chosen()}, 0);
 			$('html').addClass('remove-scroll');
@@ -154,7 +269,9 @@
 			this.geo_location = '';
   			this.geo_options = {types:'(cities)'};
   			this.geo_details = '';
-
+  			this.frm2 = {};
+			vm.frm2.job_ids = [];
+  			
 
 			this.switchSteps = switchSteps;
 			this.addTimeSheet = addTimeSheet;
@@ -162,17 +279,36 @@
 			this.postNewCampaign = postNewCampaign;
 			this.closeModal = closeModal;
 			this.trash = trash;
+			this.showJobTemplate = false;
+  			this.jobTemplate = jobTemplate;
+  			this.createJobData = createJobData;
 
+  			// NewCampaign or Create Job based on Boolean
+  			this.createJobEditCampagin =  !createCampaign;
+  			this.campState = {
+  				bol : vm.createJobEditCampagin
+  			} 
+			if(vm.createJobEditCampagin){
+				jobTemplate();
+			}
 
 			var formName = 'frm1';
 			this.currentStep = 1;
 			this.step1 = true;
-
+			
 			function switchSteps(step){
+
 				if(step == "next"){
-					if($scope[formName].$invalid){
-						vm['errCond' + formName]= true;
-						return;
+					if(vm.currentStep == 2){
+						if($scope[formName].$invalid  ||  vm.frm2.job_ids.length == 0){
+							vm['errCond' + formName]= true;
+							return;
+						}
+					}else{
+						if($scope[formName].$invalid){
+							vm['errCond' + formName]= true;
+							return;
+						}	
 					}
 					vm['errCond' + formName]= false;
 					vm["step" + vm.currentStep] = false;
@@ -193,24 +329,6 @@
 			this.setDirectiveFn = function(dirFn) {
         		vm.resetBuckets = dirFn;
     		};
-
-			this.reset = function(){
-				vm[formName] = {};
-				vm['errCond' + formName]= false;
-				if(formName == 'frm1'){
-					vm.frm1.location = {};
-					vm.frm1.location.location_type = 'online';
-				}
-				if(formName == 'frm2'){
-					vm.timeSheetGroups = [1];
-					$('#selectJob').val('').trigger('chosen:updated');
-				}
-				else if(formName == 'frm3'){
-					vm.resetBuckets();
-					trash(0);
-					trash(1);
-				}
-			}
 
 			this.timeSheetGroups = [1];
 			this.currentTimeSheet = 1;
@@ -267,6 +385,7 @@
 			    newCampaign.error(function(response){
 			        console.log(response)
 			    })
+
 			}
 			
 			setTimeout(function(){uploader()}, 1000);;
@@ -347,6 +466,20 @@
 				$uibModalInstance.dismiss('cancel');
 			}
 
+			function createJobData(dirFn){
+				vm.createJobApi = dirFn;
+			}
+
+			var triggerCreateJobCalls = true;
+			
+			function jobTemplate(){				
+				vm.showJobTemplate = !vm.showJobTemplate;
+				if(triggerCreateJobCalls){
+					vm.createJobApi();
+					triggerCreateJobCalls = false;		
+				}
+			}
+
 			var componentForm = {
 		        locality: 'long_name',
 		        administrative_area_level_1: 'long_name',
@@ -380,6 +513,15 @@
 			    }
 			});
 
+
+			this.resetLocation = function(city){
+				if(city == undefined){
+					vm.frm1.location.zip_code = "";
+					vm.frm1.location.state = "";
+					vm.frm1.location.country = "";
+				}
+			}
+
 			this.listSteps = [
 				{ label:'CAMPAIGN DETAILS', status: true},
 				{ label:'SCHEDULE CAMPAIGN', status: false},
@@ -396,10 +538,27 @@
 	           		$('body').find('.md-select-menu-container').addClass('md-leave');
        			}
    			}
+
+   			$scope.$on('newJobData', function(event, data) {
+   				
+   				var obj = {
+   					no_of_vacancies : data.no_of_vacancies,
+   					id : data.post_id,
+   					job_title : data.name
+   				}
+        		jobListData.addJobData(obj);
+        		var id = data.post_id.toString();
+          		vm.frm2.job_ids.push(id);
+  				$timeout(function(){$('#selectJob').trigger('chosen:updated')}, 100);
+    		})
+
+   			$scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+       		 	$uibModalInstance.dismiss('cancel');
+    		});
 		}
 
 
-		function AllCampaignsController($state, $http, $q, $timeout, uiGridConstants, CampaignsData, userPermissions, $stateParams, CONFIG){
+		function AllCampaignsController($state, $http, $q, $timeout, $window, uiGridConstants, CampaignsData, userPermissions, $stateParams, CONFIG){
 
 			var vm = this,canceler,
 			gridApiCall = CONFIG.APP_DOMAIN + 'campaigns_list';
@@ -564,7 +723,7 @@
 				enableRowHeaderSelection: false,
 				multiSelect: false,
 				modifierKeysToMultiSelect: false,
-				noUnselect: true,
+				noUnselect: true, // need to look after
 				infiniteScrollRowsFromEnd: 8,
 				infiniteScrollUp:true,
 				infiniteScrollDown:true,
@@ -695,64 +854,6 @@
 			    })
 		  	};
 
-		  	/*vm.getDataUp = function() {
-			    vm.pageNo--;
-			    var data = $("form[name='filter_form']").serialize();
-			    return $http({
-	                headers: {
-	                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-	                },
-	                method: 'POST',
-	                url: gridApiCall,
-	                data: data + '&' + $.param({
-	                	search : vm.search,
-	                	page_no : vm.pageNo
-	                })
-	            })
-                .then(function(response){
-                	if(response.data.status_code == 200){
-                		vm.firstPage--;
-	                	vm.gridApi.infiniteScroll.saveScrollPercentage();
-	                	vm.gridOptions.data = vm.gridOptions.data.concat(response.data.data.campaigns);
-	                	return vm.gridApi.infiniteScroll.dataLoaded(vm.firstPage > 0, vm.lastPage < vm.totalPages).then(function() {
-	                		//vm.checkDataLength('down');
-	                	});
-                	}
-                	else if(response.data.status_code == 400) {
-		                $window.location = CONFIG.APP_DOMAIN + 'logout';
-		            }
-                })
-                .catch(function(error) {
-			      	return vm.gridApi.infiniteScroll.dataLoaded();
-			    })
-		  	};*/
-
-
-	  		/*vm.checkDataLength = function( discardDirection) {
-			    // work out whether we need to discard a page, if so discard from the direction passed in
-			    if( vm.lastPage - vm.firstPage > vm.totalPages - 1 ){
-			      	// we want to remove a page
-			      	vm.gridApi.infiniteScroll.saveScrollPercentage();
-			 
-			      	if( discardDirection === 'up' ){
-			        	vm.data = vm.data.slice(50);
-			        	vm.data.firstPage++;
-			        	$timeout(function() {
-			          		// wait for grid to ingest data changes
-			         		 vm.gridApi.infiniteScroll.dataRemovedTop(vm.firstPage > 0, vm.pageNo < vm.totalPages);
-			        	});
-			      	}
-		      		else {
-				        vm.data = vm.data.slice(0, vm.totalRecords - 50);
-				        vm.lastPage--;
-				        $timeout(function() {
-				          // wait for grid to ingest data changes
-				          vm.gridApi.infiniteScroll.dataRemovedBottom(vm.firstPage > 0, vm.lastPage < vm.totalPages - 1);
-				        });
-			      	}
-			    }
-			  };*/
-
 		  	function init(search, searchLoader){
 		  		vm.getFirstData(search, searchLoader).then(function(){
 	    			$timeout(function() {
@@ -774,7 +875,7 @@
 		  	applyFilterBol = false;
 		    function applyFilter(search, searchLoader){
 		    	if(!searchLoader){
-		    		if(vm.selectedType.length || vm.selectedStatus.length || vm.locationCheck || applyFilterBol){
+		    		if(vm.selectedType.length || vm.selectedStatus.length || applyFilterBol || vm.searchResults.length){
 				    	init(search, searchLoader);
 				    	clearFilterBol = true;
 				    	applyFilterBol = false;	
@@ -806,6 +907,8 @@
 		    	vm.selectedType = [];
 				vm.selectedStatus = [];
 				vm.locationCheck = false;
+				vm.searchResults = [];
+				setTimeout(function(){$('#mul_select').val('').trigger('chosen:updated');}, 1);
 		    	if(clearFilterBol){
 		    		applyFilterBol = true;
 		    		setTimeout(function(){applyFilter(val, searchLoader);clearFilterBol = false;},100);
@@ -813,6 +916,17 @@
 		    }
 
 		    function editCampaigns(row){
+		    	/*if(row.entity.status == 'CLOSED'){
+		    		$('#no_edit').modal();
+		    		return false;
+		    	}
+
+		    	if(canceler){
+					canceler.resolve()
+				}
+
+				canceler = $q.defer();*/
+
 		    	$http({
 	                headers: {
 	                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -822,6 +936,7 @@
 	                data: $.param({
 	                	campaign_id: row.entity.id
 	                }),
+	                // timeout: canceler.promise
 	            })
                 .then(function(response){
                 	if(response.data.status_code == 200){
@@ -850,6 +965,7 @@
 
 			vm.errCond = false;
 			vm.loader = false;
+			vm.bktView = true;
 			vm.campaignDetails = {};
 			vm.bucketsName = {};
 			vm.radioButtons = {};
@@ -895,13 +1011,14 @@
 			});
 
 			vm.updateCampaign = updateCampaign;
-			vm.resetCampaign = resetCampaign;
 			vm.trash = trash;
+			vm.resetLocation = resetLocation;
 
 			vm.campaignDetails = CampaignsData.getCampaigns();
+			vm.prevSelectedJobIds = [];
 			vm.cacheData = angular.copy(vm.campaignDetails);
 			
-		    vm.bucketsName = contactBuckets.getBucket();
+		    vm.bucketsName = angular.copy(contactBuckets.getBucket());
 	    	vm.checkedBuckets = vm.campaignDetails.bucket_ids || [];
 
 		    vm.jobsList = jobListData.getJobListData();
@@ -915,6 +1032,7 @@
 					$('#mul_select').trigger('chosen:updated');
 					setTimeout(function(){
 						for(var i = 0; i < vm.campaignDetails.job_ids.length; i++){
+							vm.prevSelectedJobIds.push($('.chosen-choices li.search-choice').eq(i).find('a').attr('data-option-array-index'));
 							$('.chosen-choices li').eq(i).find('a').remove();
 						}
 					},100)
@@ -1166,15 +1284,36 @@
 	            }
 		    }
 
-		    function resetCampaign(){
-		    	vm.campaignDetails = angular.copy(vm.cacheData);
-		    	resetErrors();
-		    	schedule();
-		    	radioButton();
-		    	vm.resetBuckects();
-		    	filesReset();
-		    	resetJobs();
+		    function resetLocation(city){
+		    	if(city == undefined){
+		    		vm.campaignDetails.location.zip_code = "";
+		    		vm.campaignDetails.location.state = "";
+		    		vm.campaignDetails.location.country = "";
+		    	}
 		    }
+		    $scope.$on('newJobDataEditCmp', function(event, data) {
+   				var obj = {
+   					no_of_vacancies : data.no_of_vacancies,
+   					id : data.post_id,
+   					job_title : data.name
+   				}
+   				jobListData.getJobListData().push(obj);
+   				var id = data.post_id.toString();
+   				vm.campaignDetails.job_ids.push(id)
+		    	vm.campaignDetails.job_ids = angular.copy(vm.campaignDetails.job_ids);
+   				setTimeout(function(){$('#mul_select').trigger('chosen:updated')}, 100);
+   				setTimeout(function(){
+   					for(var j = 0;j < vm.prevSelectedJobIds.length; j++){
+   						for(var i = 0; i < $('.chosen-choices li.search-choice').length - 1; i++){
+							if($('.chosen-choices li a').eq(i).attr('data-option-array-index') == vm.prevSelectedJobIds[j]){
+								$('.chosen-choices li a').eq(i).remove();
+								break;
+							}
+						}
+   					}
+
+				},200);
+    		});
 		}
 
 

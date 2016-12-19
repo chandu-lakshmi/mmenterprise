@@ -9,6 +9,16 @@ return [
             'template_path' => __DIR__ . '/../templates/',
         ],
 
+        // Renderer settings
+        'email_renderer' => [
+            'template_path' => __DIR__ . '/../templates/email-parser',
+        ],
+
+        // file viewer
+        'file_viewer' => [
+            'template_path' => __DIR__ . '/../templates/file-viewer',
+        ],
+
         // Monolog settings
         'logger' => [
             'name' => 'slim-app',
@@ -58,6 +68,12 @@ return [
             ]
 
         ],
+
+        // email parser
+        'EMAIL_PARSER' => [
+            // Angular Application domain
+            'EMAIL_PARSER_DOMAIN' => 'http://enterprisestaging.mintmesh.com/email-parser/',
+        ]
         
     ],
 ];

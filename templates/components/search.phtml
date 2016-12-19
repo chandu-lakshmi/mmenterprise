@@ -1,0 +1,15 @@
+<div class="search-box-wrap inactive">
+	<input
+		type="text" class="search-box"
+		placeholder="{{opts.placeholder}}"
+		ng-model="opts.value" ng-change="search($event)" />
+
+	<i class="material-icons search-box-icon search-icon" aria-hidden="true">search</i>
+ 	<img
+		class="search-box-icon icon-spin"
+		ng-src="{{opts.spinner || $root.url_images + 'spinner_search.gif'}}"
+		ng-show="opts.progress" ng-hide="opts.value.length==0" /> 
+	<i
+		class="material-icons search-box-icon close-icon"
+		ng-click="clear($event)" ng-show="opts.complete">close</i>
+</div>

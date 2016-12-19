@@ -186,6 +186,34 @@ return [
             'get_company_all_referrals' =>[
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/get_company_all_referrals'
+            ],
+            'add_job' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/add_job'
+            ],
+            'multiple_awaiting_action' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/multiple_awaiting_action'
+            ],
+            'apply_job' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/apply_job'
+            ],
+            'apply_jobs_list' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/apply_jobs_list'
+            ],
+            'decrypt_ref' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/decrypt_ref'
+            ],
+            'job_post_from_campaigns' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/job_post_from_campaigns'
+            ],
+           'apply_job_details' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/apply_job_details'
             ]
     ];
         

@@ -304,6 +304,7 @@ header .notifications .user span:not(:last-child){
     text-align: center;
     padding: 40px 0;
     margin: 15px 36px 0 0;
+    box-shadow: 4px 4px 10px 0px rgba(135,135,135,0.11);
 }
 .dashboard .panel-group .panel:last-child{
 	margin-right: 0;
@@ -586,6 +587,10 @@ select:-moz-focusring {
     letter-spacing: 0.6px;
     font-weight: bold;
     color: #888;
+    margin-left: 15px;
+}
+.dashboard .top-contacts .container .head + div{
+	margin:0;
 }
 .dashboard .top-contacts .container .box{
 	border: 1px solid #cdcdcd;
@@ -806,6 +811,13 @@ ul.new-tabs > li.active > a{
 	font-size: 16px;
 	color: #878787;
 }
+.engage-contact .box .box-content .col-sm-3{
+	width: 23.333%;
+}
+.engage-contact .box .box-content .col-size{
+	width: 12%;
+	padding-left: 0px; 
+}
 .engage-contact .box .box-content a:focus{
 	text-decoration: none;
 }
@@ -869,6 +881,7 @@ ul.new-tabs > li.active > a{
 .engage-contact .box .box-content ul > li big{
 	color: initial;
 	font-size: 14px;
+	display: inline-block;
 }
 .engage-contact .accepted .box-content{
 	padding: 0;

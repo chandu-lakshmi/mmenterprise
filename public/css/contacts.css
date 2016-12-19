@@ -1,6 +1,6 @@
 /* contactsEdit in dashbaord */
 
- select.form-control option[value="? string:unknown ?"]{display: none}
+.grid-contacts select.form-control option[value^="?"]{display: none}
 
 .grid-contacts{
   	background: #eeeff1;
@@ -25,6 +25,7 @@
 .grid-contacts .container .container-lt .bkt-container{
 	height: calc(100vh - 217px);
     overflow-y: auto;
+    min-height: 458px;
 }
 .grid-contacts .container .container-lt .bkt-container > span,
 .grid-contacts .container .container-lt .bkt-container > div{
@@ -153,12 +154,15 @@
     border-right: 0;
     overflow: hidden;
     height: calc(100vh - 275px);
+    min-height: 400px;
 }
 .grid-contacts .ui-grid-header-viewport{
-  	height: 40px;
-    line-height: 40px;
-    color: #6e6f6f;
-    background: #eeeff1;
+  	height: 43px;
+    line-height: 43px;
+    color: #959698;
+    background: #f3f7f8;
+    text-transform: uppercase;
+    font-size: 12px;
 }
 .grid-contacts .ui-grid-header-cell{
     border: 0;
@@ -255,7 +259,8 @@
   	box-shadow: none;
 }
 .grid-contacts .ui-grid-pinned-container .ui-grid-header .ui-grid-icon-ok:before{
-	top: 6px !important;
+	top: 6px;
+    left: 14px;
 }
 .grid-contacts .ui-grid-icon-ok:before{
   	position: relative;
@@ -292,7 +297,7 @@
 .grid-contacts .ui-grid-row.ui-grid-row-selected > [ui-grid-row] > .ui-grid-cell,
 .grid-contacts .ui-grid-row.ui-grid-row-selected .ui-grid-disable-selection div,
 .grid-contacts .ui-grid-row.ui-grid-row-selected{
-  	background-color: #f9f9f9 !important;
+  	background-color: #f8fcff !important;
 }
 
 /* validation & loaders */
@@ -311,12 +316,10 @@
 	border: 0;
 	background-color: transparent;
 	top: 35.5%;
-	font-size: 16px;
 }
 .grid-contacts .grid-msg-overlay img{
-	width: 45px;
-	height: 45px;
-
+	width: 86px;
+    height: 86px;
 }
 /*footer bg color */
 .grid-contacts .container .container-rt .grid-footer{
@@ -324,123 +327,34 @@
   	background: #eeeff1;
   	border-top: 0;
   	font-size: 14px;
-  	padding:12px 18px;
+    line-height: 70px;
   	position: relative;
 }
-.grid-contacts .container .container-rt .grid-footer .status{
-	width: 33%;
-	padding-top: 5px;
-}
-.grid-contacts .container .container-rt .grid-footer .status span select{
-	display: inline-block;
-	box-shadow: none;
-    outline: 0;
-    font-weight: 900;
-    -webkit-appearance:none;
-  	-moz-appearance:none;
-  	appearance:none;
-  	width: 100px;
-  	cursor: pointer;
-    line-height: 21px;
-}
-.grid-contacts .container .container-rt .grid-footer .status span i{
-	position: absolute;
-    pointer-events: none;
-    right: 7px;
-    font-size: 22px;
-    top: -2px;
-    color: #000;
-}
-.grid-contacts .container .container-rt .grid-footer .status span:first-child{
-	position: relative;
-}
-.grid-contacts .container .container-rt .grid-footer .status span:last-child{
-    outline: none;
-}
-.grid-contacts .container .container-rt .grid-footer .pages-con{
-	width: 33%;
-    height: 1px;
-	text-align: center;
+.grid-contacts .container .container-rt .grid-footer .status span md-input-container{
+    margin: 0 0 5px 0;
+    padding: 0;
+    line-height: initial;
+    float: none;
 }
 .grid-contacts .container .container-rt .grid-footer .invite .btn-invite{
-	position: absolute;
-    margin-top: 12px;
-    padding: 14px;
-    right: 18px;
-    top: -2px;
     border-radius: 4px;
     color: #fff;
     background-color: #1d8e70;
     cursor: pointer;
+    display: inline;
+    padding: 16px;
 }
 .grid-contacts .container .container-rt .grid-footer .invite span{
-	display: inline-block;
-    padding: 12px 0;
-    position: relative;
-    margin-left: 20px;
-}
-.container .container-rt .grid-footer .selected-count{
-  	float: left;
-    margin-top: 12px;
-}
-.container .container-rt .grid-footer .center-pages{
-  	width: 236px;
-    margin: 0 auto;
-    text-align: center;
-}
-.container .container-rt div.pagenation{
-    border-radius: 4px;
-    margin:5px auto;
-    overflow: hidden;
-    display: inline-block;
-    background: #fff; 
-    border:1px solid #ccc;
-}
-.container .container-rt div.pagenation .arrow-click, .container .container-rt div.pagenation .pages span{
-    display: inline-block;
-    text-align: center;
-    cursor: pointer;
-    width: 34px;
-    height: 34px;
-    line-height: 34px;
-    float: left;
-    outline: 0;
-}
-.container .container-rt div.pagenation .arrow-click.left{
-    border-right:1px solid #ccc;
-}
-.container .container-rt div.pagenation .pages span{
-    border-right:1px solid #ccc;
-}
-.container .container-rt div.pagenation .pages .page-active{
-    background-color: #347ab8;
-    color: #fff;
-}
-.container .container-rt div.pagenation .pages-container{
-    width: 136px;
-    position: relative;
-    height: 34px;
-    overflow: hidden;
-    float:left;
-}
-.container .container-rt div.pagenation .pages{
     position: absolute;
-    left:0;
-    -webkit-transition: left 0.3s linear;
-    -moz-transition: left 0.3s linear;
-    -o-transition: left 0.3s linear;
-    transition: left 0.3s linear;
+    left: -38px;
+    width: 170px;
+    text-align: right;
 }
-.container .container-rt .arrow-click.right{
-    position: relative;
+.grid-contacts .container .container-rt .grid-footer .pages{
+    line-height: initial;
 }
-.container .container-rt .arrow-click.right:after{
-    content: '';
-    position: absolute;
-    border-left: 1px solid #ccc;
-    z-index: 22;
-    height: 34px;
-    left: -1px;
+.grid-contacts .container .container-rt .grid-footer .pages .pagination{
+    margin:18px 0 0 0;
 }
 .container .container-rt .form-control:focus{
 	border-color: #cbcbcb;
@@ -739,14 +653,6 @@
     outline: none;
     border-radius: 5px;
     display: inline-block;
-}
-.bucket-modal .modal-footer .btn-cancel,
-.contact-modal .modal-footer .btn-cancel{
-    padding: 10px 20px;
-    color: #959595;
-    outline: none;
-    margin-right: 10px;
-    font-size: 17px;
 }
 .bucket-modal .modal-body img[alt='close'],
 .bucket-modal .modal-body img[alt='back'],

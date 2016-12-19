@@ -1,10 +1,24 @@
+$MMColor:#208d6e;
+
+body.email-parser{
+	.modal{
+		.modal-header{text-align: center;
+			.modal-title{color: #fc1600}
+		}
+		.modal-body{font-size: 16px;color: #5b5b5b;
+			p{margin: 0 0 20px;}
+		}
+	}
+}
+
 .drop-box{
 	.container{
 		section{width: 620px;min-height: 470px;margin:0 auto;overflow: hidden;padding-bottom: 120px;
 			.logo{width: 304px;text-align: center;margin: 0 auto;padding: 34px 0;border-bottom: 1px solid #e8e8e8;
-				img{width: 160px}	
+				img{width: 160px}
+				.company-name{font-size: 30px;color: #478e76;text-transform: uppercase;}	
 			}
-			.row{border-bottom: 1px solid #e8e8e8;
+			.row{border-bottom: 1px solid #e8e8e8;padding-bottom: 15px;
 				.title{padding:24px 14px;clear: both;margin:0;}
 				.title.candidate{border-top: 1px solid #e8e8e8;clear:both;}
 				.form-style{
@@ -50,7 +64,7 @@
 									.drag_img{width: 100%;height: 100%;background: #f3f3f3 !important;
 										a.view{line-height: 50px;color: #333;width: 78%;
 											img{width: 25px;height: 25px;}
-											p{padding: 0px 5px;display: inline-block;margin: 0;max-width: 87%;vertical-align: middle;font-size: 16px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;}
+											p{padding: 0px 5px;display: inline-block;margin: 0;max-width: 75%;vertical-align: middle;font-size: 16px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;}
 										}
 									}
 								} 
@@ -67,11 +81,18 @@
 					}
 				}
 			}
-			.action{padding-top:22px;font-size: 18px;
-				.cancel{color:#878787;line-height: 50px;
-					a{text-decoration: none;color: inherit;}
+			.footer{padding-top:22px;font-size: 18px;
+				.pull-left{
+					.message{color: #e84949;font-size: 15px;text-transform: capitalize;
+						&.success{color: $MMColor}
+					}
 				}
-				.submit{color:#fff;background: #248261;float: right;padding: 12px 32px;color: #fff;}
+				.pull-right{
+					.cancel{color:#878787;line-height: 50px;text-transform: uppercase;
+						a{text-decoration: none;color: inherit;}
+					}
+					.submit{color:#fff;background: #248261;float: right;padding: 12px 32px;color: #fff;margin-left: 20px;}
+				}
 			}
 		}
 	}

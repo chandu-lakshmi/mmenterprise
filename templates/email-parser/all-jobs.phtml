@@ -1,67 +1,66 @@
 <div class="all-jobs">
 	<div class="container">
 		<header>
-			<img src="../public/images/logo.png" alt="company-logo">			
+			<img ng-src="{{AllJobsCtrl.infiniteScroll.company_logo}}" src="{{AllJobsCtrl.bol ? $root.url_spinner : AllJobsCtrl.infiniteScroll.company_logo}}" ng-class="{'loading' : AllJobsCtrl.bol}" alt="company-logo">
+			<span ng-bind="AllJobsCtrl.infiniteScroll.companyName" class="company-name" ng-if="AllJobsCtrl.infiniteScroll.company_logo == ''"></span>			
 		</header>
-		<section>
-			<div class="row">
-				<div class="col-sm-8">
-					<h4>Enterpi Software Solutions Pvt Ltd.</h4>
-					<h4 class="job-title">Senior UI/UX Designer</h4>
-					<div class="fields">
-						<div class="labels">Experience:</div>
-						<div class="value">5-6 Years</div>
-						<div class="labels">Location:</div>
-						<div class="value">Hyderabad, Telengana</div>
-					</div>
-				</div>
-				<div class="col-sm-4">
-					<span class="btn-apply">
-						<a ui-sref="candidateDetails">APPLY JOB</a>
-					</span>
-				</div>
+		<section class="job">
+			<div class="count">
+				Total Jobs: <span ng-bind="AllJobsCtrl.infiniteScroll.total_count || 0"></span>
 			</div>
-			<div class="row">
-				<div class="col-sm-8">
-					<h4>Enterpi Software Solutions Pvt Ltd.</h4>
-					<h4 class="job-title">Senior UI/UX Designer</h4>
-					<div class="fields">
-						<div class="labels">Experience:</div>
-						<div class="value">5-6 Years</div>
-						<div class="labels">Location:</div>
-						<div class="value">Hyderabad, Telengana</div>
+			<div infinite-scroll='AllJobsCtrl.infiniteScroll.nextPage()' infinite-scroll-disabled='AllJobsCtrl.infiniteScroll.busy' infinite-scroll-distance='2' style="position:relative">
+				<div class="row" ng-repeat="list in AllJobsCtrl.infiniteScroll.list">
+					<a ui-sref="jobDetails({job_name: list.job_name,ref: list.ref_code,flag: 0})" title="" class="details">
+						<div class="col-sm-8">
+							<h4 ng-bind="AllJobsCtrl.jobs_list.companyName | uppercase"></h4>
+							<h4 class="job-title" ng-bind="list.job_name | uppercase"></h4>
+							<div class="fields">
+								<div class="labels">Experience:</div>
+								<div class="value" ng-bind="list.experience + 'year(s)'"></div>
+								<div class="labels">Location:</div>
+								<div class="value" ng-bind="list.location"></div>
+							</div>
+						</div>
+					</a>
+					<div class="col-sm-4">
+						<span class="btn-apply">
+							<a ui-sref="candidateDetails({ref: list.ref_code,flag: 0})">APPLY</a>
+						</span>
 					</div>
 				</div>
-				<div class="col-sm-4">
-					<span class="btn-apply">
-						<a ui-sref="candidateDetails">APPLY JOB</a>
-					</span>
+				<div class="text-center" ng-if="AllJobsCtrl.infiniteScroll.busy" style="opacity:0.5">
+					<img src="../public/images/loader/spin.gif" alt="spinner" style="width:10%">
 				</div>
 			</div>
 		</section>
 		<footer>
 			<div class="social-media">
 				Share Jobs
-				<div class="icon">
+				<!-- <div class="icon">
 					<span><i class="fa fa-facebook " aria-hidden="true"></i></span>
 					<span><i class="fa fa-linkedin" aria-hidden="true"></i></span>
 					<span><i class="fa fa-twitter" aria-hidden="true"></i></span>
 					<span><i class="fa fa-google-plus" aria-hidden="true"></i></span>
 					<span><i class="fa fa-whatsapp" aria-hidden="true"></i></span>
+				</div> -->
+				<div class="social-icons">
+					<!-- Go to www.addthis.com/dashboard to customize your tools -->
+					<div class="addthis_inline_share_toolbox"></div>
 				</div>
+				<!-- <a title="" target="_blank" onclick="window.open('https://twitter.com/intent/tweet?text=http://192.168.33.10/sprint_8/mmenterprise_8/email-parser/all-jobs?ref=95403e3cfae19e1392a41e441f5ff5bb27e6db467647beb8','_blank','width=300px,height=200px')">shiva</a> -->
 				<div class="link">
 					<div class="form-group">
 						<div class="field">
-							<input type="text" class="form-control" id="website" value="http://www.mintmesh.com">		
+							<input type="text" class="form-control" id="copy" value="{{AllJobsCtrl.copyUrl}}">		
 						</div>
-						<div class="btns" data-copytarget="#website">
+						<div class="btns" data-copytarget="#copy">
 							COPY JOBS LINK
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="drop-cv">
-				Couldn't find a matching job for your friend ? &nbsp;<span><a ui-sref="referralDetails">Drop CV here</a></span>
+				Refer friend for future openings here ? &nbsp;<span><a ui-sref="referralDetails({ref: $root.ref,flag: 1})">Upload CV</a></span>
 			</div>
 		</footer>
 	</div>
@@ -72,7 +71,7 @@
 	'use strict';
   
   // click events
-  document.body.addEventListener('click', copy, true);
+  document.getElementsByClassName('btns')[0].addEventListener('click', copy, true);
 
 	// event handler
 	function copy(e) {

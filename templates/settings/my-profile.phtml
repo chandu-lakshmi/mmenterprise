@@ -5,11 +5,6 @@
 				<form name="my_profile_form" novalidate>
 					<div id="display_pic"></div>
 					<p class='add-text'>User Photo</p>
-					<!-- <div class="checkbox" ng-style="{'pointer-events': MyProfileCtrl.has_image == true ? 'auto' : 'none'}" ng-show="{{::userPermissions.is_primary == 1}}">
-	  					<input id="disabled" type="hidden" name="flag" value="0">
-	  					<input id="checkbox" type="checkbox" name="flag" value="1" onchange="angular.element(this).scope().MyProfileCtrl.change()">
-	  					<label for="checkbox">Set as Company Profile pic</label>
-					</div> -->
 					<div class="first">
 						<md-input-container class="md-block">
 		                    <label>USER NAME</label>
@@ -34,7 +29,6 @@
 					</span>
 				</div>
 				<div class="pull-right disabled" ng-style="{'pointer-events': my_profile_form.$dirty || MyProfileCtrl.changeFound ? 'auto' : 'none', 'opacity': my_profile_form.$dirty || MyProfileCtrl.changeFound ? '1' : '0.5'}">
-					<span class="btn-cancel ripplelink" data-ripple-color="#757575" ng-click="MyProfileCtrl.cancel('user');">Reset</span>
 					<span class="btn-save-changes ripplelink" ng-click="MyProfileCtrl.saveChanges(my_profile_form.$valid)">Save Changes</span>
 				</div>
 		    </div>

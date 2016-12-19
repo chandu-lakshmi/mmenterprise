@@ -43,6 +43,9 @@
   height: 100%;
   text-shadow: none;
   font-weight: normal; }
+  .qq-uploader .qq-upload-button input[type='file'] {
+    width: 100%;
+    height: 100%; }
 .qq-uploader .qq-upload-list {
   position: absolute;
   top: 0;
@@ -57,6 +60,225 @@
     .qq-uploader .qq-upload-list li:not(.qq-upload-success) .progress-text {
       text-align: center;
       margin-bottom: 5px; }
+  .qq-uploader .qq-upload-list .icon-remove {
+    padding-right: 2px;
+    cursor: pointer;
+    color: #ff7777;
+    font-size: 18px; }
+
+.pagination li.active a, .pagination li.active a:hover, .pagination li.active a:focus {
+  border-color: #888;
+  background: #888; }
+.pagination li a {
+  color: #888; }
+  .pagination li a:hover {
+    color: #888; }
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../fonts/material-icons/MaterialIcons-Regular.eot);
+  /* For IE6-8 */
+  src: local("Material Icons"), local("MaterialIcons-Regular"), url(../fonts/material-icons/MaterialIcons-Regular.woff2) format("woff2"), url(../fonts/material-icons/MaterialIcons-Regular.woff) format("woff"), url(../fonts/material-icons/MaterialIcons-Regular.ttf) format("truetype"); }
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+  /* Support for IE. */
+  font-feature-settings: 'liga'; }
+
+/* components templates */
+.search-box-wrap {
+  position: relative; }
+  .search-box-wrap .search-box {
+    border: 0;
+    background: transparent;
+    border-bottom: 1px solid #c8d1d0;
+    outline: none;
+    padding: 5px 25px;
+    width: 100%;
+    font-size: 16px; }
+  .search-box-wrap .search-box-icon {
+    position: absolute;
+    top: 5px;
+    opacity: 0.5;
+    outline: none; }
+    .search-box-wrap .search-box-icon.icon-spin {
+      right: 8px;
+      top: 10px; }
+    .search-box-wrap .search-box-icon.close-icon {
+      right: 8px; }
+
+/* angular material */
+md-select[disabled] .md-select-value {
+  background-image: none !important; }
+
+/* multiple select */
+.multiple-select md-select-menu[multiple] md-content._md {
+  max-height: 240px; }
+.multiple-select md-select-menu[multiple] md-select-header {
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(0, 0, 0, 0.12);
+  padding-left: 10.667px;
+  height: 48px;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: auto; }
+  .multiple-select md-select-menu[multiple] md-select-header .demo-header-searchbox {
+    border: none;
+    outline: none;
+    height: 100%;
+    width: 100%;
+    padding: 0; }
+.multiple-select md-select-menu[multiple] md-option {
+  padding-left: 48px; }
+  .multiple-select md-select-menu[multiple] md-option:before {
+    transition: 240ms;
+    position: absolute;
+    top: 15px;
+    left: 16px;
+    width: 18px;
+    height: 18px;
+    border: 2px solid;
+    border-radius: 2px;
+    content: ' ';
+    border-color: rgba(0, 0, 0, 0.54);
+    z-index: 1; }
+  .multiple-select md-select-menu[multiple] md-option[selected]:before {
+    background-color: rgba(30, 136, 229, 0.87);
+    border-color: rgba(30, 136, 229, 0.87); }
+  .multiple-select md-select-menu[multiple] md-option[selected]:after {
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    position: absolute;
+    top: 17px;
+    left: 22px;
+    display: table;
+    width: 6px;
+    height: 12px;
+    border: 2px solid;
+    border-top: 0;
+    border-left: 0;
+    content: ' ';
+    z-index: 2;
+    border-color: white; }
+
+/* angular ui grid */
+.engage-contact .grid {
+  height: calc(100vh - 346px) !important;
+  overflow: hidden;
+  min-height: 450px; }
+  .engage-contact .grid .grid-msg-overlay {
+    top: 45px; }
+  .engage-contact .grid .ui-grid-header {
+    height: 45px;
+    line-height: 33px;
+    border-top: 1px solid #c8d1d0;
+    border-bottom: 1px solid #c8d1d0; }
+    .engage-contact .grid .ui-grid-header .ui-grid-top-panel {
+      background: #f3f7f8; }
+      .engage-contact .grid .ui-grid-header .ui-grid-top-panel .ui-grid-header-cell-row .ui-grid-header-cell {
+        border-right: 0;
+        padding-left: 15px;
+        padding-right: 15px; }
+        .engage-contact .grid .ui-grid-header .ui-grid-top-panel .ui-grid-header-cell-row .ui-grid-header-cell:focus {
+          outline: none; }
+        .engage-contact .grid .ui-grid-header .ui-grid-top-panel .ui-grid-header-cell-row .ui-grid-header-cell div[role='columnheader'] .ui-grid-cell-contents {
+          color: #959698;
+          font-size: 12px; }
+          .engage-contact .grid .ui-grid-header .ui-grid-top-panel .ui-grid-header-cell-row .ui-grid-header-cell div[role='columnheader'] .ui-grid-cell-contents:focus {
+            outline: none; }
+        .engage-contact .grid .ui-grid-header .ui-grid-top-panel .ui-grid-header-cell-row .ui-grid-header-cell div[role='columnheader']:focus {
+          outline: none; }
+  .engage-contact .grid .ui-grid-viewport {
+    overflow-y: auto !important; }
+    .engage-contact .grid .ui-grid-viewport .ui-grid-canvas {
+      width: 100%; }
+    .engage-contact .grid .ui-grid-viewport .ui-grid-row {
+      line-height: 60px;
+      border-bottom: 1px solid #ececec; }
+      .engage-contact .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell {
+        font-weight: normal;
+        text-transform: capitalize; }
+        .engage-contact .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell.first-col {
+          font-weight: bold; }
+        .engage-contact .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .ui-grid-status .pending {
+          color: #50a28a; }
+          .engage-contact .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .ui-grid-status .pending img {
+            margin: 20px 0 0 0;
+            width: 20px;
+            height: 20px;
+            outline: none; }
+            .engage-contact .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .ui-grid-status .pending img.pull-left {
+              margin-right: 7px; }
+        .engage-contact .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .ui-grid-status .declined {
+          color: #d54343; }
+          .engage-contact .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .ui-grid-status .declined .decline-img {
+            background: url("../images/referrals.png") no-repeat -4px -137px;
+            height: 20px;
+            width: 15px;
+            display: inline-block;
+            vertical-align: middle; }
+        .engage-contact .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .ui-grid-status .accepted {
+          color: #2384c0; }
+          .engage-contact .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .ui-grid-status .accepted .accept-img {
+            background: url("../images/referrals.png") no-repeat -4px -96px;
+            height: 20px;
+            width: 15px;
+            display: inline-block;
+            vertical-align: middle; }
+        .engage-contact .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .ui-grid-download a {
+          color: inherit;
+          text-decoration: none;
+          height: 100%;
+          display: inline-block; }
+          .engage-contact .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .ui-grid-download a .download {
+            background: url("../images/referrals.png") no-repeat 0% 70.7%;
+            background-size: 24px;
+            padding-left: 27px;
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+            outline: none;
+            display: inline-block; }
+      .engage-contact .grid .ui-grid-viewport .ui-grid-row div[ui-grid-row='row'] {
+        height: 100%; }
+      .engage-contact .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell {
+        height: 100%;
+        background: #fff;
+        border-right: 0;
+        padding-left: 15px;
+        padding-right: 15px;
+        color: #4a4848; }
+        .engage-contact .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell.open {
+          color: #2db084; }
+        .engage-contact .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell.closed {
+          color: #d85c5e; }
+      .engage-contact .grid .ui-grid-viewport .ui-grid-row:nth-child(even) .ui-grid-cell {
+        background: #fff; }
+  .engage-contact .grid .ui-grid-row.ui-grid-row-selected > [ui-grid-row] > .ui-grid-cell,
+  .engage-contact .grid .ui-grid-row.ui-grid-row-selected .ui-grid-disable-selection div,
+  .engage-contact .grid .ui-grid-row.ui-grid-row-selected {
+    background-color: #f8fcff  !important; }
+  .engage-contact .grid .ui-grid-row:hover > [ui-grid-row] > .ui-grid-cell {
+    cursor: pointer; }
 
 .edit-company .edit-box .company-logo .qq-uploader, .edit-company .edit-box .image-group .qq-uploader {
   width: 125px;

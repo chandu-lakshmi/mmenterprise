@@ -15,6 +15,23 @@
 .import-contacts .container{
   padding-bottom: 0 !important;
 }
+.import-contacts .container .header .col-sm-3{
+  width: 20%;
+  padding: 0;
+}
+.import-contacts .container .header .col-sm-3 a{
+  color: #808080;
+  margin-top: 12px;
+  display: inline-block;
+  font-size: 19px;
+}
+.import-contacts .container .header .col-sm-3 img{
+  vertical-align: bottom;
+  margin-top: 1px;
+}
+.import-contacts .container .header .col-sm-9{
+  width: 80%;
+}
 .import-contacts .container-lt{
   padding-top: 0 !important;
 }
@@ -28,38 +45,41 @@
   margin-top: 0 !important;
 }
 .import-contacts .container .container-lt .bkt-container{
-  height: calc(100vh - 176px) !important;
+  height: calc(100vh - 136px) !important;
 }
 .import-contacts .container-rt .grid{
-  height: calc(100vh - 306px) !important; 
+  height: calc(100vh - 266px) !important; 
 }
 .import-contacts .container-rt{
   border-top: 1px solid #ccc !important;
 }
+.import-contacts .container-rt .pages{
+  text-align: left;
+}
 .import-contacts .container-rt .grid-footer .invite span{
-  position: absolute !important;
-  right: 272px;
-}
-.import-contacts .container-rt .grid-footer .btn-invite{
-  right: 114px !important;
-}
-.import-contacts .container-rt .grid-footer .pages-con{
-  text-align: left !important;
-  position: absolute;
+  left: -114px !important;
 }
 .import-contacts .im-c-head h3 a{
   color: #808080;
 }
+.import-contacts .pagination li.active a, .pagination li.active a:hover{
+  border-color: #888;
+  background: #888;
+}
+.import-contacts .pagination li a:hover,.pagination li a{
+  color:#888;
+}
 .import-contacts .skip a{
-  margin-top: -2px;
-  font-size: 14px;
+  padding: 16px;
+  display: inline;
+  line-height: initial;
+  background: red;
+  border-radius: 4px;
+  margin: 11px 0 0 15px;
   cursor: pointer;
   outline: 0;
   background-color: #1d8e70;
-  padding: 14px 24px;
-  display: inline-block;
   color: #fff;
-  border-radius: 4px;
 }
 
 .import_c_box{
@@ -110,7 +130,8 @@
 }
 .import_logo{
 	padding: 12px 0px 8px;
-	cursor: pointer
+	cursor: pointer;
+  width: 160px;
 }
 .left{
 	margin-left: 1px !important;

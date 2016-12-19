@@ -15,6 +15,12 @@ $container['email_renderer'] = function ($c) {
     return new Slim\Views\PhpRenderer($settings['template_path']);
 };
 
+// file view renderer
+$container['file_viewer'] = function ($c) {
+    $settings = $c->get('settings')['file_viewer'];
+    return new Slim\Views\PhpRenderer($settings['template_path']);
+};
+
 // monolog
 $container['logger'] = function ($c) {
     $settings = $c->get('settings')['logger'];

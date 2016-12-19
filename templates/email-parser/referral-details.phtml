@@ -2,69 +2,82 @@
 	<div class="container">
 		<section>
 			<h1 class="logo">
-				<img src="../public/images/logo.png" alt="logo">
+				<img src="{{::ReferralDetails.company_logo}}" alt="company-logo" ng-show="{{::ReferralDetails.company_logo != ''}}">
+				<span class="company-name" ng-show="{{::ReferralDetails.company_logo == ''}}">{{::ReferralDetails.company_name | uppercase}}</span>
 			</h1>
 			<div class="row">
-				<form name="dropBox" autocomplete="off" novalidate>
+				<form name="refer_form" autocomplete="off" novalidate>
 					<h3 class="title">Employee Details</h3>
 					<div class="col-sm-6 form-style">
 						<div class="form-group gap">
-						    <label for="emp-email">Employee Email ID<sup>*</sup></label>
-						    <input type="text" name="emp_email" class="form-control input-lg" id="emp-email" required ng-pattern="/^[a-z0-9A-Z._%+-]+@[a-zA-Z]+\.[a-z]{2,3}$/i" ng-model="UploadCtrl.empEmail">
-						    <span ng-show="dropBox.emp_email.$error.required && UploadCtrl.errorRequired" class="has-error-msg">Please Enter Employee Email Id</span>
-						     <span ng-show="dropBox.emp_email.$error.pattern && UploadCtrl.errorRequired" class="has-error-msg">Please Enter Valid Email Id</span>
+						    <label for="emp-email">Employee Email Address<sup>*</sup></label>
+						    <input type="text" name="emp_email" class="form-control input-lg" id="emp-email" required ng-pattern="/^[a-z0-9A-Z._%+-]+@[a-zA-Z]+\.[a-z]{2,3}$/i" ng-model="ApplyJobCtrl.referralDetails.emailid" readonly>
+						    <span ng-show="refer_form.emp_email.$error.required && ApplyJobCtrl.errorRequired" class="has-error-msg">Please Enter Employee Email Id.</span>
+						     <span ng-show="refer_form.emp_email.$error.pattern && ApplyJobCtrl.errorRequired" class="has-error-msg">Please Enter Valid Email Id.</span>
 					    </div>
 					</div>
 					<h3 class="title candidate">Candidate Details</h3>
 					<div class="col-sm-6 form-style">
 						<div class="form-group">
 						    <label for="can-fname">First Name<sup>*</sup></label>
-						    <input name="can_fname" class="form-control input-lg" id="can-fname" type="text" required ng-model="UploadCtrl.canFname">
-						    <span ng-show="dropBox.can_fname.$error.required && UploadCtrl.errorRequired" class="has-error-msg">Please Enter Candidate First Name</span>
+						    <input name="fullname" class="form-control input-lg" id="can-fname" type="text" required ng-model="ApplyJobCtrl.canFname">
+						    <span ng-show="refer_form.fullname.$error.required && ApplyJobCtrl.errorRequired" class="has-error-msg">Please Enter First Name.</span>
 					    </div>
 					</div>
 					<div class="col-sm-6 form-style">
 						<div class="form-group">
-						    <label for="can-email">Email Id<sup>*</sup></label>
-						    <input name="can_email" class="form-control input-lg" id="can-email" type="text" required ng-model="UploadCtrl.canEmail" ng-pattern="/^[a-z0-9A-Z._%+-]+@[a-zA-Z]+\.[a-z]{2,3}$/i">
-						    <span ng-show="dropBox.can_email.$error.required && UploadCtrl.errorRequired" class="has-error-msg">Please Enter Candidate Email Id</span>
-						     <span ng-show="dropBox.can_email.$error.pattern && UploadCtrl.errorRequired" class="has-error-msg">Please Enter Valid Email Id</span>
+						    <label for="can-email">Email Address<sup>*</sup></label>
+						    <input name="emailid" class="form-control input-lg" id="can-email" type="text" required ng-model="ApplyJobCtrl.canEmail" ng-pattern="/^[a-z0-9A-Z._%+-]+@[a-zA-Z]+\.[a-z]{2,3}$/i">
+						    <span ng-show="refer_form.emailid.$error.required && ApplyJobCtrl.errorRequired" class="has-error-msg">Please Enter Email Address.</span>
+						     <span ng-show="refer_form.emailid.$error.pattern && ApplyJobCtrl.errorRequired" class="has-error-msg">Please Enter Valid Email Address.</span>
 					    </div>
 					</div>
 					<div class="col-sm-6 form-style">
 						<div class="form-group">
 						    <label for="can-mobile">Phone Number</label>
-						    <input class="form-control input-lg" id="can-mobile" type="text" type="tel"  onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 0' maxlength="50">
+						    <input name="phone_no" class="form-control input-lg" id="can-mobile" type="text" type="tel"  onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 0' maxlength="50">
 					    </div>
 					</div>
-					<div class="col-sm-6 form-style">
+					<div class="col-sm-6 form-style" ng-if="ApplyJobCtrl.status == 1">
 						<div class="form-group gap">
-					      <label for="can-dep">Department<sup>*</sup></label>
+					      <label for="can-dep">Department</label>
 					      <i class="fa fa-angle-down fa-feedback" style="color: #ccc"></i>
-					      <select name="can_dep" class="form-control input-lg" id="can-dep" required ng-model="UploadCtrl.canDep">
-					      	<option value="" disabled >Select Department</option>
+					      <select name="department" class="form-control input-lg" id="can-dep" ng-model="ApplyJobCtrl.canDep">
+					      	<option value="" disabled >Select Department.</option>
 					        <option>1</option>
 					        <option>2</option>
 					        <option>3</option>
 					      </select>
-					      <span ng-show="dropBox.can_dep.$error.required && UploadCtrl.errorRequired" class="has-error-msg">Please Select Department</span>
 					    </div>
 					</div>
 					<div class="col-sm-6 form-style" style="margin-bottom:38px">
 						<div class="file">
 						    <label for="can-upload">Upload CV<sup>*</sup></label>
-						    <span class="file-name" ng-bind="UploadCtrl.fileName" title="{{UploadCtrl.fileName}}"></span>
+						    <span class="file-name" ng-bind="ApplyJobCtrl.fileName" title="{{ApplyJobCtrl.fileName}}"></span>
 						    <div id="upload-resume">
 						  	</div>
-						  	<span class="has-error-msg file-check" ng-show="UploadCtrl.chkFile && UploadCtrl.errorRequired" style="left:0">Please Select File</span>
+						  	<span class="has-error-msg file-check" ng-show="ApplyJobCtrl.chkFile && ApplyJobCtrl.errorRequired" style="left:0">Please Select File.</span>
 					    </div> 
 					</div>
+					<input type="hidden" name="reference_id" value="{{ApplyJobCtrl.referralDetails.reference_id}}">
+					<input type="hidden" name="post_id" value="{{ApplyJobCtrl.referralDetails.post_id}}">
 				</form>
 			</div>
-			<div class="action">
-				<span class="cancel"><a ui-sref="allJobs">Cancel</a></span>
-				<span class="submit" ng-click="UploadCtrl.postFormData(dropBox.$invalid)">SUBMIT</span>
+			<div class="footer clearfix">
+			    <div class="pull-left">
+			        <span style="line-height:50px;">
+			            <span ng-if="ApplyJobCtrl.loader">
+			            	<img src="../public/images/loader/upload_file.gif" alt="loader" style="margin:5px;">Updating
+		            	</span>
+			            <span class="message" ng-class="{'success' : ApplyJobCtrl.backendMsg}" ng-bind="ApplyJobCtrl.backendMsg || ApplyJobCtrl.backendError"></span>
+			        </span>
+			    </div>
+			    <div class="pull-right disabled">
+			        <span class="cancel"><a ui-sref="allJobs({ref: $root.ref})">Cancel</a></span>
+				<span class="submit" ng-click="ApplyJobCtrl.postFormData(refer_form.$invalid, 'refer')">SUBMIT</span>
+			    </div>
 			</div>
 		</section>
 	</div>
 </div>
+

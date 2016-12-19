@@ -10,8 +10,7 @@ function commonArgs ($settings=array()) {
 			'VERSION'		=> $settings['APP']['VERSION'],
 			'PREFIX' 		=> $settings['APP']['PREFIX'],
 			'PASSWORD_GRANT' => $settings['APP']['PASSWORD_GRANT'],
-            'APP_VERSION'    => $settings['APP']['APP_VERSION'],
-			'EMAIL_PARSER_DOMAIN'    => $settings['EMAIL_PARSER']['EMAIL_PARSER_DOMAIN'],
+            'APP_VERSION'    => $settings['APP']['APP_VERSION']
 			);
 }
 
@@ -53,7 +52,15 @@ function commonData ($settings = array()) {
                         'userPermissions' => isset($userPermissions)?json_encode($userPermissions):array(),
 		);
 }
-
+function parserData($settings = array()){
+    return array(
+    		'API_DOMAIN' 	=> $settings['APP']['API_DOMAIN'],
+			'APP_DOMAIN' 	=> $settings['APP']['APP_DOMAIN'],
+			'PATH'          => $settings['APP']['PATH'],
+            'APP_VERSION'    => $settings['APP']['APP_VERSION'],
+			'EMAIL_PARSER_DOMAIN'    => $settings['EMAIL_PARSER']['EMAIL_PARSER_DOMAIN'],
+		);
+}
 function companyProfile($settings){
     //echo "<pre>";
        //print_r($settings);exit;

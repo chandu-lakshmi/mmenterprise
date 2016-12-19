@@ -292,6 +292,13 @@ md-dialog{
 				}
 			}
 		}
+		/*.modal#no_edit{
+			.modal-header{text-align: center;}
+			.modal-body{height: 100px;}
+			.modal-footer{padding: 10px 15px;
+				.btn{width: 80px;height: 40px;background: #1c8f6e;border-color: #1c8f6e;outline: none;color: #fff;}
+			}
+		}*/
 	}
 
 	.my-campaigns{@include viewHeight(160px)
@@ -351,7 +358,9 @@ md-dialog{
 				}
 				.tag-jobs{margin-bottom: 30px;font-size: 14px;font-weight: bold;
 					.drop{width: 45%;float: left;margin-right: 68px;
-						p{margin-bottom: 20px;}
+						p{
+							span.pull-right{cursor: pointer;outline: none;color: #1d8e70;text-decoration: underline;}
+						}
 					 	.modern-select{
 					 		.chosen-container{width: 100% !important;min-height: 34px;
 						 		.search-choice{margin: 4px 0 4px 5px;padding: 8px 20px 8px 5px;

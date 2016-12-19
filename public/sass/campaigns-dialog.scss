@@ -87,6 +87,11 @@
 								}
 							}
 						}
+						.add-schedule{
+							a{vertical-align: text-top;}
+						}
+						textarea{height: 29px !important;}
+						
 						md-checkbox.md-checked{
 							.md-icon{background: #2393d3;
 							}
@@ -157,6 +162,9 @@
 									}
 								}
 							}
+							.job{
+								.pull-right{cursor: pointer;outline: none;color: #1d8e70;text-decoration: underline;margin-right: 10px;}
+							}
 						}
 						.alert{position: relative;padding:0;margin:0;margin-top:25px;
 							a.close{position: absolute;left: 54%;font-size: 25px;top: -34px;float: none;vertical-align: middle;}
@@ -197,7 +205,18 @@
 			}
 		}
 	}
+	create-job{
+		md-select{
+			height: 30px;
+		}
+	}
 	.md-select-menu-container,.md-dialog-container{z-index: 1100}
 	.md-ripple-container{display: none !important}
+	md-select-menu{width : 400px;}
+	.md-select-value{
+		span:not(.md-select-icon){
+			width:93%;
+		}
+	}
 }
 html.remove-scroll{overflow: hidden !important;}

@@ -26,9 +26,9 @@ angular.module('app.engagement.contacts', [])
                 from_user : obj.from_user,
                 referred_by : obj.referred_by,
                 relation_count : obj.relation_count,
-                post_id : jobDetails.id,
+                post_id : jobDetails.id || obj.post_id,
                 status : status,
-                referred_by_phone : obj.referred_by_phone
+                referred_by_phone : obj.referred_by_phone || 0
             });
 
             var processJob = $http({

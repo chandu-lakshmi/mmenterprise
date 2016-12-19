@@ -1,0 +1,7 @@
+<div class="social-sharing">
+	<div ng-repeat="icons in opts.socialIcons">
+		<span class="{{icons}}" ng-click="socialShareCrtl[icons](opts[icons])">
+			<i class="fa fa-{{icons == 'googlePlus' ? 'google-plus' : icons}}"></i>
+		</span>
+	</div>
+</div>

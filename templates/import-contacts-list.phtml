@@ -1,17 +1,16 @@
 <div  class="grid-contacts import-contacts">
 	<div class="container">
 		<div class="row">
-			<div class="col-sm-12">
-
-				<div class="im-c-head">
-					<h3 class="mrZpdZ pull-left" style="color:#808080"><a ui-sref="importContacts"><img src="public/images/back-arrow-black.svg" alt="arrowback"> Import Contacts</a></h3>
+			<div class="col-sm-12 header">
+				<div class="col-sm-3">
+					<h3><a ui-sref="importContacts"><img src="public/images/back-arrow-grey.svg" alt="arrowback"> IMPORT CONTACTS</a></h3>
+				</div>
+				<div class="col-sm-9 text-center">
 					<a href=""><img src="public/images/company_logo.svg" alt="logo" class="import_logo"></a>
 				</div>
-
-				<div ng-include="'templates/contacts.phtml'">
-				</div>
-				
 			</div>
+			<!-- grid -->
+			<div ng-include="'templates/contacts.phtml'"></div>
 		</div>
 	</div>
 </div>

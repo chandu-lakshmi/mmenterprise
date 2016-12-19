@@ -34,7 +34,6 @@
         </span>
     </div>
     <div class="pull-right disabled" ng-style="{'pointer-events': new_group_form.$dirty || UserGroupCtrl.changeFound.group ? 'auto' : 'none', 'opacity': new_group_form.$dirty || UserGroupCtrl.changeFound.group ? '1' : '0.5'}">
-        <span class="btn-cancel ripplelink" data-ripple-color="#757575" ng-click="UserGroupCtrl.readable ? '' : new_group_form.$dirty || UserGroupCtrl.changeFound.group ? UserGroupCtrl.reset('group', UserGroupCtrl.newUser) : '';new_group_form.$setPristine();">Reset</span>
         <span class="btn-save-changes ripplelink" ng-click="UserGroupCtrl.readable ? '' : new_group_form.$dirty || UserGroupCtrl.changeFound.group ? UserGroupCtrl.createGroup(new_group_form.$valid,  UserGroupCtrl.groupData.group_id, UserGroupCtrl.newUser) : ''" ng-bind="UserGroupCtrl.newUser ? 'ADD USER GROUP' : 'SAVE CHANGES' "></span>
     </div>
 </div>     

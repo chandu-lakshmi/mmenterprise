@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mintmesh</title>
+	<style type="text/css">
+		body.file-reader{
+		    padding:0;
+		    margin:0;
+		    overflow:hidden;
+		}
+		body.file-reader iframe{
+		    width : 100% !important;    
+		}
+	</style>
+	<script type="text/javascript">
+		var url = 'https://docs.google.com/viewer?url=<?php echo isset($data['url'])?urldecode($data['url']):'';?>&hl=en&embedded=true';
+		setTimeout(function(){document.getElementById('iframe').setAttribute('src',url)},100);
+	</script>
+</head>
+<body class="file-reader">
+	<iframe id="iframe" src="" class="gde-frame" style="width:1300px; height:1000px; border: none;"></iframe>
+</body>
+</html>

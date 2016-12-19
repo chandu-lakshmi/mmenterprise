@@ -952,6 +952,38 @@ $app->post('/resend_activation_link',function ($request, $response, $args) use (
     
      return checkJsonResult( $companyDetails->loadCurl() );
 });
+
+$app->post('/multiple_awaiting_action',function ($request, $response, $args) use ($app) {
+    
+    // dynamically Access Token
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    $args  = commonData($this->settings);
+    
+    $apiEndpoint = getapiEndpoint($this->settings, 'multiple_awaiting_action');
+    $companyDetails     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    
+     return checkJsonResult( $companyDetails->loadCurl() );
+});
+
+$app->post('/add_job',function ($request, $response, $args) use ($app) {
+    
+    // dynamically Access Token
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    $args  = commonData($this->settings);
+    
+    $apiEndpoint = getapiEndpoint($this->settings, 'add_job');
+    $companyDetails     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    
+     return checkJsonResult( $companyDetails->loadCurl() );
+});
 //Company Details
 $app->POST('/file_upload',function ($request, $response, $args) {
 
@@ -1011,7 +1043,7 @@ $app->POST('/file_upload',function ($request, $response, $args) {
 });
 //contacts upload
 $app->POST('/contacts_file_upload',function ($request, $response, $args) {
-    $args       = commonData($this->settings);
+    //$args       = commonData($this->settings);
     require 'library/fileupload_library.php';
     $file_upload = new fileupload_library; 
         if (!isset($_REQUEST['filename']) && !isset($_FILES['qqfile'])) {
@@ -1030,6 +1062,7 @@ $app->POST('/contacts_file_upload',function ($request, $response, $args) {
             $uploader = $file_upload->fileUpload($allowedExtensions, $sizeLimit);
             //return the file original and source name and path
             $path = $args['PATH'];
+            echo $path;exit;
 
             $result = $file_upload->handleUpload(''.$path.'uploads/', FALSE, $myfilename);
             if (isset($result['success']) && $result['success'] == true) {
@@ -1098,3 +1131,51 @@ $app->post('/job_rewards',function ($request, $response, $args) use ($app) {
      ));
      return checkJsonResult( $companyDetails->loadCurl() );
 });
+
+$app->post('/job_post_from_campaigns',function ($request, $response, $args) use ($app) {
+    
+    // dynamically Access Token
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    // getting API endpoint from settings
+    $apiEndpoint = getapiEndpoint($this->settings, 'job_post_from_campaigns');
+   
+    $companyDetails     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+     return checkJsonResult( $companyDetails->loadCurl() );
+});
+
+//Update Status Details
+$app->post('/get_countries',function ($request, $response, $args) use ($app) {
+    
+    // dynamically Access Token
+    $this->mintmeshAccessToken;  
+    $this->mintmeshCompanyId;
+    // getting API endpoint from settings
+   $apiEndpoint = getapiEndpoint($this->settings, 'get_countries');
+   $_POST['service_type'] = "global";
+   $_POST['user_country'] = "all";
+
+    $statusDetails    = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+
+    return checkJsonResult( $statusDetails->loadCurl() );
+       
+});
+
+//Update Status Details
+$app->get('/viewer',function ($request, $response, $args) use ($app) {
+
+     $args['url'] = isset($_GET['url'])?$_GET['url']:'';
+    if($args['url'] != ''){
+    return $this->file_viewer->render($response, 'index-viewer.phtml', $args);
+    }
+    else{
+         return $response->withRedirect($args['APP_DOMAIN'].'404');
+    }
+});
+

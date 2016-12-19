@@ -173,33 +173,30 @@ angular.module('app', ['ripple',
         controller: 'EditCampaignsController',
         controllerAs: 'EditCampaignsCtrl'
     })
-
-    // if(userPermissions.settings == '1'){
-        $stateProvider.state('app.settings',{
-            url: '^/settings',
-            templateUrl: App.base_url + 'templates/settings/settings.phtml',
-            controller: 'SettingsController',
-            controllerAs: 'SettingsCtrl'
-        })
-        $stateProvider.state('app.settings.companyProfile',{
-            url: '^/settings/company-profile',
-            templateUrl: App.base_url + 'templates/settings/company-profile.phtml',
-            controller: 'SettingsCompanyProfileController',
-            controllerAs: 'CompanyProfileCtrl'
-        })
-        $stateProvider.state('app.settings.myProfile',{
-            url: '^/settings/my-profile',
-            templateUrl: App.base_url + 'templates/settings/my-profile.phtml',
-            controller: 'MyProfileController',
-            controllerAs: 'MyProfileCtrl'
-        })
-        $stateProvider.state('app.settings.userGroups',{
-            url: '^/settings/user-group',
-            templateUrl: App.base_url + 'templates/settings/user-group.phtml',
-            controller: 'UserGroupController',
-            controllerAs: 'UserGroupCtrl'
-        })
-    // }
+    $stateProvider.state('app.settings',{
+        url: '^/settings',
+        templateUrl: App.base_url + 'templates/settings/settings.phtml',
+        controller: 'SettingsController',
+        controllerAs: 'SettingsCtrl'
+    })
+    $stateProvider.state('app.settings.companyProfile',{
+        url: '^/settings/company-profile',
+        templateUrl: App.base_url + 'templates/settings/company-profile.phtml',
+        controller: 'SettingsCompanyProfileController',
+        controllerAs: 'CompanyProfileCtrl'
+    })
+    $stateProvider.state('app.settings.myProfile',{
+        url: '^/settings/my-profile',
+        templateUrl: App.base_url + 'templates/settings/my-profile.phtml',
+        controller: 'MyProfileController',
+        controllerAs: 'MyProfileCtrl'
+    })
+    $stateProvider.state('app.settings.userGroups',{
+        url: '^/settings/user-group',
+        templateUrl: App.base_url + 'templates/settings/user-group.phtml',
+        controller: 'UserGroupController',
+        controllerAs: 'UserGroupCtrl'
+    })
     $stateProvider.state('app.editCompanyProfile',{
         url: '^/edit-company-profile',
         templateUrl: App.base_url + 'templates/edit-company-profile.phtml',
@@ -214,6 +211,12 @@ angular.module('app', ['ripple',
         // data : { pageTitle: 'Home' }
     })
 
+    // doc viewer
+    $stateProvider.state('viewer', {
+        url: '/viewer?url',
+        templateUrl: App.base_url + 'templates/file-viewer/index-viewer.phtml'
+    })
+
 
     $stateProvider.state('404',{
         url: '/404',
@@ -224,7 +227,8 @@ angular.module('app', ['ripple',
     
 })
 
-.run(function ($rootScope, userPermissions) {
+.run(function ($rootScope, userPermissions, App) {
+    $rootScope.$root = App;
     $rootScope.userPermissions = userPermissions;
 })
 

@@ -3,71 +3,177 @@
   .all-jobs .container header {
     padding: 43px 0;
     text-align: center;
-    border-bottom: 1px solid #dedede;
-    margin-bottom: 28px; }
+    border-bottom: 1px solid #dedede; }
     .all-jobs .container header img {
       width: 160px; }
-  .all-jobs .container section .row {
-    margin: 0;
-    border: 1px solid #ebebeb;
-    padding: 12px 4px;
-    background: #fefefe;
-    color: #939393;
-    margin-bottom: 13px; }
-    .all-jobs .container section .row .job-title {
-      font-weight: 900;
-      color: initial; }
-    .all-jobs .container section .row .fields .labels {
-      width: 20%;
-      float: left; }
-    .all-jobs .container section .row .fields .value {
-      width: 80%;
-      float: left;
-      color: #252525; }
-    .all-jobs .container section .row .btn-apply {
-      background: #227f60;
-      color: #fff;
-      font-size: 14px;
-      border-radius: 3px;
-      float: right;
-      margin-top: 36px; }
-      .all-jobs .container section .row .btn-apply a {
-        color: inherit;
-        text-decoration: none;
-        display: inline-block;
-        padding: 8px 20px;
+      .all-jobs .container header img.loading {
+        width: 20px;
+        height: 20px; }
+    .all-jobs .container header .company-name {
+      font-size: 30px;
+      color: #478e76;
+      text-transform: uppercase; }
+  .all-jobs .container section.job {
+    min-height: 300px;
+    position: relative; }
+    .all-jobs .container section.job .loader {
+      position: absolute;
+      left: 50%;
+      top: 50%; }
+    .all-jobs .container section.job .count {
+      text-align: right;
+      font-size: 17px;
+      padding: 15px 0 5px 0; }
+    .all-jobs .container section.job .row {
+      margin: 0;
+      border: 1px solid #ebebeb;
+      padding: 12px 4px;
+      background: #fefefe;
+      color: #939393;
+      margin-bottom: 13px; }
+      .all-jobs .container section.job .row a.details {
+        color: inherit; }
+        .all-jobs .container section.job .row a.details:focus, .all-jobs .container section.job .row a.details:hover {
+          color: inherit; }
+      .all-jobs .container section.job .row .job-title {
+        font-weight: 900;
+        color: initial; }
+      .all-jobs .container section.job .row .fields .labels {
+        width: 20%;
+        float: left; }
+      .all-jobs .container section.job .row .fields .value {
+        width: 80%;
+        float: left;
+        color: #252525; }
+      .all-jobs .container section.job .row .btn-apply {
+        background: #227f60;
+        color: #fff;
+        font-size: 14px;
+        border-radius: 3px;
+        float: right;
+        margin-top: 36px; }
+        .all-jobs .container section.job .row .btn-apply a {
+          color: inherit;
+          text-decoration: none;
+          display: inline-block;
+          padding: 8px 20px;
+          cursor: pointer;
+          outline: none; }
+  .all-jobs .container section.job-details {
+    margin-top: 30px;
+    position: relative;
+    min-height: 300px; }
+    .all-jobs .container section.job-details .loader {
+      position: absolute;
+      left: 50%;
+      top: 50%; }
+    .all-jobs .container section.job-details .row {
+      margin-right: 0px; }
+      .all-jobs .container section.job-details .row .header {
+        padding-top: 8px; }
+        .all-jobs .container section.job-details .row .header p {
+          margin: 0;
+          color: #3871cd;
+          font-size: 16px;
+          text-transform: capitalize; }
+        .all-jobs .container section.job-details .row .header h3 {
+          color: #252525;
+          margin-top: 5px; }
+      .all-jobs .container section.job-details .row .rewards {
+        text-align: center;
+        border-right: 1px solid #dedede; }
+        .all-jobs .container section.job-details .row .rewards:first-child {
+          border-left: 1px solid #dedede; }
+        .all-jobs .container section.job-details .row .rewards h3 {
+          margin: 0;
+          color: #ed871a; }
+        .all-jobs .container section.job-details .row .rewards p {
+          color: #939393; }
+    .all-jobs .container section.job-details .job-params {
+      padding: 10px 0; }
+      .all-jobs .container section.job-details .job-params .row .labels {
+        color: #939393; }
+      .all-jobs .container section.job-details .job-params .row .value {
+        color: #252525; }
+    .all-jobs .container section.job-details .job-desc p {
+      margin: 0;
+      color: #939393; }
+    .all-jobs .container section.job-details .job-desc pre {
+      border: 0;
+      background: transparent;
+      font-size: 16px;
+      padding: 0;
+      margin: 0;
+      font-family: 'Roboto';
+      white-space: pre-line;
+      color: #262626; }
+    .all-jobs .container section.job-details .action {
+      padding-top: 22px; }
+      .all-jobs .container section.job-details .action a {
+        outline: none;
+        margin-right: 25px;
         cursor: pointer;
-        outline: none; }
+        text-decoration: none;
+        padding: 6px 14px;
+        display: inline-block;
+        border-radius: 3px;
+        background: #238260;
+        border: 1px solid #238260;
+        color: #fff; }
+      .all-jobs .container section.job-details .action .refer {
+        background: transparent;
+        color: #238260;
+        border-color: #238260; }
+      .all-jobs .container section.job-details .action .all-jobs {
+        margin: 0;
+        float: right;
+        background: transparent;
+        color: #252525;
+        border-color: #252525;
+        padding: 6px 14px; }
+    .all-jobs .container section.job-details + footer .drop-cv span a {
+      padding: 2px 10px; }
   .all-jobs .container footer .social-media {
     padding: 25px 0;
     border: 1px solid #ebebeb;
     margin-top: 32px;
     border-right: 0;
-    border-left: 0; }
-    .all-jobs .container footer .social-media .icon {
-      padding-top: 6px;
-      color: 939393; }
-      .all-jobs .container footer .social-media .icon .fa {
-        color: #fff;
-        width: 36px;
-        height: 36px;
-        text-align: center;
-        line-height: 37px;
-        font-size: 22px;
-        margin-right: 6px;
-        border-radius: 2px;
-        cursor: pointer;
-        outline: none; }
-      .all-jobs .container footer .social-media .icon .fa-facebook {
-        background: #5272b3; }
-      .all-jobs .container footer .social-media .icon .fa-linkedin {
-        background: #0282bf; }
-      .all-jobs .container footer .social-media .icon .fa-twitter {
-        background: #21aaf5; }
-      .all-jobs .container footer .social-media .icon .fa-google-plus {
-        background: #e25d4e; }
-      .all-jobs .container footer .social-media .icon .fa-whatsapp {
-        background: #08c84c; }
+    border-left: 0;
+    /*.icon{padding-top: 6px;color:939393;
+    	.fa{color: #fff;width: 36px;height: 36px;text-align: center;line-height: 37px;font-size: 22px;margin-right: 6px;border-radius: 2px;cursor: pointer;outline: none}
+    	.fa-facebook{background: #5272b3;}
+    	.fa-linkedin{background: #0282bf;}
+    	.fa-twitter{background: #21aaf5}
+    	.fa-google-plus{background: #e25d4e}
+    	.fa-whatsapp{background: #08c84c}
+    }*/ }
+    .all-jobs .container footer .social-media social-sharing {
+      display: block;
+      overflow: hidden; }
+      .all-jobs .container footer .social-media social-sharing .social-sharing div {
+        float: left;
+        display: inline; }
+        .all-jobs .container footer .social-media social-sharing .social-sharing div span {
+          width: 42px;
+          height: 42px;
+          text-align: center;
+          cursor: pointer;
+          display: inline-block;
+          margin-right: 4px; }
+          .all-jobs .container footer .social-media social-sharing .social-sharing div span i {
+            font-size: 24px;
+            margin-top: 10px;
+            color: #fff; }
+          .all-jobs .container footer .social-media social-sharing .social-sharing div span.facebook {
+            background: #3b5998; }
+          .all-jobs .container footer .social-media social-sharing .social-sharing div span.twitter {
+            background: #1da1f2; }
+          .all-jobs .container footer .social-media social-sharing .social-sharing div span.googlePlus {
+            background: #dc4e41; }
+          .all-jobs .container footer .social-media social-sharing .social-sharing div span.linkedin {
+            background: #0077b5; }
+    .all-jobs .container footer .social-media .social-icons {
+      margin-top: 14px; }
     .all-jobs .container footer .social-media .link {
       overflow: hidden;
       margin-top: 20px; }

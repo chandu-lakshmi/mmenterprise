@@ -49,6 +49,8 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 	var scope = this;
 	this.loaderImg = false;
 	this.loaderNoContacts = false;
+    this.totalRecordsCount = 0;
+    this.contactStatus = [{ label : 'Active' , color : '#0d8e68'}, { label : 'Inactive' , color : '#888888'}, { label : 'Separated' , color : '#c46968'}]
 
     //get bucketNames
     function bucketsCount(){
@@ -76,22 +78,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
     }
     bucketsCount();
 
-    //pagenation prevent pre/post btns
-    var rightLimit = 100;
-    var rightDyn = 0;
-    this.getPage = function(bol) {
-
-        var valueInc = bol ? -34 : +34 ;
-        var  btnDis = bol ? rightLimit : 0;
-        if(rightDyn == btnDis){
-            return;
-        }
-        rightDyn = rightDyn + valueInc;
-        if (rightDyn >= rightLimit) {
-            $(".pages").css("left", rightDyn + "px");
-        }   
-    }
-
+    
     var edit_feature;
     this.goDashboard = $stateParams.rowEdit;
     if(userPermissions.edit_contacts == 1 && $stateParams.rowEdit){
@@ -307,18 +294,8 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 	            scope.gridOptions.data.length == 0 ? (scope.loaderNoContacts = true) : '';
 	            
 	            scope.gridApi.selection.clearSelectedRows();
-
-	            var totRec = response.data.total_records[0].total_count;
-   				var pageNos = Math.ceil(Number(totRec) / 50);
-                scope.pageNos = pageNos;
-   				rightLimit = (pageNos - 4) * -34;
-	            scope.generatePageNo = new Array(pageNos);
-
-	            var width = pageNos < 4 ? pageNos * 34 : '136';
-                //$("").css("width", width + "px");
-                setTimeout(function(){angular.element('.pages-container').css("width", width + "px")}, 0);
-                //scope.allRecCount = ( scope.activeBucket == 'ALL CONTACTS' ) ? totRec : scope.allRecCount; 
-
+                scope.totalRecordsCount =  response.data.total_records[0].total_count;
+	            
 	            scope.searchLoader = false;
 	            scope.loaderImg = false;
 
@@ -411,14 +388,6 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
     var cancellerStat;
     this.statusUpdate = function(state, status) {
     	
-    	if (scope.selectedContacts.length == 0) {
-    		scope.statusName = "";
-    		$('.zeroRecords').show();
-    		$('.zeroRecords').fadeOut(3000);
-    		return;
-    	}
-
-		$('.zeroRecords').hide();
 		scope.loaderImg = true;
 		scope.hideLoader = true;
 		scope.updateLoader = true;

@@ -266,7 +266,14 @@ md-dialog md-dialog-actions button.md-primary {
     bottom: -25px; }
   .campaigns .all-campaigns {
     min-height: calc(100vh - 160px);
-    font-size: 16px; }
+    font-size: 16px;
+    /*.modal#no_edit{
+    	.modal-header{text-align: center;}
+    	.modal-body{height: 100px;}
+    	.modal-footer{padding: 10px 15px;
+    		.btn{width: 80px;height: 40px;background: #1c8f6e;border-color: #1c8f6e;outline: none;color: #fff;}
+    	}
+    }*/ }
     .campaigns .all-campaigns md-input-container.search {
       margin: 0; }
     .campaigns .all-campaigns .filter {
@@ -520,8 +527,11 @@ md-dialog md-dialog-actions button.md-primary {
             width: 45%;
             float: left;
             margin-right: 68px; }
-            .campaigns .edit-campaigns .box .content .tag-jobs .drop p {
-              margin-bottom: 20px; }
+            .campaigns .edit-campaigns .box .content .tag-jobs .drop p span.pull-right {
+              cursor: pointer;
+              outline: none;
+              color: #1d8e70;
+              text-decoration: underline; }
             .campaigns .edit-campaigns .box .content .tag-jobs .drop .modern-select .chosen-container {
               width: 100% !important;
               min-height: 34px; }

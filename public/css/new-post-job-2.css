@@ -6,6 +6,9 @@ button::-moz-focus-inner {
 .post-request{
 	font-size: 16px;
 }
+.post-request .has-error-msg{
+    margin-left: 33px;
+}
 .post-request h2{
 	margin: 0;
 	color: #555555;
@@ -176,7 +179,7 @@ button::-moz-focus-inner {
 
 
 .post-request .select-rewards .container .row div .rewards-box .radio .currency{
-	margin:20px 0;
+	margin:26px 0;
 }
 .post-request .select-rewards .container .row div .rewards-box .radio .currency .md-text{
     display: block;
@@ -263,43 +266,35 @@ button::-moz-focus-inner {
     left: 44px !important;
     top: -27px !important;
 }
-
-
 .post-request .footer .container{
-	padding: 26px 108px 80px;
+	padding: 26px 84px 80px;
 }
-.post-request .footer .container div{
-	width: 50%;
-	text-align:right;
-	float:right;
+.post-request .footer .container .message{
+    color: green;
 }
-.post-request .footer .container div .btn-cancel{
-	font-size: 24px;
-	cursor: pointer;
+.post-request .footer .container h4{
+    color: #ff0000;
+    margin-top:27px;
 }
-.post-request .footer .container div .btn-cancel a{
-    color:#9a9a9a;
+.post-request .footer .container h4 + span{
+    padding:16px 0;
+    display: inline-block;
 }
-.post-request .footer .container div .btn-post{
-	display: inline-block;
-    padding: 18px 56px;
+.post-request .footer .container .md-button{
+    display: initial;
+}
+.post-request .footer .container div button,
+.post-request .footer .container div a{
+	font-size: 18px;
+    color: #9a9a9a;
+    text-align: center;
+    padding: 0 36px;
+    line-height: 60px;
+}
+.post-request .footer .container div a{
+    padding:19px 32px;
+}
+.post-request .footer .container div .btn-post button{
     background: #1d8e70;
-    font-size: 20px;
-    border-radius: 6px;
-    outline: none;
-    font-weight: 900;
     color: #fff;
-    margin-left: 38px;
-    cursor:pointer;
-    position: relative;
-}
-.post-request .footer .container div .btn-post img{
-    position: absolute;
-    right: 22px;
-    top: 20px;
-}
-.post-request .footer .container .pull-left h4{
-    color:#ff0000;
-    margin-top: 23px;
-    text-align: left;
 }

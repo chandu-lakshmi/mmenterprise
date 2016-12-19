@@ -5,7 +5,8 @@
 
     	.module('app.components', ['app.constants'])
     	.directive('bucketsView', bucketsView)
-    	// .directive('epiSearch', epiSearch)
+    	.directive('epiSearch', epiSearch)
+        // .directive('socialSharing', socialSharing)
 
     	.config(function(App){
 
@@ -24,6 +25,8 @@
     		})
 
     	})
+
+    epiSearch.$inject = ['App']
 
 	function bucketsView(){
 		return{
@@ -74,12 +77,12 @@
 		}
 	}
 
-	/*function epiSearch() {
+	function epiSearch(App) {
         return {
             scope: {
                 opts: '='
             },
-            templateUrl: 'templates/components/search.html',
+            templateUrl: 'templates/components/search.phtml',
             link: function (scope, element) {
                 scope.opts = angular.extend({
                     value: "",
@@ -141,6 +144,55 @@
                     }
                 });
             }
+        }
+    }
+
+    /*function socialSharing(){
+        return {
+            scope: {
+                opts: '='
+            },
+            templateUrl: '../templates/components/social-sharing.phtml',
+            link: function (scope, element) {
+                scope.opts = angular.extend({
+                    socialIcons: ['facebook', 'twitter', 'linkedin', 'googlePlus']
+                }, scope.opts);
+
+                scope.share = function(event){
+                    console.log(angular.element(event.target))
+                }
+            },
+            controller: function(){
+                this.facebook = function(post){
+                    var share_object = {
+                        method: "feed",
+                        name: post.post_title,
+                        link: post.post_url,
+                        picture: post.post_img || '',
+                        caption: (post.post_title < 100 ? post.post_title : ''),                
+                        description: $('<div />').html(post.post_msg).text()
+                    };
+                    
+                    FB.ui(share_object, function (response) {
+                        if (response && !response.error_code) {
+                            console.log(response)
+                        }
+                    });
+                }
+                this.twitter = function(obj){
+                    var twitter_window = window.open('', "Twitter", "status = 1, left = 430, top = 170, height = 500, width = 420, resizable = 0")
+                    twitter_window.location.href = "https://twitter.com/intent/tweet?text=" + obj.text + "&url=" + obj.url + "&hashtags=" + obj.hashtags + "&via=" + obj.via + "&related=" + obj.related; 
+                }
+                this.linkedin = function(obj){
+                    var linkedin_window = window.open('', "Linkedin", "status = 1, left = 430, top = 170, height = 500, width = 420, resizable = 0")
+                    linkedin_window.location.href = "https://www.linkedin.com/shareArticle?mini=true&url=" + obj.url + "&title=" + obj.title + "&summary=" + obj.summary + "&source=" + obj.source;
+                }
+                this.googlePlus = function(obj){
+                    var google_window = window.open('', "GooglePlus", "status = 1, left = 430, top = 170, height = 500, width = 420, resizable = 0")
+                    google_window.location.href = "https://plus.google.com/share?url=" + obj.url;
+                }
+            },
+            controllerAs: 'socialShareCrtl'
         }
     }*/
 

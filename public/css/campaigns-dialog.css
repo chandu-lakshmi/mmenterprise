@@ -122,6 +122,10 @@
               position: absolute;
               left: -36px;
               padding-left: 30px; }
+          .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .add-schedule a {
+            vertical-align: text-top; }
+          .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign textarea {
+            height: 29px !important; }
           .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign md-checkbox.md-checked .md-icon {
             background: #2393d3; }
           .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .post li.facebook a i {
@@ -222,6 +226,12 @@
               .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .modern-select .chosen-container ul li input {
                 height: 36px;
                 width: 100px !important; }
+            .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .modern-select .job .pull-right {
+              cursor: pointer;
+              outline: none;
+              color: #1d8e70;
+              text-decoration: underline;
+              margin-right: 10px; }
           .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .alert {
             position: relative;
             padding: 0;
@@ -309,10 +319,16 @@
               border-radius: 4px;
               display: inline-block;
               outline: none; }
+  .new-campaign create-job md-select {
+    height: 30px; }
   .new-campaign .md-select-menu-container, .new-campaign .md-dialog-container {
     z-index: 1100; }
   .new-campaign .md-ripple-container {
     display: none !important; }
+  .new-campaign md-select-menu {
+    width: 400px; }
+  .new-campaign .md-select-value span:not(.md-select-icon) {
+    width: 93%; }
 
 html.remove-scroll {
   overflow: hidden !important; }

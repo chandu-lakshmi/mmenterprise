@@ -6,7 +6,7 @@
 				<img src="public/images/search.svg" alt="feedback_left" ng-if="!jobSearchCtrl.search_load_cond">
 				<input type="text" ng-model="jobSearchCtrl.search_value"  placeholder="Search Jobs" ng-keyup="jobSearchCtrl.searchFilter(jobSearchCtrl.pay_status, jobSearchCtrl.jobFilter, jobSearchCtrl.search_value, $event)" onkeypress="return ((!(event.which==32))  || !this.selectionStart==0)">
 				<img  src="public/images/loader/search_loader.gif" alt="feedback_left" style="width:45px;height:41px;" ng-if="jobSearchCtrl.search_load_cond">
-				<img src="public/images/cross.svg" class="feedback" ng-show="jobSearchCtrl.search_value.length >= 1" ng-click="jobSearchCtrl.search_value = '';jobSearchCtrl.searchFilter(jobSearchCtrl.pay_status, jobSearchCtrl.jobFilter, jobSearchCtrl.search_value)" alt="feedback_right">
+				<img src="public/images/cross.svg" class="feedback" ng-show="jobSearchCtrl.search_value.length >= 1" ng-click="jobSearchCtrl.search_value = '';jobSearchCtrl.searchFilter(jobSearchCtrl.pay_status, jobSearchCtrl.jobFilter, jobSearchCtrl.search_value, $event)" alt="feedback_right">
 			</md-input-container>
     		
 		</div>

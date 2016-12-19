@@ -140,11 +140,9 @@
 		vm.successMsg = '';
 		vm.modalInstance = '';
 
-		// vm.change = change;
 		vm.setPassword = setPassword;
 		vm.saveChanges = saveChanges;
 		vm.changePassword = changePassword;
-		vm.cancel = cancel;
 
 		rippleService.wave();
 
@@ -154,28 +152,6 @@
 		else{
 			vm.displayPicture = '';
 		}
-
-		// sending checkbox value when checked and unchecked
-		/*var checkedStatus;
-		function change(checkCondition){
-			var checkbox = document.querySelector('#checkbox');
-			var hidden = document.querySelector('#disabled');
-			if(checkbox.checked){
-				if(checkCondition == 0){
-					$('#checkbox').prop('checked', false);
-					hidden.disabled = false;
-					checkedStatus = false;
-				}
-				else{
-					hidden.disabled = true;
-					checkedStatus = true;
-				}
-			}
-			else{
-				hidden.disabled = false;
-				checkedStatus = false;
-			}
-		}*/
 
 		// Reseting errors
 		function resetErrors(){
@@ -211,9 +187,6 @@
 			    	angular.element('.disabled').css('pointer-events','auto');
 			    	vm.loader = false;
 			    	if(response.status_code == 200){
-			    		/*if(checkedStatus){
-			    			angular.element('header .user_dp img').attr('src', image_path);
-			    		}*/
 			    		userData.setData(vm.myProfile);
 			    		userData.addProperty('user_dp', response.data.user_dp);
 			    		angular.element('header .user_dp + .user_name').text(userData.getData().user_name);
@@ -306,47 +279,10 @@
 	            animation: false,
 	            keyboard: false,
 	            backdrop: 'static',
-	            templateUrl: 'templates/dialogs/set-password.phtml',
+	            templateUrl: 'templates/settings/set-password.phtml',
 	            openedClass: "set-password",
 	            scope: $scope
             });
-		}
-
-		// reset previous data for user details and empty password fields
-		function cancel(flag){
-			if(vm.changeFound){
-				$timeout(function(){vm.changeFound = false});
-			}
-			$scope.my_profile_form.$setPristine();
-			if(flag == 'user'){
-				vm.myProfile = angular.copy(userData.getData());
-				if(userData.getData().user_dp != '' && userData.getData().user_dp != null){
-					image_path = userData.getData().user_dp;
-					$display_pic.find('.qq-upload-drop-area').css('display','block');
-					App.Helpers.loadImage({
-		                target: $display_pic.find('.drag_img'),
-		                css: 'img-circle',
-		                remove: true,
-		                url_prefix: false,
-		                url: vm.displayPicture,
-		                onComplete: function(){
-		                	$display_pic.find('.qq-upload-list').append("<li><input type='hidden' name='photo_org_name_s3' value='" + image_path.split('/').pop() + "' /><input type='hidden' value='" + image_path + "' name='photo_s3'/></li>").show();
-		                },
-		                onError: function() {
-		                	$display_pic.find('.qq-upload-drop-area').hide();
-		                    $display_pic.find('.qq-upload-button').show();
-		                }
-		            });
-				}
-				else{
-					App.Helpers.removeUploadedFiles({
-		   				obj: $display_pic
-		   			})
-				}
-			}
-			else if(flag == 'password'){
-				resetErrors();
-			}
 		}
 
 
@@ -470,8 +406,6 @@
 		vm.createGroup = createGroup;
 		vm.addPerson = addPerson;
 		vm.resendActivation = resendActivation;
-		vm.reset = reset;
-		//vm.trash = trash;
 
 		rippleService.wave();
 
@@ -728,7 +662,6 @@
 			    })
 			    .then(function(response){
 			    	vm.loader = false;
-			    	angular.element('.disabled').css('pointer-events','auto');
 			    	if(response.data.status_code == 200){
 			    		vm.backendError = '';
 			    		if(vm.changeFound.group){
@@ -736,7 +669,6 @@
 			    		}
 			    		var formController = $element.find('form[name="new_group_form"]').eq(0).controller('form');
 			    		formController.$setPristine();
-			    		//$scope.new_group_form.$setPristine();
 			    		if(flag == 0){
 			    			getGroups();
 			    		}
@@ -786,7 +718,6 @@
 			    })
 			    .then(function(response){
 			    	vm.loader = false;
-			    	angular.element('.disabled').css('pointer-events','auto');
 			    	if(response.data.status_code == 200){
 			    		vm.backendError = '';
 						if(vm.changeFound.person){
@@ -810,13 +741,20 @@
 			    				}
 			    			}
 			    			else{
+			    				if(vm.personDetails.admin == 1){
+			    					var oldName = angular.element('header .user_dp + .user_name').text(),
+			    					newName = vm.personDetails.fullname
+			    					if(oldName != newName){
+			    						userData.addProperty('user_name', newName)
+					    				angular.element('header .user_dp + .user_name').text(newName);
+			    					}
+			    					if(response.data.data.photo != ''){
+			    						userData.addProperty('user_dp', response.data.data.photo)
+			    					}
+			    				}
 			    				vm.groupsList[vm.tab].users[vm.subTab] = angular.copy(vm.personDetails);
 			    				vm.groupsList[vm.tab].users[vm.subTab].photo = angular.copy(response.data.data.photo);
 			    			}*/
-			    			/*vm.groupsList[vm.tab].users[vm.subTab] = angular.copy(vm.personDetails);
-			    			vm.groupsList[vm.tab].users[vm.subTab].photo = angular.copy(response.data.data.photo);
-			    			vm.groupData.users[vm.subTab] = angular.copy(vm.personDetails);
-			    			vm.groupData.users[vm.subTab].photo = angular.copy(response.data.data.photo);*/
 			    			if(response.data.data.photo != ''){
 				    			image_path = response.data.data.photo;
 				    			org_name = response.data.data.photo.split('/').pop();
@@ -885,45 +823,6 @@
 	            }
 
 	    	})
-		}
-
-		// form reset
-		function reset(tab, flag){
-			vm.errCond = false;
-			vm.backendError = '';
-			if(tab == 'person'){
-				vm.changeFound.person = false;
-				//$display_pic.find('.qq-upload-fail').remove();
-				if(flag){
-					vm.personDetails = {};
-					vm.personDetails.emailid = '';
-					App.Helpers.removeUploadedFiles({
-		   				obj: $('#display_pic')
-		   			})
-				}
-				else{
-					getPersonData(vm.subTab);
-				}
-			}
-			else{
-				vm.changeFound.group = false;
-				if(flag){
-					vm.groupData = {};
-					vm.permissions = {}
-					vm.admin = permissionsService.getPermissions();
-					for(var i = 0; i < vm.admin.length; i++){
-						vm.permissions[vm.admin[i].id] = 0;
-						if(vm.admin[i].children.length > 0){
-							for(var j = 0; j < vm.admin[i].children.length; j++){
-								vm.permissions[vm.admin[i].id+'_'+vm.admin[i].children[j].id] = 0;
-							}
-						}
-					}
-				}
-				else{
-					getGroupData(vm.tab);
-				}
-			}
 		}
 
 

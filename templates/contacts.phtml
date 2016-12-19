@@ -28,10 +28,10 @@
 				</span>
 				<div>
 					<img ng-src="public/images/loader/spin.gif" alt="bufferSpin" ng-if="ContactCtrl.updateLoader">
-					<span class="updateSuccess" style="color:#1d8e70">Successfully Updated</span>
+					<span class="updateSuccess" style="color:#1d8e70">Successfully Updated.</span>
 					<span class="updatefailure">Not Updated</span>
-					<span class="zeroRecords" style="margin-left:-122px;">Please Select Atleast 1 Record</span>
-					<span class="existRecords" style="margin-left:-122px;">{{ContactCtrl.rowIdExistsMsg}}</span>
+					<span class="zeroRecords" style="margin-left:-122px;">Please Select Atleast 1 Record.</span>
+					<span class="existRecords" style="margin-left:-122px;">{{ContactCtrl.rowIdExistsMsg+'.'}}</span>
 					<span class="modalSuccess" ng-bind="ContactCtrl.modalSuccessMsg"></span>
 				</div>
 				<md-input-container md-no-float="" class="md-block">
@@ -56,36 +56,24 @@
 			    	</div>	
 				</div>
 				<div class="grid-footer">
-					<div class="status pull-left">
+					<div class="status col-sm-4" ng-if="ContactCtrl.goDashboard">
 						<span ng-show="{{::userPermissions.edit_contacts == 1}}">
 						Change Status to:
-							<select class="form-control" ng-disabled="ContactCtrl.selectedContacts.length == 0" ng-change="ContactCtrl.statusUpdate('status', ContactCtrl.statusName)" ng-model="ContactCtrl.statusName" id="status">
-								<option value="" selected disabled>Default</option>
-								<option value="Active" style="color:#0d8e68">Active</option>
-		   						<option value="Inactive" style="color:#888888">Inactive</option>
-								<option value="Separated" style="color:#c46968">Separated</option>
-							</select>
-							<i class="fa fa-angle-down fa-feedback" ></i>
+						<md-input-container>
+							<label style="display:none !important">Default</label>
+							<md-select  class="md-no-underline" name="job" ng-model="ContactCtrl.statusName" ng-change="ContactCtrl.statusUpdate('status', ContactCtrl.statusName)" ng-disabled="ContactCtrl.selectedContacts.length == 0">
+				              	<md-option ng-repeat="status in ContactCtrl.contactStatus" ng-value="status.label" ng-style="{'color':status.color}">
+				                	{{status.label}}
+				              	</md-option>
+							</md-select>
+						</md-input-container>
 						</span>
-						<!-- <span ng-click="ContactCtrl.statusUpdate('delete', '')">Delete Contacts</span>  -->
 					</div>
-					<div class="pages-con pull-left">
-						<div class="pagenation" ng-show="ContactCtrl.pageNos > 1">
-							<div class="arrow-click left" ng-click="ContactCtrl.getPage()">
-								<i class="fa fa-angle-double-left"></i>
-							</div>
-							<div class="pages-container">
-								<span class="pages">
-									<span ng-repeat="x in ContactCtrl.generatePageNo track by $index" ng-class="{'page-active':($index + 1) == ContactCtrl.currentPage}" ng-click="ContactCtrl.getGridData('', '', $index + 1, '')">{{$index + 1}}</span>
-								</span>
-							</div>
-							<div class="arrow-click right" ng-click="ContactCtrl.getPage(true)">
-								<i class="fa fa-angle-double-right"></i>
-							</div>
-						</div>
+					<div class="col-sm-4 pages text-center">
+						<ul  ng-hide="ContactCtrl.totalRecordsCount < 50" uib-pagination items-per-page="50" total-items="ContactCtrl.totalRecordsCount" ng-model="ContactCtrl.pageNumber" max-size="3" direction-links="false" force-ellipses="true" ng-change="ContactCtrl.getGridData('', '', ContactCtrl.pageNumber, '')" boundary-link-numbers="true" rotate="false"></ul>
 					</div>
-					<div class="invite">
-						<span style="display: inline-block;padding: 12px 0;">{{ContactCtrl.selectedContacts.length + (ContactCtrl.selectedContacts.length > 1 ? ' Contacts' : ' Contact')}} selected</span>
+					<div class="invite col-sm-4 text-right" ng-class="{'col-sm-offset-4':!ContactCtrl.goDashboard}">
+						<span ng-if="ContactCtrl.selectedContacts.length > 0">{{ContactCtrl.selectedContacts.length + " Contact(s)"}} Selected</span>
 						<div class="btn-invite" ng-click="ContactCtrl.loaderImg ? '' : ContactCtrl.invite()">
 							INVITE SELECTED
 						</div>

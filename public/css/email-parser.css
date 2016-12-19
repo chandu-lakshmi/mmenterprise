@@ -1,3 +1,13 @@
+body.email-parser .modal .modal-header {
+  text-align: center; }
+  body.email-parser .modal .modal-header .modal-title {
+    color: #fc1600; }
+body.email-parser .modal .modal-body {
+  font-size: 16px;
+  color: #5b5b5b; }
+  body.email-parser .modal .modal-body p {
+    margin: 0 0 20px; }
+
 .drop-box .container section {
   width: 620px;
   min-height: 470px;
@@ -12,8 +22,13 @@
     border-bottom: 1px solid #e8e8e8; }
     .drop-box .container section .logo img {
       width: 160px; }
+    .drop-box .container section .logo .company-name {
+      font-size: 30px;
+      color: #478e76;
+      text-transform: uppercase; }
   .drop-box .container section .row {
-    border-bottom: 1px solid #e8e8e8; }
+    border-bottom: 1px solid #e8e8e8;
+    padding-bottom: 15px; }
     .drop-box .container section .row .title {
       padding: 24px 14px;
       clear: both;
@@ -137,7 +152,7 @@
             padding: 0px 5px;
             display: inline-block;
             margin: 0;
-            max-width: 87%;
+            max-width: 75%;
             vertical-align: middle;
             font-size: 16px;
             text-overflow: ellipsis;
@@ -162,21 +177,29 @@
         top: 40px;
         left: 18px;
         max-width: 140px; }
-  .drop-box .container section .action {
+  .drop-box .container section .footer {
     padding-top: 22px;
     font-size: 18px; }
-    .drop-box .container section .action .cancel {
+    .drop-box .container section .footer .pull-left .message {
+      color: #e84949;
+      font-size: 15px;
+      text-transform: capitalize; }
+      .drop-box .container section .footer .pull-left .message.success {
+        color: #208d6e; }
+    .drop-box .container section .footer .pull-right .cancel {
       color: #878787;
-      line-height: 50px; }
-      .drop-box .container section .action .cancel a {
+      line-height: 50px;
+      text-transform: uppercase; }
+      .drop-box .container section .footer .pull-right .cancel a {
         text-decoration: none;
         color: inherit; }
-    .drop-box .container section .action .submit {
+    .drop-box .container section .footer .pull-right .submit {
       color: #fff;
       background: #248261;
       float: right;
       padding: 12px 32px;
-      color: #fff; }
+      color: #fff;
+      margin-left: 20px; }
 .drop-box *[ng-click] {
   cursor: pointer;
   outline: none; }
