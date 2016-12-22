@@ -20,6 +20,17 @@
       background: #fff;
       border-radius: 4px;
       display: none;
+      cursor: pointer;
+      color: #ff7777; }
+    .qq-uploader .qq-upload-drop-area .drag_img .icon-view {
+      position: absolute;
+      top: 5px;
+      left: 10px;
+      padding: 3px;
+      border: 1px solid #ccc;
+      background: #fff;
+      border-radius: 4px;
+      display: none;
       cursor: pointer; }
     .qq-uploader .qq-upload-drop-area .drag_img .overlay {
       display: none;
@@ -30,7 +41,7 @@
       top: 0;
       bottom: 0;
       opacity: 0.1; }
-    .qq-uploader .qq-upload-drop-area .drag_img:hover .overlay, .qq-uploader .qq-upload-drop-area .drag_img:hover .icon-trash {
+    .qq-uploader .qq-upload-drop-area .drag_img:hover .overlay, .qq-uploader .qq-upload-drop-area .drag_img:hover .icon-trash, .qq-uploader .qq-upload-drop-area .drag_img:hover .icon-view {
       display: block; }
     .qq-uploader .qq-upload-drop-area .drag_img .spinner {
       margin-top: 40%; }
@@ -106,6 +117,8 @@
 /* components templates */
 .search-box-wrap {
   position: relative; }
+  .search-box-wrap.inactive .search-box {
+    border-color: #cbd1d0; }
   .search-box-wrap .search-box {
     border: 0;
     background: transparent;
@@ -113,6 +126,7 @@
     outline: none;
     padding: 5px 25px;
     width: 100%;
+    border-color: #01b893;
     font-size: 16px; }
   .search-box-wrap .search-box-icon {
     position: absolute;
@@ -184,14 +198,14 @@ md-select[disabled] .md-select-value {
 .engage-contact .grid {
   height: calc(100vh - 346px) !important;
   overflow: hidden;
-  min-height: 450px; }
+  min-height: 450px;
+  border: 1px solid #c8d1d0 !important;
+  background: #fff; }
   .engage-contact .grid .grid-msg-overlay {
     top: 45px; }
   .engage-contact .grid .ui-grid-header {
-    height: 45px;
-    line-height: 33px;
-    border-top: 1px solid #c8d1d0;
-    border-bottom: 1px solid #c8d1d0; }
+    height: 50px;
+    line-height: 39px; }
     .engage-contact .grid .ui-grid-header .ui-grid-top-panel {
       background: #f3f7f8; }
       .engage-contact .grid .ui-grid-header .ui-grid-top-panel .ui-grid-header-cell-row .ui-grid-header-cell {
@@ -202,7 +216,7 @@ md-select[disabled] .md-select-value {
           outline: none; }
         .engage-contact .grid .ui-grid-header .ui-grid-top-panel .ui-grid-header-cell-row .ui-grid-header-cell div[role='columnheader'] .ui-grid-cell-contents {
           color: #959698;
-          font-size: 12px; }
+          font-size: 14px; }
           .engage-contact .grid .ui-grid-header .ui-grid-top-panel .ui-grid-header-cell-row .ui-grid-header-cell div[role='columnheader'] .ui-grid-cell-contents:focus {
             outline: none; }
         .engage-contact .grid .ui-grid-header .ui-grid-top-panel .ui-grid-header-cell-row .ui-grid-header-cell div[role='columnheader']:focus {
@@ -212,43 +226,59 @@ md-select[disabled] .md-select-value {
     .engage-contact .grid .ui-grid-viewport .ui-grid-canvas {
       width: 100%; }
     .engage-contact .grid .ui-grid-viewport .ui-grid-row {
-      line-height: 60px;
-      border-bottom: 1px solid #ececec; }
+      line-height: 70px;
+      border-bottom: 1px solid #ececec;
+      font-size: 14px; }
       .engage-contact .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell {
         font-weight: normal;
-        text-transform: capitalize; }
-        .engage-contact .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell.first-col {
-          font-weight: bold; }
+        text-transform: capitalize;
+        /*&.first-col{font-weight: bold}*/ }
+        .engage-contact .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .ui-grid-details .image {
+          line-height: initial;
+          display: inline-block; }
+          .engage-contact .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .ui-grid-details .image span.letter {
+            width: 40px;
+            height: 40px;
+            display: inline-block;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            color: #fff;
+            font-size: 18px;
+            text-transform: capitalize;
+            position: relative; }
+        .engage-contact .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .ui-grid-details .content {
+          display: inline-block;
+          line-height: initial;
+          vertical-align: middle;
+          padding-left: 10px; }
         .engage-contact .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .ui-grid-status .pending {
           color: #50a28a; }
           .engage-contact .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .ui-grid-status .pending img {
-            margin: 20px 0 0 0;
             width: 20px;
             height: 20px;
-            outline: none; }
-            .engage-contact .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .ui-grid-status .pending img.pull-left {
-              margin-right: 7px; }
+            outline: none;
+            margin-top: -1px; }
         .engage-contact .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .ui-grid-status .declined {
           color: #d54343; }
           .engage-contact .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .ui-grid-status .declined .decline-img {
-            background: url("../images/referrals.png") no-repeat -4px -137px;
+            background: url("../images/referrals.png") no-repeat -1px -137px;
             height: 20px;
-            width: 15px;
+            width: 20px;
             display: inline-block;
             vertical-align: middle; }
         .engage-contact .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .ui-grid-status .accepted {
           color: #2384c0; }
           .engage-contact .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .ui-grid-status .accepted .accept-img {
-            background: url("../images/referrals.png") no-repeat -4px -96px;
+            background: url("../images/referrals.png") no-repeat -1px -96px;
             height: 20px;
-            width: 15px;
+            width: 20px;
             display: inline-block;
             vertical-align: middle; }
         .engage-contact .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .ui-grid-download a {
           color: inherit;
           text-decoration: none;
-          height: 100%;
-          display: inline-block; }
+          height: 100%; }
           .engage-contact .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .ui-grid-download a .download {
             background: url("../images/referrals.png") no-repeat 0% 70.7%;
             background-size: 24px;
@@ -258,6 +288,18 @@ md-select[disabled] .md-select-value {
             vertical-align: middle;
             outline: none;
             display: inline-block; }
+        .engage-contact .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .ui-grid-accept {
+          position: relative; }
+          .engage-contact .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .ui-grid-accept .btn-group > .btn {
+            padding: 8px 15px; }
+          .engage-contact .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .ui-grid-accept .status {
+            position: absolute;
+            bottom: 3px;
+            line-height: initial;
+            font-size: 12px;
+            width: 100%; }
+        .engage-contact .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .progress {
+          margin: 29px 0 !important; }
       .engage-contact .grid .ui-grid-viewport .ui-grid-row div[ui-grid-row='row'] {
         height: 100%; }
       .engage-contact .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell {

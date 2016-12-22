@@ -92,7 +92,7 @@ $app->get('/email-parser/referral-details', function ($request, $response, $args
         'postData'      => $_POST
     ));
     $args['referralDetails'] = checkJsonResult( $Details->loadCurl() ); 
-    $checkResult['refDetails'] = json_decode(checkJsonResult( $Details->loadCurl()));
+    $checkResult['refDetails'] = json_decode(checkJsonResult( $Details->loadCurl()));  
     // Render index view
     if(!empty($checkResult['refDetails'])){
         return $this->email_renderer->render($response, 'index.phtml', $args);
@@ -104,7 +104,15 @@ $app->get('/email-parser/referral-details', function ($request, $response, $args
 });
 
 $app->post('/apply_job',function ($request, $response, $args) use ($app) {
-    
+    $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_ref');
+    $Details     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+    ));
+    $args['referralDetails'] = checkJsonResult( $Details->loadCurl() ); 
+    $checkResult['refDetails'] = json_decode(checkJsonResult( $Details->loadCurl()));
+    $_POST['post_id'] =  $checkResult['refDetails']->post_id;
+    $_POST['reference_id'] =  $checkResult['refDetails']->reference_id;
     $apiEndpoint = getapiEndpoint($this->settings, 'apply_job');
     $Details     = new Curl(array(
         'url'           => $apiEndpoint,
@@ -158,7 +166,7 @@ $app->POST('/resumes_upload',function ($request, $response, $args) {
             $uploader = $file_upload->fileUpload($allowedExtensions, $sizeLimit);
             //return the file original and source name and path
             $path = $args['PATH'];
-            $result = $file_upload->handleUpload(''.$path.'uploads/resumes', FALSE, $myfilename);
+            $result = $file_upload->handleUpload(''.$path.'uploads/Resumes', FALSE, $myfilename);
             if (isset($result['success']) && $result['success'] == true) {
                     
                
@@ -174,7 +182,7 @@ $app->POST('/resumes_upload',function ($request, $response, $args) {
                 $fname =  str_replace('_',' ',$org_name);
                 //$result['org_name'] = pathinfo(filterString($fname), PATHINFO_FILENAME);
                 $result['org_name'] = $fname;
-                $result['filename'] = 'uploads/resumes'.$myfilename.'.'.$result['ext'];
+                $result['filename'] = 'uploads/Resumes'.$myfilename.'.'.$result['ext'];
                 $data['success'] = true;
                 echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
             } else {

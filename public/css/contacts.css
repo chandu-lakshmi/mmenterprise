@@ -303,8 +303,7 @@
 /* validation & loaders */
 .grid-contacts div.ui-grid-cell-contents.invalid{
 	margin-right: 24px;
-    /*height: 38px;
-    line-height: 38px;*/
+    height: 96%;
     width: 89%;
     border: 1px solid red;
 }

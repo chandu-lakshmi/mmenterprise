@@ -20,7 +20,7 @@
 					            	<md-option ng-value="status" ng-repeat="status in ResumeRoomCtrl.filterOptions">{{status}}</md-option>
 						        </md-select>
 				      		</md-input-container>
-				      		<input type="hidden" name="filter" value="{{ResumeRoomCtrl.filterList}}">
+				      		<input type="hidden" name="filter" value="{{ResumeRoomCtrl.filterList.toString()}}">
 						</form>
 						<div class="col-sm-3 pull-right">
 							<div data-epi-search data-opts="ResumeRoomCtrl.search_opts"></div>
@@ -45,7 +45,7 @@
 					<div class="box-footer clearfix">
 						<div class="status col-sm-4">
 							<span style="padding-right:10px;">Change Status to:</span>
-				            <md-select name="status" ng-model="ResumeRoomCtrl.status" placeholder="Status" class="md-no-underline" ng-change="ResumeRoomCtrl.statusChange(ResumeRoomCtrl.status)" ng-disabled="ResumeRoomCtrl.countArr.length==0">
+				            <md-select name="status" ng-model="ResumeRoomCtrl.status" placeholder="Status" class="md-no-underline" ng-change="ResumeRoomCtrl.statusChange(ResumeRoomCtrl.status)" ng-disabled="ResumeRoomCtrl.countArr.length == 0">
 				              	<md-option ng-repeat="options in ResumeRoomCtrl.statusOptions" ng-value="options">
 				                	{{options}}
 				              	</md-option>

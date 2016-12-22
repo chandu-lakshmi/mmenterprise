@@ -264,8 +264,10 @@ angular.module('app.engagement.contacts', [])
         })
     }
 
-    scope.referral_status = function(tabName,obj,status_code){
+    scope.referral_status = function(tabName,obj,status_code, index){
         if(status_code == 'accepted'){
+            scope.referrals_load_cond = true;
+            $('.box-content ul li').eq(index+1).find('.status-loading').css('display', 'block');
             $('div.pointer').css({
                 'pointerEvents' : 'none'
             })
@@ -274,6 +276,7 @@ angular.module('app.engagement.contacts', [])
             ajax.success(function(response){
                 if(response.status_code == 200){
                     ajaxCall(tabName)
+                    $('.box-content ul li').eq(index+1).find('.status-loading').css('display', 'none');
                 }
                 else if(response.status_code == 400){
                     $window.location = CONFIG.APP_DOMAIN+'logout';
@@ -285,7 +288,6 @@ angular.module('app.engagement.contacts', [])
                     'pointerEvents' : 'auto'
                 })
             })
-
         }
     	else{
             $uibModal.open({

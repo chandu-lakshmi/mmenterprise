@@ -161,6 +161,7 @@
 					        css: false,
 					        domTarget: false,
 					        remove: false,
+					        view: false,
 					        target: false,        
 					        url: false,
 					        url_prefix: App.API_DOMAIN,        
@@ -184,6 +185,13 @@
 					                config.target.html(image);
 					                if(config.remove){
 					                    config.target.append("<div class='overlay'></div><i class='fa fa-trash-o icon-trash'></i>");
+					                }
+					                if(config.view){
+					                	if(config.url_prefix){
+					                		config.target.append("<a class='fancybox' href=" + config.url_prefix + config.url + "><i class='fa fa-search-plus icon-view'></i></a>");
+					                	}else{
+					                		config.target.append("<a class='fancybox' href=" + config.url + " title=" + config.url.split('/').pop() + "><i class='fa fa-search-plus icon-view'></i></a>");
+					                	}
 					                }
 					                config.target.find('img').hide().fadeIn();
 					            }

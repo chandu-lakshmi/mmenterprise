@@ -64,13 +64,13 @@
 	<div infinite-scroll='jobSearchCtrl.nextPage(jobSearchCtrl.pay_status, jobSearchCtrl.jobFilter, jobSearchCtrl.search_value)' infinite-scroll-disabled='jobSearchCtrl.busy' infinite-scroll-distance='2' style="position:relative" ng-style="{'opacity':jobSearchCtrl.overLoader ? '0.5' : ''}">
 		<!--Typeof Job -->
 		<div class="row" ng-repeat="jobList in jobSearchCtrl.jobDetails">
-			<div class="job-type">
+			<div class="job-type" ng-style="{'background':jobList.post_from_campaign ? '#faefe7' : ''}">
 				<div style="float: left">
 					<img src="public/images/breifcase_gray.svg" alt="briefcase">
 					<a href="" ui-sref="^.jobDetails({post_id:jobList.id})" title="" ng-click="jobSearchCtrl.job_details(jobList)">
 						<h3>
-							<span title="{{jobList.job_title}}">{{jobList.job_title}}</span>
-							<img src="public/images/arrow-buttons_green.svg">
+							<span title="{{jobList.job_title}}" ng-style="{'color':jobList.post_from_campaign ? '#fc9737' : ''}">{{jobList.job_title}}</span>
+							<img ng-src="{{'public/images/'+ (jobList.post_from_campaign ? 'arrow-buttons_orange.svg' :'arrow-buttons_green.svg')}}">
 						</h3>
 					</a>
 				</div>

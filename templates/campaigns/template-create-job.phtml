@@ -58,7 +58,7 @@
         <div class="clearfix">
             <md-input-container class="md-block pull-left">
                 <label>NUMBER OF VACANCIES</label>
-                <input type="text" name="vacancy" ng-pattern="/(^[^0]$)|(^[1-9]\d{0,9}$)/" ng-model="jobData.jobVacancies" onkeypress='return event.keyCode >= 48 && event.keyCode <= 57'>  
+                <input type="text" name="vacancy" ng-pattern="/(^[^0]$)|(^[1-9]\d{0,9}$)/" ng-model="jobData.jobVacancies" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 0'>  
                 <div  class="has-error-msg" ng-show="create_job.vacancy.$error.pattern">Number of Vacancies should not be zero.</div>
             </md-input-container>
         </div>

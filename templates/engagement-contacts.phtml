@@ -135,7 +135,7 @@
 										</div>
 									</div>
 									<div class="col-sm-2 col-size text-center pointer" style="padding-top: 20px" ng-if="allReferrals.status == 'PENDING'">
-										<span  ng-click="EngContCtrl.referral_status('',allReferrals,'accepted')" style="outline:none;"><img src="public/images/tickmark-accept.svg" alt="response"><span class="tick-accept">ACCEPT</span></span>
+										<span  ng-click="EngContCtrl.referral_status('',allReferrals,'accepted', $index)" style="outline:none;"><img src="public/images/tickmark-accept.svg" alt="response"><span class="tick-accept">ACCEPT</span></span>
 										<img src="public/images/closemark-decline.svg" alt="response" ng-click="EngContCtrl.referral_status('',allReferrals,'declined')" class="pull-right" style="margin-top:2px">
 									</div>
 									<div class="col-sm-2 col-size text-center" style="padding-top: 20px" ng-if="allReferrals.status != 'PENDING'">
@@ -146,6 +146,9 @@
 											<div class="progress-bar progress-bar-info progress-bar-striped" style="width:{{allReferrals.confidence_score}}%">{{allReferrals.confidence_score}}%
 											</div>
 										</div>
+									</div>
+									<div class="status-loading" style="display:none;">
+										<img src="public/images/loader/spin.gif">
 									</div>
 								</li>
 								<div class="clearfix"></div>
@@ -225,7 +228,7 @@
 										</div>
 									</div>
 									<div class="col-sm-2 col-size text-center pointer" style="padding-top: 20px"><!-- ng-if="pendingReferrals.status == 'PENDING'">-->
-										<span ng-click="EngContCtrl.referral_status('PENDING',pendingReferrals,'accepted')" style="outline:none"><img src="public/images/tickmark-accept.svg" alt="response"><span class="tick-accept">ACCEPT</span></span>
+										<span ng-click="EngContCtrl.referral_status('PENDING',pendingReferrals,'accepted', $index)" style="outline:none"><img src="public/images/tickmark-accept.svg" alt="response"><span class="tick-accept">ACCEPT</span></span>
 										<img src="public/images/closemark-decline.svg" alt="response" ng-click="EngContCtrl.referral_status('PENDING',pendingReferrals,'declined')" class="pull-right" style="margin-top:2px;">
 									</div>
 									<div class="col-sm-2">	
@@ -233,6 +236,9 @@
 											<div class="progress-bar progress-bar-info progress-bar-striped" style="width:{{pendingReferrals.confidence_score}}%">{{pendingReferrals.confidence_score}}%
 											</div>
 										</div>
+									</div>
+									<div class="status-loading" style="display:none;">
+										<img src="public/images/loader/spin.gif">
 									</div>
 									<!-- <div class="col-sm-2 text-center" style="padding-top: 20px" ng-if="pendingReferrals.status != 'PENDING'">
 										<span class="text-{{pendingReferrals.status | lowercase}}">{{pendingReferrals.status}}</span>

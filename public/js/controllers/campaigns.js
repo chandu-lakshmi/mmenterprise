@@ -261,7 +261,7 @@
 			var vm = this;
 			this.company_name = CompanyDetails.name;
 			this.bucketsNamedata = angular.copy(contactBuckets.getBucket());
-			this.jobLists = jobListData.getJobListData();
+			this.jobLists = [];
 			setTimeout(function(){$('#selectJob').chosen()}, 0);
 			$('html').addClass('remove-scroll');
 			this.currentDate = new Date();
@@ -546,7 +546,7 @@
    					id : data.post_id,
    					job_title : data.name
    				}
-        		jobListData.addJobData(obj);
+        		vm.jobLists.push(obj);
         		var id = data.post_id.toString();
           		vm.frm2.job_ids.push(id);
   				$timeout(function(){$('#selectJob').trigger('chosen:updated')}, 100);
@@ -916,6 +916,7 @@
 		    }
 
 		    function editCampaigns(row){
+		    	vm.loader = true;
 		    	/*if(row.entity.status == 'CLOSED'){
 		    		$('#no_edit').modal();
 		    		return false;
@@ -1013,7 +1014,6 @@
 			vm.updateCampaign = updateCampaign;
 			vm.trash = trash;
 			vm.resetLocation = resetLocation;
-
 			vm.campaignDetails = CampaignsData.getCampaigns();
 			vm.prevSelectedJobIds = [];
 			vm.cacheData = angular.copy(vm.campaignDetails);
@@ -1021,22 +1021,20 @@
 		    vm.bucketsName = angular.copy(contactBuckets.getBucket());
 	    	vm.checkedBuckets = vm.campaignDetails.bucket_ids || [];
 
-		    vm.jobsList = jobListData.getJobListData();
+		    vm.jobsList = vm.campaignDetails.job_details;
 		    function resetJobs(){
-		    	if(vm.campaignDetails.job_ids.length > 0){
-					var arr = [];
-					for(var i = 0; i < vm.campaignDetails.job_ids.length; i++){
-						arr.push(vm.campaignDetails.job_ids[i].toString())
-					}
-					vm.campaignDetails.job_ids = arr;
-					$('#mul_select').trigger('chosen:updated');
-					setTimeout(function(){
-						for(var i = 0; i < vm.campaignDetails.job_ids.length; i++){
-							vm.prevSelectedJobIds.push($('.chosen-choices li.search-choice').eq(i).find('a').attr('data-option-array-index'));
-							$('.chosen-choices li').eq(i).find('a').remove();
-						}
-					},100)
+				var arr = [];
+				for(var j = 0; j < vm.jobsList.length; j++){
+					arr.push(vm.jobsList[j].post_id.toString());			
 				}
+				vm.campaignDetails.job_ids = arr;
+				$('#mul_select').trigger('chosen:updated');
+				setTimeout(function(){
+					for(var i = 0; i < vm.jobsList.length; i++){
+						vm.prevSelectedJobIds.push($('.chosen-choices li.search-choice').eq(i).find('a').attr('data-option-array-index'));
+						$('.chosen-choices li').eq(i).find('a').remove();
+					}
+				},200)
 		    }
 		    resetJobs();
 
@@ -1292,12 +1290,12 @@
 		    	}
 		    }
 		    $scope.$on('newJobDataEditCmp', function(event, data) {
-   				var obj = {
-   					no_of_vacancies : data.no_of_vacancies,
-   					id : data.post_id,
-   					job_title : data.name
-   				}
-   				jobListData.getJobListData().push(obj);
+   				// var obj = {
+   				// 	no_of_vacancies : data.no_of_vacancies,
+   				// 	post_id : data.post_id,
+   				// 	name : data.name
+   				// }
+   				vm.jobsList.push(data);
    				var id = data.post_id.toString();
    				vm.campaignDetails.job_ids.push(id)
 		    	vm.campaignDetails.job_ids = angular.copy(vm.campaignDetails.job_ids);

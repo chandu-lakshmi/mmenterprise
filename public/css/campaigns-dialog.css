@@ -125,7 +125,8 @@
           .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .add-schedule a {
             vertical-align: text-top; }
           .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign textarea {
-            height: 29px !important; }
+            height: 29px !important;
+            font-size: 18px; }
           .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign md-checkbox.md-checked .md-icon {
             background: #2393d3; }
           .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .post li.facebook a i {

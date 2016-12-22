@@ -13,6 +13,9 @@
 
 		var vm = this,dublicateData,canceller;
     	var image_path = '',mul_image_path = [],bonus_file_path = '';
+    	
+    	$("#company-logo .fancybox").fancybox();
+    	$(".image-group .fancybox").fancybox();
 
 		vm.update = false;
 		vm.errCond = false;
@@ -126,6 +129,7 @@
 	            css: 'img-thumbnail',
 	            remove: true,
 	            url_prefix: false,
+	            view : true,
 	            url: vm.company_details.company_logo,
 	            onComplete: function(){
 	            	$company_logo.find('.qq-upload-list').append("<li><input type='hidden' name='org_name_s3' value='" + vm.company_details.company_logo.split('/').pop() + "' /><input type='hidden' value='" + vm.company_details.company_logo + "' name='logo_image_s3'/></li>").show();
@@ -149,6 +153,7 @@
 	            target: eval("$mul_images_"+i).find('.drag_img'),
 	            css: 'img-thumbnail',
 	            remove: true,
+	            view: true,
 	            url_prefix: false,
 	            url: vm.company_details.images[i],
 	            onComplete: function(){
@@ -278,6 +283,7 @@
 	                    target: $company_logo.find('.drag_img'),
 	                    css: 'img-thumbnail',
 	                    remove: true,
+	                    view : true,
 	                    url_prefix: App.API_DOMAIN,
 	                    url: response.filename,
 	                    onComplete: App.Helpers.setImagePosition,
@@ -335,6 +341,7 @@
 	                        target: eval("$mul_images_"+index).find('.drag_img'),
 	                        css: 'img-thumbnail',
 	                        remove: true,
+	                        view: true,
 	                        url_prefix: App.API_DOMAIN,
 	                        url: response.filename,
 	                        onComplete: App.Helpers.setImagePosition,

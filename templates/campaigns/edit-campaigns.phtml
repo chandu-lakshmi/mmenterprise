@@ -129,13 +129,13 @@
 											<div class="controls">
 												<select data-rel="chosen" id="mul_select" name="job_ids[]"  ng-model="EditCampaignsCtrl.campaignDetails.job_ids" data-placeholder="Select Your Options" class="form-control" multiple required ng-class="{'has-error-border': edit_campaigns_form['jobs[]'].$invalid && EditCampaignsCtrl.errCond}">
 													<option value=""></option>
-													<option ng-if="EditCampaignsCtrl.jobsList.length > 0" ng-repeat="list in EditCampaignsCtrl.jobsList" ng-bind="list.job_title + ' ( ' + list.no_of_vacancies + ' )'" ng-value="list.id"></option>
-													<option ng-if="EditCampaignsCtrl.jobsList.length == 0" value="" disabled>No jobs found</option>
+													<option ng-repeat="list in EditCampaignsCtrl.jobsList" ng-bind="list.name + ' ( ' + list.no_of_vacancies + ' )'" ng-value="list.post_id"></option>
+													<!-- <option ng-if="EditCampaignsCtrl.jobsList.length == 0" value="" disabled>No jobs found</option> -->
 												</select>
-												<div style="min-height:30px">
+												<!-- <div style="min-height:30px">
 									              	<div ng-show="edit_campaigns_form['jobs[]'].$invalid && EditCampaignsCtrl.jobsList.length > 0 && EditCampaignsCtrl.errCond" class="has-error-msg">Please Select Atleast One Job.</div>
 									              	<div ng-show="edit_campaigns_form['jobs[]'].$invalid && EditCampaignsCtrl.jobsList.length == 0 && EditCampaignsCtrl.errCond" class="has-error-msg">No jobs found. (Please post atleast one job from JOBS TAB.)</div>
-									           </div>
+									           </div> -->
 											</div>
 										</div>
 									</div>

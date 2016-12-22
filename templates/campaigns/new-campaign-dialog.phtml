@@ -148,13 +148,13 @@
                             <span class="pull-right" ng-click="NewCampaignCtrl.jobTemplate()">CREATE JOB</span>
                         </p>
                         <select data-rel="chosen" name="job_ids[]" id="selectJob" ng-model="NewCampaignCtrl.frm2.job_ids" data-placeholder="Select Job" class="form-control" multiple ng-class="{'has-error-border':NewCampaignCtrl.errCondfrm2 && NewCampaignCtrl.frm2.job_ids.length == 0}">
-                            <option ng-if="NewCampaignCtrl.jobLists.length > 0" ng-repeat="jobList in NewCampaignCtrl.jobLists" value="{{jobList.id}}" ng-bind="(jobList.job_title) +' ( ' +(jobList.no_of_vacancies)+ ' )'" id="{{jobList.id}}" class="{{jobList.no_of_vacancies}}"></option>
-                            <option ng-if="NewCampaignCtrl.jobLists.length == 0" value="" disabled>No jobs found.</option>
+                            <option ng-repeat="jobList in NewCampaignCtrl.jobLists" value="{{jobList.id}}" ng-bind="(jobList.job_title) +' ( ' +(jobList.no_of_vacancies)+ ' )'" id="{{jobList.id}}" class="{{jobList.no_of_vacancies}}"></option>
+                            <!-- <option ng-if="NewCampaignCtrl.jobLists.length == 0" value="" disabled>No jobs found.</option> -->
                          </select>
                       </div>
                       <div style="min-height:25px">
-                       <div ng-show="NewCampaignCtrl.errCondfrm2 && NewCampaignCtrl.frm2.job_ids.length == 0" class="has-error-msg">Please Select Atleast One Job.</div>
-                       <div ng-show="!frm2['job_ids[]'].$valid && NewCampaignCtrl.errCondfrm2 && NewCampaignCtrl.jobLists.length == 0" class="has-error-msg">No jobs found. (Please post atleast one job from JOBS tab.)</div>
+                       <div ng-show="NewCampaignCtrl.errCondfrm2 && NewCampaignCtrl.frm2.job_ids.length == 0" class="has-error-msg">Please Create Atleast One Job.</div>
+                       <!-- <div ng-show="!frm2['job_ids[]'].$valid && NewCampaignCtrl.errCondfrm2 && NewCampaignCtrl.jobLists.length == 0" class="has-error-msg">No jobs found. (Please post atleast one job from JOBS tab.)</div> -->
                       </div>
                    </div>
                 </div>

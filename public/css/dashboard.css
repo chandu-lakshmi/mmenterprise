@@ -435,11 +435,20 @@ header .notifications .user span:not(:last-child){
     display: inline-block;
     vertical-align: middle;
     white-space: nowrap;
+    font-size: 14px;
 }
 .hires .content{
 	display: inline-block;
 	vertical-align: middle;
-	padding-left: 15px;
+	padding: 8px 0 8px 8px;
+	font-size: 14px;
+}
+.hires .content span.details{
+	display: inline-block;
+    margin-bottom: 10px;
+}
+.hires .content span:not(.details){
+	line-height: initial;
 }
 .hires .content i.ellipsis{
 	color:#000 !important;
@@ -831,6 +840,20 @@ ul.new-tabs > li.active > a{
     width: 80%;
     text-overflow: ellipsis;
     vertical-align: middle;
+}
+.engage-contact .box .box-content .status-loading{
+	position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.1);
+}
+.engage-contact .box .box-content .status-loading img{
+	width: 35px !important;
+    height: 35px !important;
+    margin-top: 25px;
 }
 .engage-contact .box .box-content ul{
 	margin: 0;
@@ -1385,6 +1408,7 @@ ul.new-tabs > li.active > a{
 	padding: 12px 0 !important;
 	float: left;
 	font-size: 15px;
+	position: relative;
 }
 .engage-contact .tab-content .box .box-content span.tick-accept{
 	color:#168363;

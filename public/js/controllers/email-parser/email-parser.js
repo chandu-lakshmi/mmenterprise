@@ -7,29 +7,12 @@
 		.controller('AllJobsController', AllJobsController)
 		.controller('JobDetailsController', JobDetailsController)
 		.controller('ApplyJobController', ApplyJobController)
-		//.service('ApiCallRestriction', ApiCallRestriction)
 
 		modalController.$injext = ['$state', 'App'];
 		AllJobsController.$inject = ['$http', '$location', 'App'];
-		JobDetailsController.$inject = ['$http', '$stateParams', '$location', 'App'];
+		JobDetailsController.$inject = ['$http', '$stateParams', '$window', '$location', 'App'];
 		ApplyJobController.$inject = ['$scope', '$state', '$stateParams', '$location', '$window', '$http', '$uibModal', 'App', 'ReferralDetails'];
 
-		/*function ApiCallRestriction(){
-			this.bol = true;
-			var data = {};
-
-			this.setData = function(obj){
-				data = obj;
-			}
-
-			this.getData = function(){
-				return data;
-			}
-
-			this.setProperty = function(name, val){
-				data[name] = val;
-			}
-		}*/
 
 		function modalController($state, App){
 
@@ -38,7 +21,6 @@
 			vm.jump = jump;
 
 			function jump(){
-				// ApiCallRestriction.bol = true;
 				$state.go('allJobs', {ref: App.ref})
 			}
 		}
@@ -75,7 +57,7 @@
 					}
 				},
 				onError : function(){
-					$window.location = CONFIG.APP_DOMAIN + 'logout';
+					$window.location = App.base_url + 'logout';
 				}
 			}
 
@@ -120,13 +102,9 @@
 			
 		}
 
-		function JobDetailsController($http, $stateParams, $location, App){
+		function JobDetailsController($http, $stateParams, $window, $location, App){
 
 			var vm = this;
-
-			/*window.onload = function(){
-				ApiCallRestriction.bol = true;
-			}*/
 
 			var ref = $stateParams.ref;
 			vm.copyUrl = $location.$$absUrl;
@@ -150,7 +128,7 @@
 					}
 				},
 				onError : function(){
-
+					$window.location = App.base_url + 'logout';
 				}
 			}
 
@@ -171,6 +149,9 @@
 	            	if(response.data.status_code == 200){
 	            		vm.job_details.onComplete(response.data.data)
 	            	}
+	            	else if(response.data.status_code == 403){
+	            		// $window.location = App.base_url + '404';
+	            	}
 	            	else if(response.data.status_code == 400) {
 		               vm.job_details.onError();
 		            }
@@ -179,13 +160,13 @@
 
 			vm.job_details.onload();
 
-			/*vm.socialMedia = {
+			vm.socialMedia = {
 				socialIcons: ['facebook', 'twitter', 'linkedin', 'googlePlus'],
 				url: vm.copyUrl,
 				facebook: {
-					post_title: '',
+					post_title: $stateParams.job_name,
 					post_url: vm.copyUrl,
-					post_img: '',
+					post_img: vm.job_details.company_logo,
 					post_msg: ''
 				},
 				twitter : {
@@ -197,14 +178,14 @@
 				},
 				linkedin : {
 					url: vm.copyUrl,
-					title: 'MintMesh Inc',
-					summary: 'Information Technology and Services',
+					title: $stateParams.job_name,
+					summary: vm.job_details.list.job_description,
 					source: 'Mintmesh'
 				},
 				googlePlus : {
 					url: vm.copyUrl
 				}
-			}*/
+			}
 
 		}
 
@@ -221,10 +202,6 @@
 
 			var ref = $stateParams.ref;
 
-			/*window.onload = function(){
-				ApiCallRestriction.bol = true;
-			}*/
-
 			this.fileName = 'Select a file to upload...';
 
 			$("#can-mobile").intlTelInput({
@@ -234,7 +211,8 @@
 				separateDialCode: true
 
 			});
-			if(ReferralDetails.post_status == 'CLOSED'){
+
+			if($stateParams.status == 'CLOSED'){
 				$uibModal.open({
 		            animation: true,
 		            backdrop: 'static',
@@ -249,6 +227,7 @@
 
 			vm.chkFile = true;
 			function postFormData(formValid, flag){
+				vm.backendError = '';
 				if(formValid || vm.chkFile){
 					vm.errorRequired = true;
 					return;
@@ -274,13 +253,13 @@
 	                	angular.element('.footer .disabled').css('pointer-events','auto');
 	                	if(response.data.status_code == 200){
 	                		vm.backendMsg = response.data.message.msg[0];
-	                		setTimeout(function(){$state.go('allJobs', {ref: App.ref})},1000);
+	                		setTimeout(function(){$state.go('allJobs', {ref: ref})},1000);
 	                	}
 	                	else if(response.data.status_code == 403){
 	                		vm.backendError = response.data.message.msg[0];
 	                	}
 	                	else if (response.data.status_code == 400) {
-			                $window.location = CONFIG.APP_DOMAIN + 'logout';
+			                $window.location = App.base_url + 'logout';
 			            }
 	                });
 				}

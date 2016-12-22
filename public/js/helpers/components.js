@@ -6,7 +6,7 @@
     	.module('app.components', ['app.constants'])
     	.directive('bucketsView', bucketsView)
     	.directive('epiSearch', epiSearch)
-        // .directive('socialSharing', socialSharing)
+        .directive('socialSharing', socialSharing)
 
     	.config(function(App){
 
@@ -147,7 +147,7 @@
         }
     }
 
-    /*function socialSharing(){
+    function socialSharing(){
         return {
             scope: {
                 opts: '='
@@ -194,6 +194,6 @@
             },
             controllerAs: 'socialShareCrtl'
         }
-    }*/
+    }
 
 }());

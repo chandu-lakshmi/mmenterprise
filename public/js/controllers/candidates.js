@@ -7,7 +7,7 @@
 		.controller('ResumeRoomController', ResumeRoomController)
 
 		CandidateController.$inject = [];
-		ResumeRoomController.$inject = ['$state', '$window', 'uiGridConstants', '$http', '$q', '$timeout', 'ajaxService', 'App'];
+		ResumeRoomController.$inject = ['$state', '$window', 'uiGridConstants', '$uibModal', '$http', '$q', '$timeout', 'ajaxService', 'App'];
 
 
 
@@ -16,7 +16,7 @@
 		}
 
 
-		function ResumeRoomController($state, $window, uiGridConstants, $http, $q, $timeout, ajaxService, App){
+		function ResumeRoomController($state, $window, uiGridConstants, $uibModal, $http, $q, $timeout, ajaxService, App){
 
 			var vm = this,canceler,
 			gridApiCall = App.base_url + 'get_company_all_referrals';
@@ -24,7 +24,7 @@
 			vm.noCandidates = false;
 			vm.loader = false;
 			vm.statusOptions = ['Interviewed', 'Offermade', 'Hired'];
-			vm.filterOptions = ['Accepted', 'Interviewed', 'Offered', 'Unsolicited', 'Declined']
+			vm.filterOptions = ['Accepted', 'Interviewed', 'Offered', 'Hired', 'Unsolicited', 'Declined']
 
 			vm.applyFilter = applyFilter;
 			vm.statusChange = statusChange;
@@ -235,8 +235,31 @@
 
 		    function statusUpdate(row, flag, e){
 		    	flag = flag == 1 ? 'ACCEPTED' : 'DECLINED'
+
+		    	if(flag == 'DECLINED'){
+		    		$uibModal.open({
+	                    animation: false,
+	                    backdrop: 'static',
+	                    keyboard: false,
+	                    templateUrl: 'templates/dialogs/referral_status.phtml',
+	                    openedClass: "referral-status",
+	                    resolve: {
+	                        referralObj: function() {
+	                            var referralObj = row.entity;
+	                            referralObj.tabName = 1;
+	                            referralObj.ajaxFunCall = pageChanged;
+	                            return referralObj;
+	                        }
+	                    },
+	                    controller: 'ReferralStatus',
+	                    controllerAs: "refStatus"
+	                });
+	                return;
+		    	}
+		    	vm.loader = true;
 		    	var ajax = ajaxService.async(row.entity, flag);
 	            ajax.success(function(response){
+	            	vm.loader = false;
 	                if(response.status_code == 200){
 	                    var match = row.entity.id;
 		                angular.forEach(vm.gridOptions.data, function( row, index){

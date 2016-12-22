@@ -25,21 +25,23 @@
 			        templateUrl: App.base_url + 'templates/email-parser/candidate-details.phtml',
 			        controller: 'ApplyJobController',
 			        controllerAs:'ApplyJobCtrl',
-			        data : { pageTitle: 'Mintmesh ( Upload CV )' }
+			        data : { pageTitle: 'Mintmesh ( Upload CV )' },
+			        params : {status : ''}
 			    })
 			    .state('referralDetails', {
 			        url: '/referral-details?ref&flag',
 			        templateUrl: App.base_url + 'templates/email-parser/referral-details.phtml',
 			        controller: 'ApplyJobController',
 			        controllerAs:'ApplyJobCtrl',
-			        data : { pageTitle: 'Mintmesh ( Drop CV )' }
+			        data : { pageTitle: 'Mintmesh ( Drop CV )' },
+			        params : {status : ''}
 			    })
 			    .state('jobDetails', {
 			        url: '/job-details/:job_name?ref',
 			        templateUrl: App.base_url + 'templates/email-parser/job-details.phtml',
 			        controller: 'JobDetailsController',
 			        controllerAs:'JobDetailsCtrl',
-			        data : { pageTitle: 'Mintmesh' }
+			        data : { pageTitle: 'Mintmesh' },
 			    })
 
     		$urlRouterProvider.otherwise('/all-jobs');
