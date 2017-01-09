@@ -420,13 +420,14 @@
 	        return colorCode[String(ind).slice(-1)];
     	}
 
-    	// initial loader
     	vm.pageLoader = false;
-        vm.borderInc = 1;
-        var s = $interval(function() {
-            vm.remaining = 100 - vm.borderInc;
-           vm.borderInc = vm.borderInc + (0.1 * Math.pow(1 - Math.sqrt(vm.remaining), 2))
-        }, 100);
+    	
+    	// initial loader
+        //vm.borderInc = 1;
+        //var s = $interval(function() {
+        //    vm.remaining = 100 - vm.borderInc;
+        //   vm.borderInc = vm.borderInc + (0.1 * Math.pow(1 - Math.sqrt(vm.remaining), 2))
+        //}, 100);
 
         var canceller = $q.defer();
 
@@ -513,11 +514,12 @@
 		    })
 		    .then(function(response){
 		    	if(response.data.status_code == 200){
-		    		// loader
 		    		vm.pageLoader = true;
-                    vm.borderInc = 100;
-                    $interval.cancel(s);
-                    $('#borderLoader').fadeOut(2000);
+		    		
+		    		// loader
+                    // vm.borderInc = 100;
+                    // $interval.cancel(s);
+                    // $('#borderLoader').fadeOut(2000);
 
 			    	vm.groupsList = response.data.data.groups;
 			    	vm.groupNames = vm.groupsList;
@@ -662,6 +664,7 @@
 			    })
 			    .then(function(response){
 			    	vm.loader = false;
+			    	angular.element('.disabled').css('pointer-events','auto');
 			    	if(response.data.status_code == 200){
 			    		vm.backendError = '';
 			    		if(vm.changeFound.group){
@@ -718,6 +721,7 @@
 			    })
 			    .then(function(response){
 			    	vm.loader = false;
+			    	angular.element('.disabled').css('pointer-events','auto');
 			    	if(response.data.status_code == 200){
 			    		vm.backendError = '';
 						if(vm.changeFound.person){

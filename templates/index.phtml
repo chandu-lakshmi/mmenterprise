@@ -11,12 +11,23 @@ and open the template in the editor.
         <!-- <title ng-bind="$state.current.data.pageTitle"></title> -->
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- google plus -->
+        <meta property="og:title" content="..."/>
+        <meta property="og:description" content="..."/>
+        <!-- linkedin -->
+        <meta property="og:image" content="<?php echo $data['EMAIL_PARSER_DOMAIN']; ?>public/images/logo.png" />
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="<?php echo $data['EMAIL_PARSER_DOMAIN']; ?>public/images/logo.png" />
+        <meta name="twitter:image:width" content="430px" />
+        <meta name="twitter:image:height" content="370px" />
+
         <base href="<?php echo $data['APP_DOMAIN']; ?>" target="_blank, _self, _parent, _top">
         <link rel="shortcut icon" href="public/images/favicon.png"/>
         <link rel="stylesheet" type="text/css" href="public/css/bootstrap.css?v=<?php echo $data['APP_VERSION']; ?>">
         <link rel="stylesheet" type="text/css" href="public/css/animate.min.css?v=<?php echo $data['APP_VERSION']; ?>">
         <link rel="stylesheet" type="text/css" href="public/css/jquery-ui.css?v=<?php echo $data['APP_VERSION']; ?>">
-        <link rel="stylesheet" type="text/css" href="public/css/font-awesome.min.css?v=<?php echo $data['APP_VERSION']; ?>">
+        <link rel="stylesheet" type="text/css" href="public/css/font-awesome.css?v=<?php echo $data['APP_VERSION']; ?>">
         <link rel="stylesheet" type="text/css" href="public/css/angular-material.min.css?v=<?php echo $data['APP_VERSION']; ?>">
         <link rel="stylesheet" type="text/css" href="public/css/angular-ui-grid.css?v=<?php echo $data['APP_VERSION']; ?>">
         <link rel="stylesheet" type="text/css" href="public/css/home.css?v=<?php echo $data['APP_VERSION']; ?>">
@@ -91,6 +102,7 @@ and open the template in the editor.
         <script type="text/javascript" src="public/js/helpers/ripple-effect.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
          <script type="text/javascript" src="public/js/helpers/components.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
         <script type="text/javascript" src="public/js/helpers/helpers.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
+        <script type="text/javascript" src="public/js/helpers/facebook-service.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
         <script type="text/javascript" src="public/js/controllers/home.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
         <script type="text/javascript" src="public/js/controllers/forgot-password.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
         <script type="text/javascript" src="public/js/controllers/company-profile.js?v=<?php echo $data['APP_VERSION']; ?>"></script>

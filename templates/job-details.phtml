@@ -91,13 +91,15 @@
 		</div>
 		<div class="col-sm-6 rt">
 			<div class="currency">
-				<h4 style="color:#777777;font-weight: 700;">Job Rewards:</h4>
-				<div class="box-rewards">
-					<div ng-repeat="rewards in jobDetailsCtrl.post_data.rewards">
-						<span ng-bind="(rewards.rewards_name) + ' Rewards'"></span>
-						<h4 ng-bind="jobDetailsCtrl.getRewardsView(rewards)"
-							ng-style="{'color': rewards.rewards_name == 'Discovery' ? '#3e7b1c' :' #2174a6'}">	
-						</h4>
+				<div ng-hide="jobDetailsCtrl.post_data.rewards.length == 0">
+					<h4 style="color:#777777;font-weight: 700;">Job Rewards:</h4>
+					<div class="box-rewards">
+						<div ng-repeat="rewards in jobDetailsCtrl.post_data.rewards">
+							<span ng-bind="(rewards.rewards_name) + ' Rewards'"></span>
+							<h4 ng-bind="jobDetailsCtrl.getRewardsView(rewards)"
+								ng-style="{'color': rewards.rewards_name == 'Discovery' ? '#3e7b1c' :' #2174a6'}">	
+							</h4>
+						</div>
 					</div>
 				</div>
 				<div>

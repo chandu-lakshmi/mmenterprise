@@ -1,5 +1,8 @@
-<md-progress-linear md-mode="determinate" id="borderLoader" value="{{UserGroupCtrl.borderInc}}" style="top:120px !important"></md-progress-linear>
-<div class="user-group" ng-style="{'opacity': UserGroupCtrl.pageLoader ? '1' : '0'}">
+<!-- <md-progress-linear md-mode="determinate" id="borderLoader" value="{{UserGroupCtrl.borderInc}}" style="top:120px !important"></md-progress-linear> -->
+<div class="container loading" ng-if="!UserGroupCtrl.pageLoader" style="height:calc(100vh - 160px)"> 
+	<h5>L<img src="public/images/spinner_search.gif" alt="loading">ading ...</h5>	
+</div>
+<div class="user-group" ng-show="UserGroupCtrl.pageLoader">
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-3">

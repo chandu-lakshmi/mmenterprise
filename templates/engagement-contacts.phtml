@@ -51,298 +51,131 @@
   				<li ng-class="{'active':EngContCtrl.tabCond == 'ALL'}">
   					<a data-toggle="tab" ng-click="EngContCtrl.referralsCond('ALL');switchCond = 'ALL'" ng-style="{'pointer-events':EngContCtrl.tabCond == 'ALL' ? 'none' : 'auto'}">
   						<img src="public/images/dot1.png" style="margin:-2px 5px 0 0;">
-  						<span style="vertical-align:middle">ALL REFERRALS ({{EngContCtrl.subHeaderCount.referral_count ? EngContCtrl.subHeaderCount.referral_count : '0'}})</span>
+  						<span style="vertical-align:middle">ALL REFERRALS ({{EngContCtrl.subHeaderCount.referral_count >= 0 ? EngContCtrl.subHeaderCount.referral_count : 0}})</span>
 					</a>
 				</li>
   				<li ng-class="{'active':EngContCtrl.tabCond == 'PENDING'}">
   					<a data-toggle="tab" ng-click="EngContCtrl.referralsCond('PENDING');switchCond = 'PENDING'" ng-style="{'pointer-events':EngContCtrl.tabCond == 'PENDING' ? 'none' : 'auto'}">
   						<img src="public/images/dot2.png" style="margin:-2px 5px 0 0;">
-  						<span style="vertical-align:middle">PENDING ({{EngContCtrl.subHeaderCount.pending_count ? EngContCtrl.subHeaderCount.pending_count : '0'}})</span>
+  						<span style="vertical-align:middle">PENDING ({{EngContCtrl.subHeaderCount.pending_count >= 0 ? EngContCtrl.subHeaderCount.pending_count : 0}})</span>
 					</a>
 				</li>
   				<li ng-class="{'active':EngContCtrl.tabCond == 'ACCEPTED'}">
   					<a data-toggle="tab" ng-click="EngContCtrl.referralsCond('ACCEPTED');switchCond = 'ACCEPTED'" ng-style="{'pointer-events':EngContCtrl.tabCond == 'ACCEPTED' ? 'none' : 'auto'}">
   						<img src="public/images/dot3.png" style="margin:-2px 5px 0 0;">
-  						<span style="vertical-align:middle">ACCEPTED ({{EngContCtrl.subHeaderCount.accepted_count ? EngContCtrl.subHeaderCount.accepted_count : '0'}})</span>
+  						<span style="vertical-align:middle">ACCEPTED ({{EngContCtrl.subHeaderCount.accepted_count >= 0 ? EngContCtrl.subHeaderCount.accepted_count : 0}})</span>
 					</a>
 				</li>
 			</ul>
 
 			<div class="tab-content" ng-switch="switchCond">
-		  		<div id="all" class="tab-pane active" ng-class="{'active': switchCond == 'ALL'}" ng-switch-when="ALL">
-		  			<div class="box">
-			    		<div class="box-content">
-							<ul>
-								<li class="t_head" ng-style="{'border-bottom':EngContCtrl.length_zero ? '1px solid #ccc' : ''}">
-									<div class="col-sm-3" title="CANDIDATE">
-										CANDIDATE
-									</div>
-									<div class="col-sm-3" title="REFERRER">
-										REFERRER 
-									</div>
-									<div class="col-sm-2 col-size" title="REFERRED ON">
-										REFERRED ON
-									</div>
-									<div class="col-sm-2 col-size" title="RESUME">
-										RESUME
-									</div>
-									<div class="col-sm-2 text-center col-size" title="STATUS">
-										STATUS
-									</div>
-									<div class="col-sm-2 text-center" title="CONFIDENCE SCORE">
-										CONFIDENCE SCORE
-									</div>
-								</li>
-								<li ng-repeat="allReferrals in EngContCtrl.referrals">
-									<div class="col-sm-3">
-										<div class="pull-left">
-											<img ng-if="!(allReferrals.dp_image == null || allReferrals.dp_image == '')" ng-src="{{allReferrals.dp_image}}" class="img-responsive img-circle border-{{allReferrals.status | lowercase}}" ng-style="{'border': allReferrals.dp_image == null ? '0': ''}">
-											<span ng-if="(allReferrals.dp_image == null || allReferrals.dp_image == '')" ng-bind="allReferrals.name | limitTo : 1" class='letter' ng-style="{'background':EngContCtrl.colorPicker($index)}">
-											</span>
-										</div>
-										<div class="content pull-left" ng-style="{'padding-top': allReferrals.designation == ''? '18px' : ''}" style="width:75%">
-											<big class="ellipsis" title="{{allReferrals.name}}">{{allReferrals.name}}</big>
-											<p style="margin:0" class="ellipsis" title="{{allReferrals.designation}}">{{allReferrals.designation}}</p>
-										</div>
-									</div>
-									<div class="col-sm-3" style="padding: 0">
-										<div class="pull-left">
-											<img ng-if="!(allReferrals.referred_by_dp_image == null || allReferrals.referred_by_dp_image == '')" ng-src="{{allReferrals.referred_by_dp_image}}" class="img-responsive img-circle border-default">
-											<span ng-if="(allReferrals.referred_by_dp_image == null || allReferrals.referred_by_dp_image == '')" ng-bind="allReferrals.referred_by_name | limitTo : 1" class='letter' ng-style="{'background':EngContCtrl.colorPicker($index + 5)}">
-											</span>
-										</div>
-										<div class="content pull-left" ng-style="{'padding-top': allReferrals.ref_designation == ''? '18px' : ''}" style="width:75%">
-											<big class="ellipsis" title="{{allReferrals.referred_by_name}}">{{allReferrals.referred_by_name}}</big>
-											<p style="margin:0;" class="ellipsis" title="{{allReferrals.ref_designation}}">{{allReferrals.ref_designation}}</p>
-										</div>
-									</div>
-									<div class="col-sm-2 col-size" style="padding-top:6px;">
-										<img src="public/images/clock.png"alt="clock">&nbsp;&nbsp;
-										<span style="display: inline-block;padding: 12px 0;line-height: 1.8em">{{allReferrals.created_at}}</span>
-									</div>
-									<div class="col-sm-2 col-size" style="padding-top:6px;">
-										<div ng-if="!allReferrals.resume_path == ''">
-											<a href="{{allReferrals.resume_path}}" download>
-												<!-- <img src="public/images/download.svg" alt="download_svg"> -->
-												<div style="background:url('public/images/referrals.png') no-repeat 0 -257px" class="multiple-images"></div>
-											</a>
-											<a href="{{$root.base_url+'viewer?url='+allReferrals.resume_path}}" target="_blank">
-												<span class="resume_file" title="{{allReferrals.resume_original_name}}">{{allReferrals.resume_original_name}}</span>
-											</a>
-										</div>
-										<div ng-if="allReferrals.resume_path == ''" style="padding-top:15px;">
-											No Resume Found
-										</div>
-									</div>
-									<div class="col-sm-2 col-size text-center pointer" style="padding-top: 20px" ng-if="allReferrals.status == 'PENDING'">
-										<span  ng-click="EngContCtrl.referral_status('',allReferrals,'accepted', $index)" style="outline:none;"><img src="public/images/tickmark-accept.svg" alt="response"><span class="tick-accept">ACCEPT</span></span>
-										<img src="public/images/closemark-decline.svg" alt="response" ng-click="EngContCtrl.referral_status('',allReferrals,'declined')" class="pull-right" style="margin-top:2px">
-									</div>
-									<div class="col-sm-2 col-size text-center" style="padding-top: 20px" ng-if="allReferrals.status != 'PENDING'">
-										<div class="multiple-images" ng-style="{'background':allReferrals.status == 'ACCEPTED' ? 'url(public/images/referrals.png) no-repeat -4px -96px' : allReferrals.status == 'DECLINED' ? 'url(public/images/referrals.png) no-repeat -4px -137px' : ''}"></div><span class="text-{{allReferrals.status | lowercase}}">{{allReferrals.status}}</span>
-									</div>
-									<div class="col-sm-2">	
-										<div class="progress" style="margin:20px 0;">
-											<div class="progress-bar progress-bar-info progress-bar-striped" style="width:{{allReferrals.confidence_score}}%">{{allReferrals.confidence_score}}%
-											</div>
-										</div>
-									</div>
-									<div class="status-loading" style="display:none;">
-										<img src="public/images/loader/spin.gif">
-									</div>
-								</li>
-								<div class="clearfix"></div>
-								<div class="text-center" style="height:500px;line-height:500px" ng-if="EngContCtrl.referrals_load_cond">Loading data...</div>
-								<div class="text-center" style="height:500px;line-height:500px;" ng-if="EngContCtrl.length_zero">No Data Found</div>
-							</ul>
-						</div>
+		  		<div id="grid" ui-grid="EngContCtrl.gridOptions" class="grid" ui-grid-selection style="border: 0;">
+					<div class="grid-msg-overlay" ng-if="EngContCtrl.loader">
+			          	<div class="msg">
+			            	<span>
+			              		<img src="public/images/loader/spin.gif" alt="loader" width="25%">
+			            	</span>
+			          	</div>
+			   		</div>
+			   		<div class="grid-msg-overlay" ng-if="EngContCtrl.noReferrals">
+				        <div class="msg">
+				        	<span>No Data Found</span>
+				        </div>
 			    	</div>
-		  		</div>
-		  		<div id="pending" class="tab-pane" ng-class="{'active': switchCond == 'PENDING'}" ng-switch-when="PENDING">
-		    		<div class="box">
-			    		<div class="box-content">
-							<ul>
-								<li class="t_head" ng-style="{'border-bottom':EngContCtrl.length_zero ? '1px solid #ccc' : ''}">
-									<div class="col-sm-3" title="CANDIDATE">
-										CANDIDATE
-									</div>
-									<div class="col-sm-3" title="REFERRER">
-										REFERRER 
-									</div>
-									<div class="col-sm-2 col-size" title="REFERRED ON">
-										REFERRED ON
-									</div>
-									<div class="col-sm-2 col-size" title="RESUME">
-										RESUME
-									</div>
-									<div class="col-sm-2 text-center col-size ellipsis" title="AWAITING ACTION">
-										AWAITING ACTION
-									</div>
-									<div class="col-sm-2 text-center" title="CONFIDENCE SCORE">
-										CONFIDENCE SCORE
-									</div>
-								</li>
-								<li ng-repeat="pendingReferrals in EngContCtrl.referrals">
-									<div class="col-sm-3">
-										<div class="pull-left">
-
-											<img ng-if="!(pendingReferrals.dp_image == null || pendingReferrals.dp_image == '')" ng-src="{{pendingReferrals.dp_image}}" class="img-responsive img-circle border-{{pendingReferrals.status | lowercase}}" ng-style="{'border': pendingReferrals.dp_image == null ? '0': ''}">
-											
-											<span ng-if="(pendingReferrals.dp_image == null || pendingReferrals.dp_image == '')" ng-bind="pendingReferrals.name | limitTo : 1" class='letter' ng-style="{'background':EngContCtrl.colorPicker($index)}">
-											</span>
-
-										</div>
-										<div class="content pull-left" ng-style="{'padding-top': pendingReferrals.designation == ''? '18px' : ''}" style="width:75%;">
-											<big class="ellipsis" title="{{pendingReferrals.name}}">{{pendingReferrals.name}}</big>
-											<p style="margin:0" class="ellipsis" title="{{pendingReferrals.designation}}">{{pendingReferrals.designation}}</p>
-										</div>
-									</div>
-									<div class="col-sm-3" style="padding: 0">
-										<div class="pull-left">
-											<span ng-if="pendingReferrals.referred_by_dp_image == null || pendingReferrals.referred_by_dp_image == ''" ng-bind="pendingReferrals.referred_by_name | limitTo : 1" class='letter' ng-style="{'background':EngContCtrl.colorPicker($index + 5)}"></span>
-
-											<img ng-if="!(pendingReferrals.referred_by_dp_image == null || pendingReferrals.referred_by_dp_image == '')" ng-src="{{pendingReferrals.referred_by_dp_image}}" class="img-responsive img-circle border-default">
-
-										</div>
-										<div class="content pull-left" ng-style="{'padding-top': pendingReferrals.ref_designation == ''? '18px' : ''}" style="width:75%">
-											<big class="ellipsis" title="{{pendingReferrals.referred_by_name}}">{{pendingReferrals.referred_by_name}}</big>
-											<p style="margin:0;" class="ellipsis" title="{{pendingReferrals.ref_designation}}">{{pendingReferrals.ref_designation}}</p>
-										</div>
-									</div>
-									<div class="col-sm-2 col-size" style="padding-top:6px;">
-										<img src="public/images/clock.png" alt="clock">&nbsp;&nbsp;
-										<span style="display: inline-block;padding: 12px 0;line-height: 1.8em">{{pendingReferrals.created_at}}</span>
-									</div>
-									<div class="col-sm-2 col-size" style="padding-top:6px;">
-										<div ng-if="!pendingReferrals.resume_path == ''">
-											<a href="{{pendingReferrals.resume_path}}" download>
-												<!-- <img src="public/images/download.svg" alt="download_svg"> -->
-												<div style="background:url('public/images/referrals.png') no-repeat 0 -257px" class="multiple-images"></div>
-											</a>
-											<a href="{{$root.base_url+'viewer?url='+pendingReferrals.resume_path}}" target="_blank">
-												<span class="resume_file" title="{{pendingReferrals.resume_original_name}}">{{pendingReferrals.resume_original_name}}</span>
-											</a>
-										</div>
-										<div ng-if="pendingReferrals.resume_path == ''" style="padding-top:15px;">
-											No Resume Found
-										</div>
-									</div>
-									<div class="col-sm-2 col-size text-center pointer" style="padding-top: 20px"><!-- ng-if="pendingReferrals.status == 'PENDING'">-->
-										<span ng-click="EngContCtrl.referral_status('PENDING',pendingReferrals,'accepted', $index)" style="outline:none"><img src="public/images/tickmark-accept.svg" alt="response"><span class="tick-accept">ACCEPT</span></span>
-										<img src="public/images/closemark-decline.svg" alt="response" ng-click="EngContCtrl.referral_status('PENDING',pendingReferrals,'declined')" class="pull-right" style="margin-top:2px;">
-									</div>
-									<div class="col-sm-2">	
-										<div class="progress" style="margin:20px 0;">
-											<div class="progress-bar progress-bar-info progress-bar-striped" style="width:{{pendingReferrals.confidence_score}}%">{{pendingReferrals.confidence_score}}%
-											</div>
-										</div>
-									</div>
-									<div class="status-loading" style="display:none;">
-										<img src="public/images/loader/spin.gif">
-									</div>
-									<!-- <div class="col-sm-2 text-center" style="padding-top: 20px" ng-if="pendingReferrals.status != 'PENDING'">
-										<span class="text-{{pendingReferrals.status | lowercase}}">{{pendingReferrals.status}}</span>
-									</div> -->
-								</li>
-								<div class="clearfix"></div>
-								<div class="text-center" style="height:500px;line-height:500px" ng-if="EngContCtrl.referrals_load_cond">Loading data...</div>
-								<div class="text-center" style="height:500px;line-height:500px;" ng-if="EngContCtrl.length_zero">No Data Found</div>
-							</ul>
-						</div>
-			    	</div>
-		  		</div>
-		  		<div id="active" class="tab-pane" ng-class="{'active': switchCond == 'ACCEPTED'}" ng-switch-when="ACCEPTED">
-		    		<div class="box">
-			    		<div class="box-content">
-							<ul>
-								<li class="t_head" ng-style="{'border-bottom':EngContCtrl.length_zero ? '1px solid #ccc' : ''}">
-									<div class="col-sm-3" title="CANDIDATE">
-										CANDIDATE
-									</div>
-									<div class="col-sm-3" title="REFERRER">
-										REFERRER 
-									</div>
-									<div class="col-sm-2" title="RESUME">
-										RESUME
-									</div>
-									<div class="col-sm-4" title="STATUS">
-										STATUS
-									</div>
-								<!-- 	<div class="col-sm-2 text-center ellipsis" title="CONFIDENCE SCORE" style="padding:0;width:12%">
-										CONFIDENCE SCORE
-									</div> -->
-								</li>
-								<li ng-repeat="activeReferrals in EngContCtrl.referrals" style="padding:16px 0!important">
-									<div class="col-sm-3">
-										<div class="pull-left">
-											<span ng-if="activeReferrals.dp_image == null || activeReferrals.dp_image == ''" ng-bind="activeReferrals.name | limitTo : 1" class='letter' ng-style="{'background':EngContCtrl.colorPicker($index)}">
-											</span>
-											<img ng-if="!(activeReferrals.dp_image == null || activeReferrals.dp_image == '')" ng-src="{{activeReferrals.dp_image}}" class="img-responsive img-circle border-{{activeReferrals.status | lowercase}}" ng-style="{'border': activeReferrals.dp_image == null ? '0': ''}">
-										</div>
-										<div class="content pull-left" ng-style="{'padding-top': activeReferrals.designation == ''? '18px' : ''}" style="width:75%">
-											<big class="ellipsis" title="{{activeReferrals.name}}">{{activeReferrals.name}}</big>
-											<p style="margin:0" class="ellipsis" title="{{activeReferrals.designation}}">{{activeReferrals.designation}}</p>
-										</div>
-									</div>
-									<div class="col-sm-3" style="padding: 0">
-										<div class="pull-left">
-											<span ng-if="activeReferrals.referred_by_dp_image == null || activeReferrals.referred_by_dp_image == ''" ng-bind="activeReferrals.referred_by_name | limitTo : 1" class='letter' ng-style="{'background':EngContCtrl.colorPicker($index + 5)}"></span>
-
-											<img ng-if="!(activeReferrals.referred_by_dp_image == null || activeReferrals.referred_by_dp_image == '')" ng-src="{{activeReferrals.referred_by_dp_image}}" class="img-responsive img-circle border-default">
-										</div>
-										<div class="content pull-left" ng-style="{'padding-top': activeReferrals.ref_designation == ''? '18px' : ''}" style="width:75%;">
-											<big class="ellipsis" title="{{activeReferrals.referred_by_name}}">{{activeReferrals.referred_by_name}}</big>
-											<p style="margin:0;" class="ellipsis" title="{{activeReferrals.ref_designation}}">{{activeReferrals.ref_designation}}</p>
-										</div>
-									</div>
-									<div class="col-sm-2" style="padding-top:6px;">
-										<div ng-if="!activeReferrals.resume_path == ''">
-											<a href="{{activeReferrals.resume_path}}" download>
-												<!-- <img src="public/images/download.svg" alt="download_svg"> -->
-												<div style="background:url('public/images/referrals.png') no-repeat 0 -257px" class="multiple-images"></div>
-											</a>
-											<a href="{{$root.base_url+'viewer?url='+activeReferrals.resume_path}}" target="_blank">
-												<span class="resume_file" title="{{activeReferrals.resume_original_name}}">{{activeReferrals.resume_original_name}}</span>
-											</a>
-										</div>
-										<div ng-if="activeReferrals.resume_path == ''" style="padding-top:15px;">
-											No Resume Found
-										</div>
-									</div>
-									<!-- <div class="col-sm-4 text-center" style="padding-top: 20px" ng-if="activeReferrals.status == 'PENDING'">
-										<img src="public/images/tickmark-accept.svg" alt="response" ng-click="EngContCtrl.referral_status('ACCEPTED',activeReferrals,'accepted')">&nbsp;&nbsp;
-										<img src="public/images/closemark-decline.svg" alt="response" ng-click="EngContCtrl.referral_status('ACCEPTED',activeReferrals,'declined')">
-									</div> -->
-									<div class="col-sm-4"><!-- ng-if="activeReferrals.status != 'PENDING'">-->
-										<div class="btn-group">
-											<div class="accept" style="pointer-events:none" ng-class="{'bg-accepted':activeReferrals.awaiting_action_status == 'ACCEPTED'}">Accepted</div>
-											<div class="interviewed" ng-click="EngContCtrl.process_status('INTERVIEWED',$index)" ng-class="{'bg-accepted':activeReferrals.awaiting_action_status == 'INTERVIEWED'}">Interviewed</div>
-											<div class="offered" ng-click="EngContCtrl.process_status('OFFERED',$index)" ng-class="{'bg-accepted':activeReferrals.awaiting_action_status == 'OFFERED'}">Offered</div>
-											<div class="hired" ng-click="EngContCtrl.process_status('HIRED',$index)" ng-class="{'bg-accepted':activeReferrals.awaiting_action_status == 'HIRED'}">Hired</div>
-										</div>
-										<div class="status_details" ng-if="activeReferrals.awaiting_action_status == 'ACCEPTED'" style="position:absolute;font-size:13px;">
-											<span style="text-transform: capitalize">{{activeReferrals.awaiting_action_status | lowercase}}</span><span> by {{EngContCtrl.clientName+" on "+activeReferrals.updated_at}}</span>
-										</div>
-										<div class="status_details" ng-if="activeReferrals.awaiting_action_status != 'ACCEPTED'" style="position:absolute;font-size:13px;">
-											<span>Status changed to {{(activeReferrals.awaiting_action_status | lowercase)+" by "+activeReferrals.awaiting_action_by+" on "+activeReferrals.awaiting_action_updated_at}}</span>
-										</div>
-									</div>
-									<!-- <div class="col-sm-2" style="padding:0;width:12%">	
-										<div class="progress" style="margin:20px 0;">
-											<div class="progress-bar progress-bar-info progress-bar-striped" style="width:{{activeReferrals.confidence_score}}%">{{activeReferrals.confidence_score}}%
-											</div>
-										</div>
-									</div> -->
-								</li>
-								<div class="clearfix"></div>
-								<div class="text-center" style="height:500px;line-height:500px" ng-if="EngContCtrl.referrals_load_cond">Loading data...</div>
-								<div class="text-center" style="height:500px;line-height:500px;" ng-if="EngContCtrl.length_zero">No Data Found</div>
-							</ul>
-						</div>
-			    	</div>
-		  		</div>
+				</div>
 			</div>	
 
 		</div>
 	</div>
 </div>
+
+<!-- candidate -->
+<script type="text/ng-template" id="candidate-template.phtml">
+	<div class="ui-grid-cell-contents ui-grid-details">
+		<div ng-if="COL_FIELD != '' && COL_FIELD != null">
+			<div class="image">
+				<img ng-if="!(row.entity.dp_image == null || row.entity.dp_image == '')" ng-src="{{row.entity.dp_image}}" class="img-responsive img-circle border-{{row.entity.status | lowercase}}" ng-style="{'border': row.entity.dp_image == null ? '0': ''}">					
+				<span ng-if="(row.entity.dp_image == null || row.entity.dp_image == '')" ng-bind="row.entity.name | limitTo : 1" class='letter' ng-style="{'background':grid.appScope.colorPicker(rowRenderIndex, colRenderIndex)}">
+				</span>
+			</div>
+			<div class="content">
+				<big class="ellipsis" title="{{ COL_FIELD }}" ng-bind="COL_FIELD"></big>
+				<p style="margin:0" class="ellipsis" title="{{row.entity.designation}}" ng-bind="row.entity.designation"></p>
+			</div>
+		</div>
+	</div>
+</script>
+
+<!-- referrer -->
+<script type="text/ng-template" id="referrer-template.phtml">
+	<div class="ui-grid-cell-contents ui-grid-details">
+		<div ng-if="COL_FIELD != '' && COL_FIELD != null">
+			<div class="image">
+				<img ng-if="!(row.entity.referred_by_dp_image == null || row.entity.referred_by_dp_image == '')" ng-src="{{row.entity.referred_by_dp_image}}" class="img-responsive img-circle border-{{row.entity.status | lowercase}}" ng-style="{'border': row.entity.referred_by_dp_image == null ? '0': ''}">
+				<span ng-if="(row.entity.referred_by_dp_image == null || row.entity.referred_by_dp_image == '')" ng-bind="row.entity.referred_by_name | limitTo : 1" class='letter' ng-style="{'background':grid.appScope.colorPicker(rowRenderIndex, colRenderIndex)}"></span>
+			</div>
+			<div class="content">
+				<big class="ellipsis" title="{{ COL_FIELD }}" ng-bind="COL_FIELD"></big>
+				<p style="margin:0" class="ellipsis" title="{{row.entity.designation}}" ng-bind="row.entity.designation"></p>
+			</div>
+		</div>
+	</div>
+</script>
+
+<!-- time -->
+<script type="text/ng-template" id="time.phtml">
+	<div class="ui-grid-cell-contents ui-grid-time">
+		<img src="public/images/clock.png" />
+		<span ng-bind="COL_FIELD"></span>
+	</div>
+</script>
+
+<!-- resume -->
+<script type="text/ng-template" id="resumes-template.phtml">
+	<div class="ui-grid-cell-contents ui-grid-download">
+		<a href="{{grid.appScope.downloadResume(row)}}" download ng-click="$event.stopPropagation()">
+			<div class="download" ng-click="grid.appScope.downloadResume(row)"></div>
+		</a>
+		<a href="{{$root.base_url+'viewer?url='+grid.appScope.downloadResume(row)}}" title="" target="_blank">{{ COL_FIELD }}</a>
+	</div>
+</script>
+
+<!--cellTemplate for status change like Accept or Decline-->
+<script type="text/ng-template" id="status-change.phtml">
+	<div class="ui-grid-cell-contents ui-grid-status">
+		<div ng-switch on="COL_FIELD">
+			<div ng-switch-when="PENDING" class="pending">
+				<img src="public/images/tickmark-accept.svg" alt="accept" ng-click="grid.appScope.statusUpdate(rowRenderIndex, row, 1);$event.stopPropagation()">
+				<span style="padding: 0px 15px 0px 6px;" ng-bind="COL_FIELD"></span>
+				<img alt="decline" src="public/images/closemark-decline.svg" ng-click="grid.appScope.statusUpdate(rowRenderIndex, row, 0);$event.stopPropagation()">
+			</div>
+			<div ng-switch-when="DECLINED" class="declined">
+				<div class="decline-img"></div>
+				{{ COL_FIELD }}
+			</div>
+			<div ng-switch-when="ACCEPTED" class="accepted">
+				<div class="accept-img"></div>
+				{{ COL_FIELD }}
+			</div>
+			<div ng-switch-default class="status-default">
+				{{ COL_FIELD }}
+			</div>
+		</div>
+	</div>
+</script>
+<script type="text/ng-template" id="accept-status.phtml">
+	<div class="ui-grid-cell-contents ui-grid-accept">
+		<div class="btn-group">
+			<button class="btn" ng-repeat="x in grid.appScope.accepetdList" ng-class="{'btn-primary' : COL_FIELD == x}" ng-click="grid.appScope.changeStatus(rowRenderIndex, row.entity, x)" ng-disabled="grid.appScope.pointerEvents(COL_FIELD) != x">
+				<span ng-bind="x"></span>
+			</button>
+		</div>
+		<div ng-if="row.entity.awaiting_action_status == 'ACCEPTED'" class="status ellipsis">
+			<span ng-bind="(row.entity.awaiting_action_status | lowercase) + ' by ' + row.entity.referred_by_name + ' on ' +row.entity.updated_at"></span>
+		</div>
+		<div ng-if="row.entity.awaiting_action_status != 'ACCEPTED'" class="status ellipsis">
+			<span ng-bind="'Status changed to ' + (row.entity.awaiting_action_status | lowercase) + ' by ' + row.entity.awaiting_action_by + ' on ' +row.entity.awaiting_action_updated_at">
+			</span>
+		</div>
+	</div>
+</script>

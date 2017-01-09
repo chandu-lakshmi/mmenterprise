@@ -13,7 +13,7 @@
 								<div class="clearfix">
 									<md-input-container class="md-block select-box">
 							            <label style="display:none">CAMPAIGN TYPE</label>
-							            <md-select name="campaign_type" ng-model="EditCampaignsCtrl.campaignDetails.campaign_type" required ng-class="{'has-error-border':edit_campaigns_form.campaign_type.$invalid && EditCampaignsCtrl.errCond}">
+							            <md-select name="campaign_type" ng-model="EditCampaignsCtrl.campaignDetails.campaign_type" required ng-class="{'error-border':edit_campaigns_form.campaign_type.$invalid && EditCampaignsCtrl.errCond}">
 							                <md-option ng-repeat="type in EditCampaignsCtrl.campaign" ng-value="type">{{type | uppercase}}</md-option>
 							            </md-select>
 							            <div class="error-spacer"></div>
@@ -33,15 +33,6 @@
     								</md-radio-group>
     								<input type="hidden" name="location_type" value="{{EditCampaignsCtrl.radioButtons.address}}">
 								</div>
-								<!-- <div class="location" style="margin-top: 40px;" ng-if="EditCampaignsCtrl.radioButtons.address == 'online'">
-									<div class="clearfix">
-										<md-input-container class="md-block">
-								            <label>URL</label>
-								            <input type="text" name="url" ng-model="EditCampaignsCtrl.campaignDetails.location.url" ng-required="EditCampaignsCtrl.radioButtons.address == 'online'" ng-class="{'has-error-border':edit_campaigns_form.url.$invalid && EditCampaignsCtrl.errCond}">
-								            <div ng-if="edit_campaigns_form.url.$error.required && EditCampaignsCtrl.errCond" class="has-error-msg">Please Enter Url</div>
-								        </md-input-container>
-							       	</div>
-								</div> -->
 								<div class="location" style="margin-top: 40px;" ng-if="EditCampaignsCtrl.radioButtons.address == 'onsite'">
 									<div class="clearfix">
 										<md-input-container class="md-block">
@@ -58,7 +49,7 @@
 							    	<div class="clearfix">
 							    		<md-input-container class="md-block">
 									            <label>ZIP CODE</label>
-									            <input type="text" name="zip_code" ng-model="EditCampaignsCtrl.campaignDetails.location.zip_code" ng-class="{'has-error-border':edit_campaigns_form.zip_code.$invalid && EditCampaignsCtrl.errCond}" onkeypress='return event.charCode >= 48 && event.charCode <= 57' ng-pattern="/^[0-9]{5,6}$/" >
+									            <input type="text" name="zip_code" ng-model="EditCampaignsCtrl.campaignDetails.location.zip_code" ng-class="{'has-error-border':edit_campaigns_form.zip_code.$invalid && EditCampaignsCtrl.errCond}" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 0' ng-pattern="/^[0-9]{5,6}$/" >
 									            <div ng-if="edit_campaigns_form.zip_code.$error.pattern && EditCampaignsCtrl.errCond" class="has-error-msg">Please Enter Valid Zip Code.</div>
 							        	</md-input-container>
 								        <md-input-container class="md-block">
@@ -80,7 +71,7 @@
           								<a href="#" class="close" data-dismiss="alert" aria-label="close" ng-click="EditCampaignsCtrl.closeSchedule(length)" ng-hide="$first">&times;</a>
           								<div class="start">
 	          								<p>STARTS ON</p>
-	          								<mdp-date-picker  mdp-placeholder="dd/mm/yyyy" name="startDate{{length}}" mdp-min-date="EditCampaignsCtrl.currentDate | date:'yyyy-MM-dd'" mdp-max-date="EditCampaignsCtrl.campaignDetails.date[length].end_on_date" ng-model="EditCampaignsCtrl.campaignDetails.date[length].start_on_date" required ng-class="{'has-error-border':edit_campaigns_form['startDate'+length].$invalid && EditCampaignsCtrl.errCond}">
+	          								<mdp-date-picker  mdp-placeholder="dd/mm/yyyy" mdp-format="DD/MM/YYYY" name="startDate{{length}}" mdp-min-date="EditCampaignsCtrl.currentDate | date:'yyyy-MM-dd'" mdp-max-date="EditCampaignsCtrl.campaignDetails.date[length].end_on_date" ng-model="EditCampaignsCtrl.campaignDetails.date[length].start_on_date" required ng-class="{'has-error-border':edit_campaigns_form['startDate'+length].$invalid && EditCampaignsCtrl.errCond}">
 	          									<div ng-if="edit_campaigns_form['startDate'+length].$error.required && EditCampaignsCtrl.errCond" class="has-error-msg">Please Enter Start Date.</div>
 	          									<div ng-if="edit_campaigns_form['startDate'+length].$error.format && EditCampaignsCtrl.errCond" class="has-error-msg">Invalid Date Format.</div>
 							                    <div ng-if="!edit_campaigns_form['startDate'+length].$error.format && EditCampaignsCtrl.errCond">
@@ -89,7 +80,7 @@
 	          								</mdp-date-picker>
 	          								<input type="hidden" name="schedule[{{$index}}][start_on_date]" value="{{EditCampaignsCtrl.campaignDetails.date[length].start_on_date | date: 'dd-MM-yyyy'}}">
 	          								<input type="hidden" name="schedule[{{$index}}][schedule_id]" value="{{EditCampaignsCtrl.campaignDetails.date[length].schedule_id}}">
-	          								<mdp-time-picker date="{{EditCampaignsCtrl.campaignDetails.date[length].start_on_date | date:'yyyy-MM-dd'}}" time=""  mdp-placeholder="HH:MM" name="startTime{{length}}" ng-model="EditCampaignsCtrl.campaignDetails.date[length].start_on_time" required ng-class="{'has-error-border':edit_campaigns_form['startTime'+length].$invalid && EditCampaignsCtrl.errCond}">
+	          								<mdp-time-picker mdp-format="HH:mm" date="{{EditCampaignsCtrl.campaignDetails.date[length].start_on_date | date:'yyyy-MM-dd'}}" time=""  mdp-placeholder="HH:MM" name="startTime{{length}}" ng-model="EditCampaignsCtrl.campaignDetails.date[length].start_on_time" required ng-class="{'has-error-border':edit_campaigns_form['startTime'+length].$invalid && EditCampaignsCtrl.errCond}">
 							                  	<div ng-if="edit_campaigns_form['startTime'+length].$error.required && EditCampaignsCtrl.errCond" class="has-error-msg">Please Enter Start Time.</div>
 							                  	<div ng-if="edit_campaigns_form['startTime'+length].$error.format && EditCampaignsCtrl.errCond" class="has-error-msg">Please Enter Valid Time.</div>
 	          								</mdp-time-picker>
@@ -97,7 +88,7 @@
 	          							</div>
 	          							<div class="ends">
 	          								<p>ENDS ON</p>
-	          								<mdp-date-picker   mdp-placeholder="dd/mm/yyyy" name="endDate{{length}}" mdp-min-date="EditCampaignsCtrl.campaignDetails.date[length].start_on_date || EditCampaignsCtrl.currentDate | date:'yyyy-MM-dd'" ng-model="EditCampaignsCtrl.campaignDetails.date[length].end_on_date" required ng-class="{'has-error-border':edit_campaigns_form['endDate'+length].$invalid && EditCampaignsCtrl.errCond}">
+	          								<mdp-date-picker mdp-placeholder="dd/mm/yyyy" mdp-format="DD/MM/YYYY" name="endDate{{length}}" mdp-min-date="EditCampaignsCtrl.campaignDetails.date[length].start_on_date || EditCampaignsCtrl.currentDate | date:'yyyy-MM-dd'" ng-model="EditCampaignsCtrl.campaignDetails.date[length].end_on_date" required ng-class="{'has-error-border':edit_campaigns_form['endDate'+length].$invalid && EditCampaignsCtrl.errCond}">
 	          									<div ng-if="edit_campaigns_form['endDate'+length].$error.required && EditCampaignsCtrl.errCond" class="has-error-msg">Please Enter End Date.</div>
 	          									<div ng-if="edit_campaigns_form['endDate'+length].$error.format && EditCampaignsCtrl.errCond" class="has-error-msg">Invalid Date Format.</div>
 							                    <div ng-if="!edit_campaigns_form['endDate'+length].$error.format && EditCampaignsCtrl.errCond">
@@ -105,7 +96,7 @@
 							                    </div>
 	          								</mdp-date-picker>
 	          								<input type="hidden" name="schedule[{{$index}}][end_on_date]" value="{{EditCampaignsCtrl.campaignDetails.date[length].end_on_date | date: 'dd-MM-yyyy'}}">
-	          								<mdp-time-picker  date="{{EditCampaignsCtrl.campaignDetails.date[length].end_on_date | date:'yyyy-MM-dd'}}" time="{{EditCampaignsCtrl.campaignDetails.date[length].start_on_time | date :'HH:mm' }}"  mdp-placeholder="HH:MM" name="endTime{{length}}" ng-model="EditCampaignsCtrl.campaignDetails.date[length].end_on_time" required ng-class="{'has-error-border':edit_campaigns_form['endTime'+length].$invalid && EditCampaignsCtrl.errCond}">
+	          								<mdp-time-picker  mdp-format="HH:mm" date="{{EditCampaignsCtrl.campaignDetails.date[length].end_on_date | date:'yyyy-MM-dd'}}" time="{{EditCampaignsCtrl.campaignDetails.date[length].start_on_time | date :'HH:mm' }}"  mdp-placeholder="HH:MM" name="endTime{{length}}" ng-model="EditCampaignsCtrl.campaignDetails.date[length].end_on_time" required ng-class="{'has-error-border':edit_campaigns_form['endTime'+length].$invalid && EditCampaignsCtrl.errCond}">
 	          									<div ng-if="edit_campaigns_form['endTime'+length].$error.required && EditCampaignsCtrl.errCond" class="has-error-msg">Please Enter End Time.</div>
 	          									<div ng-if="edit_campaigns_form['endTime'+length].$error.format && EditCampaignsCtrl.errCond" class="has-error-msg">Please Enter Valid Time.</div>
 	          								</mdp-time-picker>
@@ -130,25 +121,11 @@
 												<select data-rel="chosen" id="mul_select" name="job_ids[]"  ng-model="EditCampaignsCtrl.campaignDetails.job_ids" data-placeholder="Select Your Options" class="form-control" multiple required ng-class="{'has-error-border': edit_campaigns_form['jobs[]'].$invalid && EditCampaignsCtrl.errCond}">
 													<option value=""></option>
 													<option ng-repeat="list in EditCampaignsCtrl.jobsList" ng-bind="list.name + ' ( ' + list.no_of_vacancies + ' )'" ng-value="list.post_id"></option>
-													<!-- <option ng-if="EditCampaignsCtrl.jobsList.length == 0" value="" disabled>No jobs found</option> -->
 												</select>
-												<!-- <div style="min-height:30px">
-									              	<div ng-show="edit_campaigns_form['jobs[]'].$invalid && EditCampaignsCtrl.jobsList.length > 0 && EditCampaignsCtrl.errCond" class="has-error-msg">Please Select Atleast One Job.</div>
-									              	<div ng-show="edit_campaigns_form['jobs[]'].$invalid && EditCampaignsCtrl.jobsList.length == 0 && EditCampaignsCtrl.errCond" class="has-error-msg">No jobs found. (Please post atleast one job from JOBS TAB.)</div>
-									           </div> -->
 											</div>
 										</div>
 									</div>
 								</div>
-								<!-- <div class="clearfix">
-									<md-input-container class="md-block">
-							            <label>NUMBER OF VACANCIES</label>
-							            <input type="text" name="total_vacancies" ng-model="EditCampaignsCtrl.campaignDetails.total_vacancies" required ng-pattern="/^[0-9]{1,}$/" ng-class="{'has-error-border': edit_campaigns_form.total_vacancies.$invalid && EditCampaignsCtrl.errCond}">
-							            <div class="error-spacer"></div>
-										<div ng-if="edit_campaigns_form.total_vacancies.$error.required && EditCampaignsCtrl.errCond"  class="has-error-msg">Please Enter Total Number of Vacancies</div>
-										<div ng-if="edit_campaigns_form.total_vacancies.$error.pattern && EditCampaignsCtrl.errCond"  class="has-error-msg">Please Enter Only Number</div>
-							        </md-input-container>
-								</div> -->
 								<div class="clearfix upload-contacts">
 									<buckets-view buckets="EditCampaignsCtrl.bucketsName" check-ids="EditCampaignsCtrl.checkedBuckets" set-fn="EditCampaignsCtrl.directiveCall(dirFn)"></buckets-view>
 									<div style="min-height:30px">
@@ -176,10 +153,14 @@
 										  			<span class="gmail"><i class="fa fa-google-plus"></i></span>
 										  		</a>
 									  		</li>
+									  		<li>
+										  		<a data-toggle="tab" data-target="#linkedIn">
+										  			<span class="linkedin"><i class="fa fa-linkedin"></i></span>
+										  		</a>
+									  		</li>
 										</ul>
 										<div class="tab-content">
 											<div id="twitter" class="tab-pane fade in active">
-												<!-- <textarea ng-model="EditCampaignsCtrl.campaignDetails.twitter"></textarea> -->
 												<div class="media">
 													<div class="company-name ellipsis" title="{{EditCampaignsCtrl.company_name}}" ng-bind="EditCampaignsCtrl.company_name"></div>
 													<div class="campaign-description">
@@ -190,12 +171,10 @@
 													<div class="location"><img src="public/images/material_icons/location.svg" alt=""><p>Location</p></div>
 												</div>
 												<div class="action">
-											    	<!-- <span>{{EditCampaignsCtrl.campaignDetails.twitter.length || 0}}</span> -->
-											    	<span class="action-btn" style="background:#55acee">Tweet</span>
+											    	<span class="action-btn" style="background:#55acee" ng-click="EditCampaignsCtrl.twitter()">Tweet</span>
 											    </div>
 											</div>
 											<div id="facebook" class="tab-pane fade">
-											    <!-- <textarea ng-model="EditCampaignsCtrl.campaignDetails.facebook"></textarea> -->
 											    <div class="media">
 													<div class="company-name ellipsis" title="{{EditCampaignsCtrl.company_name}}" ng-bind="EditCampaignsCtrl.company_name"></div>
 													<div class="campaign-description">
@@ -206,12 +185,10 @@
 													<div class="location"><img src="public/images/material_icons/location.svg" alt=""><p>Location</p></div>
 												</div>
 											    <div class="action">
-											    	<!-- <span>{{EditCampaignsCtrl.campaignDetails.facebook.length || 0}}</span> -->
-											    	<span class="action-btn" style="background:#3b5998">Share</span>
+											    	<span class="action-btn" style="background:#3b5998" ng-click="EditCampaignsCtrl.facebook()">Share</span>
 											    </div>
 											</div>
 											<div id="gmail" class="tab-pane fade">
-											    <!-- <textarea ng-model="EditCampaignsCtrl.campaignDetails.gmail"></textarea> -->
 											    <div class="media">
 													<div class="company-name ellipsis" title="{{EditCampaignsCtrl.company_name}}" ng-bind="EditCampaignsCtrl.company_name"></div>
 													<div class="campaign-description">
@@ -222,8 +199,21 @@
 													<div class="location"><img src="public/images/material_icons/location.svg" alt=""><p>Location</p></div>
 												</div>
 											    <div class="action">
-											    	<!-- <span>{{EditCampaignsCtrl.campaignDetails.gmail.length || 0}}</span> -->
-											    	<span class="action-btn" style="background:#dd4b39">Post</span>
+											    	<span class="action-btn" style="background:#dd4b39" ng-click="EditCampaignsCtrl.googlePlus()">Post</span>
+											    </div>
+											</div>
+											<div id="linkedIn" class="tab-pane fade">
+											    <div class="media">
+													<div class="company-name ellipsis" title="{{EditCampaignsCtrl.company_name}}" ng-bind="EditCampaignsCtrl.company_name"></div>
+													<div class="campaign-description">
+														<b ng-bind="EditCampaignsCtrl.campaignDetails.campaign_name" class="ellipsis"></b><br>
+														<p ng-bind="EditCampaignsCtrl.campaignDetails.campaign_type"></p>
+														<span style="font-weight:bold;">Starts On: &nbsp;</span><span ng-bind="(EditCampaignsCtrl.campaignDetails.schedule[0].start_on_date | date: 'dd-MMM-yyyy') + ' - ' + EditCampaignsCtrl.campaignDetails.schedule[0].start_on_time"></span>
+													</div>
+													<div class="location"><img src="public/images/material_icons/location.svg" alt=""><p>Location</p></div>
+												</div>
+											    <div class="action">
+											    	<span class="action-btn" style="background:#0077b5" ng-click="EditCampaignsCtrl.linkedin()">Share</span>
 											    </div>
 											</div>
 										</div>
@@ -250,10 +240,14 @@
 										  			<span class="gmail"><i class="fa fa-google-plus"></i></span>
 										  		</a>
 									  		</li>
+									  		<li>
+										  		<a data-toggle="tab" data-target="#mylinkedIn">
+										  			<span class="linkedin"><i class="fa fa-linkedin"></i></span>
+										  		</a>
+									  		</li>
 										</ul>
 										<div class="tab-content">
 											<div id="myTwitter" class="tab-pane fade in active">
-											    <!-- <textarea ng-model="EditCampaignsCtrl.campaignDetails.myTwitter"></textarea> -->
 											    <div class="media">
 													<div class="company-name ellipsis" title="{{EditCampaignsCtrl.company_name}}" ng-bind="EditCampaignsCtrl.company_name"></div>
 													<div class="campaign-description">
@@ -264,12 +258,10 @@
 													<div class="location"><img src="public/images/material_icons/location.svg" alt=""><p>Location</p></div>
 												</div>
 												<div class="action">
-											    	<!-- <span>{{EditCampaignsCtrl.campaignDetails.myTwitter.length || 0}}</span> -->
-											    	<span class="action-btn" style="background:#55acee">Tweet</span>
+											    	<span class="action-btn" style="background:#55acee" ng-click="EditCampaignsCtrl.twitter()">Tweet</span>
 											    </div>
 											</div>
 											<div id="myFacebook" class="tab-pane fade">
-											    <!-- <textarea ng-model="EditCampaignsCtrl.campaignDetails.myFacebook"></textarea> -->
 											    <div class="media">
 													<div class="company-name ellipsis" title="{{EditCampaignsCtrl.company_name}}" ng-bind="EditCampaignsCtrl.company_name"></div>
 													<div class="campaign-description">
@@ -280,12 +272,10 @@
 													<div class="location"><img src="public/images/material_icons/location.svg" alt=""><p>Location</p></div>
 												</div>
 												<div class="action">
-											    	<!-- <span>{{EditCampaignsCtrl.campaignDetails.myFacebook.length || 0}}</span> -->
-											    	<span class="action-btn" style="background:#3b5998">Share</span>
+											    	<span class="action-btn" style="background:#3b5998" ng-click="EditCampaignsCtrl.facebook()">Share</span>
 											    </div>
 											</div>
 											<div id="myGmail" class="tab-pane fade">
-											    <!-- <textarea ng-model="EditCampaignsCtrl.campaignDetails.myGmail"></textarea> -->
 											    <div class="media">
 													<div class="company-name ellipsis" title="{{EditCampaignsCtrl.company_name}}" ng-bind="EditCampaignsCtrl.company_name"></div>
 													<div class="campaign-description">
@@ -296,8 +286,21 @@
 													<div class="location"><img src="public/images/material_icons/location.svg" alt=""><p>Location</p></div>
 												</div>
 												<div class="action">
-											    	<!-- <span>{{EditCampaignsCtrl.campaignDetails.myGmail.length || 0}}</span> -->
-											    	<span class="action-btn" style="background:#dd4b39">Post</span>
+											    	<span class="action-btn" style="background:#dd4b39" ng-click="EditCampaignsCtrl.googlePlus()">Post</span>
+											    </div>
+											</div>
+											<div id="mylinkedIn" class="tab-pane fade">
+											    <div class="media">
+													<div class="company-name ellipsis" title="{{EditCampaignsCtrl.company_name}}" ng-bind="EditCampaignsCtrl.company_name"></div>
+													<div class="campaign-description">
+														<b ng-bind="EditCampaignsCtrl.campaignDetails.campaign_name" class="ellipsis"></b><br>
+														<p ng-bind="EditCampaignsCtrl.campaignDetails.campaign_type"></p>
+														<span style="font-weight:bold;">Starts On: &nbsp;</span><span ng-bind="(EditCampaignsCtrl.campaignDetails.schedule[0].start_on_date | date: 'dd-MMM-yyyy') + ' - ' + EditCampaignsCtrl.campaignDetails.schedule[0].start_on_time"></span>
+													</div>
+													<div class="location"><img src="public/images/material_icons/location.svg" alt=""><p>Location</p></div>
+												</div>
+											    <div class="action">
+											    	<span class="action-btn" style="background:#0077b5" ng-click="EditCampaignsCtrl.linkedin()">Share</span>
 											    </div>
 											</div>
 										</div>

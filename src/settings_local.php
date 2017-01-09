@@ -9,6 +9,11 @@ return [
             'template_path' => __DIR__ . '/../templates/',
         ],
 
+        // Renderer settings
+       'email_renderer' => [
+           'template_path' => __DIR__ . '/../templates/email-parser',
+       ],
+
         // Monolog settings
         'logger' => [
             'name' => 'slim-app',
@@ -30,10 +35,10 @@ return [
             'PREFIX' => '/enterprise',
 
             // Angular Application domain
-            'APP_DOMAIN' => 'http://192.168.33.10/mintmesh/mmenterprise_5/',
+            'APP_DOMAIN' => 'http://192.168.33.10/mintmesh/mmenterprise_9/',
 
             // Application API domain
-            'API_DOMAIN' => 'http://192.168.33.10/mintmesh/mintmesh_5/',
+            'API_DOMAIN' => 'http://192.168.33.10/mintmesh/mintmesh_9/',
 
             //Client keys
             'CLIENT_ID'         => 'G7iLdQoeZy0Ef06C',
@@ -43,9 +48,17 @@ return [
             'PASSWORD_GRANT'    => 'password',
 
             //qquploader path
-            'PATH'    => '/var/www/public/mintmesh/mintmesh_5/'
+            'PATH'    => '/var/www/public/mintmesh/mintmesh_9/',
+            //Version
+            'APP_VERSION' => '1.2' 
             
         ],
+
+       // email parser
+       'EMAIL_PARSER' => [
+           // Angular Application domain
+           'EMAIL_PARSER_DOMAIN' => 'http://192.168.33.10/mintmesh/mmenterprise_9/email-parser/',
+       ]
     
     ],
 ];

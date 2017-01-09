@@ -16,49 +16,22 @@
   .all-jobs .container section.job {
     min-height: 300px;
     position: relative; }
-    .all-jobs .container section.job .loader {
+    .all-jobs .container section.job .header {
+      padding: 15px 0; }
+      .all-jobs .container section.job .header .count {
+        padding: 6px 0;
+        font-size: 16px; }
+    .all-jobs .container section.job .overlay {
       position: absolute;
-      left: 50%;
-      top: 50%; }
-    .all-jobs .container section.job .count {
-      text-align: right;
-      font-size: 17px;
-      padding: 15px 0 5px 0; }
-    .all-jobs .container section.job .row {
-      margin: 0;
-      border: 1px solid #ebebeb;
-      padding: 12px 4px;
-      background: #fefefe;
-      color: #939393;
-      margin-bottom: 13px; }
-      .all-jobs .container section.job .row a.details {
-        color: inherit; }
-        .all-jobs .container section.job .row a.details:focus, .all-jobs .container section.job .row a.details:hover {
-          color: inherit; }
-      .all-jobs .container section.job .row .job-title {
-        font-weight: 900;
-        color: initial; }
-      .all-jobs .container section.job .row .fields .labels {
-        width: 20%;
-        float: left; }
-      .all-jobs .container section.job .row .fields .value {
-        width: 80%;
-        float: left;
-        color: #252525; }
-      .all-jobs .container section.job .row .btn-apply {
-        background: #227f60;
-        color: #fff;
-        font-size: 14px;
-        border-radius: 3px;
-        float: right;
-        margin-top: 36px; }
-        .all-jobs .container section.job .row .btn-apply a {
-          color: inherit;
-          text-decoration: none;
-          display: inline-block;
-          padding: 8px 20px;
-          cursor: pointer;
-          outline: none; }
+      top: 0;
+      background: rgba(151, 197, 226, 0.07);
+      text-align: center;
+      height: 100%;
+      width: 100%; }
+      .all-jobs .container section.job .overlay.text {
+        background: transparent;
+        font-size: 25px;
+        top: 80px; }
   .all-jobs .container section.job-details {
     margin-top: 30px;
     position: relative;
@@ -106,7 +79,8 @@
       margin: 0;
       font-family: 'Roboto';
       white-space: pre-line;
-      color: #262626; }
+      color: #262626;
+      padding: 5px 0 0 25px; }
     .all-jobs .container section.job-details .action {
       padding-top: 22px; }
       .all-jobs .container section.job-details .action a {
@@ -135,74 +109,16 @@
       padding: 2px 10px; }
   .all-jobs .container footer .social-media {
     padding: 25px 0;
-    border: 1px solid #ebebeb;
+    border-top: 1px solid #ebebeb;
     margin-top: 32px;
     border-right: 0;
     border-left: 0;
-    /*.icon{padding-top: 6px;color:939393;
-    	.fa{color: #fff;width: 36px;height: 36px;text-align: center;line-height: 37px;font-size: 22px;margin-right: 6px;border-radius: 2px;cursor: pointer;outline: none}
-    	.fa-facebook{background: #5272b3;}
-    	.fa-linkedin{background: #0282bf;}
-    	.fa-twitter{background: #21aaf5}
-    	.fa-google-plus{background: #e25d4e}
-    	.fa-whatsapp{background: #08c84c}
-    }*/ }
-    .all-jobs .container footer .social-media social-sharing {
-      display: block;
-      overflow: hidden; }
-      .all-jobs .container footer .social-media social-sharing .social-sharing div {
-        float: left;
-        display: inline; }
-        .all-jobs .container footer .social-media social-sharing .social-sharing div span {
-          width: 42px;
-          height: 42px;
-          text-align: center;
-          cursor: pointer;
-          display: inline-block;
-          margin-right: 4px; }
-          .all-jobs .container footer .social-media social-sharing .social-sharing div span i {
-            font-size: 24px;
-            margin-top: 10px;
-            color: #fff; }
-          .all-jobs .container footer .social-media social-sharing .social-sharing div span.facebook {
-            background: #3b5998; }
-          .all-jobs .container footer .social-media social-sharing .social-sharing div span.twitter {
-            background: #1da1f2; }
-          .all-jobs .container footer .social-media social-sharing .social-sharing div span.googlePlus {
-            background: #dc4e41; }
-          .all-jobs .container footer .social-media social-sharing .social-sharing div span.linkedin {
-            background: #0077b5; }
-    .all-jobs .container footer .social-media .social-icons {
-      margin-top: 14px; }
-    .all-jobs .container footer .social-media .link {
-      overflow: hidden;
-      margin-top: 20px; }
-      .all-jobs .container footer .social-media .link .field {
-        width: 80%;
-        float: left; }
-        .all-jobs .container footer .social-media .link .field input {
-          border-color: #e73a2d;
-          box-shadow: none;
-          border-radius: 2px;
-          height: 36px; }
-      .all-jobs .container footer .social-media .link .btns {
-        position: relative;
-        width: 20%;
-        float: left;
-        text-align: center;
-        color: #fff;
-        padding: 8px;
-        margin-left: -2px;
-        cursor: pointer;
-        outline: none;
-        background: #e73a2d;
-        background: -webkit-linear-gradient(#e73a2d, #b90819);
-        background: -o-linear-gradient(#e73a2d, #b90819);
-        background: -moz-linear-gradient(#e73a2d, #b90819);
-        background: linear-gradient(#e73a2d, #b90819); }
+    background: #fff; }
   .all-jobs .container footer .drop-cv {
     text-align: center;
-    padding: 26px; }
+    padding: 26px;
+    background: #fff;
+    border-top: 1px solid #ebebeb; }
     .all-jobs .container footer .drop-cv span {
       font-size: 14px;
       color: #252525; }
@@ -215,30 +131,74 @@
         display: inline-block;
         cursor: pointer;
         border: 1px solid #252525; }
+  .all-jobs .container footer.fixed {
+    position: fixed;
+    bottom: 0;
+    width: inherit; }
+    .all-jobs .container footer.fixed .box {
+      width: 96.3%; }
 
-.copied::after {
-  position: absolute;
-  top: 16%;
-  right: 110%;
-  display: block;
-  content: "copied";
-  font-size: 0.75em;
-  padding: 4px 5px;
-  color: #fff;
-  background-color: #22a;
-  border-radius: 3px;
-  opacity: 0;
-  will-change: opacity, transform;
-  animation: showcopied 1.5s ease; }
-
-@keyframes showcopied {
-  0% {
-    opacity: 0;
-    transform: translateX(100%); }
-  70% {
-    opacity: 1;
-    transform: translateX(0); }
-  100% {
-    opacity: 0; } }
+/* ALL CAMPAIGNS */
+.all-campaigns {
+  color: #939393; }
+  .all-campaigns header.logo {
+    padding: 43px 0;
+    text-align: center; }
+    .all-campaigns header.logo img {
+      width: 160px; }
+      .all-campaigns header.logo img.loading {
+        width: 20px;
+        height: 20px; }
+    .all-campaigns header.logo .company-name {
+      font-size: 30px;
+      color: #478e76;
+      text-transform: uppercase; }
+  .all-campaigns .content {
+    background: -webkit-linear-gradient(bottom, #f2f1ef, white 20%);
+    background: -o-linear-gradient(bottom, #f2f1ef, white 20%);
+    background: -moz-linear-gradient(bottom, #f2f1ef, white 20%);
+    background: linear-gradient(to bottom, #f2f1ef, white 20%);
+    min-height: calc(100vh - 150px); }
+    .all-campaigns .content .campaign-details {
+      width: 60%;
+      margin: 0 auto; }
+      .all-campaigns .content .campaign-details .details {
+        background: url("../images/email-parser/campaign-bg.jpg");
+        background-size: 100% 100%;
+        padding: 35px 15px; }
+        .all-campaigns .content .campaign-details .details .header p {
+          color: #3b6fd0;
+          margin-bottom: 3px; }
+        .all-campaigns .content .campaign-details .details .header span {
+          font-size: 22px;
+          color: initial; }
+        .all-campaigns .content .campaign-details .details .header h4 {
+          margin: 6px 0;
+          color: #999; }
+        .all-campaigns .content .campaign-details .details .row {
+          margin-top: 25px; }
+          .all-campaigns .content .campaign-details .details .row .col-sm-6.time .article {
+            color: #e79f06;
+            font-size: 17px;
+            text-align: center; }
+            .all-campaigns .content .campaign-details .details .row .col-sm-6.time .article big {
+              display: block;
+              font-size: 30px; }
+            .all-campaigns .content .campaign-details .details .row .col-sm-6.time .article .pull-left {
+              width: 45%; }
+          .all-campaigns .content .campaign-details .details .row .col-sm-6.location .article {
+            color: initial; }
+          .all-campaigns .content .campaign-details .details .row .col-sm-6 .title {
+            border-bottom: 1px solid #ececec;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            font-size: 21.7px; }
+            .all-campaigns .content .campaign-details .details .row .col-sm-6 .title img {
+              width: 30px;
+              height: 30px; }
+      .all-campaigns .content .campaign-details .footer .social-share {
+        padding: 25px 0;
+        border-top: 1px solid #ebebeb;
+        margin-top: 32px; }
 
 /*# sourceMappingURL=email-parser-jobs.css.map */

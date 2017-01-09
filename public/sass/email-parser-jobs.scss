@@ -7,20 +7,11 @@
 			.company-name{font-size: 30px;color: #478e76;text-transform: uppercase;}
 		}
 		section.job{min-height: 300px;position: relative;
-			.loader{position: absolute;left: 50%;top: 50%;}
-			.count{text-align: right;font-size: 17px;padding: 15px 0 5px 0;}    
-			.row{margin: 0;border: 1px solid #ebebeb;padding: 12px 4px;background: #fefefe;color:#939393;margin-bottom: 13px;
-				a.details{color: inherit;
-					&:focus, &:hover{color: inherit;};
-				}
-				.job-title{font-weight: 900;color:initial;}
-				.fields{
-					.labels{width:20%;float: left;}
-					.value{width:80%;float:left;color:#252525;}
-				}
-				.btn-apply{background: #227f60;color: #fff;font-size: 14px;border-radius: 3px;float: right;margin-top: 36px;
-					a{color: inherit;text-decoration: none;display: inline-block;padding: 8px 20px;cursor: pointer;outline:none;}
-				}
+			.header{padding: 15px 0;
+				.count{padding: 6px 0;font-size: 16px;}
+			}
+			.overlay{position: absolute;top: 0;background: rgba(151, 197, 226, 0.07);text-align: center;height: 100%;width: 100%;
+				&.text{background: transparent;font-size: 25px;top: 80px;}
 			}
 		}
 		section.job-details{margin-top: 30px;position: relative;min-height: 300px;
@@ -44,7 +35,7 @@
 			}
 			.job-desc{
 				p{margin:0;color: #939393;}
-				pre{border: 0;background: transparent;font-size: 16px;padding: 0;margin: 0;font-family: 'Roboto';white-space: pre-line;color: #262626;}
+				pre{border: 0;background: transparent;font-size: 16px;padding: 0;margin: 0;font-family: 'Roboto';white-space: pre-line;color: #262626;padding: 5px 0 0 25px;}
 			}
 			.action{padding-top: 22px;
 				a{outline: none;margin-right:25px;cursor: pointer;text-decoration: none;padding: 6px 14px;display: inline-block;border-radius: 3px;background: #238260;border:1px solid #238260;color:#fff;}
@@ -60,70 +51,67 @@
 			}
 		}
 		footer{
-			.social-media{padding: 25px 0;border: 1px solid #ebebeb;margin-top: 32px;border-right:0;border-left:0;
-				social-sharing{display: block;overflow: hidden;
-					.social-sharing{
-						div{float: left;display: inline;
-							span{width: 42px;height: 42px;text-align: center;cursor: pointer;display: inline-block;margin-right: 4px;
-								i{font-size: 24px;margin-top: 10px;color: #fff}
-								&.facebook{background: #3b5998}
-								&.twitter{background: #1da1f2}
-								&.googlePlus{background: #dc4e41}
-								&.linkedin{background: #0077b5}
-							}
-						}
-					}
-				}
-				/*.icon{padding-top: 6px;color:939393;
-					.fa{color: #fff;width: 36px;height: 36px;text-align: center;line-height: 37px;font-size: 22px;margin-right: 6px;border-radius: 2px;cursor: pointer;outline: none}
-					.fa-facebook{background: #5272b3;}
-					.fa-linkedin{background: #0282bf;}
-					.fa-twitter{background: #21aaf5}
-					.fa-google-plus{background: #e25d4e}
-					.fa-whatsapp{background: #08c84c}
-				}*/
-				.social-icons{margin-top: 14px;}
-				.link{overflow: hidden;margin-top: 20px;
-					.field{width: 80%;float:left;
-						input{border-color:#e73a2d;box-shadow: none;border-radius: 2px;height: 36px;}
-					}
-					.btns{position:relative;width: 20%;float:left;text-align: center;color:#fff;padding: 8px;margin-left: -2px;cursor: pointer;outline: none;background: #e73a2d;background: -webkit-linear-gradient(#e73a2d, #b90819);background: -o-linear-gradient(#e73a2d, #b90819);background: -moz-linear-gradient(#e73a2d, #b90819);background: linear-gradient(#e73a2d, #b90819);}
-				}
-			}
-			.drop-cv{text-align: center;padding: 26px;
-				span{font-size: 14px;color: #252525;
-					a{border-radius: 2px;color: inherit;text-decoration: none;padding: 2px 10px;outline:none;display: inline-block;cursor:pointer;border:1px solid #252525;}
-				}
-			}
+	        .social-media{padding: 25px 0;border-top: 1px solid #ebebeb;margin-top: 32px;border-right:0;border-left:0;background: #fff;}
+	        .drop-cv{text-align: center;padding: 26px;background: #fff;border-top: 1px solid #ebebeb;
+	            span{font-size: 14px;color: #252525;
+	                a{border-radius: 2px;color: inherit;text-decoration: none;padding: 2px 10px;outline:none;display: inline-block;cursor:pointer;border:1px solid #252525;}
+	            }
+	        }
+		}
+		footer.fixed{position: fixed;bottom: 0;width:inherit;
+			.box{width: 96.3%;}
 		}
 	}
 }
-.copied::after {
-  position: absolute;
-  top: 16%;
-  right: 110%;
-  display: block;
-  content: "copied";
-  font-size: 0.75em;
-  padding: 4px 5px;
-  color: #fff;
-  background-color: #22a;
-  border-radius: 3px;
-  opacity: 0;
-  will-change: opacity, transform;
-  animation: showcopied 1.5s ease;
+
+@mixin viewHeight($width){
+    min-height: calc(100vh - #{$width});
 }
 
-@keyframes showcopied {
-  0% {
-    opacity: 0;
-    transform: translateX(100%);
-  }
-  70% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  100% {
-    opacity: 0;
-  }
+@mixin gradient($dir, $firstColor, $last){
+    background: -webkit-linear-gradient($dir, $firstColor, $last 20%);
+    background: -o-linear-gradient($dir, $firstColor, $last 20%);
+    background: -moz-linear-gradient($dir, $firstColor, $last 20%);
+    background: linear-gradient(to $dir, $firstColor, $last 20%);
+}
+
+
+/* ALL CAMPAIGNS */
+.all-campaigns{color: #939393;
+	header.logo{padding:43px 0;text-align: center;
+		img{width:160px;
+			&.loading{width: 20px;height: 20px;}
+		}
+		.company-name{font-size: 30px;color: #478e76;text-transform: uppercase;}
+	}
+	.content{@include gradient(bottom, rgba(242, 241, 239, 1), rgba(255, 255, 255, 1)); @include viewHeight(150px);
+		.campaign-details{width: 60%;margin: 0 auto;
+			.details{background: url('../images/email-parser/campaign-bg.jpg');background-size: 100% 100%;padding: 35px 15px;
+				.header{
+					p{color: #3b6fd0;margin-bottom: 3px;}
+					span{font-size: 22px;color: initial;}
+					h4{margin: 6px 0;color: #999;}
+				}
+				.row{margin-top: 25px;
+					.col-sm-6{
+						&.time{
+							.article{color: #e79f06;font-size: 17px;text-align: center;
+								big{display: block;font-size: 30px;}
+								.pull-left{width: 45%;}
+							}
+						}
+						&.location{
+							.article{color: initial;}
+						}
+						.title{border-bottom: 1px solid #ececec;padding-bottom: 8px;margin-bottom: 15px;font-size: 21.7px;
+							img{width: 30px;height: 30px;}
+						}
+					}
+				}
+			}
+			.footer{
+				.social-share{padding: 25px 0;border-top: 1px solid #ebebeb;margin-top: 32px;}
+			}
+		}
+	}
 }

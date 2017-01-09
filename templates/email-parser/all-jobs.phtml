@@ -5,98 +5,60 @@
 			<span ng-bind="AllJobsCtrl.infiniteScroll.companyName" class="company-name" ng-if="AllJobsCtrl.infiniteScroll.company_logo == ''"></span>			
 		</header>
 		<section class="job">
-			<div class="count">
-				Total Jobs: <span ng-bind="AllJobsCtrl.infiniteScroll.total_count || 0"></span>
+			<div class="header clearfix">
+				<div class="search pull-left">
+					<div data-epi-search data-opts="AllJobsCtrl.search_opts" data-path="../templates/components/"></div>
+				</div>
+				<div class="count pull-right">
+					Total Jobs: <span ng-bind="AllJobsCtrl.infiniteScroll.total_count || 0"></span>
+				</div>
 			</div>
-			<div infinite-scroll='AllJobsCtrl.infiniteScroll.nextPage()' infinite-scroll-disabled='AllJobsCtrl.infiniteScroll.busy' infinite-scroll-distance='2' style="position:relative">
+			<div infinite-scroll='AllJobsCtrl.infiniteScroll.nextPage()' infinite-scroll-disabled='AllJobsCtrl.infiniteScroll.busy' infinite-scroll-distance='1' style="position:relative;margin-bottom: 300px;" class="list">
 				<div class="row" ng-repeat="list in AllJobsCtrl.infiniteScroll.list">
-					<a ui-sref="jobDetails({job_name: list.job_name,ref: list.ref_code,flag: 0})" title="" class="details">
+					<a ui-sref="jobDetails({ref: list.ref_code,flag: 0})" title="" class="details">
 						<div class="col-sm-8">
-							<h4 ng-bind="AllJobsCtrl.jobs_list.companyName | uppercase"></h4>
-							<h4 class="job-title" ng-bind="list.job_name | uppercase"></h4>
+							<span ng-bind="AllJobsCtrl.infiniteScroll.companyName"></span>
+							<p ng-bind="list.job_name"></p>
 							<div class="fields">
-								<div class="labels">Experience:</div>
-								<div class="value" ng-bind="list.experience"></div>
-								<div class="labels">Location:</div>
-								<div class="value" ng-bind="list.location"></div>
+								<span class="label">Experience:</span>
+								<span class="value" ng-bind="list.experience"></span>
+								<span class="label">Location:</span>
+								<span class="value" ng-bind="list.location"></span>
 							</div>
 						</div>
 					</a>
-					<div class="col-sm-4">
-						<span class="btn-apply">
-							<a ui-sref="candidateDetails({ref: list.ref_code, flag: 0, status:list.status})">APPLY</a>
-						</span>
+					<div class="col-sm-4 buttons">
+						<a class="refer" ui-sref="referralDetails({ref: list.ref_code,flag: 0, status:list.status, jc:0})" ng-if="list.post_type == 'external'">REFER</a>
+						<a class="apply" ui-sref="candidateDetails({ref: list.ref_code, flag: 0, status:list.status})" ng-if="list.post_type == 'internal'">APPLY</a>
 					</div>
+				</div>
+				<div class="overlay" ng-if="AllJobsCtrl.loader">
+					<img src="../public/images/loader/spin.gif" alt="spinner" style="width:10%">
+				</div>
+				<div class="overlay text" ng-if="AllJobsCtrl.noJobs">
+					<span>No Jobs Found</span>
 				</div>
 				<div class="text-center" ng-if="AllJobsCtrl.infiniteScroll.busy" style="opacity:0.5">
 					<img src="../public/images/loader/spin.gif" alt="spinner" style="width:10%">
 				</div>
 			</div>
 		</section>
-		<footer>
-			<div class="social-media">
-				Share Jobs
-				<div class="social-icons">
-					<!-- Go to www.addthis.com/dashboard to customize your tools -->
-					<div class="addthis_inline_share_toolbox"></div>
+		<footer class="fixed">
+			<div class="box">
+				<div class="social-media">
+					Share Jobs
+					<!-- <div class="social-icons">
+						Go to www.addthis.com/dashboard to customize your tools
+						<div class="addthis_inline_share_toolbox"></div>
+					</div> -->
+					<!-- social media share directive -->
+					<social-sharing data-opts="AllJobsCtrl.socialMedia" style="margin-top:10px;"></social-sharing>
+					<copy-url url="{{AllJobsCtrl.copyUrl}}" btn-text="COPY JOBS LINK"></copy-url>
 				</div>
-				<!-- <a title="" target="_blank" onclick="window.open('https://twitter.com/intent/tweet?text=http://192.168.33.10/sprint_8/mmenterprise_8/email-parser/all-jobs?ref=95403e3cfae19e1392a41e441f5ff5bb27e6db467647beb8','_blank','width=300px,height=200px')">shiva</a> -->
-				<div class="link">
-					<div class="form-group">
-						<div class="field">
-							<input type="text" class="form-control" id="copy" value="{{AllJobsCtrl.copyUrl}}">		
-						</div>
-						<div class="btns" data-copytarget="#copy">
-							COPY JOBS LINK
-						</div>
-					</div>
+				<div class="drop-cv">
+					Refer friend for future openings here <span><a ui-sref="referralDetails({ref: $root.ref,flag: 1})">Upload CV</a></span>
 				</div>
-			</div>
-			<div class="drop-cv">
-				Refer friend for future openings here ? &nbsp;<span><a ui-sref="referralDetails({ref: $root.ref,flag: 1})">Upload CV</a></span>
 			</div>
 		</footer>
 	</div>
 </div>
-<script>
-(function() {
-
-	'use strict';
-  
-  // click events
-  document.getElementsByClassName('btns')[0].addEventListener('click', copy, true);
-
-	// event handler
-	function copy(e) {
-
-    // find target element
-    var 
-      t = e.target,
-      c = t.dataset.copytarget,
-      inp = (c ? document.querySelector(c) : null);
-      
-    // is element selectable?
-    if (inp && inp.select) {
-      
-      // select text
-      inp.select();
-
-      try {
-        // copy text
-        document.execCommand('copy');
-        inp.blur();
-        
-        // copied animation
-        t.classList.add('copied');
-        setTimeout(function() { t.classList.remove('copied'); }, 1500);
-      }
-      catch (err) {
-        alert('please press Ctrl/Cmd+C to copy');
-      }
-      
-    }
-    
-	}
-
-})();
-</script>

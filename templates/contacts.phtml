@@ -9,11 +9,11 @@
 				   	<li><a ng-click="ContactCtrl.bucketsModal()" >CREATE GROUP</a></li>
 				</ul>
 			</div>
-			<div class="bkt-container">
-				<span ng-click="ContactCtrl.getGridData('ALL CONTACTS', '0', '','')" 
+			<div class="bkt-container animated fadeIn" ng-if="ContactCtrl.bucketNames">
+				<span ng-click="ContactCtrl.getGridData('ALL CONTACTS', '0', '','');ContactCtrl.getActiveBucketCount(-1)" 
 					ng-class="{ activeBucketCls : ('ALL CONTACTS' == ContactCtrl.activeBucket) }">ALL CONTACTS{{' (' + ContactCtrl.totalRecords + ')'}}</span>
 				<div ng-repeat="bkt in ContactCtrl.bucketNames" 
-					ng-click="ContactCtrl.getGridData(bkt.bucket_name, bkt.bucket_id, '', '')" 
+					ng-click="ContactCtrl.getGridData(bkt.bucket_name, bkt.bucket_id, '', '');ContactCtrl.getActiveBucketCount($index)" 
 					ng-class="{ activeBucketCls : (bkt.bucket_name == ContactCtrl.activeBucket) }"
 					>
 					<span>{{(bkt.bucket_name | uppercase)}}</span>
@@ -24,7 +24,7 @@
 
 		<div class="container-rt">
 			<div class="search">
-				<span ng-bind="ContactCtrl.activeBucket | uppercase" class="word-ellipsis">
+				<span ng-bind="(ContactCtrl.activeBucket | uppercase) +' ('+ (ContactCtrl.activeBucketCount || 0)+ ')'" class="word-ellipsis">
 				</span>
 				<div>
 					<img ng-src="public/images/loader/spin.gif" alt="bufferSpin" ng-if="ContactCtrl.updateLoader">
@@ -36,12 +36,12 @@
 				</div>
 				<md-input-container md-no-float="" class="md-block">
 						<img ng-src="public/images/loader/search_loader.gif" alt="buffer" ng-if="ContactCtrl.searchLoader">
-						<input ng-model="ContactCtrl.searchVal" ng-keyup="ContactCtrl.searchRecords(ContactCtrl.searchVal, $event)" placeholder="Search" onkeypress="return ((!(event.which==32))  || !this.selectionStart==0)">
+						<input type="text" ng-model="ContactCtrl.searchVal" ng-keyup="ContactCtrl.searchRecords(ContactCtrl.searchVal, $event)" placeholder="Search" onkeypress="return ((!(event.which==32))  || !this.selectionStart==0)">
 						<img ng-src="public/images/{{ContactCtrl.srcSearch}}" ng-click="ContactCtrl.srcSearch == 'cross.svg' ? ContactCtrl.searchRecords('', $event) : ''" alt="feedback_left">
 				</md-input-container>
 			</div>
 			<div class="grid-container">
-				<div ui-grid="ContactCtrl.gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-validate class="grid" ng-class="{'hover-enable':userPermissions.edit_contacts == 1}">
+				<div ui-grid="ContactCtrl.gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-validate class="inline-grid" ng-class="{'hover-enable':userPermissions.edit_contacts == 1}">
 					<div class="grid-msg-overlay" ng-if="ContactCtrl.loaderImg">
 			          	<div class="msg">
 			            	<span>
@@ -73,7 +73,7 @@
 						<ul  ng-hide="ContactCtrl.totalRecordsCount < 50" uib-pagination items-per-page="50" total-items="ContactCtrl.totalRecordsCount" ng-model="ContactCtrl.pageNumber" max-size="3" direction-links="false" force-ellipses="true" ng-change="ContactCtrl.getGridData('', '', ContactCtrl.pageNumber, '')" boundary-link-numbers="true" rotate="false"></ul>
 					</div>
 					<div class="invite col-sm-4 text-right" ng-class="{'col-sm-offset-4':!ContactCtrl.goDashboard}">
-						<span ng-if="ContactCtrl.selectedContacts.length > 0">{{ContactCtrl.selectedContacts.length + " Contact(s)"}} Selected</span>
+						<span ng-if="ContactCtrl.selectedContacts.length > 0" class="animated fadeIn">{{ContactCtrl.selectedContacts.length + " Contact(s)"}} Selected</span>
 						<div class="btn-invite" ng-click="ContactCtrl.loaderImg ? '' : ContactCtrl.invite()">
 							INVITE SELECTED
 						</div>

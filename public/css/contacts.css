@@ -22,8 +22,11 @@
 .grid-contacts .container .container-lt .dropdown{
 	margin-bottom: 23px;
 }
+.grid-contacts .container .container-lt .dropdown .dropdown-menu{
+    border:0;
+}
 .grid-contacts .container .container-lt .bkt-container{
-	height: calc(100vh - 217px);
+	height: calc(100vh - 220px);
     overflow-y: auto;
     min-height: 458px;
 }
@@ -36,7 +39,7 @@
     outline: 0;
     border-radius: 2px;
     color: #505455;
-    margin-top: 4px;
+    margin-bottom: 4px;
 }
 .grid-contacts .container .container-lt .bkt-container  div span:first-child,.word-ellipsis{
 	max-width: 145px;
@@ -96,12 +99,11 @@
 }
 .grid-contacts .container .container-rt .search span{
 	display: inline-block;
-	padding: 17px;
 	max-width: 250px;
 }
 .grid-contacts .container .container-rt md-input-container{
 	float: right;
-	margin-bottom: 8px;
+	margin: -12px 0 0;
     display: inline-block;
 }
 .grid-contacts .container .container-rt md-input-container .md-errors-spacer{
@@ -109,6 +111,7 @@
 }
 .grid-contacts .container .container-rt .search{
 	position: relative;
+    padding: 15px;
 }
 .grid-contacts .container .container-rt .search div{
 	display: inline-block;
@@ -127,18 +130,18 @@
 	margin-left: -66px;
 }
 .grid-contacts .container .container-rt .search input{
-	padding-right: 30px;
+	padding: 2px 30px 0 2px !important;
 }
 .grid-contacts .container .container-rt .search img[alt='buffer']{
 	width: 20px;
     height: 20px;
     position: absolute;
     left: -28px;
-    top: 8px;
+    top: 12px;
 }
 .grid-contacts .container .container-rt .search img[alt='feedback_left']{
 	position: absolute;
-    top: 8px;
+    top: 12px;
     right: 6px;
     width: 16px;
     height: 16px;
@@ -148,21 +151,21 @@
 .grid-contacts .grid-container{
 	clear: both;
 }
-.grid-contacts .grid-container .grid{
+.grid-contacts .grid-container .inline-grid{
     font-size: 14px;
     border-left:0;
     border-right: 0;
     overflow: hidden;
-    height: calc(100vh - 275px);
+    height: calc(100vh - 268px);
     min-height: 400px;
 }
 .grid-contacts .ui-grid-header-viewport{
   	height: 43px;
-    line-height: 43px;
+    line-height: 46px;
     color: #959698;
     background: #f3f7f8;
     text-transform: uppercase;
-    font-size: 12px;
+    font-size: 14px;
 }
 .grid-contacts .ui-grid-header-cell{
     border: 0;
@@ -170,7 +173,7 @@
 .grid-contacts [ui-grid-row] {
     display: table-row;
 }
-.grid-contacts .grid .ui-grid-contents-wrapper > .ui-grid-render-container .ui-grid-canvas .ui-grid-cell{
+.grid-contacts .inline-grid .ui-grid-contents-wrapper > .ui-grid-render-container .ui-grid-canvas .ui-grid-cell{
 	line-height: 65px;
 }
 .grid-contacts .ui-grid-cell{
@@ -226,14 +229,14 @@
     height: 66px;
     /*line-height: 38px;*/
 }
-.grid-contacts .grid  .ui-grid-pinned-container.ui-grid-pinned-container-left .ui-grid-header-cell:last-child,
-.grid-contacts .grid  .ui-grid-pinned-container.ui-grid-pinned-container-left .ui-grid-cell:last-child{
+.grid-contacts .inline-grid  .ui-grid-pinned-container.ui-grid-pinned-container-left .ui-grid-header-cell:last-child,
+.grid-contacts .inline-grid  .ui-grid-pinned-container.ui-grid-pinned-container-left .ui-grid-cell:last-child{
     border-right:0 !important;
 } 
-.grid-contacts .grid .ui-grid-render-container-body .ui-grid-viewport{
+.grid-contacts .inline-grid .ui-grid-render-container-body .ui-grid-viewport{
     overflow-y: auto !important; 
 }
-.grid-contacts .grid .ui-grid-render-container-body .ui-grid-viewport .ui-grid-canvas{
+.grid-contacts .inline-grid .ui-grid-render-container-body .ui-grid-viewport .ui-grid-canvas{
     width: 100%;
 }
 .grid-contacts .ui-grid-column-menu-button .ui-grid-icon-angle-down{
@@ -259,7 +262,7 @@
   	box-shadow: none;
 }
 .grid-contacts .ui-grid-pinned-container .ui-grid-header .ui-grid-icon-ok:before{
-	top: 6px;
+	top: 4px;
     left: 14px;
 }
 .grid-contacts .ui-grid-icon-ok:before{
@@ -334,6 +337,7 @@
     padding: 0;
     line-height: initial;
     float: none;
+    height: 30px;
 }
 .grid-contacts .container .container-rt .grid-footer .invite .btn-invite{
     border-radius: 4px;
@@ -903,7 +907,6 @@
 
     /* new bucket qq-uploader */
 .bucket-modal .modal-body #new-bucket{
-    width: 146px;
     height: 50px;
 }
 .bucket-modal .modal-body #new-bucket .qq-uploader{
@@ -911,6 +914,9 @@
     height: 100%;
     margin: 0;
     padding: 0;
+}
+.bucket-modal .modal-body #new-bucket .qq-uploader .qq-upload-button{
+    background: #888;
 }
 .bucket-modal .modal-body #new-bucket .qq-upload-fail{
     font-size: 13px;
@@ -987,7 +993,7 @@
 
     /* angular material css */
 .contact-modal .modal-body .new-contact .content md-input-container{
-    margin: 25px 0;
+    margin: 25px 0 0;
 }
 .contact-modal .modal-body .new-contact .content md-input-container.md-input-focused:not(.md-input-has-value) md-select .md-select-value.md-select-placeholder{
     color: #666;

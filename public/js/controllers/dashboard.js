@@ -16,11 +16,11 @@ angular.module('app.dashboard', ['ngMaterial', 'ngMessages'])
 	$window.scrollTo(0, 0);
 
 	/*border loading at top */ 	
- 	scope.borderInc = 1;
- 	var s = $interval(function(){
- 		scope.remaining = 100 - scope.borderInc;
-        scope.borderInc = scope.borderInc + (0.1 * Math.pow(1 - Math.sqrt(scope.remaining), 2))
- 	}, 100);
+ 	// scope.borderInc = 1;
+ 	// var s = $interval(function(){
+ 	// 	scope.remaining = 100 - scope.borderInc;
+  //       scope.borderInc = scope.borderInc + (0.1 * Math.pow(1 - Math.sqrt(scope.remaining), 2))
+ 	// }, 100);
 
     this.dashboardLoader = false;
 	this.statusNames = ['Referrals', 'Accepted', 'Interviewed', 'Hired'];
@@ -119,9 +119,9 @@ angular.module('app.dashboard', ['ngMaterial', 'ngMessages'])
 
 	dashboard_job_details.success(function(response){
 		
-		scope.borderInc = 100;
-		$interval.cancel(s);
-		$('#borderLoader').fadeOut(2000);
+		// scope.borderInc = 100;
+		// $interval.cancel(s);
+		// $('#borderLoader').fadeOut(2000);
 
 		scope.dashboardLoader = true;
 		if (response.status_code == 200) {
@@ -145,7 +145,7 @@ angular.module('app.dashboard', ['ngMaterial', 'ngMessages'])
 		else if(response.status_code == 400){
             $window.location = CONFIG.APP_DOMAIN + 'logout';
         }
-        $('footer').show();
+        //$('footer').show();
 	})
 	dashboard_job_details.error(function(response){
 		console.log(response);	
@@ -234,9 +234,9 @@ angular.module('app.dashboard', ['ngMaterial', 'ngMessages'])
 	}
 
 	/* borderLoading the footer stays at bottom */
-	setTimeout(function (){
- 		$('footer').hide();
- 	},1);
+	// setTimeout(function (){
+ // 		$('footer').hide();
+ // 	},1);
 
  	
 	

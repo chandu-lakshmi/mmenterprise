@@ -9,9 +9,11 @@
 		    overflow:hidden;
 		}
 		body.file-reader iframe{
-		    width : 100% !important;    
+		    width : 100% !important;
+		    height: 100vh !important;    
 		}
 	</style>
+	<script type="text/javascript" src="public/js/vendor/file-viewer/jquery-1.12.4.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
 	<script type="text/javascript">
 		var url = 'https://docs.google.com/viewer?url=<?php echo isset($data['url'])?urldecode($data['url']):'';?>&hl=en&embedded=true';
 		setTimeout(function(){document.getElementById('iframe').setAttribute('src',url)},100);

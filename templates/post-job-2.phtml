@@ -104,7 +104,7 @@
 											ng-model="post2Ctrl.discoveryCurrency" 
 											ng-disabled="!post2Ctrl.discoveryRewards" 
 											ng-required="post2Ctrl.discoveryRewardsType=='paid'" 
-											ng-pattern="/(^[^0]$)|(^[1-9]\d{0,9}$)/" onkeypress='return event.charCode >= 48 && event.charCode <= 57' >
+											check-char-zero required>
 										<md-input-container>
 											<label style="display:none !important">Currency</label>
 											<md-select  name="job" ng-model="post2Ctrl.code" ng-disabled="!post2Ctrl.discoveryRewards">
@@ -118,7 +118,7 @@
 									<div class="chkin"></div>
 								</label>
 								<div>
-									<div  class="has-error-msg" ng-show="myForm.amount.$error.pattern ||  (myForm.amount.$error.required && post2Ctrl.bolFormValid)">Please Enter Valid Amount.</div>
+									<div  class="has-error-msg" ng-show="myForm.amount.$error.pattern ||  (myForm.amount.$error.required && post2Ctrl.bolFormValid)">Please Enter Amount.</div>
 								</div>
 							</div>
 							<div>
@@ -130,8 +130,7 @@
 											ng-focus="post2Ctrl.reset('points')"  
 											ng-model="post2Ctrl.discoveryPoints" 
 											ng-disabled="!post2Ctrl.discoveryRewards"
-											ng-pattern="/(^[^0]$)|(^[1-9]\d{0,9}$)/"
-											ng-required="post2Ctrl.discoveryRewardsType=='points'" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+											ng-required="post2Ctrl.discoveryRewardsType=='points'" check-char-zero required>
 										<div class="points">POINTS</div>
 									</span>
 									<div class="chkout"></div>
@@ -174,7 +173,7 @@
 											ng-model="post2Ctrl.referralCurrency" 
 											ng-disabled="!post2Ctrl.referralRewards" 
 											ng-required="post2Ctrl.referralRewardsType=='paid'" 
-											ng-pattern="/(^[^0]$)|(^[1-9]\d{0,9}$)/" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+											required check-char-zero>
 										<md-input-container>
 											<label style="display:none !important">Currency</label>
 											<md-select  name="job" ng-model="post2Ctrl.code1" ng-disabled="!post2Ctrl.referralRewards">
@@ -188,7 +187,7 @@
 									<div class="chkin"></div>
 								</label>
 								<div>
-									<div  class="has-error-msg" ng-show="myForm2.amountR.$error.pattern ||  (myForm2.amountR.$error.required && post2Ctrl.bolForm2Valid)">Please Enter Valid Amount.</div>
+									<div  class="has-error-msg" ng-show="myForm2.amountR.$error.pattern ||  (myForm2.amountR.$error.required && post2Ctrl.bolForm2Valid)">Please Enter Amount.</div>
 								</div>
 							</div>
 							<div>
@@ -200,15 +199,14 @@
 											ng-focus="post2Ctrl.reset1('points')"  
 											ng-model="post2Ctrl.referralPoints" 
 											ng-disabled="!post2Ctrl.referralRewards"
-											ng-pattern="/(^[^0]$)|(^[1-9]\d{0,9}$)/"
-											ng-required="post2Ctrl.referralRewardsType=='points'" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+											ng-required="post2Ctrl.referralRewardsType=='points'" required check-char-zero>
 										<div class="points">POINTS</div>
 									</span>
 									<div class="chkout"></div>
 									<div class="chkin"></div>
 								</label>
 								<div>
-									<div  class="has-error-msg" ng-show="myForm2.pointsR.$error.pattern ||  (myForm2.pointsR.$error.required && post2Ctrl.bolForm2Valid)">Please Enter  Points.</div>
+									<div  class="has-error-msg" ng-show="myForm2.pointsR.$error.pattern ||  (myForm2.pointsR.$error.required && post2Ctrl.bolForm2Valid)">Please Enter Points.</div>
 								</div>
 							</div>
 						</div>
@@ -226,8 +224,13 @@
 			<h2 class="text-center">Select The Group</h2>
 			<div class="buckets">
 				<div class="row">
-					<buckets-view buckets="post2Ctrl.bucket_names" check-ids="" set-fn="">
-            		</buckets-view>
+					<div class="animated fadeIn" ng-if="!post2Ctrl.buckLoader">
+						<buckets-view buckets="post2Ctrl.bucket_names" check-ids="" set-fn="">
+            			</buckets-view>
+            		</div>
+            		<div class="loading" ng-if="post2Ctrl.buckLoader">
+            			<img src="public/images/loader/preloader.gif"  alt="loader">
+            		</div>
 				</div>
 			</div>
 		</div>
@@ -237,7 +240,7 @@
 
 	<div class="footer">
 		<div class="container">
-			<div class="col-sm-6">
+			<div class="col-sm-6" style="min-height: 75px;">
 				<h4 ng-show="post2Ctrl.userSelOnebkt && bkts.$invalid">Please Select Atleast One Group.</h4>
 				<h4 ng-show="post2Ctrl.userSelRewards">Please Select Rewards.</h4>
 				<span ng-if="post2Ctrl.loader"><img src="public/images/loader/upload_file.gif" alt="loader" style="margin:5px;">Creating Job Requisition</span>

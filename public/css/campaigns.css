@@ -128,7 +128,6 @@ md-dialog md-dialog-actions button.md-primary {
             background: #1c8f6e;
             border: 1px solid #1c8368;
             color: #fff;
-            /*cursor: pointer;*/
             outline: none;
             border-radius: 5px;
             display: inline-block;
@@ -295,18 +294,7 @@ md-dialog md-dialog-actions button.md-primary {
               font-size: 15px;
               margin: 12px 0; }
       .campaigns .all-campaigns .filter .checkbox {
-        margin: 12px 0;
-        /*input[type='checkbox']{opacity: 0;
-        	+label{position: relative;
-        		&:before{content: '';width: 20px;height: 20px;position: absolute;border: 1px solid #999;
-        			left: -8px;border-radius: 2px;}
-        	}
-        	&:checked{
-        		+label:before{background: #2393d3;border-color: #2393d3;}
-        		+label:after{content: '';width: 8px;height: 15px;position: absolute;border: 2px solid #fff;
-        		transform: rotate(45deg);border-top: 0;border-left: 0;left: -2px;}
-        	};
-        }*/ }
+        margin: 12px 0; }
         .campaigns .all-campaigns .filter .checkbox md-checkbox {
           margin-bottom: 2px; }
           .campaigns .all-campaigns .filter .checkbox md-checkbox .md-label {
@@ -389,56 +377,17 @@ md-dialog md-dialog-actions button.md-primary {
           .campaigns .all-campaigns .box .box-header .search input:focus {
             border-color: #208d6e; }
       .campaigns .all-campaigns .box .box-content .grid {
-        height: calc(100vh - 275px) !important;
-        overflow: hidden;
-        min-height: 411px; }
-        .campaigns .all-campaigns .box .box-content .grid .grid-msg-overlay {
-          top: 45px; }
+        border: 0 !important;
+        height: calc(100vh - 274px) !important; }
         .campaigns .all-campaigns .box .box-content .grid .ui-grid-header {
           height: 45px;
           line-height: 33px;
           border-top: 1px solid #c8d1d0;
           border-bottom: 1px solid #c8d1d0; }
-          .campaigns .all-campaigns .box .box-content .grid .ui-grid-header .ui-grid-top-panel {
-            background: #f3f7f8; }
-            .campaigns .all-campaigns .box .box-content .grid .ui-grid-header .ui-grid-top-panel .ui-grid-header-cell-row .ui-grid-header-cell {
-              border-right: 0;
-              padding-left: 15px;
-              padding-right: 15px; }
-              .campaigns .all-campaigns .box .box-content .grid .ui-grid-header .ui-grid-top-panel .ui-grid-header-cell-row .ui-grid-header-cell:focus {
-                outline: none; }
-              .campaigns .all-campaigns .box .box-content .grid .ui-grid-header .ui-grid-top-panel .ui-grid-header-cell-row .ui-grid-header-cell div[role='columnheader'] .ui-grid-cell-contents {
-                color: #959698;
-                font-size: 12px; }
-                .campaigns .all-campaigns .box .box-content .grid .ui-grid-header .ui-grid-top-panel .ui-grid-header-cell-row .ui-grid-header-cell div[role='columnheader'] .ui-grid-cell-contents:focus {
-                  outline: none; }
-              .campaigns .all-campaigns .box .box-content .grid .ui-grid-header .ui-grid-top-panel .ui-grid-header-cell-row .ui-grid-header-cell div[role='columnheader']:focus {
-                outline: none; }
-        .campaigns .all-campaigns .box .box-content .grid .ui-grid-viewport {
-          overflow-y: auto !important; }
-          .campaigns .all-campaigns .box .box-content .grid .ui-grid-viewport .ui-grid-row {
-            line-height: 70px;
-            border-bottom: 1px solid #ececec; }
-            .campaigns .all-campaigns .box .box-content .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell {
-              font-weight: normal;
-              text-transform: capitalize; }
-              .campaigns .all-campaigns .box .box-content .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell.first-col {
-                font-weight: bold; }
-            .campaigns .all-campaigns .box .box-content .grid .ui-grid-viewport .ui-grid-row div[ui-grid-row='row'] {
-              height: 100%; }
-            .campaigns .all-campaigns .box .box-content .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell {
-              height: 100%;
-              background: #fff;
-              border-right: 0;
-              padding-left: 15px;
-              padding-right: 15px;
-              color: #4a4848; }
-              .campaigns .all-campaigns .box .box-content .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell.open {
-                color: #2db084; }
-              .campaigns .all-campaigns .box .box-content .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell.closed {
-                color: #d85c5e; }
-            .campaigns .all-campaigns .box .box-content .grid .ui-grid-viewport .ui-grid-row:nth-child(even) .ui-grid-cell {
-              background: #fff; }
+        .campaigns .all-campaigns .box .box-content .grid .ui-grid-viewport .ui-grid-row {
+          line-height: 60px; }
+          .campaigns .all-campaigns .box .box-content .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell.first-col {
+            font-weight: bold; }
         .campaigns .all-campaigns .box .box-content .grid .ui-grid-row:hover > [ui-grid-row] > .ui-grid-cell {
           background-color: #f8fcff  !important;
           cursor: pointer; }
@@ -551,14 +500,7 @@ md-dialog md-dialog-actions button.md-primary {
               font-size: 16px;
               font-weight: normal; }
         .campaigns .edit-campaigns .box .content .upload-contacts {
-          margin-bottom: 45px;
-          /*p.title{font-size: 16px;margin: 0 0 16px;}
-          .upload-bucket{width: 17%;border: 1px solid #ccc;height: 140px;position: relative;
-          	font-size: 18px;float: left;margin-right: 25px;border-radius: 5px;
-          	&.new-bucket{background: #f3f7fa;border-style: dashed;border-width: 2px;color: #777;font-weight: bold;
-          		p{position: absolute;top: 42%;width: 100%;left: 0;font-size: 18px;text-align: center;}
-          	}
-          }*/ }
+          margin-bottom: 45px; }
         .campaigns .edit-campaigns .box .content .social-media {
           margin-bottom: 60px; }
           .campaigns .edit-campaigns .box .content .social-media md-checkbox {
@@ -581,8 +523,9 @@ md-dialog md-dialog-actions button.md-primary {
                 padding: 9px;
                 border-width: 2px !important; }
                 .campaigns .edit-campaigns .box .content .social-media .nav li a i {
-                  font-size: 52px;
-                  color: #fff; }
+                  font-size: 40px;
+                  color: #fff;
+                  margin-top: 11px; }
                 .campaigns .edit-campaigns .box .content .social-media .nav li a span {
                   display: block; }
                   .campaigns .edit-campaigns .box .content .social-media .nav li a span.twitter {
@@ -597,6 +540,10 @@ md-dialog md-dialog-actions button.md-primary {
                     height: 56px;
                     width: 56px;
                     background: #dd4b39; }
+                  .campaigns .edit-campaigns .box .content .social-media .nav li a span.linkedin {
+                    height: 56px;
+                    width: 56px;
+                    background: #0077b5; }
                 .campaigns .edit-campaigns .box .content .social-media .nav li a:hover {
                   border-color: transparent; }
               .campaigns .edit-campaigns .box .content .social-media .nav li.active a {
@@ -621,7 +568,6 @@ md-dialog md-dialog-actions button.md-primary {
               position: absolute;
               bottom: -52px;
               right: 0;
-              /* padding: 10px; */
               height: 42px;
               text-align: center;
               line-height: 42px;
@@ -662,62 +608,45 @@ md-dialog md-dialog-actions button.md-primary {
                   height: 35px; }
                 .campaigns .edit-campaigns .box .content .social-media .tab-content .media .location p {
                   margin: 0; }
-        .campaigns .edit-campaigns .box .content .upload-files {
-          /*a.upload-file{display: inline-block;vertical-align: middle;
-          	.qq-uploader{
-          		.qq-upload-button{color: #219070;font-weight: bold;text-align: left;padding: 0}
-          	}
-          }*/ }
-          .campaigns .edit-campaigns .box .content .upload-files .upload-pitch {
-            display: inline-block;
-            vertical-align: middle;
-            position: relative; }
-            .campaigns .edit-campaigns .box .content .upload-files .upload-pitch .qq-uploader .qq-upload-button {
-              padding: 0;
-              font-weight: bold;
-              font-size: 13px;
-              margin-left: 5px;
-              letter-spacing: 0.6px;
-              color: #219070; }
-            .campaigns .edit-campaigns .box .content .upload-files .upload-pitch .qq-upload-fail {
-              top: 0;
-              left: 123%; }
-            .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box {
-              border: 1px solid #ccc;
-              margin-bottom: 20px;
-              min-height: 50px; }
-              .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file {
-                position: relative;
-                padding: 15px; }
-                .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file .progress-bar {
-                  width: 300px;
-                  position: absolute;
-                  height: 25px; }
-                .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file .filename div.logo {
-                  background: url("../images/Applied.svg"); }
-                .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file .filename .name {
-                  color: #000;
-                  width: 50%;
-                  display: inline-block;
-                  vertical-align: middle;
-                  margin: 0 12px; }
-                .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file .filename img {
-                  width: 20px;
-                  height: 20px; }
+        .campaigns .edit-campaigns .box .content .upload-files .upload-pitch {
+          display: inline-block;
+          vertical-align: middle;
+          position: relative; }
+          .campaigns .edit-campaigns .box .content .upload-files .upload-pitch .qq-uploader .qq-upload-button {
+            padding: 0;
+            font-weight: bold;
+            font-size: 13px;
+            margin-left: 5px;
+            letter-spacing: 0.6px;
+            color: #219070; }
+          .campaigns .edit-campaigns .box .content .upload-files .upload-pitch .qq-upload-fail {
+            top: 0;
+            left: 123%; }
+          .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box {
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            min-height: 50px; }
+            .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file {
+              position: relative;
+              padding: 15px; }
+              .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file .progress-bar {
+                width: 300px;
+                position: absolute;
+                height: 25px; }
+              .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file .filename div.logo {
+                background: url("../images/Applied.svg"); }
+              .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file .filename .name {
+                color: #000;
+                width: 50%;
+                display: inline-block;
+                vertical-align: middle;
+                margin: 0 12px; }
+              .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file .filename img {
+                width: 20px;
+                height: 20px; }
       .campaigns .edit-campaigns .box .box-footer {
         border-top: 1px solid #ccc;
         padding: 20px 0; }
-        .campaigns .edit-campaigns .box .box-footer .pull-right .btn-cancel {
-          width: 100px;
-          height: 60px;
-          display: inline-block;
-          line-height: 60px;
-          /*margin-right: $margin;*/
-          text-align: center;
-          font-size: 15px;
-          color: #777;
-          cursor: pointer;
-          outline: none; }
         .campaigns .edit-campaigns .box .box-footer .pull-right .btn-update {
           width: 215px;
           height: 60px;
@@ -727,7 +656,6 @@ md-dialog md-dialog-actions button.md-primary {
           background: #1c8f6e;
           border: 1px solid #1c8368;
           color: #fff;
-          /*cursor: pointer;*/
           outline: none;
           border-radius: 5px;
           display: inline-block;

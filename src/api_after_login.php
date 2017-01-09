@@ -352,11 +352,11 @@ $app->post('/deactivate_post',function ($request, $response, $args) use ($app) {
 
 //Job Referral Details
 $app->post('/job_referral_details',function ($request, $response, $args) use ($app) {
-   
     // dynamically Access Token, Company Details 
+   if(!empty($_SESSION['time_zone']) && isset($_SESSION['time_zone'])){
    $this->mintmeshAccessToken;
    $this->mintmeshCompanyId;
-    
+   $_POST['time_zone'] = $_SESSION['time_zone'];
     // getting API endpoint from settings
    $apiEndpoint = getapiEndpoint($this->settings, 'job_referral_details');
    
@@ -364,8 +364,10 @@ $app->post('/job_referral_details',function ($request, $response, $args) use ($a
         'url'           => $apiEndpoint,
         'postData'      => $_POST
      ));
-    
     return checkJsonResult( $jobDetails->loadCurl() );
+   }else{
+       return '{"status_code":400}';
+   }
     
 });
 $app->get('/job/job-details/{id}', function ($request, $response, $args) use ($app) {
@@ -868,7 +870,7 @@ $app->post('/change_password',function ($request, $response, $args) use ($app) {
 });
 
 $app->post('/campaigns_list',function ($request, $response, $args) use ($app) {
-    
+    if(!empty($_SESSION['time_zone']) && isset($_SESSION['time_zone'])){
     // dynamically Access Token
     $this->mintmeshAccessToken;
     $this->mintmeshCompanyId;
@@ -882,10 +884,13 @@ $app->post('/campaigns_list',function ($request, $response, $args) use ($app) {
      ));
     
      return checkJsonResult( $companyDetails->loadCurl() );
+      }else{
+        return '{"status_code":400}';
+   }
 });
 
 $app->post('/add_campaign',function ($request, $response, $args) use ($app) {
-    
+    if(!empty($_SESSION['time_zone']) && isset($_SESSION['time_zone'])){ 
     // dynamically Access Token
     $this->mintmeshAccessToken;
     $this->mintmeshCompanyId;
@@ -899,11 +904,13 @@ $app->post('/add_campaign',function ($request, $response, $args) use ($app) {
      ));
     
      return checkJsonResult( $companyDetails->loadCurl() );
-     
+     }else{
+        return '{"status_code":400}';
+   }
 });
 
 $app->post('/view_campaign',function ($request, $response, $args) use ($app) {
-    
+    if(!empty($_SESSION['time_zone']) && isset($_SESSION['time_zone'])){ 
     // dynamically Access Token
     $this->mintmeshAccessToken;
     $this->mintmeshCompanyId;
@@ -917,6 +924,9 @@ $app->post('/view_campaign',function ($request, $response, $args) use ($app) {
      ));
     
      return checkJsonResult( $companyDetails->loadCurl() );
+     }else{
+        return '{"status_code":400}';
+   }
 });
 
 //mintbot
@@ -1043,7 +1053,7 @@ $app->POST('/file_upload',function ($request, $response, $args) {
 });
 //contacts upload
 $app->POST('/contacts_file_upload',function ($request, $response, $args) {
-    //$args       = commonData($this->settings);
+    $args       = commonData($this->settings);
     require 'library/fileupload_library.php';
     $file_upload = new fileupload_library; 
         if (!isset($_REQUEST['filename']) && !isset($_FILES['qqfile'])) {
@@ -1062,7 +1072,6 @@ $app->POST('/contacts_file_upload',function ($request, $response, $args) {
             $uploader = $file_upload->fileUpload($allowedExtensions, $sizeLimit);
             //return the file original and source name and path
             $path = $args['PATH'];
-            echo $path;exit;
 
             $result = $file_upload->handleUpload(''.$path.'uploads/', FALSE, $myfilename);
             if (isset($result['success']) && $result['success'] == true) {

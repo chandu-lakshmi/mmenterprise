@@ -14,8 +14,24 @@
 		var vm = this,dublicateData,canceller;
     	var image_path = '',mul_image_path = [],bonus_file_path = '';
     	
-    	$("#company-logo .fancybox").fancybox();
-    	$(".image-group .fancybox").fancybox();
+    	$("#company-logo .fancybox").fancybox({
+    		helpers : {
+		        title: {
+		            type: 'inside'
+		        }
+		    },
+		    maxWidth: 800
+    	});
+    	$(".image-group .fancybox").fancybox({
+    		helpers : {
+		        title: {
+		            type: 'inside'
+		        }
+		    },
+		    prevEffect	: 'none',
+			nextEffect	: 'none',
+		    maxWidth: 800
+    	});
 
 		vm.update = false;
 		vm.errCond = false;
@@ -174,6 +190,7 @@
 			$referral_bonus.find('.qq-upload-list').html('');
 			$referral_bonus.find('.qq-upload-list').css('z-index','-1');
 			$referral_bonus.find('.qq-upload-list').append("<li><input type='hidden' name='referral_org_name_s3' value='" + vm.company_details.referral_org_name + "' /><input type='hidden' value='" + vm.company_details.referral_bonus_file + "' name='referral_bonus_file_s3'/></li>").show();
+			$referral_bonus.find('.qq-upload-list li').css('background', 'transparent');
 			$referral_bonus.find('.qq-upload-drop-area .drag_img').html('<a href="'+App.base_url+'viewer?url='+vm.company_details.referral_bonus_file+'" class="view" target="_blank"><img src="public/images/Applied.svg" alt="view"><p title="'+vm.company_details.referral_org_name+'">'+vm.company_details.referral_org_name+'&nbsp;</p></a>');
 			$referral_bonus.find('.drag_img').append('<a href="'+vm.company_details.referral_bonus_file+'" download class="download"><img src="public/images/material_icons/download.svg"></a><img src="public/images/material_icons/circle-close.svg" onclick="angular.element(this).scope().editCompCtrl.trash(true)"/>');
 		}
@@ -390,10 +407,12 @@
 		    		$scope.$apply();
 		    		bonus_file_path = App.API_DOMAIN+response.filename;
 		    		$referral_bonus.find('.qq-upload-list').css('z-index','-1');
+		    		$referral_bonus.find('.qq-upload-list .qq-upload-success').css('background', 'transparent');
+		    		$referral_bonus.find('.qq-upload-list .upload-success').hide();
 		    		$referral_bonus.find('.qq-upload-button').hide();
 		    		$referral_bonus.find('.drag_img').css('background','transparent');
 		    		$referral_bonus.find('.qq-upload-drop-area').css('display','block');
-		    		$referral_bonus.find('.qq-upload-drop-area .drag_img').html('<a href="'+App.base_url+'viewer?url='+bonus_file_path+'" class="view" target="_blank"><img src="public/images/Applied.svg"><p class="ellipsis">'+response.org_name+'&nbsp;</p></a>');
+		    		$referral_bonus.find('.qq-upload-drop-area .drag_img').html('<a href="'+App.base_url+'viewer?url='+bonus_file_path+'" class="view" target="_blank"><img src="public/images/Applied.svg"><p class="ellipsis" title="'+response.org_name+'">'+response.org_name+'&nbsp;</p></a>');
 		    		$referral_bonus.find('.drag_img').append('<a href="'+bonus_file_path+'" download class="download"><img src="public/images/material_icons/download.svg"></a><img src="public/images/material_icons/circle-close.svg" onclick="angular.element(this).scope().editCompCtrl.trash(true)" style="margin-top:-4px">');
 		    	}
 		    	else{

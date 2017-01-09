@@ -60,4 +60,11 @@ $container['mintmeshCompanyDetails'] = function ($c) {
     $_POST['company_logo'] = isset($_SESSION['company']['company_logo'])?$_SESSION['company']['company_logo']:"";
 };
 
+//Company Details
+$container['CampaignDetails'] = function ($c) {
+    $_POST['camp_ref'] = isset($_SESSION['CampaignDetails']['camp_ref'])?$_SESSION['CampaignDetails']['camp_ref']:"";
+    $_POST['campaign_id'] = isset($_SESSION['CampaignDetails']['campaign_id'])?$_SESSION['CampaignDetails']['campaign_id']:"";
+    $_POST['reference_id'] = isset($_SESSION['CampaignDetails']['reference_id'])?$_SESSION['CampaignDetails']['reference_id']:"";
+};
+
 

@@ -291,7 +291,7 @@ angular.module('app.company.profile', [])
                     $referral_bonus.find('.qq-upload-list').css('z-index','-1');
                     $referral_bonus.find('.qq-upload-drop-area').css('display','block');
                     // $referral_bonus.find('.qq-upload-list').append("<li><input type='hidden' name='referral_org_name' value='" + response.org_name + "' /><input type='hidden' value='" + response.filename + "' name='referral_bonus_file'/></li>").show();
-                    $referral_bonus.find('.qq-upload-drop-area').html('<div class="drag_img"><a href="'+bonus_file_path+'" download><img src="public/images/Applied.svg" alt="download"><p>'+response.org_name+'&nbsp;</p></a><img src="public/images/close-popup-grey.svg" onclick="angular.element(this).scope().compCtrl.trash(-2)" style="width:20px;float:right;cursor:pointer"/>');
+                    $referral_bonus.find('.qq-upload-drop-area').html('<div class="drag_img"><a href="'+bonus_file_path+'" download><img src="public/images/Applied.svg" alt="download"><p>'+response.org_name+'&nbsp;</p></a><img src="public/images/close-popup-grey.svg" onclick="angular.element(this).scope().compCtrl.trash(-2)" style="width:20px;cursor:pointer"/>');
                 }
                 else{
                     $referral_bonus.find('.qq-upload-button').show();

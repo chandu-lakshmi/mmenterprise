@@ -1,206 +1,236 @@
 (function () {
 "use strict";
 
-angular.module('app.job.search', ['infinite-scroll'])
+    angular
+        .module('app.job.search', ['infinite-scroll'])
+        .filter('myDate' , myDate)
+        .controller('JobSearchController', JobSearchController)
 
-.filter('myDate', function() {
-   return function(x) {
-       var date = x.split(" ")[0].split("-");
-       var month = Number(date[1])-1;
-       var d = new Date(date[0],month ,date[2]);
-       return d;
-   };
-})
 
-.controller('JobSearchController', ["$window", "gettingData", "$http", "$state", "$rootScope", "$q", "jobDetails", "ajaxData", "tabsName", "CONFIG", function($window,gettingData, $http, $state, $rootScope, $q, jobDetails, ajaxData, tabsName, CONFIG){
+    JobSearchController.$inject = ['$state', '$window', '$http', '$q', '$rootScope', 'gettingData', 'jobDetails', 'ajaxData', 'tabsName', 'App'];
+
+    function myDate() {
+       return function(x) {
+           var date = x.split(" ")[0].split("-");
+           var month = Number(date[1])-1;
+           var d = new Date(date[0],month ,date[2]);
+           return d;
+       };
+    }
+
+    function JobSearchController($state, $window, $http, $q, $rootScope, gettingData, jobDetails, ajaxData, tabsName, App){
 	
-    $window.scrollTo(0,0);
+        $window.scrollTo(0,0);
 
-    var scope = this;
+        var vm = this;
 
-    ajaxData.setData({});
-    ajaxData.bol = false;
+        ajaxData.setData({});
+        ajaxData.bol = false;
 
-    scope.pay_status = "2";
-    scope.jobFilter = "0";
+        var canceler;
+        var gridApiCall = App.base_url + 'jobs_list';
+        var page_no = 1,total_pages = 1, initial = 0;
 
-    this.search_load_cond = false;
-    scope.post_count = 0;
-    var canceller;
-    var page_no = 1,total_pages = 1,data = [],initial = 0;
+        vm.jobType = [
+            { name : 'All',  id : 2 },
+            { name : 'Paid',  id : 0 },
+            { name : 'Free',  id : 1 },
+        ];
 
-    function postList(filter1, filter2, input){
+        vm.filterBy = [
+            { id:0 , label : 'All' },
+            { id:1 , label : 'My Jobs' }
+        ];
 
-        if(canceller){
-            canceller.resolve();
+        vm.overLoader = false;
+        vm.init_no_posts_found = false;
+        vm.no_posts_found = false;
+        vm.pay_status = "2";
+        vm.jobFilter = "0";
+
+        vm.filterCall = filterCall;
+
+        // epi search directive
+        vm.search_opts= {
+            delay: 500,
+            progress: false,
+            complete: false,
+            placeholder:'Search By Job or Status',
+            onSearch: function (val) {
+                vm.search_val = val;
+                if (vm.search_opts.progress) {
+                    if (vm.search_opts.value) {
+                        page_no = 1;
+                        vm.infiniteScroll.loadApi(page_no, vm.search_val, function(){
+                            vm.infiniteScroll.list = [];
+                            vm.search_opts.progress = false;
+                            vm.search_opts.complete = true;
+                        })
+                    }
+                }
+            },
+            onClear: function () {
+                reset();
+                vm.search_val = "";
+                vm.search_opts.progress = true;
+                page_no = 1;
+                vm.infiniteScroll.loadApi(page_no, vm.search_val, function(){
+                    vm.infiniteScroll.list = [];
+                    vm.search_opts.progress = false;
+                });
+            }
         }
 
-        canceller = $q.defer();
-
-        var job_list_param = $.param({
-            request_type : filter1,
-            post_by:filter2,
-            search_for : input,
-            page_no : page_no
-        });
-
-        var postJobList = $http({
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        // pagination
+        vm.infiniteScroll = {
+            busy : false,
+            list : [],
+            url : App.base_url + 'apply_jobs_list',
+            nextPage : function(){},
+            loadApi : function(){},
+            onComplete : function(obj){
+                reset();
+                for(var i = 0; i < obj.length; i++){
+                    vm.infiniteScroll.list.push(obj[i]);
+                }
             },
-            method : 'POST',
-            data : job_list_param,
-            url : CONFIG.APP_DOMAIN+'jobs_list',
-            timeout : canceller.promise
-        })
+            onError : function(){
+                $window.location = App.base_url + 'logout';
+            }
+        }
 
-        postJobList.success(function(response){
-            scope.search_load_cond = false;
-            scope.overLoader = false;
-            if(response.status_code == 200){
-                if(response.data.length == 0){
+        vm.infiniteScroll.nextPage = function(){
+            if(total_pages >= page_no && total_pages != 0){
+                if(vm.infiniteScroll.busy){
+                    return;
+                }
 
-                    if(initial == 0){
-                        scope.init_no_posts_found = true;
+                vm.infiniteScroll.busy = true;
+
+                vm.infiniteScroll.loadApi(page_no, vm.search_val);
+            }
+        }
+
+        vm.infiniteScroll.loadApi = function(pageNo, search, calBack){
+
+            if(canceler){
+                canceler.resolve();
+            }
+
+            canceler = $q.defer();
+
+            var data = $("form[name='filter_form']").serialize();
+            return $http({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'POST',
+                url: gridApiCall,
+                data: data + '&' + $.param({
+                    search_for : search,
+                    page_no : pageNo,
+                }),
+                timeout: canceler.promise
+            })
+            .then(function(response){
+                if(response.data.status_code == 200){
+                    if(calBack != undefined){
+                        calBack();
+                    }
+                    vm.infiniteScroll.busy = false;
+                    if(response.data.data.length == 0){
+                        if(initial == 0){
+                            vm.init_no_posts_found = true;
+                        }
+                        else{
+                            vm.init_no_posts_found = false;
+                            vm.no_posts_found = true;   
+                        }
+                        total_pages = 0;
+                        vm.infiniteScroll.total_count = 0;
+                        vm.infiniteScroll.list = [];
                     }
                     else{
-                        scope.init_no_posts_found = false;
-                        scope.no_posts_found = true;   
+                        initial = 1;
+                        if(page_no == 1){
+                            total_pages = Math.ceil(response.data.data.total_count / 10);
+                        }
+                        page_no++;
+                        vm.infiniteScroll.total_count = response.data.data.total_count;
+                        vm.infiniteScroll.onComplete(response.data.data.posts);
                     }
+                }
+                else if(response.data.status_code == 400) {
+                   vm.infiniteScroll.onError();
+                }
+            })
+        }
 
-                    total_pages = 0;
-                    scope.busy = false;
-                    scope.post_count = 0;
-                    scope.jobDetails = response.data.posts;
+        function reset(){
+            vm.init_no_posts_found = false;
+            vm.no_posts_found = false;
+        }
+
+        var prev = [2], prev1 = [0];
+        function filterCall(filter, flag){
+            if(filter != undefined){
+                if(flag == 'type'){
+                    if(prev[0] == filter){
+                        return false;
+                    }
+                    prev[0] = filter;
                 }
                 else{
-                    initial = 1;
-                    if(page_no == 1){
-                        data = [];
-                        total_pages = Math.ceil(response.data.total_count / 10);
+                    if(prev1[0] == filter){
+                        return false;
                     }
-                    
-                    for(var i = 0; i < response.data.posts.length; i++){
-                        data.push(response.data.posts[i]);
-                    }
-
-                    scope.init_no_posts_found = false;
-                    scope.no_posts_found = false;
-                    scope.jobDetails = data;
-                    page_no++;
-                    scope.post_count = response.data.total_count;
-                    scope.busy = false;
+                    prev1[0] = filter;
                 }
+                reset();
+                page_no = 1;
+                vm.overLoader = true;
+                vm.infiniteScroll.loadApi(page_no, vm.search_val, function(){
+                    vm.infiniteScroll.list = [];
+                    vm.overLoader = false;
+                });
             }
-            else if(response.status_code == 400){
-                $window.location = CONFIG.APP_DOMAIN+'logout';
-            }
-        })
-        postJobList.error(function(response){
-            console.log(response);
-        })
-    }
+        }
 
-    scope.selectFilter = function(filter1, filter2, input){
-
-        scope.init_no_posts_found = false;
-        scope.no_posts_found = false;
-
-        scope.overLoader = true;
         
-        //scope.post_count = 0;
-        //scope.jobDetails = [];
-        //scope.busy = true;
 
-        page_no = 1;
-        postList(filter1, filter2, input);
-    }
+        gettingData.bol = false;
+        gettingData.setData({});
 
-    var time;
-    scope.overLoader = false;
-    var inputPrev = "";
-    scope.searchFilter = function(filter1, filter2, input, event){
+        vm.job_details = function(job){
+            jobDetails.id = job.id;
+            jobDetails.job_title = job.job_title;
+      	    $state.go('^.jobDetails',{"post_id":job.id});
+        }
+
+        vm.jumpPage = function(obj,tabCond){
+            ajaxData.setData(obj);
+            jobDetails.id = obj.id;
+            jobDetails.job_title = obj.job_title;
+
+            tabsName.tab_name = tabCond;
+            $state.go('^.engagement/contacts',{'post_id':obj.id});
+        }
+
         
-        //first char space restrict
-        input = input || '';
-        if(event.keyCode === 32 && input.length === 0 || inputPrev == input){
-            return false;
-        }
-        inputPrev = input;
 
-        scope.init_no_posts_found = false;
-        scope.no_posts_found = false;
-
-        scope.overLoader = true;
-
-        //scope.post_count = 0;
-        //scope.jobDetails = [];
-        //scope.busy = true;
-
-        if(time != null){
-            clearInterval(time);
-        }
-        scope.search_load_cond = true;
-        page_no = 1;
-        time = setTimeout(function(){
-            postList(filter1, filter2, input);
-        },500);
-    }
-
-    scope.nextPage = function(filter1, filter2, input){
-        if(total_pages >= page_no && total_pages != 0){
-            if(scope.busy){
-                return;
+        vm.getRewardsView = function(rewards) {
+            if(rewards.rewards_type == 'paid'){
+               return  (rewards.currency_type == 1 ? '$' : '₹') +  rewards.rewards_value + '/' + rewards.rewards_name;
             }
-
-            scope.busy = true;
-
-            postList(filter1, filter2, input);
+            else if(rewards.rewards_type == 'points'){
+                return  rewards.rewards_value + ' Points' + '/' + rewards.rewards_name;  
+            }
+            else{
+                return '';
+            }
         }
+
     }
-
-    gettingData.bol = false;
-    gettingData.setData({});
-
-    scope.job_details = function(job){
-        jobDetails.id = job.id;
-        jobDetails.job_title = job.job_title;
-  	    $state.go('^.jobDetails',{"post_id":job.id});
-    }
-
-    scope.jumpPage = function(obj,tabCond){
-        ajaxData.setData(obj);
-        jobDetails.id = obj.id;
-        jobDetails.job_title = obj.job_title;
-
-        tabsName.tab_name = tabCond;
-        $state.go('^.engagement/contacts',{'post_id':obj.id});
-    }
-
-    scope.jobType = [
-        { name : 'All',  id : 2 },
-        { name : 'Paid',  id : 0 },
-        { name : 'Free',  id : 1 },
-    ];
-
-    scope.filterBy = [
-        { id:0 , label : 'All' },
-        { id:1 , label : 'My Jobs' }
-    ];
-
-    scope.getRewardsView = function(rewards) {
-        if(rewards.rewards_type == 'paid'){
-           return  (rewards.currency_type == 1 ? '$' : '₹') +  rewards.rewards_value + '/' + rewards.rewards_name;
-        }
-        else if(rewards.rewards_type == 'points'){
-            return  rewards.rewards_value + ' Points' + '/' + rewards.rewards_name;  
-        }
-        else{
-            return '';
-        }
-    }
-
-}]);
 
 
 }());

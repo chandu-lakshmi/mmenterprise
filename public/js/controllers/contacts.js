@@ -65,6 +65,16 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
             if (response.status_code == 200) {
                 scope.bucketNames = response.data.buckets_list;
                 scope.totalRecords = response.data.total_count;
+                if(scope.activeBucket ==  'ALL CONTACTS'){
+                    scope.activeBucketCount = scope.totalRecords;
+                }
+                else{
+                    for(var i in scope.bucketNames){
+                        if(scope.bucketNames[i].bucket_name == scope.activeBucket){
+                            scope.activeBucketCount =   scope.bucketNames[i].count;         
+                        }
+                    }
+                }
                 buckets.setData(scope.bucketNames);
             }
             // Session Destroy
@@ -77,6 +87,10 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
         })
     }
     bucketsCount();
+
+    this.getActiveBucketCount = function(index){
+        scope.activeBucketCount = (index == -1) ? scope.totalRecords : scope.bucketNames[index].count;
+    }
 
     
     var edit_feature;

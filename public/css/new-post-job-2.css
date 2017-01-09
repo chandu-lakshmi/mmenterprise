@@ -213,6 +213,7 @@ button::-moz-focus-inner {
     min-width: 80px;
     min-height: 40px;
     top: -5px;
+    padding: 2px 2px 1px !important;
     border-color: transparent;
 }
 .post-request .select-rewards .container .row div .rewards-box .radio div label .field md-select[disabled] .md-select-value{
@@ -239,9 +240,17 @@ button::-moz-focus-inner {
 }
 .post-request .buckets-container .container .bucket{
     position: relative;
-}
-.post-request .buckets-container .container .bucket{
     padding-bottom: 66px;
+}
+.post-request .buckets-container .container .buckets .loading{
+    position: relative;
+    min-height: 400px;
+}
+.post-request .buckets-container .container .buckets .loading img{
+    position: absolute;
+    width: 250px;
+    left: 39%;
+    top: 28.5%;
 }
 .post-request .buckets-container .container .bucket h4{
     width: 100%;

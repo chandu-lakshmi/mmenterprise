@@ -365,6 +365,7 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
             job_description : scope.post_job_result.job_desc,
             experience_range : scope.post_job_result.experience.experience_id,
             job_function : scope.post_job_result.job_func.job_function_id,
+            post_type : scope.post_job_result.post_type,
             free_job : freeJob ,
             no_of_vacancies : scope.post_job_result.no_of_vacancies,
             job_period : 'immediate', 

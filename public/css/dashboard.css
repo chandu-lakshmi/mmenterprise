@@ -279,6 +279,27 @@ header .notifications .user span:not(:last-child){
 /*.dashboard-container{
 	min-height: calc(100vh - 50px);
 }*/
+
+
+/*loading ... text */
+.container.loading{
+	height: calc(100vh - 100px);
+}
+.container.loading h5{
+	font-size:22px;
+	color:#808080;
+	font-style: italic;
+}
+.container.loading h5 img{
+	-ms-transform: rotate(19deg); /* IE 9 */
+    -webkit-transform: rotate(19deg); /* Chrome, Safari, Opera */
+    transform: rotate(19deg);
+	transform: rotate(19deg);
+    width: 9px;
+    height: 15px;
+    margin-left: 3px;
+}
+
 .dashboard .main-title{
 	border-bottom: 1px solid #E5E5E5;
 }
@@ -467,6 +488,9 @@ header .notifications .user span:not(:last-child){
 	display: inline-block;
 	padding: 15px 0 0;
 	font-size: 14px;
+}
+.dropdown-days span:first-child{
+	vertical-align: text-bottom;
 }
 .dropdown-days md-input-container{
 	top:-5px;
@@ -1245,6 +1269,7 @@ ul.new-tabs > li.active > a{
 .job-name .col-lg-7{
 	padding:0 3%;
 }
+
 /*.job-name .col-lg-7 p.indent{
 	text-indent: 70px;
 	line-height: 22px;
@@ -1624,29 +1649,6 @@ ul.new-tabs > li.active > a{
 	padding: 50px;
 	clear: both;
 }
-.edit-company .edit-box md-input-container.md-block{
-	margin: 25px 0;
-}
-.edit-company .edit-box md-input-container .md-input{
-	border-color: #d8d8d8;
-}
-.edit-company .edit-box md-input-container:not(.md-input-invalid).md-input-focused .md-input{
-	border-color: #208d6e;
-	border-width: 0 0 1px;
-}
-.edit-company .edit-box md-input-container.read-only:not(.md-input-invalid).md-input-focused .md-input{
-	border-color: #d8d8d8;
-	border-width: 0 0 1px;
-}
-.edit-company .edit-box md-input-container.md-input-has-value .md-select-value .md-select-icon:after{
-	content: url('../images/arrow-dropdown-active.svg') !important;
-    display: inline !important;
-}
-.edit-company .edit-box md-select:not([disabled]):focus .md-select-value{
-    border-bottom-color: rgba(0,0,0,0.12);
-    border-color: #208d6e;
-    border-bottom-width: 1px;
-}
 .edit-company .edit-box .image-group div.multiple-images{
 	display: inline-block;
 	padding-right: 30px;
@@ -1654,157 +1656,10 @@ ul.new-tabs > li.active > a{
 .edit-company .edit-box .referral-bonus{
 	margin-top: 60px;
 }
-
-
-/*qq uploader styles*/
-/*.border-dynamic{
-	border: 1px solid #ccc;
-	border-radius: 5px;
-}
-#company-logo .qq-upload-fail{
-    position: absolute;
-    top: 0px;
-    width: calc(100% - 120px);
-    right: -20px;
-    font-size: 13px;
-    color: #983a3a;
-}
-.qq-uploader .qq-upload-list {
-	position: absolute;
-    top: 40%;
-    right: 0;
-    height: 10px;
-    width: 100%;
-    z-index: -1
-}
-.qq-upload-drop-area{
-	width: 100%;
-	height: 100%;
-}
-.qq-upload-drop-area .drag_img{
-	width: 100%;
-	height: 100%;
-}
-.qq-upload-drop-area .drag_img .icon-trash{
-	position: absolute;
-    top: 5px;
-    right: 10px;
-    padding: 3px;
-    border: 1px solid #ccc;
-    background: #fff;
-    border-radius: 4px;
-    display: none;
-    cursor: pointer;
-}
-.qq-upload-drop-area .drag_img .overlay{
-    display: none;
-    background: #000000;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    opacity: 0.1;
-}
-.qq-upload-drop-area .drag_img:hover .overlay,.qq-upload-drop-area .drag_img:hover .icon-trash{
-	display: block;
-}
-.qq-upload-drop-area .drag_img img{
-	width: 100%;
-	height: 100%;
-}
-.qq-upload-drop-area .drag_img img[alt='download']{
-	width: 25px;
-	height: 25px;
-}
-.qq-upload-button:active{
-	top: 0;
-}
-.qq-upload-button{
-	box-shadow: none;
-}*/
 .edit-company .edit-box #company-logo,.edit-company .edit-box #referral-bonus{
 	margin: 20px 0;
 }
 .edit-company .edit-box .image-group div.multiple-images{
 	margin: 20px 0 10px 0;
 }
-/*.edit-company .edit-box .image-group .qq-upload-fail{
-    position: absolute;
-    font-size: 13px;
-    color: #983a3a;
-    width: 300px;
-}
-.edit-company .edit-box .company-logo .qq-uploader,.edit-company .edit-box .image-group .qq-uploader{
-	width: 125px;
-	height: 125px;
-	margin: 0;
-	padding: 0;
-}
-.edit-company .edit-box .company-logo .qq-upload-button,.edit-company .edit-box .image-group .qq-upload-button{
-	background: url('../images/icon.png');
-	width: 100%;
-	height: 100%;
-}
-.edit-company .edit-box .referral-bonus .qq-uploader{
-	width: 280px;
-	height: 60px;
-	padding: 13px 0px;
-	margin: 0;
-}
-.edit-company .edit-box .referral-bonus .qq-upload-button{
-	background: #e6e6e6;
-	border: 1px solid #ccc;
-    box-shadow: none;
-    color: #000;
-    padding: 15px 50px;
-    text-shadow: none;
-    font-weight: normal;
-    width: 100%;
-    margin-top:	-10px; 	
-}
-.edit-company .edit-box .referral-bonus .qq-uploader .qq-upload-list{
-	top: 0;
-	width: 100%;
-}
-.edit-company .edit-box .referral-bonus .qq-uploader .qq-upload-drop-area{
-	background: transparent;
-	text-align: left;
-}
-.edit-company .edit-box .referral-bonus .qq-uploader .qq-upload-fail{
-	font-size: 13px;
-	color: #983a3a;
-}
-.edit-company .edit-box .referral-bonus .qq-uploader .drag_img a{
-	display: inline-block;
-}
-.edit-company .edit-box .referral-bonus .qq-uploader .drag_img a.view{
-	line-height: 50px;
-	color: #333;
-	width: 78%;
-}
-.edit-company .edit-box .referral-bonus .qq-uploader .drag_img a.view img{
-	width: 25px;
-	height: 25px;
-}
-.edit-company .edit-box .referral-bonus .qq-uploader .drag_img img{
-	width: 30px;
-	height: 30px;
-	cursor: pointer;
-}
-.edit-company .edit-box .referral-bonus .qq-uploader .drag_img a.view p{
-	padding: 0px 5px;
-	display: inline-block;
-	overflow: hidden;
-    margin: 0;
-    text-overflow: ellipsis;
-    max-width: 87%;
-    white-space: nowrap;
-    vertical-align: middle;
-    font-size: 16px;
-}
-.edit-company .edit-box .referral-bonus .qq-upload-fail{
-	font-size: 13px;
-    color: #983a3a;
-}*/
 

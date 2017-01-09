@@ -23,7 +23,7 @@
 
 			vm.noCandidates = false;
 			vm.loader = false;
-			vm.statusOptions = ['Interviewed', 'Offermade', 'Hired'];
+			vm.statusOptions = [ {status : 'Interviewed', value : 1}, {status: 'Offermade', value : 2}, {status : 'Hired', value : 3} ];
 			vm.filterOptions = ['Accepted', 'Interviewed', 'Offered', 'Hired', 'Unsolicited', 'Declined']
 
 			vm.applyFilter = applyFilter;
@@ -44,6 +44,7 @@
                     if (vm.search_opts.progress) {
                         if (vm.search_opts.value) {
                             gridCall(vm.search_val, function(){
+                            	vm.pageNumber = 1;
 		                        vm.search_opts.progress = false;
 		                        vm.search_opts.complete = true;
                             });
@@ -52,14 +53,23 @@
                 },
                 onClear: function () {
                     vm.search_val = "";
-                    gridCall('');
+                    gridCall('', function(){
+                    	vm.pageNumber = 1;
+                    });
                 }
 			}
 
 			// filter api call
+			var a = [0];
 			function applyFilter(){
 				if(vm.filterList != undefined){
-					gridCall(vm.search_val);
+					if(a[0] == 0 && vm.filterList.length == 0){
+						return false
+					}
+					a[0] = vm.filterList.length;
+					gridCall(vm.search_val, function(){
+						vm.pageNumber = 1;
+					});
 				}
 			}
 
@@ -78,7 +88,11 @@
 			};
 
 			vm.gridOptions.columnDefs = [
-				{ name: 'fullname', displayName: 'CANDIDATE NAME', headerTooltip: 'Candidate Name'},
+				{ name: 'fullname', displayName: 'CANDIDATE NAME', headerTooltip: 'Candidate Name', 
+					cellTooltip: function( row, col ) {
+          				return row.entity.fullname;
+					}
+				},
 	            { name: 'referred_by_name', displayName: 'REFERRED BY', headerTooltip: 'Referred By'},
 	            { name: 'service_name', displayName: 'JOB/POSITION', headerTooltip: 'Job/Position'},
 	            { name: 'resume_name', displayName: 'RESUME', headerTooltip: 'RESUME',
@@ -103,6 +117,7 @@
 
 		    vm.countArr = [];
 		    vm.countHiredVsDeclined = [];
+		    vm.statusTokens = [];
 		    function updateRowSelection(row){
 		    	var index = vm.countArr.indexOf(row.entity.id);
 		    	var indexHireVsDecline = vm.countHiredVsDeclined.indexOf(row.entity.id);
@@ -111,28 +126,33 @@
 		    			vm.countHiredVsDeclined.push(row.entity.id);	
 		    		}else if(index == -1 && (row.entity.one_way_status != 'DECLINED' || row.entity.awt_status != 'HIRED' || row.entity.one_way_status != 'UNSOLICITED' || row.entity.one_way_status != 'PENDING')){
 		    			vm.countArr.push(row.entity.id);
+		    			vm.statusTokens.push(row.entity.awt_status == "ACCEPTED" ? 1 : (row.entity.awt_status == "INTERVIEWED" ? 2 : 3));
 		    		}
 		    	}
 		    	else{
 		    		if(index > -1){
 		    			vm.countArr.splice(index, 1);
+		    			vm.statusTokens.splice(index, 1);
 		    		}
 		    		if(indexHireVsDecline > -1){
 		    			vm.countHiredVsDeclined.splice(indexHireVsDecline, 1);	
 		    		}
 		    	}
 		    	vm.selectionCount = vm.countArr.length + vm.countHiredVsDeclined.length + ' Candidate(s) Selected ';
+
 		    }
 
 		    vm.data = [];
 		    vm.gridOptions.data = vm.data;
 
 		    // pagination
-		  	function pageChanged(pageNo,search, callBack){
+		  	function pageChanged(pageNo, search, callBack){
 		  		vm.noCandidates = false;
 	    		vm.loader = true;
 
 	    		vm.countArr = [];
+	    		vm.statusTokens = [];
+	    		vm.status = '';
 	    		vm.selectionCount = '';
 
 		    	if(canceler){
@@ -192,10 +212,21 @@
 
 
 		    function statusChange(option){
+		    	var filterIds = [];
+		    	for(var i = 0; i < vm.statusTokens.length; i++){
+		    		if(vm.statusTokens[i] == option.value){
+		    			filterIds.push(vm.countArr[i]);
+		    		}
+		    	}
+		    	if(!filterIds.length){
+		    		return;
+		    	}
+		    	
 		    	if(canceler){
 		    		canceler.resolve();
 		    	}
 
+		    	vm.loader = true;
 		    	canceler = $q.defer();
 
 		    	$http({
@@ -205,23 +236,23 @@
 	                method: 'POST',
 	                url: App.base_url + 'multiple_awaiting_action',
 	                data: $.param({
-	                	id : vm.countArr,
-	                	awaiting_action_status : option
+	                	id : filterIds,
+	                	awaiting_action_status : option.status
 	                }),
 	                timeout: canceler.promise
 	            })
 	            .then(function(response){
 	            	if(response.data.status_code == 200){
             			angular.forEach(vm.gridOptions.data, function(data, index){
-	            			angular.forEach(vm.countArr, function(list, indx){
+	            			angular.forEach(filterIds, function(list, indx){
 	            				if(vm.gridOptions.data[index].id == list){
-	            					if(option == 'Interviewed' && vm.gridOptions.data[index].awt_status== 'ACCEPTED'){
+	            					if(option.status == 'Interviewed' && vm.gridOptions.data[index].awt_status== 'ACCEPTED'){
 	            						vm.gridOptions.data[index].awt_status = response.data.data.awt_status;
 	            					}
-	            					if(option == 'Offermade' && vm.gridOptions.data[index].awt_status== 'INTERVIEWED'){
+	            					if(option.status == 'Offermade' && vm.gridOptions.data[index].awt_status== 'INTERVIEWED'){
 	            						vm.gridOptions.data[index].awt_status = response.data.data.awt_status;
 	            					}
-	            					if(option == 'Hired' && vm.gridOptions.data[index].awt_status== 'OFFERMADE'){
+	            					if(option.status == 'Hired' && vm.gridOptions.data[index].awt_status== 'OFFERMADE'){
 	            						vm.gridOptions.data[index].awt_status = response.data.data.awt_status;
 	            					}
 	            				}
@@ -229,6 +260,7 @@
 	            		})
 	            		vm.status = '';
 	            		vm.gridApi.selection.clearSelectedRows();
+	            		vm.loader = false;
 	            	}
 	            })
 		    }

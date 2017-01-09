@@ -13594,6 +13594,11 @@ md-radio-group.md-focused .md-checked .md-container:before {
     transition: all .4s cubic-bezier(.25,.8,.25,1);
     transition-duration: 150ms
 }
+md-select.error-border.ng-invalid.ng-touched .md-select-value,
+md-select.error-border .md-select-value
+{
+    border-bottom-color: #ff0000 !important; 
+}
 
 .md-select-menu-container.md-active md-select-menu>* {
     opacity: 1;

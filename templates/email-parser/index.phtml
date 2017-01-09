@@ -2,16 +2,28 @@
 <html ng-app="emailParser" prefix="og: http://ogp.me/ns#">
 	<head>
 		<title ng-bind="$state.current.data.pageTitle">Mintmesh</title>
+		<meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<base href="<?php echo $data['EMAIL_PARSER_DOMAIN']; ?>" target="_blank, _self, _parent, _top">
 		<link rel="shortcut icon" href="../public/images/favicon.png"/>
+		<!-- google plus -->
+		<meta property="og:title" content="..."/>
+		<meta property="og:description" content="..."/>
 		<!-- linkendin -->
-		<meta property="og:image" content="../public/images/logo.png" />
-		<link rel="stylesheet" type="text/css" href="../public/css/font-awesome.min.css?v=<?php echo $data['APP_VERSION']; ?>">
+		<meta property="og:image" content="<?php echo $data['EMAIL_PARSER_DOMAIN']; ?>public/images/logo.png" />
+		<!-- Twitter -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:image" content="<?php echo $data['EMAIL_PARSER_DOMAIN']; ?>public/images/logo.png" />
+		<meta name="twitter:image:width" content="430px" />
+		<meta name="twitter:image:height" content="370px" />
+
+		<link rel="stylesheet" type="text/css" href="../public/css/font-awesome.css?v=<?php echo $data['APP_VERSION']; ?>">
 		<link rel="stylesheet" type="text/css" href="../public/css/bootstrap.css?v=<?php echo $data['APP_VERSION']; ?>">
 		<link rel="stylesheet" type="text/css" href="../public/css/intlTelInput.css?v=<?php echo $data['APP_VERSION']; ?>">
 		<link rel="stylesheet" type="text/css" href="../public/css/fileuploader.css?v=<?php echo $data['APP_VERSION']; ?>">
 		<link rel="stylesheet" type="text/css" href="../public/css/email-parser.css?v=<?php echo $data['APP_VERSION']; ?>">
 		<link rel="stylesheet" type="text/css" href="../public/css/email-parser-jobs.css?v=<?php echo $data['APP_VERSION']; ?>">
+		<link rel="stylesheet" type="text/css" href="../public/css/email-parser-common.css?v=<?php echo $data['APP_VERSION']; ?>">
 
 		<script type="text/javascript" src="../public/js/vendor/jquery.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
 		<script type="text/javascript" src="../public/js/vendor/bootstrap.min.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
@@ -36,13 +48,17 @@
                 .constant('App', {
                 	Components : {},
                     Helpers : {},
+                    timer: {},
                     base_url   : '<?php echo $data['APP_DOMAIN']; ?>',
                     API_DOMAIN : '<?php echo $data['API_DOMAIN']; ?>',
                     ref:'<?php echo isset($data["ref"])?$data['ref']:""; ?>',
+                    camp_ref: '<?php echo isset($data["camp_ref"])?$data['camp_ref']:""; ?>',
                     url_spinner : '<?php echo $data['APP_DOMAIN']; ?>public/images/spinner.gif',
-                    url_spinner_small: '<?php echo $data['APP_DOMAIN']; ?>public/images/spinner_small.gif'
+                    url_images : '<?php echo $data['APP_DOMAIN']; ?>public/images/',
+                    url_spinner_small: '<?php echo $data['APP_DOMAIN']; ?>public/images/spinner_small.gif',
                 })
                 .constant('ReferralDetails',<?php echo isset($data["referralDetails"])?$data['referralDetails']:"{}"; ?>)
+                .value('CampaignDetails', <?php echo isset($data["campaignDetails"])?$data['campaignDetails']:"{}"; ?>)
             }());
             
 	    </script>

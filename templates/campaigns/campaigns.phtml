@@ -6,10 +6,9 @@
 			<ul>
 				<li><a ui-sref="^.campaigns.allCampaigns" ui-sref-active="active" ng-class="{active: ('app.campaigns.editCampaigns' | includedByState)}"><span class="background three"></span><span class="text">ALL CAMPAIGNS</span></a></li>
 				<li><a ui-sref="^.campaigns.myCampaigns" ui-sref-active="active"><span  class="background two"></span><span class="text">MY CAMPAIGNS</span></a></li>
-				<li ng-click="(!!CampaignsCtrl.bucketListApi && !!CampaignsCtrl.jobListApi) == true ? CampaignsCtrl.createNewCampaign(true) : ''" ng-show="{{::userPermissions.run_campaign == 1}}" ng-style="{'cursor' : !(!!CampaignsCtrl.bucketListApi && !!CampaignsCtrl.jobListApi) ? 'progress' : 'pointer'}"><span>CREATE NEW CAMPAIGN</span></li>
+				<li ng-click="CampaignsCtrl.createNewCampaign(true)" ng-show="{{::userPermissions.run_campaign == 1}}"><span>CREATE NEW CAMPAIGN</span></li>
 			</ul>
 		</div>
 	</div>
-
-	<div ui-view></div>
+	<div ui-view class="animated fadeIn"></div>
 </div>

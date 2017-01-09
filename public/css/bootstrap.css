@@ -6758,3 +6758,21 @@ button.close {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+
+@media (min-width: 768px) {
+  .dropdown .dropdown-menu{
+    display: block; 
+    opacity:0;
+    visibility: hidden;
+    -webkit-transition: all 200ms ease-in;
+    -moz-transition: all 200ms ease-in;
+    -ms-transition: all 200ms ease-in;
+    -o-transition: all 200ms ease-in;
+    transition: all 200ms ease-in;
+  }
+  .dropdown.open .dropdown-menu {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+  }
+}

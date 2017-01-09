@@ -8,7 +8,12 @@ input[type=text]::-ms-clear{
 select::-ms-expand {
     display: none;
 }
-
+::-ms-input-placeholder{
+    color: #a9a9a9;
+}
+::-webkit-input-placeholder{
+    color: #a9a9a9;
+}
 @font-face{
     font-family: 'Roboto';
     font-style: normal;
@@ -1057,6 +1062,9 @@ ul > li{
     font-weight: normal;
     width: 100%;
     margin-top: -10px;  
+}
+.company-profile #referral-bonus .qq-upload-button input{
+    height: 100%;
 }
 .company-profile #referral-bonus .qq-uploader .qq-upload-list{
     top: 0;

@@ -17,7 +17,7 @@
 					<div>
 						<div class="col-sm-2 rewards pull-right" ng-repeat="rewards in list.rewards">
 							<div ng-if="rewards.rewards_type != 'free'">
-								<h3>{{rewards.currency_type == 1 ? '&#x24;' : '&#8377;' + ' ' + rewards.rewards_value}}</h3>
+								<h3>{{(rewards.rewards_type == 'paid' ? rewards.currency_type == 1 ? '&#x24;' : '&#8377;' : '&#8471;') + ' ' + rewards.rewards_value}}</h3>
 							</div>
 							<div ng-if="rewards.rewards_type == 'free'">
 								<h3 style="font-size:20px;">FREE</h3>
@@ -25,10 +25,6 @@
 							<p ng-bind="rewards.rewards_name + ' Rewards'"></p>
 						</div>
 					</div>
-					<!-- <div class="col-sm-2 rewards">
-						<h3> &#8377;1000</h3>
-						<p>Referral Rewards</p>
-					</div> -->
 				</div>
 				<div class="job-params">
 					<div class="row">
@@ -53,9 +49,9 @@
 					<pre ng-bind="list.job_description"></pre>
 				</div>
 				<div class="action">
-					<a ui-sref="candidateDetails({ref: list.ref_code,flag: 0, status:list.status})">APPLY</a>
-					<a class="refer" ui-sref="referralDetails({ref: list.ref_code,flag: 0, status:list.status})">REFER</a>
-					<a class="all-jobs" ui-sref="allJobs({ref: list.ref_code})">VIEW ALL JOBS</a>
+					<a ui-sref="candidateDetails({ref: list.ref_code,flag: 0, status:list.status})" ng-if="list.post_type == 'internal'">APPLY</a>
+					<a class="refer" ui-sref="referralDetails({ref: list.ref_code,flag: 0, status:list.status})" ng-if="list.post_type == 'external'">REFER</a>
+					<a class="all-jobs" ui-sref="allJobs({ref: $root.ref})">VIEW ALL JOBS</a>
 				</div>
 			</div>
 		</section>
@@ -64,63 +60,11 @@
 				Share Job
 				<!-- social media share directive -->
 				<social-sharing data-opts="JobDetailsCtrl.socialMedia" style="margin-top:10px;"></social-sharing>
-				<div class="link">
-					<div class="form-group">
-						<div class="field">
-							<input type="text" class="form-control" id="website" value="{{JobDetailsCtrl.copyUrl}}">		
-						</div>
-						<div class="btns" data-copytarget="#website">
-							COPY JOBS LINK
-						</div>
-					</div>
-				</div>
+				<copy-url url="{{JobDetailsCtrl.copyUrl}}" btn-text="COPY JOB LINK"></copy-url>
 			</div>
-			<div class="drop-cv">
+			<div class="drop-cv" ng-if="JobDetailsCtrl.job_details.list.post_type == 'external'">
 				Refer friend for future openings here ? &nbsp;<span><a ui-sref="referralDetails({ref: $root.ref,flag: 1})">Upload CV</a></span>
 			</div>
 		</footer>
 	</div>
 </div>
-
-<script>
-(function() {
-
-	'use strict';
-  
-  // click events
-  document.getElementsByClassName('btns')[0].addEventListener('click', copy, true);
-
-	// event handler
-	function copy(e) {
-
-    // find target element
-    var 
-      t = e.target,
-      c = t.dataset.copytarget,
-      inp = (c ? document.querySelector(c) : null);
-      
-    // is element selectable?
-    if (inp && inp.select) {
-      
-      // select text
-      inp.select();
-
-      try {
-        // copy text
-        document.execCommand('copy');
-        inp.blur();
-        
-        // copied animation
-        t.classList.add('copied');
-        setTimeout(function() { t.classList.remove('copied'); }, 1500);
-      }
-      catch (err) {
-        alert('please press Ctrl/Cmd+C to copy');
-      }
-      
-    }
-    
-	}
-
-})();
-</script>

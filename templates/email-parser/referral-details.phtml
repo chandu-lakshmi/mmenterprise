@@ -2,8 +2,8 @@
 	<div class="container">
 		<section>
 			<h1 class="logo">
-				<img src="{{::ReferralDetails.company_logo}}" alt="company-logo" ng-show="{{::ReferralDetails.company_logo != ''}}">
-				<span class="company-name" ng-show="{{::ReferralDetails.company_logo == ''}}">{{::ReferralDetails.company_name | uppercase}}</span>
+				<img src="{{ReferralDetails.company_logo}}" alt="company-logo" ng-show="{{ReferralDetails.company_logo != ''}}">
+				<span class="company-name" ng-show="{{ReferralDetails.company_logo == ''}}">{{ReferralDetails.company_name | uppercase}}</span>
 			</h1>
 			<div class="row">
 				<form name="refer_form" autocomplete="off" novalidate>
@@ -19,9 +19,9 @@
 					<h3 class="title candidate">Candidate Details</h3>
 					<div class="col-sm-6 form-style">
 						<div class="form-group">
-						    <label for="can-fname">First Name<sup>*</sup></label>
+						    <label for="can-fname">Full Name<sup>*</sup></label>
 						    <input name="fullname" class="form-control input-lg" id="can-fname" type="text" required ng-model="ApplyJobCtrl.canFname">
-						    <span ng-show="refer_form.fullname.$error.required && ApplyJobCtrl.errorRequired" class="has-error-msg">Please Enter First Name.</span>
+						    <span ng-show="refer_form.fullname.$error.required && ApplyJobCtrl.errorRequired" class="has-error-msg">Please Enter Full Name.</span>
 					    </div>
 					</div>
 					<div class="col-sm-6 form-style">
@@ -43,7 +43,7 @@
 					      <label for="can-dep">Career Track</label>
 					      <i class="fa fa-angle-down fa-feedback" style="color: #ccc"></i>
 					      <select name="department" class="form-control input-lg" id="can-dep" ng-model="ApplyJobCtrl.canDep" disabled>
-					      	<option value="" disabled >Select Career Track.</option>
+					      	<option value="" disabled >Select Career Track</option>
 					        <option>1</option>
 					        <option>2</option>
 					        <option>3</option>
@@ -71,7 +71,7 @@
 			        </span>
 			    </div>
 			    <div class="pull-right disabled">
-			        <span class="cancel"><a ui-sref="allJobs({ref: $root.ref})">Cancel</a></span>
+			        <span class="cancel"><a ui-sref="{{$stateParams.jc == 1 ? 'allCampaigns({ref: $root.camp_ref})' : 'allJobs({ref: $root.ref})'}}">Cancel</a></span>
 				<span class="submit" ng-click="ApplyJobCtrl.postFormData(refer_form.$invalid, 'refer')">SUBMIT</span>
 			    </div>
 			</div>

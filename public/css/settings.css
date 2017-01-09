@@ -15,7 +15,6 @@ body.set-password {
   .set-password .modal .modal-dialog {
     width: 500px;
     height: 590px;
-    overflow-y: auto;
     margin-top: 90px; }
     .set-password .modal .modal-dialog .modal-content {
       width: 100%;
@@ -39,7 +38,7 @@ body.set-password {
       .set-password .modal .modal-dialog .modal-content .modal-body {
         padding: 50px 40px; }
         .set-password .modal .modal-dialog .modal-content .modal-body md-input-container {
-          margin-bottom: 45px;
+          margin-bottom: 36px;
           /*.md-placeholder{@include transform(23px, 1)}*/ }
           .set-password .modal .modal-dialog .modal-content .modal-body md-input-container label {
             margin-bottom: 0;
@@ -117,6 +116,33 @@ body.set-password {
   background: #eeeff1;
   /* fab icon from materialize.css */
   /* angular material styles */
+  /*md-input-container{margin-bottom: 30px;
+  	/*label{margin-bottom: 0;color: #767877;
+  		&:not(.md-no-float):not(.md-container-ignore){@include transform(28px, 1)}
+  	}
+  	.md-input{padding: 2px 2px 6px !important;height: 31px;
+  		&.ng-invalid.ng-dirty{border-width: 0 0 1px;}
+  	}
+  	&.md-input-has-placeholder label:not(.md-no-float){@include transform(-2px)}*/
+  /*.md-placeholder{@include transform(23px, 1)}*/
+  	/*.md-input-focused .md-input{@extends .md-input.ng-invalid.ng-dirty}
+  	&:not(.md-input-invalid).md-input-focused .md-input{border-color: #208d6e;border-bottom-width: 1px;}
+  	&.md-input-has-value{
+  		.md-select-value .md-select-icon:after{content: url("../images/arrow-dropdown-active.svg") !important;
+  		display: inline !important;}
+  		label:not(.md-no-float){@include transform(-2px)}
+  	}
+  	&:not(.md-input-invalid).md-input-focused label{@include transform(-2px)}
+  	&.select-box.md-input-has-value label{@include transform(4px)}
+  }
+  md-select{
+  	.md-select-value{padding-bottom: 6px !important;}
+  	&:not([disabled]):focus .md-select-value{border-color: #208d6e;border-bottom-width: 1px;@extend .md-select-value}
+  }
+  .md-input[disabled]{border-bottom-color: rgba(0, 0, 0, 0.12);background-image: none;color: rgba(0, 0, 0, 0.87)}
+  md-select[disabled]{
+  	.md-select-value{@extend .md-input[disabled]}
+  }*/
   /* qq-uploader */
   /*#display_pic{width: 120px;height: 120px;margin: 0 auto;position: relative;*/
   	/*.qq-uploader{padding: 0;height: 100%;
@@ -222,59 +248,6 @@ body.set-password {
     letter-spacing: .5px; }
     .settings .btn-large i {
       font-size: 24px; }
-  .settings .ellipsis {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    text-transform: capitalize; }
-  .settings md-input-container {
-    margin-bottom: 30px;
-    /*.md-placeholder{@include transform(23px, 1)}*/ }
-    .settings md-input-container label {
-      margin-bottom: 0;
-      color: #767877; }
-      .settings md-input-container label:not(.md-no-float):not(.md-container-ignore) {
-        -webkit-transform: translate3d(0, 28px, 0) scale(1);
-        transform: translate3d(0, 28px, 0) scale(1);
-        color: #767877; }
-    .settings md-input-container .md-input {
-      padding: 2px 2px 6px !important;
-      height: 31px; }
-      .settings md-input-container .md-input.ng-invalid.ng-dirty {
-        border-width: 0 0 1px; }
-    .settings md-input-container.md-input-has-placeholder label:not(.md-no-float) {
-      -webkit-transform: translate3d(0, -2px, 0) scale(0.85);
-      transform: translate3d(0, -2px, 0) scale(0.85);
-      color: #767877; }
-    .settings md-input-container .md-input-focused .md-input {
-      @extends .md-input.ng-invalid.ng-dirty; }
-    .settings md-input-container:not(.md-input-invalid).md-input-focused .md-input {
-      border-color: #208d6e;
-      border-bottom-width: 1px; }
-    .settings md-input-container.md-input-has-value .md-select-value .md-select-icon:after, .settings md-input-container.md-input-has-value .set-password .modal .modal-dialog .modal-content .modal-body md-select:not([disabled]):focus .md-select-value .md-select-icon:after, .set-password .modal .modal-dialog .modal-content .modal-body md-select:not([disabled]):focus .settings md-input-container.md-input-has-value .md-select-value .md-select-icon:after {
-      content: url("../images/arrow-dropdown-active.svg") !important;
-      display: inline !important; }
-    .settings md-input-container.md-input-has-value label:not(.md-no-float) {
-      -webkit-transform: translate3d(0, -2px, 0) scale(0.85);
-      transform: translate3d(0, -2px, 0) scale(0.85);
-      color: #767877; }
-    .settings md-input-container:not(.md-input-invalid).md-input-focused label {
-      -webkit-transform: translate3d(0, -2px, 0) scale(0.85);
-      transform: translate3d(0, -2px, 0) scale(0.85);
-      color: #767877; }
-    .settings md-input-container.select-box.md-input-has-value label {
-      -webkit-transform: translate3d(0, 4px, 0) scale(0.85);
-      transform: translate3d(0, 4px, 0) scale(0.85);
-      color: #767877; }
-  .settings md-select .md-select-value, .settings .set-password .modal .modal-dialog .modal-content .modal-body md-select:not([disabled]):focus .md-select-value, .set-password .modal .modal-dialog .modal-content .modal-body .settings md-select:not([disabled]):focus .md-select-value, .settings md-select:not([disabled]):focus .md-select-value {
-    padding-bottom: 6px !important; }
-  .settings .set-password .modal .modal-dialog .modal-content .modal-body md-select:not([disabled]):focus .md-select-value, .set-password .modal .modal-dialog .modal-content .modal-body .settings md-select:not([disabled]):focus .md-select-value, .settings md-select:not([disabled]):focus .md-select-value {
-    border-color: #208d6e;
-    border-bottom-width: 1px; }
-  .settings .md-input[disabled], .settings md-select[disabled] .md-select-value, .settings md-select[disabled] .set-password .modal .modal-dialog .modal-content .modal-body md-select:not([disabled]):focus .md-select-value, .set-password .modal .modal-dialog .modal-content .modal-body md-select:not([disabled]):focus .settings md-select[disabled] .md-select-value, .settings md-select[disabled] md-select:not([disabled]):focus .md-select-value, .settings md-select:not([disabled]):focus md-select[disabled] .md-select-value {
-    border-bottom-color: rgba(0, 0, 0, 0.12);
-    background-image: none;
-    color: rgba(0, 0, 0, 0.87); }
   .settings .sub-header {
     background: #0e2d3f;
     height: 60px; }
@@ -599,40 +572,29 @@ body.set-password {
           width: 47%; }
           .settings .user-group .box .templates .group .group-cond .form-data .user-inputs {
             padding: 50px 0 30px 0; }
-          .settings .user-group .box .templates .group .group-cond .form-data .user-permissions {
-            /*.form-group{padding: 18px 0;margin: 0;
-            	select{width: 150px;height: 40px;}
-            	label{font-weight: normal;color: #6f6f6f;}
-            	.radio-switch{
-            		span{width: 75px;height: 40px;margin: 0;line-height: 40px;text-align: center;
-            			display: inline-block;border: 1px solid #ccc;}
-            		label{
-            			input[type='radio']{display: none;
-            				&:checked + span{background: #2aa382;color: #fff;border-color: #2aa382}
-            			}
-            			&:first-child span{border-radius: 5px 0 0 5px;margin-right: -1px}
-            			&:last-child span{border-radius: 0 5px 5px 0;}
-            		}
-            	}
-            }*/ }
-            .settings .user-group .box .templates .group .group-cond .form-data .user-permissions .btn-primary {
-              background: #2aa382; }
-            .settings .user-group .box .templates .group .group-cond .form-data .user-permissions p.title {
-              color: #9a9e9f; }
-            .settings .user-group .box .templates .group .group-cond .form-data .user-permissions .new-styles {
-              margin-bottom: 25px; }
-              .settings .user-group .box .templates .group .group-cond .form-data .user-permissions .new-styles:first-child {
-                margin: 25px 0; }
-              .settings .user-group .box .templates .group .group-cond .form-data .user-permissions .new-styles .pull-left {
-                color: #6f6f6f; }
-              .settings .user-group .box .templates .group .group-cond .form-data .user-permissions .new-styles .pull-right .btn-group button {
-                width: 75px;
-                height: 40px; }
-            .settings .user-group .box .templates .group .group-cond .form-data .user-permissions .slide {
-              min-height: 100px;
-              border: 1px solid #ccc;
-              margin-left: 15px;
-              padding: 0 22px; }
+            .settings .user-group .box .templates .group .group-cond .form-data .user-inputs md-input-container md-select[disabled] .md-select-value {
+              border-color: #d8d8d8; }
+            .settings .user-group .box .templates .group .group-cond .form-data .user-inputs md-input-container.md-input-has-value md-select[disabled] .md-select-value .md-select-icon:after {
+              content: url("../images/arrow-dropdown.svg") !important;
+              display: inline !important; }
+          .settings .user-group .box .templates .group .group-cond .form-data .user-permissions .btn-primary {
+            background: #2aa382; }
+          .settings .user-group .box .templates .group .group-cond .form-data .user-permissions p.title {
+            color: #9a9e9f; }
+          .settings .user-group .box .templates .group .group-cond .form-data .user-permissions .new-styles {
+            margin-bottom: 25px; }
+            .settings .user-group .box .templates .group .group-cond .form-data .user-permissions .new-styles:first-child {
+              margin: 25px 0; }
+            .settings .user-group .box .templates .group .group-cond .form-data .user-permissions .new-styles .pull-left {
+              color: #6f6f6f; }
+            .settings .user-group .box .templates .group .group-cond .form-data .user-permissions .new-styles .pull-right .btn-group button {
+              width: 75px;
+              height: 40px; }
+          .settings .user-group .box .templates .group .group-cond .form-data .user-permissions .slide {
+            min-height: 100px;
+            border: 1px solid #ccc;
+            margin-left: 15px;
+            padding: 0 22px; }
       .settings .user-group .box .templates .group .footer {
         padding: 15px 20px;
         border-top: 1px solid #d8d8d8; }
@@ -691,7 +653,6 @@ body.set-password {
           width: 46%;
           float: left; }
         .settings .user-group .box .templates .person .content div.display-pic {
-          /*margin-bottom: 112px;*/
           min-height: 180px; }
           .settings .user-group .box .templates .person .content div.display-pic #display_pic {
             width: 120px;

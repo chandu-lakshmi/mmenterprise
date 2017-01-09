@@ -214,6 +214,14 @@ return [
            'apply_job_details' =>[
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/apply_job_details'
+            ],
+            'decrypt_campaign_ref' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/decrypt_campaign_ref'
+            ],
+            'campaign_jobs_list' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/campaign_jobs_list'
             ]
     ];
         

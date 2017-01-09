@@ -7,6 +7,9 @@
     	.directive('bucketsView', bucketsView)
     	.directive('epiSearch', epiSearch)
         .directive('socialSharing', socialSharing)
+        .directive('scrollTop', scrollTop)
+        .directive('copyUrl', copyUrl)
+        .directive('checkCharZero', checkCharZero)
 
     	.config(function(App){
 
@@ -26,7 +29,7 @@
 
     	})
 
-    epiSearch.$inject = ['App']
+    epiSearch.$inject = ['App'];
 
 	function bucketsView(){
 		return{
@@ -36,7 +39,7 @@
 				checkIds:'=',
 				setFn: '&'
 			},
-			templateUrl:'templates/campaigns/template-bucket.phtml',
+			templateUrl:'templates/components/template-bucket.phtml',
 			link:function(scope, element, attr){
 
 				
@@ -80,9 +83,12 @@
 	function epiSearch(App) {
         return {
             scope: {
-                opts: '='
+                opts: '=',
+                path: '@'
             },
-            templateUrl: 'templates/components/search.phtml',
+            templateUrl: function(scope, attrs){
+                return attrs.path + 'search.phtml';
+            },
             link: function (scope, element) {
                 scope.opts = angular.extend({
                     value: "",
@@ -193,6 +199,91 @@
                 }
             },
             controllerAs: 'socialShareCrtl'
+        }
+    }
+
+    function scrollTop(){
+        return {
+            template: '<a id="dyscrollup-btn" href="javascript:void(0)"><img src="public/images/arrow-top.svg" alt="up"/></a>',
+            link: function () {
+                $(window).on("scroll", function() {
+                    $(window).scrollTop() > 300 ? $('a#dyscrollup-btn').fadeIn() : $('a#dyscrollup-btn').fadeOut();
+                });
+
+                $("#dyscrollup-btn").on("click", function(e) {
+                    e.preventDefault();
+                    $("html, body").animate({
+                        scrollTop: 0
+                    }, 1000);
+                    return false;
+                });
+            }
+        }
+    }
+
+    function copyUrl(){
+        return {
+            scope:{
+                url : '@',
+                btnText : '@'
+            },
+            templateUrl: '../templates/components/copy-url.phtml',
+            link : function(){
+            document.getElementsByClassName('btns')[0].addEventListener('click', copy, true);
+
+             // event handler
+                function copy(e) {
+
+                // find target element
+                    var 
+                      t = e.target,
+                      c = t.dataset.copytarget,
+                      inp = (c ? document.querySelector(c) : null);
+                      
+                    // is element selectable?
+                    if (inp && inp.select) {
+                      
+                      // select text
+                      inp.select();
+
+                      try {
+                        // copy text
+                        document.execCommand('copy');
+                        inp.blur();
+                        
+                        // copied animation
+                        t.classList.add('copied');
+                        setTimeout(function() { t.classList.remove('copied'); }, 1500);
+                      }
+                      catch (err) {
+                        alert('please press Ctrl/Cmd+C to copy');
+                      }
+                      
+                    }
+                }
+            }
+        }
+    }
+
+
+    function checkCharZero(){
+        return {
+            restrict : 'AC',
+            link: function (scope, element) {
+                element.bind("keypress", function (e) {
+                    var pos = element[0].selectionStart;
+                    if(e.charCode == 0){
+                        return true;
+                    }
+                    if(!(e.charCode >= 48 && e.charCode <= 57)){
+                        e.preventDefault();
+                    }else{
+                        if(pos == 0 && e.charCode == 48){
+                            e.preventDefault(); 
+                        }
+                    }
+                });
+            }
         }
     }
 

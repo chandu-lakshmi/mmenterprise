@@ -35,8 +35,38 @@ $app->get('/email-parser/all-jobs', function ($request, $response, $args) {
         
 });
 
+// All Campaigns
+$app->get('/email-parser/all-campaigns', function ($request, $response, $args) {
+    
+    $args = parserData($this->settings);
+    $args['camp_ref'] = $_GET['ref'];
+    $_POST['ref'] = $args['camp_ref'];
+    $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_campaign_ref');
+    $Details     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+    ));
+    $args['campaignDetails'] = checkJsonResult( $Details->loadCurl() ); 
+    $checkResult['campDetails'] = json_decode(checkJsonResult( $Details->loadCurl()));
+    $arrayList["CampaignDetails"] = array(
+        "camp_ref" => $args['camp_ref'],
+        "campaign_id" => $checkResult['campDetails']->campaign_id,
+        "reference_id" => $checkResult['campDetails']->reference_id
+    );
+    //Update Session
+    updateSession($arrayList);
+    // Render index view
+    if(!empty($checkResult['campDetails'])){
+        return $this->email_renderer->render($response, 'index.phtml', $args);
+    }
+    else{
+       return $response->withRedirect($args['APP_DOMAIN'].'404');
+    }  
+        
+});
+
 // perticular Jobs
-$app->get('/email-parser/job-details/{name}', function ($request, $response, $args) {
+$app->get('/email-parser/job-details', function ($request, $response, $args) {
     
     $args = parserData($this->settings);
     $args['ref'] = $_GET['ref'];
@@ -82,8 +112,10 @@ $app->get('/email-parser/candidate-details', function ($request, $response, $arg
 
 // All Jobs
 $app->get('/email-parser/referral-details', function ($request, $response, $args) {
-    
+    // campaign details
+    $this->CampaignDetails;
     $args = parserData($this->settings);
+    $args['camp_ref'] = $_POST['camp_ref'];
     $args['ref'] = $_GET['ref'];
     $_POST['ref'] = $args['ref'];
     $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_ref');
@@ -141,6 +173,16 @@ $app->post('/apply_job_details',function ($request, $response, $args) use ($app)
      return checkJsonResult( $allJobs->loadCurl() );
 });
 
+$app->post('/campaign_jobs_list',function ($request, $response, $args) use ($app) {
+    $this->CampaignDetails;
+    $apiEndpoint = getapiEndpoint($this->settings, 'campaign_jobs_list');
+    $allJobs     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+     return checkJsonResult( $allJobs->loadCurl() );
+});
+ 
 $app->POST('/resumes_upload',function ($request, $response, $args) {
 
     require 'library/fileupload_library.php';

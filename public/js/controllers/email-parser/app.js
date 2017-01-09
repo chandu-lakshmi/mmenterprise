@@ -29,19 +29,26 @@
 			        params : {status : ''}
 			    })
 			    .state('referralDetails', {
-			        url: '/referral-details?ref&flag',
+			        url: '/referral-details?ref&flag&jc',
 			        templateUrl: App.base_url + 'templates/email-parser/referral-details.phtml',
 			        controller: 'ApplyJobController',
 			        controllerAs:'ApplyJobCtrl',
-			        data : { pageTitle: 'Mintmesh ( Drop CV )' },
+			        data : { pageTitle: '' },
 			        params : {status : ''}
 			    })
 			    .state('jobDetails', {
-			        url: '/job-details/:job_name?ref',
+			        url: '/job-details?ref',
 			        templateUrl: App.base_url + 'templates/email-parser/job-details.phtml',
 			        controller: 'JobDetailsController',
 			        controllerAs:'JobDetailsCtrl',
 			        data : { pageTitle: 'Mintmesh' },
+			    })
+			    .state('allCampaigns', {
+			        url: '/all-campaigns?ref',
+			        templateUrl: App.base_url + 'templates/email-parser/all-campaigns.phtml',
+			        controller: 'AllCampaignsController',
+			        controllerAs:'AllCampaignsCtrl',
+			        data : { pageTitle: 'Mintmesh ( Campaigns )' }
 			    })
 
     		$urlRouterProvider.otherwise('/all-jobs');

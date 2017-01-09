@@ -105,7 +105,7 @@ angular.module('app.import.contacts', ['ui.grid'])
         }
 
         $uibModal.open({
-            animation: true,
+            animation: false,
             backdrop: 'static',
             keyboard: false,
             templateUrl: 'templates/dialogs/fileUpload.phtml',

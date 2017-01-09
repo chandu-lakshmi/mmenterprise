@@ -23,7 +23,7 @@
 				      		<input type="hidden" name="filter" value="{{ResumeRoomCtrl.filterList.toString()}}">
 						</form>
 						<div class="col-sm-3 pull-right">
-							<div data-epi-search data-opts="ResumeRoomCtrl.search_opts"></div>
+							<div data-epi-search data-opts="ResumeRoomCtrl.search_opts" data-path="templates/components/"></div>
 						</div>
 					</div>
 					<div class="box-content">
@@ -44,21 +44,23 @@
 					</div>
 					<div class="box-footer clearfix">
 						<div class="status col-sm-4">
-							<span style="padding-right:10px;">Change Status to:</span>
-				            <md-select name="status" ng-model="ResumeRoomCtrl.status" placeholder="Status" class="md-no-underline" ng-change="ResumeRoomCtrl.statusChange(ResumeRoomCtrl.status)" ng-disabled="ResumeRoomCtrl.countArr.length == 0">
-				              	<md-option ng-repeat="options in ResumeRoomCtrl.statusOptions" ng-value="options">
-				                	{{options}}
-				              	</md-option>
-				            </md-select>
+							<span style="padding-right:10px;vertical-align:middle">Change Status to:</span>
+							<md-input-container style="margin:0;">
+					            <md-select name="status" ng-model="ResumeRoomCtrl.status" placeholder="Status" class="md-no-underline" ng-change="ResumeRoomCtrl.statusChange(ResumeRoomCtrl.status)" ng-disabled="ResumeRoomCtrl.countArr.length == 0">
+					              	<md-option ng-repeat="options in ResumeRoomCtrl.statusOptions" ng-value="options">
+					                	{{options.status}}
+					              	</md-option>
+					            </md-select>
+					        </md-input-container>
 						</div>
 						<div class="paging col-sm-4 text-center">
 							<div ng-if="ResumeRoomCtrl.totalRecords">												
-								<ul uib-pagination total-items="ResumeRoomCtrl.totalRecords" ng-model="ResumeRoomCtrl.pageNumber" max-size="3" direction-links="false" force-ellipses="true" ng-change="ResumeRoomCtrl.pageChanged(ResumeRoomCtrl.pageNumber)" boundary-link-numbers="true" rotate="false" ng-if="ResumeRoomCtrl.totalRecords > 10"></ul>
+								<ul uib-pagination total-items="ResumeRoomCtrl.totalRecords" ng-model="ResumeRoomCtrl.pageNumber" max-size="3" direction-links="false" force-ellipses="true" ng-change="ResumeRoomCtrl.pageChanged(ResumeRoomCtrl.pageNumber, ResumeRoomCtrl.search_val)" boundary-link-numbers="true" rotate="false" ng-if="ResumeRoomCtrl.totalRecords > 10"></ul>
 							</div>
 						</div>
 						<div class="pull-right col-sm-4 text-right">
-							<span ng-bind="ResumeRoomCtrl.selectionCount"></span>
-							<span class="download">DOWNLOAD RESUME</span>
+							<span ng-if="ResumeRoomCtrl.selectionCount" ng-bind="ResumeRoomCtrl.selectionCount" class="animated fadeIn"></span>
+							<span class="download" ng-hide="true">DOWNLOAD RESUME</span>
 						</div>
 					</div>
 				</div>
@@ -74,9 +76,9 @@
 	<div class="ui-grid-cell-contents ui-grid-status">
 		<div ng-switch on="COL_FIELD">
 			<div ng-switch-when="PENDING" class="pending">
-				<img class="pull-left" src="public/images/tickmark-accept.svg" alt="accept" ng-click="grid.appScope.statusUpdate(row, 1);$event.stopPropagation()">
-				{{ COL_FIELD }}
-				<img class="pull-right" alt="decline" src="public/images/closemark-decline.svg" ng-click="grid.appScope.statusUpdate(row, 0);$event.stopPropagation()">
+				<img src="public/images/tickmark-accept.svg" alt="accept" ng-click="grid.appScope.statusUpdate(row, 1);$event.stopPropagation()">
+				<span style="padding: 0px 8px 0px 3px;" ng-bind="COL_FIELD"></span>
+				<img alt="decline" src="public/images/closemark-decline.svg" ng-click="grid.appScope.statusUpdate(row, 0);$event.stopPropagation()">
 			</div>
 			<div ng-switch-when="DECLINED" class="declined">
 				<div class="decline-img"></div>

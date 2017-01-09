@@ -11,7 +11,7 @@
 		<div class="msg" ng-if="editCompCtrl.errorMsgCond">
 			<span>Successfully Updated</span>
 		</div>
-		<div class="edit-box clearfix">
+		<div class="edit-box clearfix zoomIn animated">
 			<form name="edit_company_form" novalidate>
 				<div class="row">
 	 				<div class="col-sm-6">
@@ -21,9 +21,9 @@
 								<input type="text" name="company" ng-model="editCompCtrl.company_details.name" required ng-class="{'has-error-border':edit_company_form.company.$invalid && editCompCtrl.errCond}" style="pointer-events:none">
 								<div ng-if="edit_company_form.company.$error.required && editCompCtrl.errCond" class="has-error-msg">Please Enter Company Name</div>
 							</md-input-container>
-							<md-input-container class="md-block">
+							<md-input-container class="md-block select-box">
 					            <label style="display:none;">INDUSTRY</label>
-					            <md-select name="industry" ng-model="editCompCtrl.company_details.industry" ng-class="{'has-error-border':(editCompCtrl.company_details.industry == null || editCompCtrl.company_details.industry == '') && editCompCtrl.errCond}">
+					            <md-select name="industry" ng-model="editCompCtrl.company_details.industry" ng-class="{'error-border':(editCompCtrl.company_details.industry == null || editCompCtrl.company_details.industry == '') && editCompCtrl.errCond}">
 					              	<md-option ng-repeat="industry in editCompCtrl.industry_list" ng-value="industry.industry_id">
 					                	{{industry.industry_name}}
 					              	</md-option>
@@ -31,7 +31,7 @@
 					            <div class="md-errors-spacer"></div>
 					            <div ng-if="(editCompCtrl.company_details.industry == null || editCompCtrl.company_details.industry == '') && editCompCtrl.errCond" class="has-error-msg">Please Select Industry</div>
 					        </md-input-container>
-					        <md-input-container class="md-block">
+					        <md-input-container class="md-block select-box">
 					            <label style="display:none;">NUMBER OF EMPLOYEES</label>
 					            <md-select name="number_of_employees" ng-model="editCompCtrl.company_details.number_of_employees">
 					              	<md-option ng-repeat="count in editCompCtrl.no_of_emp" ng-value="count">

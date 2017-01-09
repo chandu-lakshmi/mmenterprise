@@ -1,4 +1,8 @@
-<md-progress-linear md-mode="determinate" id="borderLoader" value="{{DashCtrl.borderInc}}"></md-progress-linear>
+<!-- <md-progress-linear md-mode="determinate" id="borderLoader" value="{{DashCtrl.borderInc}}"></md-progress-linear> -->
+<div class="container loading" ng-if="!DashCtrl.dashboardLoader"> 
+	<h5>L<img src="public/images/spinner_search.gif" alt="loading">ading ...</h5>	
+</div>
+
 <div class="dashboard-container">
 	<section ng-if="DashCtrl.dashboardLoader">
 		<div class="container">
@@ -23,7 +27,7 @@
 				</div>
 				<div style="padding-top: 53px">
 					<div class="dropdown-days" ng-init="days = '7'">
-						SHOW REPORTS:
+						<span>SHOW REPORTS:</span>
 						<md-input-container>
 					 		<label style="display:none !important">REPORTS</label>
 							<md-select  name="job" ng-model="days" ng-change="DashCtrl.lastProgressBar(days)">
@@ -92,7 +96,7 @@
 				<div class="row">
 					<div class="col-lg-6" style="margin-bottom: 30px;">
 						<div class="dropdown-days" ng-init="refDays = '7'">
-							REFERRALS IN THE LAST:
+							<span>REFERRALS IN THE LAST:</span>
 							<md-input-container>
 				 				<label style="display:none !important">REPORTS</label>
 								<md-select  name="job" ng-model="refDays" ng-change="DashCtrl.lastReferrals(refDays)">
@@ -147,7 +151,7 @@
 					</div>
 					<div class="col-lg-6" style="margin-bottom: 30px">
 						<div class="dropdown-days" ng-init="hireDays = '30'">
-							HIRES IN THE LAST:
+							<span>HIRES IN THE LAST:</span>
 							<md-input-container>
 				 				<label style="display:none !important">REPORTS</label>
 								<md-select  name="job" ng-model="hireDays" ng-change="DashCtrl.lastHires(hireDays)">
