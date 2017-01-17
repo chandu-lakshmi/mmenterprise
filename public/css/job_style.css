@@ -15,10 +15,11 @@
 	width: initial;
 }
 .job-search .header .action-create-job a{
-	line-height: 76px;
-	background: #229A77;
-    color: #fff;
-    padding: 14px 20px;
+    padding: 12px 16px;
+    font-size: 16px;
+}
+.job-search .header .action-create-job a:hover{
+	color: #fff;
 }
 .job-search .header .filter-search img[alt='search'],
 .job-search .header .filter-search img[alt='loader']{
@@ -50,6 +51,14 @@
 .job-search .row:not(.header){
 	border: 1px solid silver;
 	margin:0 0 3% 0;
+	
+}
+.job-search .row .trans{
+	-webkit-transition: all .3s;
+    transition: all .3s;
+}
+.job-search .row .trans:hover{  
+    box-shadow: 0 8px 8px rgba(0,33,52,0.1),0 0 8px rgba(0,33,52,0.1),0 6px 18px rgba(0,33,52,0.1);
 }
 .job-type{
 	padding: 1.5%;
@@ -121,7 +130,7 @@
    	color: #666;
    	padding: 80px 0;
 }
-.job-type span span:not(.date-stamp),.openbox{
+.job-type span span:not(.date-stamp){
 	margin: 0 5px;
    	padding: 0 12px;
    	height: 26px;

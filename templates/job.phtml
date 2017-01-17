@@ -4,8 +4,8 @@
 		<div class="col-sm-3 filter-search" style="margin:15px 0">
 			<div data-epi-search data-opts="jobSearchCtrl.search_opts" data-path="templates/components/"></div>
 		</div>
-		<div class="col-sm-3 pull-right text-right action-create-job" style="margin:20px 0;">
-			<a ui-sref="^.postJob" ng-show="{{::userPermissions.post_jobs == 1}}" style="line-height:initial">CREATE JOB REQUISITION</a>
+		<div class="col-sm-3 pull-right text-right action-create-job" style="margin:6px 0;">
+			<a ui-sref="^.postJob" class="ripplelink mm-btn" ng-show="{{::userPermissions.post_jobs == 1}}">CREATE JOB REQUISITION</a>
 		</div>
 		<form name="filter_form">
 			<div class="filter-select col-sm-2 pull-right" style="margin:10px 0;">
@@ -33,97 +33,101 @@
 		</form>
 		<div class="col-sm-12 total-count">Total Jobs : {{jobSearchCtrl.infiniteScroll.total_count || 0}}</div>
 	</div>
-	<div class="post_err_msg" ng-if="jobSearchCtrl.init_no_posts_found">There are no open Job Requests  at this time.<br> Would you like to create a new Job Requisition?</div>
-	<div class="post_err_msg" ng-if="jobSearchCtrl.no_posts_found">No Jobs Found</div>
+	
 	<!-- infinite scroll -->
-	<div infinite-scroll='jobSearchCtrl.infiniteScroll.nextPage()' infinite-scroll-disabled='jobSearchCtrl.infiniteScroll.busy' infinite-scroll-distance='2' style="position:relative" ng-style="{'opacity':jobSearchCtrl.search_opts.progress || jobSearchCtrl.overLoader ? '0.5' : ''}">
+	<div infinite-scroll='jobSearchCtrl.infiniteScroll.nextPage()' infinite-scroll-disabled='jobSearchCtrl.infiniteScroll.busy' infinite-scroll-distance='2' style="position:relative" ng-style="{'opacity':jobSearchCtrl.overLoader ? '0.5' : ''}">
 		<!--Typeof Job -->
 		<div class="row" ng-repeat="jobList in jobSearchCtrl.infiniteScroll.list">
-			<div class="job-type" ng-style="{'background':jobList.post_type == 'campaign' ? '#faefe7' : ''}">
-				<div class="pull-left">
-					<img src="public/images/breifcase_gray.svg" alt="briefcase">
-					<a href="" ui-sref="^.jobDetails({post_id:jobList.id})" title="" ng-click="jobSearchCtrl.job_details(jobList)">
-						<h3>
-							<span title="{{jobList.job_title}}" ng-style="{'color':jobList.post_type == 'campaign' ? '#fc9737' : ''}">{{jobList.job_title}}</span>
-							<img ng-src="{{'public/images/'+ (jobList.post_type == 'campaign' ? 'arrow-buttons_orange.svg' :'arrow-buttons_green.svg')}}">
-						</h3>
-					</a>
-				</div>
-				<div class="external" ng-hide="jobList.post_type == 'campaign'" ng-class="{'internal':jobList.post_type=='internal'}" ng-bind="jobList.post_type == 'internal' ? 'Internal' : 'External'"></div>
-				<span  class="job-rewards">
-					<span class="date-stamp" style="font-size: 15px">
-						{{jobList.created_at | myDate | date:'dd MMM, yyyy'}}
-					</span>
-					<span ng-if="jobList.free_service == '1'" class="job_free">
-						FREE
-					</span>
-					<span ng-if="!(jobList.free_service == '1')" ng-repeat="list in jobList.rewards" ng-class='{"pad-mar-zero":list.rewards_type== "free"}' ng-bind="jobSearchCtrl.getRewardsView(list)">
-					</span>
+			<div class="trans">
+				<div class="job-type" ng-style="{'background':jobList.post_type == 'campaign' ? '#faefe7' : ''}">
+					<div class="pull-left">
+						<img src="public/images/breifcase_gray.svg" alt="briefcase">
+						<a href="" ui-sref="^.jobDetails({post_id:jobList.id})" title="" ng-click="jobSearchCtrl.job_details(jobList)">
+							<h3>
+								<span title="{{jobList.job_title}}" ng-style="{'color':jobList.post_type == 'campaign' ? '#fc9737' : ''}">{{jobList.job_title}}</span>
+								<img ng-src="{{'public/images/'+ (jobList.post_type == 'campaign' ? 'arrow-buttons_orange.svg' :'arrow-buttons_green.svg')}}">
+							</h3>
+						</a>
+					</div>
+					<div class="external" ng-hide="jobList.post_type == 'campaign'" ng-class="{'internal':jobList.post_type=='internal'}" ng-bind="jobList.post_type == 'internal' ? 'Internal' : 'External'"></div>
+					<span  class="job-rewards">
+						<span class="date-stamp" style="font-size: 15px">
+							{{jobList.created_at | myDate | date:'dd MMM, yyyy'}}
+						</span>
+						<span ng-if="jobList.free_service == '1'" class="job_free">
+							FREE
+						</span>
+						<span ng-if="!(jobList.free_service == '1')" ng-repeat="list in jobList.rewards" ng-class='{"pad-mar-zero":list.rewards_type== "free"}' ng-bind="jobSearchCtrl.getRewardsView(list)">
+						</span>
 
-					<span class="status" 
-						ng-bind="jobList.status == 'ACTIVE' ? 'OPEN' : 'CLOSED'"
-						ng-style="{'background' : jobList.status == 'ACTIVE' ? '#229A77' : '#e46f6f'}">
+						<span class="status" 
+							ng-bind="jobList.status == 'ACTIVE' ? 'OPEN' : 'CLOSED'"
+							ng-style="{'background' : jobList.status == 'ACTIVE' ? '#229A77' : '#e46f6f'}">
+						</span>
 					</span>
-				</span>
-			</div>
-			<div class="job-info clearfix" style="padding:0 1.5%">
-				<div class="col-sm-4 col-xs-12 job-info_d">
-					<div>
-						<span>Experience: </span>
-						<span>{{jobList.experience.name}}</span>
-					</div>
-					<div>
-						<span>Employment Type: </span>
-						<span>{{jobList.employment.name}}</span>
-					</div>
-					<div>
-						<span>Location: </span>
-						<span title="{{jobList.location}}">{{jobList.location}}</span>
-					</div>
 				</div>
-				<div class="col-sm-2 col-xs-6 invited">
-					<div>
-						<h1>{{jobList.invited_count}}</h1>
-						<span><img src="public/images/invited.svg" alt="invited">INVITED</span>
+				<div class="job-info clearfix" style="padding:0 1.5%">
+					<div class="col-sm-4 col-xs-12 job-info_d">
+						<div>
+							<span>Experience: </span>
+							<span>{{jobList.experience.name}}</span>
+						</div>
+						<div>
+							<span>Employment Type: </span>
+							<span>{{jobList.employment.name}}</span>
+						</div>
+						<div>
+							<span>Location: </span>
+							<span title="{{jobList.location}}">{{jobList.location}}</span>
+						</div>
 					</div>
-				</div>
-				<div class="col-sm-2 referal_s col-xs-6 referral">
-					<div class="jump">
-						<a ng-click="jobSearchCtrl.jumpPage(jobList,'')" title="" style="color:inherit">
-							<h1>{{jobList.referral_count}}</h1>
-							<span><img src="public/images/referrals-green.svg" alt="invited">REFERRALS</span>
-						</a>
+					<div class="col-sm-2 col-xs-6 invited">
+						<div>
+							<h1>{{jobList.invited_count}}</h1>
+							<span><img src="public/images/invited.svg" alt="invited">INVITED</span>
+						</div>
 					</div>
-				</div>
-				<div class="col-sm-2 col-xs-6 referral pending">
-					<div class="jump">
-						<a ng-click="jobSearchCtrl.jumpPage(jobList,'PENDING')" title="" style="color:inherit">
-							<h1>{{jobList.pending_count}}</h1>
-							<span><img src="public/images/referrals.svg" alt="invited">PENDING</span>
-						</a>
+					<div class="col-sm-2 referal_s col-xs-6 referral">
+						<div class="jump">
+							<a ng-click="jobSearchCtrl.jumpPage(jobList,'')" title="" style="color:inherit">
+								<h1>{{jobList.referral_count}}</h1>
+								<span><img src="public/images/referrals-green.svg" alt="invited">REFERRALS</span>
+							</a>
+						</div>
 					</div>
-				</div>
-				<div class="col-sm-2 col-xs-6 accepted">
-					<div class="jump">
-						<a ng-click="jobSearchCtrl.jumpPage(jobList,'ACCEPTED')" title="" style="color:inherit">
-							<h1>{{jobList.accepted_count}}</h1>
-							<span><img src="public/images/Applied.svg" alt="invited"></i>ACCEPTED</span>
-						</a>
+					<div class="col-sm-2 col-xs-6 referral pending">
+						<div class="jump">
+							<a ng-click="jobSearchCtrl.jumpPage(jobList,'PENDING')" title="" style="color:inherit">
+								<h1>{{jobList.pending_count}}</h1>
+								<span><img src="public/images/referrals.svg" alt="invited">PENDING</span>
+							</a>
+						</div>
 					</div>
-				</div>
-				<div class="col-sm-2 col-xs-6 hired	">
-					<div>
-						<h1>{{jobList.hired_count}}</h1>
-						<span><img src="public/images/hired.svg">HIRED</span>
+					<div class="col-sm-2 col-xs-6 accepted">
+						<div class="jump">
+							<a ng-click="jobSearchCtrl.jumpPage(jobList,'ACCEPTED')" title="" style="color:inherit">
+								<h1>{{jobList.accepted_count}}</h1>
+								<span><img src="public/images/Applied.svg" alt="invited"></i>ACCEPTED</span>
+							</a>
+						</div>
+					</div>
+					<div class="col-sm-2 col-xs-6 hired	">
+						<div>
+							<h1>{{jobList.hired_count}}</h1>
+							<span><img src="public/images/hired.svg">HIRED</span>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+
+		<div class="post_err_msg" ng-if="jobSearchCtrl.init_no_posts_found">There are no open Job Requests  at this time.<br> Would you like to create a new Job Requisition?</div>
+		<div class="post_err_msg" ng-if="jobSearchCtrl.no_posts_found">No Jobs Found</div>
 
 		<div class="text-center" ng-if="jobSearchCtrl.infiniteScroll.busy" style="opacity:0.5">
 			<img src="public/images/loader/spin.gif" alt="spinner" style="width:10%">
 		</div>
-		<div ng-if="jobSearchCtrl.search_opts.progress || jobSearchCtrl.overLoader" style="position:absolute;top:70px;left:40%">
+		<div ng-if="jobSearchCtrl.overLoader" style="position:absolute;top:70px;left:40%">
 			<img src="public/images/loader/spin.gif" alt="spinner" style="display: block;margin: 0 auto;width: 60%;">
 		</div>
 	</div>

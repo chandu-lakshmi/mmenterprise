@@ -237,7 +237,8 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
     ];
 
     this.code = '1';
-
+    scope.discoveryRewards = scope.referralRewards = true;
+    scope.discoveryRewardsType = scope.referralRewardsType = 'free'
     this.reset = function(para){
         if(para == ""){
             scope.discoveryPoints = "";

@@ -67,9 +67,11 @@ $app->get('/email-parser/all-campaigns', function ($request, $response, $args) {
 
 // perticular Jobs
 $app->get('/email-parser/job-details', function ($request, $response, $args) {
-    
+    // campaign details
+    $this->CampaignDetails;
     $args = parserData($this->settings);
     $args['ref'] = $_GET['ref'];
+    $args['camp_ref'] = $_POST['camp_ref'];
     $_POST['ref'] = $args['ref'];
     $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_ref');
     $Details     = new Curl(array(
@@ -90,8 +92,10 @@ $app->get('/email-parser/job-details', function ($request, $response, $args) {
 
 // All Jobs
 $app->get('/email-parser/candidate-details', function ($request, $response, $args) {
-    
+    // campaign details
+    $this->CampaignDetails;
     $args = parserData($this->settings);
+    $args['camp_ref'] = $_POST['camp_ref'];
     $args['ref'] = $_GET['ref'];
     $_POST['ref'] = $args['ref'];
     $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_ref');

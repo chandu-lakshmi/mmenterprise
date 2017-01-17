@@ -2,6 +2,7 @@
 	<div class="container">
 		<div class="head">
 			<a ui-sref="app.campaigns.allCampaigns" title=""><img src="public/images/back-arrow-black.svg" alt="back"><span>Back to all Campaigns</span></a>
+			<span class="pull-right" ng-click="EditCampaignsCtrl.share()"><img src="public/images/material_icons/share.svg" alt=""></span>
 		</div>
 		<div class="box">
 			<div class="box-content">
@@ -45,6 +46,8 @@
 								            <input type="text" name="city" ng-model="EditCampaignsCtrl.campaignDetails.location.city" ng-keyup="EditCampaignsCtrl.resetLocation(EditCampaignsCtrl.campaignDetails.location.city)" ng-required="EditCampaignsCtrl.radioButtons.address == 'onsite'" ng-class="{'has-error-border':edit_campaigns_form.city.$invalid && EditCampaignsCtrl.errCond}" ng-autocomplete="EditCampaignsCtrl.geo_location" details="EditCampaignsCtrl.geo_details" options="EditCampaignsCtrl.geo_options" apiplaceholder="">
 								            <div ng-if="edit_campaigns_form.city.$error.required && EditCampaignsCtrl.errCond" class="has-error-msg">Please Enter City.</div>
 								        </md-input-container>
+								        <input type="hidden" name="latitude" value="{{EditCampaignsCtrl.lat}}">
+                     					<input type="hidden" name="longitude" value="{{EditCampaignsCtrl.lng}}">
 								    </div>
 							    	<div class="clearfix">
 							    		<md-input-container class="md-block">
@@ -131,180 +134,6 @@
 									<div style="min-height:30px">
 						              	<div ng-show="edit_campaigns_form.selectedBuckets.$invalid && EditCampaignsCtrl.errCond" class="has-error-msg">Please Select Atleast One Group to Publish Campaign.</div>
 						           </div>
-								</div>
-								<div class="clearfix social-media">
-									<md-checkbox ng-model="EditCampaignsCtrl.checkbox.socialNetworks" aria-label="Checkbox 1" class="md-primary">
-            							Post on Social Networks
-          							</md-checkbox>
-									<div ng-style="{'pointer-events': EditCampaignsCtrl.checkbox.socialNetworks ? 'auto' : 'none'}">
-										<ul class="nav nav-tabs">
-										  	<li class="active">
-										  		<a data-toggle="tab" data-target="#twitter">
-										  			<span class="twitter"><i class="fa fa-twitter"></i></span>
-										  		</a>
-									  		</li>
-										  	<li>
-										  		<a data-toggle="tab" data-target="#facebook">
-										  			<span class="facebook"><i class="fa fa-facebook"></i></span>
-										  		</a>
-									  		</li>
-										  	<li>
-										  		<a data-toggle="tab" data-target="#gmail">
-										  			<span class="gmail"><i class="fa fa-google-plus"></i></span>
-										  		</a>
-									  		</li>
-									  		<li>
-										  		<a data-toggle="tab" data-target="#linkedIn">
-										  			<span class="linkedin"><i class="fa fa-linkedin"></i></span>
-										  		</a>
-									  		</li>
-										</ul>
-										<div class="tab-content">
-											<div id="twitter" class="tab-pane fade in active">
-												<div class="media">
-													<div class="company-name ellipsis" title="{{EditCampaignsCtrl.company_name}}" ng-bind="EditCampaignsCtrl.company_name"></div>
-													<div class="campaign-description">
-														<b ng-bind="EditCampaignsCtrl.campaignDetails.campaign_name" class="ellipsis"></b><br>
-														<p ng-bind="EditCampaignsCtrl.campaignDetails.campaign_type"></p>
-														<span style="font-weight:bold;">Starts On: &nbsp;</span><span ng-bind="(EditCampaignsCtrl.campaignDetails.schedule[0].start_on_date | date: 'dd-MMM-yyyy') + ' - ' + EditCampaignsCtrl.campaignDetails.schedule[0].start_on_time"></span>
-													</div>
-													<div class="location"><img src="public/images/material_icons/location.svg" alt=""><p>Location</p></div>
-												</div>
-												<div class="action">
-											    	<span class="action-btn" style="background:#55acee" ng-click="EditCampaignsCtrl.twitter()">Tweet</span>
-											    </div>
-											</div>
-											<div id="facebook" class="tab-pane fade">
-											    <div class="media">
-													<div class="company-name ellipsis" title="{{EditCampaignsCtrl.company_name}}" ng-bind="EditCampaignsCtrl.company_name"></div>
-													<div class="campaign-description">
-														<b ng-bind="EditCampaignsCtrl.campaignDetails.campaign_name" class="ellipsis"></b><br>
-														<p ng-bind="EditCampaignsCtrl.campaignDetails.campaign_type"></p>
-														<span style="font-weight:bold;">Starts On: &nbsp;</span><span ng-bind="(EditCampaignsCtrl.campaignDetails.schedule[0].start_on_date | date: 'dd-MMM-yyyy') + ' - ' + EditCampaignsCtrl.campaignDetails.schedule[0].start_on_time"></span>
-													</div>
-													<div class="location"><img src="public/images/material_icons/location.svg" alt=""><p>Location</p></div>
-												</div>
-											    <div class="action">
-											    	<span class="action-btn" style="background:#3b5998" ng-click="EditCampaignsCtrl.facebook()">Share</span>
-											    </div>
-											</div>
-											<div id="gmail" class="tab-pane fade">
-											    <div class="media">
-													<div class="company-name ellipsis" title="{{EditCampaignsCtrl.company_name}}" ng-bind="EditCampaignsCtrl.company_name"></div>
-													<div class="campaign-description">
-														<b ng-bind="EditCampaignsCtrl.campaignDetails.campaign_name" class="ellipsis"></b><br>
-														<p ng-bind="EditCampaignsCtrl.campaignDetails.campaign_type"></p>
-														<span style="font-weight:bold;">Starts On: &nbsp;</span><span ng-bind="(EditCampaignsCtrl.campaignDetails.schedule[0].start_on_date | date: 'dd-MMM-yyyy') + ' - ' + EditCampaignsCtrl.campaignDetails.schedule[0].start_on_time"></span>
-													</div>
-													<div class="location"><img src="public/images/material_icons/location.svg" alt=""><p>Location</p></div>
-												</div>
-											    <div class="action">
-											    	<span class="action-btn" style="background:#dd4b39" ng-click="EditCampaignsCtrl.googlePlus()">Post</span>
-											    </div>
-											</div>
-											<div id="linkedIn" class="tab-pane fade">
-											    <div class="media">
-													<div class="company-name ellipsis" title="{{EditCampaignsCtrl.company_name}}" ng-bind="EditCampaignsCtrl.company_name"></div>
-													<div class="campaign-description">
-														<b ng-bind="EditCampaignsCtrl.campaignDetails.campaign_name" class="ellipsis"></b><br>
-														<p ng-bind="EditCampaignsCtrl.campaignDetails.campaign_type"></p>
-														<span style="font-weight:bold;">Starts On: &nbsp;</span><span ng-bind="(EditCampaignsCtrl.campaignDetails.schedule[0].start_on_date | date: 'dd-MMM-yyyy') + ' - ' + EditCampaignsCtrl.campaignDetails.schedule[0].start_on_time"></span>
-													</div>
-													<div class="location"><img src="public/images/material_icons/location.svg" alt=""><p>Location</p></div>
-												</div>
-											    <div class="action">
-											    	<span class="action-btn" style="background:#0077b5" ng-click="EditCampaignsCtrl.linkedin()">Share</span>
-											    </div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="clearfix social-media">
-									<md-checkbox ng-model="EditCampaignsCtrl.checkbox.myNetworks" aria-label="Checkbox 1" class="md-primary">
-            							Add my Own Social Networks
-          							</md-checkbox>
-									<div ng-style="{'pointer-events': EditCampaignsCtrl.checkbox.myNetworks ? 'auto' : 'none'}">
-										<ul class="nav nav-tabs">
-										  	<li class="active">
-										  		<a data-toggle="tab" data-target="#myTwitter">
-										  			<span class="twitter"><i class="fa fa-twitter"></i></span>
-										  		</a>
-									  		</li>
-										  	<li>
-										  		<a data-toggle="tab" data-target="#myFacebook">
-										  			<span class="facebook"><i class="fa fa-facebook"></i></span>
-										  		</a>
-									  		</li>
-										  	<li>
-										  		<a data-toggle="tab" data-target="#myGmail">
-										  			<span class="gmail"><i class="fa fa-google-plus"></i></span>
-										  		</a>
-									  		</li>
-									  		<li>
-										  		<a data-toggle="tab" data-target="#mylinkedIn">
-										  			<span class="linkedin"><i class="fa fa-linkedin"></i></span>
-										  		</a>
-									  		</li>
-										</ul>
-										<div class="tab-content">
-											<div id="myTwitter" class="tab-pane fade in active">
-											    <div class="media">
-													<div class="company-name ellipsis" title="{{EditCampaignsCtrl.company_name}}" ng-bind="EditCampaignsCtrl.company_name"></div>
-													<div class="campaign-description">
-														<b ng-bind="EditCampaignsCtrl.campaignDetails.campaign_name" class="ellipsis"></b><br>
-														<p ng-bind="EditCampaignsCtrl.campaignDetails.campaign_type"></p>
-														<span style="font-weight:bold;">Starts On: &nbsp;</span><span ng-bind="(EditCampaignsCtrl.campaignDetails.schedule[0].start_on_date | date: 'dd-MMM-yyyy') + ' - ' + EditCampaignsCtrl.campaignDetails.schedule[0].start_on_time"></span>
-													</div>
-													<div class="location"><img src="public/images/material_icons/location.svg" alt=""><p>Location</p></div>
-												</div>
-												<div class="action">
-											    	<span class="action-btn" style="background:#55acee" ng-click="EditCampaignsCtrl.twitter()">Tweet</span>
-											    </div>
-											</div>
-											<div id="myFacebook" class="tab-pane fade">
-											    <div class="media">
-													<div class="company-name ellipsis" title="{{EditCampaignsCtrl.company_name}}" ng-bind="EditCampaignsCtrl.company_name"></div>
-													<div class="campaign-description">
-														<b ng-bind="EditCampaignsCtrl.campaignDetails.campaign_name" class="ellipsis"></b><br>
-														<p ng-bind="EditCampaignsCtrl.campaignDetails.campaign_type"></p>
-														<span style="font-weight:bold;">Starts On: &nbsp;</span><span ng-bind="(EditCampaignsCtrl.campaignDetails.schedule[0].start_on_date | date: 'dd-MMM-yyyy') + ' - ' + EditCampaignsCtrl.campaignDetails.schedule[0].start_on_time"></span>
-													</div>
-													<div class="location"><img src="public/images/material_icons/location.svg" alt=""><p>Location</p></div>
-												</div>
-												<div class="action">
-											    	<span class="action-btn" style="background:#3b5998" ng-click="EditCampaignsCtrl.facebook()">Share</span>
-											    </div>
-											</div>
-											<div id="myGmail" class="tab-pane fade">
-											    <div class="media">
-													<div class="company-name ellipsis" title="{{EditCampaignsCtrl.company_name}}" ng-bind="EditCampaignsCtrl.company_name"></div>
-													<div class="campaign-description">
-														<b ng-bind="EditCampaignsCtrl.campaignDetails.campaign_name" class="ellipsis"></b><br>
-														<p ng-bind="EditCampaignsCtrl.campaignDetails.campaign_type"></p>
-														<span style="font-weight:bold;">Starts On: &nbsp;</span><span ng-bind="(EditCampaignsCtrl.campaignDetails.schedule[0].start_on_date | date: 'dd-MMM-yyyy') + ' - ' + EditCampaignsCtrl.campaignDetails.schedule[0].start_on_time"></span>
-													</div>
-													<div class="location"><img src="public/images/material_icons/location.svg" alt=""><p>Location</p></div>
-												</div>
-												<div class="action">
-											    	<span class="action-btn" style="background:#dd4b39" ng-click="EditCampaignsCtrl.googlePlus()">Post</span>
-											    </div>
-											</div>
-											<div id="mylinkedIn" class="tab-pane fade">
-											    <div class="media">
-													<div class="company-name ellipsis" title="{{EditCampaignsCtrl.company_name}}" ng-bind="EditCampaignsCtrl.company_name"></div>
-													<div class="campaign-description">
-														<b ng-bind="EditCampaignsCtrl.campaignDetails.campaign_name" class="ellipsis"></b><br>
-														<p ng-bind="EditCampaignsCtrl.campaignDetails.campaign_type"></p>
-														<span style="font-weight:bold;">Starts On: &nbsp;</span><span ng-bind="(EditCampaignsCtrl.campaignDetails.schedule[0].start_on_date | date: 'dd-MMM-yyyy') + ' - ' + EditCampaignsCtrl.campaignDetails.schedule[0].start_on_time"></span>
-													</div>
-													<div class="location"><img src="public/images/material_icons/location.svg" alt=""><p>Location</p></div>
-												</div>
-											    <div class="action">
-											    	<span class="action-btn" style="background:#0077b5" ng-click="EditCampaignsCtrl.linkedin()">Share</span>
-											    </div>
-											</div>
-										</div>
-									</div>
 								</div>
 								<div class="clearfix upload-files">
 									<div>

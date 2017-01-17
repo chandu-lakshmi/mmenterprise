@@ -49,21 +49,23 @@
 					<pre ng-bind="list.job_description"></pre>
 				</div>
 				<div class="action">
-					<a ui-sref="candidateDetails({ref: list.ref_code,flag: 0, status:list.status})" ng-if="list.post_type == 'internal'">APPLY</a>
-					<a class="refer" ui-sref="referralDetails({ref: list.ref_code,flag: 0, status:list.status})" ng-if="list.post_type == 'external'">REFER</a>
-					<a class="all-jobs" ui-sref="allJobs({ref: $root.ref})">VIEW ALL JOBS</a>
+					<a ui-sref="candidateDetails({ref: list.ref_code,flag: 0, status:list.status, jc: list.post_type == 'campaign' ? 1 : 0})" ng-if="list.post_type == 'internal' || list.post_type == 'campaign'">APPLY</a>
+					<a class="" ui-sref="referralDetails({ref: list.ref_code,flag: 0, status:list.status, jc: list.post_type == 'campaign' ? 1 : 0})" ng-if="list.post_type == 'external' || list.post_type == 'campaign'">REFER</a>
+					<a class="all-jobs" ui-sref="{{list.post_type == 'campaign' ? 'allCampaigns({ref: $root.camp_ref})' : 'allJobs({ref: $root.ref})'}}">VIEW ALL JOBS</a>
 				</div>
 			</div>
 		</section>
 		<footer>
 			<div class="social-media">
-				Share Job
-				<!-- social media share directive -->
-				<social-sharing data-opts="JobDetailsCtrl.socialMedia" style="margin-top:10px;"></social-sharing>
+				<div ng-if="JobDetailsCtrl.job_details.list[0].post_type == 'external'">
+					Share Job
+					<!-- social media share directive -->
+					<social-sharing data-opts="JobDetailsCtrl.socialMedia" style="margin-top:10px;" data-path="../templates/components"></social-sharing>
+				</div>
 				<copy-url url="{{JobDetailsCtrl.copyUrl}}" btn-text="COPY JOB LINK"></copy-url>
 			</div>
-			<div class="drop-cv" ng-if="JobDetailsCtrl.job_details.list.post_type == 'external'">
-				Refer friend for future openings here ? &nbsp;<span><a ui-sref="referralDetails({ref: $root.ref,flag: 1})">Upload CV</a></span>
+			<div class="drop-cv" ng-if="JobDetailsCtrl.job_details.list[0].post_type == 'external'">
+				Refer friend for future openings here <span><a ui-sref="referralDetails({ref: $root.ref,flag: 1})">Upload CV</a></span>
 			</div>
 		</footer>
 	</div>

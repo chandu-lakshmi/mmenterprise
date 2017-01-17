@@ -10,6 +10,7 @@
         .directive('scrollTop', scrollTop)
         .directive('copyUrl', copyUrl)
         .directive('checkCharZero', checkCharZero)
+        .directive('ripplelink', ripplelink)
 
     	.config(function(App){
 
@@ -158,7 +159,9 @@
             scope: {
                 opts: '='
             },
-            templateUrl: '../templates/components/social-sharing.phtml',
+            templateUrl: function(scope, attrs){
+                return attrs.path + '/social-sharing.phtml';
+            },
             link: function (scope, element) {
                 scope.opts = angular.extend({
                     socialIcons: ['facebook', 'twitter', 'linkedin', 'googlePlus']
@@ -204,12 +207,11 @@
 
     function scrollTop(){
         return {
-            template: '<a id="dyscrollup-btn" href="javascript:void(0)"><img src="public/images/arrow-top.svg" alt="up"/></a>',
+            template: '<div id="dyscrollup-btn"><img src="public/images/arrow-top.svg" alt="up"/></div>',
             link: function () {
                 $(window).on("scroll", function() {
-                    $(window).scrollTop() > 300 ? $('a#dyscrollup-btn').fadeIn() : $('a#dyscrollup-btn').fadeOut();
+                    $(window).scrollTop() > 300 ? $('scroll-top div').addClass('move') : $('scroll-top div').removeClass('move');
                 });
-
                 $("#dyscrollup-btn").on("click", function(e) {
                     e.preventDefault();
                     $("html, body").animate({
@@ -230,6 +232,7 @@
             templateUrl: '../templates/components/copy-url.phtml',
             link : function(){
             document.getElementsByClassName('btns')[0].addEventListener('click', copy, true);
+            document.getElementsByClassName('btns')[0].addEventListener('touchstart', copy, true);
 
              // event handler
                 function copy(e) {
@@ -282,6 +285,48 @@
                             e.preventDefault(); 
                         }
                     }
+                });
+            }
+        }
+    }
+
+
+    function ripplelink(){
+        return {
+            restrict : 'AC',
+            link: function (scope, element) {
+                var ink, d, x, y;
+                element.bind('click', '.ripplelink', function(e){
+                    if($(this).find(".ink").length === 0){
+                        $(this).prepend("<span class='ink'></span>");
+                    }
+                         
+                    ink = $(this).find(".ink");
+                    ink.removeClass("animate");
+                     
+                    if(!ink.height() && !ink.width()){
+                        d = Math.max($(this).outerWidth(), $(this).outerHeight());
+                        ink
+                            .css({
+                                height: d,
+                                width: d
+                            });
+                    }
+                     
+                    x = e.pageX - $(this).offset().left - ink.width()/2;
+                    y = e.pageY - $(this).offset().top - ink.height()/2;
+                     
+                    ink
+                        .css({
+                            top: y+'px',
+                            left: x+'px',
+                            background: $(this).data("ripple-color")
+                        })
+                    .addClass("animate");
+
+                /*window.setTimeout(function(){
+                    ink.remove();
+                }, 2000);*/
                 });
             }
         }

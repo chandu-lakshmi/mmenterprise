@@ -1,89 +1,31 @@
 <div class="all-campaigns">
 	<div class="container">
 		<div class="row">
-			<div class="col-sm-3">
-				<div class="filter">
-					<form name="filter_form">
-						<p class="title">FILTERS</p>
-						<ul>
-							<li>
-								<div class="checkbox">
-									<md-checkbox aria-label="Campaign Type" ng-checked="AllCampaignsCtrl.isChecked('type', 'selectedType')" ng-click="AllCampaignsCtrl.toggleAll('type', 'selectedType')" class="md-primary">
-          								Campaign Type
-            						</md-checkbox>
-									<input type="hidden" name="campaign_type" value="{{AllCampaignsCtrl.isChecked('type', 'selectedType')}}">
-								</div>
-								<ul>
-									<li ng-repeat="type in AllCampaignsCtrl.type">
-										<div class="checkbox">
-											<md-checkbox aria-label="{{type.label}}" ng-checked="AllCampaignsCtrl.exists(type, AllCampaignsCtrl.selectedType)" ng-click="AllCampaignsCtrl.toggle(type, AllCampaignsCtrl.selectedType)" class="md-primary">
-               									{{ type.label }}
-              								</md-checkbox>
-											<input type="hidden" name="{{type.name}}" value="{{AllCampaignsCtrl.exists(type, AllCampaignsCtrl.selectedType)}}">
-										</div>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<div class="checkbox">
-									<md-checkbox aria-label="Status" ng-checked="AllCampaignsCtrl.isChecked('status', 'selectedStatus')" ng-click="AllCampaignsCtrl.toggleAll('status', 'selectedStatus')" class="md-primary">
-          								Status
-            						</md-checkbox>
-            						<input type="hidden" name="status" value="{{AllCampaignsCtrl.isChecked('status', 'selectedStatus')}}">
-								</div>
-								<ul>
-									<li ng-repeat="status in AllCampaignsCtrl.status">
-										<div class="checkbox">
-											<md-checkbox aria-label="{{status.name}}" ng-checked="AllCampaignsCtrl.exists(status, AllCampaignsCtrl.selectedStatus)" ng-click="AllCampaignsCtrl.toggle(status, AllCampaignsCtrl.selectedStatus)" class="md-primary">
-               									{{ status.label }}
-              								</md-checkbox>
-              								<input type="hidden" name="{{status.name}}" value="{{AllCampaignsCtrl.exists(status, AllCampaignsCtrl.selectedStatus)}}">
-										</div>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<div class="checkbox">
-								  	<md-checkbox ng-model="AllCampaignsCtrl.locationCheck" aria-label="Checkbox 1" class="md-primary">
-            							Location
-          							</md-checkbox>
-									<div class="form-group modern-select" ng-style="{'pointer-events': AllCampaignsCtrl.locationCheck ? 'auto' : 'none' }">
-										<div class="controls">
-											<select data-rel="chosen" id="mul_select" data-placeholder="Select Your Options" class="form-control" name="location[]" multiple ng-model="AllCampaignsCtrl.selectedCountries">
-												<option ng-repeat="options in AllCampaignsCtrl.searchResults track by $index">{{options}}</option>
-											</select>
-										</div>
-									</div>	
-								</div>
-							</li>
-						</ul>
-					</form>
-				</div>
-				<div class="action">
-					<div>
-						<span ng-click="AllCampaignsCtrl.clear(AllCampaignsCtrl.search, false)" style="color:#979998;">CLEAR</span>
-						<span ng-click="AllCampaignsCtrl.applyFilter(AllCampaignsCtrl.search, false)" style="color:#138b67;">APPLY FILTERS</span>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-9" style="padding:0;padding-bottom:50px;">
+			<div class="col-sm-12" style="padding-bottom:50px;">
 				<div class="box">
 					<div class="box-header clearfix">
-						<div class="pull-left">
+						<div class="col-sm-4">
 							<span>{{$state.current.params.all_campaigns == 1 ? 'ALL' : 'MY'}} CAMPAIGNS ({{AllCampaignsCtrl.totalRecords || 0}}) </span>
 						</div>
-						<div class="pull-right">
-							<div class="has-feedback search">
-								<img src="public/images/loader/search_loader.gif" class="feedback right" ng-show="AllCampaignsCtrl.searchLoader">
-								<img src="public/images/cross.svg" class="feedback right" ng-show="AllCampaignsCtrl.searchLoader != true && AllCampaignsCtrl.search.length >= 1" ng-click="AllCampaignsCtrl.search = '';AllCampaignsCtrl.searchFilter(AllCampaignsCtrl.search, $event)">
-								<input type="text" name="search" ng-model="AllCampaignsCtrl.search" onkeypress="return ((!(event.which==32))  || !this.selectionStart==0)" ng-keyup="AllCampaignsCtrl.searchFilter(AllCampaignsCtrl.search, $event)">
-								<img src="public/images/search.svg" class="feedback left">
-							</div>
+						<form name="filter_form" style="display:inline-block">
+							<md-input-container>
+						        <label style="display:none !important">Filter By Status</label>
+						        <md-select ng-model="AllCampaignsCtrl.filterList" md-on-close="AllCampaignsCtrl.applyFilter()"
+						        	data-md-container-class="multiple-select" multiple placeholder="Filter By Status">
+						          	<md-optgroup ng-repeat="parent in AllCampaignsCtrl.filterOptions" label="{{parent.name}}">
+					            		<md-option ng-value="children" ng-repeat="children in parent.children">{{children}}</md-option>
+					            	</md-optgroup>
+						        </md-select>
+				      		</md-input-container>
+				      		<input type="hidden" name="filter" value="{{AllCampaignsCtrl.filterList.toString()}}">
+						</form>
+						<div class="col-sm-3 pull-right">
+							<div data-epi-search data-opts="AllCampaignsCtrl.search_opts" data-path="templates/components/"></div>
 						</div>
 					</div>
 					<div class="box-content">
-						<div id="grid" ui-grid="AllCampaignsCtrl.gridOptions" class="grid" ui-grid-infinite-scroll ui-grid-selection style="border: 0;">
-							<div class="grid-msg-overlay" ng-if="AllCampaignsCtrl.loader || AllCampaignsCtrl.searchLoader">
+						<div id="grid" ui-grid="AllCampaignsCtrl.gridOptions" class="grid" ui-grid-selection style="border: 0;">
+							<div class="grid-msg-overlay" ng-if="AllCampaignsCtrl.loader">
 					          	<div class="msg">
 					            	<span>
 					              		<img src="public/images/loader/spin.gif" alt="loader" width="25%">
@@ -95,6 +37,11 @@
 						        	<span>No Campaigns Found</span>
 						        </div>
 					    	</div>	
+						</div>
+					</div>
+					<div class="box-footer clearfix" ng-if="AllCampaignsCtrl.totalRecords > 10">
+						<div class="paging col-sm-4 col-sm-offset-4 text-center">												
+							<ul uib-pagination total-items="AllCampaignsCtrl.totalRecords" ng-model="AllCampaignsCtrl.pageNumber" max-size="3" direction-links="false" force-ellipses="true" ng-change="AllCampaignsCtrl.pageChanged(AllCampaignsCtrl.pageNumber)" boundary-link-numbers="true" rotate="false"></ul>
 						</div>
 					</div>
 				</div>

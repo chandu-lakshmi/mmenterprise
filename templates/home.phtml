@@ -26,9 +26,9 @@
 					                     	<div ng-if="signin_form.l_email.$error.pattern && homeCtrl.login_show_error" class="has-error-msg">Please Enter Valid Email Address.</div>
 										</md-input-container>
 										<md-input-container class="md-block" style="margin-bottom:0">
-											<label for="l_pass">PASSWORD *</label>
+											<label for="l_pass">PASSWORD*</label>
 		      								<input type="password" id="l_pass" name="l_pass" ng-model="homeCtrl.signin_form.l_pass" required ng-pattern="/^(?=.*[a-zA-Z0-9]).{6,16}$/"  ng-class="{'has-error-border':signin_form.l_pass.$invalid && homeCtrl.login_show_error}">
-		      								<div ng-if="signin_form.l_pass.$error.required && homeCtrl.login_show_error" class="has-error-msg">Password Field is Required.</div>
+		      								<div ng-if="signin_form.l_pass.$error.required && homeCtrl.login_show_error" class="has-error-msg">Please Enter Password.</div>
 						                    <div ng-if="signin_form.l_pass.$error.pattern && homeCtrl.login_show_error" class="has-error-msg">Please Enter Atleast 6 characters.</div>
 										</md-input-container>
 										<a href="" class="forgot-link" ng-click="homeCtrl.forgot_show()"><strong>Forgot Password?</strong></a>

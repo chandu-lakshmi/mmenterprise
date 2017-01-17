@@ -2,12 +2,13 @@
 	"use strict";
 
 	angular
-		.module('app.campaigns', ['app.components', 'ui.grid', 'ui.grid.infiniteScroll', 'ui.grid.selection', 'mdPickers', 'ngMessages', 'ngAutocomplete'])
+		.module('app.campaigns', ['app.components', 'ui.grid', 'ui.grid.selection', 'mdPickers', 'ngMessages', 'ngAutocomplete'])
 		.controller('CampaignsController', CampaignsController)
 		.controller('NewCampaignController', NewCampaignController)
 		.controller('AllCampaignsController', AllCampaignsController)
 		.controller('MyCampaignsController', MyCampaignsController)
 		.controller('EditCampaignsController', EditCampaignsController)
+		.controller('SocialShareController', SocialShareController)
 		.service('CampaignsData', CampaignsData)
 		.service('contactBuckets', contactBuckets)
 		.service('createJobData', createJobData)
@@ -15,12 +16,13 @@
 
 
 		CampaignsController.$inject = ['$http', '$window', 'contactBuckets', '$uibModal', 'App'];
-		NewCampaignController.$inject = ['$scope', '$state', '$timeout', '$window', 'contactBuckets', 'CampaignsData', '$uibModalInstance', '$http', 'CompanyDetails', 'createCampaign', 'createJobData', 'App'];
-		AllCampaignsController.$inject = ['$state', '$http', '$q', '$timeout', '$window', 'uiGridConstants', 'CampaignsData', 'userPermissions', '$stateParams', 'App'];
+		NewCampaignController.$inject = ['$scope', '$state', '$uibModal', '$timeout', 'contactBuckets', 'CampaignsData', '$uibModalInstance', '$http', 'CompanyDetails', 'createCampaign', 'createJobData', 'App'];
+		AllCampaignsController.$inject = ['$state', '$http', '$rootScope', '$q', '$timeout', '$window', 'uiGridConstants', 'CampaignsData', 'userPermissions', '$stateParams', 'App'];
 		MyCampaignsController.$inject = [];
-		EditCampaignsController.$inject = ['$scope', '$state', 'CompanyDetails', 'CampaignsData', 'contactBuckets', 'rippleService', '$window', '$http', 'App'];
+		EditCampaignsController.$inject = ['$scope', '$state', '$uibModal', 'CompanyDetails', 'CampaignsData', 'contactBuckets', '$window', '$http', 'App'];
 		createJobData.$inject = ['$rootScope'];
 		createJob.$inject = ['App', '$http', '$window', '$timeout', 'createJobData'];
+		SocialShareController.$inject = ['$state', '$rootScope', '$timeout', 'CampaignsData', 'CompanyDetails', 'App']
 
 		function contactBuckets(){
 			var buckets = {};
@@ -205,7 +207,7 @@
 			}
 		}
 
-		function NewCampaignController($scope, $state, $timeout, $window, contactBuckets, CampaignsData, $uibModalInstance, $http, CompanyDetails, createCampaign, createJobData, App){
+		function NewCampaignController($scope, $state, $uibModal, $timeout, contactBuckets, CampaignsData, $uibModalInstance, $http, CompanyDetails, createCampaign, createJobData, App){
 
 			var vm = this;
 
@@ -323,12 +325,8 @@
 		    			vm.successMsg = response.message.msg[0];
 		    			CampaignsData.bol = true;
 			    		closeModal();
-			    		if($state.current.name == 'app.campaigns.editCampaigns'){
-                            $state.go('app.campaigns.allCampaigns');
-                        }
-                        else{
-                            setTimeout(function (){$state.reload()}, 100);
-                        }
+			    		CampaignsData.setCampaigns(response.data);
+                        share();
 			    	}
 			    	else if(response.status_code == 400){
 		                $window.location = App.base_url + 'logout';
@@ -339,6 +337,18 @@
 			    })
 
 			}
+
+			function share(){
+    			$uibModal.open({
+		            animation: false,
+		            backdrop: 'static',
+		            keyboard: false,
+		            templateUrl: 'templates/campaigns/social-share-modal.phtml',
+		            openedClass: "social-share",
+		            controller:'SocialShareController',
+		     		controllerAs: 'SocialShareCtrl'
+		        });
+    		}
 			
 			setTimeout(function(){uploader()}, 1000);;
 			function uploader(){
@@ -478,7 +488,7 @@
 				{ label:'CAMPAIGN DETAILS', status: true},
 				{ label:'SCHEDULE CAMPAIGN', status: false},
 				{ label:'PREPARE CONTACTS' , status: false},
-				{ label:'PUBLISH CAMPAIGN', status: false}
+				// { label:'PUBLISH CAMPAIGN', status: false}
 			];
 
 			this.campaign = ['Mass Recruitment', 'Military Veterans', 'Campus Hires'];
@@ -510,7 +520,7 @@
 		}
 
 
-		function AllCampaignsController($state, $http, $q, $timeout, $window, uiGridConstants, CampaignsData, userPermissions, $stateParams, App){
+		function AllCampaignsController($state, $http, $rootScope, $q, $timeout, $window, uiGridConstants, CampaignsData, userPermissions, $stateParams, App){
 
 			var vm = this,canceler,
 			gridApiCall = App.base_url + 'campaigns_list';
@@ -518,91 +528,56 @@
 			vm.all_campaigns = $stateParams.all_campaigns;
 
 			vm.loader = false;
-			vm.searchLoader = false;
 			vm.noCampaigns = false;
 
 			CampaignsData.bol = true;
 
-			// checkboxes
-			vm.selectedType = [];
-			vm.selectedStatus = [];
-			vm.type = [
-				{id: 1, label: 'Mass Recruitment', name: 'mass_recruitment'},
-				{id: 2, label: 'Military Veterans', name: 'militery_veterans'},
-				{id: 3, label: 'Campus Hires', name: 'campus_hires'}
+			vm.pageNumber = 1;
+			vm.applyFilter = applyFilter;
+			vm.editCampaigns = editCampaigns;
+			vm.pageChanged = pageChanged;
+
+			$rootScope.apiCall = vm.pageChanged;
+
+			// epi search directive
+			vm.search_opts= {
+				delay: 500,
+                progress: false,
+                complete: false,
+                placeholder:'Search By Campaign Name',
+                onSearch: function (val) {
+                    vm.search_val = val;
+                    if (vm.search_opts.progress) {
+                        if (vm.search_opts.value) {
+                        	pageChanged(vm.pageNumber).then(function(){
+                        		vm.search_opts.progress = false;
+		                        vm.search_opts.complete = true;
+                        	})
+                        }
+                    }
+                },
+                onClear: function () {
+                    vm.search_val = "";
+                    pageChanged(vm.pageNumber)
+                }
+			}
+
+			// filter
+			vm.filterOptions = [
+				{name : ' Campaign Type', children : ['Mass Recruitment', 'Military Veterans', 'Campus Hires']},
+				{name : 'Status', children : ['Open', 'Close']}
 			]
-			vm.status = [
-				{id: 1, label: 'Open', name: 'open'},
-				{id: 2, label: 'Close', name: 'close'}
-			]
-			vm.toggle = toggle;
-			vm.exists = exists;
-			vm.isChecked = isChecked;
-			vm.toggleAll = toggleAll;
 
-			function toggle(item, list){
-				var idx = list.indexOf(item);
-			    if (idx > -1) {
-			      	list.splice(idx, 1);
-			    }
-			    else {
-			      	list.push(item);
-			    }
-			}
-			function exists(item, list) {
-    			return list.indexOf(item) > -1;
-  			};
-  			function isChecked(obj, arr){
-				return vm[arr].length === vm[obj].length;
-			}
-			function toggleAll(obj, arr){
-				if (vm[arr].length === vm[obj].length) {
-			      	vm[arr] = [];
-			    }
-			    else if (vm[arr].length === 0 || vm[arr].length > 0) {
-			      	vm[arr] = vm[obj].slice(0);
-			    }
-			}
-
-
-			vm.searchResults = [];
-			function location(search){
-            	
-				if(canceler){
-					canceler.resolve()
+			// filter api call
+			var a = [0];
+			function applyFilter(){
+				if(vm.filterList != undefined){
+					if(a[0] == 0 && vm.filterList.length == 0){
+						return false
+					}
+					a[0] = vm.filterList.length;
+					pageChanged(vm.pageNumber)
 				}
-
-				canceler = $q.defer();
-
-				return $http({
-	                headers: {
-	                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-	                },
-	                method: 'GET',
-	                url: '//restcountries.eu/rest/v1/name/'+search,
-	                timeout: canceler.promise
-	            })
-                .then(function(response){
-                	var filterCountries = [];
-                	for(var i = 0; i < response.data.length; i++){
-                		filterCountries.unshift(response.data[i].name);
-                	}
-
-                	if(vm.selectedCountries){
-                		for(var j = 0; j < vm.selectedCountries.length; j++){
-                			if(filterCountries.indexOf(vm.selectedCountries[j]) == -1){
-                				filterCountries.push(vm.selectedCountries[j]);
-                			}
-                		}
-                	}
-                	vm.searchResults = [];
-                	vm.searchResults = filterCountries;
-                	var searchData = $('.search-field input').val();
-            		setTimeout(function(){
-            			$('#mul_select').trigger('chosen:updated');
-            			$('.search-field input').val(searchData).focus();
-            		},0);
-		    	})
 			}
 			/*function location(search){
 
@@ -672,12 +647,6 @@
 				enableColumnMenus:false,
 				enableRowSelection: true,
 				enableRowHeaderSelection: false,
-				multiSelect: false,
-				modifierKeysToMultiSelect: false,
-				noUnselect: true, // need to look after
-				infiniteScrollRowsFromEnd: 8,
-				infiniteScrollUp:true,
-				infiniteScrollDown:true,
 				data: 'data'
 			};
 
@@ -694,10 +663,7 @@
 			    }
 			]
 
-
 			vm.gridOptions.onRegisterApi = function(gridApi){
-		      	gridApi.infiniteScroll.on.needLoadMoreData(null, vm.getDataDown);
-		      	gridApi.infiniteScroll.on.needLoadMoreDataTop(null, vm.getDataUp);
 		      	if(userPermissions.run_campaign == 1){
 		      		gridApi.selection.on.rowSelectionChanged(null, vm.editCampaigns);
 		      	}
@@ -715,16 +681,11 @@
 			  	vm.totalPages = 1;
 		    	vm.noCampaigns = false;
   			}
- 
-			vm.getFirstData = function(search, searchLoader) {
+
+  			function pageChanged(pageNo){
   				resetGrid();
-				if(searchLoader){
-		    		vm.searchLoader = true;
-		    	}
-		    	else{
-		    		vm.searchLoader = false;
-		    		vm.loader = true;
-		    	}
+
+		    	vm.loader = true;
 
 		    	if(canceler){
 		    		canceler.resolve();
@@ -740,15 +701,14 @@
 	                method: 'POST',
 	                url: gridApiCall,
 	                data: data + '&' + $.param({
-	                	search : vm.search,
-	                	page_no : vm.pageNo,
+	                	search : vm.search_val,
+	                	page_no : pageNo,
 	                	all_campaigns: vm.all_campaigns
 	                }),
 	                timeout: canceler.promise
 	            })
                 .then(function(response){
                 	vm.loader = false;
-			    	vm.searchLoader = false;
                 	if(response.data.status_code == 200){
 			    		if(response.data.data.length == 0){
 			    			vm.noCampaigns = true;
@@ -756,8 +716,8 @@
 			    		}
 				    	else{
 				    		vm.gridOptions.data = response.data.data.campaigns;
-		                	vm.totalRecords = response.data.data.total_count;
-		            		vm.totalPages = Math.ceil(vm.totalRecords / 10);
+				    		if(pageNo == 1)
+		                		vm.totalRecords = response.data.data.total_count;
 				    	}
 			    	}
 			    	else if(response.data.status_code == 403){
@@ -768,103 +728,13 @@
 		                $window.location = App.base_url + 'logout';
 		            }
                 })
-			};
- 
-		  	vm.getDataDown = function() {
-			    vm.pageNo++;
-			    var data = $("form[name='filter_form']").serialize();
-			    vm.loader = true;
-			    return $http({
-	                headers: {
-	                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-	                },
-	                method: 'POST',
-	                url: gridApiCall,
-	                data: data + '&' + $.param({
-	                	search : vm.search,
-	                	page_no : vm.pageNo,
-	                	all_campaigns: vm.all_campaigns
-	                })
-	            })
-                .then(function(response){
-                	vm.loader = false;
-                	if(response.data.status_code == 200){
-                		vm.lastPage++;
-	                	vm.gridApi.infiniteScroll.saveScrollPercentage();
-	                	vm.gridOptions.data = vm.gridOptions.data.concat(response.data.data.campaigns);
-	                	return vm.gridApi.infiniteScroll.dataLoaded(vm.firstPage > 0, vm.lastPage < vm.totalPages - 1).then(function() {
-	                		//vm.checkDataLength('up');
-	                	});
-                	}
-                	else if(response.data.status_code == 400) {
-		                $window.location = App.base_url + 'logout';
-		            }
-                })
-                .catch(function(error) {
-			      	return vm.gridApi.infiniteScroll.dataLoaded();
-			    })
-		  	};
-
-		  	function init(search, searchLoader){
-		  		vm.getFirstData(search, searchLoader).then(function(){
-	    			$timeout(function() {
-				      	// timeout needed to allow digest cycle to complete,and grid to finish ingesting the data
-				      	// you need to call resetData once you've loaded your data if you want to enable scroll up,
-				      	// it adjusts the scroll position down one pixel so that we can generate scroll up events
-	      				vm.gridApi.infiniteScroll.resetScroll( vm.firstPage > 0, vm.lastPage < vm.totalPages - 1 );
-	    			});
-	    		})
-		  	}
+  			}
 
 		  	if(CampaignsData.bol){
 			  	$timeout(function(){
-			  		init('', false);
+			  		pageChanged(vm.pageNumber);
 			  	})
 		  	}
-
-		  	var clearFilterBol = false,
-		  	applyFilterBol = false;
-		    function applyFilter(search, searchLoader){
-		    	if(!searchLoader){
-		    		if(vm.selectedType.length || vm.selectedStatus.length || applyFilterBol || vm.searchResults.length){
-				    	init(search, searchLoader);
-				    	clearFilterBol = true;
-				    	applyFilterBol = false;	
-			    	}
-		    	}
-		    	else{
-		    		init(search, searchLoader);
-		    	}
-		    }
-
-		    var inputPrev = "";
-		    function searchFilter(val, event){
-
-		    	val = val || '';
-		        if(event.keyCode === 32 && val.length === 0 || inputPrev == val){
-		            return false;
-		        }
-		        inputPrev = val;
-
-		    	if(val.length >= 2){
-		    		applyFilter(val, true);
-		    	}
-		    	else if(val.length == 0){
-		    		applyFilter('', true)
-		    	}
-		    }
-
-		    function clear(val, searchLoader){
-		    	vm.selectedType = [];
-				vm.selectedStatus = [];
-				vm.locationCheck = false;
-				vm.searchResults = [];
-				setTimeout(function(){$('#mul_select').val('').trigger('chosen:updated');}, 1);
-		    	if(clearFilterBol){
-		    		applyFilterBol = true;
-		    		setTimeout(function(){applyFilter(val, searchLoader);clearFilterBol = false;},100);
-		    	}	
-		    }
 
 		    function editCampaigns(row){
 		    	vm.loader = true;
@@ -877,8 +747,7 @@
 	                url: App.base_url + 'view_campaign',
 	                data: $.param({
 	                	campaign_id: row.entity.id
-	                }),
-	                // timeout: canceler.promise
+	                })
 	            })
                 .then(function(response){
                 	if(response.data.status_code == 200){
@@ -899,7 +768,7 @@
 
 		}
 
-		function EditCampaignsController($scope, $state, CompanyDetails, CampaignsData, contactBuckets, rippleService, $window, $http, App){
+		function EditCampaignsController($scope, $state, $uibModal, CompanyDetails, CampaignsData, contactBuckets, $window, $http, App){
 		
 			var vm = this,
 						link = App.base_url + 'email-parser/all-campaigns?ref=';
@@ -998,10 +867,6 @@
 				ceoPitch : 'false',
 				employeePitch : 'false'
 			}
-			
-
-		    // ripple effect
-		    rippleService.wave();
 
 		    // uploader
 		    for(var i = 0; i < 2; i++){
@@ -1234,6 +1099,7 @@
 		    		vm.campaignDetails.location.country = "";
 		    	}
 		    }
+
 		    $scope.$on('newJobDataEditCmp', function(event, data) {
    				vm.jobsList.push(data);
    				var id = data.post_id.toString();
@@ -1253,62 +1119,81 @@
 				},200);
     		});
 
+    		vm.share = share;
 
-    		// Social Sharing
-    		vm.facebook = facebook;
-    		vm.twitter = twitter;
-    		vm.googlePlus = googlePlus;
-    		vm.linkedin = linkedin;
-
-    		function facebook(){
-    			var share_object = {
-                    method: "feed",
-                    name: vm.campaignDetails.campaign_name,
-                    link: link + vm.campaignDetails.camp_ref,
-                    picture: CompanyDetails.company_logo || '',
-                    /*caption: (post.post_title < 100 ? post.post_title : ''),
-                    description: $('<div />').html(post.post_msg).text()*/
-                };
-                
-                FB.ui(share_object, function (response) {
-                    if (response && !response.error_code) {
-                        console.log(response)
-                    }
-                });
+    		function share(){
+    			$uibModal.open({
+		            animation: false,
+		            backdrop: 'static',
+		            keyboard: false,
+		            templateUrl: 'templates/campaigns/social-share-modal.phtml',
+		            openedClass: "social-share",
+		            controller:'SocialShareController',
+		     		controllerAs: 'SocialShareCtrl'
+		        });
     		}
 
-    		function twitter(){
-                var twitter_window = window.open('', "Twitter", "status = 1, left = 430, top = 170, height = 500, width = 420, resizable = 0")
-                var share_object = {
-                	text : vm.campaignDetails.campaign_name.toUpperCase(),
-                	url : link + vm.campaignDetails.camp_ref,
-                	hashtags : vm.campaignDetails.campaign_type,
-                	via : CompanyDetails.name,
-                	related : ''
-                }
-                twitter_window.location.href = "https://twitter.com/intent/tweet?text=" + share_object.text + "&url=" + share_object.url + "&hashtags=" + share_object.hashtags + "&via=" + share_object.via + "&related=" + share_object.related; 
-            }
-
-            function linkedin(obj){
-                var linkedin_window = window.open('', "Linkedin", "status = 1, left = 430, top = 170, height = 500, width = 420, resizable = 0");
-                var share_object = {
-                	mini : true,
-                	url : link + vm.campaignDetails.camp_ref,
-                	title : vm.campaignDetails.campaign_name + ',' + vm.campaignDetails.campaign_type,
-                	summary : 'Starts on : ' + vm.campaignDetails.schedule[0].start_on_date,
-                	source : CompanyDetails.name
-                }
-                linkedin_window.location.href = "https://www.linkedin.com/shareArticle?mini=" + share_object.mini + "&url=" + share_object.url + "&title=" + share_object.title + "&summary=" + share_object.summary + "&source=" + share_object.source;
-            }
-
-            function googlePlus(){
-                var google_window = window.open('', "GooglePlus", "status = 1, left = 430, top = 170, height = 500, width = 420, resizable = 0");
-                var url = link + vm.campaignDetails.camp_ref;
-                google_window.location.href = "https://plus.google.com/share?url=" + url;
-            }
 		}
 
 
+		function SocialShareController($state, $rootScope, $timeout, CampaignsData, CompanyDetails, App){
+
+			var vm = this;
+
+			vm.company_name = CompanyDetails.name;
+			vm.details = CampaignsData.getCampaigns();
+			vm.copyUrl = App.base_url + 'email-parser/all-campaigns?ref=' + vm.details.camp_ref;
+
+			vm.close = close;
+			//vm.geoLocationUrl =vm.details.latitude ? ("https://maps.google.com/maps?q=" + vm.details.latitude + ',' + vm.details.longitude) : "#";
+			// meta tags constants
+			$rootScope.SocialShare = {
+				image : CompanyDetails.company_logo,
+				description : 'Starts on: ' + vm.details.schedule[0].start_on_date + ' and Ends on: ' + vm.details.schedule[0].end_on_date,
+				name : CompanyDetails.name,
+				title : vm.details.campaign_name,
+				url : vm.copyUrl,
+				site : '',
+				creator : '',
+				app_id : '730971373717257',
+				domain : App.base_url
+			}
+
+			vm.socialMedia = {
+				socialIcons: ['facebook', 'twitter', 'linkedin', 'googlePlus'],
+				url: vm.copyUrl,
+				facebook: {
+					post_title: vm.details.campaign_name,
+					post_url: vm.copyUrl,
+					post_img: CompanyDetails.company_logo || '',
+					post_msg: 'Starts on: ' + vm.details.schedule[0].start_on_date + ' and Ends on: ' + vm.details.schedule[0].end_on_date,
+				},
+				twitter : {
+					text: vm.details.campaign_name.toUpperCase(),
+					url: vm.copyUrl,
+					hashtags: vm.details.campaign_type,
+					via: vm.company_name,
+					related: ''
+				},
+				linkedin : {
+					url: vm.copyUrl,
+					title: vm.details.campaign_name.toUpperCase() + ', ' + vm.details.campaign_type,
+					summary: 'Starts on: ' + vm.details.schedule[0].start_on_date + ' and Ends on: ' + vm.details.schedule[0].end_on_date,
+					source: vm.company_name
+				},
+				googlePlus : {
+					url: vm.copyUrl
+				}
+			}
+
+			// closing modal
+			function close(){
+				if($state.current.name == 'app.campaigns.allCampaigns'){
+					$rootScope.apiCall();
+				}
+			}
+			
+		}
 
 
 }());

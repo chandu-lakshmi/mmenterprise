@@ -3,21 +3,21 @@
 
 		<div class="container-lt">
 			<div class="dropdown" ng-show="{{::userPermissions.add_contacts == 1}}">
-  				<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">+ ADD CONTACTS</button>
+  				<button class="btn btn-primary mm-btn ripplelink dropdown-toggle" type="button" data-toggle="dropdown">+ ADD CONTACTS</button>
 				<ul class="dropdown-menu">
 				   	<li><a ng-click="ContactCtrl.contactModal()">ADD CONTACT</a></li>
 				   	<li><a ng-click="ContactCtrl.bucketsModal()" >CREATE GROUP</a></li>
 				</ul>
 			</div>
 			<div class="bkt-container animated fadeIn" ng-if="ContactCtrl.bucketNames">
-				<span ng-click="ContactCtrl.getGridData('ALL CONTACTS', '0', '','');ContactCtrl.getActiveBucketCount(-1)" 
+				<span ng-click="ContactCtrl.getGridData('ALL CONTACTS', '0', '','');ContactCtrl.getActiveBucketCount(-1)" class="ripplelink" 
 					ng-class="{ activeBucketCls : ('ALL CONTACTS' == ContactCtrl.activeBucket) }">ALL CONTACTS{{' (' + ContactCtrl.totalRecords + ')'}}</span>
-				<div ng-repeat="bkt in ContactCtrl.bucketNames" 
+				<div ng-repeat="bkt in ContactCtrl.bucketNames" class="ripplelink" 
 					ng-click="ContactCtrl.getGridData(bkt.bucket_name, bkt.bucket_id, '', '');ContactCtrl.getActiveBucketCount($index)" 
 					ng-class="{ activeBucketCls : (bkt.bucket_name == ContactCtrl.activeBucket) }"
 					>
 					<span>{{(bkt.bucket_name | uppercase)}}</span>
-					<span> ({{bkt.count}})</span>
+					<span> ({{bkt.count || 0}})</span>
 				</div>
 			</div>
 		</div>
@@ -74,7 +74,7 @@
 					</div>
 					<div class="invite col-sm-4 text-right" ng-class="{'col-sm-offset-4':!ContactCtrl.goDashboard}">
 						<span ng-if="ContactCtrl.selectedContacts.length > 0" class="animated fadeIn">{{ContactCtrl.selectedContacts.length + " Contact(s)"}} Selected</span>
-						<div class="btn-invite" ng-click="ContactCtrl.loaderImg ? '' : ContactCtrl.invite()">
+						<div class="btn-invite mm-btn ripplelink" ng-click="ContactCtrl.loaderImg ? '' : ContactCtrl.invite()">
 							INVITE SELECTED
 						</div>
 						<div class="pull-right skip" ng-if="!ContactCtrl.goDashboard">

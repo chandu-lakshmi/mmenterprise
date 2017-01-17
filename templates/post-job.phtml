@@ -10,7 +10,7 @@
 			</div>
 
 			<div class="content">
-				<form role="form" name="post_job" ng-submit="PtJobCtrl.postJob(post_job.$valid)" novalidate onkeypress="return (event.keyCode == 13 && event.target.tagName != 'TEXTAREA') ? false : true " autocomplete="off">
+				<form role="form" name="post_job" novalidate onkeypress="return (event.keyCode == 13 && event.target.tagName != 'TEXTAREA') ? false : true " autocomplete="off">
 					<div class="row">
 						<div class="col-sm-4">
 							<!-- <div class="form-group">
@@ -98,7 +98,7 @@
 								<label for="vacancy">Number of Vacancies*</label>
 								<input type="text" class="form-control" id="vacancy" name="vacancy" value="" ng-model="PtJobCtrl.postJob1.no_of_vacancies" check-char-zero required>
 								<div class="error-spacer"></div>
-								<div ng-if="post_job.vacancy.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Number of Vacancy Field is Required.</div>
+								<div ng-if="post_job.vacancy.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Number of Vacancies Field is Required.</div>
 							</div>
 						</div>
 						<div class="col-sm-4">
@@ -143,7 +143,7 @@
 						</div>
 					</div>
 					<div class="text-center" style="padding: 50px 0;">
-						<button class="btn btn-style" style="padding: 12px 32px;">CONTINUE&nbsp;&nbsp;<img src="public/images/arrow-buttons.svg" style="margin-top: -2px;"></button>
+						<span ng-click="PtJobCtrl.postJob(post_job.$valid)" class="ripplelink mm-btn" style="padding: 12px 24px;">CONTINUE&nbsp;&nbsp;<img src="public/images/arrow-buttons.svg" style="vertical-align:initial"></span>
 					</div>
 				</form>
 			</div>

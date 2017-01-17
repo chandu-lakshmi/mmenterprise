@@ -13,37 +13,37 @@
 					Total Jobs: <span ng-bind="AllJobsCtrl.infiniteScroll.total_count || 0"></span>
 				</div>
 			</div>
-			<div infinite-scroll='AllJobsCtrl.infiniteScroll.nextPage()' infinite-scroll-disabled='AllJobsCtrl.infiniteScroll.busy' infinite-scroll-distance='1' style="position:relative;margin-bottom: 300px;" class="list">
-				<div class="row" ng-repeat="list in AllJobsCtrl.infiniteScroll.list">
-					<a ui-sref="jobDetails({ref: list.ref_code,flag: 0})" title="" class="details">
-						<div class="col-sm-8">
-							<span ng-bind="AllJobsCtrl.infiniteScroll.companyName"></span>
-							<p ng-bind="list.job_name"></p>
-							<div class="fields">
-								<span class="label">Experience:</span>
-								<span class="value" ng-bind="list.experience"></span>
-								<span class="label">Location:</span>
-								<span class="value" ng-bind="list.location"></span>
+			<div infinite-scroll='AllJobsCtrl.infiniteScroll.nextPage()' infinite-scroll-disabled='AllJobsCtrl.infiniteScroll.busy' infinite-scroll-distance='1' class="list">
+					<div class="row" ng-repeat="list in AllJobsCtrl.infiniteScroll.list">
+						<a ui-sref="jobDetails({ref: list.ref_code})" title="" class="details">
+							<div class="col-sm-8">
+								<span ng-bind="AllJobsCtrl.infiniteScroll.companyName"></span>
+								<p ng-bind="list.job_name"></p>
+								<div class="fields">
+									<span class="label">Experience:</span>
+									<span class="value" ng-bind="list.experience"></span>
+									<span class="label">Location:</span>
+									<span class="value" ng-bind="list.location"></span>
+								</div>
 							</div>
+						</a>
+						<div class="col-sm-4 buttons">
+							<a class="apply" ui-sref="referralDetails({ref: list.ref_code,flag: 0, status:list.status, jc:0})" ng-if="list.post_type == 'external'">REFER</a>
+							<a class="apply" ui-sref="candidateDetails({ref: list.ref_code, flag: 0, status:list.status})" ng-if="list.post_type == 'internal'">APPLY</a>
 						</div>
-					</a>
-					<div class="col-sm-4 buttons">
-						<a class="refer" ui-sref="referralDetails({ref: list.ref_code,flag: 0, status:list.status, jc:0})" ng-if="list.post_type == 'external'">REFER</a>
-						<a class="apply" ui-sref="candidateDetails({ref: list.ref_code, flag: 0, status:list.status})" ng-if="list.post_type == 'internal'">APPLY</a>
 					</div>
-				</div>
-				<div class="overlay" ng-if="AllJobsCtrl.loader">
-					<img src="../public/images/loader/spin.gif" alt="spinner" style="width:10%">
-				</div>
-				<div class="overlay text" ng-if="AllJobsCtrl.noJobs">
-					<span>No Jobs Found</span>
-				</div>
-				<div class="text-center" ng-if="AllJobsCtrl.infiniteScroll.busy" style="opacity:0.5">
-					<img src="../public/images/loader/spin.gif" alt="spinner" style="width:10%">
-				</div>
+					<div class="overlay" ng-if="AllJobsCtrl.loader" style="top:65px;">
+						<img src="../public/images/loader/spin.gif" alt="spinner" style="width:10%">
+					</div>
+					<div class="overlay text" ng-if="AllJobsCtrl.noJobs">
+						<span>No Jobs Found</span>
+					</div>
+					<div class="text-center" ng-if="AllJobsCtrl.infiniteScroll.busy" style="opacity:0.5">
+						<img src="../public/images/loader/spin.gif" alt="spinner" style="width:10%">
+					</div>
 			</div>
 		</section>
-		<footer class="fixed">
+		<footer>
 			<div class="box">
 				<div class="social-media">
 					Share Jobs
@@ -52,7 +52,7 @@
 						<div class="addthis_inline_share_toolbox"></div>
 					</div> -->
 					<!-- social media share directive -->
-					<social-sharing data-opts="AllJobsCtrl.socialMedia" style="margin-top:10px;"></social-sharing>
+					<social-sharing data-opts="AllJobsCtrl.socialMedia" style="margin-top:10px;" data-path="../templates/components"></social-sharing>
 					<copy-url url="{{AllJobsCtrl.copyUrl}}" btn-text="COPY JOBS LINK"></copy-url>
 				</div>
 				<div class="drop-cv">

@@ -147,7 +147,12 @@
                 if(response.status_code == 200){
                     ajaxData.addProperty('pending_count', ajaxData.getData().pending_count - 1);
                     if(flag == 'ACCEPTED'){
-                        ajaxData.addProperty('accepted_count', ajaxData.getData().accepted_count + 1);
+                        if(ajaxData.getData().accepted_count == 0){
+                            ajaxData.addProperty('accepted_count', 1);
+                        }
+                        else{
+                            ajaxData.addProperty('accepted_count', ajaxData.getData().accepted_count + 1);
+                        }
                     }
                     if(vm.tabCond == 'PENDING'){
                         vm.gridOptions.data.splice(rowRenderIndex, 1);

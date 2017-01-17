@@ -8,7 +8,7 @@
             <h3 style="margin:0;margin-bottom:14px">Add Contact to Group</h3>
         </div>
         <div class="content">
-            <form name="upload_contact_form" novalidate>
+            <form name="upload_contact_form" novalidate autocomplete="off">
                 <md-input-container class="md-block select-box" style="width:45%;margin-bottom: 25px;">
                     <label style="display:none">SELECT GROUP</label>
                     <md-select name="bucket_id" ng-model="SingleContCtrl.newContact.bucket" required ng-class="{'error-border':upload_contact_form.bucket_id.$invalid && SingleContCtrl.errCond}">
@@ -63,6 +63,6 @@
         <span ng-if="SingleContCtrl.backendError" style="color:#983a3a;line-height:48px;"><i class="fa fa-times"></i>&nbsp;{{SingleContCtrl.backendMsg}}</span>
     </div>
     <div class="pull-right disabled">
-        <span class="btn-upload" ng-click="SingleContCtrl.add(upload_contact_form.$valid)">ADD CONTACT</span>
+        <span class="mm-btn ripplelink" ng-click="SingleContCtrl.add(upload_contact_form.$valid)">ADD CONTACT</span>
     </div>
 </div>

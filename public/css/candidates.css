@@ -11,8 +11,7 @@
       .candidates .sub-header ul li {
         display: inline-block;
         position: relative;
-        padding: 30px 0px 12px 0px;
-        margin: 0 15px; }
+        padding: 30px 0px 12px 0px; }
         .candidates .sub-header ul li a {
           color: #6b8b9a;
           outline: none;
@@ -114,7 +113,8 @@
           cursor: pointer; }
       .candidates .resume-room .box .box-footer {
         background: #eeeff1;
-        padding: 16px; }
+        padding: 16px;
+        min-height: 68px; }
         .candidates .resume-room .box .box-footer .status {
           font-size: 17px;
           color: #5b6161;
@@ -127,7 +127,7 @@
           display: inline-block; }
           .candidates .resume-room .box .box-footer .paging .pagination {
             margin: 0;
-            margin-top: 13px; }
+            margin-top: 3px; }
         .candidates .resume-room .box .box-footer .pull-right .ng-binding {
           position: absolute;
           right: 0;

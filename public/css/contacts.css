@@ -59,9 +59,9 @@
 	padding: 10px 43px;
     background-color: #1d8e70;
     font-size: 16px;
-    outline: none;
-    box-shadow: none;
     border-color: #1d8e70;
+    box-shadow: none;
+    outline:none;
 }
 .grid-contacts .container .container-lt .dropdown ul{
 	width: 100%;
@@ -329,8 +329,8 @@
   	background: #eeeff1;
   	border-top: 0;
   	font-size: 14px;
+    overflow: hidden;
     line-height: 70px;
-  	position: relative;
 }
 .grid-contacts .container .container-rt .grid-footer .status span md-input-container{
     margin: 0 0 5px 0;
@@ -340,16 +340,13 @@
     height: 30px;
 }
 .grid-contacts .container .container-rt .grid-footer .invite .btn-invite{
-    border-radius: 4px;
-    color: #fff;
-    background-color: #1d8e70;
-    cursor: pointer;
-    display: inline;
     padding: 16px;
+    line-height: initial;
+    margin-top: 8px;
 }
-.grid-contacts .container .container-rt .grid-footer .invite span{
+.grid-contacts .container .container-rt .grid-footer .invite span.animated{
     position: absolute;
-    left: -38px;
+    left: -66px;
     width: 170px;
     text-align: right;
 }
@@ -642,20 +639,9 @@
     width: 100%;
     bottom: 0;
 }
-.bucket-modal .modal-footer .btn-upload,
-.contact-modal .modal-footer .btn-upload{
-    width: 195px;
-    height: 50px;
-    text-align: center;
-    font-size: 16px;
-    line-height: 50px;
-    background: #1c8f6e;
-    border: 1px solid #1c8368;
-    color: #fff;
-    cursor: pointer;
-    outline: none;
-    border-radius: 5px;
-    display: inline-block;
+.bucket-modal .modal-footer .mm-btn,
+.contact-modal .modal-footer .mm-btn{
+   padding: 14px 24px;
 }
 .bucket-modal .modal-body img[alt='close'],
 .bucket-modal .modal-body img[alt='back'],
@@ -767,6 +753,9 @@
     text-overflow: ellipsis;
     overflow: hidden;
 }
+.bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader .qq-upload-button span.align-title p + span{
+    text-transform: initial;
+}
 .bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-upload-fail{
     position: absolute;
     font-size: 13px;
@@ -788,6 +777,7 @@
     overflow: hidden;
     white-space: nowrap;
     color: #fff;
+    margin: 0;
 }
 .bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader .qq-upload-drop-area .file-name .overlay{
     display: none;

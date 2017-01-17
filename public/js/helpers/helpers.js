@@ -18,6 +18,16 @@
 
 				        var spinner = "<img src='" + config.src + "' class='spinner" + (config.css ? " " + config.css : "") + "' />"
 				        return spinner;
+				    },
+
+				    aspectRatio: function(opts){
+				    	var config = {
+				    		domTarget : ''
+				    	}
+				    	if (opts)
+							$.extend(config, opts);
+
+						return (opts.domTarget.naturalHeight / opts.domTarget.naturalWidth) * 160;				    		
 				    }
         		})
 

@@ -61,9 +61,9 @@
 }
 
 /* email jobs and campaigns list view*/
-.list{color: #939393;
+.list{color: #939393;min-height:400px;overflow-y:auto;height:calc(100vh - 545px);
     .row{border: 1px solid #ebebeb;margin: 0;padding: 10px;margin-bottom: 10px;position: relative;
-        a.details{color: inherit;
+        a.details, a.detail{color: inherit;
             &:focus, &:hover{color: inherit;};
         }
         span{font-size: 14.9px;}

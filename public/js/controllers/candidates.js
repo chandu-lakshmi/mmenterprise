@@ -23,11 +23,11 @@
 
 			vm.noCandidates = false;
 			vm.loader = false;
-			vm.statusOptions = [ {status : 'Interviewed', value : 1}, {status: 'Offermade', value : 2}, {status : 'Hired', value : 3} ];
+			vm.statusOptions = [ {status : 'Interviewed', value : 1}, {status: 'Offered', value : 2}, {status : 'Hired', value : 3} ];
 			vm.filterOptions = ['Accepted', 'Interviewed', 'Offered', 'Hired', 'Unsolicited', 'Declined']
 
 			vm.applyFilter = applyFilter;
-			vm.statusChange = statusChange;
+			// vm.statusChange = statusChange;
 			vm.statusUpdate = statusUpdate;
 			vm.awtStatus = awtStatus;
 			vm.downloadResume = downloadResume;
@@ -139,7 +139,6 @@
 		    		}
 		    	}
 		    	vm.selectionCount = vm.countArr.length + vm.countHiredVsDeclined.length + ' Candidate(s) Selected ';
-
 		    }
 
 		    vm.data = [];
@@ -211,7 +210,7 @@
 		    }
 
 
-		    function statusChange(option){
+		    /*function statusChange(option){
 		    	var filterIds = [];
 		    	for(var i = 0; i < vm.statusTokens.length; i++){
 		    		if(vm.statusTokens[i] == option.value){
@@ -249,10 +248,10 @@
 	            					if(option.status == 'Interviewed' && vm.gridOptions.data[index].awt_status== 'ACCEPTED'){
 	            						vm.gridOptions.data[index].awt_status = response.data.data.awt_status;
 	            					}
-	            					if(option.status == 'Offermade' && vm.gridOptions.data[index].awt_status== 'INTERVIEWED'){
+	            					if(option.status == 'Offered' && vm.gridOptions.data[index].awt_status== 'INTERVIEWED'){
 	            						vm.gridOptions.data[index].awt_status = response.data.data.awt_status;
 	            					}
-	            					if(option.status == 'Hired' && vm.gridOptions.data[index].awt_status== 'OFFERMADE'){
+	            					if(option.status == 'Hired' && vm.gridOptions.data[index].awt_status== 'OFFERED'){
 	            						vm.gridOptions.data[index].awt_status = response.data.data.awt_status;
 	            					}
 	            				}
@@ -263,7 +262,7 @@
 	            		vm.loader = false;
 	            	}
 	            })
-		    }
+		    }*/
 
 		    function statusUpdate(row, flag, e){
 		    	flag = flag == 1 ? 'ACCEPTED' : 'DECLINED'

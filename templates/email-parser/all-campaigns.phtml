@@ -43,18 +43,21 @@
 				</div>
 				<div class="list" infinite-scroll='AllCampaignsCtrl.infiniteScroll.nextPage()' infinite-scroll-disabled='AllCampaignsCtrl.infiniteScroll.busy' infinite-scroll-distance='1' style="position:relative;min-height:350px;" class="list">
 					<div class="row" ng-repeat="list in AllCampaignsCtrl.infiniteScroll.list">
-						<div class="col-sm-8">
-							<span ng-bind="AllCampaignsCtrl.infiniteScroll.headerDetails.company_name"></span>
-							<p ng-bind="list.job_name"></p>
-							<div class="fields">
-								<span class="label">Experience:</span>
-								<span class="value" ng-bind="list.experience"></span><br>
-								<span class="label">Location:</span>
-								<span class="value" ng-bind="list.location"></span>
+						<a ui-sref="jobDetails({ref: list.ref_code})" title="" class="detail">
+							<div class="col-sm-8">
+								<span ng-bind="AllCampaignsCtrl.infiniteScroll.headerDetails.company_name"></span>
+								<p ng-bind="list.job_name"></p>
+								<div class="fields">
+									<span class="label">Experience:</span>
+									<span class="value" ng-bind="list.experience"></span><br>
+									<span class="label">Location:</span>
+									<span class="value" ng-bind="list.location"></span>
+								</div>
 							</div>
-						</div>
+						</a>
 						<div class="col-sm-4 buttons">
-							<a class="campaign" ui-sref="referralDetails({ref: list.ref_code,flag: 0, status:list.status, jc: 1})">REFER</a>
+							<a class="apply" ui-sref="candidateDetails({ref: list.ref_code,flag: 0, status:list.status, jc: 1})">APPLY</a>
+							<a class="apply" ui-sref="referralDetails({ref: list.ref_code,flag: 0, status:list.status, jc: 1})">REFER</a>
 						</div>
 					</div>
 					<div class="text-center" ng-if="AllCampaignsCtrl.infiniteScroll.busy" style="opacity:0.5">
@@ -65,7 +68,7 @@
 					<div class="social-share">
 						<span>Share Campaign</span>
 						<!-- social media share directive -->
-						<social-sharing data-opts="AllCampaignsCtrl.socialMedia" style="margin-top:10px;"></social-sharing>
+						<social-sharing data-opts="AllCampaignsCtrl.socialMedia" data-path="../templates/components" style="margin-top:10px;"></social-sharing>
 						<copy-url url="{{AllCampaignsCtrl.copyUrl}}" btn-text="COPY CAMPAIGN LINK"></copy-url>
 					</div>
 				</div>

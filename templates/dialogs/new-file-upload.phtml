@@ -94,7 +94,6 @@
         <span style="color:#983a3a;line-height:48px;" ng-if="UploadContCtrl.errorUpload"><i class="fa fa-times"></i>&nbsp;Please upload contacts to atleast one group</span>
     </div>
     <div class="pull-right disabled">
-        <span class="btn-upload" ng-if="UploadContCtrl.newBucketModal" ng-click="UploadContCtrl.new_bucket.upload(new_bucket_form.$valid)">UPLOAD CONTACTS</span>
-        <span class="btn-upload" ng-if="!UploadContCtrl.newBucketModal" ng-click="UploadContCtrl.uploadContacts()">ADD CONTACTS</span>
+        <span class="mm-btn ripplelink" ng-click="UploadContCtrl.newBucketModal ? UploadContCtrl.new_bucket.upload(new_bucket_form.$valid) : UploadContCtrl.uploadContacts()" ng-bind="UploadContCtrl.newBucketModal ? 'UPLOAD CONTACTS' : 'ADD CONTACTS'"></span>
     </div>
 </div>

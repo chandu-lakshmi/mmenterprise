@@ -193,7 +193,7 @@
 
 
           <!--Steps 4-fields -->
-          <div class="box-campaign" ng-show="NewCampaignCtrl.step4">
+          <!-- <div class="box-campaign" ng-show="NewCampaignCtrl.step4">
              <div class="post">
                 <md-checkbox ng-model="NewCampaignCtrl.chk.postOnSocial" aria-label="Checkbox 1" class="md-primary">
                    Post on Social Network
@@ -305,7 +305,7 @@
                    </div>
                 </div>
              </div>
-          </div>
+          </div> -->
           <!--/Steps 4-fields -->
        </div>
 
@@ -318,10 +318,10 @@
              </span>
           </div>
           <div class="btns pull-right">
-             <span ng-if="!(NewCampaignCtrl.currentStep == 4)" class="btn-next" ng-click="NewCampaignCtrl.switchSteps('next')">
+             <span ng-if="!(NewCampaignCtrl.currentStep == 3)" class="mm-btn" ng-click="NewCampaignCtrl.switchSteps('next')">
                 NEXT
              </span>
-             <span ng-if="NewCampaignCtrl.currentStep == 4" class="btn-next" ng-style="{'pointer-events': !NewCampaignCtrl.postPointer ? 'auto' : 'none'}" ng-click="NewCampaignCtrl.postNewCampaign()" style="padding: 12px 25px;">
+             <span ng-if="NewCampaignCtrl.currentStep == 3" class="mm-btn ripplelink" ng-style="{'pointer-events': !NewCampaignCtrl.postPointer ? 'auto' : 'none'}" ng-click="NewCampaignCtrl.postNewCampaign()" style="padding: 12px 25px;">
                PUBLISH CAMPAIGN
              </span>
           </div>

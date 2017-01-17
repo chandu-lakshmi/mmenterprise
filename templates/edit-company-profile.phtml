@@ -3,8 +3,8 @@
 		<div class="head">
 			<h2 class="pull-left">Company Profile</h2>
 			<div ng-if="edit_company_form.$dirty || editCompCtrl.update" class="fade" style="margin-top:10px;">
-				<span class="pull-right btn-update" style="position:relative;" ng-click="editCompCtrl.update_company(edit_company_form.$valid)">UPDATE<img src="public/images/loader/dot.svg" alt="dot" ng-if="editCompCtrl.updateLoader"/></span>
-				<span class="pull-right btn-cancel" style="margin-right:20px;" ng-click="editCompCtrl.cancel();edit_company_form.$setPristine();">CANCEL</span>
+				<span class="pull-right mm-btn ripplelink" style="position:relative;" ng-click="editCompCtrl.update_company(edit_company_form.$valid)">UPDATE<img src="public/images/loader/dot.svg" alt="dot" ng-if="editCompCtrl.updateLoader"/></span>
+				<span class="pull-right cancel mm-btn ripplelink" style="margin-right:20px;" ng-click="editCompCtrl.cancel();edit_company_form.$setPristine();">CANCEL</span>
 			</div>
 		</div>
 		<div class="error-spacer"></div>

@@ -6,7 +6,7 @@
 
 <div class="modal-body" >
     <div class="box-campaign">
-    <form name="create_job">
+    <form name="create_job" autocomplete="off">
         <div class="clearfix">
             <md-input-container class="md-block">
                 <label>JOB TITLE <sup> *</sup></label>
@@ -60,7 +60,7 @@
                 <label>NUMBER OF VACANCIES <sup> *</sup></label>
                 <input type="text" name="vacancy"  ng-model="jobData.jobVacancies" required check-char-zero ng-class="{'has-error-border':create_job.vacancy.$error.required && errCond}"> 
                 <div class="error-spacer"></div> 
-                <div class="has-error-msg" ng-show="create_job.vacancy.$error.required && errCond">Number of Vacancy Field is Required.</div>
+                <div class="has-error-msg" ng-show="create_job.vacancy.$error.required && errCond">Number of Vacancies Field is Required.</div>
             </md-input-container>
         </div>
         <md-input-container class="md-block job-desc">
@@ -81,7 +81,7 @@
         </span>
     </div>
     <div class="btns pull-right">
-        <span  class="btn-next" ng-click="!apiCallStart ? postJob(create_job.$invalid) : ''" style="padding:12px 18px;">
+        <span  class="mm-btn ripplelink" ng-click="!apiCallStart ? postJob(create_job.$invalid) : ''" style="padding:12px 18px;">
             ADD JOB
         </span>
     </div>

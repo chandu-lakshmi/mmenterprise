@@ -1076,6 +1076,7 @@ ul.new-tabs > li.active > a{
 }
 .mid-nav h3 a{
 	color: #fff;
+	white-space: nowrap;
 }
 .mid-nav h3 a:focus{
 	color: #fff;
@@ -1084,12 +1085,10 @@ ul.new-tabs > li.active > a{
 .mid-nav h3 span{
 	padding: 0 8px 0 8px;
 	min-width: 100px;
-    display: inline-block;
-    white-space: nowrap;
     vertical-align: middle;
-    max-width: 300px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    display: inline-block;
+    min-width:100px;
+    max-width: 270px;
 } 
 .mid-nav + ul{
 	margin: 0;
@@ -1119,7 +1118,7 @@ ul.new-tabs > li.active > a{
 .mid-nav + ul li:hover a{
 	color: #fff;
 }
-.openbox{
+/*.openbox{
 	margin: 0 5px;
     padding: 2px 7px;
     display: inline-block;
@@ -1127,7 +1126,7 @@ ul.new-tabs > li.active > a{
     color: white;
     font-weight: 900;
     border-radius: 2px;
-}
+}*/
 
 
 
@@ -1614,33 +1613,13 @@ ul.new-tabs > li.active > a{
 	color: #666;
 	padding: 15px 0 0; 
 }
-.edit-company .head span.btn-update,.edit-company .head span.btn-cancel{
-	width: 150px;
-	text-align: center;
-	padding: 10px 0px;
-}
 .edit-company .head span.btn-update img[alt="dot"]{
 	position: absolute;
 	top: 5px;
 	right: -3px;
 }
-.edit-company .head span.btn-edit,.edit-company .head span.btn-update{
-	background: #1d8e70;
-    border: 1px solid #16795d;
-    color: white !important;
-    outline: 0 !important;
-    font-size: 18px;
-    border-radius: 3px;
-    cursor: pointer;
-}
-.edit-company .head span.btn-cancel{
-	background: #fff;
-    border: 1px solid #fff;
-    color: #7b6d6d !important;
-    outline: 0 !important;
-    font-size: 18px;
-    border-radius: 3px;
-    cursor: pointer;
+.edit-company .head span.mm-btn{
+    padding: 12px 24px;
 }
 .edit-company .edit-box{
 	background: #fff;

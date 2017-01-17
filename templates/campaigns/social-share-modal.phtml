@@ -1,0 +1,23 @@
+<div>
+	<h2>Share Campaign</h2>
+	<md-button class="md-icon-button" aria-label="More" ng-click="$dismiss();SocialShareCtrl.close()">
+	    <md-icon><i class="material-icons">close</i></md-icon>
+  	</md-button>
+	<div class="box clearfix">
+		<div class="col-sm-3"><div class="title ellipsis" ng-bind="SocialShareCtrl.company_name" title="{{SocialShareCtrl.company_name}}"></div></div>
+		<div class="content col-sm-6">
+			<big ng-bind="SocialShareCtrl.details.campaign_name | uppercase" class="ellipsis" title="{{SocialShareCtrl.details.campaign_name}}"></big>
+			<p ng-bind="SocialShareCtrl.details.campaign_type"></p>
+			<span style="font-weight:bold;">Starts On : </span><span ng-bind="SocialShareCtrl.details.schedule[0].start_on_date + ' - ' + SocialShareCtrl.details.schedule[0].start_on_time"></span>
+		</div>
+		<div class="location col-sm-3">
+			<img src="public/images/material_icons/location.svg" alt="">
+			<p>Location</p>
+		</div>
+	</div>
+	<div class="social-share-icons">
+		<span>Share On</span>
+		<!-- social media share directive -->
+		<social-sharing data-opts="SocialShareCtrl.socialMedia" data-path="templates/components" style="margin-top:10px;"></social-sharing>
+	</div>
+</div>

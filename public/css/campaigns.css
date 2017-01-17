@@ -1,47 +1,3 @@
-/* modal new campaigns*/
-/* Buckets View */
-.bucket-container {
-  overflow: hidden; }
-  .bucket-container h5 {
-    color: #767676;
-    margin-bottom: 22px; }
-  .bucket-container .bucket-each {
-    width: 16.5%;
-    margin: 0 18px 18px 0;
-    float: left;
-    height: 145px; }
-    .bucket-container .bucket-each .bucket {
-      color: #fff;
-      text-align: center;
-      border-radius: 4px;
-      outline: none;
-      cursor: pointer; }
-      .bucket-container .bucket-each .bucket img {
-        width: 16px;
-        float: right;
-        margin: 10px 10px; }
-      .bucket-container .bucket-each .bucket h4 {
-        padding-top: 54px;
-        margin: 0;
-        text-transform: uppercase;
-        width: 90%; }
-        .bucket-container .bucket-each .bucket h4 p {
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          margin: 0 auto; }
-      .bucket-container .bucket-each .bucket span {
-        display: inline-block;
-        padding-bottom: 50px;
-        width: 100%; }
-      .bucket-container .bucket-each .bucket div.popover {
-        color: #000;
-        top: 137px;
-        left: 91px;
-        border-radius: 0; }
-        .bucket-container .bucket-each .bucket div.popover .popover-content {
-          padding: 2px 10px; }
-
 /* mdpicker */
 md-dialog md-dialog-content div[layout='column'] md-toolbar .mdp-datepicker-year {
   font-size: 18px; }
@@ -117,22 +73,10 @@ md-dialog md-dialog-actions button.md-primary {
         .campaigns .sub-header ul li:last-child {
           float: right;
           padding: 0;
-          margin: 7px 0;
+          margin: 5px 0 0;
           outline: none; }
           .campaigns .sub-header ul li:last-child span {
-            width: 215px;
-            height: 44px;
-            font-size: 16px;
-            font-weight: 600;
-            line-height: 44px;
-            background: #1c8f6e;
-            border: 1px solid #1c8368;
-            color: #fff;
-            outline: none;
-            border-radius: 5px;
-            display: inline-block;
-            text-align: center;
-            text-transform: uppercase; }
+            padding: 10px 12px; }
   .campaigns md-input-container .md-placeholder, .campaigns md-input-container label:not(.md-no-float):not(.md-container-ignore) {
     -webkit-transform: translate3d(0, 35px, 0) scale(1);
     transform: translate3d(0, 35px, 0) scale(1);
@@ -275,107 +219,40 @@ md-dialog md-dialog-actions button.md-primary {
     }*/ }
     .campaigns .all-campaigns md-input-container.search {
       margin: 0; }
-    .campaigns .all-campaigns .filter {
-      padding-top: 25px;
-      border-bottom: 1px solid #cccdcf; }
-      .campaigns .all-campaigns .filter p.title {
-        color: #4e5f69;
-        font-size: 16px;
-        font-weight: bold; }
-      .campaigns .all-campaigns .filter ul {
-        margin: 0;
-        padding: 0;
-        list-style: none; }
-        .campaigns .all-campaigns .filter ul li {
-          margin-bottom: 20px; }
-          .campaigns .all-campaigns .filter ul li ul {
-            margin-left: 26px; }
-            .campaigns .all-campaigns .filter ul li ul li {
-              font-size: 15px;
-              margin: 12px 0; }
-      .campaigns .all-campaigns .filter .checkbox {
-        margin: 12px 0; }
-        .campaigns .all-campaigns .filter .checkbox md-checkbox {
-          margin-bottom: 2px; }
-          .campaigns .all-campaigns .filter .checkbox md-checkbox .md-label {
-            margin-left: 26px; }
-          .campaigns .all-campaigns .filter .checkbox md-checkbox:not([disabled]).md-primary.md-checked .md-icon {
-            background-color: #2992d3; }
-          .campaigns .all-campaigns .filter .checkbox md-checkbox:not([disabled]).md-primary.md-checked .md-ink-ripple {
-            color: rgba(41, 146, 211, 0.54); }
-        .campaigns .all-campaigns .filter .checkbox .modern-select {
-          margin: 16px 0; }
-          .campaigns .all-campaigns .filter .checkbox .modern-select .chosen-container {
-            width: 100% !important; }
-            .campaigns .all-campaigns .filter .checkbox .modern-select .chosen-container input {
-              width: auto !important; }
-            .campaigns .all-campaigns .filter .checkbox .modern-select .chosen-container.chosen-container-active input {
-              width: 80px !important; }
-            .campaigns .all-campaigns .filter .checkbox .modern-select .chosen-container ul.chosen-choices {
-              margin: 0;
-              padding-left: 5px; }
-              .campaigns .all-campaigns .filter .checkbox .modern-select .chosen-container ul.chosen-choices li {
-                height: 30px;
-                line-height: 24px;
-                margin: 6px 0; }
-              .campaigns .all-campaigns .filter .checkbox .modern-select .chosen-container ul.chosen-choices li.search-choice {
-                background: #f4f6f5;
-                border-color: #e1e3e2;
-                margin-right: 5px; }
-                .campaigns .all-campaigns .filter .checkbox .modern-select .chosen-container ul.chosen-choices li.search-choice:hover {
-                  border-color: #46b8ff; }
-                .campaigns .all-campaigns .filter .checkbox .modern-select .chosen-container ul.chosen-choices li.search-choice .search-choice-close {
-                  top: 9px; }
-              .campaigns .all-campaigns .filter .checkbox .modern-select .chosen-container ul.chosen-choices li.search-field input {
-                height: 100%; }
-            .campaigns .all-campaigns .filter .checkbox .modern-select .chosen-container .chosen-drop ul {
-              margin: 0; }
-              .campaigns .all-campaigns .filter .checkbox .modern-select .chosen-container .chosen-drop ul li {
-                margin: 7px 0; }
-    .campaigns .all-campaigns .action div {
-      text-align: right; }
-      .campaigns .all-campaigns .action div span {
-        padding: 15px 10px;
-        display: inline-block;
-        font-size: 14px;
-        outline: none; }
     .campaigns .all-campaigns .box {
       border: 1px solid #cdcdcd;
       box-shadow: 1px 4px 10px #cdcdcd;
       -webkit-box-shadow: 1px 4px 10px #cdcdcd;
       background: #fff; }
       .campaigns .all-campaigns .box .box-header {
-        padding: 7px 15px;
-        line-height: 48px; }
-        .campaigns .all-campaigns .box .box-header .search.has-feedback {
-          position: relative; }
-          .campaigns .all-campaigns .box .box-header .search.has-feedback .feedback {
-            position: absolute;
-            z-index: 2;
-            display: block;
-            width: 20px;
-            height: 20px;
-            line-height: 30px;
-            text-align: center; }
-            .campaigns .all-campaigns .box .box-header .search.has-feedback .feedback.right {
-              top: 18px;
-              right: 0;
-              width: 17px;
-              height: 17px; }
-            .campaigns .all-campaigns .box .box-header .search.has-feedback .feedback.left {
-              top: 14px;
-              left: 0;
-              pointer-events: none; }
-        .campaigns .all-campaigns .box .box-header .search input {
-          border: 0;
-          border-bottom: 1px solid #c8d1d0;
-          border-radius: 0;
-          box-shadow: none;
-          height: 34px;
-          padding: 5px 30px;
-          outline: none; }
-          .campaigns .all-campaigns .box .box-header .search input:focus {
-            border-color: #208d6e; }
+        padding: 7px 15px; }
+        .campaigns .all-campaigns .box .box-header .col-sm-4 {
+          padding: 0;
+          line-height: 48px; }
+        .campaigns .all-campaigns .box .box-header .col-sm-3 {
+          padding: 0;
+          margin-top: 8px; }
+        .campaigns .all-campaigns .box .box-header md-input-container {
+          margin: 0;
+          width: 300px; }
+          .campaigns .all-campaigns .box .box-header md-input-container md-select {
+            width: 60%;
+            margin: 0 auto;
+            font-size: 16px;
+            margin-top: 5px; }
+          .campaigns .all-campaigns .box .box-header md-input-container .md-select-value {
+            padding-bottom: 5px;
+            color: #a9a9a9; }
+            .campaigns .all-campaigns .box .box-header md-input-container .md-select-value > span:not(.md-select-icon) {
+              max-width: 100%;
+              -webkit-box-flex: 1;
+              -webkit-flex: 1 1 auto;
+              flex: 1 1 auto;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              overflow: hidden; }
+        .campaigns .all-campaigns .box .box-header md-input-container.md-input-has-value md-select md-select-value span:not(.md-select-icon) {
+          color: initial; }
       .campaigns .all-campaigns .box .box-content .grid {
         border: 0 !important;
         height: calc(100vh - 274px) !important; }
@@ -391,6 +268,14 @@ md-dialog md-dialog-actions button.md-primary {
         .campaigns .all-campaigns .box .box-content .grid .ui-grid-row:hover > [ui-grid-row] > .ui-grid-cell {
           background-color: #f8fcff  !important;
           cursor: pointer; }
+      .campaigns .all-campaigns .box .box-footer {
+        background: #eeeff1;
+        padding: 16px; }
+        .campaigns .all-campaigns .box .box-footer .paging {
+          display: inline-block; }
+          .campaigns .all-campaigns .box .box-footer .paging .pagination {
+            margin: 0;
+            margin-top: 3px; }
   .campaigns .my-campaigns {
     min-height: calc(100vh - 160px);
     font-size: 16px; }
@@ -409,6 +294,11 @@ md-dialog md-dialog-actions button.md-primary {
         .campaigns .edit-campaigns .head a span {
           vertical-align: middle;
           margin-left: 15px; }
+      .campaigns .edit-campaigns .head .pull-right {
+        outline: none; }
+        .campaigns .edit-campaigns .head .pull-right img {
+          width: 25px;
+          height: 25px; }
     .campaigns .edit-campaigns .box {
       border: 1px solid #cdcdcd;
       box-shadow: 1px 1px 10px #cdcdcd;
@@ -501,122 +391,15 @@ md-dialog md-dialog-actions button.md-primary {
               font-weight: normal; }
         .campaigns .edit-campaigns .box .content .upload-contacts {
           margin-bottom: 45px; }
-        .campaigns .edit-campaigns .box .content .social-media {
-          margin-bottom: 60px; }
-          .campaigns .edit-campaigns .box .content .social-media md-checkbox {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 30px; }
-            .campaigns .edit-campaigns .box .content .social-media md-checkbox.md-checked .md-icon:after {
-              left: 7.67px;
-              top: 3.22px; }
-          .campaigns .edit-campaigns .box .content .social-media .nav {
-            border-bottom: 2px solid #50abf2; }
-            .campaigns .edit-campaigns .box .content .social-media .nav li {
-              width: 75px;
-              height: 75px;
-              background: transparent;
-              border: 0;
-              margin-right: 10px;
-              margin-bottom: -2px; }
-              .campaigns .edit-campaigns .box .content .social-media .nav li a {
-                padding: 9px;
-                border-width: 2px !important; }
-                .campaigns .edit-campaigns .box .content .social-media .nav li a i {
-                  font-size: 40px;
-                  color: #fff;
-                  margin-top: 11px; }
-                .campaigns .edit-campaigns .box .content .social-media .nav li a span {
-                  display: block; }
-                  .campaigns .edit-campaigns .box .content .social-media .nav li a span.twitter {
-                    height: 56px;
-                    width: 56px;
-                    background: #55acee; }
-                  .campaigns .edit-campaigns .box .content .social-media .nav li a span.facebook {
-                    height: 56px;
-                    width: 56px;
-                    background: #3b5998; }
-                  .campaigns .edit-campaigns .box .content .social-media .nav li a span.gmail {
-                    height: 56px;
-                    width: 56px;
-                    background: #dd4b39; }
-                  .campaigns .edit-campaigns .box .content .social-media .nav li a span.linkedin {
-                    height: 56px;
-                    width: 56px;
-                    background: #0077b5; }
-                .campaigns .edit-campaigns .box .content .social-media .nav li a:hover {
-                  border-color: transparent; }
-              .campaigns .edit-campaigns .box .content .social-media .nav li.active a {
-                border-color: #50abf2;
-                border-width: 2px;
-                border-top: 2px solid #50abf2 !important;
-                border-bottom: 0; }
-                .campaigns .edit-campaigns .box .content .social-media .nav li.active a:hover {
-                  border-color: #50abf2; }
-          .campaigns .edit-campaigns .box .content .social-media .tab-content {
-            border: 2px solid #50abf2;
-            border-top: 0;
-            padding: 15px;
-            position: relative; }
-            .campaigns .edit-campaigns .box .content .social-media .tab-content textarea {
-              border: 0;
-              width: 100%;
-              resize: none; }
-              .campaigns .edit-campaigns .box .content .social-media .tab-content textarea:focus {
-                outline: none; }
-            .campaigns .edit-campaigns .box .content .social-media .tab-content .action {
-              position: absolute;
-              bottom: -52px;
-              right: 0;
-              height: 42px;
-              text-align: center;
-              line-height: 42px;
-              border-radius: 5px; }
-              .campaigns .edit-campaigns .box .content .social-media .tab-content .action .action-btn {
-                width: 126px;
-                height: 100%;
-                display: inline-block;
-                border-radius: 5px;
-                color: #fff;
-                margin-left: 20px; }
-            .campaigns .edit-campaigns .box .content .social-media .tab-content .media {
-              border: 1px solid #ccc;
-              padding: 10px; }
-              .campaigns .edit-campaigns .box .content .social-media .tab-content .media div {
-                float: left; }
-              .campaigns .edit-campaigns .box .content .social-media .tab-content .media .company-name {
-                width: 20%;
-                font-size: 20px;
-                text-transform: capitalize;
-                line-height: 75px; }
-              .campaigns .edit-campaigns .box .content .social-media .tab-content .media .campaign-description {
-                width: 60%;
-                border-width: 0 1px 0 1px;
-                border-style: solid;
-                border-color: #ccc;
-                text-transform: capitalize;
-                padding: 0 20px; }
-                .campaigns .edit-campaigns .box .content .social-media .tab-content .media .campaign-description b {
-                  font-size: 20px; }
-              .campaigns .edit-campaigns .box .content .social-media .tab-content .media .location {
-                width: 20%;
-                text-align: center;
-                padding: 10px 0;
-                color: #2693d6; }
-                .campaigns .edit-campaigns .box .content .social-media .tab-content .media .location img {
-                  width: 35px;
-                  height: 35px; }
-                .campaigns .edit-campaigns .box .content .social-media .tab-content .media .location p {
-                  margin: 0; }
         .campaigns .edit-campaigns .box .content .upload-files .upload-pitch {
           display: inline-block;
           vertical-align: middle;
-          position: relative; }
+          position: relative;
+          width: 115px; }
           .campaigns .edit-campaigns .box .content .upload-files .upload-pitch .qq-uploader .qq-upload-button {
             padding: 0;
             font-weight: bold;
             font-size: 13px;
-            margin-left: 5px;
             letter-spacing: 0.6px;
             color: #219070; }
           .campaigns .edit-campaigns .box .content .upload-files .upload-pitch .qq-upload-fail {

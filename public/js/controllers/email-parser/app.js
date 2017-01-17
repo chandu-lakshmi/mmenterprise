@@ -21,7 +21,7 @@
 			        data : { pageTitle: 'Mintmesh ( Jobs )' }
 			    })
 			    .state('candidateDetails', {
-			        url: '/candidate-details?ref&flag',
+			        url: '/candidate-details?ref&flag&jc',
 			        templateUrl: App.base_url + 'templates/email-parser/candidate-details.phtml',
 			        controller: 'ApplyJobController',
 			        controllerAs:'ApplyJobCtrl',
@@ -61,6 +61,7 @@
 		    	$rootScope.$root = App;
 		        $rootScope.$state = $state;
 		        $rootScope.ReferralDetails = ReferralDetails;
+		        $rootScope.SocialShare = {};
 		        $rootScope.$stateParams = $stateParams;
 		    }
 		])

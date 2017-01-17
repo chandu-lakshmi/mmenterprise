@@ -21,6 +21,7 @@
 						<div class="clearfix">
 							<span class="pull-left col-sm-5">Job Title:</span>
 							<span class="pull-right col-sm-7">{{post2Ctrl.post_job_result.job_title}}</span>
+							<!-- <span class="pull-right col-sm-7">{{post2Ctrl.post_job_result.job_title.title}}</span> -->
 						</div>
 						<div class="clearfix">
 							<span class="pull-left col-sm-5">Job Function:</span>
@@ -31,7 +32,7 @@
 							<span class="pull-right col-sm-7">{{post2Ctrl.post_job_result.location}}</span>
 						</div>
 						<div class="clearfix">
-							<span class="pull-left col-sm-5">Employement Type:</span>
+							<span class="pull-left col-sm-5">Employment Type:</span>
 							<span class="pull-right col-sm-7">{{post2Ctrl.post_job_result.emp_type.employment_type_name}}</span>
 						</div>
 						<div class="clearfix">
@@ -81,7 +82,7 @@
 							 ng-click="post2Ctrl.toggleDiscoveryReward(post2Ctrl.discoveryRewards)">
 							<label for="discovery">Discovery Rewards</label>
 							<img src="public/images/info.svg" alt="info" onmouseover="this.src='public/images/info-blue.svg'" onmouseout="this.src='public/images/info.svg'"
-							" uib-popover="This is about the Discovery Rewards,This is about the Discovery RewardsThis is about the Discovery Rewards" popover-placement="right-left"  popover-trigger="'mouseenter'">
+							" uib-popover="This is about Discovery Rewards." popover-placement="right-left"  popover-trigger="'mouseenter'">
 						</div>
 						<form name="myForm">
 						<div class="radio">
@@ -151,7 +152,7 @@
 							ng-click="post2Ctrl.toggleReferralReward(post2Ctrl.referralRewards)">
 							<label for="referral">Referral Rewards</label>
 							<img src="public/images/info.svg" alt="info" onmouseover="this.src='public/images/info-blue.svg'" onmouseout="this.src='public/images/info.svg'"
-							" uib-popover="This is about the Discovery Rewards,This is about the Discovery RewardsThis is about the Referral Rewards" popover-placement="right-left"  popover-trigger="'mouseenter'">	
+							" uib-popover="This is about Referral Rewards." popover-placement="right-left"  popover-trigger="'mouseenter'">	
 						</div>
 						<div class="radio" ng-form="myForm2">
 							<div>

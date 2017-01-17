@@ -5,6 +5,75 @@
   white-space: nowrap;
   text-transform: capitalize; }
 
+/* mintmesh buttons */
+.mm-btn, .mm-btn:hover, .mm-btn:active, .mm-btn:focus {
+  background: #229A77;
+  color: #fff;
+  outline: none;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 18px;
+  display: inline-block;
+  border-radius: 3px; }
+  .mm-btn.cancel {
+    background: #fff;
+    color: #7b6d6d; }
+
+/* sharing directive */
+social-sharing {
+  display: block;
+  overflow: hidden; }
+  social-sharing .social-sharing div {
+    float: left;
+    display: inline; }
+    social-sharing .social-sharing div span {
+      width: 42px;
+      height: 42px;
+      text-align: center;
+      cursor: pointer;
+      display: inline-block;
+      margin-right: 4px; }
+      social-sharing .social-sharing div span i {
+        font-size: 24px;
+        margin-top: 10px;
+        color: #fff; }
+      social-sharing .social-sharing div span.facebook {
+        background: #3b5998; }
+      social-sharing .social-sharing div span.twitter {
+        background: #1da1f2; }
+      social-sharing .social-sharing div span.googlePlus {
+        background: #dc4e41; }
+      social-sharing .social-sharing div span.linkedin {
+        background: #0077b5; }
+
+/* subheader styles */
+.sub-header .post {
+  text-transform: capitalize;
+  color: #fff;
+  border-radius: 2px;
+  margin-right: 5px;
+  padding: 4px 10px; }
+  .sub-header .post.internal {
+    border: 1px solid #26a182;
+    color: #26a182; }
+  .sub-header .post.external {
+    border: 1px solid #fba237;
+    color: #fba237; }
+  .sub-header .post.campaign {
+    border: 1px solid #e0b99c;
+    color: #e0b99c; }
+.sub-header .status {
+  color: #fff;
+  border: 1px solid;
+  padding: 4px 10px;
+  border-radius: 2px; }
+  .sub-header .status.open {
+    background: #488C27;
+    border-color: #488C27; }
+  .sub-header .status.closed {
+    background: #be7276;
+    border-color: #be7276; }
+
 /* qq uploader */
 .qq-uploader {
   overflow: hidden; }
@@ -212,22 +281,26 @@ md-dialog md-toolbar:not(.md-menu-toolbar) {
   background: #8e8e8e !important; }
 
 /* scrollup */
-#dyscrollup-btn {
+scroll-top div {
   z-index: 999999;
   position: fixed;
   cursor: pointer;
-  display: none;
   bottom: 50px;
-  left: 50px;
   width: 56px;
   height: 56px;
+  -webkit-transition: all .4s;
+  transition: all .4s;
+  left: -56px;
   border-radius: 50%;
   text-align: center;
   background: #ccc; }
-  #dyscrollup-btn img {
+  scroll-top div img {
     width: 30px;
     height: 26px;
     margin-top: 15px; }
+  scroll-top div.move {
+    left: 28px;
+    display: block; }
 
 /* angular material */
 md-input-container.select-box label {

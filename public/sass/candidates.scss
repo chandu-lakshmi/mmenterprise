@@ -39,7 +39,7 @@ $background : #eeeff1;
 
     .sub-header{background: #0e2d3f;height: 60px;
         ul{list-style: none;margin: 0; padding: 0;
-            li{display: inline-block;position: relative;padding: 30px 0px 12px 0px;margin: 0 15px;
+            li{display: inline-block;position: relative;padding: 30px 0px 12px 0px;
                 a{color: #6b8b9a;outline: none;text-decoration: none;display: inline-block;letter-spacing: 0.5px;
                     &:hover,&:focus,&.active{color: #fff;
                         &:before{position: absolute;color: #fff;content: '';top: 0px;bottom: 2px;left: 0px;
@@ -108,12 +108,12 @@ $background : #eeeff1;
                     .ui-grid-row:hover > [ui-grid-row] > .ui-grid-cell {cursor: pointer;}
                 }
             }
-            .box-footer{background: $background;padding: 16px;
+            .box-footer{background: $background;padding: 16px;min-height: 68px;
                 .status{font-size: 17px;color: #5b6161;padding-left : 0;
                     md-select{height:32px;margin: 0;padding:0 !important;}
                 }
                 .paging{display: inline-block;
-                    .pagination{margin: 0;margin-top: 13px;}
+                    .pagination{margin: 0;margin-top: 3px;}
                 }
                 .pull-right{
                     .ng-binding{position: absolute;right: 0;line-height: 38px;width: 170px;text-align: right;}

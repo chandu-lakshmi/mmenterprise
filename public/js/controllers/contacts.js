@@ -167,7 +167,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 		);	
 	};
 	gridValidtion('charValidation', '');
-    gridValidtion('charValidationReq', /^[a-zA-Z0-9-]{0,100}$/);
+    gridValidtion('charValidationReq', /^[a-zA-Z0-9- ]{0,100}$/);
 	gridValidtion('charOtherId', /^[a-zA-Z0-9-]{0,100}$/);
 	gridValidtion('numValidation', /^[-0-9]{0,15}$/);
 	gridValidtion('statusValidation', '');
@@ -649,11 +649,12 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 
     var uploadData = [];
     function uploader(index,status){
+        var count = scope.bucketsList[index].count != undefined ? scope.bucketsList[index].count+' contact(s)' : '';
         window["$contacts_upload_"+index] = $('.upload-bucket').eq(index);
         var uploader = new qq.FileUploader({
             element: document.getElementsByClassName('upload-bucket')[index],
             dragText: "",
-            uploadButtonText: "<span class='align-title'><p>"+scope.bucketsList[index].bucket_name+"</p></span>",
+            uploadButtonText: "<span class='align-title'><p>"+scope.bucketsList[index].bucket_name+"</p><span>"+count+"</span></span>",
             multiple : false,
             sizeLimit: (25*1024*1024),
             allowedExtensions: ["XLSX", "CSV", "XLS"],
@@ -889,6 +890,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
     scope.errorUpload = false;
     this.uploadContacts = function(){
         scope.uploadLoader = true;
+        scope.errorUpload = false;
         $('.bucket-modal .modal-footer .disabled').css('pointer-events','none');
         var param = $(' form[name="buckets_form"]').serialize();
 
@@ -903,15 +905,14 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 
         upload_contacts.success(function(response){
             $('.bucket-modal .modal-footer .disabled').css('pointer-events','auto');
+            scope.uploadLoader = false;
+            scope.errorUpload = false;
             if(response.status_code == 200){
-                scope.uploadLoader = false;
-                scope.errorUpload = false;
                 defaultFunction('', '', '', '', 0);
                 getBuckets();
                 $uibModalInstance.dismiss('cancel');
             }
             else if(response.status_code == 403){
-                scope.uploadLoader = false;
                 scope.errorUpload = true;
             }
             else if(response.status_code == 400){

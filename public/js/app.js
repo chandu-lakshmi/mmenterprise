@@ -1,8 +1,7 @@
 (function () {
 "use strict";
 
-angular.module('app', ['ripple',
-    'ui.router', 'ui.bootstrap',
+angular.module('app', ['ui.router', 'ui.bootstrap',
     'app.constants',
     'app.components', 'app.helpers',
     'app.home', 'app.forgotPassword', 'app.company.profile', 'app.import.contacts', 'app.emails', 'app.dashboard',
@@ -230,6 +229,7 @@ angular.module('app', ['ripple',
 .run(function ($rootScope, userPermissions, App) {
     $rootScope.$root = App;
     $rootScope.userPermissions = userPermissions;
+    $rootScope.SocialShare = {};
 })
 
 .run([ '$rootScope', '$state', '$stateParams',

@@ -22,7 +22,7 @@
 							<ul class="sub-menu collapse" id="groups{{$index}}" ng-class="{'in': $index == UserGroupCtrl.tab}">
 								<li ng-repeat="user in list.users" ng-click="UserGroupCtrl.getPersonData($index)" ng-class="{'highlight':UserGroupCtrl.activeClass == user.fullname}">
 									<div ng-if="user.photo == '' || user.photo == null">
-										<span ng-bind="user.fullname | limitTo : 1" class="letter" ng-style="{'background':UserGroupCtrl.colorPicker($index)}"></span>
+										<span ng-bind="user.fullname.trim() | limitTo : 1" class="letter" ng-style="{'background':UserGroupCtrl.colorPicker($index)}"></span>
 										<span class="name ellipsis" ng-bind="user.fullname"></span>
 									</div>
 									<div ng-if="!(user.photo == '' || user.photo == null)">

@@ -56,8 +56,20 @@
 .import-contacts .container-rt .pages{
   text-align: left;
 }
+.import-contacts .container-rt .grid-footer .invite{
+  padding: 12px;
+}
+.import-contacts .container-rt .grid-footer .invite .btn-invite{
+  width: 200px;
+  text-align: center;
+  border-radius: 3px;
+  background: #1d8e70;
+  margin-top: -1px !important;
+  color: #fff;
+}
 .import-contacts .container-rt .grid-footer .invite span{
-  left: -114px !important;
+  left: -169px !important;
+  top: 0;
 }
 .import-contacts .im-c-head h3 a{
   color: #808080;
@@ -73,9 +85,10 @@
   padding: 16px;
   display: inline;
   line-height: initial;
-  background: red;
-  border-radius: 4px;
-  margin: 11px 0 0 15px;
+  position: absolute;
+  right: 13px;
+  top: 11px;
+  border-radius: 3px;
   cursor: pointer;
   outline: 0;
   background-color: #1d8e70;

@@ -58,11 +58,14 @@
             placeholder:'Search By Job or Status',
             onSearch: function (val) {
                 vm.search_val = val;
+                vm.overLoader = true;
+                total_pages = 0;
                 if (vm.search_opts.progress) {
                     if (vm.search_opts.value) {
                         page_no = 1;
                         vm.infiniteScroll.loadApi(page_no, vm.search_val, function(){
                             vm.infiniteScroll.list = [];
+                            vm.overLoader = false;
                             vm.search_opts.progress = false;
                             vm.search_opts.complete = true;
                         })
@@ -70,13 +73,13 @@
                 }
             },
             onClear: function () {
-                reset();
                 vm.search_val = "";
-                vm.search_opts.progress = true;
                 page_no = 1;
+                vm.overLoader = true;
+                total_pages = 0;
                 vm.infiniteScroll.loadApi(page_no, vm.search_val, function(){
                     vm.infiniteScroll.list = [];
-                    vm.search_opts.progress = false;
+                    vm.overLoader = false;
                 });
             }
         }
@@ -89,7 +92,6 @@
             nextPage : function(){},
             loadApi : function(){},
             onComplete : function(obj){
-                reset();
                 for(var i = 0; i < obj.length; i++){
                     vm.infiniteScroll.list.push(obj[i]);
                 }
@@ -117,6 +119,8 @@
                 canceler.resolve();
             }
 
+            reset();
+            
             canceler = $q.defer();
 
             var data = $("form[name='filter_form']").serialize();
@@ -186,12 +190,16 @@
                     }
                     prev1[0] = filter;
                 }
-                reset();
                 page_no = 1;
                 vm.overLoader = true;
+                total_pages = 0;
                 vm.infiniteScroll.loadApi(page_no, vm.search_val, function(){
                     vm.infiniteScroll.list = [];
                     vm.overLoader = false;
+                    if(vm.search_opts.progress){
+                        vm.search_opts.progress = false;
+                        vm.search_opts.complete = true;
+                    }
                 });
             }
         }

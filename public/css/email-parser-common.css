@@ -59,16 +59,19 @@
 
 /* email jobs and campaigns list view*/
 .list {
-  color: #939393; }
+  color: #939393;
+  min-height: 400px;
+  overflow-y: auto;
+  height: calc(100vh - 545px); }
   .list .row {
     border: 1px solid #ebebeb;
     margin: 0;
     padding: 10px;
     margin-bottom: 10px;
     position: relative; }
-    .list .row a.details {
+    .list .row a.details, .list .row a.detail {
       color: inherit; }
-      .list .row a.details:focus, .list .row a.details:hover {
+      .list .row a.details:focus, .list .row a.details:hover, .list .row a.detail:focus, .list .row a.detail:hover {
         color: inherit; }
     .list .row span {
       font-size: 14.9px; }

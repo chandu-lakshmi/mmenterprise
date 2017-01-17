@@ -29,12 +29,12 @@
           padding: 35px 92px 8px 92px; }
           .new-campaign .modal .modal-dialog .modal-content .modal-body .process-steps {
             width: 79%;
-            margin: 16px auto;
+            margin: 16px 70px;
             height: 66px; }
             .new-campaign .modal .modal-dialog .modal-content .modal-body .process-steps .step-four {
               width: 0 !important; }
             .new-campaign .modal .modal-dialog .modal-content .modal-body .process-steps .step {
-              width: 33.3333%;
+              width: 48.5333%;
               border-top: 3px solid #dddddd;
               position: relative;
               float: left; }
@@ -259,7 +259,8 @@
           .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .upload-pitch {
             display: inline-block;
             vertical-align: middle;
-            position: relative; }
+            position: relative;
+            width: 115px; }
             .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .upload-pitch .qq-uploader {
               margin-bottom: 0;
               padding: 0; }
@@ -267,7 +268,6 @@
                 padding: 0;
                 font-weight: bold;
                 font-size: 13px;
-                margin-left: 5px;
                 background: transparent;
                 letter-spacing: 0.6px;
                 color: #219070;
@@ -317,13 +317,8 @@
               color: #777777;
               cursor: pointer;
               outline: none; }
-            .new-campaign .modal .modal-dialog .modal-content .modal-footer .btns .btn-next {
-              color: #fff;
-              background: #1d8e70;
-              padding: 12px 52px;
-              border-radius: 4px;
-              display: inline-block;
-              outline: none; }
+            .new-campaign .modal .modal-dialog .modal-content .modal-footer .btns .mm-btn {
+              padding: 12px 24px; }
   .new-campaign .md-select-menu-container, .new-campaign .md-dialog-container {
     z-index: 1100; }
   .new-campaign .md-ripple-container {
@@ -335,5 +330,67 @@
 
 html.remove-scroll {
   overflow: hidden !important; }
+
+.social-share {
+  overflow: hidden; }
+  .social-share .modal {
+    top: calc(50% - 174.5px);
+    left: calc(50% - 349px);
+    right: initial; }
+    .social-share .modal .modal-dialog {
+      color: #919191;
+      margin: 0; }
+      .social-share .modal .modal-dialog .modal-content {
+        padding: 20px 50px;
+        border-radius: 0; }
+        .social-share .modal .modal-dialog .modal-content h2 {
+          color: #656565;
+          font-size: 27.5px;
+          margin: 24px 0 15px 0; }
+        .social-share .modal .modal-dialog .modal-content .md-button {
+          position: absolute;
+          top: 10px;
+          right: 10px; }
+        .social-share .modal .modal-dialog .modal-content .box {
+          border: 1px solid #ccc;
+          padding: 10px 0; }
+          .social-share .modal .modal-dialog .modal-content .box .title {
+            text-align: center;
+            line-height: 80px;
+            font-size: 25px;
+            color: #3c6dc9; }
+          .social-share .modal .modal-dialog .modal-content .box .content {
+            border-width: 0 1px 0 1px;
+            border-color: #ccc;
+            border-style: solid;
+            text-transform: capitalize; }
+            .social-share .modal .modal-dialog .modal-content .box .content big {
+              font-weight: bold;
+              font-size: 20px;
+              color: initial;
+              display: inline-block; }
+            .social-share .modal .modal-dialog .modal-content .box .content p {
+              font-size: 16.5px; }
+            .social-share .modal .modal-dialog .modal-content .box .content span {
+              font-size: 16px; }
+          .social-share .modal .modal-dialog .modal-content .box .location {
+            text-align: center;
+            color: #2592d5; }
+            .social-share .modal .modal-dialog .modal-content .box .location img {
+              width: 50px;
+              height: 50px; }
+        .social-share .modal .modal-dialog .modal-content .social-share-icons {
+          margin-top: 35px; }
+          .social-share .modal .modal-dialog .modal-content .social-share-icons social-sharing .social-sharing div span {
+            width: 60px;
+            height: 60px;
+            margin-right: 18px; }
+            .social-share .modal .modal-dialog .modal-content .social-share-icons social-sharing .social-sharing div span i {
+              font-size: 40px;
+              line-height: 40px; }
+
+@media (min-width: 768px) {
+  .social-share .modal-dialog {
+    width: 700px; } }
 
 /*# sourceMappingURL=campaigns-dialog.css.map */

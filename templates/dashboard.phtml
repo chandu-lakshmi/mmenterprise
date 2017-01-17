@@ -115,12 +115,12 @@
 									<div class="pull-left" style="position: relative;padding-right: 10px" ng-init="getColor = DashCtrl.getColor(refList.status)">
 										<img ng-if="!(refList.referral_img == '' || refList.referral_img == null)" ng-src="{{refList.referral_img}}" class="pull-left img-responsive img-circle dp" ng-style="{'border': '2px solid {{refList.referral_img == '' ? 'transparent' : getColor}}'}">
 
-										<span ng-if="refList.referral_img == '' || refList.referral_img == null" ng-bind="refList.referral | limitTo : 1" class="letter" ng-style="{'background':DashCtrl.colorPicker($index, 1)}">
+										<span ng-if="refList.referral_img == '' || refList.referral_img == null" ng-bind="refList.referral.trim() | limitTo : 1" class="letter" ng-style="{'background':DashCtrl.colorPicker($index, 1)}">
 										</span>
 											
 										<img ng-if="!(refList.referred_by_img == '' || refList.referred_by_img == null)" ng-src="{{refList.referred_by_img}}" class="img-responsive img-circle sub-img">
 
-										<span ng-if="refList.referred_by_img == '' || refList.referred_by_img == null" ng-bind="refList.referred_by | limitTo : 1" class="letter-small letter" ng-style="{'background':DashCtrl.colorPicker($index, 0)}">
+										<span ng-if="refList.referred_by_img == '' || refList.referred_by_img == null" ng-bind="refList.referred_by.trim() | limitTo : 1" class="letter-small letter" ng-style="{'background':DashCtrl.colorPicker($index, 0)}">
 										</span>
 									</div>
 									<div class="content">
@@ -174,12 +174,12 @@
 									<div class="pull-left" style="position: relative;">
 										<img ng-if="!(hireList.referral_img == '' || hireList.referral_img == null)" ng-src="{{hireList.referral_img}}" class="pull-left img-responsive img-circle dp" ng-style="{'border': (hireList.referral_img == '' || hireList.referral_img == 'null') ? '' : '2px solid #468A25' }">
 
-										<span ng-if="hireList.referral_img == '' || hireList.referral_img == null" ng-bind="hireList.referral | limitTo : 1" class="letter" ng-style="{'background':DashCtrl.colorPicker($index + 5, 1)}">
+										<span ng-if="hireList.referral_img == '' || hireList.referral_img == null" ng-bind="hireList.referral.trim() | limitTo : 1" class="letter" ng-style="{'background':DashCtrl.colorPicker($index + 5, 1)}">
 										</span>
 
 										<img ng-if="!(hireList.referred_by_img == '' || hireList.referred_by_img == null)" ng-src="{{hireList.referred_by_img}}" class="img-responsive img-circle sub-img">
 
-										<span ng-if="hireList.referred_by_img == '' || hireList.referred_by_img == null" ng-bind="hireList.referred_by | limitTo : 1" class="letter-small letter" ng-style="{'background':DashCtrl.colorPicker($index + 5, 0)}">
+										<span ng-if="hireList.referred_by_img == '' || hireList.referred_by_img == null" ng-bind="hireList.referred_by.trim() | limitTo : 1" class="letter-small letter" ng-style="{'background':DashCtrl.colorPicker($index + 5, 0)}">
 										</span>
 
 										<div class="content">
@@ -219,7 +219,7 @@
 						<div class="box clearfix">
 							<div class="pull-left" style="width:18%">
 								<img ng-if="!(topreferrals.image == '' || topreferrals.image == null)" ng-src="{{topreferrals.image}}" class="img-responsive img-circle dp">
-								<span ng-if="topreferrals.image == '' || topreferrals.image == null" ng-bind="topreferrals.name | limitTo : 1" class="letter" ng-style="{'background':DashCtrl.colorPicker($index + 3, 0)}">
+								<span ng-if="topreferrals.image == '' || topreferrals.image == null" ng-bind="topreferrals.name.trim() | limitTo : 1" class="letter" ng-style="{'background':DashCtrl.colorPicker($index + 3, 0)}">
 								</span>
 							</div>
 							<div class="pull-left" style="padding:7px 10px;width:82%">

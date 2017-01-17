@@ -13,8 +13,8 @@
 
 	SettingsController.$inject = [];
 	SettingsCompanyProfileController.$inject = ['$window', 'CompanyDetails', '$http', 'CONFIG'];
-	MyProfileController.$inject = ['$http', '$scope', '$timeout', '$window', '$uibModal', 'rippleService', 'CompanyDetails', 'UserDetails', 'userData', 'CONFIG', 'App'];
-	UserGroupController.$inject = ['$scope', '$window', '$element', 'CONFIG', '$http', '$interval', '$timeout', '$q', 'rippleService', 'userData', 'permissionsService', 'userPermissions', 'App'];
+	MyProfileController.$inject = ['$http', '$scope', '$timeout', '$window', '$uibModal', 'CompanyDetails', 'UserDetails', 'userData', 'CONFIG', 'App'];
+	UserGroupController.$inject = ['$scope', '$window', '$element', 'CONFIG', '$http', '$interval', '$timeout', '$q', 'userData', 'permissionsService', 'userPermissions', 'App'];
 
 	function permissionsService(){
 		var permissionData = {};
@@ -117,7 +117,7 @@
 
 	}
 
-	function MyProfileController($http, $scope, $timeout, $window, $uibModal, rippleService, CompanyDetails, UserDetails, userData, CONFIG, App){
+	function MyProfileController($http, $scope, $timeout, $window, $uibModal, CompanyDetails, UserDetails, userData, CONFIG, App){
 
 		var vm = this,
 		$display_pic,image_path = '',org_name = '';
@@ -143,8 +143,6 @@
 		vm.setPassword = setPassword;
 		vm.saveChanges = saveChanges;
 		vm.changePassword = changePassword;
-
-		rippleService.wave();
 
 		if(userData.getData().user_dp != null && userData.getData().user_dp != ''){
 			vm.displayPicture = userData.getData().user_dp;
@@ -370,7 +368,7 @@
 	}
 
 
-	function UserGroupController($scope, $window, $element, CONFIG, $http, $interval, $timeout, $q, rippleService, userData, permissionsService, userPermissions, App){
+	function UserGroupController($scope, $window, $element, CONFIG, $http, $interval, $timeout, $q, userData, permissionsService, userPermissions, App){
 
 		var vm = this,
 		APP_URL = CONFIG.APP_DOMAIN,
@@ -406,8 +404,6 @@
 		vm.createGroup = createGroup;
 		vm.addPerson = addPerson;
 		vm.resendActivation = resendActivation;
-
-		rippleService.wave();
 
 		vm.permission_template = "templates/settings/permissions_template.phtml";
 		vm.group_template = "templates/settings/group-template.phtml";

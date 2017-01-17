@@ -5,10 +5,12 @@
 			<div class="col-sm-5 sub_left">
 				<div class="mid-nav">
 					<h3>
-						<a ui-sref="^.job" style="min-width:100px;"><img src="public/images/back-arrow.svg" alt="back" style="margin-bottom: 4px;">
-						<span style="min-width:100px;">{{EngContCtrl.job_title | uppercase}}</span></a>
+						<a ui-sref="^.job"><img src="public/images/back-arrow.svg" alt="back">
+						<span class="ellipsis">{{EngContCtrl.job_title | uppercase}}</span></a>
 					</h3>
-					<span class="openbox" style="margin:0" ng-bind="EngContCtrl.subHeaderCount.status == 'ACTIVE' ? 'OPEN' : 'CLOSED'" ng-style="{'background': EngContCtrl.subHeaderCount.status == 'ACTIVE' ? '#488C27' : '#be7276'}"></span>
+					<span class="post {{EngContCtrl.subHeaderCount.post_type}}" ng-bind="EngContCtrl.subHeaderCount.post_type"></span>
+					<span class="status {{EngContCtrl.subHeaderCount.status == 'ACTIVE' ? 'open' : 'closed'}}" ng-bind="EngContCtrl.subHeaderCount.status == 'ACTIVE' ? 'OPEN' : 'CLOSED'">
+					</span>
 				</div>
 				<ul>
 					<li><a ui-sref="^.jobDetails({post_id:EngContCtrl.post_id})" ui-sref-active="active">JOB DETAILS</a></li>
@@ -51,19 +53,19 @@
   				<li ng-class="{'active':EngContCtrl.tabCond == 'ALL'}">
   					<a data-toggle="tab" ng-click="EngContCtrl.referralsCond('ALL');switchCond = 'ALL'" ng-style="{'pointer-events':EngContCtrl.tabCond == 'ALL' ? 'none' : 'auto'}">
   						<img src="public/images/dot1.png" style="margin:-2px 5px 0 0;">
-  						<span style="vertical-align:middle">ALL REFERRALS ({{EngContCtrl.subHeaderCount.referral_count >= 0 ? EngContCtrl.subHeaderCount.referral_count : 0}})</span>
+  						<span style="vertical-align:middle">ALL REFERRALS ({{EngContCtrl.subHeaderCount.referral_count > 0 ? EngContCtrl.subHeaderCount.referral_count : 0}})</span>
 					</a>
 				</li>
   				<li ng-class="{'active':EngContCtrl.tabCond == 'PENDING'}">
   					<a data-toggle="tab" ng-click="EngContCtrl.referralsCond('PENDING');switchCond = 'PENDING'" ng-style="{'pointer-events':EngContCtrl.tabCond == 'PENDING' ? 'none' : 'auto'}">
   						<img src="public/images/dot2.png" style="margin:-2px 5px 0 0;">
-  						<span style="vertical-align:middle">PENDING ({{EngContCtrl.subHeaderCount.pending_count >= 0 ? EngContCtrl.subHeaderCount.pending_count : 0}})</span>
+  						<span style="vertical-align:middle">PENDING ({{EngContCtrl.subHeaderCount.pending_count > 0 ? EngContCtrl.subHeaderCount.pending_count : 0}})</span>
 					</a>
 				</li>
   				<li ng-class="{'active':EngContCtrl.tabCond == 'ACCEPTED'}">
   					<a data-toggle="tab" ng-click="EngContCtrl.referralsCond('ACCEPTED');switchCond = 'ACCEPTED'" ng-style="{'pointer-events':EngContCtrl.tabCond == 'ACCEPTED' ? 'none' : 'auto'}">
   						<img src="public/images/dot3.png" style="margin:-2px 5px 0 0;">
-  						<span style="vertical-align:middle">ACCEPTED ({{EngContCtrl.subHeaderCount.accepted_count >= 0 ? EngContCtrl.subHeaderCount.accepted_count : 0}})</span>
+  						<span style="vertical-align:middle">ACCEPTED ({{EngContCtrl.subHeaderCount.accepted_count > 0 ? EngContCtrl.subHeaderCount.accepted_count : 0}})</span>
 					</a>
 				</li>
 			</ul>
@@ -95,7 +97,7 @@
 		<div ng-if="COL_FIELD != '' && COL_FIELD != null">
 			<div class="image">
 				<img ng-if="!(row.entity.dp_image == null || row.entity.dp_image == '')" ng-src="{{row.entity.dp_image}}" class="img-responsive img-circle border-{{row.entity.status | lowercase}}" ng-style="{'border': row.entity.dp_image == null ? '0': ''}">					
-				<span ng-if="(row.entity.dp_image == null || row.entity.dp_image == '')" ng-bind="row.entity.name | limitTo : 1" class='letter' ng-style="{'background':grid.appScope.colorPicker(rowRenderIndex, colRenderIndex)}">
+				<span ng-if="(row.entity.dp_image == null || row.entity.dp_image == '')" ng-bind="row.entity.name.trim() | limitTo : 1" class='letter' ng-style="{'background':grid.appScope.colorPicker(rowRenderIndex, colRenderIndex)}">
 				</span>
 			</div>
 			<div class="content">
@@ -112,7 +114,7 @@
 		<div ng-if="COL_FIELD != '' && COL_FIELD != null">
 			<div class="image">
 				<img ng-if="!(row.entity.referred_by_dp_image == null || row.entity.referred_by_dp_image == '')" ng-src="{{row.entity.referred_by_dp_image}}" class="img-responsive img-circle border-{{row.entity.status | lowercase}}" ng-style="{'border': row.entity.referred_by_dp_image == null ? '0': ''}">
-				<span ng-if="(row.entity.referred_by_dp_image == null || row.entity.referred_by_dp_image == '')" ng-bind="row.entity.referred_by_name | limitTo : 1" class='letter' ng-style="{'background':grid.appScope.colorPicker(rowRenderIndex, colRenderIndex)}"></span>
+				<span ng-if="(row.entity.referred_by_dp_image == null || row.entity.referred_by_dp_image == '')" ng-bind="row.entity.referred_by_name.trim() | limitTo : 1" class='letter' ng-style="{'background':grid.appScope.colorPicker(rowRenderIndex, colRenderIndex)}"></span>
 			</div>
 			<div class="content">
 				<big class="ellipsis" title="{{ COL_FIELD }}" ng-bind="COL_FIELD"></big>
@@ -171,7 +173,7 @@
 			</button>
 		</div>
 		<div ng-if="row.entity.awaiting_action_status == 'ACCEPTED'" class="status ellipsis">
-			<span ng-bind="(row.entity.awaiting_action_status | lowercase) + ' by ' + row.entity.referred_by_name + ' on ' +row.entity.updated_at"></span>
+			<span ng-bind="(row.entity.awaiting_action_status | lowercase) + ' by ' + row.entity.awaiting_action_by + ' on ' +row.entity.updated_at"></span>
 		</div>
 		<div ng-if="row.entity.awaiting_action_status != 'ACCEPTED'" class="status ellipsis">
 			<span ng-bind="'Status changed to ' + (row.entity.awaiting_action_status | lowercase) + ' by ' + row.entity.awaiting_action_by + ' on ' +row.entity.awaiting_action_updated_at">

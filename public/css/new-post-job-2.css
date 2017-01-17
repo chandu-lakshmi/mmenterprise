@@ -107,8 +107,8 @@ button::-moz-focus-inner {
     cursor: pointer;
 }
 .post-request .select-rewards .container .row div .rewards-box .chk img + div{
-    left: 260px !important;
-    top: -26px !important;
+    left: 255px !important;
+    top: 4px !important;
 }
 .post-request .select-rewards .container .row div .rewards-box .chk input[type=checkbox] + label:before{
 	content: '';
@@ -136,6 +136,7 @@ button::-moz-focus-inner {
     height: 16px;
     border: 2px solid #fff;
     transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
     border-top: 0;
     border-left: 0;
 }
@@ -160,6 +161,7 @@ button::-moz-focus-inner {
 }
 .post-request .chkout{
     transform: scale(0.5);
+    -webkit-transform: scale(0.5);
     background-color: #cbcbcb;
 }
 .post-request .chkin{

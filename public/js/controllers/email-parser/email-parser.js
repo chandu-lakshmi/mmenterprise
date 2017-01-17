@@ -10,10 +10,10 @@
 		.controller('AllCampaignsController', AllCampaignsController)
 
 		modalController.$injext = ['$state', 'App'];
-		AllJobsController.$inject = ['$http', '$q', '$location', 'App'];
-		JobDetailsController.$inject = ['$http', '$stateParams', '$window', '$location', 'App'];
+		AllJobsController.$inject = ['$rootScope', '$http', '$q', '$location', 'App', 'ReferralDetails'];
+		JobDetailsController.$inject = ['$rootScope', '$http', '$stateParams', '$window', '$location', 'App', 'ReferralDetails'];
 		ApplyJobController.$inject = ['$scope', '$state', '$stateParams', '$location', '$window', '$http', '$uibModal', 'App', 'ReferralDetails', 'CampaignDetails'];
-		AllCampaignsController.$inject = ['$location', '$http', '$window', '$q', 'App', 'CampaignDetails'];
+		AllCampaignsController.$inject = ['$rootScope', '$location', '$http', '$window', '$q', 'App', 'CampaignDetails'];
 
 
 		function modalController($state, App){
@@ -27,12 +27,15 @@
 			}
 		}
 
-		function AllJobsController($http, $q, $location, App){
+		function AllJobsController($rootScope, $http, $q, $location, App, ReferralDetails){
 
-			var vm = this, canceler;
+			var vm = this,
+						canceler;
 
 			vm.bol = true;
 			vm.copyUrl = $location.$$absUrl;
+			//vm.copyUrl = 'http://enterprisestaging.mintmesh.com/email-parser/all-campaigns?ref=ee184166049d2a77bf26a4daadfc0ffee92de64be2095d97'
+			vm.job_name = [];
 
 			var page_no = 1,total_pages = 1;
 			
@@ -50,6 +53,9 @@
 					vm.infiniteScroll.busy = false;
 					for(var i = 0; i < obj.jobs_list.length; i++){
 						vm.infiniteScroll.list.push(obj.jobs_list[i]);
+						if(i <= 3){
+							vm.job_name[i] = obj.jobs_list[i].job_name;
+						}
 					}
 					vm.infiniteScroll.companyName = obj.company_name;
 					vm.infiniteScroll.company_logo = obj.company_logo || '';
@@ -57,6 +63,7 @@
 					if(vm.infiniteScroll.company_logo != ''){
 						$('header img').on('load', function(){
 							this.className = '';
+							$(this).attr('height', App.Components.aspectRatio({domTarget: $(this)[0]}) +'px');
 						})
 					}
 					else{
@@ -159,19 +166,35 @@
                 }
 			}
 
+			// meta tags constants
+			$rootScope.SocialShare = {
+				image : '',
+				description : '',
+				name : ReferralDetails.company_name,
+				title : 'My company is hiring. These jobs are available',
+				url : vm.copyUrl,
+				site : '',
+				creator : '',
+				app_id : '730971373717257',
+				domain : App.base_url
+			}
+			console.log($rootScope.SocialShare)
+
 			// social sharing directive
 			function sharing(){
+				$rootScope.SocialShare.image = vm.infiniteScroll.company_logo || '';
+				$rootScope.SocialShare.description = vm.job_name[0] + ', ' + vm.job_name[1] + ', ' + vm.job_name[2] + '...';
 				vm.socialMedia = {
 					socialIcons: ['facebook', 'twitter', 'linkedin', 'googlePlus'],
 					url: vm.copyUrl,
 					facebook: {
-						post_title: 'List of Jobs',
+						post_title: 'My company is hiring. These jobs are available',
 						post_url: vm.copyUrl,
 						post_img: vm.infiniteScroll.company_logo || '',
-						post_msg: ''
+						post_msg: vm.job_name[0] + ', ' + vm.job_name[1] + ', ' + vm.job_name[2] + '...'
 					},
 					twitter : {
-						text: 'List of Jobs',
+						text: 'My company is hiring. These jobs are available',
 						url: vm.copyUrl,
 						hashtags: '',
 						via: vm.infiniteScroll.companyName,
@@ -179,8 +202,8 @@
 					},
 					linkedin : {
 						url: vm.copyUrl,
-						title: 'List of Jobs',
-						summary: vm.infiniteScroll.total_count + ' jobs',
+						title: 'My company is hiring. These jobs are available',
+						summary: vm.job_name[0] + ', ' + vm.job_name[1] + ', ' + vm.job_name[2] + '...',
 						source: vm.infiniteScroll.companyName
 					},
 					googlePlus : {
@@ -191,7 +214,7 @@
 			
 		}
 
-		function JobDetailsController($http, $stateParams, $window, $location, App){
+		function JobDetailsController($rootScope, $http, $stateParams, $window, $location, App, ReferralDetails){
 
 			var vm = this;
 
@@ -211,6 +234,7 @@
 					if(vm.job_details.company_logo != ''){
 						$('header img').on('load', function(){
 							this.className = '';
+							$(this).attr('height', App.Components.aspectRatio({domTarget: $(this)[0]}) +'px');
 						})
 					}
 					else{
@@ -247,26 +271,44 @@
 
 			vm.job_details.onload();
 
+			// meta tags constants
+			$rootScope.SocialShare = {
+				image : '',
+				description : '',
+				name : ReferralDetails.company_name,
+				title : '',
+				url : vm.copyUrl,
+				site : '',
+				creator : '',
+				app_id : '730971373717257',
+				domain : App.base_url
+			}
+			console.log($rootScope.SocialShare)
+
 			function sharing(){
+				var location = vm.job_details.list[0].location.split(',');
+				$rootScope.SocialShare.image = vm.job_details.company_logo || '';
+				$rootScope.SocialShare.description = vm.job_details.list[0].job_description;
+				$rootScope.SocialShare.title = vm.job_details.list[0].job_name.toUpperCase() +', Location: ' + location[0];
 				vm.socialMedia = {
 					socialIcons: ['facebook', 'twitter', 'linkedin', 'googlePlus'],
 					url: vm.copyUrl,
 					facebook: {
-						post_title: vm.job_details.list[0].job_name,
+						post_title: vm.job_details.list[0].job_name +', Location: ' + location[0],
 						post_url: vm.copyUrl,
 						post_img: vm.job_details.company_logo || '',
-						post_msg: ''
+						post_msg: vm.job_details.list[0].job_description
 					},
 					twitter : {
-						text: vm.job_details.list[0].job_name,
+						text: vm.job_details.list[0].job_name.toUpperCase() +', Location: ' + location[0],
 						url: vm.copyUrl,
-						hashtags: '',
+						hashtags: location[1],
 						via: vm.job_details.companyName,
 						related: ''
 					},
 					linkedin : {
 						url: vm.copyUrl,
-						title: vm.job_details.list[0].job_name,
+						title: vm.job_details.list[0].job_name.toUpperCase() + ', Location: ' + location[0],
 						summary: vm.job_details.list[0].job_description,
 						source: vm.job_details.companyName
 					},
@@ -301,6 +343,10 @@
 				ReferralDetails.company_logo = CampaignDetails.company_logo;
 				ReferralDetails.company_name = CampaignDetails.company_name;
 			}
+
+			$('h1.logo img').on('load', function(){
+				$(this).attr('height', App.Components.aspectRatio({domTarget: $(this)[0]}) +'px');
+			})
 
 			var ref = $stateParams.ref;
 			var apiCall = App.base_url + 'apply_job';
@@ -414,7 +460,7 @@
 		        	$('.file-check').text('');
 		        	$upload_resume.find('.qq-uploader + .qq-upload-fail').remove();
 		            $upload_resume.closest('.form-group').find('div.error').hide();
-		            $upload_resume.find('.qq-upload-list').css('z-index','0');
+		            $upload_resume.find('.qq-upload-list').css('z-index','-1');
 		            $(obj._listElement).fadeIn();
 		        },
 		        onRemove: function() {
@@ -439,7 +485,7 @@
 			
 		}
 
-		function AllCampaignsController($location, $http, $window, $q, App, CampaignDetails){
+		function AllCampaignsController($rootScope, $location, $http, $window, $q, App, CampaignDetails){
 
 			var vm = this,
 						canceler;
@@ -449,16 +495,32 @@
 
 			var page_no = 1,total_pages = 1;
 
+			// meta tags constants
+			$rootScope.SocialShare = {
+				image : CampaignDetails.company_logo,
+				description : '',
+				name : CampaignDetails.company_name,
+				title : '',
+				url : vm.copyUrl,
+				site : '',
+				creator : '',
+				app_id : '730971373717257',
+				domain : App.base_url
+			}
+			console.log($rootScope.SocialShare)
+
 			// social sharing directive
 			function sharing(){
+				$rootScope.SocialShare.title = vm.infiniteScroll.headerDetails.campaign_name.toUpperCase();
+				$rootScope.SocialShare.description = 'Starts on: ' + vm.infiniteScroll.headerDetails.campaign_start_date + ' and Ends on: ' + vm.infiniteScroll.headerDetails.campaign_end_date;
 				vm.socialMedia = {
 					socialIcons: ['facebook', 'twitter', 'linkedin', 'googlePlus'],
 					url: vm.copyUrl,
 					facebook: {
-						post_title: vm.infiniteScroll.headerDetails.campaign_name,
+						post_title: vm.infiniteScroll.headerDetails.campaign_name.toUpperCase(),
 						post_url: vm.copyUrl,
 						post_img: CampaignDetails.company_logo || '',
-						post_msg: ''
+						post_msg: 'Starts on: ' + vm.infiniteScroll.headerDetails.campaign_start_date + ' and Ends on: ' + vm.infiniteScroll.headerDetails.campaign_end_date,
 					},
 					twitter : {
 						text: vm.infiniteScroll.headerDetails.campaign_name.toUpperCase(),
@@ -469,8 +531,8 @@
 					},
 					linkedin : {
 						url: vm.copyUrl,
-						title: vm.infiniteScroll.headerDetails.campaign_name + ',' + vm.infiniteScroll.headerDetails.campaign_type,
-						summary: 'Starts on: ' + vm.infiniteScroll.headerDetails.campaign_start_date,
+						title: vm.infiniteScroll.headerDetails.campaign_name.toUpperCase() + ',' + vm.infiniteScroll.headerDetails.campaign_type,
+						summary: 'Starts on: ' + vm.infiniteScroll.headerDetails.campaign_start_date + ' and Ends on: ' + vm.infiniteScroll.headerDetails.campaign_end_date,
 						source: CampaignDetails.company_name
 					},
 					googlePlus : {

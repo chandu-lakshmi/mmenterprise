@@ -50,7 +50,7 @@
 			        </span>
 			    </div>
 			    <div class="pull-right disabled">
-			        <span class="cancel"><a ui-sref="allJobs({ref: $root.ref})">Cancel</a></span>
+			        <span class="cancel"><a ui-sref="{{$stateParams.jc == 1 ? 'allCampaigns({ref: $root.camp_ref})' : 'allJobs({ref: $root.ref})'}}">Cancel</a></span>
 					<span class="submit" ng-click="ApplyJobCtrl.postFormData(apply_form.$invalid, 'apply')">SUBMIT</span>
 			    </div>
 			</div>
