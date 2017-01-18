@@ -18,11 +18,8 @@
 						<div class="col-sm-2 rewards pull-right" ng-repeat="rewards in list.rewards">
 							<div ng-if="rewards.rewards_type != 'free'">
 								<h3>{{(rewards.rewards_type == 'paid' ? rewards.currency_type == 1 ? '&#x24;' : '&#8377;' : '&#8471;') + ' ' + rewards.rewards_value}}</h3>
+								<p ng-bind="rewards.rewards_name + ' Rewards'"></p>
 							</div>
-							<div ng-if="rewards.rewards_type == 'free'">
-								<h3 style="font-size:20px;">FREE</h3>
-							</div>
-							<p ng-bind="rewards.rewards_name + ' Rewards'"></p>
 						</div>
 					</div>
 				</div>

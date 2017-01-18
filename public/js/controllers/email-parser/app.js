@@ -2,15 +2,17 @@
 "use strict";
 
 	angular
-		.module('emailParser', ['ui.router', 'ui.bootstrap',
+		.module('emailParser', ['ui.router', 'ui.bootstrap', 'ngMeta',
 			'app.constants', 'app.components','app.helpers',
 			'app.email.parser'
 		])
 
 
-		.config(function ($stateProvider, $urlRouterProvider, $locationProvider, App) {
+		.config(function ($stateProvider, $urlRouterProvider, $locationProvider, App, ngMetaProvider) {
     
     		$locationProvider.html5Mode(true);
+
+    		ngMetaProvider.setDefaultTag('app_id', '730971373717257');
 
     		$stateProvider
     			.state('allJobs', {
@@ -56,8 +58,9 @@
 		})
 
 
-		.run([ '$rootScope', '$state', '$stateParams', 'App', 'ReferralDetails',
-		    function ($rootScope, $state, $stateParams, App, ReferralDetails) {
+		.run([ '$rootScope', '$state', '$stateParams', 'ngMeta', 'App', 'ReferralDetails',
+		    function ($rootScope, $state, $stateParams, ngMeta, App, ReferralDetails) {
+		    	ngMeta.init();
 		    	$rootScope.$root = App;
 		        $rootScope.$state = $state;
 		        $rootScope.ReferralDetails = ReferralDetails;

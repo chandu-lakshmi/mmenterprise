@@ -220,19 +220,19 @@
 html.remove-scroll{overflow: hidden !important;}
 
 .social-share{overflow: hidden;
-	.modal{top: calc(50% - 174.5px);left: calc(50% - 349px);right:initial;
+	.modal{top: calc(50% - 169px);left: calc(50% - 318px);right:initial;
 		.modal-dialog{color: #919191;margin:0;
-		.modal-content{padding: 20px 50px;border-radius: 0;
+		.modal-content{padding: 18px 46px;border-radius: 0;
 			h2{color: #656565;font-size: 27.5px;margin: 24px 0 15px 0;}
 			.md-button{position: absolute;top: 10px;right: 10px;}
 			.box{border: 1px solid #ccc;padding: 10px 0;
-				.title{text-align: center;line-height: 80px;font-size: 25px;color: #3c6dc9;}
+				.title{text-align: center;line-height: 88px;font-size: 26px;color: #3c6dc9;}
 				.content{border-width: 0 1px 0 1px;border-color: #ccc;border-style: solid;text-transform: capitalize;
 					big{font-weight: bold;font-size: 20px;color: initial;display: inline-block;}
 					p{font-size: 16.5px}
 					span{font-size: 16px;}
 				}
-				.location{text-align: center;color: #2592d5;
+				.location{text-align: center;color: #2592d5;margin-top: 8px;
 					img{width: 50px;height: 50px;}
 				}
 			}
@@ -240,8 +240,8 @@ html.remove-scroll{overflow: hidden !important;}
 				social-sharing{
 					.social-sharing{
 						div{
-							span{width: 60px;height: 60px;margin-right: 18px;
-								i{font-size: 40px;line-height: 40px;}
+							span{width: 56px;height: 56px;margin-right: 14px;
+								i{font-size: 34px;line-height: 46px;}
 							}
 						}
 					}
@@ -254,6 +254,6 @@ html.remove-scroll{overflow: hidden !important;}
 
 @media (min-width: 768px){
 	.social-share{
-		.modal-dialog{width: 700px;}
+		.modal-dialog{width: 636px;}
 	}
 }

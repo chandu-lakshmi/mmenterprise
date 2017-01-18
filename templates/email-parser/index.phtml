@@ -7,36 +7,36 @@
 		<base href="<?php echo $data['EMAIL_PARSER_DOMAIN']; ?>" target="_blank, _self, _parent, _top">
 		<link rel="shortcut icon" href="{{$root.url_images}}favicon.png"/>
 
-		<meta property="fb:app_id" content="{{SocialShare.app_id}}" >
+		<!-- <meta property="fb:app_id" content="{{ngMeta.app_id}}" > -->
         <!-- fb meta tags starts  -->
-        <meta property="og:image:width" content="600" />
+        <!-- <meta property="og:image:width" content="600" />
         <meta property="og:image:height" content="600" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Mintmesh" >
-        <meta property="og:title" content="{{SocialShare.title}}" >
-        <meta property="og:description" content="{{SocialShare.description}}" >
-        <meta property="og:image" content="{{SocialShare.image}}" >
-        <meta property="og:url" content="{{SocialShare.url}}">
+        <meta ng-if="ngMeta.title" property="og:title" content="{{ngMeta.title}}" >
+        <meta property="og:description" content="{{ngMeta.description}}" >
+        <meta property="og:image" content="{{ngMeta.image}}" >
+        <meta property="og:url" content="{{ngMeta.url}}"> -->
          <!-- fb meta tags ends  -->
 
 		<!-- twitter meta tags starts  -->
-        <meta name="twitter:card" content="summary_large_image" >
+        <!-- <meta name="twitter:card" content="summary_large_image" > -->
          <!-- <meta name="twitter:og_site_name" content="" >-->
-        <meta name="twitter:title" content="{{SocialShare.title}}" >
-        <meta name="twitter:description" content="{{SocialShare.description}}" >
-        <meta name="twitter:image" content="{{SocialShare.image}}" >
-        <meta name="twitter:url" content="{{SocialShare.url}}">
-		<meta name="twitter:site" content="{{SocialShare.site}}">
-		<meta name="twitter:creator" content="{{SocialShare.creator}}">
-		<meta name="twitter:domain" content="{{SocialShare.domain}}">
+        <!-- <meta name="twitter:title" content="{{ngMeta.title}}" >
+        <meta name="twitter:description" content="{{ngMeta.description}}" >
+        <meta name="twitter:image" content="{{ngMeta.image}}" >
+        <meta name="twitter:url" content="{{ngMeta.url}}">
+		<meta name="twitter:site" content="{{ngMeta.site}}">
+		<meta name="twitter:creator" content="{{ngMeta.creator}}">
+		<meta name="twitter:domain" content="{{ngMeta.domain}}">
 		<meta name="twitter:image:width" content="600">
-		<meta name="twitter:image:height" content="600">
+		<meta name="twitter:image:height" content="600"> -->
          <!-- twitter meta tags ends  -->
 
 		<!-- google+ meta tags starts -->
-     	<meta itemprop="name" content="{{SocialShare.name}}">
-        <meta itemprop="description" content="{{SocialShare.description}}">
-        <meta itemprop="image" content="{{SocialShare.image}}">
+     	<!-- <meta itemprop="name" content="{{ngMeta.name}}">
+        <meta itemprop="description" content="{{ngMeta.description}}">
+        <meta itemprop="image" content="{{ngMeta.image}}"> -->
         <!--google+ meta tags ends  -->
 
 
@@ -56,6 +56,7 @@
 		<script type="text/javascript" src="../public/js/vendor/intlTelInput.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
 		<script type="text/javascript" src="../public/js/vendor/fileuploader.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
 		<script type="text/javascript" src="../public/js/vendor/ui-bootstrap-tpls.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
+		<script type="text/javascript" src="../public/js/vendor/ngMeta.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
 
 		<!-- Go to www.addthis.com/dashboard to customize your tools -->
 		<!-- <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-584e9bc0740b5886"></script>  -->

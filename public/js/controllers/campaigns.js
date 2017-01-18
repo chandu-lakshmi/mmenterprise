@@ -25,6 +25,7 @@
 		SocialShareController.$inject = ['$state', '$rootScope', '$timeout', 'CampaignsData', 'CompanyDetails', 'App']
 
 		function contactBuckets(){
+
 			var buckets = {};
 
 			this.setBucket = function(data){
@@ -265,14 +266,19 @@
 						}	
 					}
 					vm['errCond' + formName]= false;
-					vm["step" + vm.currentStep] = false;
-					vm.currentStep++;
-					vm.listSteps[vm.currentStep - 1].status = true;
+					if(vm.currentStep == 3){
+						vm.postNewCampaign();
+					}
+					else{
+						vm["step" + vm.currentStep] = false;
+						vm.currentStep++;
+						vm.listSteps[vm.currentStep - 1].status = true;
+					}
 				}
 				else{
 					vm["step" + vm.currentStep] = false;
 					vm.currentStep--;
-					
+					vm['errCond' + formName]= false;
 					vm.listSteps[vm.currentStep].status = false;
 				}
 				formName = 'frm'+ vm.currentStep;
@@ -324,9 +330,9 @@
 		    		if(response.status_code == 200){
 		    			vm.successMsg = response.message.msg[0];
 		    			CampaignsData.bol = true;
-			    		closeModal();
 			    		CampaignsData.setCampaigns(response.data);
-                        share();
+			    		closeModal();
+			    		setTimeout(function(){share()},500);
 			    	}
 			    	else if(response.status_code == 400){
 		                $window.location = App.base_url + 'logout';
@@ -1138,6 +1144,19 @@
 
 		function SocialShareController($state, $rootScope, $timeout, CampaignsData, CompanyDetails, App){
 
+			$(".google-map").fancybox({
+				maxWidth	: 800,
+				maxHeight	: 600,
+				fitToView	: false,
+				width		: '70%',
+				height		: '70%',
+				autoSize	: false,
+				closeClick	: false,
+				openEffect	: 'none',
+				closeEffect	: 'none'
+			});
+
+
 			var vm = this;
 
 			vm.company_name = CompanyDetails.name;
@@ -1145,9 +1164,9 @@
 			vm.copyUrl = App.base_url + 'email-parser/all-campaigns?ref=' + vm.details.camp_ref;
 
 			vm.close = close;
-			//vm.geoLocationUrl =vm.details.latitude ? ("https://maps.google.com/maps?q=" + vm.details.latitude + ',' + vm.details.longitude) : "#";
+			vm.geoLocationUrl =vm.details.location_type=='onsite' ? ("http://maps.google.com/?output=embed&f=q&source=s_q&hl=en&q=" + vm.details.location.address +' ,'+ vm.details.location.city +' ,'+ vm.details.location.state) : "#";
 			// meta tags constants
-			$rootScope.SocialShare = {
+			/*$rootScope.SocialShare = {
 				image : CompanyDetails.company_logo,
 				description : 'Starts on: ' + vm.details.schedule[0].start_on_date + ' and Ends on: ' + vm.details.schedule[0].end_on_date,
 				name : CompanyDetails.name,
@@ -1157,13 +1176,13 @@
 				creator : '',
 				app_id : '730971373717257',
 				domain : App.base_url
-			}
+			}*/
 
 			vm.socialMedia = {
 				socialIcons: ['facebook', 'twitter', 'linkedin', 'googlePlus'],
 				url: vm.copyUrl,
 				facebook: {
-					post_title: vm.details.campaign_name,
+					post_title: vm.details.campaign_name.toUpperCase(),
 					post_url: vm.copyUrl,
 					post_img: CompanyDetails.company_logo || '',
 					post_msg: 'Starts on: ' + vm.details.schedule[0].start_on_date + ' and Ends on: ' + vm.details.schedule[0].end_on_date,

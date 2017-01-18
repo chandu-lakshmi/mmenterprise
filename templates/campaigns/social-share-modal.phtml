@@ -11,8 +11,9 @@
 			<span style="font-weight:bold;">Starts On : </span><span ng-bind="SocialShareCtrl.details.schedule[0].start_on_date + ' - ' + SocialShareCtrl.details.schedule[0].start_on_time"></span>
 		</div>
 		<div class="location col-sm-3">
-			<img src="public/images/material_icons/location.svg" alt="">
-			<p>Location</p>
+			<a ng-if="SocialShareCtrl.geoLocationUrl != '#'" class="google-map fancybox.iframe" href="{{SocialShareCtrl.geoLocationUrl}}"><img src="public/images/material_icons/location.svg" alt=""></a>
+			<img ng-if="SocialShareCtrl.geoLocationUrl == '#'" src="public/images/material_icons/location.svg" alt="">
+			<p ng-bind="SocialShareCtrl.geoLocationUrl == '#' ? 'Online' : 'Location'"></p>
 		</div>
 	</div>
 	<div class="social-share-icons">

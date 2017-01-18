@@ -29,7 +29,7 @@
 						</a>
 						<div class="col-sm-4 buttons">
 							<a class="apply" ui-sref="referralDetails({ref: list.ref_code,flag: 0, status:list.status, jc:0})" ng-if="list.post_type == 'external'">REFER</a>
-							<a class="apply" ui-sref="candidateDetails({ref: list.ref_code, flag: 0, status:list.status})" ng-if="list.post_type == 'internal'">APPLY</a>
+							<a class="apply" ui-sref="candidateDetails({ref: list.ref_code, flag: 0, status:list.status, jc:0})" ng-if="list.post_type == 'internal'">APPLY</a>
 						</div>
 					</div>
 					<div class="overlay" ng-if="AllJobsCtrl.loader" style="top:65px;">

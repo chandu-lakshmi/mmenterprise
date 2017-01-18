@@ -10,31 +10,38 @@
 		.controller('AllCampaignsController', AllCampaignsController)
 
 		modalController.$injext = ['$state', 'App'];
-		AllJobsController.$inject = ['$rootScope', '$http', '$q', '$location', 'App', 'ReferralDetails'];
-		JobDetailsController.$inject = ['$rootScope', '$http', '$stateParams', '$window', '$location', 'App', 'ReferralDetails'];
+		AllJobsController.$inject = ['$http', '$q', '$location', 'App', 'ReferralDetails', 'ngMeta'];
+		JobDetailsController.$inject = ['$http', '$stateParams', '$window', '$location', 'App', 'ReferralDetails', 'ngMeta'];
 		ApplyJobController.$inject = ['$scope', '$state', '$stateParams', '$location', '$window', '$http', '$uibModal', 'App', 'ReferralDetails', 'CampaignDetails'];
-		AllCampaignsController.$inject = ['$rootScope', '$location', '$http', '$window', '$q', 'App', 'CampaignDetails'];
+		AllCampaignsController.$inject = ['$location', '$http', '$window', '$q', 'App', 'CampaignDetails', 'ngMeta'];
 
 
 		function modalController($state, App){
 
 			var vm = this;
 
+			vm.close = close;
 			vm.jump = jump;
 
-			function jump(){
+			function close(){
 				$state.go('allJobs', {ref: App.ref})
+			}
+
+			function jump(){
+				console.log($state)
+				var refCode = $state.params.jc == 0 ? App.ref : App.camp_ref;
+				$state.go('referralDetails', {ref: refCode, flag : 1, jc : $state.params.jc, status : ''})
 			}
 		}
 
-		function AllJobsController($rootScope, $http, $q, $location, App, ReferralDetails){
+		function AllJobsController($http, $q, $location, App, ReferralDetails, ngMeta){
 
 			var vm = this,
 						canceler;
 
 			vm.bol = true;
 			vm.copyUrl = $location.$$absUrl;
-			//vm.copyUrl = 'http://enterprisestaging.mintmesh.com/email-parser/all-campaigns?ref=ee184166049d2a77bf26a4daadfc0ffee92de64be2095d97'
+			// vm.copyUrl = 'http://enterprisestaging.mintmesh.com/email-parser/all-campaigns?ref=ee184166049d2a77bf26a4daadfc0ffee92de64be2095d97'
 			vm.job_name = [];
 
 			var page_no = 1,total_pages = 1;
@@ -167,23 +174,20 @@
 			}
 
 			// meta tags constants
-			$rootScope.SocialShare = {
-				image : '',
-				description : '',
-				name : ReferralDetails.company_name,
-				title : 'My company is hiring. These jobs are available',
-				url : vm.copyUrl,
-				site : '',
-				creator : '',
-				app_id : '730971373717257',
-				domain : App.base_url
-			}
-			console.log($rootScope.SocialShare)
+			/*ngMeta.setTag('name', ReferralDetails.company_name);
+			ngMeta.setTitle('My company is hiring. These jobs are available');
+			ngMeta.setTag('url', vm.copyUrl);
+			ngMeta.setTag('domain', App.base_url);*/
 
 			// social sharing directive
 			function sharing(){
-				$rootScope.SocialShare.image = vm.infiniteScroll.company_logo || '';
-				$rootScope.SocialShare.description = vm.job_name[0] + ', ' + vm.job_name[1] + ', ' + vm.job_name[2] + '...';
+				var desc = '';
+				if(vm.job_name[1] != undefined)
+					desc = vm.job_name[0] + ', ' + vm.job_name[1] + '...';
+				else
+					desc = vm.job_name[0];
+				ngMeta.setTag('image', vm.infiniteScroll.company_logo || '');
+				ngMeta.setTag('description', desc);
 				vm.socialMedia = {
 					socialIcons: ['facebook', 'twitter', 'linkedin', 'googlePlus'],
 					url: vm.copyUrl,
@@ -191,7 +195,7 @@
 						post_title: 'My company is hiring. These jobs are available',
 						post_url: vm.copyUrl,
 						post_img: vm.infiniteScroll.company_logo || '',
-						post_msg: vm.job_name[0] + ', ' + vm.job_name[1] + ', ' + vm.job_name[2] + '...'
+						post_msg: desc
 					},
 					twitter : {
 						text: 'My company is hiring. These jobs are available',
@@ -203,7 +207,7 @@
 					linkedin : {
 						url: vm.copyUrl,
 						title: 'My company is hiring. These jobs are available',
-						summary: vm.job_name[0] + ', ' + vm.job_name[1] + ', ' + vm.job_name[2] + '...',
+						summary: desc,
 						source: vm.infiniteScroll.companyName
 					},
 					googlePlus : {
@@ -214,7 +218,7 @@
 			
 		}
 
-		function JobDetailsController($rootScope, $http, $stateParams, $window, $location, App, ReferralDetails){
+		function JobDetailsController($http, $stateParams, $window, $location, App, ReferralDetails, ngMeta){
 
 			var vm = this;
 
@@ -272,24 +276,15 @@
 			vm.job_details.onload();
 
 			// meta tags constants
-			$rootScope.SocialShare = {
-				image : '',
-				description : '',
-				name : ReferralDetails.company_name,
-				title : '',
-				url : vm.copyUrl,
-				site : '',
-				creator : '',
-				app_id : '730971373717257',
-				domain : App.base_url
-			}
-			console.log($rootScope.SocialShare)
+			/*ngMeta.setTag('name', ReferralDetails.company_name);
+			ngMeta.setTag('url', vm.copyUrl);
+			ngMeta.setTag('domain', App.base_url);*/
 
 			function sharing(){
 				var location = vm.job_details.list[0].location.split(',');
-				$rootScope.SocialShare.image = vm.job_details.company_logo || '';
-				$rootScope.SocialShare.description = vm.job_details.list[0].job_description;
-				$rootScope.SocialShare.title = vm.job_details.list[0].job_name.toUpperCase() +', Location: ' + location[0];
+				/*ngMeta.setTitle(vm.job_details.list[0].job_name.toUpperCase() +', Location: ' + location[0]);
+				ngMeta.setTag('image', vm.job_details.company_logo || '');
+				ngMeta.setTag('description', vm.job_details.list[0].job_description);*/
 				vm.socialMedia = {
 					socialIcons: ['facebook', 'twitter', 'linkedin', 'googlePlus'],
 					url: vm.copyUrl,
@@ -360,7 +355,7 @@
 				separateDialCode: true
 
 			});
-
+			console.log($stateParams.status)
 			if($stateParams.status == 'CLOSED'){
 				$uibModal.open({
 		            animation: true,
@@ -402,7 +397,7 @@
 	                	angular.element('.footer .disabled').css('pointer-events','auto');
 	                	if(response.data.status_code == 200){
 	                		vm.backendMsg = response.data.message.msg[0];
-	                		if($state.current.name == 'candidateDetails' || $stateParams.jc == 0){
+	                		if($stateParams.jc == 0){
 	                			setTimeout(function(){$state.go('allJobs', {ref: ref})},1000);
 	                		}
 	                		else{
@@ -485,7 +480,7 @@
 			
 		}
 
-		function AllCampaignsController($rootScope, $location, $http, $window, $q, App, CampaignDetails){
+		function AllCampaignsController($location, $http, $window, $q, App, CampaignDetails, ngMeta){
 
 			var vm = this,
 						canceler;
@@ -496,23 +491,15 @@
 			var page_no = 1,total_pages = 1;
 
 			// meta tags constants
-			$rootScope.SocialShare = {
-				image : CampaignDetails.company_logo,
-				description : '',
-				name : CampaignDetails.company_name,
-				title : '',
-				url : vm.copyUrl,
-				site : '',
-				creator : '',
-				app_id : '730971373717257',
-				domain : App.base_url
-			}
-			console.log($rootScope.SocialShare)
+			/*ngMeta.setTag('name', CampaignDetails.company_name);
+			ngMeta.setTag('url', vm.copyUrl);
+			ngMeta.setTag('domain', App.base_url);
+			ngMeta.setTag('image', CampaignDetails.company_logo || '');*/
 
 			// social sharing directive
 			function sharing(){
-				$rootScope.SocialShare.title = vm.infiniteScroll.headerDetails.campaign_name.toUpperCase();
-				$rootScope.SocialShare.description = 'Starts on: ' + vm.infiniteScroll.headerDetails.campaign_start_date + ' and Ends on: ' + vm.infiniteScroll.headerDetails.campaign_end_date;
+				/*ngMeta.setTitle(vm.infiniteScroll.headerDetails.campaign_name.toUpperCase());
+				ngMeta.setTag('description', 'Starts on: ' + vm.infiniteScroll.headerDetails.campaign_start_date + ' and Ends on: ' + vm.infiniteScroll.headerDetails.campaign_end_date);*/
 				vm.socialMedia = {
 					socialIcons: ['facebook', 'twitter', 'linkedin', 'googlePlus'],
 					url: vm.copyUrl,

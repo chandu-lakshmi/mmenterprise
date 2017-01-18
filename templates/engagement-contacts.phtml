@@ -6,7 +6,7 @@
 				<div class="mid-nav">
 					<h3>
 						<a ui-sref="^.job"><img src="public/images/back-arrow.svg" alt="back">
-						<span class="ellipsis">{{EngContCtrl.job_title | uppercase}}</span></a>
+						<span class="ellipsis" ng-bind="EngContCtrl.job_title | uppercase" title="{{EngContCtrl.job_title}}"></span></a>
 					</h3>
 					<span class="post {{EngContCtrl.subHeaderCount.post_type}}" ng-bind="EngContCtrl.subHeaderCount.post_type"></span>
 					<span class="status {{EngContCtrl.subHeaderCount.status == 'ACTIVE' ? 'open' : 'closed'}}" ng-bind="EngContCtrl.subHeaderCount.status == 'ACTIVE' ? 'OPEN' : 'CLOSED'">

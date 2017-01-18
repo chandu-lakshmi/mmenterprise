@@ -318,11 +318,7 @@
              </span>
           </div>
           <div class="btns pull-right">
-             <span ng-if="!(NewCampaignCtrl.currentStep == 3)" class="mm-btn" ng-click="NewCampaignCtrl.switchSteps('next')">
-                NEXT
-             </span>
-             <span ng-if="NewCampaignCtrl.currentStep == 3" class="mm-btn ripplelink" ng-style="{'pointer-events': !NewCampaignCtrl.postPointer ? 'auto' : 'none'}" ng-click="NewCampaignCtrl.postNewCampaign()" style="padding: 12px 25px;">
-               PUBLISH CAMPAIGN
+             <span class="mm-btn ripplelink" ng-style="{'pointer-events': !NewCampaignCtrl.postPointer ? 'auto' : 'none'}" ng-click="NewCampaignCtrl.switchSteps('next')" style="padding: 12px 25px;" ng-bind="NewCampaignCtrl.currentStep == 3 ? 'PUBLISH CAMPAIGN' : 'NEXT'">
              </span>
           </div>
        </div>

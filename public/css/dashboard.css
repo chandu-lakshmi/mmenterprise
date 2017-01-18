@@ -1088,7 +1088,7 @@ ul.new-tabs > li.active > a{
     vertical-align: middle;
     display: inline-block;
     min-width:100px;
-    max-width: 270px;
+    max-width: 240px;
 } 
 .mid-nav + ul{
 	margin: 0;
@@ -1619,7 +1619,12 @@ ul.new-tabs > li.active > a{
 	right: -3px;
 }
 .edit-company .head span.mm-btn{
-    padding: 12px 24px;
+    padding: 12px 30px;
+}
+.edit-company .head span.mm-btn img{
+	position: absolute;
+    right: -4px;
+    width: 38px;
 }
 .edit-company .edit-box{
 	background: #fff;

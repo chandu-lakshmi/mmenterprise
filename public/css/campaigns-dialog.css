@@ -334,14 +334,14 @@ html.remove-scroll {
 .social-share {
   overflow: hidden; }
   .social-share .modal {
-    top: calc(50% - 174.5px);
-    left: calc(50% - 349px);
+    top: calc(50% - 169px);
+    left: calc(50% - 318px);
     right: initial; }
     .social-share .modal .modal-dialog {
       color: #919191;
       margin: 0; }
       .social-share .modal .modal-dialog .modal-content {
-        padding: 20px 50px;
+        padding: 18px 46px;
         border-radius: 0; }
         .social-share .modal .modal-dialog .modal-content h2 {
           color: #656565;
@@ -356,8 +356,8 @@ html.remove-scroll {
           padding: 10px 0; }
           .social-share .modal .modal-dialog .modal-content .box .title {
             text-align: center;
-            line-height: 80px;
-            font-size: 25px;
+            line-height: 88px;
+            font-size: 26px;
             color: #3c6dc9; }
           .social-share .modal .modal-dialog .modal-content .box .content {
             border-width: 0 1px 0 1px;
@@ -375,22 +375,23 @@ html.remove-scroll {
               font-size: 16px; }
           .social-share .modal .modal-dialog .modal-content .box .location {
             text-align: center;
-            color: #2592d5; }
+            color: #2592d5;
+            margin-top: 8px; }
             .social-share .modal .modal-dialog .modal-content .box .location img {
               width: 50px;
               height: 50px; }
         .social-share .modal .modal-dialog .modal-content .social-share-icons {
           margin-top: 35px; }
           .social-share .modal .modal-dialog .modal-content .social-share-icons social-sharing .social-sharing div span {
-            width: 60px;
-            height: 60px;
-            margin-right: 18px; }
+            width: 56px;
+            height: 56px;
+            margin-right: 14px; }
             .social-share .modal .modal-dialog .modal-content .social-share-icons social-sharing .social-sharing div span i {
-              font-size: 40px;
-              line-height: 40px; }
+              font-size: 34px;
+              line-height: 46px; }
 
 @media (min-width: 768px) {
   .social-share .modal-dialog {
-    width: 700px; } }
+    width: 636px; } }
 
 /*# sourceMappingURL=campaigns-dialog.css.map */
