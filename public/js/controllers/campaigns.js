@@ -585,66 +585,6 @@
 					pageChanged(vm.pageNumber)
 				}
 			}
-			/*function location(search){
-
-            	console.log(vm.selectedCountries);
-            	
-				if(canceler){
-					canceler.resolve()
-				}
-				else{
-					if(vm.selectedCountries){
-	            		for(var i = 0; i < vm.selectedCountries.length; i++){
-	            			console.log(vm.searchResults.indexof(vm.selectedCountries[i]))
-	            			if(vm.searchResults.indexof(vm.selectedCountries[i]) == -1){
-	            				vm.searchResults.push(vm.selectedCountries[i])
-	            			}
-	            		}
-	            	}
-				}
-
-				canceler = $q.defer();
-
-				return $http({
-	                headers: {
-	                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-	                },
-	                method: 'GET',
-	                url: '//restcountries.eu/rest/v1/name/'+search,
-	                timeout: canceler.promise
-	            })
-                .then(function(response){
-                	for(var i = 0; i < response.data.length; i++){
-                		vm.searchResults.push(response.data[i].name);
-                		// $('.chosen-drop').find('.chosen-results').append('<li class="active-result" data-option-array-index="'+i+'">'+ response.data[i].name +'</li>')
-                	}
-            		setTimeout(function(){$('#mul_select').trigger('chosen:updated')},100);
-		    	})
-			}*/
-			
-
-			vm.clear = clear;
-			vm.applyFilter = applyFilter;
-			vm.searchFilter = searchFilter;
-			vm.editCampaigns = editCampaigns;
-
-			vm.editCampaignTemplate = 'templates/campaigns/edit-campaigns.phtml'
-
-
-			// modern select
-			$('#mul_select').chosen();
-			$('.chosen-container').bind('keypress', function(e){
-				var val = $(this).find('input').val();
-				if(val.length >= 2){
-					location(val)
-				}
-			})
-
-			// google api for location field
-			vm.geo_location = '';
-		  	vm.geo_options = null;
-		  	vm.geo_details = '';
-
 
 		  	// grid function
 			vm.gridOptions = {
