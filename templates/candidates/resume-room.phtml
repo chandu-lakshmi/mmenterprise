@@ -17,7 +17,7 @@
 							            <input ng-model="searchTerm" type="search" placeholder="Select Status"
 							            	class="demo-header-searchbox md-text">
 						          	</md-select-header>
-					            	<md-option ng-value="status" ng-repeat="status in ResumeRoomCtrl.filterOptions">{{status}}</md-option>
+					            	<md-option ng-value="status" ng-repeat="status in ResumeRoomCtrl.filterOptions | filter:searchTerm">{{status}}</md-option>
 						        </md-select>
 				      		</md-input-container>
 				      		<input type="hidden" name="filter" value="{{ResumeRoomCtrl.filterList.toString()}}">
@@ -96,8 +96,8 @@
 </script>
 
 <script type="text/ng-template" id="download-resume.html">
-	<div class="ui-grid-cell-contents ui-grid-download" title="{{ COL_FIELD }}">
-		<a href="{{grid.appScope.downloadResume(row)}}" download ng-click="$event.stopPropagation()">
+	<div class="ui-grid-cell-contents ui-grid-download" title="{{ COL_FIELD }}" ng-click="$event.stopPropagation()">
+		<a href="{{grid.appScope.downloadResume(row)}}" download>
 			<div class="download" ng-click="grid.appScope.downloadResume(row)"></div>
 		</a>
 		<a href="{{$root.base_url+'viewer?url='+grid.appScope.downloadResume(row)}}" title="" target="_blank">{{ COL_FIELD }}</a>

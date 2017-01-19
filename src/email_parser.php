@@ -13,7 +13,7 @@ $app->get('/email-parser/', function ($request, $response, $args) {
 });
 
 // All Jobs
-$app->get('/email-parser/all-jobs', function ($request, $response, $args) {
+$app->get('/email-parser/all-jobs/{status}', function ($request, $response, $args) {
     
     $args = parserData($this->settings);
     $args['ref'] = $_GET['ref'];
@@ -66,7 +66,7 @@ $app->get('/email-parser/all-campaigns', function ($request, $response, $args) {
 });
 
 // perticular Jobs
-$app->get('/email-parser/job-details', function ($request, $response, $args) {
+$app->get('/email-parser/job-details/{status}', function ($request, $response, $args) {
     // campaign details
     $this->CampaignDetails;
     $args = parserData($this->settings);
@@ -91,7 +91,7 @@ $app->get('/email-parser/job-details', function ($request, $response, $args) {
 });
 
 // All Jobs
-$app->get('/email-parser/candidate-details', function ($request, $response, $args) {
+$app->get('/email-parser/candidate-details/{status}', function ($request, $response, $args) {
     // campaign details
     $this->CampaignDetails;
     $args = parserData($this->settings);
@@ -115,7 +115,7 @@ $app->get('/email-parser/candidate-details', function ($request, $response, $arg
 });
 
 // All Jobs
-$app->get('/email-parser/referral-details', function ($request, $response, $args) {
+$app->get('/email-parser/referral-details/{status}', function ($request, $response, $args) {
     // campaign details
     $this->CampaignDetails;
     $args = parserData($this->settings);

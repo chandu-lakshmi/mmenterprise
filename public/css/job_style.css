@@ -63,8 +63,12 @@
 .job-type{
 	padding: 1.5%;
 	border-bottom: 1px solid silver;
-	overflow: hidden;
 	background-color: #f9f9f9;
+}
+.job-type::after{
+	content: '';
+	display: block;
+	clear: both;
 }
 .job-type .external{
 	display: inline-block;
@@ -139,6 +143,18 @@
    	background: #488C27 ;
    	color: white;
    	line-height: 27px;
+}
+.job-type .pop-name{
+	float: right;
+    margin-top: 7px;
+    position: relative;
+}
+.job-type .pop-name div[uib-popover-popup]{
+	top: -31px !important;
+}
+.job-type .pop-name div[uib-popover-popup] .popover-inner h3{
+	display: block;
+	white-space: nowrap;
 }
 .pad-mar-zero{
 	padding:0 !important;

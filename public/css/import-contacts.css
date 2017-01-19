@@ -84,7 +84,7 @@
 .import-contacts .skip a{
   padding: 16px;
   display: inline;
-  line-height: initial;
+  line-height: normal;
   position: absolute;
   right: 13px;
   top: 11px;

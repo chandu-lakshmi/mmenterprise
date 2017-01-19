@@ -9,15 +9,14 @@
 				   	<li><a ng-click="ContactCtrl.bucketsModal()" >CREATE GROUP</a></li>
 				</ul>
 			</div>
-			<div class="bkt-container animated fadeIn" ng-if="ContactCtrl.bucketNames">
+			<div class="bkt-container" ng-if="ContactCtrl.bucketNames">
 				<span ng-click="ContactCtrl.getGridData('ALL CONTACTS', '0', '','');ContactCtrl.getActiveBucketCount(-1)" class="ripplelink" 
 					ng-class="{ activeBucketCls : ('ALL CONTACTS' == ContactCtrl.activeBucket) }">ALL CONTACTS{{' (' + ContactCtrl.totalRecords + ')'}}</span>
-				<div ng-repeat="bkt in ContactCtrl.bucketNames" class="ripplelink" 
-					ng-click="ContactCtrl.getGridData(bkt.bucket_name, bkt.bucket_id, '', '');ContactCtrl.getActiveBucketCount($index)" 
-					ng-class="{ activeBucketCls : (bkt.bucket_name == ContactCtrl.activeBucket) }"
-					>
-					<span>{{(bkt.bucket_name | uppercase)}}</span>
-					<span> ({{bkt.count || 0}})</span>
+				<div ng-repeat="bkt in ContactCtrl.bucketNames" >
+					<div class="ripplelink" ng-class="{ activeBucketCls : (bkt.bucket_name == ContactCtrl.activeBucket) }" ng-click="ContactCtrl.getGridData(bkt.bucket_name, bkt.bucket_id, '', '');ContactCtrl.getActiveBucketCount($index)">
+						<span>{{(bkt.bucket_name | uppercase)}}</span>
+						<span> ({{bkt.count || 0}})</span>
+					</div>
 				</div>
 			</div>
 		</div>

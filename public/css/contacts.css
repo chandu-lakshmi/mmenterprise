@@ -31,7 +31,7 @@
     min-height: 458px;
 }
 .grid-contacts .container .container-lt .bkt-container > span,
-.grid-contacts .container .container-lt .bkt-container > div{
+.grid-contacts .container .container-lt .bkt-container > div div{
 	display: block;
     padding: 14px 0 14px 16px;
     text-align: left;
@@ -262,24 +262,24 @@
   	box-shadow: none;
 }
 .grid-contacts .ui-grid-pinned-container .ui-grid-header .ui-grid-icon-ok:before{
-	top: 4px;
-    left: 14px;
+	top: 10px;
+    left: 13px;
 }
 .grid-contacts .ui-grid-icon-ok:before{
   	position: relative;
     background: url('../images/checkbox_unchecked.svg');
-    width: 19px;
-    height: 19px;
-    left: 11.5px;
-    top: 3px;
-    background-size: 18px 18px;
+    width: 26px;
+    height: 26px;
+    left: 9px;
+    top: 8px;
+    background-size: 20px 20px;
     background-repeat: no-repeat;
     content: '';
     pointer-events: all;
 }
 .grid-contacts .ui-grid-all-selected.ui-grid-icon-ok:before, .grid-contacts .ui-grid-row-selected.ui-grid-icon-ok:before{
     background: url('../images/checkbox_checked_blue.svg');
-    background-size: 18px 18px;
+    background-size: 20px 20px;
     background-repeat: no-repeat;
 }
 .grid-contacts .ui-grid-selection-row-header-buttons{
@@ -335,13 +335,13 @@
 .grid-contacts .container .container-rt .grid-footer .status span md-input-container{
     margin: 0 0 5px 0;
     padding: 0;
-    line-height: initial;
+    line-height: normal;
     float: none;
     height: 30px;
 }
 .grid-contacts .container .container-rt .grid-footer .invite .btn-invite{
     padding: 16px;
-    line-height: initial;
+    line-height: normal;
     margin-top: 8px;
 }
 .grid-contacts .container .container-rt .grid-footer .invite span.animated{
@@ -351,7 +351,7 @@
     text-align: right;
 }
 .grid-contacts .container .container-rt .grid-footer .pages{
-    line-height: initial;
+    line-height: normal;
 }
 .grid-contacts .container .container-rt .grid-footer .pages .pagination{
     margin:18px 0 0 0;

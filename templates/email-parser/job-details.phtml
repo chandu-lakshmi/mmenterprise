@@ -17,7 +17,7 @@
 					<div>
 						<div class="col-sm-2 rewards pull-right" ng-repeat="rewards in list.rewards">
 							<div ng-if="rewards.rewards_type != 'free'">
-								<h3>{{(rewards.rewards_type == 'paid' ? rewards.currency_type == 1 ? '&#x24;' : '&#8377;' : '&#8471;') + ' ' + rewards.rewards_value}}</h3>
+								<h3>{{(rewards.rewards_type == 'paid' ? rewards.currency_type == 1 ? '&#x24;' : '&#8377;' : 'Point(s)') + ' ' + rewards.rewards_value}}</h3>
 								<p ng-bind="rewards.rewards_name + ' Rewards'"></p>
 							</div>
 						</div>
@@ -45,10 +45,10 @@
 					<p>Job Description:</p>
 					<pre ng-bind="list.job_description"></pre>
 				</div>
-				<div class="action">
-					<a ui-sref="candidateDetails({ref: list.ref_code,flag: 0, status:list.status, jc: list.post_type == 'campaign' ? 1 : 0})" ng-if="list.post_type == 'internal' || list.post_type == 'campaign'">APPLY</a>
-					<a class="" ui-sref="referralDetails({ref: list.ref_code,flag: 0, status:list.status, jc: list.post_type == 'campaign' ? 1 : 0})" ng-if="list.post_type == 'external' || list.post_type == 'campaign'">REFER</a>
-					<a class="all-jobs" ui-sref="{{list.post_type == 'campaign' ? 'allCampaigns({ref: $root.camp_ref})' : 'allJobs({ref: $root.ref})'}}">VIEW ALL JOBS</a>
+				<div class="action" ng-init="sh_cd = $stateParams.share_status">
+					<a ui-sref="candidateDetails({ref: list.ref_code,flag: 0, status:list.status, jc: list.post_type == 'campaign' ? 1 : 0, share_status:sh_cd})" ng-if="list.post_type == 'internal' || list.post_type == 'campaign' || $stateParams.share_status == 'share'">APPLY</a>
+					<a class="" ui-sref="referralDetails({ref: list.ref_code,flag: 0, status:list.status, jc: list.post_type == 'campaign' ? 1 : 0,share_status:sh_cd})" ng-if="list.post_type == 'external' || list.post_type == 'campaign'">REFER</a>
+					<a class="all-jobs" ui-sref="{{list.post_type == 'campaign' ? 'allCampaigns({ref: $root.camp_ref})' : 'allJobs({ref: $root.ref, share_status: $stateParams.share_status,share_status:sh_cd})'}}">VIEW ALL JOBS</a>
 				</div>
 			</div>
 		</section>
@@ -62,7 +62,7 @@
 				<copy-url url="{{JobDetailsCtrl.copyUrl}}" btn-text="COPY JOB LINK"></copy-url>
 			</div>
 			<div class="drop-cv" ng-if="JobDetailsCtrl.job_details.list[0].post_type == 'external'">
-				Refer friend for future openings here <span><a ui-sref="referralDetails({ref: $root.ref,flag: 1})">Upload CV</a></span>
+				Refer friend for future openings here <span><a ui-sref="referralDetails({ref: $root.ref,flag: 1,share_status:sh_cd})">Upload CV</a></span>
 			</div>
 		</footer>
 	</div>

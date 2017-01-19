@@ -10,7 +10,7 @@
 		.controller('AllCampaignsController', AllCampaignsController)
 
 		modalController.$injext = ['$state', 'App'];
-		AllJobsController.$inject = ['$http', '$q', '$location', 'App', 'ReferralDetails', 'ngMeta'];
+		AllJobsController.$inject = ['$http', '$stateParams', '$q', '$location', 'App', 'ReferralDetails', 'ngMeta'];
 		JobDetailsController.$inject = ['$http', '$stateParams', '$window', '$location', 'App', 'ReferralDetails', 'ngMeta'];
 		ApplyJobController.$inject = ['$scope', '$state', '$stateParams', '$location', '$window', '$http', '$uibModal', 'App', 'ReferralDetails', 'CampaignDetails'];
 		AllCampaignsController.$inject = ['$location', '$http', '$window', '$q', 'App', 'CampaignDetails', 'ngMeta'];
@@ -24,17 +24,16 @@
 			vm.jump = jump;
 
 			function close(){
-				$state.go('allJobs', {ref: App.ref})
+				$state.go('allJobs', {ref: App.ref, share_status: $state.params.share_status})
 			}
 
 			function jump(){
-				console.log($state)
 				var refCode = $state.params.jc == 0 ? App.ref : App.camp_ref;
-				$state.go('referralDetails', {ref: refCode, flag : 1, jc : $state.params.jc, status : ''})
+				$state.go('referralDetails', {ref: refCode, flag : 1, jc : $state.params.jc, status : '',share_status: $state.params.share_status})
 			}
 		}
 
-		function AllJobsController($http, $q, $location, App, ReferralDetails, ngMeta){
+		function AllJobsController($http, $stateParams, $q, $location, App, ReferralDetails, ngMeta){
 
 			var vm = this,
 						canceler;
@@ -111,7 +110,8 @@
 	                data: $.param({
 	                	reference_id : App.ref,
 	                	page_no : pageNo,
-	                	search : searchVal
+	                	search : searchVal,
+	                	share : $stateParams.share_status == 'web' ? 0 : 1
 	                }),
 	                timeout: canceler.promise
 	            })
@@ -355,7 +355,6 @@
 				separateDialCode: true
 
 			});
-			console.log($stateParams.status)
 			if($stateParams.status == 'CLOSED'){
 				$uibModal.open({
 		            animation: true,
@@ -398,7 +397,7 @@
 	                	if(response.data.status_code == 200){
 	                		vm.backendMsg = response.data.message.msg[0];
 	                		if($stateParams.jc == 0){
-	                			setTimeout(function(){$state.go('allJobs', {ref: ref})},1000);
+	                			setTimeout(function(){$state.go('allJobs', {ref: ref, share_status:$stateParams.share_status})},1000);
 	                		}
 	                		else{
 	                			setTimeout(function(){$state.go('allCampaigns', {ref: App.camp_ref})},1000);

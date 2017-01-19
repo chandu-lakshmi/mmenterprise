@@ -7,7 +7,7 @@
 		.controller('ResumeRoomController', ResumeRoomController)
 
 		CandidateController.$inject = [];
-		ResumeRoomController.$inject = ['$state', '$window', 'uiGridConstants', '$uibModal', '$http', '$q', '$timeout', 'ajaxService', 'App'];
+		ResumeRoomController.$inject = ['$state', '$element', '$window', 'uiGridConstants', '$uibModal', '$http', '$q', '$timeout', 'ajaxService', 'App'];
 
 
 
@@ -16,10 +16,15 @@
 		}
 
 
-		function ResumeRoomController($state, $window, uiGridConstants, $uibModal, $http, $q, $timeout, ajaxService, App){
+		function ResumeRoomController($state, $element, $window, uiGridConstants, $uibModal, $http, $q, $timeout, ajaxService, App){
 
 			var vm = this,canceler,
 			gridApiCall = App.base_url + 'get_company_all_referrals';
+
+			// Multiple Select Search header 
+			$element.find('input').on('keydown', function(ev) {
+          		ev.stopPropagation();
+      		});
 
 			vm.noCandidates = false;
 			vm.loader = false;
@@ -209,7 +214,7 @@
 		    	pageChanged('1', val, callBack);
 		    }
 
-
+		    // important dont delete
 		    /*function statusChange(option){
 		    	var filterIds = [];
 		    	for(var i = 0; i < vm.statusTokens.length; i++){
@@ -266,7 +271,7 @@
 
 		    function statusUpdate(row, flag, e){
 		    	flag = flag == 1 ? 'ACCEPTED' : 'DECLINED'
-
+		    	
 		    	if(flag == 'DECLINED'){
 		    		$uibModal.open({
 	                    animation: false,
@@ -277,7 +282,7 @@
 	                    resolve: {
 	                        referralObj: function() {
 	                            var referralObj = row.entity;
-	                            referralObj.tabName = 1;
+	                            referralObj.tabName = vm.pageNumber;
 	                            referralObj.ajaxFunCall = pageChanged;
 	                            return referralObj;
 	                        }

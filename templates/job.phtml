@@ -48,6 +48,9 @@
 								<img ng-src="{{'public/images/'+ (jobList.post_type == 'campaign' ? 'arrow-buttons_orange.svg' :'arrow-buttons_green.svg')}}">
 							</h3>
 						</a>
+						<div class="pop-name" ng-if="jobList.post_type == 'campaign'">
+							<span ng-if="jobList.post_type == 'campaign'" uib-popover="{{jobList.campaign_name}}" popover-placement="right" popover-title="Campaign Name" popover-trigger="'mouseenter'"><img  src="public/images/info.svg" alt="info" style="width:15px;height:15px"></span>
+						</div>
 					</div>
 					<div class="external" ng-hide="jobList.post_type == 'campaign'" ng-class="{'internal':jobList.post_type=='internal'}" ng-bind="jobList.post_type == 'internal' ? 'Internal' : 'External'"></div>
 					<span  class="job-rewards">
@@ -56,6 +59,7 @@
 						</span>
 						<span ng-if="jobList.free_service == '1'" class="job_free">
 							FREE
+
 						</span>
 						<span ng-if="!(jobList.free_service == '1')" ng-repeat="list in jobList.rewards" ng-class='{"pad-mar-zero":list.rewards_type== "free"}' ng-bind="jobSearchCtrl.getRewardsView(list)">
 						</span>

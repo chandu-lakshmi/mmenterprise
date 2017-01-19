@@ -16,34 +16,36 @@
 
     		$stateProvider
     			.state('allJobs', {
-			        url: '/all-jobs?ref',
+			        url: '/all-jobs/:share_status?ref',
 			        templateUrl: App.base_url + 'templates/email-parser/all-jobs.phtml',
 			        controller: 'AllJobsController',
 			        controllerAs:'AllJobsCtrl',
-			        data : { pageTitle: 'Mintmesh ( Jobs )' }
+			        data : { pageTitle: 'Mintmesh ( Jobs )' },
+			        params : {share_status : 'web'}
 			    })
 			    .state('candidateDetails', {
-			        url: '/candidate-details?ref&flag&jc',
+			        url: '/candidate-details/:share_status?ref&flag&jc',
 			        templateUrl: App.base_url + 'templates/email-parser/candidate-details.phtml',
 			        controller: 'ApplyJobController',
 			        controllerAs:'ApplyJobCtrl',
 			        data : { pageTitle: 'Mintmesh ( Upload CV )' },
-			        params : {status : ''}
+			        params : {status : '',share_status : 'web'}
 			    })
 			    .state('referralDetails', {
-			        url: '/referral-details?ref&flag&jc',
+			        url: '/referral-details/:share_status?ref&flag&jc',
 			        templateUrl: App.base_url + 'templates/email-parser/referral-details.phtml',
 			        controller: 'ApplyJobController',
 			        controllerAs:'ApplyJobCtrl',
 			        data : { pageTitle: '' },
-			        params : {status : ''}
+			        params : {status : '', share_status : 'web', jc : '0'}
 			    })
 			    .state('jobDetails', {
-			        url: '/job-details?ref',
+			        url: '/job-details/:share_status?ref',
 			        templateUrl: App.base_url + 'templates/email-parser/job-details.phtml',
 			        controller: 'JobDetailsController',
 			        controllerAs:'JobDetailsCtrl',
 			        data : { pageTitle: 'Mintmesh' },
+			        params : {share_status : 'web'}
 			    })
 			    .state('allCampaigns', {
 			        url: '/all-campaigns?ref',
