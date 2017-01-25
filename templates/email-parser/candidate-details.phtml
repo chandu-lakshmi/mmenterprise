@@ -2,8 +2,8 @@
 	<div class="container">
 		<section>
 			<h1 class="logo">
-				<img src="{{::ReferralDetails.company_logo}}" alt="company-logo" ng-show="{{::ReferralDetails.company_logo != ''}}">
-				<span class="company-name" ng-show="{{::ReferralDetails.company_logo == ''}}">{{::ReferralDetails.company_name | uppercase}}</span>	
+				<img ng-src="{{ApplyJobCtrl.referralDetails.company_logo}}" alt="company-logo" ng-if="ApplyJobCtrl.referralDetails.company_logo != ''">
+				<span class="company-name" ng-if="ApplyJobCtrl.referralDetails.company_logo == ''">{{ApplyJobCtrl.referralDetails.company_name | uppercase}}</span>	
 			</h1>
 			<div class="title-underline"></div>
 			<div class="row">

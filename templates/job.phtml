@@ -9,7 +9,7 @@
 		</div>
 		<form name="filter_form">
 			<div class="filter-select col-sm-2 pull-right" style="margin:10px 0;">
-				<span class="labels">Type :</span>
+				<span class="labels">Type:</span>
 				<md-input-container style="margin:0px;">
 					 <label style="display:none !important">Job</label>
 					<md-select  name="request_type" ng-model="jobSearchCtrl.pay_status" md-on-close="jobSearchCtrl.filterCall(jobSearchCtrl.pay_status, 'type')">
@@ -20,7 +20,7 @@
 				</md-input-container>
 			</div>
 			<div class="filter-select col-sm-2 pull-right" ng-show="{{::userPermissions.is_primary == 0}}" style="margin:10px 0;">
-				<span class="labels" style="margin-right:5px;">Filter by :</span>
+				<span class="labels" style="margin-right:5px;">Filter by:</span>
 				<md-input-container style="margin:0px;">
 					<label style="display:none !important">Job</label>
 					<md-select  name="post_by" ng-model="jobSearchCtrl.jobFilter" md-on-close="jobSearchCtrl.filterCall(jobSearchCtrl.jobFilter, 'filter')">
@@ -31,7 +31,7 @@
 				</md-input-container>
 			</div>
 		</form>
-		<div class="col-sm-12 total-count">Total Jobs : {{jobSearchCtrl.infiniteScroll.total_count || 0}}</div>
+		<div class="col-sm-12 total-count">Total Jobs: {{jobSearchCtrl.infiniteScroll.total_count || 0}}</div>
 	</div>
 	
 	<!-- infinite scroll -->

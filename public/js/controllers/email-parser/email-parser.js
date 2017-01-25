@@ -351,18 +351,16 @@
 				$state.current.data.pageTitle = 'Mintmesh ( Refer )';
 			}
 
-			vm.referralDetails = angular.copy(ReferralDetails);
 			if($stateParams.share_status == 'share' && $state.current.name == 'candidateDetails'){
 				vm.shareReferral = angular.copy(ReferralDetails.emailid);
+				vm.referralDetails = angular.copy(ReferralDetails);
 				vm.referralDetails.emailid = '';
 			}
-			else{
-				vm.referralDetails.emailid = ReferralDetails.emailid;
+			else if(Object.keys(CampaignDetails).length){
+				vm.referralDetails = angular.copy(CampaignDetails);
 			}
-			if(Object.keys(CampaignDetails).length){
-				ReferralDetails.emailid = CampaignDetails.emailid;
-				ReferralDetails.company_logo = CampaignDetails.company_logo;
-				ReferralDetails.company_name = CampaignDetails.company_name;
+			else{
+				vm.referralDetails = ReferralDetails;
 			}
 
 			$('h1.logo img').on('load', function(){
