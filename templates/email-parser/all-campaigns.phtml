@@ -55,9 +55,9 @@
 								</div>
 							</div>
 						</a>
-						<div class="col-sm-4 buttons">
-							<a class="apply" ui-sref="candidateDetails({ref: list.ref_code,flag: 0, status:list.status, jc: 1})">APPLY</a>
-							<a class="apply" ui-sref="referralDetails({ref: list.ref_code,flag: 0, status:list.status, jc: 1})">REFER</a>
+						<div class="col-sm-4 buttons" ng-init="sh_cd = $stateParams.share_status">
+							<a class="apply" ui-sref="candidateDetails({ref: list.ref_code,flag: 0, status:list.status, jc: 1, share_status: sh_cd})">APPLY</a>
+							<a class="apply" ui-sref="referralDetails({ref: list.ref_code,flag: 0, status:list.status, jc: 1, share_status: sh_cd})">REFER</a>
 						</div>
 					</div>
 					<div class="text-center" ng-if="AllCampaignsCtrl.infiniteScroll.busy" style="opacity:0.5">
@@ -69,7 +69,7 @@
 						<span>Share Campaign</span>
 						<!-- social media share directive -->
 						<social-sharing data-opts="AllCampaignsCtrl.socialMedia" data-path="../templates/components" style="margin-top:10px;"></social-sharing>
-						<copy-url url="{{AllCampaignsCtrl.copyUrl}}" btn-text="COPY CAMPAIGN LINK"></copy-url>
+						<copy-url url="{{AllCampaignsCtrl.shareUrl}}" btn-text="COPY CAMPAIGN LINK"></copy-url>
 					</div>
 				</div>
 			</div>

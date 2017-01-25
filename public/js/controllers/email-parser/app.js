@@ -48,11 +48,12 @@
 			        params : {share_status : 'web'}
 			    })
 			    .state('allCampaigns', {
-			        url: '/all-campaigns?ref',
+			        url: '/all-campaigns/:share_status?ref',
 			        templateUrl: App.base_url + 'templates/email-parser/all-campaigns.phtml',
 			        controller: 'AllCampaignsController',
 			        controllerAs:'AllCampaignsCtrl',
-			        data : { pageTitle: 'Mintmesh ( Campaigns )' }
+			        data : { pageTitle: 'Mintmesh ( Campaigns )' },
+			        params : {share_status : 'web'}
 			    })
 
     		$urlRouterProvider.otherwise('/all-jobs');

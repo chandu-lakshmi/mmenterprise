@@ -41,7 +41,7 @@ $app->get('/email/all-jobs/{status}', function ($request, $response, $args) {
 });
 
 // All Campaigns
-$app->get('/email/all-campaigns', function ($request, $response, $args) {
+$app->get('/email/all-campaigns/{status}', function ($request, $response, $args) {
     
     $args = parserData($this->settings);
     $args['camp_ref'] = $_GET['ref'];

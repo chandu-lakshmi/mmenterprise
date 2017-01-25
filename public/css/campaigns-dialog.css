@@ -101,9 +101,8 @@
               left: -8px; }
               .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-date-picker .layout-align-start-start button md-icon, .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-time-picker .layout-align-start-start button md-icon {
                 position: absolute;
-                width: auto;
                 top: -5px;
-                left: 5px; }
+                left: 6px; }
           .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-date-picker .md-input-focused label, .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-date-picker .md-input-has-value label, .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-time-picker .md-input-focused label, .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-time-picker .md-input-has-value label {
             display: none !important; }
           .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-date-picker label, .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-time-picker label {

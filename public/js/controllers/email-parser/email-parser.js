@@ -160,7 +160,7 @@
 				delay: 500,
                 progress: false,
                 complete: false,
-                placeholder:'Search Job Title/location',
+                placeholder:'Search Job Title/Location',
                 onSearch: function (val) {
                     vm.search_val = val;
                     page_no = 1;
@@ -169,6 +169,7 @@
                     if (vm.search_opts.progress) {
                         if (vm.search_opts.value) {
                         	vm.infiniteScroll.loadApi(page_no, vm.search_val, function(){
+                        		vm.infiniteScroll.list = [];
                         		vm.search_opts.progress = false;
 		                        vm.search_opts.complete = true;
                         	});
@@ -180,15 +181,11 @@
                     page_no = 1;
                     vm.noJobs = false;
                     vm.loader = true;
-                    vm.infiniteScroll.loadApi(page_no, vm.search_val);
+                    vm.infiniteScroll.loadApi(page_no, vm.search_val, function(){
+                    	vm.infiniteScroll.list = [];
+                    });
                 }
 			}
-
-			// meta tags constants
-			/*ngMeta.setTag('name', ReferralDetails.company_name);
-			ngMeta.setTitle('My company is hiring. These jobs are available');
-			ngMeta.setTag('url', vm.copyUrl);
-			ngMeta.setTag('domain', App.base_url);*/
 
 			// social sharing directive
 			function sharing(){
@@ -199,8 +196,7 @@
 						desc = toTitleCase(vm.job_name[0]) + ', ' + toTitleCase(vm.job_name[1]) + ', ' + toTitleCase(vm.job_name[2]) + ' ...'
 				else
 					desc = toTitleCase(vm.job_name[0]);
-				/*ngMeta.setTag('image', vm.infiniteScroll.company_logo || '');
-				ngMeta.setTag('description', desc);*/
+
 				vm.socialMedia = {
 					socialIcons: ['facebook', 'twitter', 'linkedin', 'googlePlus'],
 					url: vm.shareUrl,
@@ -294,15 +290,7 @@
 
 			vm.job_details.onload();
 
-			// meta tags constants
-			/*ngMeta.setTag('name', ReferralDetails.company_name);
-			ngMeta.setTag('url', vm.copyUrl);
-			ngMeta.setTag('domain', App.base_url);*/
-
 			function sharing(){
-				/*ngMeta.setTitle(vm.job_details.list[0].job_name.toUpperCase() +', Location: ' + location[0]);
-				ngMeta.setTag('image', vm.job_details.company_logo || '');
-				ngMeta.setTag('description', vm.job_details.list[0].job_description);*/
 				vm.socialMedia = {
 					socialIcons: ['facebook', 'twitter', 'linkedin', 'googlePlus'],
 					url: vm.shareUrl,
@@ -351,17 +339,25 @@
 				$state.current.data.pageTitle = 'Mintmesh ( Refer )';
 			}
 
-			if($stateParams.share_status == 'share' && $state.current.name == 'candidateDetails'){
-				vm.shareReferral = angular.copy(ReferralDetails.emailid);
-				vm.referralDetails = angular.copy(ReferralDetails);
-				vm.referralDetails.emailid = '';
-			}
-			else if(Object.keys(CampaignDetails).length){
-				vm.referralDetails = angular.copy(CampaignDetails);
+			if($stateParams.share_status == 'share'){
+				if($stateParams.jc == 0)
+					vm.referralDetails = angular.copy(ReferralDetails);
+				else
+					vm.referralDetails = angular.copy(CampaignDetails);
+				if($state.current.name == 'candidateDetails'){
+					vm.shareReferral = angular.copy(ReferralDetails.emailid);
+					vm.referralDetails.emailid = '';
+				}
 			}
 			else{
-				vm.referralDetails = ReferralDetails;
+				// vm.referralDetails = ReferralDetails;
+				if($stateParams.jc == 0)
+					vm.referralDetails = angular.copy(ReferralDetails);
+				else
+					vm.referralDetails = angular.copy(CampaignDetails);
 			}
+
+			// console.log(vm.referralDetails)
 
 			$('h1.logo img').on('load', function(){
 				$(this).attr('height', App.Components.aspectRatio({domTarget: $(this)[0]}) +'px');
@@ -441,7 +437,7 @@
 	                			setTimeout(function(){$state.go('allJobs', {ref: ref, share_status:$stateParams.share_status})},1000);
 	                		}
 	                		else{
-	                			setTimeout(function(){$state.go('allCampaigns', {ref: App.camp_ref})},1000);
+	                			setTimeout(function(){$state.go('allCampaigns', {ref: App.camp_ref, share_status:$stateParams.share_status})},1000);
 	                		}
 	                	}
 	                	else if(response.data.status_code == 403){
@@ -531,27 +527,20 @@
 			}
 
 			vm.bol = true;
-			vm.copyUrl = $location.$$absUrl;
+			// vm.copyUrl = $location.$$absUrl;
+			vm.shareUrl = App.base_url + 'email/all-campaigns/share?ref=' + App.camp_ref;
 
 			var page_no = 1,total_pages = 1;
 
-			// meta tags constants
-			/*ngMeta.setTag('name', CampaignDetails.company_name);
-			ngMeta.setTag('url', vm.copyUrl);
-			ngMeta.setTag('domain', App.base_url);
-			ngMeta.setTag('image', CampaignDetails.company_logo || '');*/
-
 			// social sharing directive
 			function sharing(){
-				/*ngMeta.setTitle(vm.infiniteScroll.headerDetails.campaign_name.toUpperCase());
-				ngMeta.setTag('description', 'Starts on: ' + vm.infiniteScroll.headerDetails.campaign_start_date + ' and Ends on: ' + vm.infiniteScroll.headerDetails.campaign_end_date);*/
 				vm.socialMedia = {
 					socialIcons: ['facebook', 'twitter', 'linkedin', 'googlePlus'],
-					url: vm.copyUrl,
+					url: vm.shareUrl,
 					facebook: {
 						post_title: 'Here is a campaign at '+ toTitleCase(CampaignDetails.company_name) +
 										' for' + toTitleCase(vm.infiniteScroll.headerDetails.campaign_name),
-						post_url: vm.copyUrl,
+						post_url: vm.shareUrl,
 						post_img: CampaignDetails.company_logo || '',
 						post_msg: 'Starts on: ' + vm.infiniteScroll.headerDetails.campaign_start_date +
 									' and Ends on: ' + vm.infiniteScroll.headerDetails.campaign_end_date +
@@ -563,13 +552,13 @@
 									'. Starts on: ' + vm.infiniteScroll.headerDetails.campaign_start_date +
 										' and Ends on: ' + vm.infiniteScroll.headerDetails.campaign_end_date +
 											'. Location: ' + vm.infiniteScroll.headerDetails.campaign_location,
-						url: vm.copyUrl,
+						url: vm.shareUrl,
 						hashtags: '',
 						via: CampaignDetails.company_name,
 						related: ''
 					},
 					linkedin : {
-						url: vm.copyUrl,
+						url: vm.shareUrl,
 						title: 'Here is a campaign at '+
 									toTitleCase(CampaignDetails.company_name) +
 										' for' + toTitleCase(vm.infiniteScroll.headerDetails.campaign_name),
@@ -580,7 +569,7 @@
 						source: CampaignDetails.company_name
 					},
 					googlePlus : {
-						url: vm.copyUrl
+						url: vm.shareUrl
 					}
 				}
 			}

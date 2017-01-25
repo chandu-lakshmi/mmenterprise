@@ -583,7 +583,7 @@ md-input-container md-select .md-select-value {
           .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .ui-grid-accept .status {
             position: absolute;
             bottom: 3px;
-            line-height: initial;
+            line-height: normal;
             font-size: 12px;
             width: 100%; }
         .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .progress {

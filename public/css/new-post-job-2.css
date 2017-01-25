@@ -292,7 +292,7 @@ button::-moz-focus-inner {
     display: inline-block;
 }
 .post-request .footer .container .md-button{
-    display: initial;
+    display: inline;
 }
 .post-request .footer .container div button,
 .post-request .footer .container div a{

@@ -31,6 +31,7 @@ angular.module('app.home', ['ngMaterial', 'ngMessages'])
         scope.forgot_password_success_show = false;
         scope.verfication_show = false;
         scope.signup_show_error = false;
+        scope.licence_error = false;
         if(scope.dublicate_invalid == true){
             scope.dublicate_invalid = false;
         }

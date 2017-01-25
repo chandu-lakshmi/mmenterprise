@@ -2,16 +2,16 @@
     box-sizing: border-box;
 }
 
-input[type=text]::-ms-clear{
+input::-ms-clear{
     display: none;
 }
 select::-ms-expand {
     display: none;
 }
-::-ms-input-placeholder{
+input::-ms-input-placeholder{
     color: #a9a9a9 !important;
 }
-::-webkit-input-placeholder{
+input::-webkit-input-placeholder{
     color: #a9a9a9 !important;
 }
 @font-face{

@@ -89,7 +89,7 @@
 										<md-input-container class="md-block">
 											<label for="lic_no">LICENCE NUMBER*</label>
 		      								<input type="text" id="lic_no" ng-model="homeCtrl.signup_form.lic_no" name="lic_no" required ng-class="{'has-error-border':signup_form.lic_no.$invalid && homeCtrl.signup_show_error || homeCtrl.licence_error}">
-					                     	<div ng-if="signup_form.lic_no.$error.required && homeCtrl.signup_show_error" class="has-error-msg">Please Enter Licence Number.</div>
+					                     	<div ng-if="signup_form.lic_no.$error.required && homeCtrl.signup_show_error && !homeCtrl.licence_error" class="has-error-msg">Please Enter Licence Number.</div>
 					                     	<div ng-if="homeCtrl.licence_error" ng-bind="homeCtrl.licence_error" class="has-error-msg"></div>
 										</md-input-container>
 										<md-input-container class="md-block">

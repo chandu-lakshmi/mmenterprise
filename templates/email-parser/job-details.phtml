@@ -17,7 +17,7 @@
 					<div>
 						<div class="col-sm-2 rewards pull-right" ng-repeat="rewards in list.rewards">
 							<div ng-if="rewards.rewards_type != 'free'">
-								<h4>{{(rewards.rewards_type == 'paid' ? rewards.currency_type == 1 ? '&#x24;' : '&#8377;' : 'Points') + ' ' + rewards.rewards_value}}</h4>
+								<h4>{{(rewards.rewards_type == 'paid' ? rewards.currency_type == 1 ? '&#x24;' : '&#8377;' : 'Points ') + rewards.rewards_value}}</h4>
 								<p ng-bind="rewards.rewards_name + ' Rewards'"></p>
 							</div>
 						</div>
@@ -33,7 +33,7 @@
 						<div class="col-sm-10 value" ng-bind="list.experience"></div>
 					</div>
 					<div class="row">
-						<div class="col-sm-2 labels">Possessions:</div>
+						<div class="col-sm-2 labels">Vacancies:</div>
 						<div class="col-sm-10 value" ng-bind="list.vacancies"></div>
 					</div>
 					<div class="row">
@@ -48,7 +48,7 @@
 				<div class="action" ng-init="sh_cd = $stateParams.share_status">
 					<a ui-sref="candidateDetails({ref: list.ref_code,flag: 0, status: list.status, jc: list.post_type == 'campaign' ? 1 : 0, share_status:sh_cd})" ng-if="list.post_type == 'internal' || list.post_type == 'campaign' || $stateParams.share_status == 'share'">APPLY</a>
 					<a class="" ui-sref="referralDetails({ref: list.ref_code,flag: 0, status: list.status, jc: list.post_type == 'campaign' ? 1 : 0,share_status:sh_cd})" ng-if="list.post_type == 'external' || list.post_type == 'campaign'">REFER</a>
-					<a class="all-jobs" ui-sref="{{list.post_type == 'campaign' ? 'allCampaigns({ref: $root.camp_ref})' : 'allJobs({ref: $root.ref, share_status: $stateParams.share_status,share_status:sh_cd})'}}">VIEW ALL JOBS</a>
+					<a class="all-jobs" ui-sref="{{list.post_type == 'campaign' ? 'allCampaigns({ref: $root.camp_ref, share_status:sh_cd})' : 'allJobs({ref: $root.ref, share_status: $stateParams.share_status,share_status:sh_cd})'}}">VIEW ALL JOBS</a>
 				</div>
 			</div>
 		</section>
