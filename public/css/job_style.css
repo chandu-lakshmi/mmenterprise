@@ -112,6 +112,7 @@
     display: inline-block;
     vertical-align: middle;
     text-overflow: ellipsis;
+    text-transform: capitalize;
 }
 .job-type h3:focus{
 	outline: 0;
@@ -151,10 +152,10 @@
 }
 .job-type .pop-name div[uib-popover-popup]{
 	top: -31px !important;
+	white-space: nowrap;
 }
 .job-type .pop-name div[uib-popover-popup] .popover-inner h3{
 	display: block;
-	white-space: nowrap;
 }
 .pad-mar-zero{
 	padding:0 !important;
@@ -188,11 +189,10 @@
     font-size: 16px;
     line-height: 1.5;
 }
-.job-info_d div:last-child{	
-	overflow: hidden;
-    max-width: 98%;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+.job-info_d div .location.ellipsis{	
+    display: inline-block;
+    width: 78%;
+    vertical-align: middle;
 }
 .job-info_d div:nth-child(even){
 	margin:3% 0;

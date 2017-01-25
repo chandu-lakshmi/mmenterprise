@@ -207,6 +207,8 @@ angular.module('app.company.profile', [])
 
     this.group_size = ['10-50','50-100','100-500','500-1000','1000-5000','5000+'];
 
+    this.groupSize = this.group_size[0];
+
     this.go_0 = true;
 
     this.comp1_show_error = false;

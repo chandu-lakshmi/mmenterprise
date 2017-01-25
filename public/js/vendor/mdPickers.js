@@ -396,7 +396,7 @@ module.directive("mdpDatePicker", ["$mdpDatePicker", "$timeout", function($mdpDa
                         '<md-icon md-svg-icon="mdp-event"></md-icon>' +
                     '</md-button>' +
                     '<md-input-container' + (noFloat ? ' md-no-float' : '') + ' md-is-error="isError()">' +
-                        '<input type="{{ ::type }}"' + (angular.isDefined(attrs.mdpDisabled) ? ' ng-disabled="disabled"' : '') + ' aria-label="' + placeholder + '" placeholder="' + placeholder + '"' + (openOnClick ? ' ng-click="showPicker($event)" ' : '') + ' />' +
+                        '<input type="{{ ::type }}"' + (angular.isDefined(attrs.mdpDisabled) ? ' ng-disabled="disabled"' : '') + ' aria-label="' + placeholder + '" placeholder="' + placeholder + '"' + (openOnClick ? ' ng-click="showPicker($event)" ' : '') + ' readonly/>' +
                     '</md-input-container>' +
                 '</div>';
         },
@@ -834,7 +834,7 @@ module.directive("mdpTimePicker", ["$mdpTimePicker", "$timeout", "$filter", func
                         '<md-icon md-svg-icon="mdp-access-time"></md-icon>' +
                     '</md-button>' +
                     '<md-input-container' + (noFloat ? ' md-no-float' : '') + ' md-is-error="isError()">' +
-                        '<input type="{{ ::type }}"' + (angular.isDefined(attrs.mdpDisabled) ? ' ng-disabled="disabled"' : '') + ' aria-label="' + placeholder + '" placeholder="' + placeholder + '"' + (openOnClick ? ' ng-click="showPicker($event)" ' : '') + ' />' +
+                        '<input type="{{ ::type }}"' + (angular.isDefined(attrs.mdpDisabled) ? ' ng-disabled="disabled"' : '') + ' aria-label="' + placeholder + '" placeholder="' + placeholder + '"' + (openOnClick ? ' ng-click="showPicker($event)" ' : '') + ' readonly/>' +
                     '</md-input-container>' +
                 '</div>';
         },
@@ -842,9 +842,7 @@ module.directive("mdpTimePicker", ["$mdpTimePicker", "$timeout", "$filter", func
             "timeFormat": "@mdpFormat",
             "placeholder": "@mdpPlaceholder",
             "autoSwitch": "=?mdpAutoSwitch",
-            "disabled": "=?mdpDisabled",
-            "date": "@",
-            "time": '@'
+            "disabled": "=?mdpDisabled"
         },
         link: function(scope, element, attrs, ngModel, $transclude) {
             var inputElement = angular.element(element[0].querySelector('input')),
@@ -875,26 +873,6 @@ module.directive("mdpTimePicker", ["$mdpTimePicker", "$timeout", "$filter", func
             });
             
             ngModel.$validators.format = function(modelValue, viewValue) {
-                var startDate = $filter('date')(new Date(scope.date), 'dd-MM-yyyy');
-                var currentDate = $filter('date')(new Date(), 'dd-MM-yyyy');
-                if(startDate == currentDate && !!viewValue){
-                    if(scope.time){
-                        var arr = scope.time.split(":");
-                        var H = Number(arr[0]);
-                        var M = Number(arr[1]);
-                    }else{
-                        var d = new Date();
-                        var H = d.getHours();
-                        var M = d.getMinutes();    
-                    }
-                    var arr = viewValue.split(":");
-                    if ( startDate == currentDate && !(Number(arr[0]) >= H) ){
-                        return false;
-                    }
-                    else if(startDate == currentDate && Number(arr[0]) == H && !(Number(arr[1]) >= M)){
-                        return false;
-                    }
-                }
                 return !viewValue || angular.isDate(viewValue) || moment(viewValue, scope.timeFormat, true).isValid();
             };
             

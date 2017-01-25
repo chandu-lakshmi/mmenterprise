@@ -1131,6 +1131,7 @@ $app->post('/job_rewards',function ($request, $response, $args) use ($app) {
     // dynamically Access Token
     $this->mintmeshAccessToken;
     $this->mintmeshCompanyId;
+    $_POST['time_zone'] = $_SESSION['time_zone'];
     // getting API endpoint from settings
     $apiEndpoint = getapiEndpoint($this->settings, 'job_rewards');
    

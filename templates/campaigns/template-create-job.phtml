@@ -58,8 +58,9 @@
         <div class="clearfix">
             <md-input-container class="md-block pull-left">
                 <label>NUMBER OF VACANCIES <sup> *</sup></label>
-                <input type="text" name="vacancy"  ng-model="jobData.jobVacancies" required check-char-zero ng-class="{'has-error-border':create_job.vacancy.$error.required && errCond}"> 
+                <input type="text" name="vacancy" ng-model="jobData.jobVacancies" ng-maxlength="10" ng-pattern="/(^[^0]$)|(^[1-9]\d{0,}$)/" required check-char-zero ng-class="{'has-error-border':create_job.vacancy.$error.required && errCond}"> 
                 <div class="error-spacer"></div> 
+                <div ng-if="create_job.vacancy.$error.pattern" class="has-error-msg">Number of Vacancies should not be zero.</div>
                 <div class="has-error-msg" ng-show="create_job.vacancy.$error.required && errCond">Number of Vacancies Field is Required.</div>
             </md-input-container>
         </div>

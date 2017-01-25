@@ -13,11 +13,13 @@
 						        <label style="display:none !important">Filter By Status</label>
 						        <md-select ng-model="ResumeRoomCtrl.filterList" md-on-close="ResumeRoomCtrl.applyFilter()"
 						        	data-md-container-class="multiple-select" multiple placeholder="Filter By Status">
-						          	<md-select-header class="demo-select-header">
+						          	<!-- <md-select-header class="demo-select-header">
 							            <input ng-model="searchTerm" type="search" placeholder="Select Status"
 							            	class="demo-header-searchbox md-text">
-						          	</md-select-header>
-					            	<md-option ng-value="status" ng-repeat="status in ResumeRoomCtrl.filterOptions | filter:searchTerm">{{status}}</md-option>
+						          	</md-select-header> -->
+						          	<md-optgroup label="Status">
+					            		<md-option ng-value="status" ng-repeat="status in ResumeRoomCtrl.filterOptions">{{status}}</md-option>
+					            	</md-optgroup>
 						        </md-select>
 				      		</md-input-container>
 				      		<input type="hidden" name="filter" value="{{ResumeRoomCtrl.filterList.toString()}}">

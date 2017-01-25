@@ -49,15 +49,15 @@
           color: #3871cd;
           font-size: 16px;
           text-transform: capitalize; }
-        .all-jobs .container section.job-details .row .header h3 {
+        .all-jobs .container section.job-details .row .header h4 {
           color: #252525;
           margin-top: 5px; }
       .all-jobs .container section.job-details .row .rewards {
-        text-align: center;
-        border-right: 1px solid #dedede; }
+        text-align: center; }
         .all-jobs .container section.job-details .row .rewards:first-child {
-          border-left: 1px solid #dedede; }
-        .all-jobs .container section.job-details .row .rewards h3 {
+          border-left: 1px solid #dedede;
+          border-right: 1px solid #dedede; }
+        .all-jobs .container section.job-details .row .rewards h4 {
           margin: 0;
           color: #ed871a; }
         .all-jobs .container section.job-details .row .rewards p {

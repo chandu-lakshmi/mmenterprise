@@ -39,8 +39,8 @@
 					    	</div>	
 						</div>
 					</div>
-					<div class="box-footer clearfix" ng-if="AllCampaignsCtrl.totalRecords > 10">
-						<div class="paging col-sm-4 col-sm-offset-4 text-center">												
+					<div class="box-footer clearfix">
+						<div class="paging col-sm-4 col-sm-offset-4 text-center" ng-if="AllCampaignsCtrl.totalRecords > 10">
 							<ul uib-pagination total-items="AllCampaignsCtrl.totalRecords" ng-model="AllCampaignsCtrl.pageNumber" max-size="3" direction-links="false" force-ellipses="true" ng-change="AllCampaignsCtrl.pageChanged(AllCampaignsCtrl.pageNumber)" boundary-link-numbers="true" rotate="false"></ul>
 						</div>
 					</div>

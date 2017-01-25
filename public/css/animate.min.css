@@ -7,9 +7,15 @@
  *
  * Copyright (c) 2016 Daniel Eden
  */
-/* hiding */
+
+/*blinking effect in ng-if*/
 .animated.ng-leave{
     display: none;
+}
+
+/*blinking effect in ng-shiw*/
+.ng-hide.ng-hide-animate {
+display: none !important;
 }
 
 .animated {

@@ -6,7 +6,7 @@
          ng-click="(bucket.count == 0 || checkIds.indexOf(bucket.bucket_id) >= 0 ) ? '' : addBucketContact(bucket.src, $index, bucket.bucket_id)">
          <div class="" popover-enable='bucket.count == 0' uib-popover="No contacts Found" popover-trigger="'mouseenter'">
             <img ng-src="{{bucket.src}}" alt="" ng-init="initFn(bucket.src, bucket.bucket_id)">
-            <h4><p ng-bind="bucket.bucket_name" title="{{bucket.bucket_name | uppercase}}"></p></h4>
+            <h4><p ng-bind="bucket.bucket_name"><md-tooltip>{{bucket.bucket_name}}</md-tooltip></p></h4>
             <span ng-bind="bucket.count+' contact(s)'"></span>
          </div>
       </div>

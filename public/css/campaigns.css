@@ -255,7 +255,7 @@ md-dialog md-dialog-actions button.md-primary {
           color: initial; }
       .campaigns .all-campaigns .box .box-content .grid {
         border: 0 !important;
-        height: calc(100vh - 274px) !important; }
+        height: calc(100vh - 352px) !important; }
         .campaigns .all-campaigns .box .box-content .grid .ui-grid-header {
           height: 45px;
           line-height: 33px;
@@ -270,7 +270,8 @@ md-dialog md-dialog-actions button.md-primary {
           cursor: pointer; }
       .campaigns .all-campaigns .box .box-footer {
         background: #eeeff1;
-        padding: 16px; }
+        padding: 16px;
+        min-height: 68px; }
         .campaigns .all-campaigns .box .box-footer .paging {
           display: inline-block; }
           .campaigns .all-campaigns .box .box-footer .paging .pagination {

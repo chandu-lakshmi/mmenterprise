@@ -74,7 +74,7 @@
           								<a href="#" class="close" data-dismiss="alert" aria-label="close" ng-click="EditCampaignsCtrl.closeSchedule(length)" ng-hide="$first">&times;</a>
           								<div class="start">
 	          								<p>STARTS ON</p>
-	          								<mdp-date-picker  mdp-placeholder="dd/mm/yyyy" mdp-format="DD/MM/YYYY" name="startDate{{length}}" mdp-min-date="EditCampaignsCtrl.currentDate | date:'yyyy-MM-dd'" mdp-max-date="EditCampaignsCtrl.campaignDetails.date[length].end_on_date" ng-model="EditCampaignsCtrl.campaignDetails.date[length].start_on_date" required ng-class="{'has-error-border':edit_campaigns_form['startDate'+length].$invalid && EditCampaignsCtrl.errCond}">
+	          								<mdp-date-picker mdp-open-on-click mdp-placeholder="dd/mm/yyyy" name="startDate{{length}}" mdp-min-date="EditCampaignsCtrl.currentDate | date:'yyyy-MM-dd'" mdp-max-date="EditCampaignsCtrl.campaignDetails.date[length].end_on_date" ng-model="EditCampaignsCtrl.campaignDetails.date[length].start_on_date" required ng-class="{'has-error-border':edit_campaigns_form['startDate'+length].$invalid && EditCampaignsCtrl.errCond}">
 	          									<div ng-if="edit_campaigns_form['startDate'+length].$error.required && EditCampaignsCtrl.errCond" class="has-error-msg">Please Enter Start Date.</div>
 	          									<div ng-if="edit_campaigns_form['startDate'+length].$error.format && EditCampaignsCtrl.errCond" class="has-error-msg">Invalid Date Format.</div>
 							                    <div ng-if="!edit_campaigns_form['startDate'+length].$error.format && EditCampaignsCtrl.errCond">
@@ -83,7 +83,7 @@
 	          								</mdp-date-picker>
 	          								<input type="hidden" name="schedule[{{$index}}][start_on_date]" value="{{EditCampaignsCtrl.campaignDetails.date[length].start_on_date | date: 'dd-MM-yyyy'}}">
 	          								<input type="hidden" name="schedule[{{$index}}][schedule_id]" value="{{EditCampaignsCtrl.campaignDetails.date[length].schedule_id}}">
-	          								<mdp-time-picker mdp-format="HH:mm" date="{{EditCampaignsCtrl.campaignDetails.date[length].start_on_date | date:'yyyy-MM-dd'}}" time=""  mdp-placeholder="HH:MM" name="startTime{{length}}" ng-model="EditCampaignsCtrl.campaignDetails.date[length].start_on_time" required ng-class="{'has-error-border':edit_campaigns_form['startTime'+length].$invalid && EditCampaignsCtrl.errCond}">
+	          								<mdp-time-picker mdp-open-on-click mdp-placeholder="HH:MM" name="startTime{{length}}" ng-model="EditCampaignsCtrl.campaignDetails.date[length].start_on_time" required ng-class="{'has-error-border':edit_campaigns_form['startTime'+length].$invalid && EditCampaignsCtrl.errCond}">
 							                  	<div ng-if="edit_campaigns_form['startTime'+length].$error.required && EditCampaignsCtrl.errCond" class="has-error-msg">Please Enter Start Time.</div>
 							                  	<div ng-if="edit_campaigns_form['startTime'+length].$error.format && EditCampaignsCtrl.errCond" class="has-error-msg">Please Enter Valid Time.</div>
 	          								</mdp-time-picker>
@@ -91,7 +91,7 @@
 	          							</div>
 	          							<div class="ends">
 	          								<p>ENDS ON</p>
-	          								<mdp-date-picker mdp-placeholder="dd/mm/yyyy" mdp-format="DD/MM/YYYY" name="endDate{{length}}" mdp-min-date="EditCampaignsCtrl.campaignDetails.date[length].start_on_date || EditCampaignsCtrl.currentDate | date:'yyyy-MM-dd'" ng-model="EditCampaignsCtrl.campaignDetails.date[length].end_on_date" required ng-class="{'has-error-border':edit_campaigns_form['endDate'+length].$invalid && EditCampaignsCtrl.errCond}">
+	          								<mdp-date-picker mdp-open-on-click mdp-placeholder="dd/mm/yyyy" name="endDate{{length}}" mdp-min-date="EditCampaignsCtrl.campaignDetails.date[length].start_on_date || EditCampaignsCtrl.currentDate | date:'yyyy-MM-dd'" ng-model="EditCampaignsCtrl.campaignDetails.date[length].end_on_date" required ng-class="{'has-error-border':edit_campaigns_form['endDate'+length].$invalid && EditCampaignsCtrl.errCond}">
 	          									<div ng-if="edit_campaigns_form['endDate'+length].$error.required && EditCampaignsCtrl.errCond" class="has-error-msg">Please Enter End Date.</div>
 	          									<div ng-if="edit_campaigns_form['endDate'+length].$error.format && EditCampaignsCtrl.errCond" class="has-error-msg">Invalid Date Format.</div>
 							                    <div ng-if="!edit_campaigns_form['endDate'+length].$error.format && EditCampaignsCtrl.errCond">
@@ -99,7 +99,7 @@
 							                    </div>
 	          								</mdp-date-picker>
 	          								<input type="hidden" name="schedule[{{$index}}][end_on_date]" value="{{EditCampaignsCtrl.campaignDetails.date[length].end_on_date | date: 'dd-MM-yyyy'}}">
-	          								<mdp-time-picker  mdp-format="HH:mm" date="{{EditCampaignsCtrl.campaignDetails.date[length].end_on_date | date:'yyyy-MM-dd'}}" time="{{EditCampaignsCtrl.campaignDetails.date[length].start_on_time | date :'HH:mm' }}"  mdp-placeholder="HH:MM" name="endTime{{length}}" ng-model="EditCampaignsCtrl.campaignDetails.date[length].end_on_time" required ng-class="{'has-error-border':edit_campaigns_form['endTime'+length].$invalid && EditCampaignsCtrl.errCond}">
+	          								<mdp-time-picker mdp-open-on-click mdp-placeholder="HH:MM" name="endTime{{length}}" ng-model="EditCampaignsCtrl.campaignDetails.date[length].end_on_time" required ng-class="{'has-error-border':edit_campaigns_form['endTime'+length].$invalid && EditCampaignsCtrl.errCond}">
 	          									<div ng-if="edit_campaigns_form['endTime'+length].$error.required && EditCampaignsCtrl.errCond" class="has-error-msg">Please Enter End Time.</div>
 	          									<div ng-if="edit_campaigns_form['endTime'+length].$error.format && EditCampaignsCtrl.errCond" class="has-error-msg">Please Enter Valid Time.</div>
 	          								</mdp-time-picker>

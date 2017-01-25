@@ -98,7 +98,7 @@ return [
         // email parser
         'EMAIL_PARSER' => [
             // Angular Application domain
-            'EMAIL_PARSER_DOMAIN' => 'http://202.63.105.85/mmenterprise/email-parser/',
+            'EMAIL_PARSER_DOMAIN' => 'http://202.63.105.85/mmenterprise/email/',
         ]
         
     ],

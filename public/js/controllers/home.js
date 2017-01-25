@@ -108,8 +108,9 @@ angular.module('app.home', ['ngMaterial', 'ngMessages'])
     /*  Signup Form Submit  */
     scope.dublicate_email = false;
     scope.signup_show_error = false;
+    scope.licence_error = false;
     scope.submitSignupForm = function(isValid){
-
+        scope.licence_error = false;
     	if(!isValid){
     		scope.signup_show_error = true;
     	}
@@ -121,6 +122,7 @@ angular.module('app.home', ['ngMaterial', 'ngMessages'])
             var data = $.param({
                 fullname: scope.signup_form.s_fname,
                 company: scope.signup_form.s_cname,
+                lic_no : scope.signup_form.lic_no,
                 emailid: lower_email,
                 password: scope.signup_form.s_pass
             });
@@ -141,8 +143,13 @@ angular.module('app.home', ['ngMaterial', 'ngMessages'])
                     scope.signup_show = false;
                     scope.verfication_show = true;
                 }else if (response.status_code == 403) {
-                    scope.dublicate_email = true;
-                    scope.invalid_new_user = response.message.emailid[0];
+                    if(response.message.hasOwnProperty('emailid')){
+                        scope.dublicate_email = true;
+                        scope.invalid_new_user = response.message.emailid[0];
+                    }
+                    else{
+                        scope.licence_error = response.message.msg[0];
+                    }
                 }else if(response.status_code == 400){
                     $window.location = CONFIG.APP_DOMAIN + 'logout';
                 }

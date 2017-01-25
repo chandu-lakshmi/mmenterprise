@@ -3,7 +3,7 @@
 //email parser
 
 //Index page
-$app->get('/email-parser/', function ($request, $response, $args) {
+$app->get('/email', function ($request, $response, $args) {
     
     $args = parserData($this->settings);
 
@@ -13,7 +13,7 @@ $app->get('/email-parser/', function ($request, $response, $args) {
 });
 
 // All Jobs
-$app->get('/email-parser/all-jobs/{status}', function ($request, $response, $args) {
+$app->get('/email/all-jobs/{status}', function ($request, $response, $args) {
     
     $args = parserData($this->settings);
     $args['ref'] = $_GET['ref'];
@@ -36,7 +36,7 @@ $app->get('/email-parser/all-jobs/{status}', function ($request, $response, $arg
 });
 
 // All Campaigns
-$app->get('/email-parser/all-campaigns', function ($request, $response, $args) {
+$app->get('/email/all-campaigns', function ($request, $response, $args) {
     
     $args = parserData($this->settings);
     $args['camp_ref'] = $_GET['ref'];
@@ -66,7 +66,7 @@ $app->get('/email-parser/all-campaigns', function ($request, $response, $args) {
 });
 
 // perticular Jobs
-$app->get('/email-parser/job-details/{status}', function ($request, $response, $args) {
+$app->get('/email/job-details/{status}', function ($request, $response, $args) {
     // campaign details
     $this->CampaignDetails;
     $args = parserData($this->settings);
@@ -91,7 +91,7 @@ $app->get('/email-parser/job-details/{status}', function ($request, $response, $
 });
 
 // All Jobs
-$app->get('/email-parser/candidate-details/{status}', function ($request, $response, $args) {
+$app->get('/email/candidate-details/{status}', function ($request, $response, $args) {
     // campaign details
     $this->CampaignDetails;
     $args = parserData($this->settings);
@@ -115,7 +115,7 @@ $app->get('/email-parser/candidate-details/{status}', function ($request, $respo
 });
 
 // All Jobs
-$app->get('/email-parser/referral-details/{status}', function ($request, $response, $args) {
+$app->get('/email/referral-details/{status}', function ($request, $response, $args) {
     // campaign details
     $this->CampaignDetails;
     $args = parserData($this->settings);

@@ -207,6 +207,7 @@ button::-moz-focus-inner {
     border-right:1px solid #bbbbbb;
     outline: none;
     box-shadow: none;
+    padding: 0 10px;
 }
 .post-request .select-rewards .container .row div .rewards-box .radio div label .field md-input-container{
     margin:0;
@@ -255,14 +256,13 @@ button::-moz-focus-inner {
     top: 28.5%;
 }
 .post-request .buckets-container .container .bucket h4{
-    width: 100%;
     font-size: 20px;
     padding-top: 84px;
 }
 .post-request .buckets-container .container .bucket-each{
     width: 20.9%;
     margin: 0 25px 25px 0;
-    height: initial;
+    height: auto;
 }
 .post-request .buckets-container .container .bucket-each img{
     width: 22px;

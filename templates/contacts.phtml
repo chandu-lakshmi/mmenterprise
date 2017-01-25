@@ -14,7 +14,9 @@
 					ng-class="{ activeBucketCls : ('ALL CONTACTS' == ContactCtrl.activeBucket) }">ALL CONTACTS{{' (' + ContactCtrl.totalRecords + ')'}}</span>
 				<div ng-repeat="bkt in ContactCtrl.bucketNames" >
 					<div class="ripplelink" ng-class="{ activeBucketCls : (bkt.bucket_name == ContactCtrl.activeBucket) }" ng-click="ContactCtrl.getGridData(bkt.bucket_name, bkt.bucket_id, '', '');ContactCtrl.getActiveBucketCount($index)">
-						<span>{{(bkt.bucket_name | uppercase)}}</span>
+						<span>{{bkt.bucket_name | uppercase}}
+							<md-tooltip>{{bkt.bucket_name}}</md-tooltip>
+						</span>
 						<span> ({{bkt.count || 0}})</span>
 					</div>
 				</div>

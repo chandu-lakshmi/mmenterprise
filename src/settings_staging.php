@@ -72,7 +72,7 @@ return [
         // email parser
         'EMAIL_PARSER' => [
             // Angular Application domain
-            'EMAIL_PARSER_DOMAIN' => 'http://enterprisestaging.mintmesh.com/email-parser/',
+            'EMAIL_PARSER_DOMAIN' => 'http://enterprisestaging.mintmesh.com/email/',
         ]
         
     ],

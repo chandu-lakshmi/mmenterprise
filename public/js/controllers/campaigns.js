@@ -143,12 +143,13 @@
 							return;
 						}
 						scope.apiCallStart = true;
+						var postJobData = $('form[name="create_job"]').serialize();
 						$http({
 							headers: {
 					          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
 					        },
 					        method: 'post',
-					        data: $('form[name="create_job"').serialize()+ '&' + $.param({
+					        data: postJobData + '&' + $.param({
 			        			job_period:'immediate',
 								job_type:'global'
 			        		}),
@@ -669,6 +670,7 @@
 			    	else if(response.data.status_code == 403){
 			    		vm.noCampaigns = true;
 		    			vm.gridOptions.data = [];
+		    			vm.totalRecords = 0;
 			    	}
 			    	else if(response.data.status_code == 400) {
 		                $window.location = App.base_url + 'logout';
@@ -847,7 +849,7 @@
 						var obj = {};
 						obj.start_on_date = campaginOpen ? new Date(vm.campaignDetails.schedule[i].start_on_date) : '';
 						obj.end_on_date = campaginOpen ? new Date(vm.campaignDetails.schedule[i].end_on_date) : '';
-						obj.start_on_time = campaginOpen ? (new Date(vm.campaignDetails.schedule[i].start_on_date+' '+vm.campaignDetails.schedule[i].start_on_time)) : '';
+						obj.start_on_time = campaginOpen ? new Date(vm.campaignDetails.schedule[i].start_on_date+' '+vm.campaignDetails.schedule[i].start_on_time) : '';
 						obj.end_on_time = campaginOpen ? new Date(vm.campaignDetails.schedule[i].end_on_date+' '+vm.campaignDetails.schedule[i].end_on_time) : '';
 						obj.schedule_id = vm.campaignDetails.schedule[i].schedule_id;
 						vm.campaignDetails.date.push(obj);
@@ -1099,9 +1101,14 @@
 
 			var vm = this;
 
+			// capitalize string in javascript
+			function toTitleCase(str){
+    			return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+			}
+
 			vm.company_name = CompanyDetails.name;
 			vm.details = CampaignsData.getCampaigns();
-			vm.copyUrl = App.base_url + 'email-parser/all-campaigns?ref=' + vm.details.camp_ref;
+			vm.copyUrl = App.base_url + 'email/all-campaigns?ref=' + vm.details.camp_ref;
 
 			vm.close = close;
 			vm.geoLocationUrl =vm.details.location_type=='onsite' ? ("http://maps.google.com/?output=embed&f=q&source=s_q&hl=en&q=" + vm.details.location.address +' ,'+ vm.details.location.city +' ,'+ vm.details.location.state) : "#";
@@ -1117,18 +1124,24 @@
 				app_id : '730971373717257',
 				domain : App.base_url
 			}*/
-
+			var desc = '';
+			if(vm.details.location_type != 'online')
+				desc = 'Starts on: ' + vm.details.schedule[0].start_on_date + ' and Ends on: ' + vm.details.schedule[0].end_on_date +
+							'. Location: ' + vm.details.location.city + ', ' + 
+								vm.details.location.state + ', ' + vm.details.location.country;
+			else
+				desc = desc = 'Starts on: ' + vm.details.schedule[0].start_on_date + ' and Ends on: ' + vm.details.schedule[0].end_on_date
 			vm.socialMedia = {
 				socialIcons: ['facebook', 'twitter', 'linkedin', 'googlePlus'],
 				url: vm.copyUrl,
 				facebook: {
-					post_title: vm.details.campaign_name.toUpperCase(),
+					post_title: 'Here is a campaign at ' + vm.company_name + ' for ' + toTitleCase(vm.details.campaign_name),
 					post_url: vm.copyUrl,
 					post_img: CompanyDetails.company_logo || '',
-					post_msg: 'Starts on: ' + vm.details.schedule[0].start_on_date + ' and Ends on: ' + vm.details.schedule[0].end_on_date,
+					post_msg: desc,
 				},
 				twitter : {
-					text: vm.details.campaign_name.toUpperCase(),
+					text: 'Here is a campaign at ' + vm.company_name + ' for ' + toTitleCase(vm.details.campaign_name) + '. ' + desc,
 					url: vm.copyUrl,
 					hashtags: vm.details.campaign_type,
 					via: vm.company_name,
@@ -1136,8 +1149,8 @@
 				},
 				linkedin : {
 					url: vm.copyUrl,
-					title: vm.details.campaign_name.toUpperCase() + ', ' + vm.details.campaign_type,
-					summary: 'Starts on: ' + vm.details.schedule[0].start_on_date + ' and Ends on: ' + vm.details.schedule[0].end_on_date,
+					title: 'Here is a campaign at ' + vm.company_name + ' for ' + toTitleCase(vm.details.campaign_name),
+					summary: desc,
 					source: vm.company_name
 				},
 				googlePlus : {

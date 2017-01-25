@@ -18,7 +18,7 @@
     function ajaxService($http, $q, jobDetails, App){
         var canceller;
         var ajaxService = {
-            async: function(obj,status) {
+            async: function(obj,status, state) {
 
                 if(canceller){
                     canceller.resolve();
@@ -30,7 +30,7 @@
                     from_user : obj.from_user,
                     referred_by : obj.referred_by,
                     relation_count : obj.relation_count,
-                    post_id : jobDetails.id || obj.post_id,
+                    post_id : state == 0 ? jobDetails.id : obj.post_id,
                     status : status,
                     referred_by_phone : obj.referred_by_phone || 0
                 });
@@ -133,6 +133,7 @@
                             var referralObj = row.entity;
                             referralObj.tabName = vm.tabCond == 'ALL' ? '' : vm.tabCond;
                             referralObj.ajaxFunCall = gridCall;
+                            referralObj.stateFlag = 0;
                             return referralObj;
                         }
                     },
@@ -142,7 +143,7 @@
                 return;
             }
             vm.loader = true;
-            var ajax = ajaxService.async(row.entity, flag);
+            var ajax = ajaxService.async(row.entity, flag, 0);
             ajax.success(function(response){
                 if(response.status_code == 200){
                     ajaxData.addProperty('pending_count', ajaxData.getData().pending_count - 1);
@@ -327,7 +328,7 @@
             })
 
             /* From Factory Service Dynamically */
-            var processJob = ajaxService.async(referralObj,status);
+            var processJob = ajaxService.async(referralObj,status, referralObj.stateFlag);
             processJob.success(function(response){
                 $('.referral-status .modal-dialog').css({
                     'pointerEvents' : 'auto'

@@ -74,7 +74,7 @@
 										<li class="col-sm-2 col-xs-3" ng-repeat="group in compCtrl.group_size">
 											<label>
 												<span ng-class="{'has-color':group == compCtrl.groupSize }">{{group}}</span>
-												<input type="radio" name="r1" ng-model="compCtrl.groupSize" ng-value="group" ng-init="$index==0?(compCtrl.groupSize=group):''"><div></div>
+												<input type="radio" name="r1" ng-model="compCtrl.groupSize" ng-value="group"><div></div>
 											</label>
 										</li>
 									</ul>
@@ -82,7 +82,7 @@
 							</div>
 							<div class="company-footer text-center clearfix">
 								<div class="pull-left">
-									<img src="public/images/arrow-back.svg" ng-click="compCtrl.prev(0,1)" style="margin-top: 10px;">
+									<img src="public/images/arrow-back.svg" ng-click="compCtrl.prev(0,1)" style="margin-top: 10px;outline:none">
 								</div>
 								<ul class="indicators">
 									<li ng-click="compCtrl.prev(0,1)"></li>
@@ -124,7 +124,7 @@
 										</div>
 									</div>
 								</div>
-								<div style="padding: 20px 0;">
+								<div style="padding: 20px 0;min-height:200px;">
 									<h3 style="margin-bottom: 20px">Referral Bonus Policy</h3>
 									<div id="referral-bonus"></div>
 									<!-- <label for="pdf">
@@ -138,7 +138,7 @@
 							</div>
 							<div class="company-footer text-center clearfix">
 								<div class="pull-left">
-									<img src="public/images/arrow-back.svg" ng-click="compCtrl.prev(1,2)"  style="margin-top: 10px;">
+									<img src="public/images/arrow-back.svg" ng-click="compCtrl.prev(1,2)"  style="margin-top: 10px;outline:none">
 								</div>
 								<ul class="indicators">
 									<li ng-click="compCtrl.prev(0,2)"></li>

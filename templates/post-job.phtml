@@ -96,8 +96,9 @@
 						<div class="col-sm-4">
 							<div class="form-group">
 								<label for="vacancy">Number of Vacancies*</label>
-								<input type="text" class="form-control" id="vacancy" name="vacancy" value="" ng-model="PtJobCtrl.postJob1.no_of_vacancies" check-char-zero required>
+								<input type="text" class="form-control" id="vacancy" name="vacancy" value="" ng-model="PtJobCtrl.postJob1.no_of_vacancies" ng-pattern="/(^[^0]$)|(^[1-9]\d{0,}$)/" maxlength="10" check-char-zero required>
 								<div class="error-spacer"></div>
+								<div ng-if="post_job.vacancy.$error.pattern" class="has-error-msg">Number of Vacancies should not be zero.</div>
 								<div ng-if="post_job.vacancy.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Number of Vacancies Field is Required.</div>
 							</div>
 						</div>

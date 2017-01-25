@@ -44,7 +44,9 @@
 						<img src="public/images/breifcase_gray.svg" alt="briefcase">
 						<a href="" ui-sref="^.jobDetails({post_id:jobList.id})" title="" ng-click="jobSearchCtrl.job_details(jobList)">
 							<h3>
-								<span title="{{jobList.job_title}}" ng-style="{'color':jobList.post_type == 'campaign' ? '#fc9737' : ''}">{{jobList.job_title}}</span>
+								<span ng-style="{'color':jobList.post_type == 'campaign' ? '#fc9737' : ''}" ng-bind="jobList.job_title">
+									<md-tooltip>{{jobList.job_title}}</md-tooltip>
+								</span>
 								<img ng-src="{{'public/images/'+ (jobList.post_type == 'campaign' ? 'arrow-buttons_orange.svg' :'arrow-buttons_green.svg')}}">
 							</h3>
 						</a>
@@ -82,7 +84,9 @@
 						</div>
 						<div>
 							<span>Location: </span>
-							<span title="{{jobList.location}}">{{jobList.location}}</span>
+							<span class="ellipsis location">{{jobList.location}}
+								<md-tooltip>{{jobList.location}}</md-tooltip>
+							</span>
 						</div>
 					</div>
 					<div class="col-sm-2 col-xs-6 invited">

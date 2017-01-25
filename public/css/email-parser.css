@@ -15,17 +15,19 @@ body.email-parser .modal .modal-body {
   overflow: hidden;
   padding-bottom: 120px; }
   .drop-box .container section .logo {
-    width: 304px;
     text-align: center;
     margin: 0 auto;
-    padding: 34px 0;
-    border-bottom: 1px solid #e8e8e8; }
+    padding: 34px 0; }
     .drop-box .container section .logo img {
       width: 160px; }
     .drop-box .container section .logo .company-name {
       font-size: 30px;
       color: #478e76;
       text-transform: uppercase; }
+  .drop-box .container section .title-underline {
+    border-bottom: 1px solid #e8e8e8;
+    width: 304px;
+    margin: 0 auto; }
   .drop-box .container section .row {
     border-bottom: 1px solid #e8e8e8;
     padding-bottom: 15px; }

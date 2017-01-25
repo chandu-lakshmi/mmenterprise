@@ -7,7 +7,7 @@
 		.controller('ResumeRoomController', ResumeRoomController)
 
 		CandidateController.$inject = [];
-		ResumeRoomController.$inject = ['$state', '$element', '$window', 'uiGridConstants', '$uibModal', '$http', '$q', '$timeout', 'ajaxService', 'App'];
+		ResumeRoomController.$inject = ['$state', '$window', 'uiGridConstants', '$uibModal', '$http', '$q', '$timeout', 'ajaxService', 'App'];
 
 
 
@@ -16,15 +16,15 @@
 		}
 
 
-		function ResumeRoomController($state, $element, $window, uiGridConstants, $uibModal, $http, $q, $timeout, ajaxService, App){
+		function ResumeRoomController($state, $window, uiGridConstants, $uibModal, $http, $q, $timeout, ajaxService, App){
 
 			var vm = this,canceler,
 			gridApiCall = App.base_url + 'get_company_all_referrals';
 
 			// Multiple Select Search header 
-			$element.find('input').on('keydown', function(ev) {
+			/*$element.find('input').on('keydown', function(ev) {
           		ev.stopPropagation();
-      		});
+      		});*/
 
 			vm.noCandidates = false;
 			vm.loader = false;
@@ -199,6 +199,7 @@
 			    	else if(response.data.status_code == 403){
 			    		vm.noCandidates = true;
 		    			vm.gridOptions.data = [];
+		    			vm.totalRecords = 0;
 			    	}
 			    	else if(response.data.status_code == 400) {
 		                $window.location = App.base_url + 'logout';
@@ -270,8 +271,7 @@
 		    }*/
 
 		    function statusUpdate(row, flag, e){
-		    	flag = flag == 1 ? 'ACCEPTED' : 'DECLINED'
-		    	
+		    	flag = flag == 1 ? 'ACCEPTED' : 'DECLINED';
 		    	if(flag == 'DECLINED'){
 		    		$uibModal.open({
 	                    animation: false,
@@ -282,8 +282,9 @@
 	                    resolve: {
 	                        referralObj: function() {
 	                            var referralObj = row.entity;
-	                            referralObj.tabName = vm.pageNumber;
+	                            referralObj.tabName = vm.pageNumber || 1;
 	                            referralObj.ajaxFunCall = pageChanged;
+	                            referralObj.stateFlag = 1;
 	                            return referralObj;
 	                        }
 	                    },
@@ -293,7 +294,7 @@
 	                return;
 		    	}
 		    	vm.loader = true;
-		    	var ajax = ajaxService.async(row.entity, flag);
+		    	var ajax = ajaxService.async(row.entity, flag, 1);
 	            ajax.success(function(response){
 	            	vm.loader = false;
 	                if(response.status_code == 200){

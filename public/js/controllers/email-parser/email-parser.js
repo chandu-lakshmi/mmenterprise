@@ -9,28 +9,34 @@
 		.controller('ApplyJobController', ApplyJobController)
 		.controller('AllCampaignsController', AllCampaignsController)
 
-		modalController.$injext = ['$state', 'App'];
+		modalController.$injext = ['$scope', '$state', '$stateParams', '$uibModalInstance', 'App'];
 		AllJobsController.$inject = ['$http', '$stateParams', '$q', '$location', 'App', 'ReferralDetails', 'ngMeta'];
 		JobDetailsController.$inject = ['$http', '$stateParams', '$window', '$location', 'App', 'ReferralDetails', 'ngMeta'];
 		ApplyJobController.$inject = ['$scope', '$state', '$stateParams', '$location', '$window', '$http', '$uibModal', 'App', 'ReferralDetails', 'CampaignDetails'];
 		AllCampaignsController.$inject = ['$location', '$http', '$window', '$q', 'App', 'CampaignDetails', 'ngMeta'];
 
 
-		function modalController($state, App){
+		function modalController($scope, $state, $stateParams, $uibModalInstance, App){
 
 			var vm = this;
 
 			vm.close = close;
 			vm.jump = jump;
-
+			var refCode = $stateParams.jc == 1 ? App.camp_ref : App.ref;
 			function close(){
-				$state.go('allJobs', {ref: App.ref, share_status: $state.params.share_status})
+				if($stateParams.jc == 1)
+					$state.go('allCampaigns', {ref: refCode, share_status: $state.params.share_status})
+				else	
+					$state.go('allJobs', {ref: App.ref, share_status: $state.params.share_status})
 			}
 
 			function jump(){
-				var refCode = $state.params.jc == 0 ? App.ref : App.camp_ref;
-				$state.go('referralDetails', {ref: refCode, flag : 1, jc : $state.params.jc, status : '',share_status: $state.params.share_status})
+				$state.go('referralDetails', {ref: $stateParams.ref, flag : 1, jc : $state.params.jc,share_status: $state.params.share_status})
 			}
+
+			$scope.$on('$stateChangeSuccess', function() {
+        		$uibModalInstance.dismiss('cancel');
+    		})
 		}
 
 		function AllJobsController($http, $stateParams, $q, $location, App, ReferralDetails, ngMeta){
@@ -38,9 +44,14 @@
 			var vm = this,
 						canceler;
 
+			// capitalize string in javascript
+			function toTitleCase(str){
+    			return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+			}
+
 			vm.bol = true;
-			vm.copyUrl = $location.$$absUrl;
-			// vm.copyUrl = 'http://enterprisestaging.mintmesh.com/email-parser/all-campaigns?ref=ee184166049d2a77bf26a4daadfc0ffee92de64be2095d97'
+			vm.shareUrl = App.base_url + 'email/all-jobs/share?ref=' + App.ref;
+			// vm.copyUrl = $location.$$absUrl;
 			vm.job_name = [];
 
 			var page_no = 1,total_pages = 1;
@@ -183,35 +194,37 @@
 			function sharing(){
 				var desc = '';
 				if(vm.job_name[1] != undefined)
-					desc = vm.job_name[0] + ', ' + vm.job_name[1] + '...';
+					desc = toTitleCase(vm.job_name[0]) + ', ' + toTitleCase(vm.job_name[1]) + '...';
+					if(vm.job_name[2] != undefined)
+						desc = toTitleCase(vm.job_name[0]) + ', ' + toTitleCase(vm.job_name[1]) + ', ' + toTitleCase(vm.job_name[2]) + ' ...'
 				else
-					desc = vm.job_name[0];
-				ngMeta.setTag('image', vm.infiniteScroll.company_logo || '');
-				ngMeta.setTag('description', desc);
+					desc = toTitleCase(vm.job_name[0]);
+				/*ngMeta.setTag('image', vm.infiniteScroll.company_logo || '');
+				ngMeta.setTag('description', desc);*/
 				vm.socialMedia = {
 					socialIcons: ['facebook', 'twitter', 'linkedin', 'googlePlus'],
-					url: vm.copyUrl,
+					url: vm.shareUrl,
 					facebook: {
-						post_title: 'My company is hiring. These jobs are available',
-						post_url: vm.copyUrl,
+						post_title: 'These jobs are available in ' + toTitleCase(vm.infiniteScroll.companyName),
+						post_url: vm.shareUrl,
 						post_img: vm.infiniteScroll.company_logo || '',
 						post_msg: desc
 					},
 					twitter : {
-						text: 'My company is hiring. These jobs are available',
-						url: vm.copyUrl,
+						text: 'These jobs are available in ' + toTitleCase(vm.infiniteScroll.companyName) + '. ' + desc,
+						url: vm.shareUrl,
 						hashtags: '',
 						via: vm.infiniteScroll.companyName,
 						related: ''
 					},
 					linkedin : {
-						url: vm.copyUrl,
-						title: 'My company is hiring. These jobs are available',
+						url: vm.shareUrl,
+						title: 'These jobs are available in ' + toTitleCase(vm.infiniteScroll.companyName),
 						summary: desc,
 						source: vm.infiniteScroll.companyName
 					},
 					googlePlus : {
-						url: vm.copyUrl
+						url: vm.shareUrl
 					}
 				}
 			}
@@ -223,7 +236,13 @@
 			var vm = this;
 
 			var ref = $stateParams.ref;
-			vm.copyUrl = $location.$$absUrl;
+			vm.shareUrl = App.base_url + 'email/job-details/share?ref=' + ref;
+			// vm.copyUrl = $location.$$absUrl;
+
+			// capitalize string in javascript
+			function toTitleCase(str){
+    			return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+			}
 
 			vm.job_details = {
 				list : [],
@@ -281,34 +300,34 @@
 			ngMeta.setTag('domain', App.base_url);*/
 
 			function sharing(){
-				var location = vm.job_details.list[0].location.split(',');
 				/*ngMeta.setTitle(vm.job_details.list[0].job_name.toUpperCase() +', Location: ' + location[0]);
 				ngMeta.setTag('image', vm.job_details.company_logo || '');
 				ngMeta.setTag('description', vm.job_details.list[0].job_description);*/
 				vm.socialMedia = {
 					socialIcons: ['facebook', 'twitter', 'linkedin', 'googlePlus'],
-					url: vm.copyUrl,
+					url: vm.shareUrl,
 					facebook: {
-						post_title: vm.job_details.list[0].job_name +', Location: ' + location[0],
-						post_url: vm.copyUrl,
+						post_title: toTitleCase(vm.job_details.companyName) + ' looking for ' + toTitleCase(vm.job_details.list[0].job_name),
+						post_url: vm.shareUrl,
 						post_img: vm.job_details.company_logo || '',
-						post_msg: vm.job_details.list[0].job_description
+						post_msg: 'Experience : ' + vm.job_details.list[0].experience + ', Location : ' + vm.job_details.list[0].location
 					},
 					twitter : {
-						text: vm.job_details.list[0].job_name.toUpperCase() +', Location: ' + location[0],
-						url: vm.copyUrl,
-						hashtags: location[1],
+						text: toTitleCase(vm.job_details.companyName) + ' looking for ' + toTitleCase(vm.job_details.list[0].job_name) + 
+								', Experience : ' + vm.job_details.list[0].experience + ', Location : ' + vm.job_details.list[0].location,
+						hashtags: '',
 						via: vm.job_details.companyName,
-						related: ''
+						related: '',
+						url: vm.shareUrl
 					},
 					linkedin : {
-						url: vm.copyUrl,
-						title: vm.job_details.list[0].job_name.toUpperCase() + ', Location: ' + location[0],
-						summary: vm.job_details.list[0].job_description,
+						url: vm.shareUrl,
+						title: toTitleCase(vm.job_details.companyName) + ' looking for ' + toTitleCase(vm.job_details.list[0].job_name),
+						summary: 'Experience : ' + vm.job_details.list[0].experience + ', Location : ' + vm.job_details.list[0].location,
 						source: vm.job_details.companyName
 					},
 					googlePlus : {
-						url: vm.copyUrl
+						url: vm.shareUrl
 					}
 				}
 			}
@@ -332,7 +351,14 @@
 				$state.current.data.pageTitle = 'Mintmesh ( Refer )';
 			}
 
-			vm.referralDetails = ReferralDetails;
+			vm.referralDetails = angular.copy(ReferralDetails);
+			if($stateParams.share_status == 'share' && $state.current.name == 'candidateDetails'){
+				vm.shareReferral = angular.copy(ReferralDetails.emailid);
+				vm.referralDetails.emailid = '';
+			}
+			else{
+				vm.referralDetails.emailid = ReferralDetails.emailid;
+			}
 			if(Object.keys(CampaignDetails).length){
 				ReferralDetails.emailid = CampaignDetails.emailid;
 				ReferralDetails.company_logo = CampaignDetails.company_logo;
@@ -355,15 +381,32 @@
 				separateDialCode: true
 
 			});
+
 			if($stateParams.status == 'CLOSED'){
-				$uibModal.open({
-		            animation: true,
-		            backdrop: 'static',
-		            keyboard: false,
-		            templateUrl: '../templates/email-parser/dialog-post-experied.phtml',
-		            controller : 'modalController',
-		            controllerAs : 'modalCtrl'
-		        });
+				if($stateParams.flag != 1){
+					$uibModal.open({
+			            animation: true,
+			            backdrop: 'static',
+			            keyboard: false,
+			            templateUrl: '../templates/email-parser/dialog-post-experied.phtml',
+			            controller : 'modalController',
+			            controllerAs : 'modalCtrl'
+			        });
+				}
+			}
+			else if($stateParams.status.length == 0){
+				if(CampaignDetails.post_status == 'CLOSED' || ReferralDetails.post_status == 'CLOSED'){
+					if($stateParams.flag != 1){
+						$uibModal.open({
+				            animation: true,
+				            backdrop: 'static',
+				            keyboard: false,
+				            templateUrl: '../templates/email-parser/dialog-post-experied.phtml',
+				            controller : 'modalController',
+				            controllerAs : 'modalCtrl'
+				        });
+					}
+				}
 			}
 
 			vm.postFormData = postFormData;
@@ -484,6 +527,11 @@
 			var vm = this,
 						canceler;
 
+			// capitalize string in javascript
+			function toTitleCase(str){
+    			return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+			}
+
 			vm.bol = true;
 			vm.copyUrl = $location.$$absUrl;
 
@@ -503,22 +551,34 @@
 					socialIcons: ['facebook', 'twitter', 'linkedin', 'googlePlus'],
 					url: vm.copyUrl,
 					facebook: {
-						post_title: vm.infiniteScroll.headerDetails.campaign_name.toUpperCase(),
+						post_title: 'Here is a campaign at '+ toTitleCase(CampaignDetails.company_name) +
+										' for' + toTitleCase(vm.infiniteScroll.headerDetails.campaign_name),
 						post_url: vm.copyUrl,
 						post_img: CampaignDetails.company_logo || '',
-						post_msg: 'Starts on: ' + vm.infiniteScroll.headerDetails.campaign_start_date + ' and Ends on: ' + vm.infiniteScroll.headerDetails.campaign_end_date,
+						post_msg: 'Starts on: ' + vm.infiniteScroll.headerDetails.campaign_start_date +
+									' and Ends on: ' + vm.infiniteScroll.headerDetails.campaign_end_date +
+										'. Location: ' + vm.infiniteScroll.headerDetails.campaign_location,
 					},
 					twitter : {
-						text: vm.infiniteScroll.headerDetails.campaign_name.toUpperCase(),
+						text: 'Here is a campaign at '+ toTitleCase(CampaignDetails.company_name) +
+								' for' + toTitleCase(vm.infiniteScroll.headerDetails.campaign_name) +
+									'. Starts on: ' + vm.infiniteScroll.headerDetails.campaign_start_date +
+										' and Ends on: ' + vm.infiniteScroll.headerDetails.campaign_end_date +
+											'. Location: ' + vm.infiniteScroll.headerDetails.campaign_location,
 						url: vm.copyUrl,
-						hashtags: vm.infiniteScroll.headerDetails.campaign_type,
+						hashtags: '',
 						via: CampaignDetails.company_name,
 						related: ''
 					},
 					linkedin : {
 						url: vm.copyUrl,
-						title: vm.infiniteScroll.headerDetails.campaign_name.toUpperCase() + ',' + vm.infiniteScroll.headerDetails.campaign_type,
-						summary: 'Starts on: ' + vm.infiniteScroll.headerDetails.campaign_start_date + ' and Ends on: ' + vm.infiniteScroll.headerDetails.campaign_end_date,
+						title: 'Here is a campaign at '+
+									toTitleCase(CampaignDetails.company_name) +
+										' for' + toTitleCase(vm.infiniteScroll.headerDetails.campaign_name),
+						summary: 'Starts on: ' +
+									vm.infiniteScroll.headerDetails.campaign_start_date +
+										' and Ends on: ' + vm.infiniteScroll.headerDetails.campaign_end_date +
+											'. Location: ' + vm.infiniteScroll.headerDetails.campaign_location,
 						source: CampaignDetails.company_name
 					},
 					googlePlus : {

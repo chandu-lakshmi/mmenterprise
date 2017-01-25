@@ -89,6 +89,7 @@
 	    		vm.errCond = false;
 	    		if(response.status_code == 200){
 		    		if(response.data.length != 0){
+		    			vm.company_code = CompanyDetails.company_code;
 			       		vm.company_details = response.data.companyDetails;
 		       			dublicateData = angular.copy(vm.company_details);
 		    			if(status != 'update'){

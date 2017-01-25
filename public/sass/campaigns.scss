@@ -176,7 +176,7 @@ md-dialog{
                 }
             }
 			.box-content{
-				.grid{border: 0 !important;height: calc(100vh - 274px) !important;
+				.grid{border: 0 !important;height: calc(100vh - 352px) !important;
 					.ui-grid-header{height: 45px;line-height: 33px;border-top: 1px solid #c8d1d0;border-bottom: 1px solid #c8d1d0;}
 					.ui-grid-viewport{
 						.ui-grid-row{line-height: 60px;
@@ -188,7 +188,7 @@ md-dialog{
 					.ui-grid-row:hover > [ui-grid-row] > .ui-grid-cell {background-color: #f8fcff  !important;cursor: pointer;}
 				}
 			}
-			.box-footer{background: $background;padding: 16px;
+			.box-footer{background: $background;padding: 16px;min-height: 68px;
                 .paging{display: inline-block;
                     .pagination{margin: 0;margin-top: 3px;}
                 }

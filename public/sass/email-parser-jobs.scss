@@ -19,11 +19,11 @@
 			.row{margin-right: 0px;
 				.header{padding-top: 8px;
 					p{margin: 0;color: #3871cd;font-size: 16px;text-transform: capitalize;}
-					h3{color: #252525;margin-top: 5px;}
+					h4{color: #252525;margin-top: 5px;}
 				}
-				.rewards{text-align: center;border-right: 1px solid #dedede;
-					&:first-child{border-left:1px solid #dedede;}
-					h3{margin: 0;color:#ed871a;}
+				.rewards{text-align: center;
+					&:first-child{border-left:1px solid #dedede;border-right:1px solid #dedede;}
+					h4{margin: 0;color:#ed871a;}
 					p{color:#939393;}
 				}
 			}

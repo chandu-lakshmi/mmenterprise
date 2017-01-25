@@ -9,10 +9,10 @@ select::-ms-expand {
     display: none;
 }
 ::-ms-input-placeholder{
-    color: #a9a9a9;
+    color: #a9a9a9 !important;
 }
 ::-webkit-input-placeholder{
-    color: #a9a9a9;
+    color: #a9a9a9 !important;
 }
 @font-face{
     font-family: 'Roboto';
@@ -726,6 +726,9 @@ input::-webkit-calendar-picker-indicator{
 .dotted-border a{
     color: #4973cc;
     text-decoration: underline;
+}
+@media (max-height: 640px){
+    .company-profile md-input-container .md-errors-spacer + div{position: initial;}
 }
 
 

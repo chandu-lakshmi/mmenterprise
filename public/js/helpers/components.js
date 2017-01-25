@@ -207,7 +207,7 @@
 
     function scrollTop(){
         return {
-            template: '<div id="dyscrollup-btn"><img src="public/images/arrow-top.svg" alt="up"/></div>',
+            template: '<div id="dyscrollup-btn"><img src="public/images/arrow-top-green.svg" alt="up"/></div>',
             link: function () {
                 $(window).on("scroll", function() {
                     $(window).scrollTop() > 300 ? $('scroll-top div').addClass('move') : $('scroll-top div').removeClass('move');

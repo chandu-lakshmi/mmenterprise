@@ -5,6 +5,7 @@
 				<img src="{{::ReferralDetails.company_logo}}" alt="company-logo" ng-show="{{::ReferralDetails.company_logo != ''}}">
 				<span class="company-name" ng-show="{{::ReferralDetails.company_logo == ''}}">{{::ReferralDetails.company_name | uppercase}}</span>	
 			</h1>
+			<div class="title-underline"></div>
 			<div class="row">
 				<form name="apply_form" autocomplete="off" novalidate>
 					<h3 class="title">Candidate Details</h3>
@@ -15,10 +16,11 @@
 						    <span ng-show="apply_form.fullname.$error.required && ApplyJobCtrl.errorRequired" class="has-error-msg">Please Enter Full Name.</span>
 					    </div>
 					</div>
-					<div class="col-sm-6 form-style">
+					<div class="col-sm-6 form-style" ng-init="readOnly = $state.params.share_status == 'share' ? 'false' : 'true'">
 						<div class="form-group">
 						    <label for="email">Email Address<sup>*</sup></label>
-						    <input name="emailid" class="form-control input-lg" id="email" type="text" required maxlength="50" ng-pattern="/^[a-z0-9A-Z._%+-]+@[a-zA-Z]+\.[a-z]{2,3}$/i" ng-model="ApplyJobCtrl.referralDetails.emailid" readonly>
+						    <input name="emailid" class="form-control input-lg" id="email" type="text" required maxlength="50" ng-pattern="/^[a-z0-9A-Z._%+-]+@[a-zA-Z]+\.[a-z]{2,3}$/i" ng-model="ApplyJobCtrl.referralDetails.emailid" ng-readonly="{{readOnly}}">
+						    <input type="hidden" name="emp_email" value="{{ApplyJobCtrl.shareReferral}}" ng-if="ApplyJobCtrl.shareReferral">
 						    <span ng-show="apply_form.emailid.$error.required && ApplyJobCtrl.errorRequired" class="has-error-msg">Please Enter Email Id.</span>
 						    <span ng-show="apply_form.emailid.$error.pattern && ApplyJobCtrl.errorRequired" class="has-error-msg">Please Enter Valid Email Id.</span>
 					    </div>

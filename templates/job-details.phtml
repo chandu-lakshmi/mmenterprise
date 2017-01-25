@@ -8,7 +8,10 @@
 				<div class="mid-nav">
 					<h3>
 						<a ui-sref="^.job"><img src="public/images/back-arrow.svg" alt="back">
-						<span class="ellipsis" title="{{jobDetailsCtrl.post_data.job_title}}" ng-bind="jobDetailsCtrl.post_data.job_title | uppercase"></span></a>
+							<span class="ellipsis" ng-bind="jobDetailsCtrl.post_data.job_title">
+								<md-tooltip>{{jobDetailsCtrl.post_data.job_title}}</md-tooltip>
+							</span>
+						</a>
 					</h3>
 					<span class="post {{jobDetailsCtrl.post_data.post_type}}" ng-bind="jobDetailsCtrl.post_data.post_type"></span>
 					<span class="status {{jobDetailsCtrl.post_data.status == 'ACTIVE' ? 'open' : 'closed'}}" ng-bind="jobDetailsCtrl.post_data.status == 'ACTIVE' ? 'OPEN' : 'CLOSED'">

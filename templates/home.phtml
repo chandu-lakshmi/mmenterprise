@@ -87,6 +87,12 @@
 					                     	<div ng-if="signup_form.s_cname.$error.required && homeCtrl.signup_show_error" class="has-error-msg">Please Enter Company Name.</div>
 										</md-input-container>
 										<md-input-container class="md-block">
+											<label for="lic_no">LICENCE NUMBER*</label>
+		      								<input type="text" id="lic_no" ng-model="homeCtrl.signup_form.lic_no" name="lic_no" required ng-class="{'has-error-border':signup_form.lic_no.$invalid && homeCtrl.signup_show_error || homeCtrl.licence_error}">
+					                     	<div ng-if="signup_form.lic_no.$error.required && homeCtrl.signup_show_error" class="has-error-msg">Please Enter Licence Number.</div>
+					                     	<div ng-if="homeCtrl.licence_error" ng-bind="homeCtrl.licence_error" class="has-error-msg"></div>
+										</md-input-container>
+										<md-input-container class="md-block">
 											<label for="s_email">EMAIL*</label>
 		      								<input type="email" id="s_email" ng-model="homeCtrl.signup_form.s_email" name="s_email" ng-pattern="/^[a-z0-9A-Z._%+-]+@[a-zA-Z]+\.[a-zA-Z]{2,3}$/" required ng-class="{'has-error-border':signup_form.s_email.$invalid && homeCtrl.signup_show_error}">
 					                     	<div ng-if="signup_form.s_email.$error.required && homeCtrl.signup_show_error" class="has-error-msg">Please Enter Email Address.</div>

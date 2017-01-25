@@ -243,7 +243,7 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
         if(para == ""){
             scope.discoveryPoints = "";
             scope.discoveryCurrency = "";
-            scope.code = '1';
+            //scope.code = '1';
         }
         else if(para == "paid"){
             scope.discoveryPoints = "";
@@ -251,7 +251,7 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
         }
         else{
             scope.discoveryCurrency = "";
-            scope.code = "1";
+            //scope.code = "1";
             scope.discoveryRewardsType = 'points';
         }
         scope.bolFormValid = false; 
@@ -262,7 +262,7 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
         if(para == ""){
             scope.referralPoints = "";
             scope.referralCurrency = "";
-            scope.code1 = '1';
+            //scope.code1 = '1';
         }
         else if(para == "paid"){
             scope.referralPoints = "";
@@ -270,7 +270,7 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
         }
         else{
             scope.referralCurrency = "";
-            scope.code1 = "1";
+            //scope.code1 = "1";
             scope.referralRewardsType = 'points';
         }
         scope.bolForm2Valid = false;
@@ -282,7 +282,7 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
         }
         else{
             scope.discoveryRewardsType = '';
-            scope.code = '1';
+            //scope.code = '1';
             scope.discoveryCurrency = '';
         }
         scope.userSelRewards = false; 
@@ -294,7 +294,7 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
         }
         else{
             scope.referralRewardsType = '';
-            scope.code1 = '1';
+            //scope.code1 = '1';
             scope.referralCurrency = '';
         }
         scope.userSelRewards = false; 
@@ -341,7 +341,8 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
             rewards('discovery', 'code');    
         }
         if(scope.referralRewards){
-            rewards('referral', 'code1');    
+            //rewards('referral', 'code1');    
+            rewards('referral', 'code');    
         }
 
         var freeJob;
