@@ -52,6 +52,8 @@ angular.module('app.job.details', [])
 			scope.job_details_loader = false;
 			if(response.status_code == 200){
 				scope.post_data = response.data.posts[0];
+				scope.post_data.job_description = response.data.posts[0].job_description.replace(/(?:\r\n|\r|\n)/g, '<br />');
+				scope.post_data.company_description = response.data.posts[0].company_description.replace(/(?:\r\n|\r|\n)/g, '<br />');
 				ajaxData.setData(scope.post_data);
 				ajaxData.bol = true;
 				jobDetails.job_title = scope.post_data.job_title;
