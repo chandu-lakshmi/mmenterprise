@@ -330,10 +330,13 @@
 			vm.backendError = '';
 			vm.loader = false;
 			vm.backendMsg = '';
-
+			
 			// pagetitle
 			if($stateParams.flag == 1){
 				$state.current.data.pageTitle = 'Mintmesh ( Drop CV )';
+			}
+			else if($state.current.name == 'candidateDetails'){
+				$state.current.data.pageTitle = 'Mintmesh ( Apply )';
 			}
 			else{
 				$state.current.data.pageTitle = 'Mintmesh ( Refer )';

@@ -1,7 +1,7 @@
-<div  style="background:#F2F2F2;padding:0">
+<div class="import-file">
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-12 col-sm-7 grid_center">
+			<div class="col-sm-8 col-sm-offset-2 grid_center">
 
 				<!-- logo -->
 				<div class="text-center">
@@ -17,66 +17,13 @@
 							<h3 class="mrZpdZ text-center" style="font-size:1.7em;color:silver">IMPORT YOUR CONTACTS</h3>
 						</div>
 					</div>
-					
-					<div class="col-xs-12 col-lg-10 grid_center upload-con">
-						<h3 class="mrZpdZ">Upload Contacts</h3>
-						<div class="info-upload">
-							<div>
-								<img src="public/images/info.svg" alt="info" style="width:18px;height:18px"/>
-								<span style="color:gray">Organize your contacts in one of the groups below or create your own</span>
-							</div>
-						</div>
-					    <div ng-if="importCtrl.loader" style="position:relative;min-height: 558px;">
-				           	<img src="public/images/loader/preloader.gif"  alt="loader" style="position:absolute;top:42.5%;left:31%;width:38%;height:24%">
-				        </div>
-						<div class="div-btn row" ng-if="!importCtrl.loader">
-							<div ng-repeat="bucketName in importCtrl.bucketsName" class="col-lg-4"  ng-init="color=importCtrl.getColor($index)">
-								<div ng-style='{"background":color}' ng-click="importCtrl.fileUploadModal(bucketName.bucket_name, color,bucketName.bucket_id)" style="position:relative">
-								<img src="public/images/upload.svg">
-								<span class="text-alignment-bucketName" title="{{bucketName.bucket_name | uppercase}}">{{bucketName.bucket_name | uppercase}}</span>
-								<i class="file-name" title="{{importCtrl.fileNames[$index]}}">{{importCtrl.fileNames[$index]}}</i>
-								</div>
-								<h6>
-									<a href="" ng-click="importCtrl.downloadSample()" download ng-if="$index != importCtrl.index">DOWNLOAD TEMPLATE</a>
-									<a href="" ng-if="$index == importCtrl.index">{{importCtrl.fileName}}</a>
-								</h6>
-							</div>
-							<div  class="col-lg-4" ng-init="obj=['#999','+Add Your Own']">
-								<div  ng-click="importCtrl.fileUploadModal(obj[1], obj[0])" ng-style="{'background':obj[0]}">
-								<img src="public/images/upload.svg">
-								{{obj[1] | uppercase}}
-								</div>
-								<h6><a href="" ng-click="importCtrl.downloadSample()" download>DOWNLOAD TEMPLATE</a></h6>
-							</div>
-						</div>
-						
+					<div ng-if="UploadContCtrl.loader" style="position:relative;min-height: calc(100vh - 168px);">
+				        <img class="loader" src="public/images/loader/spin.gif"  alt="loader">
+				    </div>
+					<div ng-show="!UploadContCtrl.loader" class="col-xs-12 col-sm-10 col-sm-offset-1 upload-con animated fadeIn">
+						<div class="bucket-modal" ng-include="'templates/dialogs/new-file-upload.phtml'"></div>
 					</div>
-					
-					<!-- <div class="col-xs-12 col-sm-7 grid_center text-center" style="color:gray">
-						<div class="hrLine">
-						  <span>
-						    OR
-						  </span>
-						</div>
-					</div>
-
-					<div class="col-xs-12 chos-service">
-						<h4>To import contacts choose any service provider</h4>
-					</div>
-
-					mail services
-					<div class="col-xs-8 col-sm-5 grid_center services_type">
-						<a href="">
-							Gmail<img src="public/images/arrow-buttons_black.svg" alt="arrow">
-						</a>
-						<a>
-							Exchange <img src="public/images/arrow-buttons_black.svg" alt="arrow">
-						</a>
-					</div> -->
-					
-					<div class="col-xs-12 foot_next">
-						<button class="btn btn_up_next" ng-click="importCtrl.gridView()">NEXT<img src="public/images/arrow-buttons.svg" alt="upload"></button>
-					</div>
+		
 				</div>
 			</div>
 		</div>

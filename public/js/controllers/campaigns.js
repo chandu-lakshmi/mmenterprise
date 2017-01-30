@@ -571,8 +571,8 @@
 
 			// filter
 			vm.filterOptions = [
-				{name : ' Campaign Type', children : ['Mass Recruitment', 'Military Veterans', 'Campus Hires']},
-				{name : 'Status', children : ['Open', 'Close']}
+				{name : ' Campaign Type', children : [{label: 'Mass Recruitment', value: 'Mass Recruitment'}, {label: 'Military Veterans', value: 'Military Veterans'}, {label: 'Campus Hires', value: 'Campus Hires'}]},
+				{name : 'Status', children : [{label: 'Open', value : 'Open'}, {label: 'Close', value: 'Closed'}]}
 			]
 
 			// filter api call

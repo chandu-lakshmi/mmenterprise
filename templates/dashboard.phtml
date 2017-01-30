@@ -224,8 +224,8 @@
 							</div>
 							<div class="pull-left" style="padding:7px 10px;width:82%">
 								<div class="top">
-									<span class="name ellipsis" ng-bind="topreferrals.name"></span><br>
-									<span ng-bind="topreferrals.designation" style="font-size:14px;" title="{{topreferrals.designation}}" class="elipsis"></span>
+									<span class="name elipsis" ng-bind="topreferrals.name" ng-style="{'line-height': topreferrals.designation ? 'normal' : '40px'}"></span>
+									<span ng-if="topreferrals.designation" ng-bind="topreferrals.designation" style="font-size:14px;" title="{{topreferrals.designation}}" class="elipsis"></span>
 								</div>
 								<div class="bottom">
 									<big class="count">{{topreferrals.count}}</big>

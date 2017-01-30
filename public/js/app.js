@@ -50,8 +50,16 @@ angular.module('app', ['ui.router', 'ui.bootstrap',
     $stateProvider.state('importContacts', {
         url: '/import-contacts',
         templateUrl: App.base_url + 'templates/import-contacts.phtml',
-        controller: 'ImportContactsController',
-        controllerAs:'importCtrl'
+        controller: 'UploadContactsController',
+        controllerAs: 'UploadContCtrl',
+        resolve: {
+            defaultFunction: function(){},
+            getBuckets: function(){},
+            $uibModalInstance: function(){}
+        },
+        params : {
+            importContacts : true
+        }
     })
     $stateProvider.state('importContactsList',{
         url:'/import-contacts',

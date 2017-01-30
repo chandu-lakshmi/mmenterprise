@@ -475,6 +475,7 @@ input::-webkit-calendar-picker-indicator{
 .company-content{
     padding: 30px 26px 0px;
     /*border-top: 1px solid #ccc;*/
+    min-height: 620px;
 }
 .company-content span.url_exmp{
     float: right;
@@ -586,12 +587,12 @@ input::-webkit-calendar-picker-indicator{
     padding: 10px 30px;
     /*font-size: 16px*/
 }
-.go_0 .company-content{
+/*.go_0 .company-content{
     padding: 45px 26px 0;
-}
-.go_0 .company-footer{
+}*/
+/*.go_0 .company-footer{
     margin-top: 70px;
-}
+}*/
 .go_1 md-input-container{
     margin: 0;
 }
@@ -608,6 +609,9 @@ input::-webkit-calendar-picker-indicator{
 .upload span,.add-img span{
     display: block;
     padding: 20px 0;
+}
+.upload-referral{
+    margin-top: 20px;
 }
 .upload img,.add-img img{
     /*border: 1px solid #ccc;*/
@@ -657,9 +661,9 @@ input::-webkit-calendar-picker-indicator{
     margin: 0;
     width: 100%;
 }
-.go_2 .company-content{
+/*.go_2 .company-content{
     min-height: 613px;
-}
+}*/
 .cmp-size span{
     display: block;
     margin-bottom: 10px;
@@ -766,252 +770,48 @@ a:hover{
 }
 
 
-/*ul{
-    list-style: none;
+/* company profile qq-uploader updated */
+.company-profile #company-logo,
+.company-profile .multiple-images{
+    width: 125px;
+    height: 125px;
+    display: inline-block;
+    margin-right: 15px;
+}
+.company-profile .qq-uploader{
     margin: 0;
     padding: 0;
-    text-align: right;
-}
-ul > li{
-    display: inline-block;
-    margin-left: 20px;
-}*/
-
-
-
-
-
-
-/*Email Verified*/
-
-
-
-
-/* ngAnimate*/
-
-/*.animate.ng-enter, 
-.animate.ng-leave
-{ 
-    -webkit-transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    -moz-transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    -ms-transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    -o-transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    position: absolute;
-} 
- 
-.animate.ng-enter {
-    left: 100%;
-}
-.animate.ng-enter.animate.ng-enter-active {
-    left: 0;
-}
- 
-.animate.ng-leave {
-    left: 0;
-}
-.animate.ng-leave.animate.ng-leave-active{
-    left: -100%;
-}*/
-
-
-
-/*.company.ng-hide-add {
-    -webkit-animation:slideInRight 0.5s both ease-in;
-    -moz-animation:slideInRight 0.5s both ease-in;
-    animation:slideInRight 0.5s both ease-in;   
-}
-.company.ng-hide-remove {  
-    -webkit-animation:slideInLeft 0.5s both ease-in;
-    -moz-animation:slideInLeft 0.5s both ease-in;
-    animation:slideInLeft 0.5s both ease-in;    
-}
-@-webkit-keyframes slideInLeft {
-  from {
-    -webkit-transform: translate3d(-100%, 0, 0);
-    transform: translate3d(-100%, 0, 0);
-    visibility: visible;
-  }
-
-  to {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes slideInLeft {
-  from {
-    -webkit-transform: translate3d(-100%, 0, 0);
-    transform: translate3d(-100%, 0, 0);
-    visibility: visible;
-  }
-
-  to {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@-webkit-keyframes slideInRight {
-  from {
-    -webkit-transform: translate3d(100%, 0, 0);
-    transform: translate3d(100%, 0, 0);
-    visibility: visible;
-  }
-
-  to {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes slideInRight {
-  from {
-    -webkit-transform: translate3d(100%, 0, 0);
-    transform: translate3d(100%, 0, 0);
-    visibility: visible;
-  }
-
-  to {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
-}
-*/
-
-/*CARAOUSEL*/
-/*.carousel{
+    height: 100%;
     overflow: hidden;
-    width:100%;
 }
-.panes{
-    position: relative;
-    width:500%;
-    overflow:hidden;
-}
-.panes.animation{
-    -moz-animation:carousel 0.5s both ease-in;
-    -webkit-animation:carousel 0.5s both ease-in;
-    animation:carousel 2.5s both ease-in;
-}
-.panes > .same{
-    position:relative;
-    float:left;
-    width:20%;
-    display: block;
-}*/
-/*@keyframes carousel{
-    0%    { left:0; }
-    11%   { left:0; }
-    12.5% { left:-100%; }
-    23.5% { left:-100%; }
-    25%   { left:-200%; }
-    36%   { left:-200%; }
-    37.5% { left:-300%; }
-    48.5% { left:-300%; }
-    50%   { left:-400%; }
-    61%   { left:-400%; }
-    62.5% { left:-300%; }
-    73.5% { left:-300%; }
-    75%   { left:-200%; }
-    86%   { left:-200%; }
-    87.5% { left:-100%; }
-    98.5% { left:-100%; }
-    100%  { left:0; }
-}*/
-
-
-
-/*.form-group{
-    padding-bottom: 7px;
-    margin: 20px 0 0 0;
-    position: relative;
-}
-.form-group.label-floating label.control-label{
-    top: -7px;
-    font-size: 16px;
-    line-height: 1.42857143;
-    will-change: left,top,contents;
-    position: absolute;
-    pointer-events: none;
-    -webkit-transition:0.3s ease all;
-    -o-transition:0.3s ease all;
-    transition: 0.3s ease all;
-}
-.form-group label.control-label{
-    font-size: 12px;
-    line-height: 1.07142857;
-    color: #bdbdbd;
-    font-weight: 400;
-    margin: 16px 0 0 0;
-}
-.form-group .form-control{
-    margin-bottom: 7px;
-}
-.form-control, .form-group .form-control{
-    border: 0;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#009688), to(#009688)), -webkit-gradient(linear, left top, left bottom, from(#D2D2D2), to(#D2D2D2));
-    background-image: -webkit-linear-gradient(#009688, #009688), -webkit-linear-gradient(#D2D2D2, #D2D2D2);
-    background-image: -o-linear-gradient(#009688, #009688), -o-linear-gradient(#D2D2D2, #D2D2D2);
-    background-image: linear-gradient(#009688, #009688), linear-gradient(#D2D2D2, #D2D2D2);
-    -webkit-background-size: 0 2px, 100% 1px;
-    background-size: 0 2px, 100% 1px;
-    background-repeat: no-repeat;
-    background-position: center bottom, center -webkit-calc(100% - 1px);
-    background-position: center bottom, center calc(100% - 1px);
-    background-color: rgba(0, 0, 0, 0);
-    -webkit-transition: background 0s ease-out;
-    -o-transition: background 0s ease-out;
-    transition: background 0s ease-out;
-    float: none;
-    -webkit-box-shadow: none;
+.company-profile .qq-uploader .qq-upload-button{
+    width: 100%;
+    height: 100%;
     box-shadow: none;
+}
+.company-profile #company-logo .qq-uploader .qq-upload-button,
+.company-profile .multiple-images .qq-uploader .qq-upload-button{
+    background: url('../images/icon.png');
+}
+.company-profile .qq-uploader .qq-upload-drop-area{
+    width: 100%;
+    height: 100%;
+}
+.company-profile .qq-uploader .qq-upload-drop-area .drag_img{
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+}
+.company-profile .qq-uploader .qq-upload-drop-area .drag_img .img-thumbnail{
+    width: 100%;
+    height: 100%;
     border-radius: 0;
 }
-.form-control{
-    height: 38px;
-    padding: 7px 0;
-    font-size: 16px;
-    line-height: 1.42857143;
-}
-.form-group.is-focused .form-control{
-    outline: 0;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#009688), to(#009688)), -webkit-gradient(linear, left top, left bottom, from(#D2D2D2), to(#D2D2D2));
-    background-image: -webkit-linear-gradient(#009688, #009688), -webkit-linear-gradient(#D2D2D2, #D2D2D2);
-    background-image: -o-linear-gradient(#009688, #009688), -o-linear-gradient(#D2D2D2, #D2D2D2);
-    background-image: linear-gradient(#009688, #009688), linear-gradient(#D2D2D2, #D2D2D2);
-    background-size: 100% 2px,100% 1px; 
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    -webkit-transition-duration:0.3s;
-    -o-transition-duration:0.3s;
-    transition-duration: 0.3s;
-}
-.form-group.label-floating.is-focused label.control-label,.form-group.label-floating:not(.is-empty) label.control-label{
-    top: -30px;
-    left: 0;
-    font-size: 12px;
-    line-height: 1.07142857;
-}*/
-
-
-/* qq-uploader */
-/*.qq-uploader .qq-upload-list {
-    position: absolute;
-    top: 40%;
-    right: 0;
-    width: 100%;
-    height: 10px;
-}
-.qq-upload-drop-area{
+.company-profile .qq-uploader .qq-upload-drop-area .drag_img .img-circle{
     width: 100%;
     height: 100%;
 }
-.qq-upload-drop-area .drag_img{
-    width: 100%;
-    height: 100%;
-}
-.qq-upload-drop-area .drag_img .icon-trash{
+.company-profile .qq-uploader .qq-upload-drop-area .drag_img .icon-trash{
     position: absolute;
     top: 5px;
     right: 10px;
@@ -1021,8 +821,20 @@ ul > li{
     border-radius: 4px;
     display: none;
     cursor: pointer;
+    color: #ff7777;
 }
-.qq-upload-drop-area .drag_img .overlay{
+.company-profile .qq-uploader .qq-upload-drop-area .drag_img .icon-view{
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    padding: 3px;
+    border: 1px solid #ccc;
+    background: #fff;
+    border-radius: 4px;
+    display: none;
+    cursor: pointer;
+}
+.company-profile .qq-uploader .qq-upload-drop-area .drag_img .overlay{
     display: none;
     background: #000000;
     position: absolute;
@@ -1032,72 +844,98 @@ ul > li{
     bottom: 0;
     opacity: 0.1;
 }
-.qq-upload-drop-area .drag_img:hover .overlay,.qq-upload-drop-area .drag_img:hover .icon-trash{
-    display: block;
+.company-profile .qq-uploader .qq-upload-drop-area .drag_img:hover .overlay,
+.company-profile .qq-uploader .qq-upload-drop-area .drag_img:hover .icon-trash,
+.company-profile .qq-uploader .qq-upload-drop-area .drag_img:hover .icon-view{
+    display: block
+};
+.company-profile .qq-uploader .qq-upload-drop-area .drag_img .spinner{
+    margin-top: 40%;
 }
-.qq-upload-drop-area .drag_img img{
-    width: 100%;
-    height: 100%;
-}
-.qq-upload-drop-area .drag_img img[alt='download']{
+.company-profile .qq-uploader .qq-upload-drop-area .drag_img .spinner.small{
     width: 25px;
     height: 25px;
 }
-.qq-upload-button:active{
-    top: 0;
-}
-.qq-upload-button{
-    box-shadow: none;
-}*/
-.company-profile #referral-bonus .qq-uploader{
-    width: 215px;
-    height: 60px;
-    padding: 13px 0px;
-    margin: 0;
-}
-.company-profile #referral-bonus .qq-upload-button{
-    background: #e6e6e6;
-    border: 1px solid #ccc;
-    box-shadow: none;
-    color: #000;
-    padding: 15px 50px;
-    text-shadow: none;
-    font-weight: normal;
-    width: 100%;
-    margin-top: -10px;  
-}
-.company-profile #referral-bonus .qq-upload-button input{
+.company-profile .qq-uploader .qq-upload-button input{
     height: 100%;
 }
-.company-profile #referral-bonus .qq-uploader .qq-upload-list{
+.company-profile .qq-uploader .qq-upload-list{
+    position: absolute;
     top: 0;
+    right: 0;
     width: 100%;
+    height: 100%;
+    margin: 0;
+    z-index: -1;
+}
+.company-profile .qq-uploader .qq-upload-list li:not(.qq-upload-success){
+    background: rgba(0, 0, 0, 0.5);
+    height: 100%;
+}
+.company-profile .qq-uploader .qq-upload-list li:not(.qq-upload-success) .upload-fail{
+    word-break: break-word;
+}
+.company-profile .qq-uploader .qq-upload-list li:not(.qq-upload-success) .progress-text{
+    text-align: center;
+    margin-bottom: 5px;
+}
+.company-profile .qq-uploader .qq-upload-list .icon-remove{
+    padding-right: 2px;
+    cursor: pointer;
+    color: #ff7777;
+    font-size: 18px;
+}
+
+
+.company-profile #referral-bonus{
+    width: 280px;
+    height: 50px;
+    margin-top: 20px;
 }
 .company-profile #referral-bonus .qq-uploader .qq-upload-drop-area{
     background: transparent;
-    text-align: left;
 }
-.company-profile #referral-bonus .qq-uploader .qq-upload-fail{
-    font-size: 13px;
-    color: #983a3a;
+.company-profile #referral-bonus .qq-uploader .qq-upload-drop-area .drag_img a{
+    display: inline-block;
 }
-.company-profile #referral-bonus .qq-uploader .drag_img a{
+.company-profile #referral-bonus .qq-uploader .qq-upload-drop-area .drag_img a.view{
     line-height: 50px;
     color: #333;
+    width: 78%;
 }
-.company-profile #referral-bonus .qq-uploader .drag_img a p{
+.company-profile #referral-bonus .qq-uploader .qq-upload-drop-area .drag_img a.view img{
+    width: 25px;
+    height: 25px;
+}
+.company-profile #referral-bonus .qq-uploader .qq-upload-drop-area .drag_img a.view p{
     padding: 0px 5px;
     display: inline-block;
-    overflow: hidden;
     margin: 0;
-    text-overflow: ellipsis;
-    max-width: 160px;
-    white-space: nowrap;
+    max-width: 87%;
     vertical-align: middle;
+    font-size: 16px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
-.company-profile #referral-bonus .qq-upload-fail{
-    font-size: 13px;
-    color: #983a3a;
+.company-profile #referral-bonus .qq-uploader .qq-upload-drop-area .drag_img a img{
+    width: 30px;
+    height: 30px;
+}
+.company-profile #referral-bonus .qq-uploader .qq-upload-drop-area .drag_img img{
+    cursor: pointer;
+}
+.company-profile #referral-bonus .qq-uploader .qq-upload-button{
+    background: #e6e6e6;
+    border: 1px solid #ccc;
+    color: #000;
+    line-height: 34px;
+    font-size: 18px;
+    text-shadow: none;
+    font-weight: normal;
+}
+.company-profile #referral-bonus .qq-uploader .qq-upload-button input{
+    width: 140%;
 }
 
 

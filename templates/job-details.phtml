@@ -113,14 +113,10 @@
 	</div>
 	<div class="job-des-text job_des_bo">
 		<p>Job Description:</p>
-		<pre>
-			{{jobDetailsCtrl.post_data.job_description}}
-		</pre>
+		<span ng-bind-html="jobDetailsCtrl.post_data.job_description"></span>
 	</div>
 	<div class="job-des-text job_des_bo" style="border:0">
 		<p>Company Description:</p>
-		<pre>
-			{{jobDetailsCtrl.post_data.company_description}}
-		</pre>
+		<span ng-bind-html="jobDetailsCtrl.post_data.company_description"></span>
 	</div>
 </div>

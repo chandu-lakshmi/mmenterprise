@@ -715,6 +715,7 @@
 	height: 100%;
 	border: 2px dashed #ccc;
 	background: #f3f7fa;
+    outline: none;
 }
 .bucket-modal .modal-body .contacts-group .file-uploading .row > div.col-sm-4 .upload-bucket.new-bucket p.own{
 	font-size: 18px;

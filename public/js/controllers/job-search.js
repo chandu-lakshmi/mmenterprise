@@ -2,7 +2,7 @@
 "use strict";
 
     angular
-        .module('app.job.search', ['infinite-scroll'])
+        .module('app.job.search', ['infinite-scroll', 'ngSanitize'])
         .filter('myDate' , myDate)
         .controller('JobSearchController', JobSearchController)
 

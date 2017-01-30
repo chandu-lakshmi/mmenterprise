@@ -641,7 +641,7 @@ select:-moz-focusring {
 }
 .dashboard .top-contacts .container .box .top{
 	border-bottom:1px solid #cccccc;
-	padding-bottom: 15px;
+	min-height: 65px;
 	padding-top: 3px;
 }
 .dashboard .top-contacts .container .box .bottom{

@@ -1,7 +1,7 @@
-.grid_center{
+/* .grid_center{
   float: none;
   margin: auto;
-}
+} */
 .mrZpdZ
 {
   margin: 0px;
@@ -66,6 +66,7 @@
   background: #1d8e70;
   margin-top: -1px !important;
   color: #fff;
+  float: left;
 }
 .import-contacts .container-rt .grid-footer .invite span{
   left: -169px !important;
@@ -83,6 +84,7 @@
 }
 .import-contacts .skip a{
   padding: 16px;
+  font-size: 18px;
   display: inline;
   line-height: normal;
   position: absolute;
@@ -116,19 +118,18 @@
 .import_c_box ul li a:hover{
   background: #fff !important;
 }
-.import_c_box p{
+/* .import_c_box p{
   color: #a6a6a6;
   line-height: 18px;
   font-size: 13px;
-  text-align: left;
-}
-.import_c_box div div img:first-child{
+} */
+/*.import_c_box div div img:first-child{
 	cursor: pointer;
     outline: 0;
     vertical-align: -4px;
     width: 40px;
     height: 40px;
-}
+}*/
 /*.skip{
 	float: right;
  
@@ -340,7 +341,6 @@
 }
 .upload-con{
 	clear: both;
-  padding-top: 3.5%;
   text-align: center;
   overflow: hidden
 }
@@ -550,16 +550,69 @@ i.file-name{
   display: table-cell;
   vertical-align: middle;
 }
-.loader{
+/*.loader{
   position:relative;
   min-height:370px;
   background: rgba(0, 0, 0, 0.2);
 }
-
+*/
 
 .ui-grid-viewport{
   overflow-x:hidden !important;
 }
 body.import_verify,body.bucket,body.posted-success,body.referral-status,body.reset-pwd{
   overflow: hidden;
+}
+
+
+/* new styles */
+.import-file{
+  background:#F2F2F2;
+  padding:0;
+}
+.import-file:before{
+  content: '';
+  position: absolute;
+  top:0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: #F2F2F2;
+}
+.bucket-modal.import-contacts{
+  overflow: hidden;
+}
+.import_c_box .bucket-modal .modal-body{
+  padding: 0;
+}
+.import_c_box .bucket-modal .file-uploading{
+  width: 88% !important;
+  margin-bottom: 22px !important;
+}
+.import_c_box .bucket-modal .file-uploading .row{
+  margin-left: -15px !important;
+}
+.import_c_box .bucket-modal .file-uploading .row > div.col-sm-4{
+  margin: 10px !important;
+}
+.import_c_box .bucket-modal .modal-body .contacts-group .close img{
+  display: none;
+}
+.import_c_box .bucket-modal .modal-body .contacts-group .box .box-content .heading h3{
+  margin-top:20px !important;
+}
+.import_c_box .bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader .qq-upload-button span.align-title p{
+    margin: 12px auto 0;
+}
+.import_c_box .bucket-modal .modal-footer{
+  padding-right:0;
+}
+.import_c_box .bucket-modal .modal-footer .pull-left{
+  margin-top: 7px;
+}
+.import_c_box .loader{
+  position: absolute;
+  top: 53%;
+  left: 46%;
+  width: 60px;
 }

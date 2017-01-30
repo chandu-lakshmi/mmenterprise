@@ -20,7 +20,7 @@
 			        templateUrl: App.base_url + 'templates/email-parser/all-jobs.phtml',
 			        controller: 'AllJobsController',
 			        controllerAs:'AllJobsCtrl',
-			        data : { pageTitle: 'Mintmesh ( Jobs )' },
+			        data : { pageTitle: 'MintMesh ( Jobs )' },
 			        params : {share_status : 'web'}
 			    })
 			    .state('candidateDetails', {
@@ -28,7 +28,7 @@
 			        templateUrl: App.base_url + 'templates/email-parser/candidate-details.phtml',
 			        controller: 'ApplyJobController',
 			        controllerAs:'ApplyJobCtrl',
-			        data : { pageTitle: 'Mintmesh ( Upload CV )' },
+			        data : { pageTitle: '' },
 			        params : {status : '',share_status : 'web'}
 			    })
 			    .state('referralDetails', {
@@ -44,7 +44,7 @@
 			        templateUrl: App.base_url + 'templates/email-parser/job-details.phtml',
 			        controller: 'JobDetailsController',
 			        controllerAs:'JobDetailsCtrl',
-			        data : { pageTitle: 'Mintmesh' },
+			        data : { pageTitle: 'MintMesh' },
 			        params : {share_status : 'web'}
 			    })
 			    .state('allCampaigns', {
@@ -52,7 +52,7 @@
 			        templateUrl: App.base_url + 'templates/email-parser/all-campaigns.phtml',
 			        controller: 'AllCampaignsController',
 			        controllerAs:'AllCampaignsCtrl',
-			        data : { pageTitle: 'Mintmesh ( Campaigns )' },
+			        data : { pageTitle: 'MintMesh ( Campaigns )' },
 			        params : {share_status : 'web'}
 			    })
 

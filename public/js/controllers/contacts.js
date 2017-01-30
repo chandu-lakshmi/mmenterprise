@@ -619,9 +619,42 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 
 }])
 
-.controller('UploadContactsController',['$scope', '$window', 'defaultFunction', 'getBuckets', '$uibModalInstance', '$state', '$http', '$uibModal', 'buckets', 'CONFIG', function($scope, $window, defaultFunction, getBuckets, $uibModalInstance, $state, $http, $uibModal, buckets, CONFIG){
+.controller('UploadContactsController',['$scope', '$window', 'defaultFunction', 'getBuckets', '$uibModalInstance', '$state', '$http', '$uibModal', 'buckets', '$timeout', 'CONFIG', function($scope, $window, defaultFunction, getBuckets, $uibModalInstance, $state, $http, $uibModal, buckets, $timeout, CONFIG){
     
     var scope = this;
+    this.currentState = $state.params.importContacts;
+
+    if(scope.currentState){
+        scope.loader = true;
+        var get_buckets = $http({
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
+            method: 'POST',
+            url: CONFIG.APP_DOMAIN + 'buckets_list'
+        })
+        get_buckets.success(function(response) {
+            if (response.status_code == 200) {
+                scope.bucketNames = response.data.buckets_list;
+                buckets.setData(scope.bucketNames);
+                scope.bucketsList = buckets.getData();
+                scope.loader = false;
+                setTimeout(function(){dynamicUploader(scope.bucketsList.length);},100);
+            }
+            // Session Destroy
+            else if (response.status_code == 400) {
+                $window.location = CONFIG.APP_DOMAIN+'logout';
+            }
+        })
+        get_buckets.error(function(response){
+            console.log(response);
+        })
+    }
+    else{
+        scope.bucketsList = buckets.getData();
+        setTimeout(function(){dynamicUploader(scope.bucketsList.length)},100);
+        scope.newBucketModal = false;
+    }
 
     // download sample template
     this.downloadSample = function(){
@@ -634,10 +667,6 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
     this.colorPicker = function(ind) {
         return bucketColor[String(ind).slice(-1)];
     }
-
-    // get bucket names
-    scope.bucketsList = buckets.getData();
-    setTimeout(function(){dynamicUploader(scope.bucketsList.length)},100);
 
 
     // qq uploader
@@ -654,7 +683,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
         var uploader = new qq.FileUploader({
             element: document.getElementsByClassName('upload-bucket')[index],
             dragText: "",
-            uploadButtonText: "<span class='align-title'><p>"+scope.bucketsList[index].bucket_name+"</p><span>"+count+"</span></span>",
+            uploadButtonText: "<span class='align-title'><p>"+scope.bucketsList[index].bucket_name+"</p><span>"+(scope.currentState ? '' : count)+"</span></span>",
             multiple : false,
             sizeLimit: (25*1024*1024),
             allowedExtensions: ["XLSX", "CSV", "XLS"],
@@ -711,9 +740,20 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 
 
     // new mock functionality
-    scope.newBucketModal = false;
     this.newBucket = function(){
-        scope.newBucketModal = true;
+        if(scope.currentState){
+            $uibModal.open({
+               animation: false,
+               backdrop: 'static',
+               keyboard: false,
+               templateUrl: 'templates/dialogs/new-bucket-import-contacts.phtml',
+               openedClass: "bucket-modal import-contacts",
+               scope:$scope
+            });
+        }
+        else{
+            scope.newBucketModal = true;
+        }
         scope.new_bucket.bucketName = '';
         newBucketUpload();
     }
@@ -735,7 +775,6 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 
                 onSubmit: function(id, name){
                     $('.bucket-modal .modal-footer .disabled').css('pointer-events','none');
-                    //scope.new_bucket.fileError = false;
                     scope.errorUpload = false;
                     $scope.$apply();
                     $new_bucket.find('.drag_txt').hide();
@@ -746,7 +785,6 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
                 onComplete: function(id, name, response){
                     if(response.success){
                         $('.bucket-modal .modal-footer .disabled').css('pointer-events','auto');
-                        //scope.new_bucket.fileError = false;
                         org_name = response.org_name;
                         filename = response.filename;
                         $new_bucket.find('.qq-upload-fail').remove();
@@ -757,7 +795,6 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
                         $new_bucket.find('.qq-upload-drop-area').append('<div class="file-name"><img src="public/images/Applied.svg" alt="file"><p class="name">'+response.org_name+'</p><img src="public/images/close-popup-grey.svg" alt="cancel" onclick="angular.element(this).scope().UploadContCtrl.delete()"></div>');
                     }
                     else{
-                        //scope.new_bucket.fileError = false;
                         $scope.$apply();
                         $new_bucket.find('.qq-upload-button').show();
                         $new_bucket.find('.qq-upload-list').css('z-index','-1');
@@ -766,7 +803,6 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
                     }
                 },
                 showMessage: function(msg){
-                    //scope.new_bucket.fileError = false;
                     $scope.$apply();
                     $new_bucket.find('.qq-upload-fail').remove();
                     $new_bucket.append("<div class='qq-upload-fail'><i class='fa fa-times'></i>&nbsp;<span>"+msg+"</span></div>");
@@ -776,21 +812,15 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
     }
     
     // create new bucket and upload file
-    //scope.new_bucket.fileError = false;
     scope.new_bucket.succesLoader = false;
     this.new_bucket.upload = function(isValid){
-        //console.log($new_bucket.find('.qq-upload-list li').hasClass('qq-upload-success'));
-        /*if(!isValid || !($new_bucket.find('.qq-upload-list li').hasClass('qq-upload-success'))){
-            isValid == false ? (scope.new_bucket.errorFromData = true) : (scope.new_bucket.errorFromData = false);
-            $new_bucket.find('.qq-upload-list li').hasClass('qq-upload-success') == false ? (scope.new_bucket.fileError = true) : (scope.new_bucket.fileError = false); 
-        }*/
+
         if(!isValid){
             scope.new_bucket.errorFromData = true;
         }
         else{
             $('.bucket-modal .modal-footer .disabled').css('pointer-events','none');
             scope.new_bucket.errorFromData = false;
-            //scope.new_bucket.fileError = false;
             scope.new_bucket.succesLoader = true;
 
             var params = $.param({
@@ -810,26 +840,27 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
                 scope.new_bucket.succesLoader = false;
                 if(response.status_code == 200){
                     buckets.addProperty(response.data);
-                    scope.newBucketModal = false;
-                    //scope.bucketsList.push(response.data);
-                    if(($new_bucket.find('.qq-upload-list li').hasClass('qq-upload-success'))){
-                        setTimeout(function(){
-                            dynamicUploader(scope.bucketsList.length);
-                            uploader(scope.bucketsList.length-1,true);
-                        },100);
+                   
+                    if(!scope.currentState){
+                        scope.newBucketModal = false;
                     }
                     else{
-                        setTimeout(function(){
-                            dynamicUploader(scope.bucketsList.length);
-                        },100);
+                        $timeout(function() {
+                            angular.element('#close-me').triggerHandler('click');
+                        });
                     }
+
+                    var cond = $new_bucket.find('.qq-upload-list li').hasClass('qq-upload-success');
+                    setTimeout(function(){
+                        uploader(scope.bucketsList.length-1,cond);
+                    },100);
+
                 }
                 else if (response.status_code == 400) {
                     $window.location = CONFIG.APP_DOMAIN+'logout';
                 }
             })
             createBucket.error(function(response){
-                //console.log(response)
                 $('.bucket-modal .modal-footer .disabled').css('pointer-events','auto');
             })
         }
@@ -840,15 +871,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
     this.back = function(){
         scope.newBucketModal = false;
         scope.errorUpload = false;
-        //scope.new_bucket.fileError = false;
         scope.new_bucket.errorFromData = false;
-        setTimeout(function(){
-            dynamicUploader(scope.bucketsList.length);
-
-            for(var i = 0; i < uploadData.length; i++){
-                successBucket(uploadData[i].ind,uploadData[i].org_name,uploadData[i].filename);
-            }
-        },100);
     }
 
     // trash function
@@ -870,7 +893,6 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 
     // new bucket after success
     function successBucket(index,name,file){
-        //console.log(index,name,file)
         window["$contacts_upload_"+index] = $('.upload-bucket').eq(index);
         eval("$contacts_upload_"+index).find('.qq-upload-fail').remove();
         eval("$contacts_upload_"+index).find('.qq-upload-success').hide();
@@ -908,9 +930,15 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
             scope.uploadLoader = false;
             scope.errorUpload = false;
             if(response.status_code == 200){
-                defaultFunction('', '', '', '', 0);
-                getBuckets();
-                $uibModalInstance.dismiss('cancel');
+                if(scope.currentState){
+                    $window.scrollTo(0, 0);
+                    $state.go('importContactsList');
+                }
+                else{
+                    defaultFunction('', '', '', '', 0);
+                    getBuckets();
+                    $uibModalInstance.dismiss('cancel');
+                }
             }
             else if(response.status_code == 403){
                 scope.errorUpload = true;
@@ -930,7 +958,9 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 
     // on state change modal close
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
-        $uibModalInstance.dismiss('cancel');
+        if(!scope.currentState){
+            $uibModalInstance.dismiss('cancel');
+        }   
     })
     
 

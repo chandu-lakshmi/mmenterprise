@@ -1,4 +1,4 @@
-<div class="modal-body" id="modal-body" ng-if="!UploadContCtrl.newBucketModal" style="width:100%;height:100%;">
+<div class="modal-body" id="modal-body" ng-show="!UploadContCtrl.newBucketModal" style="width:100%;height:100%;">
     <form name="buckets_form">
 
     <div class="contacts-group">
@@ -43,7 +43,7 @@
 </div>
 
 <form name="new_bucket_form" novalidate>
-    <div class="modal-body" ng-if="UploadContCtrl.newBucketModal">
+    <div class="modal-body" ng-show="UploadContCtrl.newBucketModal">
         
         <div class="new-bucket">
 
@@ -90,10 +90,14 @@
         <span ng-if="UploadContCtrl.new_bucket.succesLoader"><img src="public/images/loader/upload_file.gif" alt="loader" style="margin:5px;" > Uploading</span>
     </div>
     <div class="pull-left" ng-if="!UploadContCtrl.newBucketModal">
-        <span ng-if="UploadContCtrl.uploadLoader"><img src="public/images/loader/upload_file.gif" alt="loader" style="margin:5px;"> Uploading</span>
+        <span ng-if="UploadContCtrl.uploadLoader"><img src="public/images/loader/upload_file.gif" alt="loader" style="margin:5px;"> Uploading...</span>
         <span style="color:#983a3a;line-height:48px;" ng-if="UploadContCtrl.errorUpload"><i class="fa fa-times"></i>&nbsp;Please upload contacts to atleast one group</span>
     </div>
-    <div class="pull-right disabled">
+    <div class="pull-right disabled" ng-if="!UploadContCtrl.currentState">
         <span class="mm-btn ripplelink" ng-click="UploadContCtrl.newBucketModal ? UploadContCtrl.new_bucket.upload(new_bucket_form.$valid) : UploadContCtrl.uploadContacts()" ng-bind="UploadContCtrl.newBucketModal ? 'UPLOAD CONTACTS' : 'ADD CONTACTS'"></span>
+    </div>
+    <!--IMPORT Contacts-->
+    <div class="pull-right disabled" ng-if="UploadContCtrl.currentState">
+        <span class="mm-btn ripplelink" ng-click="UploadContCtrl.uploadContacts()">UPLOAD CONTACTS</span>
     </div>
 </div>

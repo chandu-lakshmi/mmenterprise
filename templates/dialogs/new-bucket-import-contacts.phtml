@@ -1,0 +1,50 @@
+<form name="new_bucket_form" novalidate>
+    <div class="modal-body">
+        
+        <div class="new-bucket">
+
+            <div>
+                <img src="public/images/cross-grey.svg" alt="close" id="close-me" class="pull-right" ng-click="$dismiss()">
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="text-center">
+                 <div class="heading">
+                    <h3 style="margin:0">Add New Group</h3>
+                    <p style="margin:14px 0;">
+                        <span style="color:#989898;">Create your own group and add contacts to the group</span>
+                    </p>
+                </div>
+
+                <div class="download">
+                    <span ng-click="UploadContCtrl.downloadSample()" class="text-center">Download Sample Template</span>    
+                </div>
+
+                <div class="content">
+                    <md-input-container class="md-block" style="margin:0">
+                        <label>Enter Group Name</label>
+                        <input type="text" name="bucketName" ng-model="UploadContCtrl.new_bucket.bucketName" required ng-class="{'has-error-border':new_bucket_form.bucketName.$invalid && UploadContCtrl.new_bucket.errorFromData}" check-bucket array-bucket="{{UploadContCtrl.bucketsList}}" bucket-name="{{UploadContCtrl.new_bucket.bucketName}}" autocomplete="off">
+                        <div ng-if="new_bucket_form.bucketName.$error.required && UploadContCtrl.new_bucket.errorFromData" class="has-error-msg">Please Enter Bucket Name.</div>
+                        <div ng-if="new_bucket_form.bucketName.$error.bucketmatch && UploadContCtrl.new_bucket.errorFromData && !new_bucket_form.bucketName.$error.required" class="has-error-msg">Bucket Name Already Exists.</div>
+                    </md-input-container>
+                    <div id="new-bucket"></div>
+                    <div style="clear:both;margin-top:15px;">
+                        <img src="public/images/info.svg" alt="info"/>
+                        <span style="color:#999999">Only .csv and .xlsx files are allowed.<br>File size must not exceed 25MB.</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</form>
+
+<div class="modal-footer clearfix">
+    <div class="pull-left">
+        <span ng-if="UploadContCtrl.new_bucket.succesLoader"><img src="public/images/loader/upload_file.gif" alt="loader" style="margin:5px;" > Uploading</span>
+    </div>
+    <div class="pull-right disabled">
+        <span class="mm-btn ripplelink" ng-click="UploadContCtrl.new_bucket.upload(new_bucket_form.$valid)">UPLOAD CONTACTS</span>
+    </div>
+</div>

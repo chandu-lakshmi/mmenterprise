@@ -591,8 +591,8 @@
 			setTimeout(function(){
 				qquploader(1, vm.groupData.users[index].photo);
 			},100);
-			vm.activeClass = vm.groupData.users[index].fullname;
-			vm.personDetails = angular.copy(vm.groupData.users[index]);
+			vm.activeClass = vm.groupsList[vm.tab].users[index].fullname;
+			vm.personDetails = angular.copy(vm.groupsList[vm.tab].users[index]);
 			vm.personDetails.group_id = vm.groupData.group_id;
 			if(userPermissions.is_primary == 1){
 				vm.readable = false;

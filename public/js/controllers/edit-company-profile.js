@@ -280,7 +280,7 @@
 	        id: "company-logo",
 	        dragText: "",
 	        uploadButtonText: "",
-	        size: (10 * 1024 * 1024),
+	        size: (1 * 1024 * 1024),
 	        allowedExtensions: ["jpg", "jpeg", "png"],
 	        action: App.base_url + "file_upload",
 	        showFileInfo: false,
