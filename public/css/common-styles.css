@@ -1,3 +1,22 @@
+/* browser defaults */
+html.md-default-theme, html, body.md-default-theme, body {
+  background: transparent; }
+
+input::-ms-clear {
+  display: none; }
+
+select::-ms-expand {
+  display: none; }
+
+input::-ms-input-placeholder,
+input:-ms-input-placeholder,
+input::-webkit-input-placeholder {
+  color: #a9a9a9; }
+
+input::-moz-placeholder {
+  color: gray; }
+
+/* qq-uploader */
 .qq-uploader {
   overflow: hidden; }
   .qq-uploader .qq-upload-drop-area {

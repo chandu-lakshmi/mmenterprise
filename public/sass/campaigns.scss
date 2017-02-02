@@ -247,6 +247,7 @@ md-dialog{
 							label{display: none !important;}
 						}
 					}
+					div.clearfix{position: relative;}
 					div.start{width: 45%;float: left;margin-right: 68px;}
 					div.ends{@extend div.start; margin: 0}
 					mdp-date-picker,mdp-time-picker{
@@ -254,6 +255,7 @@ md-dialog{
 							.md-input{border-color: red;}
 						}
 					}
+					span.status{position: absolute;top: 36%;left: 101%;color: #d85c5e;}
 				}
 				.add-schedule{font-size: 18px;font-weight: bold;margin-bottom: 30px;
 					a{font-weight: bold;font-size: 13px;margin-left: 5px;letter-spacing: 0.6px;

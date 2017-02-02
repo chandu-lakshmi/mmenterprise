@@ -13,7 +13,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
                     var bkNames = scope.$eval(attr.arrayBucket);
                     var bol = false;
                     for(var i in bkNames){
-                        if(bkNames[i].bucket_name == attr.bucketName){
+                        if(bkNames[i].bucket_name.toUpperCase() == attr.bucketName.toUpperCase()){
                             ctrl.$setValidity('bucketmatch', false);
                             bol=true;
                         }
@@ -307,7 +307,9 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 
 	            scope.gridOptions.data.length == 0 ? (scope.loaderNoContacts = true) : '';
 	            
-	            scope.gridApi.selection.clearSelectedRows();
+                if(scope.gridApi.selection != undefined){
+                    scope.gridApi.selection.clearSelectedRows();
+                }
                 scope.totalRecordsCount =  response.data.total_records[0].total_count;
 	            
 	            scope.searchLoader = false;
@@ -315,7 +317,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 
 	        }
 	        // Session Destroy
-	        else if (response.status_code == 400) {console.log("shiva")
+	        else if (response.status_code == 400) {
 	            $window.location = CONFIG.APP_DOMAIN + 'logout';
 	        }
     	});
@@ -683,7 +685,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
         var uploader = new qq.FileUploader({
             element: document.getElementsByClassName('upload-bucket')[index],
             dragText: "",
-            uploadButtonText: "<span class='align-title'><p>"+scope.bucketsList[index].bucket_name+"</p><span>"+(scope.currentState ? '' : count)+"</span></span>",
+            uploadButtonText: "<span class='align-title'><p>"+scope.bucketsList[index].bucket_name.toUpperCase()+"</p><span>"+(scope.currentState ? '' : count)+"</span></span>",
             multiple : false,
             sizeLimit: (25*1024*1024),
             allowedExtensions: ["XLSX", "CSV", "XLS"],
@@ -839,6 +841,9 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
                 $('.bucket-modal .modal-footer .disabled').css('pointer-events','auto');
                 scope.new_bucket.succesLoader = false;
                 if(response.status_code == 200){
+                    if($new_bucket.find('li.qq-upload-success').length == 0)
+                        response.data.count = 0;
+                    
                     buckets.addProperty(response.data);
                    
                     if(!scope.currentState){

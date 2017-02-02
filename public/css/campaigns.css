@@ -336,6 +336,8 @@ md-dialog md-dialog-actions button.md-primary {
           left: 25px; }
         .campaigns .edit-campaigns .box .content .date md-input-container.md-input-focused label, .campaigns .edit-campaigns .box .content .date md-input-container.md-input-has-value label {
           display: none !important; }
+        .campaigns .edit-campaigns .box .content .date div.clearfix {
+          position: relative; }
         .campaigns .edit-campaigns .box .content .date div.start, .campaigns .edit-campaigns .box .content .date div.ends {
           width: 45%;
           float: left;
@@ -344,6 +346,11 @@ md-dialog md-dialog-actions button.md-primary {
           margin: 0; }
         .campaigns .edit-campaigns .box .content .date mdp-date-picker.has-error-border .md-input, .campaigns .edit-campaigns .box .content .date mdp-time-picker.has-error-border .md-input {
           border-color: red; }
+        .campaigns .edit-campaigns .box .content .date span.status {
+          position: absolute;
+          top: 36%;
+          left: 101%;
+          color: #d85c5e; }
         .campaigns .edit-campaigns .box .content .add-schedule, .campaigns .edit-campaigns .box .content .upload-files {
           font-size: 18px;
           font-weight: bold;

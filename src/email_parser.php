@@ -23,13 +23,15 @@ $app->get('/email/all-jobs/{status}', function ($request, $response, $args) {
     $args = parserData($this->settings);
     $args['ref'] = $_GET['ref'];
     $_POST['ref'] = $args['ref'];
+    $_POST['all_jobs'] = 1;
     $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_ref');
     $Details     = new Curl(array(
         'url'           => $apiEndpoint,
         'postData'      => $_POST
     ));
     $args['referralDetails'] = checkJsonResult( $Details->loadCurl() ); 
-    $checkResult['refDetails'] = json_decode(checkJsonResult( $Details->loadCurl()));
+    $checkResult['refDetails'] = json_decode($args['referralDetails']);
+    $args['ngMeta'] = $checkResult['refDetails'];
     // Render index view
     if(!empty($checkResult['refDetails'])){
         return $this->email_renderer->render($response, 'index.phtml', $args);
@@ -52,7 +54,8 @@ $app->get('/email/all-campaigns/{status}', function ($request, $response, $args)
         'postData'      => $_POST
     ));
     $args['campaignDetails'] = checkJsonResult( $Details->loadCurl() ); 
-    $checkResult['campDetails'] = json_decode(checkJsonResult( $Details->loadCurl()));
+    $checkResult['campDetails'] = json_decode($args['campaignDetails']);
+    $args['ngMeta'] = $checkResult['campDetails'];
     $arrayList["CampaignDetails"] = array(
         "camp_ref" => $args['camp_ref'],
         "campaign_id" => $checkResult['campDetails']->campaign_id,
@@ -78,13 +81,15 @@ $app->get('/email/job-details/{status}', function ($request, $response, $args) {
     $args['ref'] = $_GET['ref'];
     $args['camp_ref'] = $_POST['camp_ref'];
     $_POST['ref'] = $args['ref'];
+    $_POST['all_jobs'] = 0;
     $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_ref');
     $Details     = new Curl(array(
         'url'           => $apiEndpoint,
         'postData'      => $_POST
     ));
-    $args['referralDetails'] = checkJsonResult( $Details->loadCurl() ); 
-    $checkResult['refDetails'] = json_decode(checkJsonResult( $Details->loadCurl()));
+    $args['referralDetails'] = checkJsonResult( $Details->loadCurl() );    
+    $checkResult['refDetails'] = json_decode($args['referralDetails']);
+    $args['ngMeta'] = $checkResult['refDetails'];
     // Render index view
     if(!empty($checkResult['refDetails'])){
         return $this->email_renderer->render($response, 'index.phtml', $args);
@@ -172,8 +177,8 @@ $app->post('/apply_job',function ($request, $response, $args) use ($app) {
         'url'           => $apiEndpoint,
         'postData'      => $_POST
     ));
-    $args['referralDetails'] = checkJsonResult( $Details->loadCurl() ); 
-    $checkResult['refDetails'] = json_decode(checkJsonResult( $Details->loadCurl()));
+    $args['referralDetails'] = checkJsonResult( $Details->loadCurl() );
+    $checkResult['refDetails'] = json_decode($args['referralDetails']);
     $_POST['post_id'] =  $checkResult['refDetails']->post_id;
     $_POST['reference_id'] =  $checkResult['refDetails']->reference_id;
     $apiEndpoint = getapiEndpoint($this->settings, 'apply_job');

@@ -7,6 +7,39 @@
 		<base href="<?php echo $data['EMAIL_PARSER_DOMAIN']; ?>" target="_blank, _self, _parent, _top">
 		<link rel="shortcut icon" href="{{$root.url_images}}favicon.png"/>
 
+		<meta property="fb:app_id" content="730971373717257" >
+        <!-- fb meta tags starts  -->
+        <meta property="og:image:width" content="600" />
+        <meta property="og:image:height" content="600" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Mintmesh" >
+        <meta property="og:title" content="<?php isset($data['ngMeta']->title) ? print_r($data['ngMeta']->title) : ''; ?>" >
+        <meta property="og:description" content="<?php isset($data['ngMeta']->description) ? print_r($data['ngMeta']->description) : ''; ?>" >
+        <meta property="og:image" content="<?php isset($data['ngMeta']->company_logo) ? print_r($data['ngMeta']->company_logo) : ''; ?>" >
+        <meta property="og:url" content="<?php isset($data['ngMeta']->url) ? print_r($data['ngMeta']->url) : ''; ?>">
+         <!-- fb meta tags ends  -->
+
+        <meta name="twitter:card" content="summary_large_image" >
+        <meta name="twitter:og_site_name" content="Mintmesh" >
+        <meta name="twitter:title" content="<?php isset($data['ngMeta']->title) ? print_r($data['ngMeta']->title) : ''; ?>" >
+        <meta name="twitter:description" content="<?php isset($data['ngMeta']->description) ? print_r($data['ngMeta']->description) : ''; ?>" >
+        <meta name="twitter:image" content="<?php isset($data['ngMeta']->company_logo) ? print_r($data['ngMeta']->company_logo) : ''; ?>" >
+        <meta name="twitter:url" content="<?php isset($data['ngMeta']->url) ? print_r($data['ngMeta']->url) : ''; ?>">
+        <meta name="twitter:site" content="">
+        <meta name="twitter:creator" content="">
+        <meta name="twitter:domain" content="">
+        <meta name="twitter:image:width" content="600">
+        <meta name="twitter:image:height" content="600">
+         <!-- twitter meta tags ends  -->
+
+         <!-- google+ meta tags starts -->
+        <meta itemscope itemtype="http://schema.org/Article" />
+        <meta itemprop="headline" content="<?php isset($data['ngMeta']->title) ? print_r($data['ngMeta']->title) : ''; ?>" />
+        <meta itemprop="name" content="<?php isset($data['ngMeta']->title) ? print_r($data['ngMeta']->title) : ''; ?>">
+        <meta itemprop="description" content="<?php isset($data['ngMeta']->description) ? print_r($data['ngMeta']->description) : ''; ?>">
+        <meta itemprop="image" content="<?php isset($data['ngMeta']->company_logo) ? print_r($data['ngMeta']->company_logo) : ''; ?>">
+        <!--google+ meta tags ends  -->
+
 		<link rel="stylesheet" type="text/css" href="../public/css/font-awesome.css?v=<?php echo $data['APP_VERSION']; ?>">
 		<link rel="stylesheet" type="text/css" href="../public/css/bootstrap.css?v=<?php echo $data['APP_VERSION']; ?>">
 		<link rel="stylesheet" type="text/css" href="../public/css/intlTelInput.css?v=<?php echo $data['APP_VERSION']; ?>">

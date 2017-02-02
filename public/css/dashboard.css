@@ -220,7 +220,7 @@ header .menu ul > li > a.highlight{
 header .notifications .dropdown button{
 	background: transparent;
     padding: 0px;
-    min-width: 25px;
+    min-width: 140px;
     margin: -11px;
     margin-top:-16px;
     padding: 9px 8px;

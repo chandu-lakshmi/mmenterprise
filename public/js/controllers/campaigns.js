@@ -723,6 +723,23 @@
 
 			vm.company_name = CompanyDetails.name;
 
+			/*$('.videoFiles').fancybox({
+				minWidth: 500,
+				maxWidth: 500,
+				minHeight: 300,
+				maxHeight: 300,
+				scrollOutside: false,
+				afterLoad : function(x, y){
+					var url = x.element[0].attributes.videoplay.value;
+					var tpl = '<video controls width="100%" autoplay>'+
+								'<source src="'+ url +'" type="video/mp4">'+
+								'<source src="'+ url +'" type="video/webm">'+
+								'<source src="'+ url +'" type="video/ogg">'+
+									'</video>'
+					x.content = tpl
+				}
+			});*/
+
 			vm.errCond = false;
 			vm.loader = false;
 			vm.bktView = true;
@@ -834,18 +851,37 @@
 			function schedule(){
 				vm.scheduleTime = [0];
 				vm.currentTimeLength = 0;
-				if(vm.campaignDetails.schedule.length > 1){
-					for(var i = 1; i < vm.campaignDetails.schedule.length; i++){
+				var schedule = vm.campaignDetails.schedule;
+				if(schedule.length == 1){
+					if(schedule[0].status == 'CLOSED'){
 						vm.currentTimeLength++;
 						vm.scheduleTime.push(vm.currentTimeLength);
 					}
 				}
+				if(schedule.length > 1){
+					var x = 0;
+					if(schedule[0].status == 'CLOSED'){
+						x++;
+					}
+					for(var i = 1; i < schedule.length; i++){
+						if(schedule[i].status == 'CLOSED'){
+							x++;
+						}
+						vm.currentTimeLength++;
+						vm.scheduleTime.push(vm.currentTimeLength);
+						if(x == schedule.length){
+							vm.currentTimeLength++;
+							vm.scheduleTime.push(vm.currentTimeLength);
+						}
+					}
+				}
+				vm.disableSchedule = angular.copy(vm.scheduleTime);
 				vm.campaignDetails.date = [];
 				if(vm.campaignDetails.schedule.length > 0){
 					
 					var campaginOpen = vm.campaignDetails.status == 'OPEN' ? false : true;
 
-					for(var i = 0; i < vm.scheduleTime.length; i++){
+					for(var i = 0; i < vm.campaignDetails.schedule.length; i++){
 						var obj = {};
 						obj.start_on_date = campaginOpen ? new Date(vm.campaignDetails.schedule[i].start_on_date) : '';
 						obj.end_on_date = campaginOpen ? new Date(vm.campaignDetails.schedule[i].end_on_date) : '';
@@ -998,9 +1034,15 @@
                 else{
                 	setTimeout(function(){
                 		var org_name = response.split('/').pop();
+                		/*var tpl = '<video style="width: 7%;vertical-align:middle">'+
+                						'<source src="'+response+'" type="video/mp4">'+
+                						'<source src="'+response+'" type="video/webm">'+
+										'<source src="'+response+'" type="video/ogg">'+
+            						'</video>'*/
 	                	eval("$upload_pitch"+index).after(uploadTemplate);
 	                	eval("$upload_pitch"+index).next('.upload-box').find('.progress-bar').hide();
 	                	eval("$upload_pitch"+index).next('.upload-box').find('.filename').append('<img src="public/images/video.png">');
+	                	// eval("$upload_pitch"+index).next('.upload-box').find('.filename').append('<a class="videoFiles fancybox.ajax" target="_blank" videoPlay="' + response + '" href="templates/components/video-play.phtml">'+tpl+'</a>');
 	            		eval("$upload_pitch"+index).next('.upload-box').find('.filename').append('<p class="name ellipsis">'+org_name+'</p>');
 	            		eval("$upload_pitch"+index).next('.upload-box').find('.filename').append('<img src="public/images/material_icons/circle-close.svg" onclick="angular.element(this).scope().EditCampaignsCtrl.trash('+index+', true)">');
 	                	eval("$upload_pitch"+index).next('.upload-box').append("<input type='hidden' name='"+ name +"' value='" + response + "' />").show();

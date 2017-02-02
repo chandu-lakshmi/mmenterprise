@@ -228,8 +228,8 @@
 									<span ng-if="topreferrals.designation" ng-bind="topreferrals.designation" style="font-size:14px;" title="{{topreferrals.designation}}" class="elipsis"></span>
 								</div>
 								<div class="bottom">
-									<big class="count">{{topreferrals.count}}</big>
-									<span>REFERRALS MADE</span><br>
+									<big class="count" ng-bind="topreferrals.count"></big>
+									<span ng-bind="topreferrals.count == 1 ? 'REFERRAL MADE' : 'REFERRALS MADE'"></span><br>
 								</div>
 							</div>
 						</div>

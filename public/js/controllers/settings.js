@@ -753,6 +753,7 @@
 			    					}
 			    				}
 			    				vm.groupsList[vm.tab].users[vm.subTab] = angular.copy(vm.personDetails);
+			    				vm.activeClass = angular.copy(vm.personDetails.fullname)
 			    				vm.groupsList[vm.tab].users[vm.subTab].photo = angular.copy(response.data.data.photo);
 			    			}*/
 			    			if(response.data.data.photo != ''){
