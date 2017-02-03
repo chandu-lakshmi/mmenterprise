@@ -213,6 +213,25 @@
 
 			var vm = this;
 
+			$('.videoFiles').fancybox({
+				minWidth: 500,
+				maxWidth: 500,
+				minHeight: 300,
+				maxHeight: 300,
+				scrollOutside: false,
+				afterLoad : function(x, y){
+					var url = x.element[0].attributes.videoplay.value;
+					var tpl = '<video controls width="100%" autoplay>'+
+								'<source src="'+ url +'" type="video/mp4">'+
+								'<source src="'+ url +'" type="video/webm">'+
+								'<source src="'+ url +'" type="video/ogg">'+
+								'<source src="'+ url +'" type="video/ogv">'+
+									'</video>'
+					x.content = tpl
+				}
+			});
+
+
 			this.company_name = CompanyDetails.name;
 			this.jobLists = [];
 			this.frm2 = {};
@@ -380,7 +399,7 @@
 		            uploadButtonText: "Browse File",
 		            multiple : false,
 		            sizeLimit: (25*1024*1024),
-		            allowedExtensions: ["MP4", "AMV", "MPG", "AVI", "MKV"],
+		            allowedExtensions: ["MP4", "WEBM", "OGG", "OGV"],
 		            action: App.base_url+'file_upload',
 
 		            onSubmit: function(id, name){
@@ -392,19 +411,26 @@
 		            onComplete: function(id, name, response){
 		                if(response.success){
 		         			if(index == 0){
-					    		param = 'ceos_pitch';
+					    		param = {name: 'ceos_org_name', file: 'ceos_file_name'};
 					    	}
 					    	else{
-					    		param = 'employees_pitch';
+					    		param = {name: 'emp_org_name', file: 'emp_file_name'};
 					    	}
+					    	var tpl = '<video style="width: 7%;vertical-align:middle">'+
+		            						'<source src="'+ App.API_DOMAIN + response.filename +'" type="video/mp4">'+
+		            						'<source src="'+ App.API_DOMAIN + response.filename +'" type="video/webm">'+
+											'<source src="'+ App.API_DOMAIN + response.filename +'" type="video/ogg">'+
+											'<source src="'+ App.API_DOMAIN + response.filename +'" type="video/ogv">'+
+		        						'</video>'
 		                	eval("$upload_pitch"+index).find('.qq-upload-fail').remove();
 		                	eval("$upload_pitch"+index).find('.qq-upload-success').hide();
 		                    eval("$upload_pitch"+index).find('.qq-upload-list').css('z-index','-1');
-		                	eval("$upload_pitch"+index).next('.upload-box').find('.filename').append('<img src="public/images/video.png">')
+		                	// eval("$upload_pitch"+index).next('.upload-box').find('.filename').append('<img src="public/images/video.png">')
+		                	eval("$upload_pitch"+index).next('.upload-box').find('.filename').append('<a class="videoFiles fancybox.ajax" target="_blank" videoPlay="' + App.API_DOMAIN + response.filename + '" href="templates/components/video-play.phtml">'+tpl+'</a>');
 		                	eval("$upload_pitch"+index).next('.upload-box').find('.filename').append('<p class="name ellipsis">'+response.org_name+'</p>');
 		                	eval("$upload_pitch"+index).next('.upload-box').find('.filename').append('<img src="public/images/material_icons/circle-close.svg" onclick="angular.element(this).scope().NewCampaignCtrl.trash('+index+')">');
-		                    eval("$upload_pitch"+index).next('.upload-box').append("<input type='hidden' name='"+ param +"_file' value='" + response.filename + "' />").show();
-		                    eval("$upload_pitch"+index).next('.upload-box').append("<input type='hidden' name='"+ param +"_name' value='" + response.org_name + "' />").show();
+		                    eval("$upload_pitch"+index).next('.upload-box').append("<input type='hidden' name='"+ param.file +"' value='" + response.filename + "' />").show();
+		                    eval("$upload_pitch"+index).next('.upload-box').append("<input type='hidden' name='"+ param.name +"' value='" + response.org_name + "' />").show();
 		                }
 		                else{
 			                eval("$upload_pitch"+index).next('.upload-box').remove();
@@ -723,7 +749,7 @@
 
 			vm.company_name = CompanyDetails.name;
 
-			/*$('.videoFiles').fancybox({
+			$('.videoFiles').fancybox({
 				minWidth: 500,
 				maxWidth: 500,
 				minHeight: 300,
@@ -735,10 +761,11 @@
 								'<source src="'+ url +'" type="video/mp4">'+
 								'<source src="'+ url +'" type="video/webm">'+
 								'<source src="'+ url +'" type="video/ogg">'+
+								'<source src="'+ url +'" type="video/ogv">'+
 									'</video>'
 					x.content = tpl
 				}
-			});*/
+			});
 
 			vm.errCond = false;
 			vm.loader = false;
@@ -910,19 +937,23 @@
 			if(vm.campaignDetails.hasOwnProperty('files')){
 				for(var i = 0; i < vm.campaignDetails.files.length; i++){
 					if(i == 0){
-						vm.checkBox.ceoPitch = true;
-			    		param = 'ceos_pitch_s3';
-			    		hasFile(param, vm.campaignDetails.files[i], i, false);
+						if(vm.campaignDetails.files[i].ceos_file_name != ''){
+							vm.checkBox.ceoPitch = true;
+				    		param = {file: 'ceos_file_name', name: 'ceos_org_name'};
+			    			hasFile(param, vm.campaignDetails.files[i], i, false);
+			    		}
 			    	}
 			    	else{
-			    		vm.checkBox.employeePitch = true;
-			    		param = 'employees_pitch_s3';
-			    		hasFile(param, vm.campaignDetails.files[i], i, false);
+			    		if(vm.campaignDetails.files[i].emp_file_name != ''){
+				    		vm.checkBox.employeePitch = true;
+				    		param = {file: 'emp_file_name', name: 'emp_org_name'};
+			    			hasFile(param, vm.campaignDetails.files[i], i, false);
+			    		}
 			    	}
 				}
 			}
 
-			var resetFilesArray = [];
+			/*var resetFilesArray = [];
 			function filesReset(){
 				if(resetFilesArray){
 					for(var i = 0; i < resetFilesArray.length; i++){
@@ -947,7 +978,7 @@
 					}
 				}
 				resetFilesArray = [];
-			}
+			}*/
 
 			vm.directiveCall = function(dirFn) {
                	vm.resetBuckects = dirFn;
@@ -969,8 +1000,10 @@
 		            uploadButtonText: "Browse File",
 		            multiple : false,
 		            sizeLimit: (25*1024*1024),
-		            allowedExtensions: ["MP4", "AMV", "MPG", "AVI", "MKV"],
+		            allowedExtensions: ["MP4", "WEBM", "OGG", "OGV"],
 		            action: App.base_url+'file_upload',
+		            file_name : index == 0 ? 'ceos_org_name' : 'emp_org_name',
+		    		path_name : index == 0 ? 'ceos_file_name' : 'emp_file_name',
 
 		            onSubmit: function(id, name){
 		            	eval("$upload_pitch"+index).next('.upload-box').remove();
@@ -978,12 +1011,6 @@
 		            },
 		            onComplete: function(id, name, response){
 		                if(response.success){
-		         			if(index == 0){
-					    		param = 'ceos_pitch';
-					    	}
-					    	else{
-					    		param = 'employees_pitch'
-					    	}
 		                	$('.progress-bar').hide();
 		                	hasFile(param, response, index, true);
 		                }
@@ -1007,51 +1034,50 @@
 		        });
 		    }
 
-		    function trash(index, cond){
-		    	if(cond){
-		    		if(resetFilesArray.indexOf(index) == -1){
-                		resetFilesArray.push(index);
-                	}
-		    	}
+		    function trash(index){
 		    	eval("$upload_pitch"+index).next('.upload-box').remove();
 		    }
 
-		    function hasFile(name, response, index, cond){
+		    function hasFile(params, response, index, cond){
                 if(cond){
-                	if(resetFilesArray.indexOf(index) == -1){
-                		resetFilesArray.push(index);
-                	}
+                	var tpl = '<video style="width: 7%;vertical-align:middle">'+
+            						'<source src="'+ App.API_DOMAIN + response.filename +'" type="video/mp4">'+
+            						'<source src="'+ App.API_DOMAIN + response.filename +'" type="video/webm">'+
+									'<source src="'+ App.API_DOMAIN + response.filename +'" type="video/ogg">'+
+									'<source src="'+ App.API_DOMAIN + response.filename +'" type="video/ogv">'+
+        						'</video>'
+
 			    	$('.progress-bar').eq(index).hide();
 					eval("$upload_pitch"+index).find('.qq-upload-fail').remove();
 	            	eval("$upload_pitch"+index).find('.qq-upload-success').hide();
 	                eval("$upload_pitch"+index).find('.qq-upload-list').css('z-index','-1');
-                	eval("$upload_pitch"+index).next('.upload-box').find('.filename').append('<img src="public/images/video.png">');
+                	//eval("$upload_pitch"+index).next('.upload-box').find('.filename').append('<img src="public/images/video.png">');
+                	eval("$upload_pitch"+index).next('.upload-box').find('.filename').append('<a class="videoFiles fancybox.ajax" target="_blank" videoPlay="' + App.API_DOMAIN + response.filename + '" href="templates/components/video-play.phtml">'+tpl+'</a>');
             		eval("$upload_pitch"+index).next('.upload-box').find('.filename').append('<p class="name ellipsis">'+response.org_name+'</p>');
-            		eval("$upload_pitch"+index).next('.upload-box').find('.filename').append('<img src="public/images/material_icons/circle-close.svg" onclick="angular.element(this).scope().EditCampaignsCtrl.trash('+index+', true)">');
-                	eval("$upload_pitch"+index).next('.upload-box').append("<input type='hidden' name='"+ name +"_file' value='" + response.filename + "' />").show();
-                	eval("$upload_pitch"+index).next('.upload-box').append("<input type='hidden' name='"+ name +"_name' value='" + response.org_name + "' />").show();
+            		eval("$upload_pitch"+index).next('.upload-box').find('.filename').append('<img src="public/images/material_icons/circle-close.svg" onclick="angular.element(this).scope().EditCampaignsCtrl.trash('+index+')">');
                 }
                 else{
                 	setTimeout(function(){
-                		var org_name = response.split('/').pop();
-                		/*var tpl = '<video style="width: 7%;vertical-align:middle">'+
-                						'<source src="'+response+'" type="video/mp4">'+
-                						'<source src="'+response+'" type="video/webm">'+
-										'<source src="'+response+'" type="video/ogg">'+
-            						'</video>'*/
+                		var tpl1 = '<video style="width: 7%;vertical-align:middle">'+
+                						'<source src="'+response[params.file]+'" type="video/mp4">'+
+                						'<source src="'+response[params.file]+'" type="video/webm">'+
+										'<source src="'+response[params.file]+'" type="video/ogg">'+
+										'<source src="'+response[params.file]+'" type="video/ogv">'+
+            						'</video>'
 	                	eval("$upload_pitch"+index).after(uploadTemplate);
 	                	eval("$upload_pitch"+index).next('.upload-box').find('.progress-bar').hide();
-	                	eval("$upload_pitch"+index).next('.upload-box').find('.filename').append('<img src="public/images/video.png">');
-	                	// eval("$upload_pitch"+index).next('.upload-box').find('.filename').append('<a class="videoFiles fancybox.ajax" target="_blank" videoPlay="' + response + '" href="templates/components/video-play.phtml">'+tpl+'</a>');
-	            		eval("$upload_pitch"+index).next('.upload-box').find('.filename').append('<p class="name ellipsis">'+org_name+'</p>');
-	            		eval("$upload_pitch"+index).next('.upload-box').find('.filename').append('<img src="public/images/material_icons/circle-close.svg" onclick="angular.element(this).scope().EditCampaignsCtrl.trash('+index+', true)">');
-	                	eval("$upload_pitch"+index).next('.upload-box').append("<input type='hidden' name='"+ name +"' value='" + response + "' />").show();
+	                	// eval("$upload_pitch"+index).next('.upload-box').find('.filename').append('<img src="public/images/video.png">');
+	                	eval("$upload_pitch"+index).next('.upload-box').find('.filename').append('<a class="videoFiles fancybox.ajax" target="_blank" videoPlay="' + response[params.file] + '" href="templates/components/video-play.phtml">'+tpl1+'</a>');
+	            		eval("$upload_pitch"+index).next('.upload-box').find('.filename').append('<p class="name ellipsis">'+response[params.name]+'</p>');
+	            		eval("$upload_pitch"+index).next('.upload-box').find('.filename').append('<img src="public/images/material_icons/circle-close.svg" onclick="angular.element(this).scope().EditCampaignsCtrl.trash('+index+')">');
+	                	eval("$upload_pitch"+index).next('.upload-box').append("<input type='hidden' name='"+ params.file+'_s3' +"' value='" + response[params.file] + "' />").show();
+	                	eval("$upload_pitch"+index).next('.upload-box').append("<input type='hidden' name='"+ params.name+'_s3' +"' value='" + response[params.name] + "' />").show();
                 	},100)
                 }
 			}
 
 		    function updateCampaign(isValid){
-		    	//console.log(isValid)
+		    	
 		    	if(!isValid){
 		    		vm.errCond = true;
 		    	}
