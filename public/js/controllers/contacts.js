@@ -307,10 +307,11 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 
 	            scope.gridOptions.data.length == 0 ? (scope.loaderNoContacts = true) : '';
 	            
-                if(scope.gridApi.selection != undefined){
+                // if(scope.gridApi.selection != undefined){
                     scope.gridApi.selection.clearSelectedRows();
-                }
+                // }
                 scope.totalRecordsCount =  response.data.total_records[0].total_count;
+                scope.activeBucketCount = scope.totalRecordsCount;
 	            
 	            scope.searchLoader = false;
 	            scope.loaderImg = false;

@@ -896,7 +896,7 @@
 						}
 						vm.currentTimeLength++;
 						vm.scheduleTime.push(vm.currentTimeLength);
-						if(x == schedule.length){
+						if(x == schedule.length && x != 5){
 							vm.currentTimeLength++;
 							vm.scheduleTime.push(vm.currentTimeLength);
 						}
