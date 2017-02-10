@@ -45,10 +45,10 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 })
 
 .controller('ContactsController',['$scope', '$window',  '$http', '$q', '$interval', 'buckets', 'uiGridValidateService', '$uibModal', 'CONFIG', 'userPermissions', '$stateParams', function($scope, $window, $http, $q, $interval, buckets, uiGridValidateService, $uibModal, CONFIG, userPermissions, $stateParams){
-	
-	var scope = this;
-	this.loaderImg = false;
-	this.loaderNoContacts = false;
+    
+    var scope = this;
+    this.loaderImg = false;
+    this.loaderNoContacts = false;
     this.totalRecordsCount = 0;
     this.contactStatus = [{ label : 'Active' , color : '#0d8e68'}, { label : 'Inactive' , color : '#888888'}, { label : 'Separated' , color : '#c46968'}]
 
@@ -104,13 +104,13 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 
     this.selectedContacts = [];
     this.gridOptions = {
-    	rowHeight : 70,
+        rowHeight : 70,
         cellEditableCondition : edit_feature,
-    	enableCellEditOnFocus : true,
-    	selectionRowHeaderWidth : 56,
-    	enableHorizontalScrollbar: 0,
-    	rowEditWaitInterval: -1,
-    	columnDefs : [
+        enableCellEditOnFocus : true,
+        selectionRowHeaderWidth : 56,
+        enableHorizontalScrollbar: 0,
+        rowEditWaitInterval: -1,
+        columnDefs : [
             { name: 'firstname', displayName: 'First Name', validators: {charValidation:''}, cellTemplate: 'ui-grid/cellTitleValidator'},
             { name: 'lastname', displayName: 'Last Name', validators: {charValidationReq:''}, cellTemplate: 'ui-grid/cellTitleValidator'},
             { name: 'emailid', displayName: 'Email', enableCellEdit: false, cellClass:'grid-email', width: '20%'},
@@ -138,44 +138,44 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
     
 
     function gridValidtion(validatorName, regExp){
-		uiGridValidateService.setValidator(validatorName,
-		    function(argument) {
-		      	return function(oldValue, newValue, rowEntity, colDef) {
-		      		var bol;
-		      		if (regExp == "") {
-		      			bol = validatorName == "statusValidation" ? (newValue != oldValue) : (newValue.length >= 1 && newValue.length <= 50);      		
-		      		}
-		      		else{
-		      			bol = regExp.test(newValue);
-		      		}
-		      		if (bol) {
-		      			rowUpdate(oldValue, newValue, rowEntity, colDef, validatorName);
-		      			return true;
-		      		}
-		      		else{
-		      			setTimeout(function() {
-		      				rowEntity[colDef.name] = oldValue;
-		      				uiGridValidateService.setValid(rowEntity, colDef);
-		      			}, 500)
-		      			return false;	
-		      		}
-		      	};
-		    },
-		    function(argument) {
-		      return 'You can only insert names starting with: "' + argument + '"';
-		    }
-		);	
-	};
-	gridValidtion('charValidation', '');
+        uiGridValidateService.setValidator(validatorName,
+            function(argument) {
+                return function(oldValue, newValue, rowEntity, colDef) {
+                    var bol;
+                    if (regExp == "") {
+                        bol = validatorName == "statusValidation" ? (newValue != oldValue) : (newValue.length >= 1 && newValue.length <= 50);           
+                    }
+                    else{
+                        bol = regExp.test(newValue);
+                    }
+                    if (bol) {
+                        rowUpdate(oldValue, newValue, rowEntity, colDef, validatorName);
+                        return true;
+                    }
+                    else{
+                        setTimeout(function() {
+                            rowEntity[colDef.name] = oldValue;
+                            uiGridValidateService.setValid(rowEntity, colDef);
+                        }, 500)
+                        return false;   
+                    }
+                };
+            },
+            function(argument) {
+              return 'You can only insert names starting with: "' + argument + '"';
+            }
+        );  
+    };
+    gridValidtion('charValidation', '');
     gridValidtion('charValidationReq', /^[a-zA-Z0-9- ]{0,100}$/);
-	gridValidtion('charOtherId', /^[a-zA-Z0-9-]{0,100}$/);
-	gridValidtion('numValidation', /^[-0-9]{0,15}$/);
-	gridValidtion('statusValidation', '');
-	
-  	
-	var sort,
+    gridValidtion('charOtherId', /^[a-zA-Z0-9-]{0,100}$/);
+    gridValidtion('numValidation', /^[-0-9]{0,15}$/);
+    gridValidtion('statusValidation', '');
+    
+    
+    var sort,
         colSortObj = '',
-	    colDefName = 'status';
+        colDefName = 'status';
     this.gridOptions.onRegisterApi = function(gridApi){
         
         scope.gridApi = gridApi;
@@ -184,31 +184,31 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 
         gridApi.selection.on.rowSelectionChanged(null, function(row) {
             updateRowSelection(row);
-       	});
+        });
         gridApi.selection.on.rowSelectionChangedBatch(null, function(rows) {
             for (var i = 0; i < rows.length; i++) {
                 updateRowSelection(rows[i]);
             }
         });
         gridApi.core.on.sortChanged(null, function(grid, sortColumns){
-        	sort = sortColumns[0].sort.direction == 'asc' ? '' : 'desc';
-        	colDefName =  sortColumns[0].name;
+            sort = sortColumns[0].sort.direction == 'asc' ? '' : 'desc';
+            colDefName =  sortColumns[0].name;
             colSortObj = sortColumns;
-        	scope.getGridData('', '', '', scope.searchVal);
-      	});
+            scope.getGridData('', '', '', scope.searchVal);
+        });
       
         function updateRowSelection(row) {
-	        if (row.isSelected) {
-	            if (scope.selectedContacts.indexOf(row.entity.record_id) == -1) {
-	                scope.selectedContacts.push(row.entity.record_id);
-	            }
-	        } else {
-	            var index = scope.selectedContacts.indexOf(row.entity.record_id);
-	            if (index > -1) {
-	                scope.selectedContacts.splice(index, 1);
-	            }
-	        }
-		}
+            if (row.isSelected) {
+                if (scope.selectedContacts.indexOf(row.entity.record_id) == -1) {
+                    scope.selectedContacts.push(row.entity.record_id);
+                }
+            } else {
+                var index = scope.selectedContacts.indexOf(row.entity.record_id);
+                if (index > -1) {
+                    scope.selectedContacts.splice(index, 1);
+                }
+            }
+        }
     };
 
 
@@ -217,7 +217,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
     this.srcSearch = 'search.svg';
     this.searchLoader = false;
     var inputPrev = '';
-   	this.searchRecords = function(arg, event) {
+    this.searchRecords = function(arg, event) {
         
         arg = arg || '';
         if(event.keyCode === 32 && arg.length === 0 || inputPrev == arg){
@@ -225,25 +225,25 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
         }
         inputPrev = arg;
 
-   		if (arg == "") {
-   			scope.srcSearch = 'search.svg';
-   			scope.searchVal = '';
-   		}
-   		else{
-   			scope.srcSearch = 'cross.svg';	
-   		}
-   		scope.searchLoader = true;
-   		
-   		if (time != null) {
+        if (arg == "") {
+            scope.srcSearch = 'search.svg';
+            scope.searchVal = '';
+        }
+        else{
+            scope.srcSearch = 'cross.svg';  
+        }
+        scope.searchLoader = true;
+        
+        if (time != null) {
             clearInterval(time);
         }
-   		time = setTimeout(function() {
+        time = setTimeout(function() {
             scope.getGridData('', '', '', arg);
         },500);
-   	}
+    }
 
     var canceller,
-    	bucketId = 0;
+        bucketId = 0;
     this.activeBucket = 'ALL CONTACTS';
     this.currentPage = 1;
     this.getGridData = function(bktName, bktID, pageNo, searchVal, flag) {
@@ -257,33 +257,33 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
             $('.modalSuccess').fadeOut(3000);
             scope.modalSuccessMsg = 'Successfully Updated';
         }
-    	
-    	if (bktName != "") {
+        
+        if (bktName != "") {
             colSortObj != "" ? colSortObj[0].sort.direction = '' : '';
-    		scope.gridApi.grid.columns[6].sort.direction = 'asc';
-    		sort = "";
-    		colDefName = 'status';
-    	}
+            scope.gridApi.grid.columns[6].sort.direction = 'asc';
+            sort = "";
+            colDefName = 'status';
+        }
 
-    	scope.loaderImg = true;
-    	scope.loaderNoContacts = false;
+        scope.loaderImg = true;
+        scope.loaderNoContacts = false;
 
-    	bucketId = bktID || bucketId;
-    	scope.activeBucket = bktName || scope.activeBucket;
-    	scope.currentPage = pageNo || 1;
+        bucketId = bktID || bucketId;
+        scope.activeBucket = bktName || scope.activeBucket;
+        scope.currentPage = pageNo || 1;
 
-    	if (searchVal == '') {
-   			scope.srcSearch = 'search.svg';
-   			scope.searchVal = scope.searchVal > 0 ? scope.searchVal : ''; 
-   		}
+        if (searchVal == '') {
+            scope.srcSearch = 'search.svg';
+            scope.searchVal = scope.searchVal > 0 ? scope.searchVal : ''; 
+        }
 
-    	if (canceller) {
+        if (canceller) {
             canceller.resolve();
         }
 
         canceller = $q.defer();
 
-    	var list = $.param({
+        var list = $.param({
             bucket_id: bucketId,
             page_no: scope.currentPage,
             search: scope.searchVal,
@@ -291,41 +291,47 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
             col_name : colDefName
         });
 
-    	var get_buckets = $http({
-	        headers: {
-	          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-	        },
-	        method: 'POST',
-	        data: list,
-	        url: CONFIG.APP_DOMAIN + 'contact_list',
-	        timeout : canceller.promise
-    	})
-    	get_buckets.success(function(response){
-	        if (response.status_code == 200) {
+        var get_buckets = $http({
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
+            method: 'POST',
+            data: list,
+            url: CONFIG.APP_DOMAIN + 'contact_list',
+            timeout : canceller.promise
+        })
+        get_buckets.success(function(response){
+            if (response.status_code == 200) {
 
-	            scope.gridOptions.data = response.data.Contacts_list;
+                scope.gridOptions.data = response.data.Contacts_list;
 
-	            scope.gridOptions.data.length == 0 ? (scope.loaderNoContacts = true) : '';
-	            
-                // if(scope.gridApi.selection != undefined){
+                scope.gridOptions.data.length == 0 ? (scope.loaderNoContacts = true) : '';
+                
+                if(scope.goDashboard == 0){
+                    if(scope.gridApi.selection != undefined){
+                        scope.gridApi.selection.clearSelectedRows();
+                    }
+                }
+                else{
                     scope.gridApi.selection.clearSelectedRows();
-                // }
+                }
+                
                 scope.totalRecordsCount =  response.data.total_records[0].total_count;
                 scope.activeBucketCount = scope.totalRecordsCount;
-	            
-	            scope.searchLoader = false;
-	            scope.loaderImg = false;
+                
+                scope.searchLoader = false;
+                scope.loaderImg = false;
 
-	        }
-	        // Session Destroy
-	        else if (response.status_code == 400) {
-	            $window.location = CONFIG.APP_DOMAIN + 'logout';
-	        }
-    	});
+            }
+            // Session Destroy
+            else if (response.status_code == 400) {
+                $window.location = CONFIG.APP_DOMAIN + 'logout';
+            }
+        });
 
-	    get_buckets.error(function(response){
-	        //console.log(response);
-	    })
+        get_buckets.error(function(response){
+            //console.log(response);
+        })
     }
 
     //inital gridData
@@ -404,83 +410,83 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
 
     var cancellerStat;
     this.statusUpdate = function(state, status) {
-    	
-		scope.loaderImg = true;
-		scope.hideLoader = true;
-		scope.updateLoader = true;
+        
+        scope.loaderImg = true;
+        scope.hideLoader = true;
+        scope.updateLoader = true;
 
-    	if (cancellerStat) {
+        if (cancellerStat) {
             cancellerStat.resolve();
         }
         cancellerStat = $q.defer();
 
-		var list = $.param({
-			action: state,
+        var list = $.param({
+            action: state,
             record_id: scope.selectedContacts.toString(),
-            status: status		
-		});
+            status: status      
+        });
 
         var get_buckets = $http({
-	        headers: {
-	          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-	        },
-	        method: 'POST',
-	        data:list,
-	        url: CONFIG.APP_DOMAIN + 'other_edits_in_contact_list',
-	        timeout : canceller.cancellerStat
-    	})
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
+            method: 'POST',
+            data:list,
+            url: CONFIG.APP_DOMAIN + 'other_edits_in_contact_list',
+            timeout : canceller.cancellerStat
+        })
 
-    	get_buckets.success(function(response) {
-	        if (response.status_code == 200) {
-	        	scope.searchVal = "";
-	        	scope.srcSearch = 'search.svg';
-	        	if (response.message.msg[0] == 'status changed successfully') {
-	        		for (var i = 0; i < scope.gridOptions.data.length; i++) {
-	        			for (var j = 0; j < scope.selectedContacts.length; j++) {
-	        				if (Number(scope.gridOptions.data[i].record_id) == Number(scope.selectedContacts[j])) {
-	        					scope.gridOptions.data[i].status = status;
-	        					break;
-	        				}
-	        			}
-	        		}
-	        		scope.gridApi.selection.clearSelectedRows();
-	        		scope.updateLoader = false;
-		        	scope.hideLoader = false;
-		        	scope.loaderImg = false;
-	        		$('.updateSuccess').show();
-		        	$('.updateSuccess').fadeOut(3000);
-		        	scope.gridOptions.data = angular.copy(scope.gridOptions.data);
-	        	}
-	        	else if (response.message.msg[0] == 'failed to update') {	
-	        		$('.updatefailure').show();
-		        	$('.updatefailure').fadeOut('slow');
-	        	}
-	        }
-	        // Session Destroy
-	        else if (response.status_code == 400) {
-	        	//promise.reject();
-	            $window.location = CONFIG.APP_DOMAIN + 'logout';
-	        }
+        get_buckets.success(function(response) {
+            if (response.status_code == 200) {
+                scope.searchVal = "";
+                scope.srcSearch = 'search.svg';
+                if (response.message.msg[0] == 'status changed successfully') {
+                    for (var i = 0; i < scope.gridOptions.data.length; i++) {
+                        for (var j = 0; j < scope.selectedContacts.length; j++) {
+                            if (Number(scope.gridOptions.data[i].record_id) == Number(scope.selectedContacts[j])) {
+                                scope.gridOptions.data[i].status = status;
+                                break;
+                            }
+                        }
+                    }
+                    scope.gridApi.selection.clearSelectedRows();
+                    scope.updateLoader = false;
+                    scope.hideLoader = false;
+                    scope.loaderImg = false;
+                    $('.updateSuccess').show();
+                    $('.updateSuccess').fadeOut(3000);
+                    scope.gridOptions.data = angular.copy(scope.gridOptions.data);
+                }
+                else if (response.message.msg[0] == 'failed to update') {   
+                    $('.updatefailure').show();
+                    $('.updatefailure').fadeOut('slow');
+                }
+            }
+            // Session Destroy
+            else if (response.status_code == 400) {
+                //promise.reject();
+                $window.location = CONFIG.APP_DOMAIN + 'logout';
+            }
 
             scope.statusName = "";
-    	});
+        });
 
-	    get_buckets.error(function(response){
-	        //console.log(response);
-	    })
+        get_buckets.error(function(response){
+            //console.log(response);
+        })
     }
 
 
     //invite
     this.invite = function(){
-    	if (scope.selectedContacts.length == 0) {
-    		$('.zeroRecords').show();
-    		$('.zeroRecords').fadeOut(3000);
-    		return;
-    	}
+        if (scope.selectedContacts.length == 0) {
+            $('.zeroRecords').show();
+            $('.zeroRecords').fadeOut(3000);
+            return;
+        }
 
         // invite contacts modal
-    	$uibModal.open({
+        $uibModal.open({
             animation: false,
             keyboard: false,
             backdrop: 'static',
@@ -490,16 +496,16 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
             size:'sm',
             controllerAs: "ctrl",
             resolve: {
-		        listContacts: function() {
-		        	var obj = {};
+                listContacts: function() {
+                    var obj = {};
                     obj.goDashboard = !scope.goDashboard;
-		        	obj.selectedCts = scope.selectedContacts;
-		        	obj.resetSelectedCts = function(){
-		        		scope.gridApi.selection.clearSelectedRows();
-		        	}
-		            return obj;
-		        }
-           	}
+                    obj.selectedCts = scope.selectedContacts;
+                    obj.resetSelectedCts = function(){
+                        scope.gridApi.selection.clearSelectedRows();
+                    }
+                    return obj;
+                }
+            }
         });
     }
 
@@ -513,10 +519,10 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
         }
     }
 
-	// buckets modal
-   	this.bucketsModal = function(){
+    // buckets modal
+    this.bucketsModal = function(){
 
-       	$uibModal.open({
+        $uibModal.open({
            animation: false,
            backdrop: 'static',
            keyboard: false,
@@ -532,10 +538,10 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
                     return bucketsCount;
                 }
             }
-      	 });
-   	}
+         });
+    }
 
-   	// new contact modal
+    // new contact modal
    this.contactModal = function(){
 
        $uibModal.open({
@@ -571,7 +577,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
         scope.invite_cond = true;
         var list = listContacts.selectedCts.toString();
         var paramas = $.param({
-        	action:'invite',
+            action:'invite',
             invite_contacts : list,
             email_subject : scope.subject,
             email_body :scope.body
@@ -602,7 +608,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
     };
 
     this.jumpPage = function(){
-    	$uibModalInstance.dismiss('cancel');
+        $uibModalInstance.dismiss('cancel');
 
         if(userPermissions.dashboard == '1' && listContacts.goDashboard){
             $window.location = CONFIG.APP_DOMAIN+'dashboard';

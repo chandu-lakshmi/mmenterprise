@@ -101,11 +101,11 @@
 
             var create_company = $http({
                 headers: {
-                    'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'
+                    'Content-Type' : 'application/x-www-form-urlencoded'
                 },
                 method : 'POST',
                 url : CONFIG.APP_DOMAIN+'update_company',
-                data : data
+                data : data + '&' + $.param({timeZone : new Date().getTimezoneOffset()})
             });
 
             create_company.success(function(response){

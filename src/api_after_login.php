@@ -45,6 +45,7 @@ $app->post('/update_company', function ($request, $response, $args) use ($app) {
         );
     //Update Session
     updateSession($arrayList);
+    $_SESSION['time_zone'] = $_POST['timeZone'];
     
     return $jsonResult;
 });

@@ -125,7 +125,8 @@ angular.module('app.home', ['ngMaterial', 'ngMessages'])
                 company: scope.signup_form.s_cname,
                 lic_no : scope.signup_form.lic_no,
                 emailid: lower_email,
-                password: scope.signup_form.s_pass
+                password: scope.signup_form.s_pass,
+                timeZone: new Date().getTimezoneOffset()
             });
 
             var signup = $http({

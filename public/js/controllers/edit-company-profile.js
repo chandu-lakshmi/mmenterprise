@@ -235,7 +235,7 @@
 		            },
 		            method : 'POST',
 		            url : App.base_url+'update_company',
-		            data : param,
+		            data : param + '&' + $.param({timeZone : new Date().getTimezoneOffset()}),
 		            timeout : canceller.promise
 		        });
 

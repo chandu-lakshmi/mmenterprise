@@ -77,7 +77,7 @@ $app->post('/create_user', function ($request, $response, $args) use ($app) {
         'url'           => $apiEndpoint,
         'postData'      => $_POST
     ));
-    
+    $_SESSION['time_zone'] = $_POST['timeZone'];
     return checkJsonResult($curl->loadCurl());
 
 });
