@@ -42,11 +42,9 @@
 						<div class="form-group gap">
 					      <label for="can-dep">Career Track</label>
 					      <i class="fa fa-angle-down fa-feedback" style="color: #ccc"></i>
-					      <select name="department" class="form-control input-lg" id="can-dep" ng-model="ApplyJobCtrl.canDep" disabled>
+					      <select name="department" class="form-control input-lg" id="can-dep" ng-model="ApplyJobCtrl.canDep">
 					      	<option value="" disabled >Select Career Track</option>
-					        <option>1</option>
-					        <option>2</option>
-					        <option>3</option>
+					        <option ng-repeat="fun in ApplyJobCtrl.jobFunctions" value="{{fun.job_function_id}}">{{fun.job_function_name}}</option>
 					      </select>
 					    </div>
 					</div>

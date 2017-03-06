@@ -1,0 +1,54 @@
+.all-jobs{
+	.container{width: auto;
+		header{padding: 20px 0;
+			.company-name{font-size: 20px;}
+		}
+		section{
+			.header{
+				.search{width: 85%;float: none !important;margin: 0 auto;padding-bottom: 15px;}
+				.count{padding: 0}
+			}
+			.list{
+				.row{
+					.buttons{position: initial;text-align: left;}
+				}
+			}
+			&.job-details{
+				.action a{margin-right: 0}
+			}
+		}
+		footer{
+			copy-url{
+				.link{
+					.btns{text-overflow: ellipsis;white-space: nowrap;}
+				}
+			}
+		}
+	}
+}
+.drop-box{
+	.container{
+		section{width: auto;}
+	}
+}
+.all-campaigns{
+	.content{
+		.campaign-details{width: 100%;
+			.details{background-size: 100% 100%;
+				.location{padding-top: 18px;}
+			}
+		}
+		.list{
+			.row{
+				.buttons{position: initial;text-align: left;}
+			}
+		}
+		.footer{
+			copy-url{
+				.link{
+					.btns{text-overflow: ellipsis;white-space: nowrap;}
+				}
+			}
+		}
+	}
+}

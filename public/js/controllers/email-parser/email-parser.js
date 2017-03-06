@@ -44,6 +44,11 @@
 			var vm = this,
 						canceler;
 
+			if(screen.width <= 480)
+				vm.copyText = 'Copy'
+			else
+				vm.copyText = 'COPY JOB LINK'
+
 			// capitalize string in javascript
 			function toTitleCase(str){
     			return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
@@ -233,6 +238,10 @@
 
 			var ref = $stateParams.ref;
 			vm.shareUrl = App.base_url + 'email/job-details/share?ref=' + ref;
+			if(screen.width <= 480)
+				vm.copyText = 'Copy'
+			else
+				vm.copyText = 'COPY JOB LINK'
 			// vm.copyUrl = $location.$$absUrl;
 
 			// capitalize string in javascript
@@ -330,6 +339,18 @@
 			vm.backendError = '';
 			vm.loader = false;
 			vm.backendMsg = '';
+
+			// Job Functions Dropdown
+			var get_job_functions = $http({
+				headers: {
+		          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+		        },
+		        method: 'GET',
+		        url: App.base_url+'get_job_functions'
+			})
+			get_job_functions.success(function(response){
+				vm.jobFunctions = response.data.job_functions;
+			})
 			
 			// pagetitle
 			if($stateParams.flag == 1){
@@ -523,6 +544,11 @@
 
 			var vm = this,
 						canceler;
+
+			if(screen.width <= 480)
+				vm.copyText = 'Copy'
+			else
+				vm.copyText = 'COPY CAMPAIGN LINK'
 
 			// capitalize string in javascript
 			function toTitleCase(str){

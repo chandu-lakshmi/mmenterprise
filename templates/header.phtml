@@ -4,7 +4,7 @@
 			<a ui-sref=".dashboard"><img src="public/images/company_logo.svg" alt="brand-logo"></a>
 		</div>
 		<div class="menu col-lg-8" style="padding:0;width:70%">
-			<ul class="opt" style="text-align:right">
+			<ul class="opt">
 				<li><a ui-sref=".dashboard" ui-sref-active="active" ng-show="{{::userPermissions.dashboard == 1}}">DASHBOARD</a></li>
 				<li><a ui-sref=".job" ng-class="{active: ('app.job' | includedByState) || ('app.postJob' | includedByState) || ('app.postJob2' | includedByState), highlight: ('app.jobDetails' | includedByState) || ('app.rewards' | includedByState) || ('app.engagement/contacts' | includedByState)}">JOBS</a></li>
 				<li><a ui-sref=".contact" ng-class="{active: ('app.contact' | includedByState) || ('app.uploadContact' | includedByState)}">CONTACTS</a></li>

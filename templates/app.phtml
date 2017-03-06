@@ -1,23 +1,14 @@
-<link rel="stylesheet" type="text/css" href="public/css/dashboard.css">
-<link rel="stylesheet" type="text/css" href="public/css/edit-company.css"> <!-- rename common-->
-<link rel="stylesheet" type="text/css" href="public/css/job_style.css">
-<link rel="stylesheet" type="text/css" href="public/css/new-post-job-2.css">
-<link rel="stylesheet" type="text/css" href="public/css/candidates.css">
-<link rel="stylesheet" type="text/css" href="public/css/campaigns.css">
-<link rel="stylesheet" type="text/css" href="public/css/campaigns-dialog.css">
-<link rel="stylesheet" type="text/css" href="public/css/settings.css">
-
 <div class="dashboard">
 
 	<header ng-include="'templates/header.phtml'" ng-controller="HeaderController as headCtrl"></header>
 	
 	<div ui-view ng-class="{'animated fadeIn' : ['app.dashboard', 'app.job', 'app.contact', 'app.postJob'].indexOf($state.current.name) != -1}" ></div>
 
-	<div class="fixed-action-btn horizontal" ng-show="$state.current.name != 'app.mintbot' && $state.current.name != 'app.settings.myProfile' && $state.current.name != 'app.settings.userGroups'">
+	<!-- <div class="fixed-action-btn horizontal" ng-show="$state.current.name != 'app.mintbot' && $state.current.name != 'app.settings.myProfile' && $state.current.name != 'app.settings.userGroups'">
 		<a ui-sref=".mintbot" class="btn-floating btn-large mm-color ripplelink" uib-popover="Minty" popover-trigger="'mouseenter'" popover-placement="top-center">
 			<img src="public/images/chat_mintbot.png" alt="bot">
 		</a>
-	</div>
+	</div> -->
 	<footer ng-include="'templates/footer.phtml'" ng-controller="FooterController as footCtrl"></footer>
 
 </div>

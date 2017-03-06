@@ -113,7 +113,11 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
         columnDefs : [
             { name: 'firstname', displayName: 'First Name', validators: {charValidation:''}, cellTemplate: 'ui-grid/cellTitleValidator'},
             { name: 'lastname', displayName: 'Last Name', validators: {charValidationReq:''}, cellTemplate: 'ui-grid/cellTitleValidator'},
-            { name: 'emailid', displayName: 'Email', enableCellEdit: false, cellClass:'grid-email', width: '20%'},
+            { name: 'emailid', displayName: 'Email', enableCellEdit: false, cellClass:'grid-email', width: '20%', 
+                cellTooltip: function( row, col ) {
+                  return row.entity.emailid
+                }
+            },
             { name: 'phone', displayName: 'Mobile' , validators: {numValidation:''}, cellTemplate: 'ui-grid/cellTitleValidator'},
             { name: 'employeeid', displayName: 'ID', cellClass:'grid-other-id' ,validators: { charOtherId:''}, cellTemplate: 'ui-grid/cellTitleValidator'},
             { name: 'status',
@@ -210,6 +214,10 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
             }
         }
     };
+
+    this.gridOptions.isRowSelectable = function(row){
+        return row.entity.status != 'Separated';
+    }
 
 
     // search filter
@@ -632,7 +640,7 @@ angular.module('app.contact', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui
     
     var scope = this;
     this.currentState = $state.params.importContacts;
-
+    
     if(scope.currentState){
         scope.loader = true;
         var get_buckets = $http({

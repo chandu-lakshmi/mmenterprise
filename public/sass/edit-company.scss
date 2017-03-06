@@ -190,8 +190,12 @@ md-tooltip {font-size: 13px;
     .md-content{background: rgba(0, 0, 0, 0.78);}
 }
 
+/* error border */
+
+
 /* angular material */
 md-input-container{
+    input, textarea, .md-select-value .md-text{font-size: 18px;}
     &.select-box{
         label{overflow: hidden;}
     }
@@ -214,7 +218,7 @@ md-input-container{
     }
     &.block{}
     .md-placeholder{@include md-transform(35px, 1)}
-    label{
+    label{font-weight: normal;
         &:not(.md-no-float){
             &:not(.md-container-ignore){@extend .md-placeholder}
         }
@@ -233,8 +237,19 @@ md-input-container{
     
     .md-input{border-color: #d8d8d8;padding: 2px 2px 6px !important;height: 36px;
         &[disabled]{background-image: none;border-color: #d8d8d8;}
+        &.has-error-border{
+            border-color: red !important;
+            border-bottom: 1px solid red !important;
+        }
     }
     md-select{
+        .md-select-placeholder span{color: #767877;}
+        &.has-error-border{
+            .md-select-value{
+                border-bottom-color: red !important;
+            }
+        }
+        &.ng-invalid.ng-touched:not(.has-error-border) .md-select-value{color: #666 !important; border-bottom-color: rgba(0,0,0,0.12) !important}
         &[disabled]{
             .md-select-value{background-image: none !important;}
         }
