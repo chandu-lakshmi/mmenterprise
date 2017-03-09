@@ -12,6 +12,7 @@
 				.row{
 					.buttons{position: initial;text-align: left;}
 				}
+				img[alt='spinner']{width: 25% !important}
 			}
 			&.job-details{
 				.action a{margin-right: 0}
@@ -28,7 +29,11 @@
 }
 .drop-box{
 	.container{
-		section{width: auto;}
+		section{width: auto;
+			.footer{font-size: 15px;
+				.pull-left span:first-child{line-height: 47px;};
+			}
+		}
 	}
 }
 .all-campaigns{
@@ -42,6 +47,7 @@
 			.row{
 				.buttons{position: initial;text-align: left;}
 			}
+			img[alt='spinner']{width: 25% !important}
 		}
 		.footer{
 			copy-url{

@@ -11,6 +11,7 @@
         .directive('copyUrl', copyUrl)
         .directive('checkCharZero', checkCharZero)
         .directive('ripplelink', ripplelink)
+        // .directive('toolTip', toolTip)
 
     	.config(function(App){
 
@@ -179,7 +180,8 @@
                         link: post.post_url,
                         picture: post.post_img || '',
                         caption: (post.post_title < 100 ? post.post_title : ''),                
-                        description: $('<div />').html(post.post_msg).text()
+                        description: $('<div />').html(post.post_msg).text(),
+                        quote: 'click below to apply'
                     };
                     
                     FB.ui(share_object, function (response) {
@@ -331,5 +333,19 @@
             }
         }
     }
+
+    /*function toolTip(){
+        return {
+            restrict : 'AC',
+            link: function (scope, element) {
+                element.bind('mouseenter mousemove', function(e){
+                    if(e.currentTarget.offsetWidth < e.currentTarget.scrollWidth)
+                        element[0].setAttribute('title', element[0].innerText)
+                    else
+                        element[0].removeAttribute('title')
+                });
+            }
+        }
+    }*/
 
 }());

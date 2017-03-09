@@ -722,7 +722,8 @@
     position: absolute;
     top: 40%;
     color: #808080;
-    left: 16%;
+    /*left: 16%;*/
+    padding: 0 5px;
 }
 
 /* shiva */

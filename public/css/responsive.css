@@ -14,6 +14,8 @@
   .all-jobs .container section .list .row .buttons {
     position: initial;
     text-align: left; }
+  .all-jobs .container section .list img[alt='spinner'] {
+    width: 25% !important; }
   .all-jobs .container section.job-details .action a {
     margin-right: 0; }
   .all-jobs .container footer copy-url .link .btns {
@@ -22,6 +24,10 @@
 
 .drop-box .container section {
   width: auto; }
+  .drop-box .container section .footer {
+    font-size: 15px; }
+    .drop-box .container section .footer .pull-left span:first-child {
+      line-height: 47px; }
 
 .all-campaigns .content .campaign-details {
   width: 100%; }
@@ -32,6 +38,8 @@
 .all-campaigns .content .list .row .buttons {
   position: initial;
   text-align: left; }
+.all-campaigns .content .list img[alt='spinner'] {
+  width: 25% !important; }
 .all-campaigns .content .footer copy-url .link .btns {
   text-overflow: ellipsis;
   white-space: nowrap; }

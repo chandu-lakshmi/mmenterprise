@@ -3,20 +3,12 @@
 html.md-default-theme, html, body.md-default-theme, body {
     background: transparent;
 }
-input::-ms-clear{
-    display: none;
-}
-select::-ms-expand {
-    display: none;
-}
-input::-ms-input-placeholder, 
-input:-ms-input-placeholder,
-input::-webkit-input-placeholder{
-    color: #a9a9a9;
-}
-input::-moz-placeholder{
-    color: gray;
-}
+input::-ms-clear{display: none;}
+select::-ms-expand{display: none;}
+input::-ms-input-placeholder{color: #a9a9a9;}
+input:-ms-input-placeholder{color: #a9a9a9;}
+input::-webkit-input-placeholder{color: #a9a9a9;}
+input::-moz-placeholder{color: gray;}
 
 
 /* qq-uploader */

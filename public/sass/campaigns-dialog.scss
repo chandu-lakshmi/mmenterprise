@@ -79,7 +79,7 @@
 								md-input-container{width: 100% !important;margin-top:10px;height: 40px;
 									label{-webkit-transform: translate3d(0,28px,0) scale(1);
 										transform: translate3d(0,28px,0) scale(1);}
-									.md-errors-spacer + div{top: 38px;left: -34px;
+									.md-errors-spacer + div{top: 38px;left: -34px;position: absolute;
 									}
 									input{position: absolute;left: -36px;padding-left: 30px !important;
 

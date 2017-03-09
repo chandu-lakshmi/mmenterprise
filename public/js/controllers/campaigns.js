@@ -689,7 +689,7 @@
 			    		}
 				    	else{
 				    		vm.gridOptions.data = response.data.data.campaigns;
-				    		if(pageNo == 1)
+				    		// if(pageNo == 1)
 		                		vm.totalRecords = response.data.data.total_count;
 				    	}
 			    	}

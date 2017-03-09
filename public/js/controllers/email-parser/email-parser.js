@@ -169,6 +169,7 @@
                 onSearch: function (val) {
                     vm.search_val = val;
                     page_no = 1;
+                    total_pages = 0;
 	            	vm.noJobs = false;
                     vm.loader = true;
                     if (vm.search_opts.progress) {
@@ -184,6 +185,7 @@
                 onClear: function () {
                     vm.search_val = "";
                     page_no = 1;
+                    total_pages = 0;
                     vm.noJobs = false;
                     vm.loader = true;
                     vm.infiniteScroll.loadApi(page_no, vm.search_val, function(){
@@ -431,6 +433,7 @@
 
 			vm.chkFile = true;
 			function postFormData(formValid, flag){
+				
 				vm.backendError = '';
 				if(formValid || vm.chkFile){
 					vm.errorRequired = true;
@@ -449,7 +452,8 @@
 		                url: apiCall,
 		                data: data + '&' + $.param({
 		                	ref : ref,
-		                	flag : vm.status
+		                	flag : vm.status,
+		                	timeZone: new Date().getTimezoneOffset()
 		                })
 		            })
 	                .then(function(response){

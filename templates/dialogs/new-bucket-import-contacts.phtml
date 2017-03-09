@@ -10,9 +10,9 @@
 
             <div class="text-center">
                  <div class="heading">
-                    <h3 style="margin:0">Add New Group</h3>
+                    <h3 style="margin:0">Add New Community</h3>
                     <p style="margin:14px 0;">
-                        <span style="color:#989898;">Create your own group and add contacts to the group</span>
+                        <span style="color:#989898;">Create your own community and add contacts to the community</span>
                     </p>
                 </div>
 
@@ -22,10 +22,10 @@
 
                 <div class="content">
                     <md-input-container class="md-block" style="margin:0">
-                        <label>Enter Group Name</label>
+                        <label>Enter Community Name</label>
                         <input type="text" name="bucketName" ng-model="UploadContCtrl.new_bucket.bucketName" required ng-class="{'has-error-border':new_bucket_form.bucketName.$invalid && UploadContCtrl.new_bucket.errorFromData}" check-bucket array-bucket="{{UploadContCtrl.bucketsList}}" bucket-name="{{UploadContCtrl.new_bucket.bucketName}}" autocomplete="off">
-                        <div ng-if="new_bucket_form.bucketName.$error.required && UploadContCtrl.new_bucket.errorFromData" class="has-error-msg">Please Enter Bucket Name.</div>
-                        <div ng-if="new_bucket_form.bucketName.$error.bucketmatch && UploadContCtrl.new_bucket.errorFromData && !new_bucket_form.bucketName.$error.required" class="has-error-msg">Bucket Name Already Exists.</div>
+                        <div ng-if="new_bucket_form.bucketName.$error.required && UploadContCtrl.new_bucket.errorFromData" class="has-error-msg">Please Enter Community Name.</div>
+                        <div ng-if="new_bucket_form.bucketName.$error.bucketmatch && UploadContCtrl.new_bucket.errorFromData && !new_bucket_form.bucketName.$error.required" class="has-error-msg">Community Name Already Exists.</div>
                     </md-input-container>
                     <div id="new-bucket"></div>
                     <div style="clear:both;margin-top:15px;">

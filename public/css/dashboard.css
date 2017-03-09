@@ -378,7 +378,7 @@
 	color: #878787;
 	font-size: 16px;
 	background: #f6f8f9;
-
+	min-height: 340px;
 }
 /*.dashboard .circle-stats div.container{
 	padding: 54px 0;
@@ -577,7 +577,7 @@
 .load-status-report span{
 	display: inline-block;
 	height: 100%;
-	vertical-align: middle;"
+	vertical-align: middle;
 }
 .load-status-report img{
 	width: 50px;

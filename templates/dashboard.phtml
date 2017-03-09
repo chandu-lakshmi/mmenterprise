@@ -1,244 +1,213 @@
-<!-- <md-progress-linear md-mode="determinate" id="borderLoader" value="{{DashCtrl.borderInc}}"></md-progress-linear> -->
-<div class="container loading" ng-if="!DashCtrl.dashboardLoader"> 
-	<h5>L<img src="public/images/spinner_search.gif" alt="loading">ading ...</h5>	
-</div>
-
 <div class="dashboard-container">
-	<section ng-if="DashCtrl.dashboardLoader">
-		<div class="container">
-			<div class="main-title">
-				<h2>Welcome <span ng-bind="DashCtrl.username" style="text-transform: capitalize"></span></h2>
-			</div>
+    <section>
+        <div class="container">
+            <div class="main-title">
+                <h2>Welcome <span ng-bind="DashCtrl.username" style="text-transform: capitalize"></span></h2>
+            </div>
 
-			<div class="panel-group">
-				<!-- <div class="text-center" style="padding: 20px 0 0 0;cursor: pointer;">
-					<span style="padding-bottom: 10px;border-bottom: 1px solid #ccc">Month to Date&nbsp;<strong>&nbsp;<img src="public/images/arrow-dropdown-black.svg"></strong></span>
-				</div> -->
+            <div class="panel-group">
+                <div>
+                    ALL OPEN JOBS: 
+                    <span style="color:#2c9172" ng-bind="DashCtrl.jobsCount"></span>
+                </div>
+                <div class="row" ng-init="setColors = [ '#F98017', '#14A5F8', '#48BBC0', '#539F32']">
+                    <div class="panel panel-default" ng-repeat="jobStatusCount  in DashCtrl.jobsStatusCount">
+                        <span ng-style="{'color' : setColors[$index]}" ng-bind="jobStatusCount"></span>
+                        <strong ng-bind="DashCtrl.statusNames[$index]"></strong>
+                    </div>
+                </div>
+                <div style="padding-top: 53px">
+                    <div class="dropdown-days" ng-init="days = '7'">
+                        <span>SHOW REPORTS:</span>
+                        <md-input-container>
+                            <label style="display:none !important">REPORTS</label>
+                            <md-select  name="job" ng-model="days" ng-change="DashCtrl.lastProgressBar(days)">
+                                <md-option ng-repeat="list in DashCtrl.daysList" ng-value="list.days">
+                                    {{list.label}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-				<div>
-					ALL OPEN JOBS: 
-					<span style="color:#2c9172" ng-bind="DashCtrl.jobsCount"></span>
-				</div>
-				<div class="row" ng-init="setColors = [ '#F98017', '#14A5F8', '#48BBC0', '#539F32']">
-					<div class="panel panel-default" ng-repeat="jobStatusCount  in DashCtrl.jobsStatusCount">
-						<span ng-style="{'color' : setColors[$index]}" ng-bind="jobStatusCount"></span>
-						<strong ng-bind="DashCtrl.statusNames[$index]"></strong>
-					</div>
-				</div>
-				<div style="padding-top: 53px">
-					<div class="dropdown-days" ng-init="days = '7'">
-						<span>SHOW REPORTS:</span>
-						<md-input-container>
-					 		<label style="display:none !important">REPORTS</label>
-							<md-select  name="job" ng-model="days" ng-change="DashCtrl.lastProgressBar(days)">
-				              	<md-option ng-repeat="list in DashCtrl.daysList" ng-value="list.days">
-				                	{{list.label}}
-				              	</md-option>
-							</md-select>
-						</md-input-container>
-					</div>
-				</div>
-			</div>
-		</div>
+        <div class="circle-stats">
+            <div class="container" style="position:relative">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="text-center head" style="font-weight: 500">
+                            CONTACTS ENGAGEMENT
+                        </div>
+                        <div class="circlestat"></div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="text-center head" style="font-weight: 500">
+                            JOBS REACH
+                        </div>
+                        <div class="circlestat1"></div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="text-center head">
+                            REWARDS CLAIMED
+                        </div>
+                        <div class="circlestat2"></div>
+                    </div>
+                </div>
 
-		<div class="circle-stats">
-			<!-- <div class="text-center" style="padding: 20px 0 0 0;cursor: pointer;">
-				<span style="padding-bottom: 12px;border-bottom: 1px solid #ccc">Last&nbsp;<strong>7 Days <img src="public/images/arrow-dropdown-black.svg"></strong></span>
-			</div> -->
-			<div class="container" style="position:relative">
-				<div class="row">
-					<div class="col-lg-4 col-md-4 col-sm-4">
-						<div class="text-center head" style="font-weight: 500">
-							CONTACTS ENGAGEMENT
-						</div>
-						<div class="circlestat">
-							<!-- <span class="circle-info-half">User Satisfaction</span> -->
-						</div>
-						<!-- <div class="text-center foot" style="color: #222">
-							<span class="arrow-up"></span>
-								&nbsp;Engagement Increased to 
-							<span class="text-increase">10%</span>
-						</div> -->
-					</div>
-					<div class="col-lg-4 col-md-4 col-sm-4">
-						<div class="text-center head" style="font-weight: 500">
-							JOBS REACH
-						</div>
-						<div class="circlestat1"><!-- <span class="circle-info-half">User Satisfaction</span> --></div>
-						<!-- <div class="text-center foot" style="color: #222">
-							<span class="arrow-down"></span>
-								&nbsp;Reach Decreased to 
-							<span class="text-decrease">3%</span>
-						</div> -->
-					</div>
-					<div class="col-lg-4 col-md-4 col-sm-4">
-						<div class="text-center head">
-							REWARDS CLAIMED
-						</div>
-						<div class="circlestat2"><!-- <span class="circle-info-half">User Satisfaction</span> --></div>
-						<!-- <div class="text-center foot" style="color: #222">
-							<span class="arrow-up"></span>
-								&nbsp;Claim Increased to 
-							<span class="text-increase">6%</span>
-						</div> -->
-					</div>
-				</div>
+                <div class="load-status-report" ng-if='DashCtrl.loaderProgress'>
+                    <span></span>
+                    <img src="public/images/loader/spin.gif" alt="loader">
+                </div>
+            </div>
+        </div>
 
-				<div class="load-status-report" ng-if='DashCtrl.loaderProgress'>
-					<span></span>
-					<img src="public/images/loader/spin.gif" alt="loader">
-				</div>
-			</div>
-		</div>
+        <div class="referrals-hires">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6" style="margin-bottom: 30px;">
+                        <div class="dropdown-days" ng-init="refDays = '7'">
+                            <span>REFERRALS IN THE LAST:</span>
+                            <md-input-container>
+                                <label style="display:none !important">REPORTS</label>
+                                <md-select  name="job" ng-model="refDays" ng-change="DashCtrl.lastReferrals(refDays)">
+                                    <md-option ng-repeat="list in DashCtrl.daysList" ng-value="list.days">
+                                        {{list.label}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div>
+                        <div class="ref-hire-list">
+                            <ul class="referrals">
+                                <li class="clearfix" ng-repeat="refList in DashCtrl.referralsList track by $index">
 
-		<div class="referrals-hires">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-6" style="margin-bottom: 30px;">
-						<div class="dropdown-days" ng-init="refDays = '7'">
-							<span>REFERRALS IN THE LAST:</span>
-							<md-input-container>
-				 				<label style="display:none !important">REPORTS</label>
-								<md-select  name="job" ng-model="refDays" ng-change="DashCtrl.lastReferrals(refDays)">
-					              	<md-option ng-repeat="list in DashCtrl.daysList" ng-value="list.days">
-					                	{{list.label}}
-					              	</md-option>
-								</md-select>
-							</md-input-container>
-							<!-- <span class="pull-right">Referrals Increased &nbsp;<span class="arrow-up"></span></span> -->
-						</div>
-						<div class="ref-hire-list">
-							<ul class="referrals">
-								<li class="clearfix" ng-repeat="refList in DashCtrl.referralsList track by $index">
-									
 
-									<div class="pull-left" style="position: relative;padding-right: 10px" ng-init="getColor = DashCtrl.getColor(refList.status)">
-										<img ng-if="!(refList.referral_img == '' || refList.referral_img == null)" ng-src="{{refList.referral_img}}" class="pull-left img-responsive img-circle dp" ng-style="{'border': '2px solid {{refList.referral_img == '' ? 'transparent' : getColor}}'}">
+                                    <div class="pull-left" style="position: relative;padding-right: 10px" ng-init="getColor = DashCtrl.getColor(refList.status)">
+                                        <img ng-if="!(refList.referral_img == '' || refList.referral_img == null)" ng-src="{{refList.referral_img}}" class="pull-left img-responsive img-circle dp" ng-style="{'border': '2px solid {{refList.referral_img == '' ? 'transparent' : getColor}}'}">
 
-										<span ng-if="refList.referral_img == '' || refList.referral_img == null" ng-bind="refList.referral.trim() | limitTo : 1" class="letter" ng-style="{'background':DashCtrl.colorPicker($index, 1)}">
-										</span>
-											
-										<img ng-if="!(refList.referred_by_img == '' || refList.referred_by_img == null)" ng-src="{{refList.referred_by_img}}" class="img-responsive img-circle sub-img">
+                                        <span ng-if="refList.referral_img == '' || refList.referral_img == null" ng-bind="refList.referral.trim() | limitTo : 1" class="letter" ng-style="{'background':DashCtrl.colorPicker($index, 1)}">
+                                        </span>
 
-										<span ng-if="refList.referred_by_img == '' || refList.referred_by_img == null" ng-bind="refList.referred_by.trim() | limitTo : 1" class="letter-small letter" ng-style="{'background':DashCtrl.colorPicker($index, 0)}">
-										</span>
-									</div>
-									<div class="content">
-										<span>
-											<strong ng-bind="refList.referral"></strong>
-											 	was referred for 
-											<strong ng-bind="refList.job_title"></strong>
-										</span>
-										<br>
-										<span style="width: 208px;display: inline-block;vertical-align: middle;" class="ellipsis">by {{refList.referred_by}}</span>
-										<span>
-											<span class="vr"></span>
-											<span ng-bind="refList.created_at"></span> 
-											<span class="pull-right" style="text-transform: capitalize;" ng-style="{'color' : getColor}" ng-bind="refList.status | lowercase"></span>
-										</span>
-									</div>
-								</li>
-							</ul>
-							<div class="no-data" ng-if="DashCtrl.noDataRef">
-								<img src="public/images/referrals_img.png" alt="">
-								<h5>NO REFERRALS FOUND</h5>
-							</div>
-							<div class="load-status-report" ng-if="DashCtrl.loaderRerrals">
-								<span></span>
-								<img src="public/images/loader/spin.gif" alt="loader">
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-6" style="margin-bottom: 30px">
-						<div class="dropdown-days" ng-init="hireDays = '30'">
-							<span>HIRES IN THE LAST:</span>
-							<md-input-container>
-				 				<label style="display:none !important">REPORTS</label>
-								<md-select  name="job" ng-model="hireDays" ng-change="DashCtrl.lastHires(hireDays)">
-					              	<md-option ng-repeat="list in DashCtrl.daysList" ng-value="list.days">
-					                	{{list.label}}
-					              	</md-option>
-								</md-select>
-							</md-input-container>
-							<!-- <span class="pull-right">Hires Decreased &nbsp;<span class="arrow-down"></span></span> -->
-						</div>
-						<div class="ref-hire-list">
-							<ul class="hires">
-								<li class="clearfix" ng-repeat="hireList in DashCtrl.hiresList">
-									<div class="pull-right" style="padding: 5px 0;line-height: 1.8em">
-										<strong ng-bind="hireList.job_title"></strong>
-										<br>
-										<span ng-bind="DashCtrl.rewardsView(hireList.rewards)">
-										</span>
-									</div>
-									<div class="pull-left" style="position: relative;">
-										<img ng-if="!(hireList.referral_img == '' || hireList.referral_img == null)" ng-src="{{hireList.referral_img}}" class="pull-left img-responsive img-circle dp" ng-style="{'border': (hireList.referral_img == '' || hireList.referral_img == 'null') ? '' : '2px solid #468A25' }">
+                                        <img ng-if="!(refList.referred_by_img == '' || refList.referred_by_img == null)" ng-src="{{refList.referred_by_img}}" class="img-responsive img-circle sub-img">
 
-										<span ng-if="hireList.referral_img == '' || hireList.referral_img == null" ng-bind="hireList.referral.trim() | limitTo : 1" class="letter" ng-style="{'background':DashCtrl.colorPicker($index + 5, 1)}">
-										</span>
+                                        <span ng-if="refList.referred_by_img == '' || refList.referred_by_img == null" ng-bind="refList.referred_by.trim() | limitTo : 1" class="letter-small letter" ng-style="{'background':DashCtrl.colorPicker($index, 0)}">
+                                        </span>
+                                    </div>
+                                    <div class="content">
+                                        <span>
+                                            <strong ng-bind="refList.referral"></strong>
+                                            was referred for 
+                                            <strong ng-bind="refList.job_title"><md-tooltip>{{refList.job_title}}</md-tooltip></strong>
+                                        </span>
+                                        <br>
+                                        <span style="width: 208px;display: inline-block;vertical-align: middle;" class="ellipsis">by {{refList.referred_by}}</span>
+                                        <span>
+                                            <span class="vr"></span>
+                                            <span ng-bind="refList.created_at"></span> 
+                                            <span class="pull-right" style="text-transform: capitalize;" ng-style="{'color' : getColor}" ng-bind="refList.status | lowercase"></span>
+                                        </span>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="no-data" ng-if="DashCtrl.noDataRef">
+                                <img src="public/images/referrals_img.png" alt="">
+                                <h5>NO REFERRALS FOUND</h5>
+                            </div>
+                            <div class="load-status-report" ng-if="DashCtrl.loaderRerrals">
+                                <span></span>
+                                <img src="public/images/loader/spin.gif" alt="loader">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6" style="margin-bottom: 30px">
+                        <div class="dropdown-days" ng-init="hireDays = '30'">
+                            <span>HIRES IN THE LAST:</span>
+                            <md-input-container>
+                                <label style="display:none !important">REPORTS</label>
+                                <md-select  name="job" ng-model="hireDays" ng-change="DashCtrl.lastHires(hireDays)">
+                                    <md-option ng-repeat="list in DashCtrl.daysList" ng-value="list.days">
+                                        {{list.label}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div>
+                        <div class="ref-hire-list">
+                            <ul class="hires">
+                                <li class="clearfix" ng-repeat="hireList in DashCtrl.hiresList">
+                                    <div class="pull-right" style="padding: 5px 0;line-height: 1.8em">
+                                        <strong ng-bind="hireList.job_title"><md-tooltip>{{hireList.job_title}}</md-tooltip></strong>
+                                        <br>
+                                        <span ng-bind="DashCtrl.rewardsView(hireList.rewards)">
+                                        </span>
+                                    </div>
+                                    <div class="pull-left" style="position: relative;">
+                                        <img ng-if="!(hireList.referral_img == '' || hireList.referral_img == null)" ng-src="{{hireList.referral_img}}" class="pull-left img-responsive img-circle dp" ng-style="{'border': (hireList.referral_img == '' || hireList.referral_img == 'null') ? '' : '2px solid #468A25' }">
 
-										<img ng-if="!(hireList.referred_by_img == '' || hireList.referred_by_img == null)" ng-src="{{hireList.referred_by_img}}" class="img-responsive img-circle sub-img">
+                                        <span ng-if="hireList.referral_img == '' || hireList.referral_img == null" ng-bind="hireList.referral.trim() | limitTo : 1" class="letter" ng-style="{'background':DashCtrl.colorPicker($index + 5, 1)}">
+                                        </span>
 
-										<span ng-if="hireList.referred_by_img == '' || hireList.referred_by_img == null" ng-bind="hireList.referred_by.trim() | limitTo : 1" class="letter-small letter" ng-style="{'background':DashCtrl.colorPicker($index + 5, 0)}">
-										</span>
+                                        <img ng-if="!(hireList.referred_by_img == '' || hireList.referred_by_img == null)" ng-src="{{hireList.referred_by_img}}" class="img-responsive img-circle sub-img">
 
-										<div class="content">
-											<span class="details">
-												<strong ng-bind="hireList.referral"></strong>
-													was referred by
-											</span>
-											<br>
-											<span>
-												<i class="ellipsis">{{hireList.referred_by}}</i>
-											</span>
-											<span class="vr"></span>
-											<span ng-bind="hireList.created_at"></span> 
-										</div>
-									</div>
-								</li>
-							</ul>
-							<div class="no-data" ng-if="DashCtrl.noDataHire">
-								<img src="public/images/hires_img.png" alt="">
-								<h5>NO HIRES FOUND</h5>
-							</div>
-							<div class="load-status-report" ng-if="DashCtrl.loaderHires">
-								<span></span>
-								<img src="public/images/loader/spin.gif" alt="loader">
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+                                        <span ng-if="hireList.referred_by_img == '' || hireList.referred_by_img == null" ng-bind="hireList.referred_by.trim() | limitTo : 1" class="letter-small letter" ng-style="{'background':DashCtrl.colorPicker($index + 5, 0)}">
+                                        </span>
 
-		<div class="top-contacts">
-			<div class="container">
-				<div class="head">TOP REFERRERS</div>
-				<div class="row">
-					<div class="col-lg-4 col-md-6 col-sm-6" ng-if="!DashCtrl.top_referrals_empty" ng-repeat="topreferrals in DashCtrl.dashboardData.top_referrals">
-						<div class="box clearfix">
-							<div class="pull-left" style="width:18%">
-								<img ng-if="!(topreferrals.image == '' || topreferrals.image == null)" ng-src="{{topreferrals.image}}" class="img-responsive img-circle dp">
-								<span ng-if="topreferrals.image == '' || topreferrals.image == null" ng-bind="topreferrals.name.trim() | limitTo : 1" class="letter" ng-style="{'background':DashCtrl.colorPicker($index + 3, 0)}">
-								</span>
-							</div>
-							<div class="pull-left" style="padding:7px 10px;width:82%">
-								<div class="top">
-									<span class="name elipsis" ng-bind="topreferrals.name" ng-style="{'line-height': topreferrals.designation ? 'normal' : '40px'}"></span>
-									<span ng-if="topreferrals.designation" ng-bind="topreferrals.designation" style="font-size:14px;" title="{{topreferrals.designation}}" class="elipsis"></span>
-								</div>
-								<div class="bottom">
-									<big class="count" ng-bind="topreferrals.count"></big>
-									<span ng-bind="topreferrals.count == 1 ? 'REFERRAL MADE' : 'REFERRALS MADE'"></span><br>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div ng-if="DashCtrl.top_referrals_empty" style="text-align: center;line-height: 130px;">
-						NO REFERRERS FOUND
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+                                        <div class="content">
+                                            <span class="details">
+                                                <strong ng-bind="hireList.referral"></strong>
+                                                was referred by
+                                            </span>
+                                            <br>
+                                            <span>
+                                                <i class="ellipsis">{{hireList.referred_by}}</i>
+                                            </span>
+                                            <span class="vr"></span>
+                                            <span ng-bind="hireList.created_at"></span> 
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="no-data" ng-if="DashCtrl.noDataHire">
+                                <img src="public/images/hires_img.png" alt="">
+                                <h5>NO HIRES FOUND</h5>
+                            </div>
+                            <div class="load-status-report" ng-if="DashCtrl.loaderHires">
+                                <span></span>
+                                <img src="public/images/loader/spin.gif" alt="loader">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="top-contacts">
+            <div class="container">
+                <div class="head">TOP REFERRERS</div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6" ng-if="!DashCtrl.top_referrals_empty" ng-repeat="topreferrals in DashCtrl.topReferralsList">
+                        <div class="box clearfix">
+                            <div class="pull-left" style="width:18%">
+                                <img ng-if="!(topreferrals.image == '' || topreferrals.image == null)" ng-src="{{topreferrals.image}}" class="img-responsive img-circle dp">
+                                <span ng-if="topreferrals.image == '' || topreferrals.image == null" ng-bind="topreferrals.name.trim() | limitTo : 1" class="letter" ng-style="{'background':DashCtrl.colorPicker($index + 3, 0)}">
+                                </span>
+                            </div>
+                            <div class="pull-left" style="padding:7px 10px;width:82%">
+                                <div class="top">
+                                    <span class="name elipsis" ng-bind="topreferrals.name" ng-style="{'line-height': topreferrals.designation ? 'normal' : '40px'}"></span>
+                                    <span ng-if="topreferrals.designation" ng-bind="topreferrals.designation" style="font-size:14px;" title="{{topreferrals.designation}}" class="elipsis"></span>
+                                </div>
+                                <div class="bottom">
+                                    <big class="count" ng-bind="topreferrals.count"></big>
+                                    <span ng-bind="topreferrals.count == 1 ? 'REFERRAL MADE' : 'REFERRALS MADE'"></span><br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="DashCtrl.top_referrals_empty" style="text-align: center;line-height: 130px;">
+                        NO REFERRERS FOUND
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
