@@ -11,16 +11,11 @@
             .service('permissionsService', permissionsService)
             .directive('pwMatch', pwMatch)
             .service('userData', userData)
-            /*.config(['flowFactoryProvider', function (flowFactoryProvider) {
-                    flowFactoryProvider.defaults = {
-                        singleFile: true
-                    };
-                }])*/
 
     SettingsController.$inject = [];
     SettingsCompanyProfileController.$inject = ['$window', 'CompanyDetails', '$http', 'CONFIG'];
-    MyProfileController.$inject = ['$http', '$scope', '$timeout', '$window', '$uibModal', 'CompanyDetails', 'UserDetails', 'userData', 'CONFIG', 'App'];
-    UserGroupController.$inject = ['$scope', '$window', '$element', 'CONFIG', '$http', '$interval', '$timeout', '$q', 'userData', 'permissionsService', 'userPermissions', 'App'];
+    MyProfileController.$inject = ['$http', '$scope', '$window', '$uibModal', 'UserDetails', 'userData', 'CONFIG', 'App'];
+    UserGroupController.$inject = ['$scope', '$window', '$element', 'CONFIG', '$http', '$q', 'userData', 'permissionsService', 'userPermissions', 'App'];
     ConfigManagerController.$inject = [];
 
     function permissionsService() {
@@ -124,7 +119,7 @@
 
     }
 
-    function MyProfileController($http, $scope, $timeout, $window, $uibModal, CompanyDetails, UserDetails, userData, CONFIG, App) {
+    function MyProfileController($http, $scope, $window, $uibModal, UserDetails, userData, CONFIG, App) {
 
         var vm = this,
                 $display_pic, image_path = '', org_name = '';
@@ -136,6 +131,7 @@
         vm.has_image = false;
         vm.changeFound = false;
         vm.displayPicture = '';
+        
         if (userData.bol) {
             userData.setData(UserDetails);
         }
@@ -381,13 +377,13 @@
     }
 
 
-    function UserGroupController($scope, $window, $element, CONFIG, $http, $interval, $timeout, $q, userData, permissionsService, userPermissions, App) {
+    function UserGroupController($scope, $window, $element, CONFIG, $http, $q, userData, permissionsService, userPermissions, App) {
 
         var vm = this,
                 APP_URL = CONFIG.APP_DOMAIN,
                 $display_pic, image_path = '', org_name;
 
-        userData.bol = false;
+        //userData.bol = false;
 
         // google api for location field
         this.geo_location = '';

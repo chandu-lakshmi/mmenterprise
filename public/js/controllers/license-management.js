@@ -62,7 +62,7 @@
                         '  </md-dialog-content>' +
                         '  <md-dialog-actions>' +
                         '    <md-button ng-click="delete()" class="mm-btn">' +
-                        '      Okay' +
+                        '      Ok' +
                         '    </md-button>' +
                         '  </md-dialog-actions>' +
                         '</md-dialog>',
