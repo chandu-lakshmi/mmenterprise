@@ -41,8 +41,8 @@ input::-moz-placeholder{color: gray;}
 }
 
 /* mintmesh buttons */
-.mm-btn{
-    background: #229A77;color: #fff;outline: none;cursor: pointer;text-decoration: none;font-size: 18px;display: inline-block;border-radius: 3px;
-    &.cancel{background: #fff;color: #7b6d6d;}
+.mm-btn{background: #1d8e70 !important;color: #fff;outline: none;cursor: pointer;text-decoration: none;font-size: 18px;
+        display: inline-block;border-radius: 3px;border: 1px solid #1b8465;
+    &.cancel{background: #fff!important;color: #7b6d6d;border: 0;}
 }
 .mm-btn:hover,.mm-btn:active,.mm-btn:focus{@extend .mm-btn;}

@@ -75,7 +75,7 @@ input::-webkit-input-placeholder{
 .list{color: #939393;min-height:400px;overflow-y:auto;height:calc(100vh - 545px);
     .row{border: 1px solid #ebebeb;margin: 0;padding: 10px;margin-bottom: 10px;position: relative;
         a.details, a.detail{color: inherit;
-            &:focus, &:hover{color: inherit;};
+            &:focus, &:hover{color: inherit;text-decoration: none};
         }
         span{font-size: 14.9px;}
         p{font-size: 20px;color: initial;}

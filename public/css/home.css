@@ -667,7 +667,7 @@ input::-webkit-calendar-picker-indicator{
     height: 30px;
     margin: 0;
     position: absolute;
-    cursor: pointer;
+    /*cursor: pointer;*/
 }
 .cmp-size input[type='radio'] + div{
     margin: 0;

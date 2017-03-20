@@ -1,0 +1,45 @@
+<div class="licence-management">
+    <div class="container">
+        <div class="box">
+            <div class="head" layout="row">
+                <p>License Key: {{licMangCtrl.headerList.licence_code|| '- - - - - -'}}</p>   
+                <span flex></span>
+                <md-button class="md-primary" ng-click="licMangCtrl.headerList.licence_code != '' ? licMangCtrl.addContacts($event) : ''"><i class="material-icons">add</i>Add Contacts</md-button>
+            </div>
+            <div class="content">
+                <div layout="row" class="title">
+                    <span flex="20" style="padding-left: 15px;">PLAN TYPE</span>
+                    <div layout="column" flex="80">
+                        <div layout="row">
+                            <span flex="40">NO. OF LICENSES PURCHASED</span>
+                            <span flex="30">START DATE</span>
+                            <span flex="30">END DATE</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="list">
+                    <div ng-if="!licMangCtrl.spinner && licMangCtrl.headerList.licence_code != ''" layout="row" style="height: 100%;">
+                        <div flex="20" class="mm-type">
+                            <p ng-bind="licMangCtrl.headerList.plan_type" >Standard</p>
+                            <ul>
+                                <li>Available: {{licMangCtrl.headerList.available_count}}</li>
+                            </ul>
+                        </div>
+                        <md-divider></md-divider>
+                        <div flex="80" layout="column"  class="list-data">
+                            <div ng-repeat="con in licMangCtrl.licenseList" flex layout="row" class="right">
+                                <span flex="40" ng-bind="con.employees_no"></span>
+                                <span flex="30">{{con.start_date}}</span>
+                                <span flex="30" ng-bind="con.end_date"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="spinner" ng-if="licMangCtrl.spinner">
+                        <img src="public/images/loader/spin.gif" alt="loader" width="10%">
+                    </div>
+                    <div class="error" ng-if="licMangCtrl.bckerr || licMangCtrl.headerList.licence_code == ''">No Records Found.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

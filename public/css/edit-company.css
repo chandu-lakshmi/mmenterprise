@@ -300,7 +300,8 @@ md-input-container md-select.ng-invalid.ng-touched:not(.has-error-border) .md-se
   color: #666 !important;
   border-bottom-color: rgba(0, 0, 0, 0.12) !important; }
 md-input-container md-select[disabled] .md-select-value {
-  background-image: none !important; }
+  background-image: none !important;
+  border-color: #d8d8d8; }
 md-input-container md-select:not([disabled]):focus .md-select-value {
   border-bottom-color: rgba(0, 0, 0, 0.12);
   border-color: #208d6e;

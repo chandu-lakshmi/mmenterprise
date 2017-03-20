@@ -222,6 +222,14 @@ return [
             'campaign_jobs_list' =>[
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/campaign_jobs_list'
+            ],
+            'special_grant_login' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/special_grant_login'
+            ],
+            'get_company_subscriptions' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_company_subscriptions'
             ]
     ];
         

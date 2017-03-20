@@ -9,6 +9,7 @@
 		section.job{min-height: 300px;position: relative;
 			.header{padding: 15px 0;
 				.count{padding: 6px 0;font-size: 16px;}
+                                .search{width: 30%}
 			}
 			.overlay{position: absolute;top: 35%;text-align: center;height: 100%;width: 100%;
 				&.text{background: transparent;font-size: 25px;}

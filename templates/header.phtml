@@ -1,37 +1,38 @@
 <div class="container">
-	<div class="row">
-		<div class="col-lg-2" style="width:10%">
-			<a ui-sref=".dashboard"><img src="public/images/company_logo.svg" alt="brand-logo"></a>
-		</div>
-		<div class="menu col-lg-8" style="padding:0;width:70%">
-			<ul class="opt">
-				<li><a ui-sref=".dashboard" ui-sref-active="active" ng-show="{{::userPermissions.dashboard == 1}}">DASHBOARD</a></li>
-				<li><a ui-sref=".job" ng-class="{active: ('app.job' | includedByState) || ('app.postJob' | includedByState) || ('app.postJob2' | includedByState), highlight: ('app.jobDetails' | includedByState) || ('app.rewards' | includedByState) || ('app.engagement/contacts' | includedByState)}">JOBS</a></li>
-				<li><a ui-sref=".contact" ng-class="{active: ('app.contact' | includedByState) || ('app.uploadContact' | includedByState)}">CONTACTS</a></li>
-				<li><a ui-sref=".candidates.resumeRoom" ui-sref-active="active">CANDIDATES</a></li>
-				<li><a ui-sref=".campaigns.allCampaigns" ng-class="{highlight: ('app.campaigns.allCampaigns' | includedByState) || ('app.campaigns.myCampaigns' | includedByState) || ('app.campaigns.editCampaigns' | includedByState)}">CAMPAIGNS</a></li>
-				<li><a ui-sref=".settings.myProfile" ng-class="{highlight: ('app.settings.myProfile' | includedByState) || ('app.settings.companyProfile' | includedByState) || ('app.settings.userGroups' | includedByState)}">SETTINGS</a></li>
-			</ul>
+    <div class="row">
+        <div class="col-lg-2" style="width:10%">
+            <a ui-sref=".dashboard"><img src="public/images/company_logo.svg" alt="brand-logo"></a>
+        </div>
+        <div class="menu col-lg-8" style="padding:0;width:70%">
+            <ul class="opt">
+                <li><a ui-sref=".dashboard" ui-sref-active="active" ng-show="{{::userPermissions.dashboard == 1}}">DASHBOARD</a></li>
+                <li><a ui-sref=".job" ng-class="{active: ('app.job' | includedByState) || ('app.postJob' | includedByState) || ('app.postJob2' | includedByState), highlight: ('app.jobDetails' | includedByState) || ('app.rewards' | includedByState) || ('app.engagement/contacts' | includedByState)}">JOBS</a></li>
+                <li><a ui-sref=".contact" ng-class="{active: ('app.contact' | includedByState) || ('app.uploadContact' | includedByState)}">CONTACTS</a></li>
+                <li><a ui-sref=".candidates.resumeRoom" ui-sref-active="active">CANDIDATES</a></li>
+                <li><a ui-sref=".campaigns.allCampaigns" ng-class="{highlight: ('app.campaigns.allCampaigns' | includedByState) || ('app.campaigns.myCampaigns' | includedByState) || ('app.campaigns.editCampaigns' | includedByState)}">CAMPAIGNS</a></li>
+                <li><a ui-sref=".settings.myProfile" ng-class="{highlight: ('app.settings.myProfile' | includedByState) || ('app.settings.companyProfile' | includedByState) || ('app.settings.userGroups' | includedByState)}">SETTINGS</a></li>
+            </ul>
 
-		</div>
-		<div class="notifications col-lg-2 pull-right text-center">
-			<div class="row" style="margin:0">
-				<div class="not_alert col-lg-3" style="visibility:hidden;display:none;">
-					<span class="num">2</span>
-					<i class="fa fa-bell-o"></i>
-				</div>
-				<div class="dropdown pull-right">
-  					<button class="btn dropdown-toggle " type="button" data-toggle="dropdown">
-						<span class="user_dp"><img ng-src="{{headCtrl.logo}}" class="image-responsive img-circle" alt="dp" style="width: 40px;height:40px;display: inline-block;border:2px solid #fff" ng-if="headCtrl.logo"><img src="public/images/avatar.png" class="image-responsive" alt="dp" style="width: 40px;height:40px;display:inline-block;" ng-if="!headCtrl.logo"></span>
-  						<span class="user_name">{{headCtrl.user_name}}</span>
-						<span style="margin: 0 0 0 10px"><img src="public/images/arrow-dropdown-white.svg" style="margin-top:4px"></span>
-  					</button>
-  					<ul class="dropdown-menu drop-custom">
-  						<li><a ui-sref=".editCompanyProfile" style="font-size:16px">Company Profile</a></li>
-    					<li><a ng-click="headCtrl.logout()" style="font-size:16px;color:#a63936">Logout</a></li>
-  					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
+        </div>
+        <div class="notifications col-lg-2 pull-right text-center">
+            <div class="row" style="margin:0">
+                <div class="not_alert col-lg-3" style="visibility:hidden;display:none;">
+                    <span class="num">2</span>
+                    <i class="fa fa-bell-o"></i>
+                </div>
+                <div class="dropdown pull-right">
+                    <button class="btn dropdown-toggle " type="button" data-toggle="dropdown">
+                        <span class="user_dp"><img ng-src="{{headCtrl.logo}}" class="image-responsive img-circle" alt="dp" style="width: 40px;height:40px;display: inline-block;border:2px solid #fff" ng-if="headCtrl.logo"><img src="public/images/avatar.png" class="image-responsive" alt="dp" style="width: 40px;height:40px;display:inline-block;" ng-if="!headCtrl.logo"></span>
+                        <span class="user_name">{{headCtrl.user_name}}</span>
+                        <span style="margin: 0 0 0 10px"><img src="public/images/arrow-dropdown-white.svg" style="margin-top:4px"></span>
+                    </button>
+                    <ul class="dropdown-menu drop-custom">
+                        <li><a ui-sref=".editCompanyProfile" style="font-size:16px">Company Profile</a></li>
+                        <li><a ui-sref=".licenseManagement" style="font-size:16px">License Management</a></li>
+                        <li><a ng-click="headCtrl.logout()" style="font-size:16px;color:#a63936">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

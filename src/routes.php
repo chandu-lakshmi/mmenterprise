@@ -18,6 +18,35 @@ if(isset($_SESSION["access_token"]) && !empty($_SESSION["access_token"])) {
     setSession($jsonResult);
 }*/
 
+$app->get('/saml', function ($request, $response, $args) {
+    
+   require_once('/var/simplesamlphp/lib/_autoload.php');   
+   $saml = new SimpleSAML_Auth_Simple('default-sp');   
+   $saml->requireAuth();
+   $attributes  =  $saml->getAttributes();
+   $emailid     =  !empty($attributes['emailId'][0])?$attributes['emailId'][0]:'';
+   
+    if(!empty($emailid)){
+
+        $this->mintmeshLoginKeyStoreService;
+        // getting API endpoint from settings
+        $apiEndpoint = getapiEndpoint($this->settings, 'special_grant_login');
+        $_POST['emailId'] = $emailid;
+        $curl = new Curl(array(
+           'url'           => $apiEndpoint,
+           'postData'      => $_POST
+        ));
+        $jsonResult = $curl->loadCurl();
+        //Load Session
+        setSession($jsonResult);
+        if(empty(authenticate())){
+          return $response->withRedirect($args['APP_DOMAIN']."dashboard");
+        }
+    } else {
+        return $this->renderer->render($response, 'index.phtml', $args);
+    }     
+});
+
 //Index page
 $app->get('/', function ($request, $response, $args) {
    
@@ -63,6 +92,7 @@ $app->post('/signin', function ($request, $response, $args) use ($app) {
     //Load Session
     setSession($jsonResult);
     $_SESSION['time_zone'] = $_POST['timeZone'];
+    //$_SESSION['sigin'] = 0;
     return checkJsonResult($jsonResult);
  
 });

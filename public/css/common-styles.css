@@ -106,16 +106,18 @@ input::-moz-placeholder {
 
 /* mintmesh buttons */
 .mm-btn, .mm-btn:hover, .mm-btn:active, .mm-btn:focus {
-  background: #229A77;
+  background: #1d8e70 !important;
   color: #fff;
   outline: none;
   cursor: pointer;
   text-decoration: none;
   font-size: 18px;
   display: inline-block;
-  border-radius: 3px; }
+  border-radius: 3px;
+  border: 1px solid #1b8465; }
   .mm-btn.cancel {
-    background: #fff;
-    color: #7b6d6d; }
+    background: #fff !important;
+    color: #7b6d6d;
+    border: 0; }
 
 /*# sourceMappingURL=common-styles.css.map */

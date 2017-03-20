@@ -21,6 +21,8 @@
       .all-jobs .container section.job .header .count {
         padding: 6px 0;
         font-size: 16px; }
+      .all-jobs .container section.job .header .search {
+        width: 30%; }
     .all-jobs .container section.job .overlay {
       position: absolute;
       top: 35%;

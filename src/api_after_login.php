@@ -78,11 +78,16 @@ $app->get('/company-profile', function ($request, $response, $args) {
     if(!empty(authenticate())){
       return $response->withRedirect($args['APP_DOMAIN']);
     }
+    //else if($_SESSION['sigin']){
 
-    $args['comp_data'] = companyProfile($this->settings);
+        $args['comp_data'] = companyProfile($this->settings);
 //    $args['user_data'] = userPermissions($this->settings);
     // Render index view
-    return $this->renderer->render($response, 'index.phtml', $args);
+        return $this->renderer->render($response, 'index.phtml', $args);
+    /*}
+    else{
+        return $response->withRedirect($args['APP_DOMAIN'].'404');
+    }*/
         
 });
 
@@ -181,6 +186,7 @@ $app->post('/email_invitation',function ($request, $response, $args) use ($app) 
 $app->get('/dashboard',function ($request, $response, $args) use ($app) {
     //Arguments
      $this->mintmeshAccessToken;
+     //$_SESSION['sigin'] = 0;
     $args       = commonData($this->settings);
     if(!empty(authenticate())){
       return $response->withRedirect($args['APP_DOMAIN']);
@@ -482,13 +488,30 @@ $app->get('/edit-company-profile',function ($request, $response, $args) use ($ap
     return $this->renderer->render($response, 'index.phtml', $args);
 });
 
+// License Management
+$app->get('/license-management',function ($request, $response, $args) use ($app) {
+    $this->mintmeshAccessToken;
+//Arguments
+    $args       = commonData($this->settings);
+   
+    //Check Logged in or not
+    if(!empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']);
+    }
+
+    $args['comp_data'] = companyProfile($this->settings);
+    // Render dashboard view
+    return $this->renderer->render($response, 'index.phtml', $args);
+});
+
 //Dashboard Details
 $app->post('/view_dashboard',function ($request, $response, $args) use ($app) {
     
     // dynamically Access Token
     $this->mintmeshAccessToken; 
     $this->mintmeshCompanyId;
-    $_POST['time_zone'] = $_SESSION['time_zone'];
+//    $_POST['time_zone'] = $_SESSION['time_zone'];
+    $_SESSION['time_zone'] = $_POST['time_zone'];
     // getting API endpoint from settings
    $apiEndpoint = getapiEndpoint($this->settings, 'view_dashboard');
     $statusDetails    = new Curl(array(
@@ -654,7 +677,26 @@ $app->get('/settings/user-group',function ($request, $response, $args) use ($app
     if(!empty(authenticate())){
       return $response->withRedirect($args['APP_DOMAIN']);
     }
-    return $response->withRedirect($args['APP_DOMAIN']."settings/my-profile");
+    $args['comp_data'] = companyProfile($this->settings);
+    // Render dashboard view
+    return $this->renderer->render($response, 'index.phtml', $args);
+    //return $response->withRedirect($args['APP_DOMAIN']."settings/company-profile");
+});
+
+// user profile under settings page
+$app->get('/settings/configuration-manager',function ($request, $response, $args) use ($app) {
+     
+    //Arguments
+    $this->mintmeshAccessToken;
+    $args  = commonData($this->settings);
+    
+    //Check Logged in or not
+    if(!empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']);
+    }
+    $args['comp_data'] = companyProfile($this->settings);
+    // Render dashboard view
+    return $this->renderer->render($response, 'index.phtml', $args);
     //return $response->withRedirect($args['APP_DOMAIN']."settings/company-profile");
 });
 
@@ -1191,3 +1233,20 @@ $app->get('/viewer',function ($request, $response, $args) use ($app) {
     }
 });
 
+
+//License Management
+$app->post('/get_company_subscriptions',function ($request, $response, $args) use ($app) {
+    
+    // dynamically Access Token, Company Details
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    // getting API endpoint from settings
+   $apiEndpoint = getapiEndpoint($this->settings, 'get_company_subscriptions');
+   
+    $jobList    = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    
+    return checkJsonResult( $jobList->loadCurl() );
+});

@@ -34,7 +34,7 @@
 					        </md-input-container>
 					        <md-input-container class="md-block select-box">
 					            <label style="display:none;">NUMBER OF EMPLOYEES</label>
-					            <md-select name="number_of_employees" ng-model="editCompCtrl.company_details.number_of_employees">
+                                                    <md-select ng-model="editCompCtrl.company_details.number_of_employees" ng-disabled="true">
 					              	<md-option ng-repeat="count in editCompCtrl.no_of_emp" ng-value="count">
 					                	{{count}}
 					              	</md-option>

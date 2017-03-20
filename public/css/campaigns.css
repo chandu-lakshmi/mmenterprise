@@ -119,6 +119,8 @@ md-dialog md-dialog-actions button.md-primary {
       width: 100% !important; }
       .campaigns mdp-date-picker .layout-align-start-start md-input-container .md-input {
         padding: 0 0 0 25px !important; }
+  .campaigns mdp-time-picker .md-errors-spacer {
+    float: none; }
   .campaigns mdp-time-picker .layout-align-start-start {
     width: 40%;
     float: left;
@@ -211,11 +213,11 @@ md-dialog md-dialog-actions button.md-primary {
     min-height: calc(100vh - 160px);
     font-size: 16px;
     /*.modal#no_edit{
-    	.modal-header{text-align: center;}
-    	.modal-body{height: 100px;}
-    	.modal-footer{padding: 10px 15px;
-    		.btn{width: 80px;height: 40px;background: #1c8f6e;border-color: #1c8f6e;outline: none;color: #fff;}
-    	}
+            .modal-header{text-align: center;}
+            .modal-body{height: 100px;}
+            .modal-footer{padding: 10px 15px;
+                    .btn{width: 80px;height: 40px;background: #1c8f6e;border-color: #1c8f6e;outline: none;color: #fff;}
+            }
     }*/ }
     .campaigns .all-campaigns md-input-container.search {
       margin: 0; }

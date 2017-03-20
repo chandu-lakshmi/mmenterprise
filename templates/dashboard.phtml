@@ -203,6 +203,10 @@
                             </div>
                         </div>
                     </div>
+                    <div class="load-status" style="background: transparent" ng-if="DashCtrl.loaderTopReferrals">
+                        <span></span>
+                        <img src="public/images/loader/spin.gif" alt="loader">
+                    </div>
                     <div ng-if="DashCtrl.top_referrals_empty" style="text-align: center;line-height: 130px;">
                         NO REFERRERS FOUND
                     </div>

@@ -132,7 +132,7 @@
 
         /* $http request for initial count */
         function counts(days) {
-            updateData(days, 'COUNTS', 'cancellerCount', '', 'jobsStatusCount', 'status_count', 'first');
+            updateData(days, 'COUNTS', 'cancellerCount', '', 'jobsStatusCount', 'status_count', 'first', new Date().getTimezoneOffset());
         }
 
         /* $http request for Progress select box */
@@ -140,7 +140,7 @@
         vm.loaderProgress = false;
         function lastProgressBar(days) {
             vm.loaderProgress = true;
-            updateData(days, 'PROGRESS', 'cancellerProgress', 'loaderProgress', 'progressList', 'post_progress', '');
+            updateData(days, 'PROGRESS', 'cancellerProgress', 'loaderProgress', 'progressList', 'post_progress', '', new Date().getTimezoneOffset());
         }
 
         /* $http request for lastReferrals select box */
@@ -149,7 +149,7 @@
         function lastReferrals(days) {
             vm.noDataRef = false;
             vm.loaderRerrals = true;
-            updateData(days, 'REFERRALS', 'cancelleRerrals', 'loaderRerrals', 'referralsList', 'post_referrals', 'noDataRef');
+            updateData(days, 'REFERRALS', 'cancelleRerrals', 'loaderRerrals', 'referralsList', 'post_referrals', 'noDataRef', new Date().getTimezoneOffset());
         }
 
         /* $http request for lastHires select box */
@@ -158,21 +158,23 @@
         function lastHires(days) {
             vm.noDataHire = false;
             vm.loaderHires = true;
-            updateData(days, 'HIRED', 'cancelleHires', 'loaderHires', 'hiresList', 'post_hires', 'noDataHire');
+            updateData(days, 'HIRED', 'cancelleHires', 'loaderHires', 'hiresList', 'post_hires', 'noDataHire', new Date().getTimezoneOffset());
         }
 
         /* $http request for top referrals */
+        this.loaderTopReferrals = false;
         function topReferrals(days) {
-            vm.top_referrals_empty = true;
-            updateData(days, 'TOPREFERRALS', 'cancelleTopReferrals', '', 'topReferralsList', 'top_referrals', 'top_referrals_empty');
+            vm.loaderTopReferrals = true;
+            updateData(days, 'TOPREFERRALS', 'cancelleTopReferrals', 'loaderTopReferrals', 'topReferralsList', 'top_referrals', 'top_referrals_empty', new Date().getTimezoneOffset());
         }
 
-        function updateData(days, paraType, varPromise, spinner, typeList, paraResponse, noDataSpinner) {
+        function updateData(days, paraType, varPromise, spinner, typeList, paraResponse, noDataSpinner, timeZone) {
 
             var params = $.param({
                 company_code: CompanyDetails.company_code,
                 request_type: paraType,
-                filter_limit: days
+                filter_limit: days,
+                time_zone: timeZone
             });
 
             if (vm[varPromise]) {
