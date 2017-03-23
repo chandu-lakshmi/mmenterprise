@@ -230,6 +230,18 @@ return [
             'get_company_subscriptions' =>[
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/get_company_subscriptions'
+            ],
+            'company_integration' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/company_integration'
+            ],
+            'add_edit_hcm' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/add_edit_hcm'
+            ],
+            'get_hcm_list' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_hcm_list'
             ]
     ];
         

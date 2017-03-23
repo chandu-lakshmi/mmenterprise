@@ -89,6 +89,21 @@ function companyProfile($settings){
      
 }
 
+function companyIntegrationDetails($settings,$code){
+    $_POST['company_code'] = $code;
+    //echo "<pre>";
+       //print_r($settings);exit;
+    // getting API endpoint from settings
+//     $args       = commonData($this->settings);
+    $apiEndpoint = getapiEndpoint($settings, 'company_integration');
+
+    $companyIntegrationDetails     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+     $data = json_decode($companyIntegrationDetails->loadCurl(),true);
+     return $data;
+}
 
 //Session Details
 function setSession($result = "") {
@@ -102,7 +117,6 @@ function setSession($result = "") {
 		}else{
 			$data["access_token"] = $session->get('access_token');
 		}
-		
 		$data["user"] = $result->data->user;
 		$data["company"] = array(
 				"company_id" => $result->data->company->company_id,

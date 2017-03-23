@@ -203,6 +203,30 @@ social-sharing {
       right: 8px;
       cursor: pointer; }
 
+/* components(multiselect) template */
+div[data-epi-multiple-select] {
+  width: 100%; }
+  div[data-epi-multiple-select] .ml-sl .ic-rt {
+    position: absolute;
+    right: 0;
+    color: #767877; }
+  div[data-epi-multiple-select] .ml-sl + ul.dp-dw {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    border: 1px solid #ccc;
+    top: 31px;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    max-heght: 200px;
+    overflow-y: auto; }
+    div[data-epi-multiple-select] .ml-sl + ul.dp-dw li {
+      padding: 5px 15px; }
+      div[data-epi-multiple-select] .ml-sl + ul.dp-dw li md-checkbox {
+        width: auto !important; }
+
 /* angular md-picker */
 .mdp-datepicker:not(.portrait) .mdp-datepicker-date-wrapper,
 md-toolbar.md-hue-1:not(.md-menu-toolbar) {

@@ -272,11 +272,15 @@ md-select[disabled]{
           .settings .sub-header ul li a:hover, .settings .sub-header ul li a.active {
             color: #fff; }
             .settings .sub-header ul li a:hover .background.one, .settings .sub-header ul li a.active .background.one {
-              background-position: 0 130px; }
+              background-position: 0 233px; }
             .settings .sub-header ul li a:hover .background.two, .settings .sub-header ul li a.active .background.two {
-              background-position: 0 79px; }
+              background-position: 0 180px; }
             .settings .sub-header ul li a:hover .background.three, .settings .sub-header ul li a.active .background.three {
-              background-position: 0 30px; }
+              background-position: 0 132px; }
+            .settings .sub-header ul li a:hover .background.four, .settings .sub-header ul li a.active .background.four {
+              background-position: 0 108px; }
+            .settings .sub-header ul li a:hover .background.five, .settings .sub-header ul li a.active .background.five {
+              background-position: 0 56px; }
             .settings .sub-header ul li a:hover:before, .settings .sub-header ul li a.active:before {
               position: absolute;
               color: #fff;
@@ -294,11 +298,17 @@ md-select[disabled]{
             height: 20px;
             display: inline-block;
             margin-right: 5px; }
+          .settings .sub-header ul li a .background.one {
+            background-position: 0 261px; }
           .settings .sub-header ul li a .background.two {
-            background-position: 0 105px; }
+            background-position: 0 206px; }
           .settings .sub-header ul li a .background.three {
-            background-position: 0 211px;
+            background-position: 0 155px;
             width: 25px; }
+          .settings .sub-header ul li a .background.four {
+            background-position: 0 342px; }
+          .settings .sub-header ul li a .background.five {
+            background-position: 0 30px; }
           .settings .sub-header ul li a span.text {
             vertical-align: text-bottom; }
   .settings .form-control:focus {
@@ -753,15 +763,14 @@ md-select[disabled]{
           outline: none;
           color: #fff; }
   .settings .config-manager .saml {
-    min-height: calc(100vh - 100px);
+    min-height: calc(100vh - 160px);
     font-size: 16px; }
     .settings .config-manager .saml .lt {
       padding-right: 20px; }
       .settings .config-manager .saml .lt md-list {
         color: #5e5e5e; }
         .settings .config-manager .saml .lt md-list md-list-item {
-          border-radius: 4px;
-          min-height: 55px; }
+          border-radius: 4px; }
           .settings .config-manager .saml .lt md-list md-list-item.md-list-active {
             background: #fff; }
           .settings .config-manager .saml .lt md-list md-list-item h3 {
@@ -785,6 +794,8 @@ md-select[disabled]{
             border-color: #208d6e;
             box-shadow: none; }
           .settings .config-manager .saml .rt md-card md-card-content .form-group textarea {
+            resize: vertical;
+            max-height: 380px;
             /*&::-webkit-scrollbar-track{-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);-webkit-border-radius: 10px;
                                        border-radius: 10px;}*/
             /*&::-webkit-scrollbar-thumb:window-inactive{background: rgba(255,0,0,0.4);}*/ }
@@ -798,6 +809,63 @@ md-select[disabled]{
               -webkit-box-shadow: inset 0 0 6px rgba(218, 218, 219, 0.8); }
         .settings .config-manager .saml .rt md-card md-card-content md-input-container {
           width: 100%; }
+        .settings .config-manager .saml .rt md-card md-card-content md-checkbox {
+          width: 100%; }
+  .settings .int-mng .success-factor {
+    min-height: calc(100vh - 160px);
+    font-size: 16px; }
+    .settings .int-mng .success-factor .lt {
+      padding-right: 20px;
+      padding-top: 33px; }
+      .settings .int-mng .success-factor .lt .ad-pt {
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+        padding: 0 0 0 16px;
+        margin-bottom: 2px;
+        color: #5e605f;
+        line-height: 40px; }
+      .settings .int-mng .success-factor .lt md-list {
+        color: #5e5e5e; }
+        .settings .int-mng .success-factor .lt md-list md-list-item {
+          border-radius: 4px;
+          /*min-height: 55px;*/ }
+          .settings .int-mng .success-factor .lt md-list md-list-item.md-list-active {
+            background: #fff; }
+          .settings .int-mng .success-factor .lt md-list md-list-item h3 {
+            font-size: 18px;
+            color: inherit; }
+          .settings .int-mng .success-factor .lt md-list md-list-item h4 {
+            font-size: 16px;
+            color: inherit; }
+          .settings .int-mng .success-factor .lt md-list md-list-item .md-list-item-text {
+            outline: none;
+            width: 100%; }
+    .settings .int-mng .success-factor .rt {
+      padding-left: 20px;
+      padding-top: 33px; }
+      .settings .int-mng .success-factor .rt md-card {
+        padding: 60px 30px;
+        margin: 0;
+        min-height: calc(100vh - 230px);
+        font-size: 16px;
+        position: relative; }
+        .settings .int-mng .success-factor .rt md-card md-grid-list md-input-container {
+          width: 100%; }
+        .settings .int-mng .success-factor .rt md-card md-checkbox {
+          margin-top: 16px;
+          color: #767877; }
+          .settings .int-mng .success-factor .rt md-card md-checkbox:not([disabled]).md-primary.md-checked .md-ink-ripple {
+            color: rgba(13, 143, 229, 0.87); }
+          .settings .int-mng .success-factor .rt md-card md-checkbox:not([disabled]).md-primary.md-checked .md-icon {
+            background-color: rgba(13, 143, 229, 0.87); }
+        .settings .int-mng .success-factor .rt md-card .footer {
+          position: absolute;
+          width: 93%;
+          bottom: 10px;
+          border-top: 1px solid #ebebeb; }
+          .settings .int-mng .success-factor .rt md-card .footer img[alt="loader"] {
+            margin: 5px;
+            width: 40px;
+            display: inline; }
 
 /*md-toast.md-top{top: 70px;}*/
 .licence-management {

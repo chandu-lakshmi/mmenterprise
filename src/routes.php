@@ -19,13 +19,12 @@ if(isset($_SESSION["access_token"]) && !empty($_SESSION["access_token"])) {
 }*/
 
 $app->get('/saml', function ($request, $response, $args) {
-    
    require_once('/var/simplesamlphp/lib/_autoload.php');   
    $saml = new SimpleSAML_Auth_Simple('default-sp');   
    $saml->requireAuth();
    $attributes  =  $saml->getAttributes();
    $emailid     =  !empty($attributes['emailId'][0])?$attributes['emailId'][0]:'';
-   
+   $emailid     =  empty($emailid)?$saml->getAuthData('saml:sp:NameID')['Value']:$emailid;
     if(!empty($emailid)){
 
         $this->mintmeshLoginKeyStoreService;
@@ -60,6 +59,20 @@ $app->get('/', function ($request, $response, $args) {
     return $this->renderer->render($response, 'index.phtml', $args);
 });
 
+// saml login
+$app->get('/company/{name}/{code}', function ($request, $response, $args) {
+    $args = commonArgs($this->settings);
+    $route = $request->getAttribute('route');
+    $args['company_int_details'] = companyIntegrationDetails($this->settings,$route->getArgument('code'));
+    echo '<pre>';
+    print_r($args['company_int_details']['data']).exit;
+    if(!empty($args['company_int_details']['data'])){
+        return $response->withRedirect($args['APP_DOMAIN']."saml");
+    }else{
+         return $response->withRedirect($args['APP_DOMAIN']."404");
+    }
+});
+
 //login controller page
 $app->get('/login', function ($request, $response, $args) {
     
@@ -80,7 +93,6 @@ $app->post('/signin', function ($request, $response, $args) use ($app) {
     // dynamically to the post params
     $this->mintmeshLoginKeyStoreService;
     $this->mintmeshLoginGrantTypeService;
-    
     // getting API endpoint from settings
     $apiEndpoint = getapiEndpoint($this->settings, 'login');
 
@@ -91,8 +103,11 @@ $app->post('/signin', function ($request, $response, $args) use ($app) {
     $jsonResult = $curl->loadCurl();
     //Load Session
     setSession($jsonResult);
-    $_SESSION['time_zone'] = $_POST['timeZone'];
-    //$_SESSION['sigin'] = 0;
+//     $arrayList["sign"] = array(
+//        "sign_in" => '1',
+//    );
+//    //Update Session
+//    updateSession($arrayList);
     return checkJsonResult($jsonResult);
  
 });

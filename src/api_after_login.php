@@ -700,6 +700,23 @@ $app->get('/settings/configuration-manager',function ($request, $response, $args
     //return $response->withRedirect($args['APP_DOMAIN']."settings/company-profile");
 });
 
+// integration manager
+$app->get('/settings/integration-manager',function ($request, $response, $args) use ($app) {
+     
+    //Arguments
+    $this->mintmeshAccessToken;
+    $args  = commonData($this->settings);
+    
+    //Check Logged in or not
+    if(!empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']);
+    }
+    $args['comp_data'] = companyProfile($this->settings);
+    // Render dashboard view
+    return $this->renderer->render($response, 'index.phtml', $args);
+    //return $response->withRedirect($args['APP_DOMAIN']."settings/company-profile");
+});
+
 // campaigns
 $app->get('/campaigns/all-campaigns',function ($request, $response, $args) use ($app) {
     //Arguments
@@ -1243,6 +1260,37 @@ $app->post('/get_company_subscriptions',function ($request, $response, $args) us
     // getting API endpoint from settings
    $apiEndpoint = getapiEndpoint($this->settings, 'get_company_subscriptions');
    
+    $jobList    = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    
+    return checkJsonResult( $jobList->loadCurl() );
+});
+
+// integration management
+$app->post('/add_edit_hcm',function ($request, $response, $args) use ($app) {
+    // dynamically Access Token, Company Details
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    // getting API endpoint from settings
+   $apiEndpoint = getapiEndpoint($this->settings, 'add_edit_hcm');
+   
+    $jobList    = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    
+    return checkJsonResult( $jobList->loadCurl() );
+});
+$app->post('/get_hcm_list',function ($request, $response, $args) use ($app) {
+    
+    // dynamically Access Token, Company Details
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    // getting API endpoint from settings
+   $apiEndpoint = getapiEndpoint($this->settings, 'get_hcm_list');
+   //print_r($_POST).exit;
     $jobList    = new Curl(array(
         'url'           => $apiEndpoint,
         'postData'      => $_POST

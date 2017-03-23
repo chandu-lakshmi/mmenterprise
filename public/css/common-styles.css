@@ -120,4 +120,42 @@ input::-moz-placeholder {
     color: #7b6d6d;
     border: 0; }
 
+/* angular material mdDialog */
+md-dialog.simple-dialog md-toolbar {
+  line-height: 64px;
+  padding: 0 15px;
+  background: #0e2e3f !important; }
+md-dialog.simple-dialog .md-close {
+  text-align: right;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1; }
+md-dialog.simple-dialog md-dialog-content {
+  width: 100%;
+  line-height: normal;
+  padding: 30px; }
+  md-dialog.simple-dialog md-dialog-content h2.md-headline {
+    color: #646c6b;
+    margin-bottom: 20px; }
+  md-dialog.simple-dialog md-dialog-content md-input-container {
+    width: 100%; }
+    md-dialog.simple-dialog md-dialog-content md-input-container .has-error-msg {
+      font-size: 14px; }
+md-dialog.simple-dialog md-dialog-actions {
+  border-top: 1px solid #e5e5e5;
+  background: #eee; }
+  md-dialog.simple-dialog md-dialog-actions .md-button {
+    color: #fff; }
+    md-dialog.simple-dialog md-dialog-actions .md-button img[alt='load'] {
+      position: absolute;
+      width: 30px;
+      top: 8px; }
+  md-dialog.simple-dialog md-dialog-actions .md-yes, md-dialog.simple-dialog md-dialog-actions .md-yes:hover {
+    background: #229a78 !important; }
+  md-dialog.simple-dialog md-dialog-actions .md-no, md-dialog.simple-dialog md-dialog-actions .md-no:hover {
+    border: 1px solid #e66a6a;
+    color: #e66a6a;
+    background: transparent !important; }
+
 /*# sourceMappingURL=common-styles.css.map */

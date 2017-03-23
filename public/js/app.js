@@ -27,7 +27,15 @@
                 // JS global variable
                 CONFIG.APP_API_DOMAIN = App.API_DOMAIN;
                 CONFIG.APP_DOMAIN = App.base_url;
-
+                
+                // Federated
+                $stateProvider.state('company', {
+                    url: '/company/:com_name/:com_cod',
+                    templateUrl: App.base_url + 'templates/home.phtml',
+                    controller: 'HomeController',
+                    controllerAs: 'homeCtrl'
+                })
+                
                 $stateProvider.state('home', {
                     url: '/login',
                     templateUrl: App.base_url + 'templates/home.phtml',
@@ -212,6 +220,12 @@
                     templateUrl: App.base_url + 'templates/settings/configuration-manager.phtml',
                     controller: 'ConfigManagerController',
                     controllerAs: 'ConfigMngCtrl'
+                })
+                $stateProvider.state('app.settings.intManager', {
+                    url: '^/settings/integration-manager',
+                    templateUrl: App.base_url + 'templates/settings/integration-manager.phtml',
+                    controller: 'IntManagerController',
+                    controllerAs: 'IntMngCtrl'
                 })
                 $stateProvider.state('app.editCompanyProfile', {
                     url: '^/edit-company-profile',
