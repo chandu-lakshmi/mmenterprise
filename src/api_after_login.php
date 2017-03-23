@@ -78,16 +78,13 @@ $app->get('/company-profile', function ($request, $response, $args) {
     if(!empty(authenticate())){
       return $response->withRedirect($args['APP_DOMAIN']);
     }
-    //else if($_SESSION['sigin']){
-
+//    else if(isset($_SESSION['sign']['sign_in']) && $_SESSION['sign']['sign_in'] == 1){
+//         return $response->withRedirect($args['APP_DOMAIN'].'edit-company-profile');
+//    }
+//    else{
         $args['comp_data'] = companyProfile($this->settings);
-//    $args['user_data'] = userPermissions($this->settings);
-    // Render index view
         return $this->renderer->render($response, 'index.phtml', $args);
-    /*}
-    else{
-        return $response->withRedirect($args['APP_DOMAIN'].'404');
-    }*/
+//    }
         
 });
 
@@ -493,15 +490,18 @@ $app->get('/license-management',function ($request, $response, $args) use ($app)
     $this->mintmeshAccessToken;
 //Arguments
     $args       = commonData($this->settings);
-   
     //Check Logged in or not
     if(!empty(authenticate())){
       return $response->withRedirect($args['APP_DOMAIN']);
-    }
-
+    }else if($_SESSION['userPermissions']['is_primary'] == 1)
+    {
     $args['comp_data'] = companyProfile($this->settings);
     // Render dashboard view
     return $this->renderer->render($response, 'index.phtml', $args);
+    }
+    else{
+          return $response->withRedirect($args['APP_DOMAIN'].'404');
+    }
 });
 
 //Dashboard Details

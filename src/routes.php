@@ -62,6 +62,8 @@ $app->get('/', function ($request, $response, $args) {
 // saml login
 $app->get('/company/{name}/{code}', function ($request, $response, $args) {
     $args = commonArgs($this->settings);
+    return $response->withRedirect($args['APP_DOMAIN']."saml");
+    exit;
     $route = $request->getAttribute('route');
     $args['company_int_details'] = companyIntegrationDetails($this->settings,$route->getArgument('code'));
     echo '<pre>';
