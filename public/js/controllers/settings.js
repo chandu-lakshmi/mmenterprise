@@ -18,7 +18,7 @@
     MyProfileController.$inject = ['$http', '$scope', '$window', '$uibModal', 'UserDetails', 'userData', 'CONFIG', 'App'];
     UserGroupController.$inject = ['$scope', '$window', '$element', 'CONFIG', '$http', '$q', 'userData', 'permissionsService', 'userPermissions', 'App'];
     ConfigManagerController.$inject = [];
-    IntManagerController.$inject = ['$mdDialog', '$timeout', '$http', 'App'];
+    IntManagerController.$inject = ['$timeout', '$http', 'App'];
 
     function permissionsService() {
         var permissionData = {};
@@ -1032,74 +1032,48 @@
         }
     }
 
-    function IntManagerController($mdDialog, $timeout, $http, App) {
+    function IntManagerController($timeout, $http, App) {
         var vm = this;
 
+        vm.loader = false;
         vm.mintmeshPartnes = [];
         vm.show_error = false;
         vm.partnerDetails = {};
+        vm.list = [];
 
-        vm.addPartner = addPartner;
+        //vm.addPartner = addPartner;
         vm.getPartnersData = getPartnersData;
         vm.update = update;
 
-        function getPartnersData(res, i) {
+        function getPartnersData(i) {
             vm.show_error = false;
             vm.activeIndex = i;
-            vm.checkbox = false;
-            vm.partnerDetails = angular.copy(res);
-        }
-
-        function addPartner(ev) {
-            var parentEl = angular.element(document.querySelector('.ad-pt'));
-            $mdDialog.show({
-                controller: addPartnerController,
-                template:
-                        '<md-dialog aria-label="add partner" class="simple-dialog" style="width:450px;">' +
-                        '   <div class="md-close">' +
-                        '       <md-button class="md-icon-button" ng-click="closeDialog()" ng-disabled="loading">' +
-                        '           <md-icon><i class="material-icons">close</i></md-icon>' +
-                        '	</md-button>' +
-                        '   </div>' +
-                        '   <md-dialog-content>' +
-                        '       <h2 class="md-headline">ADD PARTNER</h2>' +
-                        '       <form name="add_partner_form" novalidate>' +
-                        '           <md-input-container>' +
-                        '               <label>Partner Name</label>' +
-                        '                   <input name="hcm_name" ng-model="partner_name" required ng-class="{\'has-error-border\': add_partner_form.hcm_name.$invalid && show_error}">' +
-                        '                   <div ng-if="add_partner_form.hcm_name.$error.required && show_error"  class="has-error-msg">Please Enter Partner Name.</div>' +
-                        '           </md-input-container>' +
-                        '	</form>' +
-                        '   </md-dialog-content>' +
-                        '   <md-dialog-actions layout layout-align="end">' +
-                        '       <md-button class="md-yes" ng-click="validate(add_partner_form.$valid)" ng-disabled="loading">Add' +
-                        '           <img src="public/images/loader/dot.svg" alt="load" ng-if="loading">' +
-                        '       </md-button>' +
-                        '   </md-dialog-actions>' +
-                        '</md-dialog>',
-                parent: parentEl,
-                targetEvent: ev,
-                clickOutsideToClose: false,
-                //fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
-            })
-
-            function addPartnerController($scope, $mdDialog) {
-                $scope.loading = false;
-                $scope.validate = function (isValid) {
-                    if (!isValid) {
-                        $scope.show_error = true;
-                        return;
-                    }
-                    $scope.loading = true;
-                    var data = $('form[name="add_partner_form"]').serialize();
-                    addEditPartner(data, 0);
-
-                }
-                $scope.closeDialog = function () {
-                    $mdDialog.hide();
-                }
+            console.log(vm.list.length)
+            if(vm.list.length == 0)
+                getPartners();
+            else{
+                vm.partnerDetails = angular.copy(vm.list[vm.activeIndex])
+                vm.checkbox = vm.list.hcm_status == 'enable' ? true : false;
             }
         }
+
+        function dropDown() {
+            vm.loader = true;
+            $http({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'POST',
+                url: App.base_url + 'get_hcm_partners'
+            })
+                    .then(function (response) {
+                        vm.mintmeshPartnes = response.data.data;
+                        getPartnersData(0)
+                    }, function (response) {
+
+                    })
+        }
+        dropDown();
 
         function update(isValid) {
             if (!isValid) {
@@ -1108,14 +1082,19 @@
             }
             vm.loading = true;
             var data = $('form[name="suc_fac_form"]').serialize();
-            addEditPartner(data, 1, function (data) {
+            var flag = vm.checkbox == false ? 'disable' : 'enable';
+            if (flag != vm.partnerDetails.hcm_status) {
+                data = data + '&hcm_run_status=' + flag;
+            }
+            addEditPartner(data, function (data) {
                 vm.loading = false;
-                angular.extend(vm.mintmeshPartnes[vm.activeIndex], data)
+                angular.extend(vm.partnerDetails, data)
+                angular.extend(vm.list[vm.activeIndex], data)
             });
         }
 
         function getPartners() {
-
+            
             $http({
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -1124,15 +1103,24 @@
                 url: App.base_url + 'get_hcm_list'
             })
                     .then(function (response) {
-                        vm.mintmeshPartnes = response.data.data;
-                        getPartnersData(vm.mintmeshPartnes[0], 0)
+                        var status = response.data.status_code;
+                        vm.loader = false;
+                        if (status == 200) {
+                            vm.list = response.data.data;
+                            vm.partnerDetails = angular.copy(vm.list[vm.activeIndex])
+                            vm.checkbox = vm.partnerDetails.hcm_status == 'enable' ? true : false;
+                        }
+                        else if (status == 403) {
+                            vm.partnerDetails = angular.copy(vm.mintmeshPartnes[vm.activeIndex])
+                            vm.checkbox = false;
+                        }
                     }, function (response) {
-
+                        console.log(response)
                     })
         }
-        getPartners();
+        
 
-        function addEditPartner(data, flag, callback) {
+        function addEditPartner(data, callback) {
             $http({
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -1144,11 +1132,15 @@
                     .then(function (response) {
                         if (callback != undefined) {
                             callback(response.data.data);
+                            vm.sucMsg = response.data.message.msg[0];
+                            $timeout(function () {
+                                $('.suc').fadeOut();
+                            }, 500);
                             return;
                         }
-                        vm.mintmeshPartnes.push(response.data.data);
-                        if (flag == 0)
-                            $scope.closeDialog();
+                        vm.sucMsg = response.data.message.msg[0];
+                        console.log(response.data.message.msg[0], vm.sucMsg)
+
                     }, function (response) {
                         console.log(response)
                     })

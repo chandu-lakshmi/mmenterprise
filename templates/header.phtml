@@ -28,7 +28,7 @@
                     </button>
                     <ul class="dropdown-menu drop-custom">
                         <li><a ui-sref=".editCompanyProfile" style="font-size:16px">Company Profile</a></li>
-                        <li><a ui-sref=".licenseManagement" style="font-size:16px">License Management</a></li>
+                        <li><a ui-sref=".licenseManagement" style="font-size:16px" ng-show="{{::userPermissions.is_primary == 1}}">License Management</a></li>
                         <li><a ng-click="headCtrl.logout()" style="font-size:16px;color:#a63936">Logout</a></li>
                     </ul>
                 </div>

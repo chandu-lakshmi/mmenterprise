@@ -513,6 +513,10 @@ body.set-password{overflow: hidden;}
                               }
                               .rt{padding-left: 20px;padding-top: 33px;
                                   md-card{padding: 60px 30px;margin: 0;@include viewHeight(230px);position: relative;
+                                          .loader{position: absolute;top: 35%;left: 45%;
+                                                  img{width: 45%;}
+                                                  h4.err{text-align: center;line-height: 6em;color: #5e5e5e;}
+                                          }
                                           md-grid-list{
                                               md-input-container{width: 100%}
                                           }
@@ -523,7 +527,8 @@ body.set-password{overflow: hidden;}
                                                       }
                                           }
                                           .footer{position: absolute;width: 93%;bottom: 10px;border-top: 1px solid #ebebeb;
-                                                  img[alt="loader"]{margin:5px;width: 40px;display: inline;}
+                                                  img[alt="loader"]{margin:5px;width: 35px;display: inline;}
+                                                  .suc{color: $mintmeshColor;line-height: 50px;}
                                           }
                                   }
                               }
@@ -553,7 +558,7 @@ body.set-password{overflow: hidden;}
                                     }
                              }
                              .list{position: relative;height: calc(100vh - 280px);font-size: 16px;min-height: 200px;
-                                   .list-data{border-bottom: 1px solid #cecece;
+                                   .list-data{
                                               .right{min-height: 50px;line-height: 50px;max-height: 50px;border-bottom: 1px solid rgba(0, 0, 0, 0.12);
                                                      &:not(:last-child){border-bottom: 1px solid #eee;}
                                                      span[flex='40']{padding-left: 30px;}

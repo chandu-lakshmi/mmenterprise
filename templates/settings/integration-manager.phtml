@@ -21,43 +21,51 @@
             <div class="rt" flex="80">
                 <md-card>
                     <form name="suc_fac_form" novalidate>
-                        <input name="hcm_id" value="{{IntMngCtrl.partnerDetails.hcm_id}}" type="hidden">
-                        <input name="hcm_name" value="{{IntMngCtrl.partnerDetails.hcm_name}}" type="hidden">
-                        <md-grid-list md-cols-xs="1" md-cols="2" md-row-height="fit" md-gutter="30px" style="height: 140px;">
-                            <md-grid-tile>
-                                <md-input-container>
-                                    <label>DC Center URL</label>
-                                    <input name="hcm_url" ng-model="IntMngCtrl.partnerDetails.hcm_url" ng-pattern="/^(http:\/\/www\.|https:\/\/www\.|www\.|https:\/\/|http:\/\/)[A-Za-z0-9]+([\-\.]{1}[A-Za-z0-9]+)*\.[A-Za-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i" required ng-class="{'has-error-border': suc_fac_form.hcm_url.$invalid && IntMngCtrl.show_error}">
-                                    <div ng-if="suc_fac_form.hcm_url.$error.required && IntMngCtrl.show_error"  class="has-error-msg">Please Enter DC Center URL.</div>
-                                    <div ng-if="suc_fac_form.hcm_url.$error.pattern && IntMngCtrl.show_error"  class="has-error-msg">Please Enter Valid URL.</div>
-                                </md-input-container>
-                            </md-grid-tile>
-                            <md-grid-tile>
-                                <md-input-container>
-                                    <label>User Name</label>
-                                    <input name="hcm_username" ng-model="IntMngCtrl.partnerDetails.hcm_username" required ng-class="{'has-error-border': suc_fac_form.hcm_username.$invalid && IntMngCtrl.show_error}">
-                                    <div ng-if="suc_fac_form.hcm_username.$error.required && IntMngCtrl.show_error"  class="has-error-msg">Please Enter User Name.</div>
-                                </md-input-container>
-                            </md-grid-tile>
-                            <md-grid-tile>
-                                <md-input-container>
-                                    <label>Password</label>
-                                    <input name="hcm_password" type="password" ng-model="IntMngCtrl.partnerDetails.hcm_password" required ng-class="{'has-error-border': suc_fac_form.hcm_password.$invalid && IntMngCtrl.show_error}">
-                                    <div ng-if="suc_fac_form.hcm_password.$error.required && IntMngCtrl.show_error"  class="has-error-msg">Please Enter Password.</div>
-                                </md-input-container>
-                            </md-grid-tile>
-                        </md-grid-list>
-                        <md-checkbox ng-model="IntMngCtrl.checkbox" aria-label="start project" class="md-primary">Start running the project</md-checkbox>
-                        <div class="footer" layout="row">
-                            <div flex="70">
-                                <span ng-if="IntMngCtrl.loading"><img src="public/images/loader/upload_file.gif" alt="loader">Saving...</span>
+                        <div ng-if="!IntMngCtrl.loader">
+                            <input name="hcm_id" value="{{IntMngCtrl.partnerDetails.hcm_id}}" type="hidden">
+                            <!--<input name="hcm_name" value="{{IntMngCtrl.partnerDetails.hcm_name}}" type="hidden">-->
+                            <md-grid-list md-cols-xs="1" md-cols="2" md-row-height="fit" md-gutter="30px" style="height: 140px;">
+                                <md-grid-tile>
+                                    <md-input-container>
+                                        <label>DC Center URL</label>
+                                        <input name="hcm_url" ng-model="IntMngCtrl.partnerDetails.hcm_url" required ng-class="{'has-error-border': suc_fac_form.hcm_url.$invalid && IntMngCtrl.show_error}">
+                                        <div ng-if="suc_fac_form.hcm_url.$error.required && IntMngCtrl.show_error"  class="has-error-msg">Please Enter DC Center URL.</div>
+                                    </md-input-container>
+                                </md-grid-tile>
+                                <md-grid-tile>
+                                    <md-input-container>
+                                        <label>User Name</label>
+                                        <input name="hcm_username" ng-model="IntMngCtrl.partnerDetails.hcm_username" required ng-class="{'has-error-border': suc_fac_form.hcm_username.$invalid && IntMngCtrl.show_error}">
+                                        <div ng-if="suc_fac_form.hcm_username.$error.required && IntMngCtrl.show_error"  class="has-error-msg">Please Enter User Name.</div>
+                                    </md-input-container>
+                                </md-grid-tile>
+                                <md-grid-tile>
+                                    <md-input-container>
+                                        <label>Password</label>
+                                        <input name="hcm_password" type="password" ng-model="IntMngCtrl.partnerDetails.hcm_password" required ng-class="{'has-error-border': suc_fac_form.hcm_password.$invalid && IntMngCtrl.show_error}">
+                                        <div ng-if="suc_fac_form.hcm_password.$error.required && IntMngCtrl.show_error"  class="has-error-msg">Please Enter Password.</div>
+                                    </md-input-container>
+                                </md-grid-tile>
+                            </md-grid-list>
+                            <md-checkbox ng-model="IntMngCtrl.checkbox" aria-label="start project" class="md-primary">Start running the job</md-checkbox>
+                            <div class="footer" layout="row">
+                                <div flex="70">
+                                    <span ng-if="IntMngCtrl.loading"><img src="public/images/loader/upload_file.gif" alt="loader">Saving...</span>
+                                    <span ng-if="IntMngCtrl.sucMsg" class="suc" ng-bind="IntMngCtrl.sucMsg"></span>
+                                </div>
+                                <span flex></span>
+                                <md-button class="mm-btn" ng-click="IntMngCtrl.update(suc_fac_form.$valid)" ng-disabled="IntMngCtrl.loading">
+                                    save
+                                </md-button>
                             </div>
-                            <span flex></span>
-                            <md-button class="mm-btn" ng-click="IntMngCtrl.update(suc_fac_form.$valid)" ng-disabled="IntMngCtrl.loading">
-                                save
-                            </md-button>
                         </div>
                     </form>
+                    <div class="loader" ng-if="IntMngCtrl.loader">
+                        <img src="public/images/loader/spin.gif" alt="loader" width="25%">
+                    </div>
+                    <!--<div class="loader" ng-if="IntMngCtrl.noPartners && !IntMngCtrl.loader">
+                        <h4 class="err">No Partner Found.</h4>
+                    </div>-->
                 </md-card>
             </div>
         </div>

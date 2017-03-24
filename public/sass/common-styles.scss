@@ -41,7 +41,7 @@ input::-moz-placeholder{color: gray;}
 }
 
 /* mintmesh buttons */
-.mm-btn{background: #1d8e70 !important;color: #fff;outline: none;cursor: pointer;text-decoration: none;font-size: 18px;
+.mm-btn{background: #1d8e70 !important;color: #fff !important;outline: none;cursor: pointer;text-decoration: none;font-size: 18px;
         display: inline-block;border-radius: 3px;border: 1px solid #1b8465;
         &.cancel{background: #fff!important;color: #7b6d6d;border: 0;}
 }

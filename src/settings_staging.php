@@ -40,7 +40,7 @@ return [
             'PREFIX' => '/enterprise',
 
             // Angular Application domain
-            'APP_DOMAIN' => 'http://enterprisestaging.mintmesh.com/',
+            'APP_DOMAIN' => 'https://enterprisestaging.mintmesh.com/',
 
             // Application API domain
             'API_DOMAIN' => 'https://staging.mintmesh.com/',
@@ -72,7 +72,7 @@ return [
         // email parser
         'EMAIL_PARSER' => [
             // Angular Application domain
-            'EMAIL_PARSER_DOMAIN' => 'http://enterprisestaging.mintmesh.com/email/',
+            'EMAIL_PARSER_DOMAIN' => 'https://enterprisestaging.mintmesh.com/email/',
         ]
         
     ],

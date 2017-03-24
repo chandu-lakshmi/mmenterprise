@@ -43,9 +43,9 @@ md-dialog md-dialog-actions button.md-primary {
             .campaigns .sub-header ul li a:hover .background.one, .campaigns .sub-header ul li a.active .background.one {
               background-position: 0 130px; }
             .campaigns .sub-header ul li a:hover .background.two, .campaigns .sub-header ul li a.active .background.two {
-              background-position: 0 79px; }
+              background-position: 0 -79px; }
             .campaigns .sub-header ul li a:hover .background.three, .campaigns .sub-header ul li a.active .background.three {
-              background-position: 0 30px; }
+              background-position: 0 132px; }
             .campaigns .sub-header ul li a:hover:before, .campaigns .sub-header ul li a.active:before {
               position: absolute;
               color: #fff;
@@ -64,9 +64,9 @@ md-dialog md-dialog-actions button.md-primary {
             display: inline-block;
             margin-right: 5px; }
           .campaigns .sub-header ul li a .background.two {
-            background-position: 0 105px; }
+            background-position: 0 -53px; }
           .campaigns .sub-header ul li a .background.three {
-            background-position: 0 211px;
+            background-position: 0 155px;
             width: 25px; }
           .campaigns .sub-header ul li a span.text {
             vertical-align: text-bottom; }

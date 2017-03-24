@@ -848,6 +848,16 @@ md-select[disabled]{
         min-height: calc(100vh - 230px);
         font-size: 16px;
         position: relative; }
+        .settings .int-mng .success-factor .rt md-card .loader {
+          position: absolute;
+          top: 35%;
+          left: 45%; }
+          .settings .int-mng .success-factor .rt md-card .loader img {
+            width: 45%; }
+          .settings .int-mng .success-factor .rt md-card .loader h4.err {
+            text-align: center;
+            line-height: 6em;
+            color: #5e5e5e; }
         .settings .int-mng .success-factor .rt md-card md-grid-list md-input-container {
           width: 100%; }
         .settings .int-mng .success-factor .rt md-card md-checkbox {
@@ -864,8 +874,11 @@ md-select[disabled]{
           border-top: 1px solid #ebebeb; }
           .settings .int-mng .success-factor .rt md-card .footer img[alt="loader"] {
             margin: 5px;
-            width: 40px;
+            width: 35px;
             display: inline; }
+          .settings .int-mng .success-factor .rt md-card .footer .suc {
+            color: #1c8f6e;
+            line-height: 50px; }
 
 /*md-toast.md-top{top: 70px;}*/
 .licence-management {
@@ -912,17 +925,15 @@ md-select[disabled]{
       height: calc(100vh - 280px);
       font-size: 16px;
       min-height: 200px; }
-      .licence-management .box .content .list .list-data {
-        border-bottom: 1px solid #cecece; }
-        .licence-management .box .content .list .list-data .right {
-          min-height: 50px;
-          line-height: 50px;
-          max-height: 50px;
-          border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
-          .licence-management .box .content .list .list-data .right:not(:last-child) {
-            border-bottom: 1px solid #eee; }
-          .licence-management .box .content .list .list-data .right span[flex='40'] {
-            padding-left: 30px; }
+      .licence-management .box .content .list .list-data .right {
+        min-height: 50px;
+        line-height: 50px;
+        max-height: 50px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+        .licence-management .box .content .list .list-data .right:not(:last-child) {
+          border-bottom: 1px solid #eee; }
+        .licence-management .box .content .list .list-data .right span[flex='40'] {
+          padding-left: 30px; }
       .licence-management .box .content .list .spinner, .licence-management .box .content .list .error {
         position: absolute;
         width: 100%;

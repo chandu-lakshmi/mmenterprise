@@ -65,7 +65,7 @@ angular.module('app.forgotPassword', [])
             scope.load_cond_reset = false;
             if(response.status_code == 200){
                 $uibModal.open({
-                    animation: true,
+                    animation: false,
                     keyboard: false,
                     backdrop: 'static',
                     templateUrl: 'templates/dialogs/reset-success.phtml',
@@ -88,7 +88,7 @@ angular.module('app.forgotPassword', [])
 
 	// cancel button
 	this.forgot_cancel = function(){
-		$state.go('home')
+		setTimeout(function(){$state.go('home')},500);
 	}
 
     
