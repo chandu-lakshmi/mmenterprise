@@ -979,12 +979,11 @@
         function getPartnersData(i) {
             vm.show_error = false;
             vm.activeIndex = i;
-            console.log(vm.list.length)
             if(vm.list.length == 0)
                 getPartners();
             else{
                 vm.partnerDetails = angular.copy(vm.list[vm.activeIndex])
-                vm.checkbox = vm.list.hcm_status == 'enable' ? true : false;
+                vm.checkbox = vm.list[vm.activeIndex].hcm_status == 'enable' ? true : false;
             }
         }
 
@@ -1070,7 +1069,6 @@
                             return;
                         }
                         vm.sucMsg = response.data.message.msg[0];
-                        console.log(response.data.message.msg[0], vm.sucMsg)
 
                     }, function (response) {
                         console.log(response)
