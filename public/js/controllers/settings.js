@@ -617,112 +617,43 @@
             }
         }
 
-		// add single person
-		function addPerson(isValid, userId, flag){
-			flag = flag == true ? 0 : 1;
-			vm.backendError = '';
-			if(!isValid){
-				vm.errCond = true;
-			}
-			else{
-				vm.errCond = false;
-				vm.loader = true;
-				angular.element('.disabled').css('pointer-events','none');
-				var formData = $('form[name="new_user_form"]').serialize();
-				$http({
-			        headers: {
-			           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-			        },
-			        method: 'POST',
-			        data: formData + '&' + $.param({
-			        	action: flag,
-			        	user_id: userId
-			        }),
-			        url: APP_URL + 'add_user'
-			    })
-			    .then(function(response){
-			    	vm.loader = false;
-			    	angular.element('.disabled').css('pointer-events','auto');
-			    	if(response.data.status_code == 200){
-			    		vm.backendError = '';
-						if(vm.changeFound.person){
-							vm.changeFound.person = false;
-						}
-						var formController = $element.find('form[name="new_user_form"]').eq(0).controller('form');
-			    		formController.$setPristine();
-			    		if(flag == 0){
-			    			getGroups();
-			    		}
-			    		else{
-			    			if(vm.groupsList[vm.tab].group_id != vm.personDetails.group_id){
-			    				for(var i = 0; i < vm.groupsList.length; i++){
-			    					if(vm.groupsList[i].group_id == vm.personDetails.group_id){
-			    						var obj = vm.personDetails;
-			    						vm.groupsList[i].users.push(obj);
-			    						vm.groupsList[i].count_of_users++;
-			    						vm.groupsList[vm.tab].users.splice(vm.subTab, 1);
-			    						vm.groupsList[vm.tab].count_of_users--;
-			    					}
-			    				}
-			    			}
-			    			else{
-			    				if(vm.personDetails.admin == 1){
-			    					var oldName = angular.element('header .user_dp + .user_name').text(),
-			    					newName = vm.personDetails.fullname
-			    					if(oldName != newName){
-			    						userData.addProperty('user_name', newName)
-					    				angular.element('header .user_dp + .user_name').text(newName);
-			    					}
-			    					if(response.data.data.photo != ''){
-			    						userData.addProperty('user_dp', response.data.data.photo)
-			    					}
-			    				}
-			    				vm.groupsList[vm.tab].users[vm.subTab] = angular.copy(vm.personDetails);
-			    				vm.activeClass = angular.copy(vm.personDetails.fullname)
-			    				vm.groupsList[vm.tab].users[vm.subTab].photo = angular.copy(response.data.data.photo);
-			    			}*/
-			    			if(response.data.data.photo != ''){
-				    			image_path = response.data.data.photo;
-				    			org_name = response.data.data.photo.split('/').pop();
-				    			App.Helpers.loadImage({
-					                target: $('#display_pic').find('.drag_img'),
-					                css: 'img-circle',
-					                remove: true,
-					                url_prefix: false,
-					                url: image_path,
-					                onComplete: function(){
-					                	$('#display_pic').find('.qq-upload-list').html('');
-					                	$('#display_pic').find('.qq-upload-list').append("<li><input type='hidden' name='photo_org_name_s3' value='"+
-																		org_name+"' /><input type='hidden' value='" + image_path +
-																		"' name='photo_s3'/></li>").show();
-					                },
-					                onError: function() {
-					                	$('#display_pic').find('.qq-upload-drop-area').hide();
-					                    $('#display_pic').find('.qq-upload-button').show();
-					                }
-					            });
-				    		}
-			    		}
-			    		vm.message = true;
-			    		vm.backendMsg = response.data.message.msg[0];
-			    		setTimeout(function(){vm.message = false;$scope.$apply()},3000);
-				    }
-				    else if(response.data.status_code == 403){
-				    	if(response.data.message.hasOwnProperty('emailid')){
-				    		vm.backendError = response.data.message.emailid[0];
-				    	}
-				    	else{
-				    		vm.backendError = response.data.message.msg[0];
-				    	}
-				    }
-				    else if(response.data.status_code == 400){
-			            $window.location = CONFIG.APP_DOMAIN + 'logout';
-			        }
-			    },function(response){
-			    	console.log(response)
-			    })
-			}
-		}
+
+        // add New group or person
+        function addNew(cond) {
+            resetErrors();
+            vm.readable = false;
+            if (cond == 'group') {
+                vm.group = true;
+                vm.newUser = true;
+                vm.tab = -1;
+                vm.groupData = {};
+                vm.admin = permissionsService.getPermissions();
+                for (var i = 0; i < vm.admin.length; i++) {
+                    vm.permissions[vm.admin[i].id] = 0;
+                    if (vm.admin[i].children.length > 0) {
+                        vm.permissions[vm.admin[i].id] = 0;
+                        for (var j = 0; j < vm.admin[i].children.length; j++) {
+                            vm.permissions[vm.admin[i].id + '_' + vm.admin[i].children[j].id] = 0;
+                        }
+                    }
+                }
+                setTimeout(function () {
+                    $('form[name="new_group_form"] input[type="text"]:first').focus();
+                }, 100);
+            }
+            else {
+                vm.group = false;
+                vm.newPerson = true;
+                vm.personDetails = {};
+                // qq uploader
+                setTimeout(function () {
+                    qquploader();
+                }, 100);
+                setTimeout(function () {
+                    $('form[name="new_user_form"] input[type="text"]:first').focus();
+                }, 100);
+            }
+        }
 
         //  edit or add group
         function createGroup(isValid, id, flag) {
