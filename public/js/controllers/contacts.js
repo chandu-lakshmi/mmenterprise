@@ -701,6 +701,7 @@
 
                     var uploadData = [];
                     function uploader(index, status) {
+                        console.log(index)
                         var count = scope.bucketsList[index].count != undefined ? scope.bucketsList[index].count + ' contact(s)' : '';
                         window["$contacts_upload_" + index] = $('.upload-bucket').eq(index);
                         var uploader = new qq.FileUploader({

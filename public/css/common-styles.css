@@ -107,7 +107,7 @@ input::-moz-placeholder {
 /* mintmesh buttons */
 .mm-btn, .mm-btn:hover, .mm-btn:active, .mm-btn:focus {
   background: #1d8e70 !important;
-  color: #fff;
+  color: #fff !important;
   outline: none;
   cursor: pointer;
   text-decoration: none;

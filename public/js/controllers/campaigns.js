@@ -1219,7 +1219,7 @@
         vm.copyUrl = App.base_url + 'email/all-campaigns/share?ref=' + vm.details.camp_ref;
 
         vm.close = close;
-        vm.geoLocationUrl = vm.details.location_type == 'onsite' ? ("http://maps.google.com/?output=embed&f=q&source=s_q&hl=en&q=" + vm.details.location.address + ' ,' + vm.details.location.city + ' ,' + vm.details.location.state) : "#";
+        vm.geoLocationUrl = vm.details.location_type == 'onsite' ? ("https://maps.google.com/?output=embed&f=q&source=s_q&hl=en&q=" + vm.details.location.address + ' ,' + vm.details.location.city + ' ,' + vm.details.location.state) : "#";
        
         var desc = '';
         if (vm.details.location_type != 'online')

@@ -979,9 +979,9 @@
         function getPartnersData(i) {
             vm.show_error = false;
             vm.activeIndex = i;
-            if(vm.list.length == 0)
+            if (vm.list.length == 0)
                 getPartners();
-            else{
+            else {
                 vm.partnerDetails = angular.copy(vm.list[vm.activeIndex])
                 vm.checkbox = vm.list[vm.activeIndex].hcm_status == 'enable' ? true : false;
             }
@@ -1019,12 +1019,13 @@
             addEditPartner(data, function (data) {
                 vm.loading = false;
                 angular.extend(vm.partnerDetails, data)
+                vm.checkbox = data.hcm_status == 'disable' ? false : true;
                 angular.extend(vm.list[vm.activeIndex], data)
             });
         }
 
         function getPartners() {
-            
+
             $http({
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -1048,7 +1049,7 @@
                         console.log(response)
                     })
         }
-        
+
 
         function addEditPartner(data, callback) {
             $http({
