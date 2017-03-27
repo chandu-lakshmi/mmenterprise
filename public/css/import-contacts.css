@@ -613,7 +613,7 @@ body.import_verify,body.bucket,body.posted-success,body.referral-status,body.res
 }
 .import_c_box .loader{
   position: absolute;
-  top: 53%;
+  top: 50%;
   left: 46%;
   width: 60px;
 }

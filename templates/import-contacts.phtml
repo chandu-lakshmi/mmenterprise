@@ -1,31 +1,31 @@
 <div class="import-file">
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-8 col-sm-offset-2 grid_center">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2 grid_center">
 
-				<!-- logo -->
-				<div class="text-center">
-					<a href=""><img src="public/images/company_logo.svg" alt="logo" class="import_logo" ></a>
-				</div>
+                <!-- logo -->
+                <div class="text-center">
+                    <a href=""><img src="public/images/company_logo.svg" alt="logo" class="import_logo" ></a>
+                </div>
 
-				<!--import contacts header-->
-				<div class="row import_c_box" style='padding-bottom: 17px;position:relative'>
-						
-					<div class="col-sm-12" style="border-bottom:1px solid #ccc;">
-						<div style="padding:22px 0px;">
-							<!-- <img src="public/images/arrow-back.svg" alt="arrowback" class="pull-left" ng-click="importCtrl.backToCompleteProfile()"> -->
-							<h3 class="mrZpdZ text-center" style="font-size:1.7em;color:silver">IMPORT YOUR CONTACTS</h3>
-						</div>
-					</div>
-					<div ng-if="UploadContCtrl.loader" style="position:relative;min-height: calc(100vh - 168px);">
-				        <img class="loader" src="public/images/loader/spin.gif"  alt="loader">
-				    </div>
-					<div ng-show="!UploadContCtrl.loader" class="col-xs-12 col-sm-10 col-sm-offset-1 upload-con animated fadeIn">
-						<div class="bucket-modal" ng-include="'templates/dialogs/new-file-upload.phtml'"></div>
-					</div>
-		
-				</div>
-			</div>
-		</div>
-	</div>
+                <!--import contacts header-->
+                <div class="row import_c_box" style='padding-bottom: 17px;position:relative'>
+
+                    <div class="col-sm-12" style="border-bottom:1px solid #ccc;">
+                        <div style="padding:22px 0px;">
+                                <!-- <img src="public/images/arrow-back.svg" alt="arrowback" class="pull-left" ng-click="importCtrl.backToCompleteProfile()"> -->
+                            <h3 class="mrZpdZ text-center" style="font-size:1.7em;color:silver">IMPORT YOUR CONTACTS</h3>
+                        </div>
+                    </div>
+                    <div ng-show="UploadContCtrl.loader">
+                        <img class="loader" src="public/images/loader/spin.gif"  alt="loader">
+                    </div>
+                    <div ng-show="!UploadContCtrl.loader" class="col-xs-12 col-sm-10 col-sm-offset-1 upload-con animated fadeIn">
+                        <div class="bucket-modal" ng-include="'templates/dialogs/new-file-upload.phtml'" onload="UploadContCtrl.loaded = true"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
