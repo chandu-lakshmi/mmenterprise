@@ -669,7 +669,16 @@
                     buckets.setData(scope.bucketNames);
                     scope.bucketsList = buckets.getData();
                     scope.loader = false;
-                    calBuckets();
+                    if (scope.loaded) {
+                        setTimeout(function () {
+                            dynamicUploader(scope.bucketsList.length);
+                        }, 100);
+                    }
+                    else {
+                        setTimeout(function () {
+                            dynamicUploader(scope.bucketsList.length);
+                        }, 500);
+                    }
                 }
                 // Session Destroy
                 else if (response.status_code == 400) {
@@ -686,16 +695,6 @@
                 dynamicUploader(scope.bucketsList.length)
             }, 100);
             scope.newBucketModal = false;
-        }
-
-        function calBuckets() {
-            $scope.$watch(scope.loaded, function () {
-                if (scope.loaded) {
-                    setTimeout(function () {
-                        dynamicUploader(scope.bucketsList.length);
-                    }, 100);
-                }
-            })
         }
 
         // download sample template

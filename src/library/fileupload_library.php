@@ -102,6 +102,7 @@ class fileupload_library {
 			$data['success']=true;
 			$data['filename']=$uploadDirectory.$filename . '.' . $ext;
 			$data['ext']=$ext;
+			$data['size']=$size;
            // return array('success'=>true);
 		   return $data;
         } else {

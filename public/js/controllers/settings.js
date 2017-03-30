@@ -17,7 +17,7 @@
     SettingsCompanyProfileController.$inject = ['$window', 'CompanyDetails', '$http', 'CONFIG'];
     MyProfileController.$inject = ['$http', '$scope', '$window', '$uibModal', 'UserDetails', 'userData', 'CONFIG', 'App'];
     UserGroupController.$inject = ['$scope', '$window', '$element', 'CONFIG', '$http', '$q', 'userData', 'permissionsService', 'userPermissions', 'App'];
-    ConfigManagerController.$inject = [];
+    ConfigManagerController.$inject = ['$scope', 'App'];
     IntManagerController.$inject = ['$timeout', '$http', 'App'];
 
     function permissionsService() {
@@ -942,18 +942,22 @@
     }
 
 
-    function ConfigManagerController() {
+    function ConfigManagerController($scope, App) {
         var vm = this;
 
         vm.show_error = false;
-        vm.options = [
-            {id: 1, name: 'k.shivakumar@enterpi.com'},
-            {id: 2, name: 'k.shivakumar@enterpi.com'},
-            {id: 3, name: 'k.shivakumar@enterpi.com'},
-            {id: 4, name: 'k.shivakumar@enterpi.com'}
+        vm.emailsList = [
+            {id: 1, email_id: 'adams@infosys.com'},
+            {id: 2, email_id: 'adwin.ams@infosys.com'},
+            {id: 3, email_id: 'adward.ad123@infosys.com'}
         ]
 
         vm.save = save;
+        vm.trash = trash;
+
+        setTimeout(function () {
+            $('#selectJob').chosen()
+        }, 1);
 
         function save(isValid) {
             if (!isValid) {
@@ -961,6 +965,83 @@
                 return
             }
         }
+        
+        function trash(){
+            $upload.find('.qq-upload-drop-area').css('display', 'none');
+            $upload.find('.qq-upload-drop-area').html();
+        }
+
+        // Upload File
+        vm.successUpload = false;
+        var $upload = $('#upload');
+        function template() {
+            return  '<div class="up-tmp">' +
+                    '  <div class="box clearfix" layout="row">' +
+                    '      <img src="public/images/pdf.png" class="avatar pull-left">' +
+                    '      <div class="content pull-left">' +
+                    '          <p>'+ vm.docObj.org_name +'</p>' +
+                    '          <em>'+ vm.docObj.size +' KB</em>' +
+                    '      </div>' +
+                    '      <i class="material-icons pull-right" onclick="angular.element(this).scope().ConfigMngCtrl.trash()">close</i>' +
+                    '  </div>' +
+                    '  <div class="action clearfix">' +
+                    '      <var style="padding-right: 10px;">Change</var>' +
+                    '      <var style="padding-left: 10px;"><a href="' + App.base_url + 'viewer?url=' + vm.docObj.filename + '" class="view" target="_blank">View Details</a></var>' +
+                    '      <var class="pull-right">(Maximum size is 10MB)</var>' +
+                    '  </div>' +
+                    '</div>'
+        }
+
+        App.Helpers.initUploader({
+            id: "upload",
+            dragText: "",
+            uploadButtonText: "Upload a file",
+            size: (10 * 1024 * 1024),
+            allowedExtensions: ['csv', 'pdf', 'doc', 'docx'],
+            action: App.base_url + "file_upload",
+            showFileInfo: false,
+            shortMessages: true,
+            remove: true,
+            file_name: 'referral_org_name',
+            path_name: 'referral_bonus_file',
+            onSubmit: function (id, name) {
+                $upload.find('.qq-upload-list').css('z-index', '0');
+            },
+            onComplete: function (id, name, response) {
+                if (response.success) {
+                    vm.docObj = response;
+                    $scope.$apply();
+                    /*vm.successUpload = true;
+                     $scope.$apply();
+                     console.log(response)*/
+                    $upload.find('.qq-upload-list').css('z-index', '-1');
+                    /*$upload.find('.qq-upload-list .qq-upload-success').css('background', 'transparent');
+                     $upload.find('.qq-upload-list .upload-success').hide();
+                     $upload.find('.qq-upload-button').hide();*/
+                    $upload.find('.qq-upload-drop-area').css('background', '#fff');
+                    $upload.find('.qq-upload-drop-area').css('display', 'block');
+                    $upload.find('.qq-upload-drop-area').html(template());
+                    /*$upload.find('.qq-upload-drop-area .drag_img').html('<a href="' + App.base_url + 'viewer?url=' + bonus_file_path + '" class="view" target="_blank"><img src="public/images/Applied.svg"><p class="ellipsis" title="' + response.org_name + '">' + response.org_name + '&nbsp;</p></a>');
+                     $upload.find('.drag_img').append('<a href="' + bonus_file_path + '" download class="download"><img src="public/images/material_icons/download.svg"></a><img src="public/images/material_icons/circle-close.svg" onclick="angular.element(this).scope().editCompCtrl.trash(true)" style="margin-top:-4px">');*/
+                }
+                else {
+                    $upload.find('.qq-upload-button').show();
+                    $upload.find('.qq-upload-fail').remove();
+                    $upload.append("<div class='qq-upload-fail'><i class='fa fa-times'></i>&nbsp;<span>" + response.msg + "</span></div>");
+                }
+            },
+            showMessage: function (msg, obj) {
+                $upload.find('.qq-upload-list').css('z-index', '0');
+//                $(obj._listElement).fadeIn();
+            },
+            onRemove: function () {
+//                vm.update = true;
+//                $scope.$apply();
+            },
+            onRemoveComplete: function () {
+                $upload.find('.qq-upload-list').css('z-index', '-1');
+            }
+        })
     }
 
     function IntManagerController($timeout, $http, App) {

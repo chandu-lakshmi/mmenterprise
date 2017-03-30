@@ -1057,7 +1057,6 @@ $app->post('/add_job',function ($request, $response, $args) use ($app) {
 });
 //Company Details
 $app->POST('/file_upload',function ($request, $response, $args) {
-
     require 'library/fileupload_library.php';
     $file_upload = new fileupload_library; 
             $args       = commonData($this->settings);
@@ -1097,6 +1096,7 @@ $app->POST('/file_upload',function ($request, $response, $args) {
                 $fname =  str_replace('_',' ',$org_name);
                 //$result['org_name'] = pathinfo(filterString($fname), PATHINFO_FILENAME);
                 $result['org_name'] = $fname;
+                $result['size'] = $result['size']/1000;
                 $result['filename'] = 'uploads/'.$myfilename.'.'.$result['ext'];
                 $data['success'] = true;
                 echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);

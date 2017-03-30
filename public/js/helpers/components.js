@@ -10,7 +10,7 @@
             .directive('copyUrl', copyUrl)
             .directive('checkCharZero', checkCharZero)
             .directive('ripplelink', ripplelink)
-            /*.directive('epiMultipleSelect', epiMultipleSelect)*/
+            //.directive('epiMultipleSelect', epiMultipleSelect)
             // .directive('toolTip', toolTip)
 
             .config(function (App) {
@@ -338,7 +338,7 @@
             template: 
                     '<md-input-container class="ml-sl">'+
                     '   <label>White Listing</label>' +
-                    '   <input type="text">' +
+                    '   <input type="text" ng-keyup="filter(search)" ng-model="search">' +
                     '   <i class="material-icons ic-rt">search</i>' +
                     '</md-input-container>' +
                     '<ul class="dp-dw">' +
@@ -352,6 +352,10 @@
                 element.find('.search-box').on('focus', function (event) {
                     angular.element(event.target).parent().removeClass('inactive');
                 });
+                
+                scope.filter = function(search){
+                    console.log(scope.options)
+                }
             }
         }
     }*/
