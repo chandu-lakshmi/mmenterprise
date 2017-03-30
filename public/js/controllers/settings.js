@@ -986,7 +986,7 @@
                     '  </div>' +
                     '  <div class="action clearfix">' +
                     '      <var style="padding-right: 10px;">Change</var>' +
-                    '      <var style="padding-left: 10px;"><a href="' + App.base_url + 'viewer?url=' + vm.docObj.filename + '" class="view" target="_blank">View Details</a></var>' +
+                    '      <var style="padding-left: 10px;"><a href="' + App.base_url + 'viewer?url=' + App.API_DOMAIN + vm.docObj.filename + '" class="view" target="_blank">View Details</a></var>' +
                     '      <var class="pull-right">(Maximum size is 10MB)</var>' +
                     '  </div>' +
                     '</div>'
