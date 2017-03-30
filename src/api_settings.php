@@ -246,6 +246,10 @@ return [
             'get_hcm_partners' =>[
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/get_hcm_partners'
+            ],
+            'company_all_contacts' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/company_all_contacts'
             ]
     ];
         

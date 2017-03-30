@@ -828,6 +828,31 @@ md-select[disabled]{
                   border: 1px solid #ccc;
                   line-height: 30px;
                   font-size: 16px; }
+                  .settings .config-manager .saml .rt md-card md-card-content .file-upload #upload .qq-uploader .qq-upload-button input[type="file"] {
+                    width: 127%; }
+            .settings .config-manager .saml .rt md-card md-card-content .file-upload #change {
+              cursor: pointer; }
+              .settings .config-manager .saml .rt md-card md-card-content .file-upload #change .qq-uploader {
+                width: 65px;
+                display: inline-block;
+                position: initial;
+                height: auto; }
+                .settings .config-manager .saml .rt md-card md-card-content .file-upload #change .qq-uploader .qq-upload-button {
+                  background: transparent;
+                  border: 0;
+                  color: #03a8e0;
+                  padding: 0;
+                  position: relative;
+                  line-height: initial;
+                  font-size: 13px; }
+                  .settings .config-manager .saml .rt md-card md-card-content .file-upload #change .qq-uploader .qq-upload-button .button_txt {
+                    font-size: 13px;
+                    text-align: left;
+                    position: initial;
+                    display: inline;
+                    line-height: initial; }
+                  .settings .config-manager .saml .rt md-card md-card-content .file-upload #change .qq-uploader .qq-upload-button input[type="file"] {
+                    width: 250%; }
             .settings .config-manager .saml .rt md-card md-card-content .file-upload .up-tmp .box {
               border: 1px solid #ccc;
               padding: 5px 10px;

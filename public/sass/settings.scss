@@ -494,7 +494,18 @@ body.set-password{overflow: hidden;}
                                                  #upload{margin: 8px 0;
                                                      .qq-uploader{margin: 0;padding: 0;height: 45px;overflow: initial;
                                                                   .qq-upload-button{color: #565656;background: #e6e6e6;border: 1px solid #ccc;line-height: 30px;
-                                                                                   font-size: 16px;}
+                                                                                   font-size: 16px;
+                                                                                   input[type="file"]{width: 127%;}
+                                                                  }
+                                                     }
+                                                 }
+                                                 #change{cursor: pointer;
+                                                     .qq-uploader{width: 65px;display: inline-block;position: initial;height: auto;
+                                                         .qq-upload-button{background: transparent;border: 0;color: #03a8e0;padding: 0;position: relative;
+                                                                           line-height: initial;font-size: 13px;
+                                                                           .button_txt{font-size: 13px;text-align: left;position: initial;display: inline;line-height: initial}
+                                                                           input[type="file"]{width: 250%;}
+                                                         }
                                                      }
                                                  }
                                                  .up-tmp{

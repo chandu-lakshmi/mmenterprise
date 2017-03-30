@@ -1312,3 +1312,21 @@ $app->post('/get_hcm_partners',function ($request, $response, $args) use ($app) 
     
     return checkJsonResult( $jobList->loadCurl() );
 });
+
+//Contact List
+$app->post('/company_all_contacts',function ($request, $response, $args) use ($app) {
+    
+    // dynamically Access Token, Company id
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    
+    // getting API endpoint from settings
+    $apiEndpoint = getapiEndpoint($this->settings, 'company_all_contacts');
+   
+    $contactsList     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+
+     return checkJsonResult( $contactsList->loadCurl() );
+});
