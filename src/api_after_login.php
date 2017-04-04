@@ -307,6 +307,9 @@ $app->post('/jobs_list',function ($request, $response, $args) use ($app) {
     // dynamically Access Token, Company Details
     $this->mintmeshAccessToken;
     $this->mintmeshCompanyId;
+    
+    $_SESSION['time_zone'] = $_POST['time_zone'];
+    
     // getting API endpoint from settings
    $apiEndpoint = getapiEndpoint($this->settings, 'jobs_list');
    
@@ -655,14 +658,11 @@ $app->get('/settings/my-profile',function ($request, $response, $args) use ($app
     //Check Logged in or not
     if(!empty(authenticate())){
       return $response->withRedirect($args['APP_DOMAIN']);
-    }else if($_SESSION['userPermissions']['settings']==1)
-    {
+    }
+    
     $args['comp_data'] = companyProfile($this->settings);
     // Render dashboard view
     return $this->renderer->render($response, 'index.phtml', $args);
-    } else{
-        return $response->withRedirect($args['APP_DOMAIN'].'404');
-    }
     //return $response->withRedirect($args['APP_DOMAIN']."settings/company-profile");
 });
 

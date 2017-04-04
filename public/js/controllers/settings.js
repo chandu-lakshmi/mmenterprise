@@ -1,6 +1,5 @@
 (function () {
     "use strict";
-
     angular
             .module('app.settings', ['ngAutocomplete'])
             .controller('SettingsController', SettingsController)
@@ -19,10 +18,8 @@
     UserGroupController.$inject = ['$scope', '$window', '$element', 'CONFIG', '$http', '$q', 'userData', 'permissionsService', 'userPermissions', 'App'];
     ConfigManagerController.$inject = ['$scope', '$timeout', 'App'];
     IntManagerController.$inject = ['$timeout', '$http', 'App'];
-
     function permissionsService() {
         var permissionData = {};
-
         this.setPermissions = function (data) {
             permissionData = data;
         }
@@ -40,7 +37,6 @@
     function userData() {
         var obj = {};
         this.bol = true;
-
         this.setData = function (data) {
             obj = data;
         }
@@ -59,7 +55,6 @@
             require: 'ngModel',
             link: function (scope, elem, attrs, ctrl) {
                 var rePassword = '#' + attrs.pwMatch;
-
                 elem.add(rePassword).on('keyup', function () {
                     scope.$apply(function () {
                         var v = elem.val() === $(rePassword).val();
@@ -79,11 +74,9 @@
 
         var vm = this;
         var APP_URL = CONFIG.APP_DOMAIN;
-
         vm.companyDetails = {};
         vm.industry_list = {};
         vm.number_of_employees = ["10-50", "50-100", "100-500", "500-1000", "1000-5000", "5000+"];
-
         $http({
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -125,7 +118,6 @@
 
         var vm = this,
                 $display_pic, image_path = '', org_name = '';
-
         vm.errCond = false;
         vm.loader = false;
         vm.modalLoader = false;
@@ -133,22 +125,17 @@
         vm.has_image = false;
         vm.changeFound = false;
         vm.displayPicture = '';
-
         if (userData.bol) {
             userData.setData(UserDetails);
         }
         vm.myProfile = angular.copy(userData.getData());
-
-
         vm.passwords = {};
         vm.backendMsg = '';
         vm.successMsg = '';
         vm.modalInstance = '';
-
         vm.setPassword = setPassword;
         vm.saveChanges = saveChanges;
         vm.changePassword = changePassword;
-
         if (userData.getData().user_dp != null && userData.getData().user_dp != '') {
             vm.displayPicture = userData.getData().user_dp;
         }
@@ -156,7 +143,7 @@
             vm.displayPicture = '';
         }
 
-        // Reseting errors
+// Reseting errors
         function resetErrors() {
             vm.passwords = {};
             vm.backendMsg = '';
@@ -164,7 +151,7 @@
             vm.errCond = false;
         }
 
-        //  update user profile and company logo
+//  update user profile and company logo
         function saveChanges(isValid) {
             if (!isValid) {
                 vm.errCond = true;
@@ -172,11 +159,8 @@
             else {
                 vm.errCond = false;
                 vm.loader = true;
-
                 var formData = $('form[name="my_profile_form"]').serialize();
-
                 angular.element('.disabled').css('pointer-events', 'none');
-
                 var updateUser = $http({
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -231,21 +215,18 @@
             }
         }
 
-        // set password
+// set password
         function changePassword(isValid) {
             vm.errCond = false;
+            vm.backendMsg = false;
             if (!isValid) {
                 vm.errCond = true;
             }
             else {
                 vm.errCond = false;
                 vm.modalLoader = true;
-
                 var formData = $('form[name="change_password_form"]').serialize();
-
                 angular.element('.disabled').css('pointer-events', 'none');
-
-
                 var changePassword = $http({
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -281,7 +262,7 @@
             }
         }
 
-        // modal window for set passwords
+// modal window for set passwords
         function setPassword() {
             resetErrors();
             vm.modalInstance = $uibModal.open({
@@ -295,7 +276,7 @@
         }
 
 
-        // qq-uploader
+// qq-uploader
         var $display_pic = $('#display_pic');
         App.Helpers.initUploader({
             id: "display_pic",
@@ -351,7 +332,6 @@
                 $display_pic.find('.qq-upload-list').css('z-index', '-1');
             }
         });
-
         if (vm.displayPicture != '') {
             $display_pic.find('.qq-upload-drop-area').css({
                 'display': 'block',
@@ -384,14 +364,12 @@
         var vm = this,
                 APP_URL = CONFIG.APP_DOMAIN,
                 $display_pic, image_path = '', org_name;
-
         //userData.bol = false;
 
         // google api for location field
         this.geo_location = '';
         this.geo_options = null;
         this.geo_details = '';
-
         vm.newUser = false;
         vm.errCond = false;
         vm.loader = false;
@@ -408,27 +386,22 @@
         vm.tab = '';
         vm.statusText = ['Active', 'Inactive'];
         vm.changePermission = changePermission;
-
         vm.getGroupData = getGroupData;
         vm.getPersonData = getPersonData;
         vm.addNew = addNew;
         vm.createGroup = createGroup;
         vm.addPerson = addPerson;
         vm.resendActivation = resendActivation;
-
         vm.permission_template = "templates/settings/permissions_template.phtml";
         vm.group_template = "templates/settings/group-template.phtml";
         vm.person_template = "templates/settings/person-template.phtml";
-
         // color picker
         var colorCode = ["#21A4AC", "#EE8F3B", "#2A99E0", "#154c50", "#103954", "#342158", "#5B5B29", "#004D40", "#229A77", "#6f2b25"];
-
         vm.colorPicker = function (ind) {
             return colorCode[String(ind).slice(-1)];
         }
 
         vm.pageLoader = false;
-
         // initial loader
         //vm.borderInc = 1;
         //var s = $interval(function() {
@@ -437,13 +410,10 @@
         //}, 100);
 
         var canceller = $q.defer();
-
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (toState.name != 'app.settings.userGroups')
                 canceller.resolve()
         });
-
-
         // fab button materialize js
         $('.fixed-action-btn').hover(function () {
             $(this).addClass('active');
@@ -484,6 +454,37 @@
         }
 
 
+        // job title autocomplete
+        vm.getServices = function (userInputString, timeoutPromise) {
+            var services = [];
+
+            return $http({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'POST',
+                data: $.param({search: userInputString}),
+                url: CONFIG.APP_DOMAIN + 'company_all_contacts',
+                timeout: timeoutPromise
+            })
+                    .then(function (response) {
+                        services = response.data.data;
+                        return  {"data": services}
+                    })
+        }
+
+        vm.selectedEmail = function (obj) {
+            if (obj != undefined && obj.hasOwnProperty('originalObject')){
+                vm.personDetails.fullname = obj.originalObject.firstname + ' ' + obj.originalObject.lastname;
+                vm.personDetails.status = obj.originalObject.status;
+            }
+            else{
+                vm.personDetails.fullname = '';
+                vm.personDetails.status = '';
+            }
+        }
+
+
         // user permissions API
         function UserPermissions() {
             $http({
@@ -508,7 +509,6 @@
         }
 
         UserPermissions();
-
         // get groups API
         function getGroups() {
             $http({
@@ -522,7 +522,6 @@
                     .then(function (response) {
                         if (response.data.status_code == 200) {
                             vm.pageLoader = true;
-
                             // loader
                             // vm.borderInc = 100;
                             // $interval.cancel(s);
@@ -645,6 +644,9 @@
                 vm.group = false;
                 vm.newPerson = true;
                 vm.personDetails = {};
+                vm.personDetails.group_id = vm.tab != -1 ? vm.groupNames[vm.tab].group_id : '';
+                
+                $scope.$broadcast('angucomplete-alt:clearInput', 'ex1');
                 // qq uploader
                 setTimeout(function () {
                     qquploader();
@@ -944,7 +946,6 @@
 
     function ConfigManagerController($scope, $timeout, App) {
         var vm = this;
-
         vm.show_error = false;
         vm.emailsList = [
             {id: 1, email_id: 'adams@infosys.com'},
@@ -954,11 +955,9 @@
 
         vm.save = save;
         vm.trash = trash;
-
         setTimeout(function () {
             $('#selectJob').chosen()
         }, 1);
-
         function save(isValid) {
             if (!isValid) {
                 vm.show_error = true;
@@ -993,8 +992,10 @@
         }
 
         function upload(id) {
-            if(id == 'change')
-                $timeout(function(){$('#change input[type="file"]').attr('title', ' ');},100);
+            if (id == 'change')
+                $timeout(function () {
+                    $('#change input[type="file"]').attr('title', ' ');
+                }, 100);
             App.Helpers.initUploader({
                 id: id,
                 dragText: "",
@@ -1015,19 +1016,11 @@
                     if (response.success) {
                         vm.docObj = response;
                         $scope.$apply();
-                        /*vm.successUpload = true;
-                         $scope.$apply();
-                         console.log(response)*/
                         $upload.find('.qq-upload-list').css('z-index', '-1');
-                        /*$upload.find('.qq-upload-list .qq-upload-success').css('background', 'transparent');
-                         $upload.find('.qq-upload-list .upload-success').hide();
-                         $upload.find('.qq-upload-button').hide();*/
                         $upload.find('.qq-upload-drop-area').css('background', '#fff');
                         $upload.find('.qq-upload-drop-area').css('display', 'block');
                         $upload.find('.qq-upload-drop-area').html(template());
                         upload('change')
-                        /*$upload.find('.qq-upload-drop-area .drag_img').html('<a href="' + App.base_url + 'viewer?url=' + bonus_file_path + '" class="view" target="_blank"><img src="public/images/Applied.svg"><p class="ellipsis" title="' + response.org_name + '">' + response.org_name + '&nbsp;</p></a>');
-                         $upload.find('.drag_img').append('<a href="' + bonus_file_path + '" download class="download"><img src="public/images/material_icons/download.svg"></a><img src="public/images/material_icons/circle-close.svg" onclick="angular.element(this).scope().editCompCtrl.trash(true)" style="margin-top:-4px">');*/
                     }
                     else {
                         $upload.find('.qq-upload-button').show();
@@ -1048,23 +1041,20 @@
                 }
             })
         }
-        
+
         upload('upload');
     }
 
     function IntManagerController($timeout, $http, App) {
         var vm = this;
-
         vm.loader = false;
         vm.mintmeshPartnes = [];
         vm.show_error = false;
         vm.partnerDetails = {};
         vm.list = [];
-
         //vm.addPartner = addPartner;
         vm.getPartnersData = getPartnersData;
         vm.update = update;
-
         function getPartnersData(i) {
             vm.show_error = false;
             vm.activeIndex = i;
@@ -1093,7 +1083,6 @@
                     })
         }
         dropDown();
-
         function update(isValid) {
             if (!isValid) {
                 vm.show_error = true;
@@ -1159,7 +1148,6 @@
                             return;
                         }
                         vm.sucMsg = response.data.message.msg[0];
-
                     }, function (response) {
                         console.log(response)
                     })

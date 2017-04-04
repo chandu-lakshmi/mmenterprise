@@ -118,51 +118,6 @@ body.set-password {
   font-size: 14px;
   background: #eeeff1;
   /* fab icon from materialize.css */
-  /* angular material styles */
-  /*md-input-container{margin-bottom: 30px;
-          /*label{margin-bottom: 0;color: #767877;
-                  &:not(.md-no-float):not(.md-container-ignore){@include transform(28px, 1)}
-          }
-          .md-input{padding: 2px 2px 6px !important;height: 31px;
-                  &.ng-invalid.ng-dirty{border-width: 0 0 1px;}
-          }
-          &.md-input-has-placeholder label:not(.md-no-float){@include transform(-2px)}*/
-  /*.md-placeholder{@include transform(23px, 1)}*/
-        /*.md-input-focused .md-input{@extends .md-input.ng-invalid.ng-dirty}
-        &:not(.md-input-invalid).md-input-focused .md-input{border-color: #208d6e;border-bottom-width: 1px;}
-        &.md-input-has-value{
-                .md-select-value .md-select-icon:after{content: url("../images/arrow-dropdown-active.svg") !important;
-                display: inline !important;}
-                label:not(.md-no-float){@include transform(-2px)}
-        }
-        &:not(.md-input-invalid).md-input-focused label{@include transform(-2px)}
-        &.select-box.md-input-has-value label{@include transform(4px)}
-}
-md-select{
-        .md-select-value{padding-bottom: 6px !important;}
-        &:not([disabled]):focus .md-select-value{border-color: #208d6e;border-bottom-width: 1px;@extend .md-select-value}
-}
-.md-input[disabled]{border-bottom-color: rgba(0, 0, 0, 0.12);background-image: none;color: rgba(0, 0, 0, 0.87)}
-md-select[disabled]{
-        .md-select-value{@extend .md-input[disabled]}
-}*/
-  /* qq-uploader */
-  /*#display_pic{width: 120px;height: 120px;margin: 0 auto;position: relative;*/
-        /*.qq-uploader{padding: 0;height: 100%;
-                .qq-upload-drop-area{background: transparent;
-                        .drag_img{
-                                img{border: 4px solid #30b391;}
-                                .overlay{border-radius: 50%;}
-                        }
-                }
-                .qq-upload-button{background: transparent;text-shadow: none;padding: 0;width: 100%;
-                        img{width: 100%;height: 100%}			
-                }
-        }
-        .qq-upload-fail{text-align: center;margin: 5px 0;color: #983a3a;position: absolute;left: 100%;top: 0;
-                margin: 15px;width: 250px;
-        }
-}*/
   /* sub header */ }
   .settings div[uib-popover-popup] {
     top: -35px;
@@ -293,8 +248,6 @@ md-select[disabled]{
               left: 0px;
               right: 0px;
               border-bottom: 3px solid #14acff; }
-          .settings .sub-header ul li a:focus {
-            color: #fff; }
           .settings .sub-header ul li a span.background {
             background: url("../images/settings.png");
             width: 20px;
@@ -473,6 +426,17 @@ md-select[disabled]{
   .settings .user-group {
     min-height: calc(100vh - 160px);
     font-size: 16px; }
+    .settings .user-group .angucomplete-dropdown {
+      top: 45px;
+      padding: 0;
+      border-color: #ccc; }
+    .settings .user-group .angucomplete-row {
+      color: #424242; }
+      .settings .user-group .angucomplete-row:not(:last-child) {
+        border-bottom: 1px solid #ccc; }
+    .settings .user-group .angucomplete-selected-row {
+      background: #eee;
+      color: #424242; }
     .settings .user-group md-input-container {
       margin-bottom: 14px; }
     .settings .user-group .side-list {
@@ -658,6 +622,8 @@ md-select[disabled]{
       .settings .user-group .box .templates .person .content {
         padding: 50px;
         min-height: 740px; }
+        .settings .user-group .box .templates .person .content div[angucomplete-alt].has-error-border input {
+          border-color: red !important; }
         .settings .user-group .box .templates .person .content div.clearfix md-input-container:first-child {
           width: 46%;
           float: left;
@@ -822,12 +788,16 @@ md-select[disabled]{
                 padding: 0;
                 height: 45px;
                 overflow: initial; }
+                .settings .config-manager .saml .rt md-card md-card-content .file-upload #upload .qq-uploader .qq-upload-list {
+                  left: 0;
+                  width: 50%; }
                 .settings .config-manager .saml .rt md-card md-card-content .file-upload #upload .qq-uploader .qq-upload-button {
                   color: #565656;
                   background: #e6e6e6;
                   border: 1px solid #ccc;
                   line-height: 30px;
-                  font-size: 16px; }
+                  font-size: 16px;
+                  width: 50%; }
                   .settings .config-manager .saml .rt md-card md-card-content .file-upload #upload .qq-uploader .qq-upload-button input[type="file"] {
                     width: 127%; }
             .settings .config-manager .saml .rt md-card md-card-content .file-upload #change {
@@ -837,12 +807,17 @@ md-select[disabled]{
                 display: inline-block;
                 position: initial;
                 height: auto; }
+                .settings .config-manager .saml .rt md-card md-card-content .file-upload #change .qq-uploader .qq-upload-list {
+                  left: 0;
+                  width: 100%;
+                  height: 58px; }
                 .settings .config-manager .saml .rt md-card md-card-content .file-upload #change .qq-uploader .qq-upload-button {
                   background: transparent;
                   border: 0;
                   color: #03a8e0;
                   padding: 0;
                   position: relative;
+                  width: 100%;
                   line-height: initial;
                   font-size: 13px; }
                   .settings .config-manager .saml .rt md-card md-card-content .file-upload #change .qq-uploader .qq-upload-button .button_txt {

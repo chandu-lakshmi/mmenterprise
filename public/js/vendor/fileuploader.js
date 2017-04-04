@@ -707,7 +707,7 @@ qq.extend(qq.FileUploader.prototype, {
                 if (qq.hasClass(dropArea, self._classes.dropDisabled)) return;
 
                 dropArea.style.display = 'block';        
-                for (i=0; i < dropzones.length; i++){ dropzones[i].style.display = 'block'; }
+                for (i=0; i < dropzones.length; i++){ dropzones[i].style.display = 'none'; } // block
                 
             });
         }

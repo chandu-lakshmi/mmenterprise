@@ -133,6 +133,7 @@
                 data: data + '&' + $.param({
                     search_for : search,
                     page_no : pageNo,
+                    time_zone: new Date().getTimezoneOffset()
                 }),
                 timeout: canceler.promise
             })
