@@ -16,7 +16,7 @@
     SettingsCompanyProfileController.$inject = ['$window', 'CompanyDetails', '$http', 'CONFIG'];
     MyProfileController.$inject = ['$http', '$scope', '$window', '$uibModal', 'UserDetails', 'userData', 'CONFIG', 'App'];
     UserGroupController.$inject = ['$scope', '$window', '$element', 'CONFIG', '$http', '$q', 'userData', 'permissionsService', 'userPermissions', 'App'];
-    ConfigManagerController.$inject = ['$scope', '$timeout', '$http', 'App'];
+    ConfigManagerController.$inject = ['$window', '$scope', '$timeout', '$http', 'App'];
     IntManagerController.$inject = ['$timeout', '$http', 'App'];
     function permissionsService() {
         var permissionData = {};
@@ -954,7 +954,7 @@
     }
 
 
-    function ConfigManagerController($scope, $timeout, $http, App) {
+    function ConfigManagerController($window, $scope, $timeout, $http, App) {
         var vm = this;
         vm.show_error = false;
         vm.uploadSuccess = false;
@@ -1032,6 +1032,9 @@
                         }
                         else if (response.data.status_code == 403) {
                             angular.element(':input').removeAttr('readonly');
+                        }
+                        else{
+                            $window.location = App.base_url + 'logout';
                         }
                     }, function (response) {
 
