@@ -7,8 +7,8 @@
         <div class="clearfix">
             <md-input-container class="md-block">
                 <label>NAME</label>
-                <input type="text" ng-disabled="UserGroupCtrl.readable" name="fullname" ng-model="UserGroupCtrl.personDetails.fullname" required ng-class="{'has-error-border':new_user_form.fullname.$invalid && UserGroupCtrl.errCond}">
-                <div ng-if="new_user_form.fullname.$error.required && UserGroupCtrl.errCond" class="has-error-msg">Please Enter Username</div>
+                <input type="text" ng-disabled="UserGroupCtrl.readable || UserGroupCtrl.newPerson ? true : true" name="fullname" ng-model="UserGroupCtrl.personDetails.fullname">
+                <input type="hidden" name="fullname" value="{{UserGroupCtrl.personDetails.fullname}}" ng-if="!UserGroupCtrl.newPerson || UserGroupCtrl.toggleDisabled">
             </md-input-container>
             <md-input-container class="md-block">
                 <label>DESIGNATION</label>

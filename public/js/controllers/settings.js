@@ -16,7 +16,7 @@
     SettingsCompanyProfileController.$inject = ['$window', 'CompanyDetails', '$http', 'CONFIG'];
     MyProfileController.$inject = ['$http', '$scope', '$window', '$uibModal', 'UserDetails', 'userData', 'CONFIG', 'App'];
     UserGroupController.$inject = ['$scope', '$window', '$element', 'CONFIG', '$http', '$q', 'userData', 'permissionsService', 'userPermissions', 'App'];
-    ConfigManagerController.$inject = ['$scope', '$timeout', 'App'];
+    ConfigManagerController.$inject = ['$scope', '$timeout', '$http', 'App'];
     IntManagerController.$inject = ['$timeout', '$http', 'App'];
     function permissionsService() {
         var permissionData = {};
@@ -379,11 +379,13 @@
             person: false
         };
         vm.readable = false;
+        vm.toggleDisabled = false;
         vm.personDetails = {};
         vm.permissions = {};
         vm.backendError = '';
-        vm.activeClass = '';
+        //vm.activeClass = '';
         vm.tab = '';
+        vm.subTab = '';
         vm.statusText = ['Active', 'Inactive'];
         vm.changePermission = changePermission;
         vm.getGroupData = getGroupData;
@@ -474,13 +476,17 @@
         }
 
         vm.selectedEmail = function (obj) {
-            if (obj != undefined && obj.hasOwnProperty('originalObject')){
+            if (obj != undefined && obj.hasOwnProperty('originalObject')) {
                 vm.personDetails.fullname = obj.originalObject.firstname + ' ' + obj.originalObject.lastname;
                 vm.personDetails.status = obj.originalObject.status;
+                angular.element('input[name="fullname"]').attr('disabled', true);
+                vm.toggleDisabled = true;
             }
-            else{
+            else {
                 vm.personDetails.fullname = '';
                 vm.personDetails.status = '';
+                vm.toggleDisabled = false;
+                //angular.element('input[name="fullname"]').attr('disabled', false);
             }
         }
 
@@ -546,8 +552,9 @@
         // get group details
         function getGroupData(id) {
             resetErrors();
-            vm.activeClass = '';
+            //vm.activeClass = '';
             vm.tab = id;
+            vm.subTab = -1;
             vm.newUser = false;
             vm.group = true;
             vm.title = vm.groupsList[id].name;
@@ -602,13 +609,13 @@
             setTimeout(function () {
                 qquploader(1, vm.groupData.users[index].photo);
             }, 100);
-            vm.activeClass = vm.groupsList[vm.tab].users[index].fullname;
+            //vm.activeClass = vm.groupsList[vm.tab].users[index].fullname;
             vm.personDetails = angular.copy(vm.groupsList[vm.tab].users[index]);
             vm.personDetails.group_id = vm.groupData.group_id;
             if (userPermissions.is_primary == 1) {
                 vm.readable = false;
                 setTimeout(function () {
-                    $('form[name="new_user_form"] input[type="text"]:first').focus();
+                    $('form[name="new_user_form"] input[name="designation"]').focus();
                 }, 100);
             }
             else {
@@ -643,16 +650,17 @@
             else {
                 vm.group = false;
                 vm.newPerson = true;
+                vm.subTab = -1;
                 vm.personDetails = {};
                 vm.personDetails.group_id = vm.tab != -1 ? vm.groupNames[vm.tab].group_id : '';
-                
+
                 $scope.$broadcast('angucomplete-alt:clearInput', 'ex1');
                 // qq uploader
                 setTimeout(function () {
                     qquploader();
                 }, 100);
                 setTimeout(function () {
-                    $('form[name="new_user_form"] input[type="text"]:first').focus();
+                    $('form[name="new_user_form"] input[name="emailid"]').focus();
                 }, 100);
             }
         }
@@ -761,6 +769,8 @@
                                                 vm.groupsList[i].count_of_users++;
                                                 vm.groupsList[vm.tab].users.splice(vm.subTab, 1);
                                                 vm.groupsList[vm.tab].count_of_users--;
+                                                vm.subTab = -1;
+                                                vm.getGroupData(vm.tab);
                                             }
                                         }
                                     }
@@ -777,7 +787,7 @@
                                             }
                                         }
                                         vm.groupsList[vm.tab].users[vm.subTab] = angular.copy(vm.personDetails);
-                                        vm.activeClass = angular.copy(vm.personDetails.fullname)
+                                        //vm.activeClass = angular.copy(vm.personDetails.fullname)
                                         vm.groupsList[vm.tab].users[vm.subTab].photo = angular.copy(response.data.data.photo);
                                     }
                                     if (response.data.data.photo != '') {
@@ -944,48 +954,159 @@
     }
 
 
-    function ConfigManagerController($scope, $timeout, App) {
+    function ConfigManagerController($scope, $timeout, $http, App) {
         var vm = this;
         vm.show_error = false;
+        vm.uploadSuccess = false;
+        vm.spinner = false;
+        vm.hasRecord = false;
+        vm.changeOccured = true;
+        vm.success = false;
         vm.emailsList = [
             {id: 1, email_id: 'adams@infosys.com'},
             {id: 2, email_id: 'adwin.ams@infosys.com'},
             {id: 3, email_id: 'adward.ad123@infosys.com'}
         ]
+        vm.loader = true;
+        vm.ssoDetails = {};
 
         vm.save = save;
         vm.trash = trash;
+        vm.edit = edit;
+
         setTimeout(function () {
             $('#selectJob').chosen()
         }, 1);
+
+
         function save(isValid) {
-            if (!isValid) {
+            if (!isValid || !vm.uploadSuccess) {
                 vm.show_error = true;
                 return
             }
+            else {
+                vm.show_error = false;
+                vm.spinner = true;
+                var params = angular.element('form[name="single_signin"]').serialize();
+
+                $http({
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                    },
+                    method: 'POST',
+                    data: params + '&' + $.param({action: vm.hasRecord ? 'edit' : 'add'}),
+                    url: App.base_url + 'add_configuration'
+                })
+                        .then(function (response) {
+                            vm.spinner = false;
+                            if (response.data.status_code == 200) {
+                                angular.element(':input').attr('readonly', 'readonly');
+                                $scope.single_signin.$setPristine();
+                                vm.success = true;
+                                vm.sucMsg = response.data.message.msg[0];
+                                $('.suc').fadeIn();
+                                success(response.data.data)
+                                $timeout(function () {
+                                    $('.suc').fadeOut();
+                                }, 1000);
+                            }
+                        }, function (response) {
+
+                        })
+            }
+        }
+
+        function getConfiguration() {
+            $http({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'POST',
+                url: App.base_url + 'get_configuration'
+            })
+                    .then(function (response) {
+                        vm.loader = false;
+                        if (response.data.status_code == 200) {
+                            angular.element(':input').attr('readonly', 'readonly')
+                            success(response.data.data)
+                        }
+                        else if (response.data.status_code == 403) {
+                            angular.element(':input').removeAttr('readonly');
+                        }
+                    }, function (response) {
+
+                    })
+        }
+        getConfiguration();
+
+        function success(data) {
+            vm.ssoDetails = data;
+            vm.hasRecord = true;
+            if (vm.ssoDetails.certificate_s3_path != '') {
+                var obj = {
+                    org_name: vm.ssoDetails.certificate,
+                    filename: vm.ssoDetails.certificate_s3_path,
+                    size: vm.ssoDetails.size
+                }
+                hasFile(obj, true);
+            }
+        }
+
+        function edit() {
+            vm.success = false;
+            angular.element(':input').removeAttr('readonly');
+            $('#ft').focus();
         }
 
         function trash() {
+            if (vm.success)
+                vm.success = false;
+            vm.uploadSuccess = false;
+            vm.changeOccured = false;
+            $scope.$apply();
             $upload.find('.qq-upload-drop-area').css('display', 'none');
-            $upload.find('.qq-upload-drop-area').html();
+            $upload.find('.qq-upload-drop-area').html('');
+            $upload.find('.qq-upload-list').html('');
+        }
+
+        function hasFile(obj, flag) {
+            vm.uploadSuccess = true;
+            var status = '';
+            if (flag) {
+                status = 'init';
+                $upload.find('.qq-upload-list').html('<input name="size" type="hidden" value="' + obj.size + '" ><input name="certificate_path_s3" type="hidden" value="' + obj.filename + '" ><input name="certificate_org_name" type="hidden" value="' + obj.org_name + '" >')
+            }
+            else {
+                status = 'upload';
+                $upload.find('.qq-upload-list').html('<input name="certificate_path" type="hidden" value="' + obj.filename + '" ><input name="certificate_org_name" type="hidden" value="' + obj.org_name + '" >');
+            }
+            $upload.find('.qq-upload-list').css('z-index', '-1');
+            $upload.find('.qq-upload-drop-area').css('background', '#fff');
+            $upload.find('.qq-upload-drop-area').css('display', 'block');
+            $upload.find('.qq-upload-drop-area').html(template(obj, status));
+            upload('change');
         }
 
         // Upload File
-        vm.successUpload = false;
         var $upload = $('#upload');
-        function template() {
+        function template(obj, flag) {
+            var url = '';
+            if (flag == 'upload')
+                url = App.API_DOMAIN + obj.filename;
+            else
+                url = obj.filename;
             return  '<div class="up-tmp">' +
                     '  <div class="box clearfix" layout="row">' +
                     '      <img src="public/images/pdf.png" class="avatar pull-left">' +
                     '      <div class="content pull-left">' +
-                    '          <p>' + vm.docObj.org_name + '</p>' +
-                    '          <em>' + vm.docObj.size + ' KB</em>' +
+                    '          <p>' + obj.org_name + '</p>' +
+                    '          <em>' + obj.size + ' KB</em>' +
                     '      </div>' +
                     '      <i class="material-icons pull-right" onclick="angular.element(this).scope().ConfigMngCtrl.trash()">close</i>' +
                     '  </div>' +
                     '  <div class="action clearfix">' +
                     '      <var style="padding-right: 10px;" id="change">Change</var>' +
-                    '      <var style="padding-left: 10px;"><a href="' + App.base_url + 'viewer?url=' + App.API_DOMAIN + vm.docObj.filename + '" class="view" target="_blank">View Details</a></var>' +
+                    '      <var style="padding-left: 10px;"><a href="' + App.base_url + 'viewer?url=' + url + '" class="view" target="_blank">View Details</a></var>' +
                     '      <var class="pull-right">(Maximum size is 10MB)</var>' +
                     '  </div>' +
                     '</div>'
@@ -1006,29 +1127,31 @@
                 showFileInfo: false,
                 shortMessages: true,
                 remove: true,
-                file_name: 'referral_org_name',
-                path_name: 'referral_bonus_file',
+                file_name: 'certificate_org_name',
+                path_name: 'certificate_path',
                 onSubmit: function (id, name) {
                     $upload.find('.qq-upload-drop-area').html();
                     $upload.find('.qq-upload-list').css('z-index', '0');
                 },
                 onComplete: function (id, name, response) {
                     if (response.success) {
-                        vm.docObj = response;
+                        $upload.find('.qq-upload-list').html('');
+                        if (vm.success)
+                            vm.success = false;
+                        vm.changeOccured = false;
                         $scope.$apply();
-                        $upload.find('.qq-upload-list').css('z-index', '-1');
-                        $upload.find('.qq-upload-drop-area').css('background', '#fff');
-                        $upload.find('.qq-upload-drop-area').css('display', 'block');
-                        $upload.find('.qq-upload-drop-area').html(template());
-                        upload('change')
+                        hasFile(response, false);
                     }
                     else {
+                        vm.uploadSuccess = false;
+                        $scope.$apply();
                         $upload.find('.qq-upload-button').show();
                         $upload.find('.qq-upload-fail').remove();
                         $upload.append("<div class='qq-upload-fail'><i class='fa fa-times'></i>&nbsp;<span>" + response.msg + "</span></div>");
                     }
                 },
                 showMessage: function (msg, obj) {
+                    vm.uploadSuccess = false;
                     $upload.find('.qq-upload-list').css('z-index', '0');
 //                $(obj._listElement).fadeIn();
                 },

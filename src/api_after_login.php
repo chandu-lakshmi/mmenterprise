@@ -1330,3 +1330,37 @@ $app->post('/company_all_contacts',function ($request, $response, $args) use ($a
 
      return checkJsonResult( $contactsList->loadCurl() );
 });
+
+//Adding configuration
+$app->post('/add_configuration',function ($request, $response, $args) use ($app) {
+    
+    // dynamically Access Token, Company id
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    // getting API endpoint from settings
+    $apiEndpoint = getapiEndpoint($this->settings, 'add_configuration');
+   
+    $addConfiguration   = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+
+     return checkJsonResult( $addConfiguration->loadCurl() );
+});
+
+//Get configuration
+$app->post('/get_configuration',function ($request, $response, $args) use ($app) {
+    
+    // dynamically Access Token, Company id
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    // getting API endpoint from settings
+    $apiEndpoint = getapiEndpoint($this->settings, 'get_configuration');
+   
+    $configurationDetails   = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+
+     return checkJsonResult( $configurationDetails->loadCurl() );
+});

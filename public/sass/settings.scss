@@ -69,6 +69,10 @@ md-dialog {
     -webkit-box-shadow: 1px 1px 10px $color;
 }
 
+.md-button[disabled]{
+    cursor: default !important;
+}
+
 /* set password modal*/
 body.set-password{overflow: hidden;}
 .set-password{
@@ -435,7 +439,11 @@ body.set-password{overflow: hidden;}
                     }
                     .rt{padding-left: 20px;
                         md-card{padding: 20px;
-                                md-card-content{@include viewHeight(302px);padding: 0;margin: 8px;
+                                .loader{position: absolute;top: 35%;left: 45%;
+                                       img{width: 45%;}
+                                       h4.err{text-align: center;line-height: 6em;color: #5e5e5e;}
+                                }
+                                md-card-content{@include viewHeight(302px);padding: 0;margin: 8px;position: relative;padding-bottom: 40px;
                                                 div[layout='row']{
                                                     div[flex='50']:first-child{margin-right: 45px;}
                                                 }
@@ -509,7 +517,10 @@ body.set-password{overflow: hidden;}
                                                                }
                                                 }
                                 }
-                                md-card-actions{border-top: 1px solid #ccc;padding-top: 15px;}
+                                md-card-actions{border-top: 1px solid #ccc;padding-top: 15px;
+                                                img{display: inline;width:35px;height: 35px;margin: 0;}
+                                                .suc{color: $mintmeshColor;line-height: 34px;}
+                                }
                         }
                     }
               }
@@ -575,7 +586,7 @@ body.set-password{overflow: hidden;}
                                     }
                              }
                              .list{position: relative;height: calc(100vh - 280px);font-size: 16px;min-height: 200px;
-                                   .list-data{
+                                   .list-data{overflow: auto;
                                        .right{min-height: 50px;line-height: 50px;max-height: 50px;border-bottom: 1px solid rgba(0, 0, 0, 0.12);
                                               &:not(:last-child){border-bottom: 1px solid #eee;}
                                               span[flex='40']{padding-left: 30px;}

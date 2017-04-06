@@ -9,6 +9,9 @@ md-dialog {
 .mm-no-btn {
   color: #40acec; }
 
+.md-button[disabled] {
+  cursor: default !important; }
+
 /* set password modal*/
 body.set-password {
   overflow: hidden; }
@@ -752,11 +755,23 @@ body.set-password {
       padding-left: 20px; }
       .settings .config-manager .saml .rt md-card {
         padding: 20px; }
+        .settings .config-manager .saml .rt md-card .loader {
+          position: absolute;
+          top: 35%;
+          left: 45%; }
+          .settings .config-manager .saml .rt md-card .loader img {
+            width: 45%; }
+          .settings .config-manager .saml .rt md-card .loader h4.err {
+            text-align: center;
+            line-height: 6em;
+            color: #5e5e5e; }
         .settings .config-manager .saml .rt md-card md-card-content {
           min-height: calc(100vh - 302px);
           font-size: 16px;
           padding: 0;
-          margin: 8px; }
+          margin: 8px;
+          position: relative;
+          padding-bottom: 40px; }
           .settings .config-manager .saml .rt md-card md-card-content div[layout='row'] div[flex='50']:first-child {
             margin-right: 45px; }
           .settings .config-manager .saml .rt md-card md-card-content div[layout='row']:first-child .md-button {
@@ -903,6 +918,14 @@ body.set-password {
         .settings .config-manager .saml .rt md-card md-card-actions {
           border-top: 1px solid #ccc;
           padding-top: 15px; }
+          .settings .config-manager .saml .rt md-card md-card-actions img {
+            display: inline;
+            width: 35px;
+            height: 35px;
+            margin: 0; }
+          .settings .config-manager .saml .rt md-card md-card-actions .suc {
+            color: #1c8f6e;
+            line-height: 34px; }
   .settings .int-mng .success-factor {
     min-height: calc(100vh - 160px);
     font-size: 16px; }
@@ -1017,15 +1040,17 @@ body.set-password {
       height: calc(100vh - 280px);
       font-size: 16px;
       min-height: 200px; }
-      .licence-management .box .content .list .list-data .right {
-        min-height: 50px;
-        line-height: 50px;
-        max-height: 50px;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
-        .licence-management .box .content .list .list-data .right:not(:last-child) {
-          border-bottom: 1px solid #eee; }
-        .licence-management .box .content .list .list-data .right span[flex='40'] {
-          padding-left: 30px; }
+      .licence-management .box .content .list .list-data {
+        overflow: auto; }
+        .licence-management .box .content .list .list-data .right {
+          min-height: 50px;
+          line-height: 50px;
+          max-height: 50px;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+          .licence-management .box .content .list .list-data .right:not(:last-child) {
+            border-bottom: 1px solid #eee; }
+          .licence-management .box .content .list .list-data .right span[flex='40'] {
+            padding-left: 30px; }
       .licence-management .box .content .list .spinner, .licence-management .box .content .list .error {
         position: absolute;
         width: 100%;

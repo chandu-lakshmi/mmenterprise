@@ -250,6 +250,14 @@ return [
             'company_all_contacts' =>[
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/company_all_contacts'
+            ],
+            'add_configuration' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/add_configuration'
+            ],
+            'get_configuration' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_configuration'
             ]
     ];
         

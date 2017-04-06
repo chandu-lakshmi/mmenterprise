@@ -11,6 +11,7 @@
 		<div class="msg" ng-if="editCompCtrl.errorMsgCond">
 			<span>Successfully Updated</span>
 		</div>
+                <span style="color:#666">{{'Tenant URL: ' + $root.base_url + 'company/' + companyDetails.name.split(' ')[0] + '/' + companyDetails.company_code}}</span>
 		<span ng-if="editCompCtrl.company_code" ng-bind="'Company Code: ' + editCompCtrl.company_code" class="pull-right" style="color:#666"></span>
 		<div class="edit-box clearfix zoomIn animated">
 			<form name="edit_company_form" novalidate>

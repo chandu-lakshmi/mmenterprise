@@ -117,7 +117,7 @@ input::-moz-placeholder {
   border: 1px solid #1b8465; }
   .mm-btn.cancel {
     background: #fff !important;
-    color: #7b6d6d;
+    color: #7b6d6d !important;
     border: 0; }
 
 /* angular material mdDialog */

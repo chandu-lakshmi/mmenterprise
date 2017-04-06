@@ -263,9 +263,10 @@
 
             })
 
-            .run(function ($rootScope, userPermissions, App) {
+            .run(function ($rootScope, userPermissions, CompanyDetails, App) {
                 $rootScope.$root = App;
                 $rootScope.userPermissions = userPermissions;
+                $rootScope.companyDetails = CompanyDetails
                 $rootScope.SocialShare = {};
             })
 
