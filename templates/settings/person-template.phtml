@@ -5,18 +5,6 @@
             <p class='add-text' ng-bind="UserGroupCtrl.textCondition ? 'USER PHOTO' : 'ADD PHOTO'">ADD PHOTO</p>
         </div>
         <div class="clearfix">
-            <md-input-container class="md-block">
-                <label>NAME</label>
-                <input type="text" ng-disabled="UserGroupCtrl.readable || UserGroupCtrl.newPerson ? true : true" name="fullname" ng-model="UserGroupCtrl.personDetails.fullname">
-                <input type="hidden" name="fullname" value="{{UserGroupCtrl.personDetails.fullname}}" ng-if="!UserGroupCtrl.newPerson || UserGroupCtrl.toggleDisabled">
-            </md-input-container>
-            <md-input-container class="md-block">
-                <label>DESIGNATION</label>
-                <input type="text" ng-disabled="UserGroupCtrl.readable" name="designation" ng-model="UserGroupCtrl.personDetails.designation" required ng-class="{'has-error-border':new_user_form.designation.$invalid && UserGroupCtrl.errCond}">
-                <div ng-if="new_user_form.designation.$error.required && UserGroupCtrl.errCond" class="has-error-msg">Please Enter Designation</div>
-            </md-input-container>
-        </div>
-        <div class="clearfix">
             <md-input-container class="md-block" ng-if="!UserGroupCtrl.newPerson">
                 <label>EMAIL</label>
                 <input type="text" ng-disabled="UserGroupCtrl.newPerson ? '' : true" name="emailid" ng-model="UserGroupCtrl.personDetails.emailid">
@@ -43,11 +31,23 @@
                 <div ng-if="UserGroupCtrl.backendError" class="has-error-msg" ng-bind="UserGroupCtrl.backendError" style="text-transform: capitalize;"></div>
             </md-input-container>
             <md-input-container class="md-block">
+                <label>NAME</label>
+                <input type="text" ng-disabled="UserGroupCtrl.readable || UserGroupCtrl.newPerson ? true : true" name="fullname" ng-model="UserGroupCtrl.personDetails.fullname">
+                <input type="hidden" name="fullname" value="{{UserGroupCtrl.personDetails.fullname}}" ng-if="!UserGroupCtrl.newPerson || UserGroupCtrl.toggleDisabled">
+            </md-input-container>
+            <!--<md-input-container class="md-block">
+                <label>DESIGNATION</label>
+                <input type="text" ng-disabled="UserGroupCtrl.readable" name="designation" ng-model="UserGroupCtrl.personDetails.designation" required ng-class="{'has-error-border':new_user_form.designation.$invalid && UserGroupCtrl.errCond}">
+                <div ng-if="new_user_form.designation.$error.required && UserGroupCtrl.errCond" class="has-error-msg">Please Enter Designation</div>
+            </md-input-container>-->
+        </div>
+        <!--<div class="clearfix">
+            <md-input-container class="md-block">
                 <label>LOCATION</label>
                 <input type="text" ng-disabled="UserGroupCtrl.readable" name="location" ng-model="UserGroupCtrl.personDetails.location" required ng-class="{'has-error-border':new_user_form.location.$invalid && UserGroupCtrl.errCond}" ng-autocomplete="UserGroupCtrl.geo_location" details="UserGroupCtrl.geo_details" options="UserGroupCtrl.geo_options" apiplaceholder="">
                 <div ng-if="new_user_form.location.$error.required && UserGroupCtrl.errCond" class="has-error-msg">Please Enter Location</div>
             </md-input-container>
-        </div>
+        </div>-->
         <div class="clearfix">
             <md-input-container class="md-block select-box">
                 <label style="display:none">STATUS</label>
