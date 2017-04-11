@@ -11,7 +11,7 @@
             <form name="upload_contact_form" novalidate autocomplete="off">
                 <md-input-container class="md-block select-box" style="width:45%;margin-bottom: 25px;">
                     <label style="display:none">SELECT GROUP</label>
-                    <md-select name="bucket_id" ng-model="SingleContCtrl.newContact.bucket" required ng-class="{'error-border':upload_contact_form.bucket_id.$invalid && SingleContCtrl.errCond}">
+                    <md-select name="bucket_id" ng-model="SingleContCtrl.newContact.bucket" required ng-class="{'has-error-border':upload_contact_form.bucket_id.$invalid && SingleContCtrl.errCond}">
                         <md-option ng-repeat="bucket in SingleContCtrl.bucketList" ng-value="bucket.bucket_id">
                             {{bucket.bucket_name | uppercase}}
                         </md-option>

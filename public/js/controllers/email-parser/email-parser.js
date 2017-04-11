@@ -47,7 +47,7 @@
         if (screen.width <= 480)
             vm.copyText = 'Copy'
         else
-            vm.copyText = 'COPY JOB LINK'
+            vm.copyText = 'COPY JOBS LINK'
 
         // capitalize string in javascript
         function toTitleCase(str) {

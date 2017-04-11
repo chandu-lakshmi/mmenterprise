@@ -18,6 +18,7 @@
     UserGroupController.$inject = ['$scope', '$window', '$element', 'CONFIG', '$http', '$q', 'userData', 'permissionsService', 'userPermissions', 'App'];
     ConfigManagerController.$inject = ['$window', '$scope', '$timeout', '$http', 'App'];
     IntManagerController.$inject = ['$timeout', '$http', 'App'];
+    
     function permissionsService() {
         var permissionData = {};
         this.setPermissions = function (data) {
@@ -379,7 +380,6 @@
             person: false
         };
         vm.readable = false;
-        vm.toggleDisabled = false;
         vm.personDetails = {};
         vm.permissions = {};
         vm.backendError = '';
@@ -479,14 +479,10 @@
             if (obj != undefined && obj.hasOwnProperty('originalObject')) {
                 vm.personDetails.fullname = obj.originalObject.firstname + ' ' + obj.originalObject.lastname;
                 vm.personDetails.status = obj.originalObject.status;
-                angular.element('input[name="fullname"]').attr('disabled', true);
-                vm.toggleDisabled = true;
             }
             else {
                 vm.personDetails.fullname = '';
                 vm.personDetails.status = '';
-                vm.toggleDisabled = false;
-                //angular.element('input[name="fullname"]').attr('disabled', false);
             }
         }
 

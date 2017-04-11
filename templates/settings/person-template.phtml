@@ -32,8 +32,8 @@
             </md-input-container>
             <md-input-container class="md-block">
                 <label>NAME</label>
-                <input type="text" ng-disabled="UserGroupCtrl.readable || UserGroupCtrl.newPerson ? true : true" name="fullname" ng-model="UserGroupCtrl.personDetails.fullname">
-                <input type="hidden" name="fullname" value="{{UserGroupCtrl.personDetails.fullname}}" ng-if="!UserGroupCtrl.newPerson || UserGroupCtrl.toggleDisabled">
+                <input type="text" ng-disabled="true" name="fullname" ng-model="UserGroupCtrl.personDetails.fullname">
+                <input type="hidden" name="fullname" value="{{UserGroupCtrl.personDetails.fullname}}">
             </md-input-container>
             <!--<md-input-container class="md-block">
                 <label>DESIGNATION</label>
@@ -51,7 +51,7 @@
         <div class="clearfix">
             <md-input-container class="md-block select-box">
                 <label style="display:none">STATUS</label>
-                <md-select ng-disabled="UserGroupCtrl.readable" name="status" ng-model="UserGroupCtrl.personDetails.status" required ng-class="{'error-border':new_user_form.status.$invalid && UserGroupCtrl.errCond}">
+                <md-select ng-disabled="UserGroupCtrl.readable" name="status" ng-model="UserGroupCtrl.personDetails.status" required ng-class="{'has-error-border':new_user_form.status.$invalid && UserGroupCtrl.errCond}">
                     <md-option ng-repeat="status in UserGroupCtrl.statusText" ng-value="status">{{status}}</md-option>
                 </md-select>
                 <div class="error-spacer"></div>
