@@ -10,12 +10,11 @@
             .controller('IntManagerController', IntManagerController)
             .service('permissionsService', permissionsService)
             .directive('pwMatch', pwMatch)
-            .service('userData', userData)
 
     SettingsController.$inject = [];
     SettingsCompanyProfileController.$inject = ['$window', 'CompanyDetails', '$http', 'CONFIG'];
-    MyProfileController.$inject = ['$http', '$scope', '$window', '$uibModal', 'UserDetails', 'userData', 'CONFIG', 'App'];
-    UserGroupController.$inject = ['$scope', '$window', '$element', 'CONFIG', '$http', '$q', 'userData', 'permissionsService', 'userPermissions', 'App'];
+    MyProfileController.$inject = ['$http', '$scope', '$window', '$uibModal', 'UserDetails', 'CONFIG', 'App'];
+    UserGroupController.$inject = ['$scope', '$window', '$element', 'CONFIG', '$http', '$q', 'UserDetails', 'permissionsService', 'userPermissions', 'App'];
     ConfigManagerController.$inject = ['$window', '$scope', '$timeout', '$http', 'App'];
     IntManagerController.$inject = ['$timeout', '$http', 'App'];
     
@@ -33,22 +32,6 @@
             permissionData[prop] = val;
         }
 
-    }
-
-    function userData() {
-        var obj = {};
-        this.bol = true;
-        this.setData = function (data) {
-            obj = data;
-        }
-
-        this.getData = function () {
-            return obj
-        }
-
-        this.addProperty = function (key, val) {
-            obj[key] = val;
-        }
     }
 
     function pwMatch() {
@@ -115,21 +98,18 @@
 
     }
 
-    function MyProfileController($http, $scope, $window, $uibModal, UserDetails, userData, CONFIG, App) {
+    function MyProfileController($http, $scope, $window, $uibModal, UserDetails, CONFIG, App) {
 
         var vm = this,
-                $display_pic, image_path = '', org_name = '';
+                $display_pic, image_path = '';
         vm.errCond = false;
         vm.loader = false;
         vm.modalLoader = false;
         vm.message = false;
         vm.has_image = false;
         vm.changeFound = false;
-        vm.displayPicture = '';
-        if (userData.bol) {
-            userData.setData(UserDetails);
-        }
-        vm.myProfile = angular.copy(userData.getData());
+        
+        vm.myProfile = angular.copy(UserDetails);
         vm.passwords = {};
         vm.backendMsg = '';
         vm.successMsg = '';
@@ -137,14 +117,14 @@
         vm.setPassword = setPassword;
         vm.saveChanges = saveChanges;
         vm.changePassword = changePassword;
-        if (userData.getData().user_dp != null && userData.getData().user_dp != '') {
-            vm.displayPicture = userData.getData().user_dp;
+        if (UserDetails.user_dp != null && UserDetails.user_dp != '') {
+            vm.myProfile.user_dp = UserDetails.user_dp;
         }
         else {
-            vm.displayPicture = '';
+            vm.myProfile.user_dp = '';
         }
 
-// Reseting errors
+        // Reseting errors
         function resetErrors() {
             vm.passwords = {};
             vm.backendMsg = '';
@@ -152,7 +132,7 @@
             vm.errCond = false;
         }
 
-//  update user profile and company logo
+        //  update user profile and company logo
         function saveChanges(isValid) {
             if (!isValid) {
                 vm.errCond = true;
@@ -175,11 +155,11 @@
                     angular.element('.disabled').css('pointer-events', 'auto');
                     vm.loader = false;
                     if (response.status_code == 200) {
-                        userData.setData(vm.myProfile);
-                        userData.addProperty('user_dp', response.data.user_dp);
-                        angular.element('header .user_dp + .user_name').text(userData.getData().user_name);
+                        angular.extend(UserDetails, vm.myProfile);
+                        angular.element('header .user_dp + .user_name').text(UserDetails.user_name);
                         if (response.data.hasOwnProperty('user_dp')) {
                             if (response.data.user_dp != '') {
+                                UserDetails.user_dp = response.data.user_dp;
                                 image_path = response.data.user_dp;
                                 App.Helpers.loadImage({
                                     target: $display_pic.find('.drag_img'),
@@ -188,6 +168,7 @@
                                     url_prefix: false,
                                     url: image_path,
                                     onComplete: function () {
+                                        $display_pic.find('.qq-upload-list').html('');
                                         $display_pic.find('.qq-upload-list').append("<li><input type='hidden' name='photo_org_name_s3' value='" + image_path.split('/').pop() + "' /><input type='hidden' value='" + image_path + "' name='photo_s3'/></li>").show();
                                     },
                                     onError: function () {
@@ -195,6 +176,12 @@
                                     }
                                 });
                             }
+                            else{
+                                UserDetails.user_dp = '';
+                            }
+                        }
+                        else{
+                            UserDetails.user_dp = '';
                         }
                         $scope.my_profile_form.$setPristine();
                         vm.changeFound = false;
@@ -216,7 +203,7 @@
             }
         }
 
-// set password
+        // set password
         function changePassword(isValid) {
             vm.errCond = false;
             vm.backendMsg = false;
@@ -263,7 +250,7 @@
             }
         }
 
-// modal window for set passwords
+        // modal window for set passwords
         function setPassword() {
             resetErrors();
             vm.modalInstance = $uibModal.open({
@@ -277,7 +264,7 @@
         }
 
 
-// qq-uploader
+        // qq-uploader
         var $display_pic = $('#display_pic');
         App.Helpers.initUploader({
             id: "display_pic",
@@ -333,20 +320,21 @@
                 $display_pic.find('.qq-upload-list').css('z-index', '-1');
             }
         });
-        if (vm.displayPicture != '') {
+        
+        if (vm.myProfile.user_dp != '') {
             $display_pic.find('.qq-upload-drop-area').css({
                 'display': 'block',
                 'background': 'transparent'
             });
             $display_pic.find('.drag_img').css('background', 'transparent');
             vm.has_image = true;
-            image_path = vm.displayPicture;
+            image_path = vm.myProfile.user_dp;
             App.Helpers.loadImage({
                 target: $display_pic.find('.drag_img'),
                 css: 'img-circle',
                 remove: true,
                 url_prefix: false,
-                url: vm.displayPicture,
+                url: vm.myProfile.user_dp,
                 onComplete: function () {
                     $display_pic.find('.qq-upload-list').append("<li><input type='hidden' name='photo_org_name_s3' value='" + image_path.split('/').pop() + "' /><input type='hidden' value='" + image_path + "' name='photo_s3'/></li>").show();
                 },
@@ -360,12 +348,11 @@
     }
 
 
-    function UserGroupController($scope, $window, $element, CONFIG, $http, $q, userData, permissionsService, userPermissions, App) {
+    function UserGroupController($scope, $window, $element, CONFIG, $http, $q, UserDetails, permissionsService, userPermissions, App) {
 
         var vm = this,
                 APP_URL = CONFIG.APP_DOMAIN,
-                $display_pic, image_path = '', org_name;
-        //userData.bol = false;
+                image_path = '', org_name;
 
         // google api for location field
         this.geo_location = '';
@@ -383,7 +370,6 @@
         vm.personDetails = {};
         vm.permissions = {};
         vm.backendError = '';
-        //vm.activeClass = '';
         vm.tab = '';
         vm.subTab = '';
         vm.statusText = ['Active', 'Inactive'];
@@ -404,12 +390,6 @@
         }
 
         vm.pageLoader = false;
-        // initial loader
-        //vm.borderInc = 1;
-        //var s = $interval(function() {
-        //    vm.remaining = 100 - vm.borderInc;
-        //   vm.borderInc = vm.borderInc + (0.1 * Math.pow(1 - Math.sqrt(vm.remaining), 2))
-        //}, 100);
 
         var canceller = $q.defer();
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
@@ -524,11 +504,6 @@
                     .then(function (response) {
                         if (response.data.status_code == 200) {
                             vm.pageLoader = true;
-                            // loader
-                            // vm.borderInc = 100;
-                            // $interval.cancel(s);
-                            // $('#borderLoader').fadeOut(2000);
-
                             vm.groupsList = response.data.data.groups;
                             vm.groupNames = vm.groupsList;
                             getGroupData(0);
@@ -548,7 +523,6 @@
         // get group details
         function getGroupData(id) {
             resetErrors();
-            //vm.activeClass = '';
             vm.tab = id;
             vm.subTab = -1;
             vm.newUser = false;
@@ -605,7 +579,6 @@
             setTimeout(function () {
                 qquploader(1, vm.groupData.users[index].photo);
             }, 100);
-            //vm.activeClass = vm.groupsList[vm.tab].users[index].fullname;
             vm.personDetails = angular.copy(vm.groupsList[vm.tab].users[index]);
             vm.personDetails.group_id = vm.groupData.group_id;
             if (userPermissions.is_primary == 1) {
@@ -771,19 +744,7 @@
                                         }
                                     }
                                     else {
-                                        if (vm.personDetails.admin == 1) {
-                                            var oldName = angular.element('header .user_dp + .user_name').text(),
-                                                    newName = vm.personDetails.fullname
-                                            if (oldName != newName) {
-                                                userData.addProperty('user_name', newName)
-                                                angular.element('header .user_dp + .user_name').text(newName);
-                                            }
-                                            if (response.data.data.photo != '') {
-                                                userData.addProperty('user_dp', response.data.data.photo)
-                                            }
-                                        }
                                         vm.groupsList[vm.tab].users[vm.subTab] = angular.copy(vm.personDetails);
-                                        //vm.activeClass = angular.copy(vm.personDetails.fullname)
                                         vm.groupsList[vm.tab].users[vm.subTab].photo = angular.copy(response.data.data.photo);
                                     }
                                     if (response.data.data.photo != '') {

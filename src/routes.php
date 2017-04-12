@@ -61,18 +61,15 @@ $app->get('/', function ($request, $response, $args) {
 
 // saml login
 $app->get('/company/{name}/{code}', function ($request, $response, $args) {
-    $args = commonArgs($this->settings);
-    return $response->withRedirect($args['APP_DOMAIN']."saml");
-    exit;
-    $route = $request->getAttribute('route');
-    $args['company_int_details'] = companyIntegrationDetails($this->settings,$route->getArgument('code'));
-    echo '<pre>';
-    print_r($args['company_int_details']['data']).exit;
-    if(!empty($args['company_int_details']['data'])){
-        return $response->withRedirect($args['APP_DOMAIN']."saml");
-    }else{
-         return $response->withRedirect($args['APP_DOMAIN']."404");
-    }
+   $args = commonArgs($this->settings);
+   $route = $request->getAttribute('route');
+   $_SESSION['ccode'] = $route->getArgument('code');
+   $args['company_int_details'] = companyIntegrationDetails($this->settings,$route->getArgument('code'));
+   if(!empty($args['company_int_details']['data']) && $args['company_int_details']['data']['status'] == 1){
+       return $response->withRedirect($args['APP_DOMAIN']."saml");
+   }else{
+        return $response->withRedirect($args['APP_DOMAIN']."login");
+   }
 });
 
 //login controller page
