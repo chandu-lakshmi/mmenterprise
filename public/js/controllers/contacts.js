@@ -329,7 +329,7 @@
                     scope.gridOptions.data.length == 0 ? (scope.loaderNoContacts = true) : '';
 
                     if (scope.goDashboard == 0) {
-                        if (scope.gridApi.selection != undefined) {
+                        if (scope.gridApi && scope.gridApi.selection != undefined) {
                             scope.gridApi.selection.clearSelectedRows();
                         }
                     }

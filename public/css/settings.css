@@ -753,6 +753,8 @@ body.set-password {
             color: inherit; }
     .settings .config-manager .saml .rt {
       padding-left: 20px; }
+      .settings .config-manager .saml .rt select {
+        visibility: hidden; }
       .settings .config-manager .saml .rt md-card {
         padding: 20px; }
         .settings .config-manager .saml .rt md-card .loader {
@@ -854,11 +856,14 @@ body.set-password {
                 text-align: left;
                 width: 80%; }
                 .settings .config-manager .saml .rt md-card md-card-content .file-upload .up-tmp .box .content p {
-                  margin: 0 0 3px;
+                  margin: 0;
                   color: initial;
                   white-space: nowrap;
                   overflow: hidden;
-                  text-overflow: ellipsis; }
+                  text-overflow: ellipsis;
+                  line-height: 36px;
+                  font-size: 18px;
+                  padding-left: 10px; }
               .settings .config-manager .saml .rt md-card md-card-content .file-upload .up-tmp .box i.material-icons {
                 cursor: pointer; }
             .settings .config-manager .saml .rt md-card md-card-content .file-upload .up-tmp .action {
@@ -915,17 +920,17 @@ body.set-password {
             .settings .config-manager .saml .rt md-card md-card-content .modern-select .chosen-container-active .chosen-choices, .settings .config-manager .saml .rt md-card md-card-content .modern-select .chosen-container-has-value .chosen-choices {
               border: 0;
               border-bottom: 1px solid #208d6e; }
-        .settings .config-manager .saml .rt md-card md-card-actions {
+        .settings .config-manager .saml .rt md-card md-card-actions .bor {
           border-top: 1px solid #ccc;
           padding-top: 15px; }
-          .settings .config-manager .saml .rt md-card md-card-actions img {
-            display: inline;
-            width: 35px;
-            height: 35px;
-            margin: 0; }
-          .settings .config-manager .saml .rt md-card md-card-actions .suc {
-            color: #1c8f6e;
-            line-height: 34px; }
+        .settings .config-manager .saml .rt md-card md-card-actions img {
+          display: inline;
+          width: 35px;
+          height: 35px;
+          margin: 0; }
+        .settings .config-manager .saml .rt md-card md-card-actions .suc {
+          color: #1c8f6e;
+          line-height: 34px; }
   .settings .int-mng .success-factor {
     min-height: calc(100vh - 160px);
     font-size: 16px; }

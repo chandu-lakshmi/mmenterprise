@@ -15,9 +15,9 @@
             .directive('createJob', createJob)
 
 
-    CampaignsController.$inject = ['$http', '$window', 'contactBuckets', '$uibModal', 'App'];
-    NewCampaignController.$inject = ['$scope', '$state', '$uibModal', '$timeout', 'contactBuckets', 'CampaignsData', '$uibModalInstance', '$http', 'CompanyDetails', 'createCampaign', 'createJobData', 'App'];
-    AllCampaignsController.$inject = ['$state', '$http', '$rootScope', '$q', '$timeout', '$window', 'uiGridConstants', 'CampaignsData', 'userPermissions', '$stateParams', 'App'];
+    CampaignsController.$inject = ['$rootScope', '$http', '$window', 'contactBuckets', '$uibModal', 'App'];
+    NewCampaignController.$inject = ['$scope', '$uibModal', '$timeout', 'contactBuckets', 'CampaignsData', '$uibModalInstance', '$http', 'CompanyDetails', 'createCampaign', 'createJobData', 'App'];
+    AllCampaignsController.$inject = ['$scope', '$state', '$http', '$rootScope', '$q', '$timeout', '$window', 'uiGridConstants', 'CampaignsData', 'userPermissions', '$stateParams', 'App'];
     MyCampaignsController.$inject = [];
     EditCampaignsController.$inject = ['$scope', '$rootScope', '$state', '$uibModal', 'CompanyDetails', 'CampaignsData', 'contactBuckets', '$window', '$http', 'App'];
     createJobData.$inject = ['$rootScope'];
@@ -70,9 +70,14 @@
         }
     }
 
-    function CampaignsController($http, $window, contactBuckets, $uibModal, App) {
+    function CampaignsController($rootScope, $http, $window, contactBuckets, $uibModal, App) {
 
         var vm = this;
+
+        $rootScope.selectedFilter = {
+            all: [],
+            single: []
+        };
 
         function bucketsList() {
             var get_buckets = $http({
@@ -214,7 +219,7 @@
         }
     }
 
-    function NewCampaignController($scope, $state, $uibModal, $timeout, contactBuckets, CampaignsData, $uibModalInstance, $http, CompanyDetails, createCampaign, createJobData, App) {
+    function NewCampaignController($scope, $uibModal, $timeout, contactBuckets, CampaignsData, $uibModalInstance, $http, CompanyDetails, createCampaign, createJobData, App) {
 
         var vm = this;
 
@@ -566,12 +571,24 @@
     }
 
 
-    function AllCampaignsController($state, $http, $rootScope, $q, $timeout, $window, uiGridConstants, CampaignsData, userPermissions, $stateParams, App) {
+    function AllCampaignsController($scope, $state, $http, $rootScope, $q, $timeout, $window, uiGridConstants, CampaignsData, userPermissions, $stateParams, App) {
 
         var vm = this, canceler,
                 gridApiCall = App.base_url + 'campaigns_list';
 
+        var a = [0];
+
         vm.all_campaigns = $stateParams.all_campaigns;
+        $rootScope.campaignCond = vm.all_campaigns;
+
+        if (vm.all_campaigns == 1 && $rootScope.selectedFilter && $rootScope.selectedFilter.all.length > 0) {
+            vm.filterList = $rootScope.selectedFilter.all;
+            a[0] = vm.filterList.length;
+        }
+        else if (vm.all_campaigns == 0 && $rootScope.selectedFilter && $rootScope.selectedFilter.single.length > 0) {
+            vm.filterList = $rootScope.selectedFilter.single;
+            a[0] = vm.filterList.length;
+        }
 
         vm.loader = false;
         vm.noCampaigns = false;
@@ -595,7 +612,7 @@
                 vm.search_val = val;
                 if (vm.search_opts.progress) {
                     if (vm.search_opts.value) {
-                        pageChanged(vm.pageNumber).then(function () {
+                        pageChanged(vm.pageNumber, vm.filterList ? vm.filterList.toString() : '').then(function () {
                             vm.search_opts.progress = false;
                             vm.search_opts.complete = true;
                         })
@@ -604,7 +621,7 @@
             },
             onClear: function () {
                 vm.search_val = "";
-                pageChanged(vm.pageNumber)
+                pageChanged(vm.pageNumber, vm.filterList ? vm.filterList.toString() : '')
             }
         }
 
@@ -615,14 +632,17 @@
         ]
 
         // filter api call
-        var a = [0];
         function applyFilter() {
             if (vm.filterList != undefined) {
                 if (a[0] == 0 && vm.filterList.length == 0) {
                     return false
                 }
                 a[0] = vm.filterList.length;
-                pageChanged(vm.pageNumber)
+                if (vm.all_campaigns == 1)
+                    $rootScope.selectedFilter.all = vm.filterList;
+                else
+                    $rootScope.selectedFilter.single = vm.filterList;
+                pageChanged(vm.pageNumber, vm.filterList.toString())
             }
         }
 
@@ -668,10 +688,14 @@
             vm.noCampaigns = false;
         }
 
-        function pageChanged(pageNo) {
+        function pageChanged(pageNo, filters) {
             resetGrid();
 
             vm.loader = true;
+            
+            if(filters == '' && vm.filterList != undefined && vm.filterList.length > 0){
+                vm.filterList = undefined;
+            }
 
             if (canceler) {
                 canceler.resolve();
@@ -679,14 +703,14 @@
 
             canceler = $q.defer();
 
-            var data = $("form[name='filter_form']").serialize();
             return $http({
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                 },
                 method: 'POST',
                 url: gridApiCall,
-                data: data + '&' + $.param({
+                data: $.param({
+                    filter: filters || '',
                     search: vm.search_val,
                     page_no: pageNo,
                     all_campaigns: vm.all_campaigns
@@ -702,7 +726,6 @@
                             }
                             else {
                                 vm.gridOptions.data = response.data.data.campaigns;
-                                // if(pageNo == 1)
                                 vm.totalRecords = response.data.data.total_count;
                             }
                         }
@@ -719,7 +742,7 @@
 
         if (CampaignsData.bol) {
             $timeout(function () {
-                pageChanged(vm.pageNumber);
+                pageChanged(vm.pageNumber, vm.filterList ? vm.filterList.toString() : '');
             })
         }
 
@@ -968,33 +991,6 @@
             }
         }
 
-        /*var resetFilesArray = [];
-         function filesReset(){
-         if(resetFilesArray){
-         for(var i = 0; i < resetFilesArray.length; i++){
-         var indx = resetFilesArray[i];
-         if(indx == 0){
-         trash(indx, false);
-         vm.checkBox.ceoPitch = true;
-         param = 'ceos_pitch_s3';
-         hasFile(param, vm.campaignDetails.files[indx], indx, false);
-         }
-         else if(indx == 1){
-         trash(indx, false);
-         vm.checkBox.employeePitch = true;
-         param = 'employees_pitch_s3';
-         hasFile(param, vm.campaignDetails.files[indx], indx, false);
-         }
-         }
-         }
-         else{
-         for(var i = 0; i < 2; i++){
-         trash(i, false);
-         }
-         }
-         resetFilesArray = [];
-         }*/
-
         vm.directiveCall = function (dirFn) {
             vm.resetBuckects = dirFn;
         };
@@ -1065,7 +1061,6 @@
                 eval("$upload_pitch" + index).find('.qq-upload-fail').remove();
                 eval("$upload_pitch" + index).find('.qq-upload-success').hide();
                 eval("$upload_pitch" + index).find('.qq-upload-list').css('z-index', '-1');
-                //eval("$upload_pitch"+index).next('.upload-box').find('.filename').append('<img src="public/images/video.png">');
                 eval("$upload_pitch" + index).next('.upload-box').find('.filename').append('<a class="videoFiles fancybox.ajax" target="_blank" videoPlay="' + App.API_DOMAIN + response.filename + '" href="templates/components/video-play.phtml">' + tpl + '</a>');
                 eval("$upload_pitch" + index).next('.upload-box').find('.filename').append('<p class="name ellipsis">' + response.org_name + '</p>');
                 eval("$upload_pitch" + index).next('.upload-box').find('.filename').append('<img src="public/images/material_icons/circle-close.svg" onclick="angular.element(this).scope().EditCampaignsCtrl.trash(' + index + ')">');
@@ -1080,7 +1075,6 @@
                             '</video>'
                     eval("$upload_pitch" + index).after(uploadTemplate);
                     eval("$upload_pitch" + index).next('.upload-box').find('.progress-bar').hide();
-                    // eval("$upload_pitch"+index).next('.upload-box').find('.filename').append('<img src="public/images/video.png">');
                     eval("$upload_pitch" + index).next('.upload-box').find('.filename').append('<a class="videoFiles fancybox.ajax" target="_blank" videoPlay="' + response[params.file] + '" href="templates/components/video-play.phtml">' + tpl1 + '</a>');
                     eval("$upload_pitch" + index).next('.upload-box').find('.filename').append('<p class="name ellipsis">' + response[params.name] + '</p>');
                     eval("$upload_pitch" + index).next('.upload-box').find('.filename').append('<img src="public/images/material_icons/circle-close.svg" onclick="angular.element(this).scope().EditCampaignsCtrl.trash(' + index + ')">');
@@ -1114,7 +1108,7 @@
                             vm.loader = false;
                             angular.element('.box-footer .disabled').css('pointer-events', 'auto');
                             if (response.data.status_code == 200) {
-                                $state.go('app.campaigns.allCampaigns');
+                                vm.back();
                             }
                             else if (response.data.status_code == 400) {
                                 $window.location = App.base_url + 'logout';
@@ -1123,25 +1117,6 @@
                         })
             }
         }
-
-        /*vm.details = CampaignsData.getCampaigns();
-        vm.copyUrl = App.base_url + 'email/all-campaigns/share?ref=' + vm.details.camp_ref;
-        function urlShortner() {
-            $http({
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                },
-                method: 'POST',
-                url: App.base_url + 'url_shortner',
-                data: $.param({
-                    url: vm.copyUrl
-                })
-            })
-                    .then(function (response) {
-                        $rootScope.shareUrl = response.data.data.link_save.aggregate_link;
-                    })
-        }
-        urlShortner();*/
 
         function resetLocation(city) {
             if (city == undefined) {
@@ -1171,6 +1146,14 @@
 
             }, 200);
         });
+
+        vm.back = back;
+        function back() {
+            if ($rootScope.campaignCond == 1)
+                $state.go('app.campaigns.allCampaigns')
+            else
+                $state.go('app.campaigns.myCampaigns')
+        }
 
         vm.share = share;
 
@@ -1220,7 +1203,7 @@
 
         vm.close = close;
         vm.geoLocationUrl = vm.details.location_type == 'onsite' ? ("https://maps.google.com/?output=embed&f=q&source=s_q&hl=en&q=" + vm.details.location.address + ' ,' + vm.details.location.city + ' ,' + vm.details.location.state) : "#";
-       
+
         var desc = '';
         if (vm.details.location_type != 'online')
             desc = 'Starts on: ' + vm.details.schedule[0].start_on_date + ' and Ends on: ' + vm.details.schedule[0].end_on_date +
@@ -1257,8 +1240,12 @@
 
         // closing modal
         function close() {
-            if ($state.current.name == 'app.campaigns.allCampaigns') {
-                $rootScope.apiCall();
+            if ($state.current.name == 'app.campaigns.allCampaigns' || $state.current.name == 'app.campaigns.myCampaigns') {
+                $rootScope.selectedFilter = {
+                    all: [],
+                    single: []
+                };
+                $rootScope.apiCall(1, '');
             }
         }
 

@@ -7,9 +7,9 @@
 
             .controller('licenseManagementController', licenseManagementController);
 
-    licenseManagementController.$inject = ['$mdDialog', '$state', '$http', 'App'];
+    licenseManagementController.$inject = ['$window', '$mdDialog', '$state', '$http', 'App'];
 
-    function licenseManagementController($mdDialog, $state, $http, App) {
+    function licenseManagementController($window, $mdDialog, $state, $http, App) {
 
         var vm = this;
 
@@ -24,6 +24,10 @@
             url: App.base_url + 'get_company_subscriptions'
         })
                 .then(function (response) {
+                    if(response.data.status_code == 400){
+                        $window.location = App.base_url + 'logout';
+                        return;
+                    }
                     vm.spinner = false;
                     vm.bckerr = false;
                     vm.headerList = response.data.data.active_plan;

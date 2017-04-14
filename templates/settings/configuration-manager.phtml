@@ -19,12 +19,13 @@
                             <div layout="row">
                                 <div flex="50">
                                     <md-checkbox ng-model="ConfigMngCtrl.SSOCheckbox" aria-label="start project" class="md-primary">Enable Single Sign-On(SSO)</md-checkbox>
+                                    <input type="hidden" name="status" value="{{ConfigMngCtrl.SSOCheckbox ? 1 : 0}}">
                                     <input type="hidden" name="id" value="{{ConfigMngCtrl.ssoDetails.id}}">
                                 </div>
                                 <span flex></span>
-                                <md-button aria-label="edit" class="mm-no-btn" ng-click="ConfigMngCtrl.edit()">
+                                <!--<md-button aria-label="edit" class="mm-no-btn" ng-click="ConfigMngCtrl.edit()">
                                     <md-icon><i class="material-icons">edit</i></md-icon>Edit
-                                </md-button>
+                                </md-button>-->
                             </div>
                             <div layout="row" style="padding-top: 15px;">
                                 <div flex="50">
@@ -94,13 +95,15 @@
                             </div>
                         </form>
                     </md-card-content>
-                    <md-card-actions layout="row">
-                        <div flex>
-                           <span ng-if="ConfigMngCtrl.spinner"><img src="public/images/loader/upload_file.gif" alt="loader"> Adding...</span>
-                           <span ng-if="ConfigMngCtrl.sucMsg != ''" class="suc" ng-bind="ConfigMngCtrl.sucMsg"></span> 
+                    <md-card-actions style="min-height: 53px;">
+                        <div class="bor" ng-show="single_signin.$dirty || ConfigMngCtrl.changeOccured" layout="row">
+                            <div flex>
+                                <span ng-if="ConfigMngCtrl.spinner"><img src="public/images/loader/upload_file.gif" alt="loader"> Adding...</span>
+                                <span ng-if="ConfigMngCtrl.sucMsg != ''" class="suc" ng-bind="ConfigMngCtrl.sucMsg"></span> 
+                            </div>
+                            <span flex></span>
+                            <md-button class="mm-btn" ng-disabled="ConfigMngCtrl.spinner" ng-click="ConfigMngCtrl.save(single_signin.$valid)">{{ConfigMngCtrl.hasRecord ? 'Update' : 'Save'}}</md-button>
                         </div>
-                        <span flex></span>
-                        <md-button class="mm-btn" ng-click="ConfigMngCtrl.save(single_signin.$valid)" ng-disabled="ConfigMngCtrl.spinner || (single_signin.$pristine && ConfigMngCtrl.changeOccured) || ConfigMngCtrl.success">{{ConfigMngCtrl.hasRecord ? 'Update' : 'Save'}}</md-button>
                     </md-card-actions>
                 </md-card>
             </div>

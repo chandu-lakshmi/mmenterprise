@@ -438,6 +438,7 @@ body.set-password{overflow: hidden;}
                         }
                     }
                     .rt{padding-left: 20px;
+                        select{visibility: hidden;}
                         md-card{padding: 20px;
                                 .loader{position: absolute;top: 35%;left: 45%;
                                        img{width: 45%;}
@@ -480,7 +481,9 @@ body.set-password{overflow: hidden;}
                                                                  .box{border: 1px solid #ccc;padding: 5px 10px;margin-bottom: 5px;
                                                                       img.avatar{width: 40px;height: 40px;}
                                                                       .content{text-align: left;width: 80%;
-                                                                               p{margin: 0 0 3px;;color: initial;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
+                                                                               p{margin: 0;color: initial;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;
+                                                                                 line-height: 36px;font-size: 18px;padding-left: 10px;
+                                                                               }
                                                                       }
                                                                       i.material-icons{cursor: pointer;}
                                                                  }
@@ -517,7 +520,8 @@ body.set-password{overflow: hidden;}
                                                                }
                                                 }
                                 }
-                                md-card-actions{border-top: 1px solid #ccc;padding-top: 15px;
+                                md-card-actions{
+                                                .bor{border-top: 1px solid #ccc;padding-top: 15px;}
                                                 img{display: inline;width:35px;height: 35px;margin: 0;}
                                                 .suc{color: $mintmeshColor;line-height: 34px;}
                                 }

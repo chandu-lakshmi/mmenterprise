@@ -1,70 +1,67 @@
 <div class="all-campaigns">
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-12" style="padding-bottom:50px;">
-				<div class="box">
-					<div class="box-header clearfix">
-						<div class="col-sm-4">
-							<span>{{$state.current.params.all_campaigns == 1 ? 'ALL' : 'MY'}} CAMPAIGNS ({{AllCampaignsCtrl.totalRecords || 0}}) </span>
-						</div>
-						<form name="filter_form" style="display:inline-block">
-							<md-input-container>
-						        <label style="display:none !important">Filter By Status</label>
-						        <md-select ng-model="AllCampaignsCtrl.filterList" md-on-close="AllCampaignsCtrl.applyFilter()"
-						        	data-md-container-class="multiple-select" multiple placeholder="Filter By Status">
-						          	<md-optgroup ng-repeat="parent in AllCampaignsCtrl.filterOptions" label="{{parent.name}}">
-					            		<md-option ng-value="children.label" ng-repeat="children in parent.children">{{children.value}}</md-option>
-					            	</md-optgroup>
-						        </md-select>
-				      		</md-input-container>
-				      		<input type="hidden" name="filter" value="{{AllCampaignsCtrl.filterList.toString()}}">
-						</form>
-						<div class="col-sm-3 pull-right">
-							<div data-epi-search data-opts="AllCampaignsCtrl.search_opts" data-path="templates/components/"></div>
-						</div>
-					</div>
-					<div class="box-content">
-						<div id="grid" ui-grid="AllCampaignsCtrl.gridOptions" class="grid" ui-grid-selection style="border: 0;">
-							<div class="grid-msg-overlay" ng-if="AllCampaignsCtrl.loader">
-					          	<div class="msg">
-					            	<span>
-					              		<img src="public/images/loader/spin.gif" alt="loader" width="25%">
-					            	</span>
-					          	</div>
-					   		</div>
-					   		<div class="grid-msg-overlay" ng-if="AllCampaignsCtrl.noCampaigns">
-						        <div class="msg">
-						        	<span>No Campaigns Found</span>
-						        </div>
-					    	</div>	
-						</div>
-					</div>
-					<div class="box-footer clearfix">
-						<div class="paging col-sm-4 col-sm-offset-4 text-center" ng-if="AllCampaignsCtrl.totalRecords > 10">
-							<ul uib-pagination total-items="AllCampaignsCtrl.totalRecords" ng-model="AllCampaignsCtrl.pageNumber" max-size="3" direction-links="false" force-ellipses="true" ng-change="AllCampaignsCtrl.pageChanged(AllCampaignsCtrl.pageNumber)" boundary-link-numbers="true" rotate="false"></ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12" style="padding-bottom:50px;">
+                <div class="box">
+                    <div class="box-header clearfix">
+                        <div class="col-sm-4">
+                            <span>{{$state.current.params.all_campaigns == 1 ? 'ALL' : 'MY'}} CAMPAIGNS ({{AllCampaignsCtrl.totalRecords|| 0}}) </span>
+                        </div>
+                        <md-input-container>
+                            <label style="display:none !important">Filter By Status</label>
+                            <md-select ng-model="AllCampaignsCtrl.filterList" md-on-close="AllCampaignsCtrl.applyFilter()"
+                                       data-md-container-class="multiple-select" multiple placeholder="Filter By Status">
+                                <md-optgroup ng-repeat="parent in AllCampaignsCtrl.filterOptions" label="{{parent.name}}">
+                                    <md-option ng-value="children.label" ng-repeat="children in parent.children">{{children.value}}</md-option>
+                                </md-optgroup>
+                            </md-select>
+                        </md-input-container>
+                        <div class="col-sm-3 pull-right">
+                            <div data-epi-search data-opts="AllCampaignsCtrl.search_opts" data-path="templates/components/"></div>
+                        </div>
+                    </div>
+                    <div class="box-content">
+                        <div id="grid" ui-grid="AllCampaignsCtrl.gridOptions" class="grid" ui-grid-selection style="border: 0;">
+                            <div class="grid-msg-overlay" ng-if="AllCampaignsCtrl.loader">
+                                <div class="msg">
+                                    <span>
+                                        <img src="public/images/loader/spin.gif" alt="loader" width="25%">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="grid-msg-overlay" ng-if="AllCampaignsCtrl.noCampaigns">
+                                <div class="msg">
+                                    <span>No Campaigns Found</span>
+                                </div>
+                            </div>	
+                        </div>
+                    </div>
+                    <div class="box-footer clearfix">
+                        <div class="paging col-sm-4 col-sm-offset-4 text-center" ng-if="AllCampaignsCtrl.totalRecords > 10">
+                            <ul uib-pagination total-items="AllCampaignsCtrl.totalRecords" ng-model="AllCampaignsCtrl.pageNumber" max-size="3" direction-links="false" force-ellipses="true" ng-change="AllCampaignsCtrl.pageChanged(AllCampaignsCtrl.pageNumber, AllCampaignsCtrl.filterList.toString())" boundary-link-numbers="true" rotate="false"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-	<!-- Resend Activation Modal -->
-	<!-- <div class="modal fade" id="no_edit" role="dialog">
-	    <div class="modal-dialog">
-	        <div class="modal-content">
-	            <div class="modal-header">
-	                <button type="button" class="close" data-dismiss="modal">&times;</button>
-	                <h4 class="modal-title">Campaign Status</h4>
-	            </div>
-	            <div class="modal-body">
-	                <p>The campaign you selected has been completed.</p>
-	            </div>
-	            <div class="modal-footer">
-	                <button type="button" class="btn btn-default" data-dismiss="modal">OKAY</button>
-	            </div>
-	        </div>
-	    </div>
-	</div> -->
+    <!-- Resend Activation Modal -->
+    <!-- <div class="modal fade" id="no_edit" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Campaign Status</h4>
+                </div>
+                <div class="modal-body">
+                    <p>The campaign you selected has been completed.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">OKAY</button>
+                </div>
+            </div>
+        </div>
+    </div> -->
 </div>
 

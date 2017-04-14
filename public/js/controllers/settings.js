@@ -917,8 +917,7 @@
         vm.uploadSuccess = false;
         vm.spinner = false;
         vm.hasRecord = false;
-        vm.changeOccured = true;
-        vm.success = false;
+        vm.changeOccured = false;
         vm.emailsList = [
             {id: 1, email_id: 'adams@infosys.com'},
             {id: 2, email_id: 'adwin.ams@infosys.com'},
@@ -929,7 +928,6 @@
 
         vm.save = save;
         vm.trash = trash;
-        vm.edit = edit;
 
         setTimeout(function () {
             $('#selectJob').chosen()
@@ -957,14 +955,13 @@
                         .then(function (response) {
                             vm.spinner = false;
                             if (response.data.status_code == 200) {
-                                angular.element(':input').attr('readonly', 'readonly');
-                                $scope.single_signin.$setPristine();
-                                vm.success = true;
                                 vm.sucMsg = response.data.message.msg[0];
                                 $('.suc').fadeIn();
                                 success(response.data.data)
                                 $timeout(function () {
                                     $('.suc').fadeOut();
+                                    vm.changeOccured = false;
+                                    $scope.single_signin.$setPristine();
                                 }, 1000);
                             }
                         }, function (response) {
@@ -984,11 +981,10 @@
                     .then(function (response) {
                         vm.loader = false;
                         if (response.data.status_code == 200) {
-                            angular.element(':input').attr('readonly', 'readonly')
                             success(response.data.data)
                         }
                         else if (response.data.status_code == 403) {
-                            angular.element(':input').removeAttr('readonly');
+                            
                         }
                         else{
                             $window.location = App.base_url + 'logout';
@@ -1001,28 +997,20 @@
 
         function success(data) {
             vm.ssoDetails = data;
+            vm.SSOCheckbox = data.status == 0 ? false : true;
             vm.hasRecord = true;
-            if (vm.ssoDetails.certificate_s3_path != '') {
+            if (vm.ssoDetails.certificate != '') {
                 var obj = {
-                    org_name: vm.ssoDetails.certificate,
-                    filename: vm.ssoDetails.certificate_s3_path,
-                    size: vm.ssoDetails.size
+                    org_name: vm.ssoDetails.idp_file_name,
+                    filename: vm.ssoDetails.certificate
                 }
                 hasFile(obj, true);
             }
         }
 
-        function edit() {
-            vm.success = false;
-            angular.element(':input').removeAttr('readonly');
-            $('#ft').focus();
-        }
-
         function trash() {
-            if (vm.success)
-                vm.success = false;
             vm.uploadSuccess = false;
-            vm.changeOccured = false;
+            vm.changeOccured = true;
             $scope.$apply();
             $upload.find('.qq-upload-drop-area').css('display', 'none');
             $upload.find('.qq-upload-drop-area').html('');
@@ -1034,7 +1022,7 @@
             var status = '';
             if (flag) {
                 status = 'init';
-                $upload.find('.qq-upload-list').html('<input name="size" type="hidden" value="' + obj.size + '" ><input name="certificate_path_s3" type="hidden" value="' + obj.filename + '" ><input name="certificate_org_name" type="hidden" value="' + obj.org_name + '" >')
+                $upload.find('.qq-upload-list').html('<input name="certificate_path_s3" type="hidden" value="' + obj.filename + '" ><input name="certificate_org_name" type="hidden" value="' + obj.org_name + '" >')
             }
             else {
                 status = 'upload';
@@ -1060,7 +1048,6 @@
                     '      <img src="public/images/pdf.png" class="avatar pull-left">' +
                     '      <div class="content pull-left">' +
                     '          <p>' + obj.org_name + '</p>' +
-                    '          <em>' + obj.size + ' KB</em>' +
                     '      </div>' +
                     '      <i class="material-icons pull-right" onclick="angular.element(this).scope().ConfigMngCtrl.trash()">close</i>' +
                     '  </div>' +
@@ -1082,7 +1069,7 @@
                 dragText: "",
                 uploadButtonText: id == 'upload' ? "Upload a file" : 'Change',
                 size: (10 * 1024 * 1024),
-                allowedExtensions: ['csv', 'pdf', 'doc', 'docx'],
+                allowedExtensions: ['csv', 'pdf', 'doc', 'docx', 'cer'],
                 action: App.base_url + "file_upload",
                 showFileInfo: false,
                 shortMessages: true,
@@ -1096,9 +1083,7 @@
                 onComplete: function (id, name, response) {
                     if (response.success) {
                         $upload.find('.qq-upload-list').html('');
-                        if (vm.success)
-                            vm.success = false;
-                        vm.changeOccured = false;
+                        vm.changeOccured = true;
                         $scope.$apply();
                         hasFile(response, false);
                     }

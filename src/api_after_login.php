@@ -1072,7 +1072,7 @@ $app->POST('/file_upload',function ($request, $response, $args) {
                 'gz', 'tar', 'tarz', '7zip', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'pps', 'ppsx', 'pdf', 'eml', 'msg',
                 'txt', 'rtf', 'wps', 'csv', 'xml', 'otf', 'eot', 'webm', 'ogg', 'ogv',
                 'mp3', 'm4a', 'aac', 'wmv', 'wma', 'avi', 'mp4', 'mov', 'mpg', 'qxd', 'qxp', 'swf', 'fla', 'odt', 'vsd', 'wav', 'aiff',
-                'sit', 'sitx', 'numbers', 'pages', 'key', 'ps', 'avi');
+                'sit', 'sitx', 'numbers', 'pages', 'key', 'ps', 'avi','cer');
             // max file size in bytes
             $sizeLimit = 26 * 1024 * 1024;
             $myfilename = 'attach_' . mt_rand().time();

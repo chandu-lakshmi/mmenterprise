@@ -623,9 +623,9 @@ qq.FileUploader = function(o){
     
     this._bindCancelEvent();
     
-    if(this._options.enableDragDrop){
+    /*if(this._options.enableDragDrop){
         this._setupDragDrop();
-    }
+    }*/
 };
 
 // inherit from Basic Uploader
