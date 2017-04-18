@@ -244,7 +244,7 @@ $app->get('/downloadcsv', function ($request, $response, $args) use ($app) {
 });
 
 // preview image fancy box
-$app->get('/public/{file-name}', function ($request, $response, $args) {
+$app->get('/uploads/{file-name}', function ($request, $response, $args) {
     
     $args = commonArgs($this->settings);
     // Render index view
