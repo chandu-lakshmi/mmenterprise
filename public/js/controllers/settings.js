@@ -296,8 +296,8 @@
                         target: $display_pic.find('.drag_img'),
                         css: 'img-circle',
                         remove: true,
-                        url_prefix: App.API_DOMAIN,
-                        url: response.filename,
+                        url_prefix: App.pre_path,
+                        url: response.filename.split('/').slice(-2).join('/'),
                         onComplete: App.Helpers.setImagePosition,
                         onError: function () {
                             $display_pic.find('.qq-upload-drop-area').hide();
@@ -854,8 +854,8 @@
                             target: $display_pic.find('.drag_img'),
                             css: 'img-circle',
                             remove: true,
-                            url_prefix: App.API_DOMAIN,
-                            url: response.filename,
+                            url_prefix: App.pre_path,
+                            url: response.filename.split('/').slice(-2).join('/'),
                             onComplete: App.Helpers.setImagePosition,
                             onError: function () {
                                 $display_pic.find('.qq-upload-drop-area').hide();

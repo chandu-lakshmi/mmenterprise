@@ -3,39 +3,11 @@
 
     angular
             .module('app.company.profile', [])
-            /*.directive('customOnChange', customOnChange)
-             .directive('customOnChangeOne', customOnChangeOne)*/
             .controller('CompanyProfileController', CompanyProfileController)
 
 
     CompanyProfileController.$inject = ['$scope', '$state', '$window', '$http', 'CompanyDetails', 'CONFIG', 'App']
 
-
-    // input[type=file] directive(onChange)
-    /*function customOnChange() {
-     return {
-     restrict: 'A',
-     link: function (scope, element, attrs) {
-     var onChangeFunc = scope.$eval(attrs.customOnChange);
-     element.bind('change', onChangeFunc);
-     }
-     };
-     }*/
-
-    // multiple images upload
-    /*function customOnChangeOne() {
-     return {
-     restrict: 'A',
-     link: function (scope, element, attrs) {
-     var onChangeFunc = scope.$eval(attrs.customOnChangeOne);
-     var index = attrs.customPara;
-     console.log(attrs)
-     element.bind('change', function customeName() {
-     onChangeFunc(index)
-     });
-     }
-     };
-     }*/
 
     function CompanyProfileController($scope, $state, $window, $http, CompanyDetails, CONFIG, App) {
 
@@ -244,8 +216,8 @@
                             css: 'img-thumbnail',
                             remove: true,
                             view: true,
-                            url_prefix: App.API_DOMAIN,
-                            url: response.filename,
+                            url_prefix: App.pre_path,
+                            url: response.filename.split('/').slice(-2).join('/'),
                             onComplete: App.Helpers.setImagePosition,
                             onError: function () {
                                 $company_logo.find('.qq-upload-button').show();
@@ -298,8 +270,8 @@
                                 css: 'img-thumbnail',
                                 remove: true,
                                 view: true,
-                                url_prefix: App.API_DOMAIN,
-                                url: response.filename,
+                                url_prefix: App.pre_path,
+                                url: response.filename.split('/').slice(-2).join('/'),
                                 onComplete: App.Helpers.setImagePosition,
                                 onError: function () {
                                     eval("$mul_images_" + index).find('.qq-upload-button').show();
