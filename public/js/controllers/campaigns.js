@@ -1047,7 +1047,7 @@
             eval("$upload_pitch" + index).next('.upload-box').remove();
         }
 
-        function hasFile(params, response, index, cond) {
+        function hasFile(params, response, index, cond) {console.log(cond)
             if (cond) {
                 var tpl = '<video style="width: 7%;vertical-align:middle">' +
                         '<source src="' + App.pre_path + response.filename.split('/').slice(-2).join('/') + '" type="video/mp4">' +
@@ -1060,7 +1060,7 @@
                 eval("$upload_pitch" + index).find('.qq-upload-fail').remove();
                 eval("$upload_pitch" + index).find('.qq-upload-success').hide();
                 eval("$upload_pitch" + index).find('.qq-upload-list').css('z-index', '-1');
-                eval("$upload_pitch" + index).next('.upload-box').find('.filename').append('<a class="videoFiles fancybox.ajax" target="_blank" videoPlay="' + App.pre_path.split('/').slice(-2).join('/') + response.filename + '" href="templates/components/video-play.phtml">' + tpl + '</a>');
+                eval("$upload_pitch" + index).next('.upload-box').find('.filename').append('<a class="videoFiles fancybox.ajax" target="_blank" videoPlay="' + App.pre_path + response.filename.split('/').slice(-2).join('/') + '" href="templates/components/video-play.phtml">' + tpl + '</a>');
                 eval("$upload_pitch" + index).next('.upload-box').find('.filename').append('<p class="name ellipsis">' + response.org_name + '</p>');
                 eval("$upload_pitch" + index).next('.upload-box').find('.filename').append('<img src="public/images/material_icons/circle-close.svg" onclick="angular.element(this).scope().EditCampaignsCtrl.trash(' + index + ')">');
             }
