@@ -1,7 +1,9 @@
 <div class="all-jobs">
     <div class="container">
         <header>
-            <img ng-src="{{AllJobsCtrl.infiniteScroll.company_logo}}" src="{{AllJobsCtrl.bol ? $root.url_spinner : AllJobsCtrl.infiniteScroll.company_logo}}" ng-class="{'loading' : AllJobsCtrl.bol}" alt="company-logo">
+            <div id="logo" ng-hide="AllJobsCtrl.infiniteScroll.company_logo == ''">
+                <img src="{{$root.url_spinner_small}}" class="spinner small img-thumbnail">
+            </div>
             <span ng-bind="AllJobsCtrl.infiniteScroll.companyName" class="company-name" ng-if="AllJobsCtrl.infiniteScroll.company_logo == ''"></span>			
         </header>
         <section class="job">

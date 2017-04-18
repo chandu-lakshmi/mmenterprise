@@ -3,7 +3,7 @@
 
     angular.module('app', ['ui.router', 'ui.bootstrap',
         'app.constants',
-        'app.components', 'app.helpers',
+        'app.components', 'app.helpers', 'app.services',
         'app.home', 'app.forgotPassword', 'app.company.profile', 'app.import.contacts', 'app.emails', 'app.dashboard',
         'app.engagement.contacts', 'app.post.job', 'app.job.search', 'app.job.details', 'app.rewards', 'app.edit.company', 'app.contact',
         'app.candidates', 'app.campaigns', 'app.settings', 'app.license.management'

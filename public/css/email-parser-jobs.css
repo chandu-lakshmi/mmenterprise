@@ -4,11 +4,9 @@
     padding: 43px 0;
     text-align: center;
     border-bottom: 1px solid #dedede; }
-    .all-jobs .container header img {
-      width: 160px; }
-      .all-jobs .container header img.loading {
-        width: 20px;
-        height: 20px; }
+    .all-jobs .container header #logo .spinner .small {
+      width: 25px;
+      height: 25px; }
     .all-jobs .container header .company-name {
       font-size: 30px;
       color: #478e76;
@@ -138,11 +136,9 @@
   .all-campaigns header.logo {
     padding: 43px 0;
     text-align: center; }
-    .all-campaigns header.logo img {
-      width: 160px; }
-      .all-campaigns header.logo img.loading {
-        width: 20px;
-        height: 20px; }
+    .all-campaigns header.logo #logo .spinner .small {
+      width: 25px;
+      height: 25px; }
     .all-campaigns header.logo .company-name {
       font-size: 30px;
       color: #478e76;

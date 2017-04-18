@@ -1,61 +1,63 @@
 .all-jobs{
-	.container{width: 800px;
-		header{padding:43px 0;text-align: center;border-bottom: 1px solid #dedede;
-			img{width:160px;
-				&.loading{width: 20px;height: 20px;}
-			}
-			.company-name{font-size: 30px;color: #478e76;text-transform: uppercase;}
-		}
-		section.job{min-height: 300px;position: relative;
-			.header{padding: 15px 0;
-				.count{padding: 6px 0;font-size: 16px;}
-                                .search{width: 30%}
-			}
-			.overlay{position: absolute;top: 35%;text-align: center;height: 100%;width: 100%;
-				&.text{background: transparent;font-size: 25px;}
-			}
-		}
-		section.job-details{margin-top: 30px;position: relative;min-height: 300px;
-			.loader{position: absolute;left: 50%;top: 50%;}
-			.row{margin-right: 0px;
-				.header{padding-top: 8px;
-					p{margin: 0;color: #3871cd;font-size: 16px;text-transform: capitalize;}
-					h4{color: #252525;margin-top: 5px;}
-				}
-				.rewards{text-align: center;
-					&:first-child{border-left:1px solid #dedede;border-right:1px solid #dedede;}
-					h4{margin: 0;color:#ed871a;}
-					p{color:#939393;}
-				}
-			}
-			.job-params{padding: 10px 0;
-				.row{
-					.labels{color: #939393;}
-					.value{color: #252525;}
-				}
-			}
-			.job-desc{
-				p{margin:0;color: #939393;}
-				pre{border: 0;background: transparent;font-size: 16px;padding: 0;margin: 0;
-                                    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-                                    white-space: pre-line;color: #262626;padding: 5px 0 0 25px;
-                                }
-			}
-			.action{padding-top: 22px;
-				a{outline: none;margin-right:25px;cursor: pointer;text-decoration: none;padding: 6px 14px;display: inline-block;border-radius: 3px;background: #238260;border:1px solid #238260;color:#fff;}
-				.refer{background: transparent;color: #238260;border-color: #238260;}
-				.all-jobs{margin:0;float: right;background: transparent;color: #252525;border-color: #252525;padding: 6px 14px}
-			}
-		}
-		footer{
-	        .social-media{padding: 25px 0;border-top: 1px solid #ebebeb;margin-top: 32px;border-right:0;border-left:0;background: #fff;}
-	        .drop-cv{text-align: center;padding: 26px;background: #fff;border-top: 1px solid #ebebeb;
-	            span{font-size: 14px;color: #252525;
-	                a{outline: none;margin-right:25px;cursor: pointer;text-decoration: none;padding: 6px 14px;display: inline-block;border-radius: 3px;background: #238260;border:1px solid #238260;color:#fff;}
-	            }
-	        }
-		}
-	}
+    .container{width: 800px;
+               header{padding:43px 0;text-align: center;border-bottom: 1px solid #dedede;
+                      #logo{
+                          .spinner{
+                              .small{width: 25px;height: 25px;}
+                          }
+                      }
+                      .company-name{font-size: 30px;color: #478e76;text-transform: uppercase;}
+               }
+               section.job{min-height: 300px;position: relative;
+                           .header{padding: 15px 0;
+                                   .count{padding: 6px 0;font-size: 16px;}
+                                   .search{width: 30%}
+                           }
+                           .overlay{position: absolute;top: 35%;text-align: center;height: 100%;width: 100%;
+                                    &.text{background: transparent;font-size: 25px;}
+                           }
+               }
+               section.job-details{margin-top: 30px;position: relative;min-height: 300px;
+                                   .loader{position: absolute;left: 50%;top: 50%;}
+                                   .row{margin-right: 0px;
+                                        .header{padding-top: 8px;
+                                                p{margin: 0;color: #3871cd;font-size: 16px;text-transform: capitalize;}
+                                                h4{color: #252525;margin-top: 5px;}
+                                        }
+                                        .rewards{text-align: center;
+                                                 &:first-child{border-left:1px solid #dedede;border-right:1px solid #dedede;}
+                                                 h4{margin: 0;color:#ed871a;}
+                                                 p{color:#939393;}
+                                        }
+                                   }
+                                   .job-params{padding: 10px 0;
+                                               .row{
+                                                   .labels{color: #939393;}
+                                                   .value{color: #252525;}
+                                               }
+                                   }
+                                   .job-desc{
+                                       p{margin:0;color: #939393;}
+                                       pre{border: 0;background: transparent;font-size: 16px;padding: 0;margin: 0;
+                                           font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                                           white-space: pre-line;color: #262626;padding: 5px 0 0 25px;
+                                       }
+                                   }
+                                   .action{padding-top: 22px;
+                                           a{outline: none;margin-right:25px;cursor: pointer;text-decoration: none;padding: 6px 14px;display: inline-block;border-radius: 3px;background: #238260;border:1px solid #238260;color:#fff;}
+                                           .refer{background: transparent;color: #238260;border-color: #238260;}
+                                           .all-jobs{margin:0;float: right;background: transparent;color: #252525;border-color: #252525;padding: 6px 14px}
+                                   }
+               }
+               footer{
+                   .social-media{padding: 25px 0;border-top: 1px solid #ebebeb;margin-top: 32px;border-right:0;border-left:0;background: #fff;}
+                   .drop-cv{text-align: center;padding: 26px;background: #fff;border-top: 1px solid #ebebeb;
+                            span{font-size: 14px;color: #252525;
+                                 a{outline: none;margin-right:25px;cursor: pointer;text-decoration: none;padding: 6px 14px;display: inline-block;border-radius: 3px;background: #238260;border:1px solid #238260;color:#fff;}
+                            }
+                   }
+               }
+    }
 }
 
 @mixin viewHeight($width){
@@ -72,40 +74,42 @@
 
 /* ALL CAMPAIGNS */
 .all-campaigns{color: #939393;
-	header.logo{padding:43px 0;text-align: center;
-		img{width:160px;
-			&.loading{width: 20px;height: 20px;}
-		}
-		.company-name{font-size: 30px;color: #478e76;text-transform: uppercase;}
-	}
-	.content{@include gradient(bottom, rgba(242, 241, 239, 1), rgba(255, 255, 255, 1)); @include viewHeight(150px);
-		.campaign-details{width: 60%;margin: 0 auto;
-			.details{background: url('../images/email-parser/campaign-bg.jpg');background-size: 100% 100%;padding: 35px 15px;
-				.header{
-					p{color: #3b6fd0;margin-bottom: 3px;}
-					span{font-size: 22px;color: initial;}
-					h4{margin: 6px 0;color: #999;}
-				}
-				.row{margin-top: 25px;
-					.col-sm-6{
-						&.time{
-							.article{color: #e79f06;font-size: 17px;text-align: center;
-								big{display: block;font-size: 30px;}
-								.pull-left{width: 45%;}
-							}
-						}
-						&.location{
-							.article{color: initial;}
-						}
-						.title{border-bottom: 1px solid #ececec;padding-bottom: 8px;margin-bottom: 15px;font-size: 21.7px;
-							img{width: 30px;height: 30px;}
-						}
-					}
-				}
-			}
-			.footer{
-				.social-share{padding: 25px 0;border-top: 1px solid #ebebeb;margin-top: 32px;}
-			}
-		}
-	}
+               header.logo{padding:43px 0;text-align: center;
+                           #logo{
+                               .spinner{
+                                   .small{width: 25px;height: 25px;}
+                               }
+                           }
+                           .company-name{font-size: 30px;color: #478e76;text-transform: uppercase;}
+               }
+               .content{@include gradient(bottom, rgba(242, 241, 239, 1), rgba(255, 255, 255, 1)); @include viewHeight(150px);
+                        .campaign-details{width: 60%;margin: 0 auto;
+                                          .details{background: url('../images/email-parser/campaign-bg.jpg');background-size: 100% 100%;padding: 35px 15px;
+                                                   .header{
+                                                       p{color: #3b6fd0;margin-bottom: 3px;}
+                                                       span{font-size: 22px;color: initial;}
+                                                       h4{margin: 6px 0;color: #999;}
+                                                   }
+                                                   .row{margin-top: 25px;
+                                                        .col-sm-6{
+                                                            &.time{
+                                                                .article{color: #e79f06;font-size: 17px;text-align: center;
+                                                                         big{display: block;font-size: 30px;}
+                                                                         .pull-left{width: 45%;}
+                                                                }
+                                                            }
+                                                            &.location{
+                                                                .article{color: initial;}
+                                                            }
+                                                            .title{border-bottom: 1px solid #ececec;padding-bottom: 8px;margin-bottom: 15px;font-size: 21.7px;
+                                                                   img{width: 30px;height: 30px;}
+                                                            }
+                                                        }
+                                                   }
+                                          }
+                                          .footer{
+                                              .social-share{padding: 25px 0;border-top: 1px solid #ebebeb;margin-top: 32px;}
+                                          }
+                        }
+               }
 }

@@ -55,6 +55,21 @@
                 return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
             });
         }
+        
+        function load(url){
+            App.Helpers.loadImage({
+                target: $('#logo'),
+                css: '',
+                url_prefix: false,
+                url: url,
+                onComplete: function () {console.log('shiva')
+                    
+                },
+                onError: function () {
+                    
+                }
+            });
+        }
 
         vm.bol = true;
         vm.shareUrl = App.base_url + 'email/all-jobs/share?ref=' + App.ref;
@@ -88,13 +103,7 @@
                 vm.copyUrl = obj.bittly_url;
                 sharing(vm.copyUrl);
                 if (vm.infiniteScroll.company_logo != '') {
-                    $('header img').on('load', function () {
-                        this.className = '';
-                        $(this).attr('height', App.Components.aspectRatio({domTarget: $(this)[0]}) + 'px');
-                    })
-                }
-                else {
-                    $('header img').remove();
+                    load(vm.infiniteScroll.company_logo)
                 }
             },
             onError: function () {
@@ -621,6 +630,21 @@
                 }
             }
         }
+        
+        function load(url){
+            App.Helpers.loadImage({
+                target: $('#logo'),
+                css: '',
+                url_prefix: false,
+                url: url,
+                onComplete: function () {console.log('shiva')
+                    
+                },
+                onError: function () {
+                    
+                }
+            });
+        }
 
         vm.infiniteScroll = {
             busy: false,
@@ -641,12 +665,7 @@
                 sharing(vm.copyUrl);
                 vm.bol = false;
                 if (vm.infiniteScroll.headerDetails.company_logo != '') {
-                    $('header img').on('load', function () {
-                        this.className = '';
-                    })
-                }
-                else {
-                    $('header img').remove();
+                    load(vm.infiniteScroll.headerDetails.company_logo)
                 }
             },
             onError: function () {

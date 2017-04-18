@@ -79,7 +79,8 @@ and open the template in the editor.
                     API_DOMAIN : '<?php echo $data['API_DOMAIN']; ?>',
                     url_images : '<?php echo $data['APP_DOMAIN']; ?>public/images/',
                     url_spinner : '<?php echo $data['APP_DOMAIN']; ?>public/images/spinner.gif',
-                    url_spinner_small: '<?php echo $data['APP_DOMAIN']; ?>public/images/spinner_small.gif'
+                    url_spinner_small: '<?php echo $data['APP_DOMAIN']; ?>public/images/spinner_small.gif',
+                    pre_path: '<?php echo $data['PREVIEW_PATH']; ?>'
                     
                 })
                 .value('tokens',{
@@ -101,8 +102,9 @@ and open the template in the editor.
     <body>
         <div data-ui-view style="height: 100%" ng-cloak></div>
         
-         <script type="text/javascript" src="public/js/helpers/components.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
+        <script type="text/javascript" src="public/js/helpers/components.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
         <script type="text/javascript" src="public/js/helpers/helpers.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
+        <script type="text/javascript" src="public/js/helpers/services.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
         <script type="text/javascript" src="public/js/helpers/facebook-service.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
         <script type="text/javascript" src="public/js/controllers/home.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
         <script type="text/javascript" src="public/js/controllers/forgot-password.js?v=<?php echo $data['APP_VERSION']; ?>"></script>

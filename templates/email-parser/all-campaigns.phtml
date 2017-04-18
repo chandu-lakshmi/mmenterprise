@@ -1,78 +1,80 @@
 <div class="all-campaigns">
-	<header class="logo">
-		<img ng-src="{{AllCampaignsCtrl.infiniteScroll.headerDetails.company_logo}}" src="{{AllCampaignsCtrl.bol ? $root.url_spinner : AllCampaignsCtrl.infiniteScroll.headerDetails.company_logo}}" ng-class="{'loading' : AllCampaignsCtrl.bol}" alt="company-logo">
-		<span ng-bind="AllCampaignsCtrl.infiniteScroll.headerDetails.company_name" class="company-name" ng-if="AllCampaignsCtrl.infiniteScroll.headerDetails.company_logo == ''"></span>			
-	</header>
-	<div class="content">
-		<div class="container">
-			<div class="campaign-details">
-				<div class="details" ng-if="!AllCampaignsCtrl.bol">
-					<div class="header">
-						<p ng-bind="AllCampaignsCtrl.infiniteScroll.headerDetails.company_name"></p>
-						<span ng-bind="AllCampaignsCtrl.infiniteScroll.headerDetails.campaign_name"></span>
-						<h4	ng-bind="AllCampaignsCtrl.infiniteScroll.headerDetails.campaign_type"></h4>
-					</div>
-					<div class="row">
-						<div class="col-sm-6 time">
-							<div class="title">
-								<img src="../public/images/email-parser/calender.svg" />
-								<span>Time</span>
-							</div>
-							<div class="article clearfix">
-								<div class="pull-left">
-									<span ng-bind="AllCampaignsCtrl.infiniteScroll.headerDetails.campaign_start_date"></span>
-									<big ng-bind="AllCampaignsCtrl.infiniteScroll.headerDetails.campaign_start_time"></big>
-								</div>
-								<div class="pull-left" style="width:10%;line-height:66px;">to</div>
-								<div class="pull-left">
-									<span ng-bind="AllCampaignsCtrl.infiniteScroll.headerDetails.campaign_end_date"></span>
-									<big ng-bind="AllCampaignsCtrl.infiniteScroll.headerDetails.campaign_end_time"></big>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-6 location">
-							<div class="title">
-								<img src="../public/images/email-parser/location.svg" />
-								<span>Location</span>
-							</div>
-							<div class="article">
-								<big ng-bind="AllCampaignsCtrl.infiniteScroll.headerDetails.campaign_location"></big>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="list" infinite-scroll='AllCampaignsCtrl.infiniteScroll.nextPage()' infinite-scroll-disabled='AllCampaignsCtrl.infiniteScroll.busy' infinite-scroll-distance='1' style="position:relative;min-height:350px;" class="list">
-					<div class="row" ng-repeat="list in AllCampaignsCtrl.infiniteScroll.list">
-						<a ui-sref="jobDetails({ref: list.ref_code})" title="" class="detail">
-							<div class="col-sm-8">
-								<span ng-bind="AllCampaignsCtrl.infiniteScroll.headerDetails.company_name"></span>
-								<p ng-bind="list.job_name"></p>
-								<div class="fields">
-									<span class="label">Experience:</span>
-									<span class="value" ng-bind="list.experience"></span><br>
-									<span class="label">Location:</span>
-									<span class="value" ng-bind="list.location"></span>
-								</div>
-							</div>
-						</a>
-						<div class="col-sm-4 buttons" ng-init="sh_cd = $stateParams.share_status">
-							<a class="apply" ui-sref="candidateDetails({ref: list.ref_code,flag: 0, status:list.status, jc: 1, share_status: sh_cd})">APPLY</a>
-							<a class="apply" ui-sref="referralDetails({ref: list.ref_code,flag: 0, status:list.status, jc: 1, share_status: sh_cd})">REFER</a>
-						</div>
-					</div>
-					<div class="text-center" ng-if="AllCampaignsCtrl.infiniteScroll.busy" style="opacity:0.5">
-						<img src="../public/images/loader/spin.gif" alt="spinner" style="width:10%">
-					</div>
-				</div>
-				<div class="footer">
-					<div class="social-share">
-						<span>Share Campaign</span>
-						<!-- social media share directive -->
-						<social-sharing data-opts="AllCampaignsCtrl.socialMedia" data-path="../templates/components" style="margin-top:10px;"></social-sharing>
-						<copy-url url="{{AllCampaignsCtrl.copyUrl}}" btn-text="{{AllCampaignsCtrl.copyText}}"></copy-url>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <header class="logo">
+        <div id="logo" ng-hide="AllCampaignsCtrl.infiniteScroll.headerDetails.company_logo == ''">
+            <img src="{{$root.url_spinner_small}}" class="spinner small img-thumbnail">
+        </div>
+        <span ng-bind="AllCampaignsCtrl.infiniteScroll.headerDetails.company_name" class="company-name" ng-if="AllCampaignsCtrl.infiniteScroll.headerDetails.company_logo == ''"></span>			
+    </header>
+    <div class="content">
+        <div class="container">
+            <div class="campaign-details">
+                <div class="details" ng-if="!AllCampaignsCtrl.bol">
+                    <div class="header">
+                        <p ng-bind="AllCampaignsCtrl.infiniteScroll.headerDetails.company_name"></p>
+                        <span ng-bind="AllCampaignsCtrl.infiniteScroll.headerDetails.campaign_name"></span>
+                        <h4	ng-bind="AllCampaignsCtrl.infiniteScroll.headerDetails.campaign_type"></h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 time">
+                            <div class="title">
+                                <img src="../public/images/email-parser/calender.svg" />
+                                <span>Time</span>
+                            </div>
+                            <div class="article clearfix">
+                                <div class="pull-left">
+                                    <span ng-bind="AllCampaignsCtrl.infiniteScroll.headerDetails.campaign_start_date"></span>
+                                    <big ng-bind="AllCampaignsCtrl.infiniteScroll.headerDetails.campaign_start_time"></big>
+                                </div>
+                                <div class="pull-left" style="width:10%;line-height:66px;">to</div>
+                                <div class="pull-left">
+                                    <span ng-bind="AllCampaignsCtrl.infiniteScroll.headerDetails.campaign_end_date"></span>
+                                    <big ng-bind="AllCampaignsCtrl.infiniteScroll.headerDetails.campaign_end_time"></big>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 location">
+                            <div class="title">
+                                <img src="../public/images/email-parser/location.svg" />
+                                <span>Location</span>
+                            </div>
+                            <div class="article">
+                                <big ng-bind="AllCampaignsCtrl.infiniteScroll.headerDetails.campaign_location"></big>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="list" infinite-scroll='AllCampaignsCtrl.infiniteScroll.nextPage()' infinite-scroll-disabled='AllCampaignsCtrl.infiniteScroll.busy' infinite-scroll-distance='1' style="position:relative;min-height:350px;" class="list">
+                    <div class="row" ng-repeat="list in AllCampaignsCtrl.infiniteScroll.list">
+                        <a ui-sref="jobDetails({ref: list.ref_code})" title="" class="detail">
+                            <div class="col-sm-8">
+                                <span ng-bind="AllCampaignsCtrl.infiniteScroll.headerDetails.company_name"></span>
+                                <p ng-bind="list.job_name"></p>
+                                <div class="fields">
+                                    <span class="label">Experience:</span>
+                                    <span class="value" ng-bind="list.experience"></span><br>
+                                    <span class="label">Location:</span>
+                                    <span class="value" ng-bind="list.location"></span>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="col-sm-4 buttons" ng-init="sh_cd = $stateParams.share_status">
+                            <a class="apply" ui-sref="candidateDetails({ref: list.ref_code,flag: 0, status:list.status, jc: 1, share_status: sh_cd})">APPLY</a>
+                            <a class="apply" ui-sref="referralDetails({ref: list.ref_code,flag: 0, status:list.status, jc: 1, share_status: sh_cd})">REFER</a>
+                        </div>
+                    </div>
+                    <div class="text-center" ng-if="AllCampaignsCtrl.infiniteScroll.busy" style="opacity:0.5">
+                        <img src="../public/images/loader/spin.gif" alt="spinner" style="width:10%">
+                    </div>
+                </div>
+                <div class="footer">
+                    <div class="social-share">
+                        <span>Share Campaign</span>
+                        <!-- social media share directive -->
+                        <social-sharing data-opts="AllCampaignsCtrl.socialMedia" data-path="../templates/components" style="margin-top:10px;"></social-sharing>
+                        <copy-url url="{{AllCampaignsCtrl.copyUrl}}" btn-text="{{AllCampaignsCtrl.copyText}}"></copy-url>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

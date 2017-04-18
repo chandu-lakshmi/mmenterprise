@@ -7,13 +7,22 @@
             .controller('editCompanyProfileController', editCompanyProfileController)
 
 
-    editCompanyProfileController.$inject = ['$scope', '$http', '$q', '$window', 'CompanyDetails', '$compile', 'App'];
+    editCompanyProfileController.$inject = ['$scope', 'httpService', 'pendingRequests', '$window', 'CompanyDetails', 'App'];
 
-    function editCompanyProfileController($scope, $http, $q, $window, CompanyDetails, $compile, App) {
+    function editCompanyProfileController($scope, httpService, pendingRequests, $window, CompanyDetails, App) {
 
         var vm = this, dublicateData, canceller;
         var image_path = '', mul_image_path = [], bonus_file_path = '';
+        
+        // restricting spaces intially
+        $("input, textarea").on("keypress", function (e) {
+            if (e.which === 32 && !this.value.length)
+                e.preventDefault();
+        });
 
+        $('form:first input:first').attr('readonly', 'readonly');
+
+        // fancy box lib call
         $("#company-logo .fancybox").fancybox({
             helpers: {
                 title: {
@@ -58,31 +67,18 @@
         vm.cancel = cancel;
         vm.trash = trash;
 
-        // restricting spaces intially
-        $("input, textarea").on("keypress", function (e) {
-            if (e.which === 32 && !this.value.length)
-                e.preventDefault();
-        });
-
-        $('form:first input:first').attr('readonly', 'readonly');
-
-
-        // GetIndustries
-        var get_industries = $http({
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-            },
-            method: 'GET',
-            url: App.base_url + 'get_industries'
-        })
-        get_industries.success(function (response) {
-            vm.industry_list = response.data.industries;
-        })
-        get_industries.error(function (response) {
-            vm.industry_list = [];
-        })
-
-
+        // get_industries
+        httpService
+                .apiCall('GET', 'get_industries')
+                .success(function (response) {
+                    if (response.status_code == 200)
+                        vm.industry_list = response.data.industries;
+                    else
+                        vm.industry_list = [];
+                })
+        /*.error(function(response){
+         console.log(response)
+         })*/
 
         // view company details API call
         function getCompanyDetails(status) {
@@ -90,65 +86,58 @@
             var param = $.param({
                 company_code: CompanyDetails.company_code
             })
-            var view_company_details = $http({
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                },
-                method: 'POST',
-                data: param,
-                url: App.base_url + 'view_company_details'
-            })
 
-            view_company_details.success(function (response) {
-                vm.errCond = false;
-                if (response.status_code == 200) {
-                    if (response.data.length != 0) {
-                        vm.company_code = CompanyDetails.company_code;
-                        vm.company_details = response.data.companyDetails;
-                        numberOfEmployees(vm.company_details.number_of_employees);
-                        dublicateData = angular.copy(vm.company_details);
-                        if (status != 'update') {
-                            $('form:first input[name=website]').focus();
-                        }
-                        if (vm.company_details.company_logo.length != 0) {
-                            companyLogo();
-                        }
-                        else {
-                            App.Helpers.removeUploadedFiles({
-                                obj: $company_logo
-                            })
-                        }
-                        if (vm.company_details.images.length > 0) {
-                            initialCallback(vm.company_details.images.length);
-                            for (var i = 3; i >= vm.company_details.images.length; i--) {
-                                App.Helpers.removeUploadedFiles({
-                                    obj: eval("$mul_images_" + i)
-                                })
+            httpService
+                    .apiCall('POST', 'view_company_details', param)
+                    .success(function (response) {
+                        vm.errCond = false;
+                        if (response.status_code == 200) {
+                            if (response.data.length != 0) {
+                                vm.company_code = CompanyDetails.company_code;
+                                vm.company_details = response.data.companyDetails;
+                                numberOfEmployees(vm.company_details.number_of_employees);
+                                dublicateData = angular.copy(vm.company_details);
+                                if (status != 'update') {
+                                    $('form:first input[name=website]').focus();
+                                }
+                                if (vm.company_details.company_logo.length != 0) {
+                                    companyLogo();
+                                }
+                                else {
+                                    App.Helpers.removeUploadedFiles({
+                                        obj: $company_logo
+                                    })
+                                }
+                                if (vm.company_details.images.length > 0) {
+                                    initialCallback(vm.company_details.images.length);
+                                    for (var i = 3; i >= vm.company_details.images.length; i--) {
+                                        App.Helpers.removeUploadedFiles({
+                                            obj: eval("$mul_images_" + i)
+                                        })
+                                    }
+                                }
+                                else {
+                                    for (var i = 0; i < 4; i++) {
+                                        App.Helpers.removeUploadedFiles({
+                                            obj: eval("$mul_images_" + i)
+                                        })
+                                    }
+                                }
+                                if (vm.company_details.referral_bonus_file.length != 0) {
+                                    referralBonusFile();
+                                }
+                                else {
+                                    vm.trash(false);
+                                }
                             }
                         }
-                        else {
-                            for (var i = 0; i < 4; i++) {
-                                App.Helpers.removeUploadedFiles({
-                                    obj: eval("$mul_images_" + i)
-                                })
-                            }
+                        else if (response.status_code == 400) {
+                            $window.location = App.base_url + 'logout';
                         }
-                        if (vm.company_details.referral_bonus_file.length != 0) {
-                            referralBonusFile();
-                        }
-                        else {
-                            vm.trash(false);
-                        }
-                    }
-                }
-                else if (response.status_code == 400) {
-                    $window.location = App.base_url + 'logout';
-                }
-
-            })
-            view_company_details.error(function (response) {
-                console.log(response)
-            })
+                    })
+            /*.error(function(response){
+             console.log(response)
+             })*/
         }
         getCompanyDetails();
 
@@ -232,59 +221,44 @@
                 vm.errCond = true;
             }
             else {
-
-                var param = $(' form[name="edit_company_form"]').serialize();
-
+                var formData = $(' form[name="edit_company_form"]').serialize();
                 vm.errCond = false;
                 vm.updateLoader = true;
 
-                if (canceller) {
-                    canceller.resolve();
-                }
+                var param = formData + '&' + $.param({timeZone: new Date().getTimezoneOffset()});
 
-                canceller = $q.defer();
+                httpService
+                        .apiCall('POST', 'update_company', param, true)
+                        .success(function (response) {
+                            if (response.status_code == 200) {
+                                vm.update = false;
+                                vm.updateLoader = false;
+                                $scope.edit_company_form.$setPristine();
 
-                var update_company = $http({
-                    headers: {
-                        "content-type": 'application/x-www-form-urlencoded'
-                    },
-                    method: 'POST',
-                    url: App.base_url + 'update_company',
-                    data: param + '&' + $.param({timeZone: new Date().getTimezoneOffset()}),
-                    timeout: canceller.promise
-                });
+                                if (response.data.hasOwnProperty('company_logo')) {
+                                    $('.user_dp img').attr({
+                                        'src': response.data.company_logo
+                                    });
+                                    $('.user_dp img').css({
+                                        'border': '1px solid #ccc !important',
+                                        'border-radius': '50%'
+                                    })
+                                }
+                                else {
+                                    $('.user_dp img').attr({
+                                        'src': 'public/images/avatar.png'
+                                    });
+                                }
 
-                update_company.success(function (response) {
-                    if (response.status_code == 200) {
-                        vm.update = false;
-                        vm.updateLoader = false;
-                        $scope.edit_company_form.$setPristine();
+                                getCompanyDetails('update');
+                            }
+                            else if (response.status_code == 400) {
+                                $window.location = App.base_url + 'logout';
+                            }
+                        })
+                        .error(function (response) {
 
-                        if (response.data.hasOwnProperty('company_logo')) {
-                            $('.user_dp img').attr({
-                                'src': response.data.company_logo
-                            });
-                            $('.user_dp img').css({
-                                'border': '1px solid #ccc !important',
-                                'border-radius': '50%'
-                            })
-                        }
-                        else {
-                            $('.user_dp img').attr({
-                                'src': 'public/images/avatar.png'
-                            });
-                        }
-
-                        getCompanyDetails('update');
-                    }
-                    else if (response.status_code == 400) {
-                        $window.location = App.base_url + 'logout';
-                    }
-                })
-                update_company.error(function (response) {
-                    vm.updateLoader = false;
-                    console.log(response);
-                })
+                        })
             }
         }
 
@@ -317,8 +291,8 @@
                         css: 'img-thumbnail',
                         remove: true,
                         view: true,
-                        url_prefix: App.API_DOMAIN,
-                        url: response.filename,
+                        url_prefix: App.pre_path,
+                        url: response.filename.split('/').slice(-2).join('/'),
                         onComplete: App.Helpers.setImagePosition,
                         onError: function () {
                             $company_logo.find('.qq-upload-button').show();
@@ -374,8 +348,8 @@
                             css: 'img-thumbnail',
                             remove: true,
                             view: true,
-                            url_prefix: App.API_DOMAIN,
-                            url: response.filename,
+                            url_prefix: App.pre_path,
+                            url: response.filename.split('/').slice(-2).join('/'),
                             onComplete: App.Helpers.setImagePosition,
                             onError: function () {
                                 eval("$mul_images_" + index).find('.qq-upload-button').show();
@@ -419,7 +393,7 @@
                 if (response.success) {
                     vm.update = true;
                     $scope.$apply();
-                    bonus_file_path = App.API_DOMAIN + response.filename;
+                    bonus_file_path = App.pre_path + response.filename;
                     $referral_bonus.find('.qq-upload-list').css('z-index', '-1');
                     $referral_bonus.find('.qq-upload-list .qq-upload-success').css('background', 'transparent');
                     $referral_bonus.find('.qq-upload-list .upload-success').hide();
@@ -493,6 +467,12 @@
             vm.update = false;
             vm.errCond = false;
         }
+
+
+        // destroy
+        $scope.$on('$destroy', function () {
+            pendingRequests.cancelAll();
+        })
 
     }
 
