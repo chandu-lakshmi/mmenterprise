@@ -243,6 +243,14 @@ $app->get('/downloadcsv', function ($request, $response, $args) use ($app) {
      
 });
 
+// preview image fancy box
+$app->get('/public/{file-name}', function ($request, $response, $args) {
+    
+    $args = commonArgs($this->settings);
+    // Render index view
+    return $this->renderer->render($response, 'index.phtml', $args);
+});
+
 // Register routes After Login
 require __DIR__ . '/api_after_login.php';
 
