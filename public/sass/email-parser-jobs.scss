@@ -5,6 +5,7 @@
                           .spinner{
                               .small{width: 25px;height: 25px;}
                           }
+                          img:not(.spinner){width: 160px;}
                       }
                       .company-name{font-size: 30px;color: #478e76;text-transform: uppercase;}
                }
@@ -79,6 +80,7 @@
                                .spinner{
                                    .small{width: 25px;height: 25px;}
                                }
+                               img:not(.spinner){width: 160px;}
                            }
                            .company-name{font-size: 30px;color: #478e76;text-transform: uppercase;}
                }

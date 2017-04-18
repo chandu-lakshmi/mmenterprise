@@ -7,6 +7,8 @@
     .all-jobs .container header #logo .spinner .small {
       width: 25px;
       height: 25px; }
+    .all-jobs .container header #logo img:not(.spinner) {
+      width: 160px; }
     .all-jobs .container header .company-name {
       font-size: 30px;
       color: #478e76;
@@ -139,6 +141,8 @@
     .all-campaigns header.logo #logo .spinner .small {
       width: 25px;
       height: 25px; }
+    .all-campaigns header.logo #logo img:not(.spinner) {
+      width: 160px; }
     .all-campaigns header.logo .company-name {
       font-size: 30px;
       color: #478e76;
