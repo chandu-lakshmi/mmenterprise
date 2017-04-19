@@ -313,7 +313,7 @@
                 onComplete: function (id, name, response) {
                     if (response.success) {
                         $scope.$apply();
-                        bonus_file_path = App.API_DOMAIN + response.filename.split('/').slice(-2).join('/');
+                        bonus_file_path = App.pre_path + response.filename.split('/').slice(-2).join('/');
                         $referral_bonus.find('.qq-upload-list').css('z-index', '-1');
                         $referral_bonus.find('.qq-upload-list .qq-upload-success').css('background', 'transparent');
                         $referral_bonus.find('.qq-upload-list .upload-success').hide();
