@@ -607,7 +607,8 @@ md-input-container md-select .md-select-value {
       .edit-company .edit-box .referral-bonus .qq-uploader .qq-upload-drop-area .drag_img a.view {
         line-height: 50px;
         color: #333;
-        width: 78%; }
+        width: 78%;
+        text-align: left; }
         .edit-company .edit-box .referral-bonus .qq-uploader .qq-upload-drop-area .drag_img a.view img {
           width: 25px;
           height: 25px; }

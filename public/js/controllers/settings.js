@@ -14,10 +14,10 @@
     SettingsController.$inject = [];
     SettingsCompanyProfileController.$inject = ['$window', 'CompanyDetails', '$http', 'CONFIG'];
     MyProfileController.$inject = ['$http', '$scope', '$window', '$uibModal', 'UserDetails', 'CONFIG', 'App'];
-    UserGroupController.$inject = ['$scope', '$window', '$element', 'CONFIG', '$http', '$q', 'UserDetails', 'permissionsService', 'userPermissions', 'App'];
+    UserGroupController.$inject = ['$scope', '$window', '$element', 'CONFIG', '$http', '$q', 'permissionsService', 'userPermissions', 'App'];
     ConfigManagerController.$inject = ['$window', '$scope', '$timeout', '$http', 'App'];
-    IntManagerController.$inject = ['$timeout', '$http', 'App'];
-    
+    IntManagerController.$inject = ['$scope', '$window', '$timeout', '$http', 'App'];
+
     function permissionsService() {
         var permissionData = {};
         this.setPermissions = function (data) {
@@ -108,7 +108,7 @@
         vm.message = false;
         vm.has_image = false;
         vm.changeFound = false;
-        
+
         vm.myProfile = angular.copy(UserDetails);
         vm.passwords = {};
         vm.backendMsg = '';
@@ -176,11 +176,11 @@
                                     }
                                 });
                             }
-                            else{
+                            else {
                                 UserDetails.user_dp = '';
                             }
                         }
-                        else{
+                        else {
                             UserDetails.user_dp = '';
                         }
                         $scope.my_profile_form.$setPristine();
@@ -320,7 +320,7 @@
                 $display_pic.find('.qq-upload-list').css('z-index', '-1');
             }
         });
-        
+
         if (vm.myProfile.user_dp != '') {
             $display_pic.find('.qq-upload-drop-area').css({
                 'display': 'block',
@@ -348,7 +348,7 @@
     }
 
 
-    function UserGroupController($scope, $window, $element, CONFIG, $http, $q, UserDetails, permissionsService, userPermissions, App) {
+    function UserGroupController($scope, $window, $element, CONFIG, $http, $q, permissionsService, userPermissions, App) {
 
         var vm = this,
                 APP_URL = CONFIG.APP_DOMAIN,
@@ -984,9 +984,9 @@
                             success(response.data.data)
                         }
                         else if (response.data.status_code == 403) {
-                            
+
                         }
-                        else{
+                        else {
                             $window.location = App.base_url + 'logout';
                         }
                     }, function (response) {
@@ -1113,29 +1113,20 @@
         upload('upload');
     }
 
-    function IntManagerController($timeout, $http, App) {
+    function IntManagerController($scope, $window, $timeout, $http, App) {
+
         var vm = this;
-        vm.loader = false;
+
+        vm.loader = true;
         vm.mintmeshPartnes = [];
         vm.show_error = false;
         vm.partnerDetails = {};
-        vm.list = [];
+
         //vm.addPartner = addPartner;
         vm.getPartnersData = getPartnersData;
         vm.update = update;
-        function getPartnersData(i) {
-            vm.show_error = false;
-            vm.activeIndex = i;
-            if (vm.list.length == 0)
-                getPartners();
-            else {
-                vm.partnerDetails = angular.copy(vm.list[vm.activeIndex])
-                vm.checkbox = vm.list[vm.activeIndex].hcm_status == 'enable' ? true : false;
-            }
-        }
 
         function dropDown() {
-            vm.loader = true;
             $http({
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -1144,13 +1135,50 @@
                 url: App.base_url + 'get_hcm_partners'
             })
                     .then(function (response) {
-                        vm.mintmeshPartnes = response.data.data;
-                        getPartnersData(0)
+                        if (response.data.status_code == 200) {
+                            vm.mintmeshPartnes = response.data.data;
+                            getPartnersData(0)
+                        }
+                        else if (response.data.status_code == 400) {
+                            $window.location = App.base_url + 'logout';
+                        }
                     }, function (response) {
 
                     })
         }
-        dropDown();
+
+        function getPartnersData(i) {
+            vm.show_error = false;
+            vm.activeIndex = i;
+            getPartners(vm.mintmeshPartnes[i].hcm_id);
+        }
+
+        function getPartners(id) {
+
+            $http({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'POST',
+                url: App.base_url + 'get_hcm_list',
+                data: $.param({hcm_id: id})
+            })
+                    .then(function (response) {
+                        var status = response.data.status_code;
+                        vm.loader = false;
+                        if (status == 200) {
+                            vm.partnerDetails = response.data.data[0];
+                            vm.checkbox = vm.partnerDetails.hcm_status == 'enable' ? true : false;
+                        }
+                        else if (status == 403) {
+                            vm.partnerDetails.hcm_id = vm.mintmeshPartnes[vm.activeIndex].hcm_id;
+                            vm.checkbox = false;
+                        }
+                    }, function (response) {
+                        console.log(response)
+                    })
+        }
+
         function update(isValid) {
             if (!isValid) {
                 vm.show_error = true;
@@ -1165,37 +1193,9 @@
             addEditPartner(data, function (data) {
                 vm.loading = false;
                 angular.extend(vm.partnerDetails, data)
-                vm.checkbox = data.hcm_status == 'disable' ? false : true;
-                angular.extend(vm.list[vm.activeIndex], data)
+                vm.checkbox = data.hcm_status == 'enable' ? true : false;
             });
         }
-
-        function getPartners() {
-
-            $http({
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                },
-                method: 'POST',
-                url: App.base_url + 'get_hcm_list'
-            })
-                    .then(function (response) {
-                        var status = response.data.status_code;
-                        vm.loader = false;
-                        if (status == 200) {
-                            vm.list = response.data.data;
-                            vm.partnerDetails = angular.copy(vm.list[vm.activeIndex])
-                            vm.checkbox = vm.partnerDetails.hcm_status == 'enable' ? true : false;
-                        }
-                        else if (status == 403) {
-                            vm.partnerDetails = angular.copy(vm.mintmeshPartnes[vm.activeIndex])
-                            vm.checkbox = false;
-                        }
-                    }, function (response) {
-                        console.log(response)
-                    })
-        }
-
 
         function addEditPartner(data, callback) {
             $http({
@@ -1208,11 +1208,13 @@
             })
                     .then(function (response) {
                         if (callback != undefined) {
-                            callback(response.data.data);
                             vm.sucMsg = response.data.message.msg[0];
+                            $('.suc').fadeIn();
+                            callback(response.data.data);
                             $timeout(function () {
                                 $('.suc').fadeOut();
-                            }, 500);
+                                $scope.suc_fac_form.$setPristine();
+                            }, 1000);
                             return;
                         }
                         vm.sucMsg = response.data.message.msg[0];
@@ -1220,6 +1222,12 @@
                         console.log(response)
                     })
         }
+
+        function init() {
+            dropDown();
+        }
+
+        init();
 
     }
 

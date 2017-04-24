@@ -125,7 +125,7 @@
             columnDefs: [
                 {name: 'firstname', displayName: 'First Name', validators: {charValidation: ''}, cellTemplate: 'ui-grid/cellTitleValidator'},
                 {name: 'lastname', displayName: 'Last Name', validators: {charValidationReq: ''}, cellTemplate: 'ui-grid/cellTitleValidator'},
-                {name: 'emailid', displayName: 'Email', enableCellEdit: false, cellClass: 'grid-email', width: '20%',
+                {name: 'emailid', displayName: 'Email', enableCellEdit: false, cellClass: 'grid-no-hover', width: '20%',
                     cellTooltip: function (row, col) {
                         return row.entity.emailid
                     }
@@ -151,6 +151,15 @@
                 }
             ]
         };
+        
+        if(edit_feature){
+            this.gridOptions.columnDefs.push(
+                {name: 'download_status', displayName: 'Download', enableCellEdit: false, cellClass: 'grid-no-hover', width: '10%',
+                    cellTemplate: '<div class="ui-grid-cell-contents">{{ COL_FIELD == 1 ? "Yes" : "No"}}</div>',
+                    //sortDirectionCycle: ['asc', 'desc', '']
+                }
+            )
+        }
 
 
         function gridValidtion(validatorName, regExp) {
@@ -208,8 +217,11 @@
                 }
             });
             gridApi.core.on.sortChanged(null, function (grid, sortColumns) {
-                sort = sortColumns[0].sort.direction == 'asc' ? '' : 'desc';
                 colDefName = sortColumns[0].name;
+                /*if(colDefName == 'download_status'){
+                    return;
+                }*/
+                sort = sortColumns[0].sort.direction == 'asc' ? '' : 'desc';
                 colSortObj = sortColumns;
                 scope.getGridData('', '', '', scope.searchVal);
             });
@@ -337,8 +349,9 @@
                         scope.gridApi.selection.clearSelectedRows();
                     }
 
-                    scope.totalRecordsCount = response.data.total_records[0].total_count;
+                    scope.totalRecordsCount = response.data.total_records.total_count;
                     scope.activeBucketCount = scope.totalRecordsCount;
+                    scope.activeBucketDownloadCount = response.data.total_records.total_downloads;
 
                     scope.searchLoader = false;
                     scope.loaderImg = false;

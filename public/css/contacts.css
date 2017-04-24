@@ -113,6 +113,12 @@
 	position: relative;
     padding: 15px;
 }
+.grid-contacts .container .container-rt .search span.hr{
+    border-right: 1px solid #d1d1d1;
+    height: 20px;
+    vertical-align: middle;
+    margin: 0 12px;
+}
 .grid-contacts .container .container-rt .search div{
 	display: inline-block;
     text-align: center;
@@ -158,6 +164,9 @@
     overflow: hidden;
     height: calc(100vh - 268px);
     min-height: 400px;
+}
+.grid-contacts .grid-container .inline-grid .ui-grid-viewport {
+   overflow-anchor: none;
 }
 .grid-contacts .ui-grid-header-viewport{
   	height: 43px;
@@ -221,7 +230,7 @@
 .grid-contacts .grid-other-id{
 	text-transform: uppercase;
 }
-.grid-contacts .hover-enable .ui-grid-contents-wrapper > .ui-grid-render-container .ui-grid-canvas div[ui-grid-row="row"] div:not(.grid-email):hover div:not(.invalid):first-child:before{
+.grid-contacts .hover-enable .ui-grid-contents-wrapper > .ui-grid-render-container .ui-grid-canvas div[ui-grid-row="row"] div:not(.grid-no-hover):hover div:not(.invalid):first-child:before{
 	content: '';
     position: absolute;
     border: 1px solid #0990e2;

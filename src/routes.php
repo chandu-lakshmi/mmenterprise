@@ -19,8 +19,9 @@ if(isset($_SESSION["access_token"]) && !empty($_SESSION["access_token"])) {
 }*/
 
 $app->get('/saml', function ($request, $response, $args) {
-   require_once('/var/simplesamlphp/lib/_autoload.php');   
-   $saml = new SimpleSAML_Auth_Simple('default-sp');   
+   require_once('/var/simplesamlphp/lib/_autoload.php');
+   $ccode = (string)$_SESSION['ccode'];
+   $saml = new SimpleSAML_Auth_Simple($ccode);   
    $saml->requireAuth();
    $attributes  =  $saml->getAttributes();
    $emailid     =  !empty($attributes['emailId'][0])?$attributes['emailId'][0]:'';

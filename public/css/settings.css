@@ -360,12 +360,13 @@ body.set-password {
     font-size: 16px; }
     .settings .my-profile .details {
       background: #fff;
-      padding: 30px;
+      padding: 0 30px;
       border: 1px solid #cdcdcd;
       border-top: 0;
       box-shadow: 1px 1px 5px #cdcdcd; }
       .settings .my-profile .details .content {
-        min-height: 700px;
+        min-height: calc(100vh - 268px);
+        font-size: 16px;
         padding-top: 50px;
         width: 40%;
         margin: 0 auto; }
@@ -734,101 +735,122 @@ body.set-password {
           border-color: #1c8f6e;
           outline: none;
           color: #fff; }
-  .settings .config-manager .saml {
+  .settings .manager-tab.integration {
+    min-height: calc(100vh - 160px);
+    font-size: 16px;
+    position: relative; }
+    .settings .manager-tab.integration .init-loader {
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+      background: url("../images/loader/spin.gif") 50% 25% no-repeat white;
+      background-size: 6%;
+      opacity: 0.7; }
+  .settings .manager-tab .saml, .settings .manager-tab .hcms {
     min-height: calc(100vh - 160px);
     font-size: 16px; }
-    .settings .config-manager .saml .lt {
-      padding-right: 20px; }
-      .settings .config-manager .saml .lt md-list {
-        color: #5e5e5e; }
-        .settings .config-manager .saml .lt md-list md-list-item {
+    .settings .manager-tab .saml .lt, .settings .manager-tab .hcms .lt {
+      padding-right: 20px;
+      padding-top: 33px; }
+      .settings .manager-tab .saml .lt md-list, .settings .manager-tab .hcms .lt md-list {
+        color: #5e5e5e;
+        padding-top: 0; }
+        .settings .manager-tab .saml .lt md-list md-list-item, .settings .manager-tab .hcms .lt md-list md-list-item {
           border-radius: 4px; }
-          .settings .config-manager .saml .lt md-list md-list-item.md-list-active {
+          .settings .manager-tab .saml .lt md-list md-list-item.md-list-active, .settings .manager-tab .hcms .lt md-list md-list-item.md-list-active {
             background: #fff; }
-          .settings .config-manager .saml .lt md-list md-list-item h3 {
+          .settings .manager-tab .saml .lt md-list md-list-item h3, .settings .manager-tab .hcms .lt md-list md-list-item h3 {
             font-size: 18px;
             color: inherit; }
-          .settings .config-manager .saml .lt md-list md-list-item h4 {
+          .settings .manager-tab .saml .lt md-list md-list-item h4, .settings .manager-tab .hcms .lt md-list md-list-item h4 {
             font-size: 16px;
             color: inherit; }
-    .settings .config-manager .saml .rt {
-      padding-left: 20px; }
-      .settings .config-manager .saml .rt select {
+          .settings .manager-tab .saml .lt md-list md-list-item .md-list-item-text, .settings .manager-tab .hcms .lt md-list md-list-item .md-list-item-text {
+            outline: none;
+            width: 100%; }
+    .settings .manager-tab .saml .rt, .settings .manager-tab .hcms .rt {
+      padding-left: 20px;
+      padding-top: 33px; }
+      .settings .manager-tab .saml .rt select, .settings .manager-tab .hcms .rt select {
         visibility: hidden; }
-      .settings .config-manager .saml .rt md-card {
-        padding: 20px; }
-        .settings .config-manager .saml .rt md-card .loader {
+      .settings .manager-tab .saml .rt md-card, .settings .manager-tab .hcms .rt md-card {
+        padding: 20px;
+        margin-top: 0;
+        min-height: 95%;
+        position: relative; }
+        .settings .manager-tab .saml .rt md-card .loader, .settings .manager-tab .hcms .rt md-card .loader {
           position: absolute;
           top: 35%;
           left: 45%; }
-          .settings .config-manager .saml .rt md-card .loader img {
+          .settings .manager-tab .saml .rt md-card .loader img, .settings .manager-tab .hcms .rt md-card .loader img {
             width: 45%; }
-          .settings .config-manager .saml .rt md-card .loader h4.err {
+          .settings .manager-tab .saml .rt md-card .loader h4.err, .settings .manager-tab .hcms .rt md-card .loader h4.err {
             text-align: center;
             line-height: 6em;
             color: #5e5e5e; }
-        .settings .config-manager .saml .rt md-card md-card-content {
-          min-height: calc(100vh - 302px);
-          font-size: 16px;
+        .settings .manager-tab .saml .rt md-card md-card-content, .settings .manager-tab .hcms .rt md-card md-card-content {
           padding: 0;
           margin: 8px;
           position: relative;
           padding-bottom: 40px; }
-          .settings .config-manager .saml .rt md-card md-card-content div[layout='row'] div[flex='50']:first-child {
+          .settings .manager-tab .saml .rt md-card md-card-content div[layout='row'] div[flex='50']:first-child, .settings .manager-tab .hcms .rt md-card md-card-content div[layout='row'] div[flex='50']:first-child {
             margin-right: 45px; }
-          .settings .config-manager .saml .rt md-card md-card-content div[layout='row']:first-child .md-button {
+          .settings .manager-tab .saml .rt md-card md-card-content div[layout='row']:first-child .md-button, .settings .manager-tab .hcms .rt md-card md-card-content div[layout='row']:first-child .md-button {
             font-size: inherit;
             text-transform: initial;
             font-weight: bold;
             letter-spacing: 0.32px;
             margin: 0; }
-            .settings .config-manager .saml .rt md-card md-card-content div[layout='row']:first-child .md-button md-icon, .settings .config-manager .saml .rt md-card md-card-content div[layout='row']:first-child .md-button i {
+            .settings .manager-tab .saml .rt md-card md-card-content div[layout='row']:first-child .md-button md-icon, .settings .manager-tab .saml .rt md-card md-card-content div[layout='row']:first-child .md-button i, .settings .manager-tab .hcms .rt md-card md-card-content div[layout='row']:first-child .md-button md-icon, .settings .manager-tab .hcms .rt md-card md-card-content div[layout='row']:first-child .md-button i {
               font-size: 16px;
               color: inherit;
               width: 20px;
               height: 20px; }
-          .settings .config-manager .saml .rt md-card md-card-content md-input-container {
+          .settings .manager-tab .saml .rt md-card md-card-content md-input-container, .settings .manager-tab .hcms .rt md-card md-card-content md-input-container {
             width: 100%; }
-          .settings .config-manager .saml .rt md-card md-card-content md-checkbox {
+          .settings .manager-tab .saml .rt md-card md-card-content md-checkbox, .settings .manager-tab .hcms .rt md-card md-card-content md-checkbox {
             width: 100%;
             margin: 6px 0;
             color: #767877; }
-            .settings .config-manager .saml .rt md-card md-card-content md-checkbox.md-checked .md-icon {
+            .settings .manager-tab .saml .rt md-card md-card-content md-checkbox.md-checked .md-icon, .settings .manager-tab .hcms .rt md-card md-card-content md-checkbox.md-checked .md-icon {
               background: #2393d3; }
-          .settings .config-manager .saml .rt md-card md-card-content .file-upload {
+          .settings .manager-tab .saml .rt md-card md-card-content .file-upload, .settings .manager-tab .hcms .rt md-card md-card-content .file-upload {
             width: 100%;
             color: #767877; }
-            .settings .config-manager .saml .rt md-card md-card-content .file-upload #upload {
+            .settings .manager-tab .saml .rt md-card md-card-content .file-upload #upload, .settings .manager-tab .hcms .rt md-card md-card-content .file-upload #upload {
               margin: 8px 0; }
-              .settings .config-manager .saml .rt md-card md-card-content .file-upload #upload .qq-uploader {
+              .settings .manager-tab .saml .rt md-card md-card-content .file-upload #upload .qq-uploader, .settings .manager-tab .hcms .rt md-card md-card-content .file-upload #upload .qq-uploader {
                 margin: 0;
                 padding: 0;
                 height: 45px;
                 overflow: initial; }
-                .settings .config-manager .saml .rt md-card md-card-content .file-upload #upload .qq-uploader .qq-upload-list {
+                .settings .manager-tab .saml .rt md-card md-card-content .file-upload #upload .qq-uploader .qq-upload-list, .settings .manager-tab .hcms .rt md-card md-card-content .file-upload #upload .qq-uploader .qq-upload-list {
                   left: 0;
                   width: 50%; }
-                .settings .config-manager .saml .rt md-card md-card-content .file-upload #upload .qq-uploader .qq-upload-button {
+                .settings .manager-tab .saml .rt md-card md-card-content .file-upload #upload .qq-uploader .qq-upload-button, .settings .manager-tab .hcms .rt md-card md-card-content .file-upload #upload .qq-uploader .qq-upload-button {
                   color: #565656;
                   background: #e6e6e6;
                   border: 1px solid #ccc;
                   line-height: 30px;
                   font-size: 16px;
                   width: 50%; }
-                  .settings .config-manager .saml .rt md-card md-card-content .file-upload #upload .qq-uploader .qq-upload-button input[type="file"] {
+                  .settings .manager-tab .saml .rt md-card md-card-content .file-upload #upload .qq-uploader .qq-upload-button input[type="file"], .settings .manager-tab .hcms .rt md-card md-card-content .file-upload #upload .qq-uploader .qq-upload-button input[type="file"] {
                     width: 127%; }
-            .settings .config-manager .saml .rt md-card md-card-content .file-upload #change {
+            .settings .manager-tab .saml .rt md-card md-card-content .file-upload #change, .settings .manager-tab .hcms .rt md-card md-card-content .file-upload #change {
               cursor: pointer; }
-              .settings .config-manager .saml .rt md-card md-card-content .file-upload #change .qq-uploader {
+              .settings .manager-tab .saml .rt md-card md-card-content .file-upload #change .qq-uploader, .settings .manager-tab .hcms .rt md-card md-card-content .file-upload #change .qq-uploader {
                 width: 65px;
                 display: inline-block;
                 position: initial;
                 height: auto; }
-                .settings .config-manager .saml .rt md-card md-card-content .file-upload #change .qq-uploader .qq-upload-list {
+                .settings .manager-tab .saml .rt md-card md-card-content .file-upload #change .qq-uploader .qq-upload-list, .settings .manager-tab .hcms .rt md-card md-card-content .file-upload #change .qq-uploader .qq-upload-list {
                   left: 0;
                   width: 100%;
                   height: 58px; }
-                .settings .config-manager .saml .rt md-card md-card-content .file-upload #change .qq-uploader .qq-upload-button {
+                .settings .manager-tab .saml .rt md-card md-card-content .file-upload #change .qq-uploader .qq-upload-button, .settings .manager-tab .hcms .rt md-card md-card-content .file-upload #change .qq-uploader .qq-upload-button {
                   background: transparent;
                   border: 0;
                   color: #03a8e0;
@@ -837,25 +859,25 @@ body.set-password {
                   width: 100%;
                   line-height: initial;
                   font-size: 13px; }
-                  .settings .config-manager .saml .rt md-card md-card-content .file-upload #change .qq-uploader .qq-upload-button .button_txt {
+                  .settings .manager-tab .saml .rt md-card md-card-content .file-upload #change .qq-uploader .qq-upload-button .button_txt, .settings .manager-tab .hcms .rt md-card md-card-content .file-upload #change .qq-uploader .qq-upload-button .button_txt {
                     font-size: 13px;
                     text-align: left;
                     position: initial;
                     display: inline;
                     line-height: initial; }
-                  .settings .config-manager .saml .rt md-card md-card-content .file-upload #change .qq-uploader .qq-upload-button input[type="file"] {
+                  .settings .manager-tab .saml .rt md-card md-card-content .file-upload #change .qq-uploader .qq-upload-button input[type="file"], .settings .manager-tab .hcms .rt md-card md-card-content .file-upload #change .qq-uploader .qq-upload-button input[type="file"] {
                     width: 250%; }
-            .settings .config-manager .saml .rt md-card md-card-content .file-upload .up-tmp .box {
+            .settings .manager-tab .saml .rt md-card md-card-content .file-upload .up-tmp .box, .settings .manager-tab .hcms .rt md-card md-card-content .file-upload .up-tmp .box {
               border: 1px solid #ccc;
               padding: 5px 10px;
               margin-bottom: 5px; }
-              .settings .config-manager .saml .rt md-card md-card-content .file-upload .up-tmp .box img.avatar {
+              .settings .manager-tab .saml .rt md-card md-card-content .file-upload .up-tmp .box img.avatar, .settings .manager-tab .hcms .rt md-card md-card-content .file-upload .up-tmp .box img.avatar {
                 width: 40px;
                 height: 40px; }
-              .settings .config-manager .saml .rt md-card md-card-content .file-upload .up-tmp .box .content {
+              .settings .manager-tab .saml .rt md-card md-card-content .file-upload .up-tmp .box .content, .settings .manager-tab .hcms .rt md-card md-card-content .file-upload .up-tmp .box .content {
                 text-align: left;
                 width: 80%; }
-                .settings .config-manager .saml .rt md-card md-card-content .file-upload .up-tmp .box .content p {
+                .settings .manager-tab .saml .rt md-card md-card-content .file-upload .up-tmp .box .content p, .settings .manager-tab .hcms .rt md-card md-card-content .file-upload .up-tmp .box .content p {
                   margin: 0;
                   color: initial;
                   white-space: nowrap;
@@ -864,24 +886,24 @@ body.set-password {
                   line-height: 36px;
                   font-size: 18px;
                   padding-left: 10px; }
-              .settings .config-manager .saml .rt md-card md-card-content .file-upload .up-tmp .box i.material-icons {
+              .settings .manager-tab .saml .rt md-card md-card-content .file-upload .up-tmp .box i.material-icons, .settings .manager-tab .hcms .rt md-card md-card-content .file-upload .up-tmp .box i.material-icons {
                 cursor: pointer; }
-            .settings .config-manager .saml .rt md-card md-card-content .file-upload .up-tmp .action {
+            .settings .manager-tab .saml .rt md-card md-card-content .file-upload .up-tmp .action, .settings .manager-tab .hcms .rt md-card md-card-content .file-upload .up-tmp .action {
               font-size: 13px;
               text-align: left; }
-              .settings .config-manager .saml .rt md-card md-card-content .file-upload .up-tmp .action md-divider {
+              .settings .manager-tab .saml .rt md-card md-card-content .file-upload .up-tmp .action md-divider, .settings .manager-tab .hcms .rt md-card md-card-content .file-upload .up-tmp .action md-divider {
                 border-color: #03a8e0; }
-              .settings .config-manager .saml .rt md-card md-card-content .file-upload .up-tmp .action var:first-child {
+              .settings .manager-tab .saml .rt md-card md-card-content .file-upload .up-tmp .action var:first-child, .settings .manager-tab .hcms .rt md-card md-card-content .file-upload .up-tmp .action var:first-child {
                 border-right: 1px solid #03a8e0; }
-              .settings .config-manager .saml .rt md-card md-card-content .file-upload .up-tmp .action var:not(:last-child) {
+              .settings .manager-tab .saml .rt md-card md-card-content .file-upload .up-tmp .action var:not(:last-child), .settings .manager-tab .hcms .rt md-card md-card-content .file-upload .up-tmp .action var:not(:last-child) {
                 color: #03a8e0; }
-              .settings .config-manager .saml .rt md-card md-card-content .file-upload .up-tmp .action var a.view {
+              .settings .manager-tab .saml .rt md-card md-card-content .file-upload .up-tmp .action var a.view, .settings .manager-tab .hcms .rt md-card md-card-content .file-upload .up-tmp .action var a.view {
                 color: inherit;
                 text-decoration: none; }
-          .settings .config-manager .saml .rt md-card md-card-content .modern-select {
+          .settings .manager-tab .saml .rt md-card md-card-content .modern-select, .settings .manager-tab .hcms .rt md-card md-card-content .modern-select {
             width: 100%;
             margin: 18px 0; }
-            .settings .config-manager .saml .rt md-card md-card-content .modern-select label {
+            .settings .manager-tab .saml .rt md-card md-card-content .modern-select label, .settings .manager-tab .hcms .rt md-card md-card-content .modern-select label {
               position: absolute;
               padding-left: 3px;
               -webkit-transform: translate3d(0, 8px, 0) scale(1);
@@ -894,111 +916,47 @@ body.set-password {
               transition: transform cubic-bezier(0.25, 0.8, 0.25, 1) 0.25s;
               -webkit-transform-origin: left top;
               transform-origin: left top; }
-            .settings .config-manager .saml .rt md-card md-card-content .modern-select .chosen-container {
+            .settings .manager-tab .saml .rt md-card md-card-content .modern-select .chosen-container, .settings .manager-tab .hcms .rt md-card md-card-content .modern-select .chosen-container {
               width: 100% !important;
               min-height: 34px; }
-              .settings .config-manager .saml .rt md-card md-card-content .modern-select .chosen-container .chosen-choices {
+              .settings .manager-tab .saml .rt md-card md-card-content .modern-select .chosen-container .chosen-choices, .settings .manager-tab .hcms .rt md-card md-card-content .modern-select .chosen-container .chosen-choices {
                 border: 0;
                 box-shadow: none;
                 background: none;
                 border-bottom: 1px solid #d8d8d8; }
-              .settings .config-manager .saml .rt md-card md-card-content .modern-select .chosen-container .search-choice {
+              .settings .manager-tab .saml .rt md-card md-card-content .modern-select .chosen-container .search-choice, .settings .manager-tab .hcms .rt md-card md-card-content .modern-select .chosen-container .search-choice {
                 margin: 4px 0 4px 5px;
                 padding: 8px 20px 8px 5px; }
-                .settings .config-manager .saml .rt md-card md-card-content .modern-select .chosen-container .search-choice .search-choice-close {
+                .settings .manager-tab .saml .rt md-card md-card-content .modern-select .chosen-container .search-choice .search-choice-close, .settings .manager-tab .hcms .rt md-card md-card-content .modern-select .chosen-container .search-choice .search-choice-close {
                   top: 8px; }
-              .settings .config-manager .saml .rt md-card md-card-content .modern-select .chosen-container .search-field input {
+              .settings .manager-tab .saml .rt md-card md-card-content .modern-select .chosen-container .search-field input, .settings .manager-tab .hcms .rt md-card md-card-content .modern-select .chosen-container .search-field input {
                 height: 34px; }
-              .settings .config-manager .saml .rt md-card md-card-content .modern-select .chosen-container .chosen-drop {
+              .settings .manager-tab .saml .rt md-card md-card-content .modern-select .chosen-container .chosen-drop, .settings .manager-tab .hcms .rt md-card md-card-content .modern-select .chosen-container .chosen-drop {
                 border-top: 1px solid #aaa;
                 top: 110%; }
-            .settings .config-manager .saml .rt md-card md-card-content .modern-select .has-error-border + .chosen-container .chosen-choices {
+            .settings .manager-tab .saml .rt md-card md-card-content .modern-select .has-error-border + .chosen-container .chosen-choices, .settings .manager-tab .hcms .rt md-card md-card-content .modern-select .has-error-border + .chosen-container .chosen-choices {
               border-color: red; }
-            .settings .config-manager .saml .rt md-card md-card-content .modern-select .chosen-container-active label, .settings .config-manager .saml .rt md-card md-card-content .modern-select .chosen-container-has-value label {
+            .settings .manager-tab .saml .rt md-card md-card-content .modern-select .chosen-container-active label, .settings .manager-tab .saml .rt md-card md-card-content .modern-select .chosen-container-has-value label, .settings .manager-tab .hcms .rt md-card md-card-content .modern-select .chosen-container-active label, .settings .manager-tab .hcms .rt md-card md-card-content .modern-select .chosen-container-has-value label {
               -webkit-transform: translate3d(0, -21px, 0) scale(0.85);
               transform: translate3d(0, -21px, 0) scale(0.85); }
-            .settings .config-manager .saml .rt md-card md-card-content .modern-select .chosen-container-active .chosen-choices, .settings .config-manager .saml .rt md-card md-card-content .modern-select .chosen-container-has-value .chosen-choices {
+            .settings .manager-tab .saml .rt md-card md-card-content .modern-select .chosen-container-active .chosen-choices, .settings .manager-tab .saml .rt md-card md-card-content .modern-select .chosen-container-has-value .chosen-choices, .settings .manager-tab .hcms .rt md-card md-card-content .modern-select .chosen-container-active .chosen-choices, .settings .manager-tab .hcms .rt md-card md-card-content .modern-select .chosen-container-has-value .chosen-choices {
               border: 0;
               border-bottom: 1px solid #208d6e; }
-        .settings .config-manager .saml .rt md-card md-card-actions .bor {
-          border-top: 1px solid #ccc;
-          padding-top: 15px; }
-        .settings .config-manager .saml .rt md-card md-card-actions img {
-          display: inline;
-          width: 35px;
-          height: 35px;
-          margin: 0; }
-        .settings .config-manager .saml .rt md-card md-card-actions .suc {
-          color: #1c8f6e;
-          line-height: 34px; }
-  .settings .int-mng .success-factor {
-    min-height: calc(100vh - 160px);
-    font-size: 16px; }
-    .settings .int-mng .success-factor .lt {
-      padding-right: 20px;
-      padding-top: 33px; }
-      .settings .int-mng .success-factor .lt .ad-pt {
-        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-        padding: 0 0 0 16px;
-        margin-bottom: 2px;
-        color: #5e605f;
-        line-height: 40px; }
-      .settings .int-mng .success-factor .lt md-list {
-        color: #5e5e5e; }
-        .settings .int-mng .success-factor .lt md-list md-list-item {
-          border-radius: 4px;
-          /*min-height: 55px;*/ }
-          .settings .int-mng .success-factor .lt md-list md-list-item.md-list-active {
-            background: #fff; }
-          .settings .int-mng .success-factor .lt md-list md-list-item h3 {
-            font-size: 18px;
-            color: inherit; }
-          .settings .int-mng .success-factor .lt md-list md-list-item h4 {
-            font-size: 16px;
-            color: inherit; }
-          .settings .int-mng .success-factor .lt md-list md-list-item .md-list-item-text {
-            outline: none;
-            width: 100%; }
-    .settings .int-mng .success-factor .rt {
-      padding-left: 20px;
-      padding-top: 33px; }
-      .settings .int-mng .success-factor .rt md-card {
-        padding: 60px 30px;
-        margin: 0;
-        min-height: calc(100vh - 230px);
-        font-size: 16px;
-        position: relative; }
-        .settings .int-mng .success-factor .rt md-card .loader {
-          position: absolute;
-          top: 35%;
-          left: 45%; }
-          .settings .int-mng .success-factor .rt md-card .loader img {
-            width: 45%; }
-          .settings .int-mng .success-factor .rt md-card .loader h4.err {
-            text-align: center;
-            line-height: 6em;
-            color: #5e5e5e; }
-        .settings .int-mng .success-factor .rt md-card md-grid-list md-input-container {
-          width: 100%; }
-        .settings .int-mng .success-factor .rt md-card md-checkbox {
-          margin-top: 16px;
-          color: #767877; }
-          .settings .int-mng .success-factor .rt md-card md-checkbox:not([disabled]).md-primary.md-checked .md-ink-ripple {
-            color: rgba(13, 143, 229, 0.87); }
-          .settings .int-mng .success-factor .rt md-card md-checkbox:not([disabled]).md-primary.md-checked .md-icon {
-            background-color: rgba(13, 143, 229, 0.87); }
-        .settings .int-mng .success-factor .rt md-card .footer {
+        .settings .manager-tab .saml .rt md-card md-card-actions, .settings .manager-tab .hcms .rt md-card md-card-actions {
           position: absolute;
           width: 93%;
-          bottom: 10px;
-          border-top: 1px solid #ebebeb; }
-          .settings .int-mng .success-factor .rt md-card .footer img[alt="loader"] {
-            margin: 5px;
+          bottom: 10px; }
+          .settings .manager-tab .saml .rt md-card md-card-actions .bor, .settings .manager-tab .hcms .rt md-card md-card-actions .bor {
+            border-top: 1px solid #ccc;
+            padding-top: 15px; }
+          .settings .manager-tab .saml .rt md-card md-card-actions img, .settings .manager-tab .hcms .rt md-card md-card-actions img {
+            display: inline;
             width: 35px;
-            display: inline; }
-          .settings .int-mng .success-factor .rt md-card .footer .suc {
+            height: 35px;
+            margin: 0; }
+          .settings .manager-tab .saml .rt md-card md-card-actions .suc, .settings .manager-tab .hcms .rt md-card md-card-actions .suc {
             color: #1c8f6e;
-            line-height: 50px; }
+            line-height: 34px; }
 
 /*md-toast.md-top{top: 70px;}*/
 .licence-management {
