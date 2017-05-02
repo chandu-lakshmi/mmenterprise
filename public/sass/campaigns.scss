@@ -245,7 +245,14 @@ md-dialog{
                                              md-input-container{
                                                  label{left: 25px;}
                                                  &.md-input-focused, &.md-input-has-value{
-                                                     label{display: none !important;}
+                                                     label:not(.md-no-float){
+                                                         -webkit-transform: translate3d(0, 10px, 0) scale(0.87);
+                                                         transform: translate3d(0, 10px, 0) scale(0.87);
+                                                         color: #767877;
+                                                         margin-left: -25px;
+                                                         font-size: 18px;
+                                                     }
+                                                     //label{display: none !important;}
                                                  }
                                              }
                                              div.clearfix{position: relative;}

@@ -21,6 +21,12 @@ $container['file_viewer'] = function ($c) {
     return new Slim\Views\PhpRenderer($settings['template_path']);
 };
 
+// SAML view renderer
+$container['saml_viewer'] = function ($c) {
+    $settings = $c->get('settings')['saml_viewer'];
+    return new Slim\Views\PhpRenderer($settings['template_path']);
+};
+
 // monolog
 $container['logger'] = function ($c) {
     $settings = $c->get('settings')['logger'];
@@ -67,4 +73,18 @@ $container['CampaignDetails'] = function ($c) {
     $_POST['reference_id'] = isset($_SESSION['CampaignDetails']['reference_id'])?$_SESSION['CampaignDetails']['reference_id']:"";
 };
 
+// custom exception Handler
+$container['errorHandler'] = function ($c) {
 
+ return function ($request, $response, $exception) use ($c) {
+     /*return $c['response']->withStatus(500)
+                          ->withHeader('Content-Type', 'text/html')
+                          ->write($exception->getMessage());*/
+     $args = commonArgs( $c->get('settings'));
+     $args['exception_message'] = $exception->getMessage();
+     $settings = $c->get('settings')['renderer'];
+     $renderer = new Slim\Views\PhpRenderer($settings['template_path']);
+     return $renderer->render($response, 'admin/saml-index.phtml', $args);
+ };
+ };
+ 

@@ -96,8 +96,8 @@
                 <div class="alert fade in" ng-repeat="group in NewCampaignCtrl.timeSheetGroups">
                    <a href="#" class="close" data-dismiss="alert" aria-label="close" ng-click="NewCampaignCtrl.closeTimeSheet(group)" ng-hide="$first">&times;</a>
                    <div class="start">
-                      <p>STARTS ON</p>
-                      <mdp-date-picker mdp-placeholder="dd/mm/yyyy" mdp-open-on-click name="startDate{{group}}" mdp-min-date="NewCampaignCtrl.currentDate | date:'yyyy-MM-dd'" mdp-max-date="NewCampaignCtrl.frm2.date[group].endOnDate" required  ng-model="NewCampaignCtrl.frm2.date[group].startOnDate" required ng-class="{'has-error-border':frm2['startDate'+group].$invalid && NewCampaignCtrl.errCondfrm2}" mdp-format="DD/MM/YYYY">
+                      <!--<p>STARTS ON</p>-->
+                      <mdp-date-picker mdp-placeholder="STARTS ON" mdp-open-on-click name="startDate{{group}}" mdp-min-date="NewCampaignCtrl.currentDate | date:'yyyy-MM-dd'" mdp-max-date="NewCampaignCtrl.frm2.date[group].endOnDate" required  ng-model="NewCampaignCtrl.frm2.date[group].startOnDate" required ng-class="{'has-error-border':frm2['startDate'+group].$invalid && NewCampaignCtrl.errCondfrm2}" mdp-format="MMM DD, YYYY">
                          <div ng-if="frm2['startDate'+group].$error.required && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Please Enter Start Date.</div>
                          <div ng-if="frm2['startDate'+group].$error.format && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Invalid Date Format</div>
                          <div ng-if="!frm2['startDate'+group].$error.format && NewCampaignCtrl.errCondfrm2">
@@ -105,15 +105,15 @@
                          </div>
                       </mdp-date-picker>
                       <input type="hidden" name="schedule[{{$index}}][start_on_date]" currentDate value="{{NewCampaignCtrl.frm2.date[group].startOnDate | date :'dd-MM-yyyy'}}">
-                      <mdp-time-picker  mdp-open-on-click mdp-placeholder="HH:MM" name="startTime{{group}}" required ng-model="NewCampaignCtrl.frm2.date[group].startOnTime" ng-class="{'has-error-border':frm2['startTime'+group].$invalid && NewCampaignCtrl.errCondfrm2}" mdp-format="HH:mm">
+                      <mdp-time-picker mdp-no-float="true" mdp-open-on-click mdp-placeholder="HH:MM" name="startTime{{group}}" required ng-model="NewCampaignCtrl.frm2.date[group].startOnTime" ng-class="{'has-error-border':frm2['startTime'+group].$invalid && NewCampaignCtrl.errCondfrm2}" mdp-format="HH:mm">
                           <div ng-if="frm2['startTime'+group].$error.required && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Please Enter Start Time.</div>
                           <div ng-if="frm2['startTime'+group].$error.format && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Please Enter Valid Time.</div>
                       </mdp-time-picker>
                       <input type="hidden" name="schedule[{{$index}}][start_on_time]" value="{{NewCampaignCtrl.frm2.date[group].startOnTime | date :'HH:mm' }}">
                    </div>
                    <div class="ends">
-                      <p>ENDS ON</p>
-                      <mdp-date-picker  name="endDate{{group}}" mdp-open-on-click mdp-placeholder="dd/mm/yyyy" required mdp-min-date="NewCampaignCtrl.frm2.date[group].startOnDate || NewCampaignCtrl.currentDate | date:'yyyy-MM-dd'" ng-model="NewCampaignCtrl.frm2.date[group].endOnDate" ng-class="{'has-error-border':frm2['endDate'+group].$invalid && NewCampaignCtrl.errCondfrm2}" mdp-format="DD/MM/YYYY">
+                      <!--<p>ENDS ON</p>-->
+                      <mdp-date-picker name="endDate{{group}}" mdp-open-on-click mdp-placeholder="ENDS ON" required mdp-min-date="NewCampaignCtrl.frm2.date[group].startOnDate || NewCampaignCtrl.currentDate | date:'yyyy-MM-dd'" ng-model="NewCampaignCtrl.frm2.date[group].endOnDate" ng-class="{'has-error-border':frm2['endDate'+group].$invalid && NewCampaignCtrl.errCondfrm2}" mdp-format="MMM DD, YYYY">
                          <div ng-if="frm2['endDate'+group].$error.required && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Please Enter End Date.</div>
                          <div ng-if="frm2['endDate'+group].$error.format && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Invalid Date Format</div>
                          <div ng-if="!frm2['endDate'+group].$error.format && NewCampaignCtrl.errCondfrm2">
@@ -121,8 +121,7 @@
                          </div>
                       </mdp-date-picker>
                       <input type="hidden" name="schedule[{{$index}}][end_on_date]" value="{{NewCampaignCtrl.frm2.date[group].endOnDate | date :'dd-MM-yyyy'}}">
-                      
-                      <mdp-time-picker mdp-open-on-click name="endTime{{group}}" mdp-placeholder="HH:MM" required ng-model="NewCampaignCtrl.frm2.date[group].endOnTime" ng-class="{'has-error-border':frm2['endTime'+group].$invalid && NewCampaignCtrl.errCondfrm2}" mdp-format="HH:mm">
+                      <mdp-time-picker mdp-no-float="true" mdp-open-on-click name="endTime{{group}}" mdp-placeholder="HH:MM" required ng-model="NewCampaignCtrl.frm2.date[group].endOnTime" ng-class="{'has-error-border':frm2['endTime'+group].$invalid && NewCampaignCtrl.errCondfrm2}" mdp-format="HH:mm">
                          <div ng-if="frm2['endTime'+group].$error.required && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Please Enter End Time.</div>
                          <div ng-if="frm2['endTime'+group].$error.format && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Please Enter Valid Time.</div>
                       </mdp-time-picker>

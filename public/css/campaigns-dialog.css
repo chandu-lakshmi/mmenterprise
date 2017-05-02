@@ -101,21 +101,23 @@
               left: -8px; }
               .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-date-picker .layout-align-start-start button md-icon, .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-time-picker .layout-align-start-start button md-icon {
                 position: absolute;
-                top: -5px;
+                top: 4px;
                 left: 6px; }
-          .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-date-picker .md-input-focused label, .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-date-picker .md-input-has-value label, .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-time-picker .md-input-focused label, .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-time-picker .md-input-has-value label {
-            display: none !important; }
-          .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-date-picker label, .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-time-picker label {
+          .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-date-picker .md-input-focused label:not(.md-no-float), .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-date-picker .md-input-has-value label:not(.md-no-float), .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-time-picker .md-input-focused label:not(.md-no-float), .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-time-picker .md-input-has-value label:not(.md-no-float) {
+            -webkit-transform: translate3d(0, 10px, 0) scale(0.87) !important;
+            transform: translate3d(0, 10px, 0) scale(0.87) !important;
+            color: #767877;
             font-size: 19px;
-            min-height: 26px;
-            margin: 0 0 -2px -8px; }
+            margin-left: -36px; }
+          .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-date-picker label, .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-time-picker label {
+            font-size: 16px;
+            margin-left: -7px; }
           .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-date-picker md-input-container, .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-time-picker md-input-container {
             width: 100% !important;
-            margin-top: 10px;
             height: 40px; }
-            .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-date-picker md-input-container label, .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-time-picker md-input-container label {
-              -webkit-transform: translate3d(0, 28px, 0) scale(1);
-              transform: translate3d(0, 28px, 0) scale(1); }
+            .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-date-picker md-input-container:not(.md-input-focused) label:not(.md-no-float):not(.md-container-ignore), .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-date-picker md-input-container:not(.md-input-has-value) label:not(.md-no-float):not(.md-container-ignore), .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-time-picker md-input-container:not(.md-input-focused) label:not(.md-no-float):not(.md-container-ignore), .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-time-picker md-input-container:not(.md-input-has-value) label:not(.md-no-float):not(.md-container-ignore) {
+              -webkit-transform: translate3d(0, 32px, 0) scale(1);
+              transform: translate3d(0, 32px, 0) scale(1); }
             .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-date-picker md-input-container .md-errors-spacer + div, .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign div mdp-time-picker md-input-container .md-errors-spacer + div {
               top: 38px;
               left: -34px;
@@ -165,7 +167,7 @@
             .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .post .tab-content .tab-pane {
               position: relative;
               /*textarea{border: 0;width: 100%;font-size: 16px;resize:none;padding:12px;
-              	&:focus{outline:none;}
+                      &:focus{outline:none;}
               }*/ }
               .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .post .tab-content .tab-pane .media {
                 border: 1px solid #ccc;
@@ -253,7 +255,8 @@
             overflow: hidden;
             margin-bottom: 20px; }
             .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .start p, .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .ends p {
-              margin: 0; }
+              margin: 0;
+              padding-bottom: 7px; }
           .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .bucket-container .bucket-each {
             width: 18% !important; }
           .new-campaign .modal .modal-dialog .modal-content .modal-body .box-campaign .upload-pitch {

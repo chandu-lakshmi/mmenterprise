@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MintMesh</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <base href="<?php echo $data['APP_DOMAIN']; ?>" target="_blank, _self, _parent, _top">
+        <link rel="shortcut icon" href="<?php echo $data['APP_DOMAIN']; ?>/public/images/favicon.png"/>
+
+        <link rel="stylesheet" type="text/css" href="public/css/dashboard.css?v=<?php echo $data['APP_VERSION']; ?>">
+        <link rel="stylesheet" type="text/css" href="public/css/bootstrap.css?v=<?php echo $data['APP_VERSION']; ?>">
+
+        <script type="text/javascript" src="public/js/vendor/jquery-1.12.4.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
+        <script type="text/javascript" src="public/js/vendor/bootstrap.min.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
+
+        <style>
+            body{background: rgba(136, 136, 136, 0.2);}
+            a{color: #1d8bd6 }
+            a:hover{text-decoration: none;}
+            /*mark:hover{text-decoration: underline;}*/
+            .centered{
+                position: absolute;
+                height: 200px;
+                width: 400px;
+                margin: -161px 0 0 -200px;
+                top: 50%;
+                left: 50%;
+            }
+            .centered h1{
+                margin: 36px 0 16px 0;
+                font-weight: bold;
+                font-size: 34px;
+                color: #8e8e8e ;
+            }
+            .centered p{
+                color: #8e8e8e ;
+            }
+            .centered .mail{
+                margin:22px 0 30px 0;
+            }
+            .centered button.btn{
+                background: #20997a !important;
+                color: #fff;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="centered text-center">
+                <img src="public/images/logo_saml.png" alt="logo">
+                <h1>Whoops!</h1>
+                <p><?php echo $exception_message; ?></p>
+                <p class="mail">Contact Admin : <a>support@mintmesh.com</a></p>
+                <button class="btn btn-lg" onclick="login()">LOGIN</button>
+            </div>
+        </div>
+    </body>
+
+
+    <script type="text/javascript">
+        function login() {
+            window.location = '<?php echo $data['APP_DOMAIN']; ?>' + 'login';
+        }
+    </script>
+</html>

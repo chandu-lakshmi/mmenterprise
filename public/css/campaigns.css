@@ -336,8 +336,12 @@ md-dialog md-dialog-actions button.md-primary {
           margin: 0; }
         .campaigns .edit-campaigns .box .content .date md-input-container label {
           left: 25px; }
-        .campaigns .edit-campaigns .box .content .date md-input-container.md-input-focused label, .campaigns .edit-campaigns .box .content .date md-input-container.md-input-has-value label {
-          display: none !important; }
+        .campaigns .edit-campaigns .box .content .date md-input-container.md-input-focused label:not(.md-no-float), .campaigns .edit-campaigns .box .content .date md-input-container.md-input-has-value label:not(.md-no-float) {
+          -webkit-transform: translate3d(0, 10px, 0) scale(0.87);
+          transform: translate3d(0, 10px, 0) scale(0.87);
+          color: #767877;
+          margin-left: -25px;
+          font-size: 18px; }
         .campaigns .edit-campaigns .box .content .date div.clearfix {
           position: relative; }
         .campaigns .edit-campaigns .box .content .date div.start, .campaigns .edit-campaigns .box .content .date div.ends {

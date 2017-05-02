@@ -202,6 +202,7 @@
                                     //$state.go('app.dashboard');
                                 }
                                 else if (response.status_code == 403) {
+                                    scope.signin_form.l_pass = '';
                                     scope.dublicate_invalid = true;
                                     scope.invalid_user = response.message.msg[0];
                                 }

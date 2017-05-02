@@ -374,13 +374,13 @@
 
         // pagetitle
         if ($stateParams.flag == 1) {
-            $state.current.data.pageTitle = 'Mintmesh ( Drop CV )';
+            $state.current.data.pageTitle = 'MintMesh ( Drop CV )';
         }
         else if ($state.current.name == 'candidateDetails') {
-            $state.current.data.pageTitle = 'Mintmesh ( Apply )';
+            $state.current.data.pageTitle = 'MintMesh ( Apply )';
         }
         else {
-            $state.current.data.pageTitle = 'Mintmesh ( Refer )';
+            $state.current.data.pageTitle = 'MintMesh ( Refer )';
         }
 
         if ($stateParams.share_status == 'share') {

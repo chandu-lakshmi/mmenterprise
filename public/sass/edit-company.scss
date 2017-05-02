@@ -311,11 +311,12 @@ md-input-container{
           }
           .ui-grid-header-cell{padding: 0 !important;}
           .ui-grid-selection-row-header-buttons{outline: none;opacity: 1;margin:19px 0 0 5px;pointer-events: all;
-                                                &:before{content: '';width: 20px;height: 20px;border:1px solid #ccc;position: absolute;border-radius: 2px;background: #fff;}
+                                                &:before{content: '';width: 20px;height: 20px;border:1px solid #ccc;position: absolute;
+                                                       border-radius: 2px;background: #fff;left: 45%;}
           }
           .ui-grid-all-selected,.ui-grid-row-selected{
               &:before{background: #0b8fe2 ;border: 1px solid transparent;}
-              &:after{content: '';position: absolute;top: 26px;left: 19px;width: 6px;height: 13px;border: 2px solid #fff;
+              &:after{content: '';position: absolute;top: 26px;left: 55%;width: 6px;height: 13px;border: 2px solid #fff;
                       transform: rotate(45deg);border-top: 0;border-left: 0;pointer-events: none;
               }
           }

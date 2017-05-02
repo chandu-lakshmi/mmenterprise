@@ -421,7 +421,8 @@ md-input-container md-select .md-select-value {
       border: 1px solid #ccc;
       position: absolute;
       border-radius: 2px;
-      background: #fff; }
+      background: #fff;
+      left: 45%; }
   .grid .ui-grid-pinned-container .ui-grid-all-selected:before, .grid .ui-grid-pinned-container .ui-grid-row-selected:before {
     background: #0b8fe2;
     border: 1px solid transparent; }
@@ -429,7 +430,7 @@ md-input-container md-select .md-select-value {
     content: '';
     position: absolute;
     top: 26px;
-    left: 19px;
+    left: 55%;
     width: 6px;
     height: 13px;
     border: 2px solid #fff;
