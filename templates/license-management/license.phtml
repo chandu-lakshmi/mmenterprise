@@ -4,7 +4,7 @@
             <div class="head" layout="row">
                 <p>License Key: {{licMangCtrl.headerList.licence_code|| '- - - - - -'}}</p>   
                 <span flex></span>
-                <md-button class="md-primary" ng-click="licMangCtrl.headerList.licence_code != '' ? licMangCtrl.addContacts($event) : ''"><i class="material-icons">add</i>Add Contacts</md-button>
+                <md-button ng-if="false" class="md-primary" ng-click="licMangCtrl.headerList.licence_code != '' ? licMangCtrl.addContacts($event) : ''"><i class="material-icons">add</i>Add Contacts</md-button>
             </div>
             <div class="content">
                 <div layout="row" class="title">

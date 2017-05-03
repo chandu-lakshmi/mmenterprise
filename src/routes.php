@@ -20,57 +20,51 @@ require DIR_PATH . '/src/Sessions.php';
   } */
 
 $app->get('/saml', function ($request, $response, $args) {
-    /*
-    $args = commonArgs($this->settings);
-    return $this->saml_viewer->render($response, 'saml-index.phtml', $args);
-    */
-    require_once('/var/simplesamlphp/lib/_autoload.php');
-    $ccode = (string) $_SESSION['ccode'];
-//    $saml = new SimpleSAML_Auth_Simple($ccode);
-//    $saml->requireAuth();
-    
-    try {
-     $saml = new SimpleSAML_Auth_Simple($ccode);
-     $saml->requireAuth();
-     $valid_saml_session = $saml->isAuthenticated();
-   } catch (Exception $e) {
-         // SimpleSAMLphp is not configured correctly.
-         throw(new Exception("SSO authentication failed. SSO IDP not configured properly, please contact support@mintnmesh.com.<br>". $e->getMessage()));
-         return;
-   }
+  require_once('/var/simplesamlphp/lib/_autoload.php');
+  $valid_saml_session = "";
+  //$saml = new SimpleSAML_Auth_Simple('default-sp');
+  if(isset($_SESSION['ccode'])) {
+    $ccode = (string)$_SESSION['ccode'];
+  } else {
+    $ccode = (string)$_COOKIE['ccode'];
+  }
+  try {
+    $saml = new SimpleSAML_Auth_Simple($ccode);
+    $saml->requireAuth();
+    $valid_saml_session = $saml->isAuthenticated();
+  } catch (Exception $e) {
+        // SimpleSAMLphp is not configured correctly.
+        throw(new Exception("SSO authentication failed. SSO IdP not configured properly.<br>". $e->getMessage()));
+        return;
+  }
+  if(!empty($_SESSION['SimpleSAMLphp_SESSION'])) {
+    $attributes  =  $saml->getAttributes();
+    $emailid     =  !empty($attributes['emailId'][0])?$attributes['emailId'][0]:'';
+    $emailid     =  empty($emailid)?$saml->getAuthData('saml:sp:NameID')['Value']:$emailid;
+     if(!empty($emailid)){
 
-   if(!$valid_saml_session) {
-     try {
-         $saml = new SimpleSAML_Auth_Simple($ccode);
-         $saml->requireAuth();
-     } catch (Exception $e) {
-         throw(new Exception("SSO authentication failed: ". $e->getMessage()));
-         return;
+         $this->mintmeshLoginKeyStoreService;
+         // getting API endpoint from settings
+         $apiEndpoint = getapiEndpoint($this->settings, 'special_grant_login');
+         $_POST['emailId'] = $emailid;
+         $curl = new Curl(array(
+            'url'           => $apiEndpoint,
+            'postData'      => $_POST
+         ));
+         $jsonResult = $curl->loadCurl();
+         //Load Session
+         setSession($jsonResult);
+         if(empty(authenticate())){
+           return $response->withRedirect($args['APP_DOMAIN']."dashboard");
+         } else {
+           throw(new Exception("SSO authentication failed. Account not yet setup with us."));
+           return;
+         }
+     } else {
+         return $this->renderer->render($response, 'index.phtml', $args);
      }
-   }
-    
-    $attributes = $saml->getAttributes();
-    $emailid = !empty($attributes['emailId'][0]) ? $attributes['emailId'][0] : '';
-    $emailid = empty($emailid) ? $saml->getAuthData('saml:sp:NameID')['Value'] : $emailid;
-    if (!empty($emailid)) {
+  }
 
-        $this->mintmeshLoginKeyStoreService;
-        // getting API endpoint from settings
-        $apiEndpoint = getapiEndpoint($this->settings, 'special_grant_login');
-        $_POST['emailId'] = $emailid;
-        $curl = new Curl(array(
-            'url' => $apiEndpoint,
-            'postData' => $_POST
-        ));
-        $jsonResult = $curl->loadCurl();
-        //Load Session
-        setSession($jsonResult);
-        if (empty(authenticate())) {
-            return $response->withRedirect($args['APP_DOMAIN'] . "dashboard");
-        }
-    } else {
-        return $this->saml_viewer->render($response, 'saml-index.phtml', $args);
-    }
 });
 
 //Index page
@@ -88,15 +82,18 @@ $app->get('/', function ($request, $response, $args) {
 
 // saml login
 $app->get('/company/{name}/{code}', function ($request, $response, $args) {
-    $args = commonArgs($this->settings);
-    $route = $request->getAttribute('route');
-    $_SESSION['ccode'] = $route->getArgument('code');
-    $args['company_int_details'] = companyIntegrationDetails($this->settings, $route->getArgument('code'));
-    if (!empty($args['company_int_details']['data']) && $args['company_int_details']['data']['status'] == 1) {
-        return $response->withRedirect($args['APP_DOMAIN'] . "saml");
-    } else {
-        return $response->withRedirect($args['APP_DOMAIN'] . "login");
-    }
+   $args = commonArgs($this->settings);
+   $route = $request->getAttribute('route');
+   $args['company_int_details'] = companyIntegrationDetails($this->settings,$route->getArgument('code'));
+   if(!empty($args['company_int_details']['data']) && $args['company_int_details']['data']['status'] == 1){
+       $_SESSION['ccode'] = $route->getArgument('code');
+       $cookie_name = "ccode";
+       $cookie_value = $route->getArgument('code');
+       setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
+       return $response->withRedirect($args['APP_DOMAIN']."saml");
+   }else{
+        return $response->withRedirect($args['APP_DOMAIN']."login");
+   }
 });
 
 //login controller page
