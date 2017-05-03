@@ -239,6 +239,10 @@ return [
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/add_edit_hcm'
             ],
+            'add_edit_zenefits_hcm' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/add_edit_zenefits_hcm'
+            ],
             'get_hcm_list' =>[
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/get_hcm_list'
@@ -258,6 +262,10 @@ return [
             'get_configuration' =>[
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/get_configuration'
+            ],
+            'get_zenefits_hcm_list' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_zenefits_hcm_list'
             ]
     ];
         

@@ -1127,24 +1127,26 @@
         vm.update = update;
 
         function dropDown() {
-            $http({
+            /*$http({
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                 },
                 method: 'POST',
                 url: App.base_url + 'get_hcm_partners'
             })
-                    .then(function (response) {
-                        if (response.data.status_code == 200) {
-                            vm.mintmeshPartnes = response.data.data;
-                            getPartnersData(0)
-                        }
-                        else if (response.data.status_code == 400) {
-                            $window.location = App.base_url + 'logout';
-                        }
-                    }, function (response) {
+            .then(function (response) {
+                if (response.data.status_code == 200) {
+                    vm.mintmeshPartnes = response.data.data;
+                    getPartnersData(0)
+                }
+                else if (response.data.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+            }, function (response) {
 
-                    })
+            })*/
+            vm.mintmeshPartnes = [{hcm_name : 'SuccessFactors', hcm_id : 1}, {hcm_name : 'Zenefits', hcm_id : 2}];
+            getPartnersData(0)
         }
 
         function getPartnersData(i) {
@@ -1154,14 +1156,20 @@
         }
 
         function getPartners(id) {
+            var url;
+            if (id == 2) {
+                url = 'get_zenefits_hcm_list';
+            }else{
+                url = 'get_hcm_list';
+            }
 
             $http({
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                 },
                 method: 'POST',
-                url: App.base_url + 'get_hcm_list',
-                data: $.param({hcm_id: id})
+                url: App.base_url + url,
+                data: $.param({hcm_id : id})
             })
                     .then(function (response) {
                         var status = response.data.status_code;
@@ -1198,13 +1206,21 @@
         }
 
         function addEditPartner(data, callback) {
+            
+            var url;
+            if (vm.activeIndex == 1) {
+                url = 'add_edit_zenefits_hcm';
+            }else{
+                url = 'add_edit_hcm';
+            }
+
             $http({
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                 },
                 method: 'POST',
                 data: data,
-                url: App.base_url + 'add_edit_hcm'
+                url: App.base_url + url
             })
                     .then(function (response) {
                         if (callback != undefined) {

@@ -1283,6 +1283,20 @@ $app->post('/add_edit_hcm',function ($request, $response, $args) use ($app) {
     
     return checkJsonResult( $jobList->loadCurl() );
 });
+$app->post('/add_edit_zenefits_hcm',function ($request, $response, $args) use ($app) {
+    // dynamically Access Token, Company Details
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    // getting API endpoint from settings
+   $apiEndpoint = getapiEndpoint($this->settings, 'add_edit_zenefits_hcm');
+   
+    $jobList    = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    
+    return checkJsonResult( $jobList->loadCurl() );
+});
 $app->post('/get_hcm_list',function ($request, $response, $args) use ($app) {
     
     // dynamically Access Token, Company Details
@@ -1290,6 +1304,21 @@ $app->post('/get_hcm_list',function ($request, $response, $args) use ($app) {
     $this->mintmeshCompanyId;
     // getting API endpoint from settings
    $apiEndpoint = getapiEndpoint($this->settings, 'get_hcm_list');
+   //print_r($_POST).exit;
+    $jobList    = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    
+    return checkJsonResult( $jobList->loadCurl() );
+});
+$app->post('/get_zenefits_hcm_list',function ($request, $response, $args) use ($app) {
+    
+    // dynamically Access Token, Company Details
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    // getting API endpoint from settings
+   $apiEndpoint = getapiEndpoint($this->settings, 'get_zenefits_hcm_list');
    //print_r($_POST).exit;
     $jobList    = new Curl(array(
         'url'           => $apiEndpoint,

@@ -1,6 +1,7 @@
 window.fbAsyncInit = function() {
     FB.init({
-        appId      : '341777892883502', // client account
+        //appId      : '341777892883502', // client account
+        appId      : '1268916456509673', // mintmeshorg@gmail.com / Testflight703$$$
         xfbml      : true,
         version    : 'v2.8'
     });

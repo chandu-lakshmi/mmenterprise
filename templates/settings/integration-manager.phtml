@@ -12,7 +12,7 @@
                 </div>-->
                 <md-list>
                     <md-list-item class="md-1-line" ng-class="{'md-list-active': $index == IntMngCtrl.activeIndex}" ng-repeat="pat in IntMngCtrl.mintmeshPartnes track by $index">
-                        <div class="md-list-item-text" layout="column"> <!--ng-click="IntMngCtrl.getPartnersData($index)"-->
+                        <div class="md-list-item-text" layout="column" ng-click="IntMngCtrl.getPartnersData($index)">
                             <h4 ng-bind="pat.hcm_name"></h4>
                         </div>
                     </md-list-item>
@@ -28,7 +28,7 @@
                             <!-- Auto off for saved username and password  -->
                             <input type="password" style="display: none">
                             
-                            <div layout="row">
+                            <div layout="row" ng-if="IntMngCtrl.activeIndex != 1">
                                 <div flex="50">
                                     <md-input-container>
                                         <label>DC Center URL</label>
@@ -45,14 +45,20 @@
                                 </div>
                             </div>
                             <div layout="row">
-                                <div flex="50">
+                                <div flex="50" ng-if="IntMngCtrl.activeIndex != 1">
                                     <md-input-container>
                                         <label>Password</label>
                                         <input name="hcm_password" type="password" ng-model="IntMngCtrl.partnerDetails.hcm_password" required ng-class="{'has-error-border': suc_fac_form.hcm_password.$invalid && IntMngCtrl.show_error}">
                                         <div ng-if="suc_fac_form.hcm_password.$error.required && IntMngCtrl.show_error"  class="has-error-msg">Please Enter Password.</div>
                                     </md-input-container>
                                 </div>
-                                <div flex="50"></div>
+                                <div flex="50">
+                                    <md-input-container ng-if="IntMngCtrl.activeIndex == 1">
+                                        <label>Access Token</label>
+                                        <input name="hcm_access_token" type="text" ng-model="IntMngCtrl.partnerDetails.hcm_access_token" required ng-class="{'has-error-border': suc_fac_form.hcm_access_token.$invalid && IntMngCtrl.show_error}">
+                                        <div ng-if="suc_fac_form.hcm_access_token.$error.required && IntMngCtrl.show_error"  class="has-error-msg">Please Enter Access Token.</div>
+                                    </md-input-container>
+                                </div>
                             </div>
                             <div layout="row">
                                 <div flex="50">

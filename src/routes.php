@@ -26,8 +26,29 @@ $app->get('/saml', function ($request, $response, $args) {
     */
     require_once('/var/simplesamlphp/lib/_autoload.php');
     $ccode = (string) $_SESSION['ccode'];
-    $saml = new SimpleSAML_Auth_Simple($ccode);
-    $saml->requireAuth();
+//    $saml = new SimpleSAML_Auth_Simple($ccode);
+//    $saml->requireAuth();
+    
+    try {
+     $saml = new SimpleSAML_Auth_Simple($ccode);
+     $saml->requireAuth();
+     $valid_saml_session = $saml->isAuthenticated();
+   } catch (Exception $e) {
+         // SimpleSAMLphp is not configured correctly.
+         throw(new Exception("SSO authentication failed. SSO IDP not configured properly, please contact support@mintnmesh.com.<br>". $e->getMessage()));
+         return;
+   }
+
+   if(!$valid_saml_session) {
+     try {
+         $saml = new SimpleSAML_Auth_Simple($ccode);
+         $saml->requireAuth();
+     } catch (Exception $e) {
+         throw(new Exception("SSO authentication failed: ". $e->getMessage()));
+         return;
+     }
+   }
+    
     $attributes = $saml->getAttributes();
     $emailid = !empty($attributes['emailId'][0]) ? $attributes['emailId'][0] : '';
     $emailid = empty($emailid) ? $saml->getAuthData('saml:sp:NameID')['Value'] : $emailid;
