@@ -57,7 +57,7 @@
 					<div class="external" ng-hide="jobList.post_type == 'campaign'" ng-class="{'internal':jobList.post_type=='internal'}" ng-bind="jobList.post_type == 'internal' ? 'Internal' : 'External'"></div>
 					<span  class="job-rewards">
 						<span class="date-stamp" style="font-size: 15px">
-							{{jobList.created_at | myDate | date:'dd MMM, yyyy'}}
+							{{jobList.created_at | myDate | date:'MMM dd, yyyy'}}
 						</span>
 						<span ng-if="jobList.free_service == '1'" class="job_free">
 							FREE

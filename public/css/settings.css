@@ -826,7 +826,7 @@ body.set-password {
                 margin: 0;
                 padding: 0;
                 height: 45px;
-                overflow: initial; }
+                overflow: visible; }
                 .settings .manager-tab .saml .rt md-card md-card-content .file-upload #upload .qq-uploader .qq-upload-list, .settings .manager-tab .hcms .rt md-card md-card-content .file-upload #upload .qq-uploader .qq-upload-list {
                   left: 0;
                   width: 50%; }
@@ -857,14 +857,14 @@ body.set-password {
                   padding: 0;
                   position: relative;
                   width: 100%;
-                  line-height: initial;
+                  line-height: normal;
                   font-size: 13px; }
                   .settings .manager-tab .saml .rt md-card md-card-content .file-upload #change .qq-uploader .qq-upload-button .button_txt, .settings .manager-tab .hcms .rt md-card md-card-content .file-upload #change .qq-uploader .qq-upload-button .button_txt {
                     font-size: 13px;
                     text-align: left;
-                    position: initial;
+                    position: relative;
                     display: inline;
-                    line-height: initial; }
+                    line-height: normal; }
                   .settings .manager-tab .saml .rt md-card md-card-content .file-upload #change .qq-uploader .qq-upload-button input[type="file"], .settings .manager-tab .hcms .rt md-card md-card-content .file-upload #change .qq-uploader .qq-upload-button input[type="file"] {
                     width: 250%; }
             .settings .manager-tab .saml .rt md-card md-card-content .file-upload .up-tmp .box, .settings .manager-tab .hcms .rt md-card md-card-content .file-upload .up-tmp .box {
@@ -1022,5 +1022,8 @@ body.set-password {
       .licence-management .box .content .list .error {
         font-size: 25px;
         color: #5b5757; }
+
+.settings .manager-tab .saml .rt md-card md-card-content .file-upload #change .qq-uploader .qq-upload-button .button_txt {
+  position: relative !important; }
 
 /*# sourceMappingURL=settings.css.map */
