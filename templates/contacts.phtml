@@ -31,6 +31,7 @@
                 <div>
                     <img ng-src="public/images/loader/spin.gif" alt="bufferSpin" ng-if="ContactCtrl.updateLoader">
                     <span class="updateSuccess" style="color:#1d8e70">Successfully Updated.</span>
+                    <span class="updateError" ng-bind="ContactCtrl.hasLicenseKey"></span>
                     <span class="updatefailure">Not Updated</span>
                     <span class="zeroRecords" style="margin-left:-122px;">Please Select Atleast 1 Record.</span>
                     <span class="existRecords" style="margin-left:-122px;">{{ContactCtrl.rowIdExistsMsg + '.'}}</span>

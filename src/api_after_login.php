@@ -327,7 +327,7 @@ $app->post('/job_details',function ($request, $response, $args) use ($app) {
     // dynamically Access Token, Company Details 
    $this->mintmeshAccessToken;
    $this->mintmeshCompanyId;
-    
+   $_POST['time_zone'] = $_SESSION['time_zone'];
     // getting API endpoint from settings
    $apiEndpoint = getapiEndpoint($this->settings, 'job_details');
    
@@ -530,7 +530,8 @@ $app->post('/awaiting_action',function ($request, $response, $args) use ($app) {
    
     // dynamically Access Token
    $this->mintmeshAccessToken;
-   $this->mintmeshCompanyId;   
+   $this->mintmeshCompanyId;  
+   $_POST['time_zone'] = $_SESSION['time_zone'];
     // getting API endpoint from settings
    $apiEndpoint = getapiEndpoint($this->settings, 'awaiting_action');
    

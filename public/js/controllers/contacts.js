@@ -427,6 +427,10 @@
                         else if (response.message.msg[0] == 'failed to update') {
                             $('.updatefailure').show();
                             $('.updatefailure').fadeOut(3000);
+                        }else{
+                            scope.hasLicenseKey = response.message.msg[0];
+                            $('.updateError').show();
+                            $('.updateError').fadeOut(3000);
                         }
                     }
                     // Session Destroy

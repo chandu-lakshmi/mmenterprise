@@ -54,6 +54,7 @@ return [
 
             // for file uploading
             'PATH'    => '/var/www/html/mintmesh/',
+            'PREVIEW_PATH'  => 'https://staging.mintmesh.com/',
 
             
             //Version

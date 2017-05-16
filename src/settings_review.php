@@ -53,6 +53,7 @@ return [
             'PASSWORD_GRANT'    => 'password',
 
             'PATH'    => '/var/www/html/mintmesh/',
+            'PREVIEW_PATH'  => 'http://202.63.105.85/mintmesh/',
             
             //Version
             'APP_VERSION' => '1.1'    
