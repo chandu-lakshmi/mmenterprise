@@ -1145,7 +1145,7 @@
             }, function (response) {
 
             })*/
-            vm.mintmeshPartnes = [{hcm_name : 'SuccessFactors', hcm_id : 1}, {hcm_name : 'Zenefits', hcm_id : 2}];
+            vm.mintmeshPartnes = [{hcm_name : 'SuccessFactors', hcm_id : 1}, {hcm_name : 'Zenefits', hcm_id : 2}, {hcm_name : 'Icims', hcm_id : 3}];
             getPartnersData(0)
         }
 
@@ -1159,8 +1159,10 @@
             var url;
             if (id == 2) {
                 url = 'get_zenefits_hcm_list';
-            }else{
+            }else if(id == 1){
                 url = 'get_hcm_list';
+            }else if(id == 3){
+                 url = 'get_icims_hcm_list';
             }
 
             $http({

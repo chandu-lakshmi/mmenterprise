@@ -208,6 +208,10 @@
 
             gridApi.rowEdit.on.saveRow(null, scope.saveRow);
 
+            gridApi.edit.on.beginCellEdit(null, function (rowEntity, colDef) {
+                scope.currentGridData = angular.copy(scope.gridOptions.data);
+            })
+
             gridApi.selection.on.rowSelectionChanged(null, function (row) {
                 updateRowSelection(row);
             });
@@ -431,6 +435,7 @@
                             scope.hasLicenseKey = response.message.msg[0];
                             $('.updateError').show();
                             $('.updateError').fadeOut(3000);
+                            scope.gridOptions.data = angular.copy(scope.currentGridData);
                         }
                     }
                     // Session Destroy
@@ -1005,6 +1010,7 @@
                     }
                 }
                 else if (response.status_code == 403) {
+                    scope.errorUploadMsg = response.message.msg[0];
                     scope.errorUpload = true;
                 }
                 else if (response.status_code == 400) {

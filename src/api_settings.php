@@ -239,6 +239,10 @@ return [
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/add_edit_hcm'
             ],
+            'add_edit_icims_hcm' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/add_edit_icims_hcm'
+            ],
             'add_edit_zenefits_hcm' =>[
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/add_edit_zenefits_hcm'
@@ -266,6 +270,10 @@ return [
             'get_zenefits_hcm_list' =>[
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/get_zenefits_hcm_list'
+            ],
+            'get_icims_hcm_list' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_icims_hcm_list'
             ]
     ];
         

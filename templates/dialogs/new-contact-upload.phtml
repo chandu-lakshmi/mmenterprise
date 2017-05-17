@@ -42,7 +42,7 @@
                 <div class="clearfix">
                     <md-input-container class="md-block pull-left">
                         <label>EMAIL</label>
-                        <input type="text" name="emailid" ng-model="SingleContCtrl.newContact.email" required ng-pattern="/^[a-z0-9A-Z._%+-]+@[a-zA-Z]+\.[a-z]{2,3}$/i" ng-class="{'has-error-border':upload_contact_form.emailid.$invalid && SingleContCtrl.errCond}">
+                        <input type="text" name="emailid" ng-model="SingleContCtrl.newContact.email" required ng-pattern='/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/' ng-class="{'has-error-border':upload_contact_form.emailid.$invalid && SingleContCtrl.errCond}">
                         <div ng-if="upload_contact_form.emailid.$error.required && SingleContCtrl.errCond" class="has-error-msg">Please Enter Email Address.</div>
                         <div ng-if="upload_contact_form.emailid.$error.pattern && SingleContCtrl.errCond" class="has-error-msg">Please Enter Valid Email Address.</div>
                     </md-input-container>
