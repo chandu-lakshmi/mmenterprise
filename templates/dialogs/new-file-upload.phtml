@@ -3,7 +3,7 @@
 
     <div class="contacts-group">
 
-        <div class="close" ng-click="$dismiss()">
+        <div class="close" ng-click="UploadContCtrl.exceeds ? UploadContCtrl.closeModal() : $dismiss()">
             <img src="public/images/cross-grey.svg" alt="close">
         </div>
         <div class="clearfix"></div>
@@ -17,8 +17,13 @@
                         <span style="color:#989898;">Organize your contacts in one of the communities below or create your own</span>
                     </p>
                 </div>
+                <div class="steps">
+                    1. Download Sample Template<br> 
+                    2. Add contacts <br>
+                    3. Upload File to the Community
+                </div>
                 <div class="download">
-                    <span ng-click="UploadContCtrl.downloadSample()" class="text-center">Download Sample Template</span>    
+                    <span ng-click="UploadContCtrl.downloadSample()" class="text-center"> <i style="vertical-align: middle;color: #868686;" class="material-icons">file_download</i> Download Sample Template</span>    
                 </div>
                 <div class="file-uploading">
                     <div class="row">

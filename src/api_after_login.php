@@ -327,7 +327,7 @@ $app->post('/job_details',function ($request, $response, $args) use ($app) {
     // dynamically Access Token, Company Details 
    $this->mintmeshAccessToken;
    $this->mintmeshCompanyId;
-   $_POST['time_zone'] = $_SESSION['time_zone'];
+   //$_POST['time_zone'] = $_SESSION['time_zone'];
     // getting API endpoint from settings
    $apiEndpoint = getapiEndpoint($this->settings, 'job_details');
    
@@ -363,7 +363,7 @@ $app->post('/job_referral_details',function ($request, $response, $args) use ($a
    if(!empty($_SESSION['time_zone']) && isset($_SESSION['time_zone'])){
    $this->mintmeshAccessToken;
    $this->mintmeshCompanyId;
-   $_POST['time_zone'] = $_SESSION['time_zone'];
+   //$_POST['time_zone'] = $_SESSION['time_zone'];
     // getting API endpoint from settings
    $apiEndpoint = getapiEndpoint($this->settings, 'job_referral_details');
    
@@ -514,7 +514,7 @@ $app->post('/view_dashboard',function ($request, $response, $args) use ($app) {
     $this->mintmeshAccessToken; 
     $this->mintmeshCompanyId;
 //    $_POST['time_zone'] = $_SESSION['time_zone'];
-    $_SESSION['time_zone'] = $_POST['time_zone'];
+    //$_SESSION['time_zone'] = $_POST['time_zone'];
     // getting API endpoint from settings
    $apiEndpoint = getapiEndpoint($this->settings, 'view_dashboard');
     $statusDetails    = new Curl(array(
@@ -531,7 +531,7 @@ $app->post('/awaiting_action',function ($request, $response, $args) use ($app) {
     // dynamically Access Token
    $this->mintmeshAccessToken;
    $this->mintmeshCompanyId;  
-   $_POST['time_zone'] = $_SESSION['time_zone'];
+   //$_POST['time_zone'] = $_SESSION['time_zone'];
     // getting API endpoint from settings
    $apiEndpoint = getapiEndpoint($this->settings, 'awaiting_action');
    
@@ -600,7 +600,7 @@ $app->post('/get_company_all_referrals',function ($request, $response, $args) us
    
     // dynamically Access Token 
    $this->mintmeshAccessToken;
-   $_POST['time_zone'] = $_SESSION['time_zone'];
+   //$_POST['time_zone'] = $_SESSION['time_zone'];
     // getting API endpoint from settings
    $apiEndpoint = getapiEndpoint($this->settings, 'get_company_all_referrals');
    
@@ -932,63 +932,64 @@ $app->post('/change_password',function ($request, $response, $args) use ($app) {
 });
 
 $app->post('/campaigns_list',function ($request, $response, $args) use ($app) {
-    if(!empty($_SESSION['time_zone']) && isset($_SESSION['time_zone'])){
+
+//    if(!empty($_SESSION['time_zone']) && isset($_SESSION['time_zone'])){
     // dynamically Access Token
     $this->mintmeshAccessToken;
     $this->mintmeshCompanyId;
     $args  = commonData($this->settings);
     // getting API endpoint from settings
     $apiEndpoint = getapiEndpoint($this->settings, 'campaigns_list');
-    $_POST['time_zone'] = $_SESSION['time_zone'];
+    //$_POST['time_zone'] = $_SESSION['time_zone'];
     $companyDetails     = new Curl(array(
         'url'           => $apiEndpoint,
         'postData'      => $_POST
      ));
     
      return checkJsonResult( $companyDetails->loadCurl() );
-      }else{
-        return '{"status_code":400}';
-   }
+//      }else{
+//        return '{"status_code":400}';
+//   }
 });
 
 $app->post('/add_campaign',function ($request, $response, $args) use ($app) {
-    if(!empty($_SESSION['time_zone']) && isset($_SESSION['time_zone'])){ 
+//    if(!empty($_SESSION['time_zone']) && isset($_SESSION['time_zone'])){ 
     // dynamically Access Token
     $this->mintmeshAccessToken;
     $this->mintmeshCompanyId;
     $args  = commonData($this->settings);
 
     $apiEndpoint = getapiEndpoint($this->settings, 'add_campaign');
-    $_POST['time_zone'] = $_SESSION['time_zone'];
+    //$_POST['time_zone'] = $_SESSION['time_zone'];
     $companyDetails     = new Curl(array(
         'url'           => $apiEndpoint,
         'postData'      => $_POST
      ));
     
      return checkJsonResult( $companyDetails->loadCurl() );
-     }else{
-        return '{"status_code":400}';
-   }
+//     }else{
+//        return '{"status_code":400}';
+//   }
 });
 
 $app->post('/view_campaign',function ($request, $response, $args) use ($app) {
-    if(!empty($_SESSION['time_zone']) && isset($_SESSION['time_zone'])){ 
+//    if(!empty($_SESSION['time_zone']) && isset($_SESSION['time_zone'])){ 
     // dynamically Access Token
     $this->mintmeshAccessToken;
     $this->mintmeshCompanyId;
     $args  = commonData($this->settings);
     
     $apiEndpoint = getapiEndpoint($this->settings, 'view_campaign');
-   $_POST['time_zone'] = $_SESSION['time_zone'];
+   //$_POST['time_zone'] = $_SESSION['time_zone'];
     $companyDetails     = new Curl(array(
         'url'           => $apiEndpoint,
         'postData'      => $_POST
      ));
     
      return checkJsonResult( $companyDetails->loadCurl() );
-     }else{
-        return '{"status_code":400}';
-   }
+//     }else{
+//        return '{"status_code":400}';
+//   }
 });
 
 //mintbot
@@ -1193,7 +1194,7 @@ $app->post('/job_rewards',function ($request, $response, $args) use ($app) {
     // dynamically Access Token
     $this->mintmeshAccessToken;
     $this->mintmeshCompanyId;
-    $_POST['time_zone'] = $_SESSION['time_zone'];
+    //$_POST['time_zone'] = $_SESSION['time_zone'];
     // getting API endpoint from settings
     $apiEndpoint = getapiEndpoint($this->settings, 'job_rewards');
    

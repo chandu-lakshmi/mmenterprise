@@ -30,12 +30,11 @@
                 <span ng-if="ContactCtrl.goDashboard" ng-bind="'DOWNLOADS (' + (ContactCtrl.activeBucketDownloadCount || 0) + ')'" class="word-ellipsis"></span>
                 <div>
                     <img ng-src="public/images/loader/spin.gif" alt="bufferSpin" ng-if="ContactCtrl.updateLoader">
-                    <span class="updateSuccess" style="color:#1d8e70">Successfully Updated.</span>
-                    <span class="updateError" ng-bind="ContactCtrl.hasLicenseKey"></span>
+                    <span class="updateSuccess" style="color:#1d8e70 !important">Successfully Updated.</span>
                     <span class="updatefailure">Not Updated</span>
                     <span class="zeroRecords" style="margin-left:-122px;">Please Select Atleast 1 Record.</span>
                     <span class="existRecords" style="margin-left:-122px;">{{ContactCtrl.rowIdExistsMsg + '.'}}</span>
-                    <span class="modalSuccess" ng-bind="ContactCtrl.modalSuccessMsg"></span>
+                    <span class="modalSuccess" style="color:#1d8e70 !important" ng-bind="ContactCtrl.modalSuccessMsg"></span>
                 </div>
                 <md-input-container md-no-float="" class="md-block">
                     <img ng-src="public/images/loader/search_loader.gif" alt="buffer" ng-if="ContactCtrl.searchLoader">
@@ -86,8 +85,9 @@
                     </div>
                 </div>
             </div>
+            <div class="error-msgs updateError" ng-bind="ContactCtrl.hasLicenseKey"></div>
         </div>
-
+        
     </div>
 
     <script type="text/ng-template" id="select-drop.html">

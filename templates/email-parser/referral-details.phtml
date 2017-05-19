@@ -11,7 +11,7 @@
 					<div class="col-sm-6 form-style">
 						<div class="form-group gap">
 						    <label for="emp-email">Employee Email Address<sup>*</sup></label>
-						    <input type="text" name="emp_email" class="form-control input-lg" id="emp-email" required ng-pattern="/^[a-z0-9A-Z._%+-]+@[a-zA-Z]+\.[a-z]{2,3}$/i" ng-model="ApplyJobCtrl.referralDetails.emailid" readonly>
+						    <input type="text" name="emp_email" class="form-control input-lg" id="emp-email" required ng-pattern='/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/' ng-model="ApplyJobCtrl.referralDetails.emailid" readonly>
 						    <span ng-show="refer_form.emp_email.$error.required && ApplyJobCtrl.errorRequired" class="has-error-msg">Please Enter Employee Email Id.</span>
 						     <span ng-show="refer_form.emp_email.$error.pattern && ApplyJobCtrl.errorRequired" class="has-error-msg">Please Enter Valid Email Id.</span>
 					    </div>
@@ -27,7 +27,7 @@
 					<div class="col-sm-6 form-style">
 						<div class="form-group">
 						    <label for="can-email">Email Address<sup>*</sup></label>
-						    <input name="emailid" class="form-control input-lg" id="can-email" type="text" required ng-model="ApplyJobCtrl.canEmail" ng-pattern="/^[a-z0-9A-Z._%+-]+@[a-zA-Z]+\.[a-z]{2,3}$/i">
+						    <input name="emailid" class="form-control input-lg" id="can-email" type="text" required ng-model="ApplyJobCtrl.canEmail" ng-pattern='/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/'>
 						    <span ng-show="refer_form.emailid.$error.required && ApplyJobCtrl.errorRequired" class="has-error-msg">Please Enter Email Address.</span>
 						     <span ng-show="refer_form.emailid.$error.pattern && ApplyJobCtrl.errorRequired" class="has-error-msg">Please Enter Valid Email Address.</span>
 					    </div>

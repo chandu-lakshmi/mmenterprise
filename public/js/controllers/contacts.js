@@ -151,13 +151,13 @@
                 }
             ]
         };
-        
-        if(edit_feature){
+
+        if (edit_feature) {
             this.gridOptions.columnDefs.push(
-                {name: 'download_status', displayName: 'Download', enableCellEdit: false, cellClass: 'grid-no-hover', width: '10%',
-                    cellTemplate: '<div class="ui-grid-cell-contents">{{ COL_FIELD == 1 ? "Yes" : "No"}}</div>',
-                    //sortDirectionCycle: ['asc', 'desc', '']
-                }
+                    {name: 'download_status', displayName: 'Download', enableCellEdit: false, cellClass: 'grid-no-hover', width: '10%',
+                        cellTemplate: '<div class="ui-grid-cell-contents">{{ COL_FIELD == 1 ? "Yes" : "No"}}</div>',
+                        //sortDirectionCycle: ['asc', 'desc', '']
+                    }
             )
         }
 
@@ -200,6 +200,7 @@
 
 
         var sort,
+                inProgress = false,
                 colSortObj = '',
                 colDefName = 'status';
         this.gridOptions.onRegisterApi = function (gridApi) {
@@ -209,8 +210,10 @@
             gridApi.rowEdit.on.saveRow(null, scope.saveRow);
 
             gridApi.edit.on.beginCellEdit(null, function (rowEntity, colDef) {
-                scope.currentGridData = angular.copy(scope.gridOptions.data);
-            })
+                if (!inProgress) {
+                    scope.currentGridData = angular.copy(scope.gridOptions.data);
+                }
+            });
 
             gridApi.selection.on.rowSelectionChanged(null, function (row) {
                 updateRowSelection(row);
@@ -223,8 +226,8 @@
             gridApi.core.on.sortChanged(null, function (grid, sortColumns) {
                 colDefName = sortColumns[0].name;
                 /*if(colDefName == 'download_status'){
-                    return;
-                }*/
+                 return;
+                 }*/
                 sort = sortColumns[0].sort.direction == 'asc' ? '' : 'desc';
                 colSortObj = sortColumns;
                 scope.getGridData('', '', '', scope.searchVal);
@@ -376,8 +379,16 @@
         this.getGridData("", "", "", "");
 
         this.updateLoader = false;
+
+        $('body').keypress(function (event) {
+            if (inProgress) {
+                event.preventDefault();
+            }
+        });
+
         function rowUpdate(oldValue, newValue, rowEntity, colDef, validatorName) {
             if (newValue != oldValue) {
+                inProgress = true;
                 scope.loaderImg = true;
                 scope.hideLoader = true;
                 scope.updateLoader = true;
@@ -404,14 +415,14 @@
 
                 get_buckets.success(function (response) {
                     if (response.status_code == 200) {
-
                         scope.updateLoader = false;
                         scope.hideLoader = false;
                         scope.loaderImg = false;
 
-                        if (response.message.msg[0] == 'successfully updated') {
+                        if (response.message.msg[0] == 'Successfully updated') {
                             $('.updateSuccess').show();
                             $('.updateSuccess').fadeOut(3000);
+                            scope.currentGridData = angular.copy(scope.gridOptions.data);
                         }
                         else if (response.message.msg[0] == 'empid already exists') {
                             $('.existRecords').show();
@@ -431,12 +442,13 @@
                         else if (response.message.msg[0] == 'failed to update') {
                             $('.updatefailure').show();
                             $('.updatefailure').fadeOut(3000);
-                        }else{
+                        } else {
                             scope.hasLicenseKey = response.message.msg[0];
                             $('.updateError').show();
                             $('.updateError').fadeOut(3000);
                             scope.gridOptions.data = angular.copy(scope.currentGridData);
                         }
+                        inProgress = false;
                     }
                     // Session Destroy
                     else if (response.status_code == 400) {
@@ -483,7 +495,7 @@
                 if (response.status_code == 200) {
                     scope.searchVal = "";
                     scope.srcSearch = 'search.svg';
-                    if (response.message.msg[0] == 'status changed successfully') {
+                    if (response.message.msg[0] == 'Status changed Successfully') {
                         for (var i = 0; i < scope.gridOptions.data.length; i++) {
                             for (var j = 0; j < scope.selectedContacts.length; j++) {
                                 if (Number(scope.gridOptions.data[i].record_id) == Number(scope.selectedContacts[j])) {
@@ -1012,6 +1024,7 @@
                 else if (response.status_code == 403) {
                     scope.errorUploadMsg = response.message.msg[0];
                     scope.errorUpload = true;
+                    scope.exceeds = response.data.limit_exceeded;
                 }
                 else if (response.status_code == 400) {
                     $window.location = App.base_url + 'logout';
@@ -1023,6 +1036,19 @@
                 scope.errorUpload = false;
                 $('.bucket-modal .modal-footer .disabled').css('pointer-events', 'auto');
             })
+        }
+
+        scope.closeModal = closeModal;
+        function closeModal() {
+            if (scope.currentState) {
+                $window.scrollTo(0, 0);
+                $state.go('importContactsList');
+            }
+            else {
+                defaultFunction('', '', '', '', 0);
+                getBuckets();
+                $uibModalInstance.dismiss('cancel');
+            }
         }
 
 

@@ -96,6 +96,15 @@
 	border:1px solid #ccc;
 	border-top: 0;
 	background-color: #fff;
+    position: relative;
+}
+
+.grid-contacts .container .container-rt .error-msgs{
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    bottom: -33px;
+    color: #8f3e43;
 }
 .grid-contacts .container .container-rt .search span{
 	display: inline-block;
@@ -665,8 +674,13 @@
     font-size: 15px;
     letter-spacing: 0.5px;
 }
+.bucket-modal .modal-body .steps{
+    width: 22%;
+    text-align: left;
+    margin: 0 auto;
+}
 .bucket-modal .modal-body .download{
-    margin: 33px 0 14px;
+    margin: 16px 0 14px;
     font-size: 16px;
     color: #0f8265;
 }
