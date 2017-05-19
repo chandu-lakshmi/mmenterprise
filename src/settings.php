@@ -44,17 +44,21 @@ return [
             'PREFIX' => '/enterprise',
 
             // Angular Application domain
-            'APP_DOMAIN' => 'http://enterprise.mintmesh.com/',
+            'APP_DOMAIN' => 'http://localhost/mmenterprise_11/',
 
             // Application API domain
-            'API_DOMAIN' => 'http://api.mintmesh.com/',
+            'API_DOMAIN' => 'http://localhost/mintmesh_11/',
 
             //Client keys
-            'CLIENT_ID'         => 'dA3UFisQBLX23jHW',
-            'CLIENT_SECRET'     => '3mjo0kDSgCbsdLG7ipnhWJxC1iY6RLcX',
-
+            'CLIENT_ID'         => 'G7iLdQoeZy0Ef06C',
+            'CLIENT_SECRET'     => 'Dh0pMLSV6Y82EfDpGKlWN1AyzvWvbvz4',
+			
             //Grant Types
-            'PASSWORD_GRANT'    => 'password'
+            'PASSWORD_GRANT'    => 'password',
+			 //qquploader path
+            'PATH'    => '/xampp/htdocs/mintmesh_10/',
+            //Version
+            'APP_VERSION' => '1.2' 
         ],
 
         // API settings

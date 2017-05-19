@@ -98,8 +98,10 @@
 	background-color: #fff;
     position: relative;
 }
-
-.grid-contacts .container .container-rt .error-msgs{
+.grid-contacts .container .container-rt .zeroRecords{
+    display: none;
+}
+.grid-contacts .container .container-rt .error-msgs, .grid-contacts .container .container-rt .zeroRecords{
     position: absolute;
     text-align: center;
     width: 100%;

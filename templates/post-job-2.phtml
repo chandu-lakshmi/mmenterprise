@@ -259,7 +259,7 @@
 					<md-button ui-sref="app.job">CANCEL</md-button>
 				</span>
 				<span class="btn-post">
-					<md-button ng-click="post2Ctrl.requestSuccess(myForm.$valid, myForm2.$valid)">
+					<md-button ng-disabled="post2Ctrl.loader" ng-click="post2Ctrl.requestSuccess(myForm.$valid, myForm2.$valid)">
 						POST JOB REQUISITION
 					</md-button>
 				</span>

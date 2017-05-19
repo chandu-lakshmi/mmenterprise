@@ -35,10 +35,10 @@ return [
             'PREFIX' => '/enterprise',
 
             // Angular Application domain
-            'APP_DOMAIN' => 'http://192.168.33.10/mmenterprise_11/',
+            'APP_DOMAIN' => 'http://localhost/mmenterprise_11/',
 
             // Application API domain
-            'API_DOMAIN' => 'http://192.168.33.10/mintmesh_11/',
+            'API_DOMAIN' => 'http://localhost/mintmesh_11/',
 
             //Client keys
             'CLIENT_ID'         => 'G7iLdQoeZy0Ef06C',
@@ -58,7 +58,7 @@ return [
        // email parser
        'EMAIL_PARSER' => [
            // Angular Application domain
-           'EMAIL_PARSER_DOMAIN' => 'http://192.168.33.10/mmenterprise_11/email-parser/',
+           'EMAIL_PARSER_DOMAIN' => 'http://localhost/mmenterprise_11/email-parser/',
        ]
     
     ],

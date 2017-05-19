@@ -345,6 +345,9 @@
   text-align: center;
   overflow: hidden
 }
+.upload-con .contacts-group .steps{
+  width: 34% !important;
+}
 .info-upload{
 	padding: 3% 0px 7% 0px;
   overflow: hidden;
