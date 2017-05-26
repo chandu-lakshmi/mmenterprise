@@ -1,4 +1,5 @@
-<div class="all-campaigns">
+<h4  class="text-center" ng-if="!!AllCampaignsCtrl.noLongerAvailable" style="color:#dc4e41" ng-bind="AllCampaignsCtrl.noLongerAvailable"></h4>
+<div class="all-campaigns" ng-if="!AllCampaignsCtrl.noLongerAvailable">
     <header class="logo">
         <div id="logo" ng-hide="AllCampaignsCtrl.infiniteScroll.headerDetails.company_logo == ''">
             <img src="{{$root.url_spinner_small}}" class="spinner small img-thumbnail">

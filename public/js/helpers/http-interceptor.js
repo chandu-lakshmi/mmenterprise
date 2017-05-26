@@ -20,6 +20,10 @@ angular.module('app')
                 },
                 // On response success
                 response: function(response) {
+                    if(response.data.status_code == 401){
+                        
+                        window.location.href = "logout";
+                    }
                     //console.log("----------")
                    
                    /* if(response.data.result && 

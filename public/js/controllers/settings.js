@@ -1146,6 +1146,7 @@
 
             })*/
             vm.mintmeshPartnes = [{hcm_name : 'SuccessFactors', hcm_id : 1}, {hcm_name : 'Zenefits', hcm_id : 2}, {hcm_name : 'Icims', hcm_id : 3}];
+            //vm.mintmeshPartnes = [{hcm_name : 'SuccessFactors', hcm_id : 1}];
             getPartnersData(0)
         }
 

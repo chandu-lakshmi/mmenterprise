@@ -194,8 +194,7 @@ body.email-parser .modal .modal-body {
     font-size: 18px; }
     .drop-box .container section .footer .pull-left .message {
       color: #e84949;
-      font-size: 15px;
-      text-transform: capitalize; }
+      font-size: 15px; }
       .drop-box .container section .footer .pull-left .message.success {
         color: #208d6e; }
     .drop-box .container section .footer .pull-right .cancel {

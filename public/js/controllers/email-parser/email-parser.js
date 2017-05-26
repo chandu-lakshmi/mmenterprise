@@ -72,6 +72,7 @@
         }
 
         vm.bol = true;
+        vm.noLongerAvailable = false;
         vm.shareUrl = App.base_url + 'email/all-jobs/share?ref=' + App.ref;
         // vm.copyUrl = $location.$$absUrl;
         vm.job_name = [];
@@ -160,13 +161,18 @@
                             vm.infiniteScroll.onComplete(response.data.data)
                         }
                         else if (response.data.status_code == 403) {
-                            vm.infiniteScroll.list = [];
+
+                            vm.noLongerAvailable = response.data.message.msg[0];
+                            vm.infiniteScroll.company_logo = '';
+                            vm.infiniteScroll.busy = false;
+                            pageNo++;
+                            /*vm.infiniteScroll.list = [];
                             vm.noJobs = true;
                             vm.infiniteScroll.total_count = 0;
                             total_pages = 0;
                             if (callBack != undefined) {
                                 callBack();
-                            }
+                            }*/
                         }
                         else if (response.data.status_code == 400) {
                             vm.infiniteScroll.onError();
@@ -266,7 +272,7 @@
                 return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
             });
         }
-
+        vm.noLongerAvailable = false;
         vm.job_details = {
             list: [],
             loader: false,
@@ -310,6 +316,9 @@
                         vm.job_details.loader = false;
                         if (response.data.status_code == 200) {
                             vm.job_details.onComplete(response.data.data)
+                        }
+                        else if(response.data.status_code == 403) {
+                            vm.noLongerAvailable = response.data.message.msg[0];
                         }
                         else if (response.data.status_code == 400) {
                             vm.job_details.onError();
@@ -584,6 +593,7 @@
         }
 
         vm.bol = true;
+        vm.noLongerAvailable = false;
         // vm.copyUrl = $location.$$absUrl;
         vm.shareUrl = App.base_url + 'email/all-campaigns/share?ref=' + App.camp_ref;
 
@@ -718,13 +728,17 @@
                             vm.infiniteScroll.onComplete(response.data.data)
                         }
                         else if (response.data.status_code == 403) {
-                            vm.infiniteScroll.list = [];
+                            vm.noLongerAvailable = response.data.message.msg[0];
+                            vm.infiniteScroll.headerDetails.company_logo = '';
+                            vm.infiniteScroll.busy = false;
+                            page_no++;
+                            /*vm.infiniteScroll.list = [];
                             vm.noJobs = true;
                             vm.infiniteScroll.total_count = 0;
                             total_pages = 0;
                             if (callBack != undefined) {
                                 callBack();
-                            }
+                            }*/
                         }
                         else if (response.data.status_code == 400) {
                             vm.infiniteScroll.onError();
