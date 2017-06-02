@@ -35,7 +35,7 @@
 	</div>
 	
 	<!-- infinite scroll -->
-	<div infinite-scroll='jobSearchCtrl.infiniteScroll.nextPage()' infinite-scroll-disabled='jobSearchCtrl.infiniteScroll.busy' infinite-scroll-distance='2' style="position:relative" ng-style="{'opacity':jobSearchCtrl.overLoader ? '0.5' : ''}">
+	<div infinite-scroll='jobSearchCtrl.infiniteScroll.nextPage()' infinite-scroll-disabled='jobSearchCtrl.infiniteScroll.busy' infinite-scroll-distance='0' style="position:relative" ng-style="{'opacity':jobSearchCtrl.overLoader ? '0.5' : ''}">
 		<!--Typeof Job -->
 		<div class="row" ng-repeat="jobList in jobSearchCtrl.infiniteScroll.list">
 			<div class="trans">

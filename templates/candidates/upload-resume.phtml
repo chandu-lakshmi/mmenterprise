@@ -1,0 +1,35 @@
+<div class="container">
+	<div class="upload-resume">
+		<div id="upload"></div>
+		<md-list class="list" flex="70">
+			<md-list-item class="md-1-line header-action">
+		        <div class="md-list-item-text">
+		          	<span class="title">Files in Queue ({{(UploadResumeCtrl.filesInQueue | filter : {'status' : 0}).length }})</span>
+		        </div>
+		        <p></p>
+	        	<md-button class="discard action" ng-click="UploadResumeCtrl.discardFile()">DISCARD</md-button>
+	        	<md-button class="delete action deleteALL" ng-click="UploadResumeCtrl.deleteAllFiles()">DELETE ALL</md-button>
+	      	</md-list-item>
+			
+			<div class="file-container" flex="95">
+				<md-list-item ng-repeat="file in UploadResumeCtrl.filesInQueue" ng-click="">
+					<img alt="file.fileName." src="public/images/pdf.png" class="md-avatar" />
+					<p flex="85">
+						<span class="file-name">{{file.fileName}}</span>
+						<md-progress-linear ng-if="!file.status" md-mode="determinate" value="{{file.value}}"></md-progress-linear>
+						<span class="file-size" ng-if="!file.status">{{(file.remaining || 0) + ' of ' + file.fileSize +' (' + file.value + '% done)'}}</span>
+					</p>
+				    <md-button aria-label="cancel" class="md-icon-button md-secondary close" ng-if="!file.status">
+			        	<i class="material-icons abort" id="{{file.tempId}}">cancel</i>
+			      	</md-button>
+			      	<img src="public/images/loader/spin.gif" ng-if="file.status == 1" class="loader" alt="loading">
+			      	<md-button aria-label="delete" class="md-icon-button md-secondary" ng-if="file.status == 2">
+			      		<i class="material-icons delete">delete</i>
+			      	</md-button>
+			      	<md-divider></md-divider>
+					</div>
+		  		</md-list-item>
+		  	</div>
+		</md-list>
+	</div>
+</div>

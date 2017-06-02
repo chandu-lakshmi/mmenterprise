@@ -1,0 +1,182 @@
+<div class="find-resume">
+	<div class="container">
+		<div layout="column">
+			<div class="search-resume">
+				<div layout="row" class="headline">
+					<div flex="50" class="name first">
+						JOB DESCRIPTION
+					</div>
+					<div flex="50" class="name animated" ng-style="{'opacity': FindResumeCtrl.hideSearchResume ? '0' : ''}">
+						CRITERIA
+					</div>
+					<i class="material-icons arrow-toogle" ng-class="{'arrow-spin' : FindResumeCtrl.hideSearchResume}" ng-click="FindResumeCtrl.toogleSearchResume()">keyboard_arrow_down</i>
+				</div>
+				<div id="ai-view">
+					<div layout="row">
+						<div flex="50">
+							<md-card>
+						       	<!-- <md-card-title>
+								        <md-card-title-text>
+								           <span class="md-headline">JOB DESCRIPTION</span>
+								        </md-card-title-text>
+						       	</md-card-title> -->
+						        <md-card-content>
+						        	<textarea name="desc" flex id="" cols="30" rows="14" ng-blur="FindResumeCtrl.aiTrigger()" ng-model="FindResumeCtrl.description" class="md-padding"></textarea>
+						        </md-card-content>
+						    </md-card>	
+						</div>
+						<div flex="50">
+							<md-card class="criteria">
+						       	<!-- <md-card-title>
+								        <md-card-title-text>
+								           <span class="md-headline">CRITERIA</span>
+								        </md-card-title-text>
+						       	</md-card-title> -->
+						       	<md-card-content>
+						        	<div layout="column">
+										<div layout="row" class="list">
+											<div layout="column" flex="20" class="key">Role :</div>
+											<div layout="column" flex="80" ng-bind="FindResumeCtrl.criteria.role"></div>
+										</div>
+										<md-divider></md-divider>
+									</div>
+									<div layout="column">
+										<div layout="row" class="list">
+											<div layout="column" flex="20" class="key">Experience :</div>
+											<div layout="column" flex="80" ng-bind="FindResumeCtrl.criteria.exp"></div>
+										</div>
+										<md-divider></md-divider>
+									</div>
+									<div layout="column">
+										<div layout="row" class="list">
+											<div layout="column" flex="20" class="key">Skills : </div>
+											<div layout="column" flex="80" ng-bind="FindResumeCtrl.criteria.skills"></div>
+										</div>
+										<md-divider></md-divider>
+									</div>
+									<div layout="column">
+										<div layout="row" class="list">
+											<div layout="column" flex="20" class="key">Location : </div>
+											<div layout="column" flex="80" ng-bind="FindResumeCtrl.criteria.location"></div>
+										</div>
+										<md-divider></md-divider>
+									</div>
+						        </md-card-content>
+						    </md-card>
+						    <md-card class="criteria">
+						       	<md-card-title>
+							        <md-card-title-text>
+							           <span class="md-headline">WEIGHTAGES</span>
+							        </md-card-title-text>
+						       	</md-card-title>
+						       	<md-card-content>
+						        	<div layout="column">
+						        		<div class="row slide">
+						        			<div layout="row">
+						        				<div layout="column" flex="50">
+						        					<span>Role</span>
+						        					<rzslider class="weightages" rz-slider-model="FindResumeCtrl.weightages.role" rz-slider-options="FindResumeCtrl.sliderRole.options"></rzslider>
+						        				</div>
+						        				<div layout="column" flex="50">
+						        					<span>Location</span>
+						        					<rzslider class="weightages" rz-slider-model="FindResumeCtrl.weightages.location" rz-slider-options="FindResumeCtrl.sliderLoc.options"></rzslider>
+						        				</div>
+						        			</div>
+						        			<div layout="row">
+						        				<div layout="column" flex="50">
+						        					<span>Experience</span>
+						        					<rzslider class="weightages" rz-slider-model="FindResumeCtrl.weightages.exp" rz-slider-options="FindResumeCtrl.sliderExp.options"></rzslider>
+						        				</div>
+						        				<div layout="column" flex="50">
+						        					<span>Skills</span>
+						        					<rzslider class="weightages" rz-slider-model="FindResumeCtrl.weightages.skills" rz-slider-options="FindResumeCtrl.sliderSkills.options"></rzslider>
+						        				</div>
+						        			</div>
+						        		</div>
+						        	</div>
+						        </md-card-content>
+						    </md-card>
+						</div>
+					</div>
+					<md-button class="mm-btn action" ng-click="FindResumeCtrl.searchResume()">Search Resumes</md-button>
+				</div>
+			</div>
+			<div class="container-resume">
+				<div layout="row" class="header">
+					<i class="material-icons arrow-toogle" style="top: 16px;" ng-class="{'arrow-spin' : FindResumeCtrl.hideResumesList}" ng-click="FindResumeCtrl.toogleResumesList()">keyboard_arrow_down</i>
+					<div layout="column" flex="33" class="match" ng-bind="FindResumeCtrl.matchedResume.length + ' Resume(s) Matched'">
+						32 Resumes Matched
+					</div>
+					<div layout="column" flex="33">
+						<md-input-container ng-style="{'opacity': FindResumeCtrl.hideResumesList ? '0' : ''}">
+					        <label style="display:none !important">Filter By Score</label>
+					        <md-select ng-model="FindResumeCtrl.filterList" md-on-close="FindResumeCtrl.searchResume()"
+					        	data-md-container-class="multiple-select" multiple placeholder="Filter By Score">
+					          	<!-- <md-select-header class="demo-select-header">
+						            <input ng-model="searchTerm" type="search" placeholder="Select Status"
+						            	class="demo-header-searchbox md-text">
+					          	</md-select-header> -->
+					          	<md-optgroup label="SCORE RANGE">
+				            		<md-option ng-value="opts" ng-repeat="opts in FindResumeCtrl.filterOptions">{{opts}}</md-option>
+				            	</md-optgroup>
+					        </md-select>
+			      		</md-input-container>
+					</div>
+					<div layout="column" flex="33" class="match zip">
+						<div layout="row">
+							<div class="box" ng-style="{'opacity': FindResumeCtrl.hideResumesList ? '0' : ''}">
+								<span ng-bind="'Selected: ' + FindResumeCtrl.selectedResues.length">Selected: 1</span>
+								<a>Download Zip</a>	
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="hide-resumes">
+					<md-content class="md-padding">
+						<div class="row" infinite-scroll='FindResumeCtrl.loadResumes()'  infinite-scroll-distance='0' infinite-scroll-container="'.find-resume'">
+							<div class="col-sm-4" ng-repeat="resume in FindResumeCtrl.matchedResume track by $index">
+							  	<md-card ng-style="{'margin-top' : $index <= 2 ? '0' : '12px'}" class="animated zoomIn" ng-click="FindResumeCtrl.selectResume($index)">
+							  		<i class="material-icons select" ng-style="{'opacity' : FindResumeCtrl.selectedResues.indexOf($index) > -1 ? '1' : '0' }">network_cell</i>
+							        <md-card-title>
+							          	<md-card-title-text>
+								            <span class="md-subhead" ng-bind="resume.role">PHP DEVELOPER</span>
+								            <span class="md-headline" ng-bind="resume.name">Peter John</span>
+								            <span class="md-subhead" ng-bind="resume.experience + ' Years Experience'">3.0 Years Experience</span>
+							          	</md-card-title-text>
+							          	<md-card-title-media>
+							            	<div class="md-media-sm card-media">
+							            		<div circliful score="resume.total_score"></div>
+							            		<div class="score" ng-style="{'left': resume.total_score.toString().length == 3 ? '34px' : ''}" ng-bind="resume.total_score"></div>
+							            	</div>
+							          	</md-card-title-media>
+							        </md-card-title>
+							        <md-card-content>
+							        	<md-card-title>
+								          	<md-card-title-text>
+									            <span class="md-subhead">SKILLS</span>
+									            <span ng-bind="resume.skills">Jquery , Angularjs , Nodejs , emberjs and knockoutjs.</span>
+								            </md-card-title-text>
+							        	</md-card-title>
+   									</md-card-content>
+							        <md-card-actions layout="row" layout-align="end center">
+							          	<span flex>
+							          		<i class="material-icons">location_on</i> 
+							          		<span ng-bind="resume.location">Hyderabad, Sec in India.</span>
+							          	</span> 
+							          	<md-button class="md-fab md-mini md-primary" aria-label="Use Android" ng-click=" $event.stopPropagation();">
+								          	<i class="material-icons">file_download</i>
+								        </md-button>
+							        </md-card-actions>
+							  	</md-card>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-5 loading-text" ng-if="FindResumeCtrl.inProgressSearchResumes">Loading...</div>
+							<div class="col-sm-5 loading-text" ng-if="!FindResumeCtrl.matchedResume.length">No Matched Resumes Found.</div>
+						</div>
+					</md-content>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

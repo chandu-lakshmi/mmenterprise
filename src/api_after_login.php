@@ -258,7 +258,7 @@ $app->get('/job/post-job-2',function ($request, $response, $args) use ($app) {
 
 //Post job Page
 $app->get('/postJob',function ($request, $response, $args) use ($app) {
-	//Arguments
+  //Arguments
     $this->mintmeshAccessToken;
     $args       = commonData($this->settings);
     if(!empty(authenticate())){
@@ -596,6 +596,58 @@ $app->get('/candidates/resume-room',function ($request, $response, $args) use ($
     return $this->renderer->render($response, 'index.phtml', $args);
 });
 
+//candidates upload-resume
+$app->get('/candidates/upload-resume',function ($request, $response, $args) use ($app) {
+    //Arguments
+    $this->mintmeshAccessToken;
+    $args       = commonData($this->settings);
+    
+    //Check Logged in or not
+    if(!empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']);
+    }
+
+    $args['comp_data'] = companyProfile($this->settings);
+    // Render dashboard view
+    return $this->renderer->render($response, 'index.phtml', $args);
+});
+
+//candidates find-resume
+$app->get('/candidates/find-resume',function ($request, $response, $args) use ($app) {
+    //Arguments
+    $this->mintmeshAccessToken;
+    $args       = commonData($this->settings);
+    
+    //Check Logged in or not
+    if(!empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']);
+    }
+
+    $args['comp_data'] = companyProfile($this->settings);
+    // Render dashboard view
+    return $this->renderer->render($response, 'index.phtml', $args);
+});
+
+//upload bulk resume
+$app->post('/upload_resume',function ($request, $response, $args) use ($app) {
+   
+    // dynamically Access Token 
+   $this->mintmeshAccessToken;
+   $this->mintmeshCompanyId;
+   //$_POST['time_zone'] = $_SESSION['time_zone'];
+    // getting API endpoint from settings
+   $apiEndpoint = getapiEndpoint($this->settings, 'upload_resume');
+   
+    $candidatesList    = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+
+    return checkJsonResult( $candidatesList->loadCurl() );
+    
+});
+
+
 $app->post('/get_company_all_referrals',function ($request, $response, $args) use ($app) {
    
     // dynamically Access Token 
@@ -702,7 +754,7 @@ $app->get('/settings/configuration-manager',function ($request, $response, $args
 });
 
 // integration manager
-$app->get('/settings/integration-manager',function ($request, $response, $args) use ($app) {
+$app->get('/settings/integration-manager/{tab}',function ($request, $response, $args) use ($app) {
      
     //Arguments
     $this->mintmeshAccessToken;
@@ -1423,4 +1475,49 @@ $app->post('/get_configuration',function ($request, $response, $args) use ($app)
      ));
 
      return checkJsonResult( $configurationDetails->loadCurl() );
+});
+
+//Post Job
+$app->post('/getResumeParser', function ($request, $response, $args) use ($app) {
+
+   $username = "admin";
+   $password = "Aev54I0Av13bhCxM";
+   // getting API endpoint from settings
+   $apiEndpoint = "http://54.68.58.181/resumematcher/parse_jd";
+   $post = json_encode($_POST);
+   $process = curl_init($apiEndpoint);
+   curl_setopt($process, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+   curl_setopt($process, CURLOPT_HEADER, 0);
+   curl_setopt($process, CURLOPT_USERPWD, $username . ":" . $password);
+   curl_setopt($process, CURLOPT_TIMEOUT, 30);
+   curl_setopt($process, CURLOPT_POST, 1);
+   curl_setopt($process, CURLOPT_POSTFIELDS, $post);
+   curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
+   $return = curl_exec($process);
+   curl_close($process);
+
+   print_r($return);
+});
+
+
+//Get Resumes with weights
+$app->post('/getResumesFindByWeights', function ($request, $response, $args) use ($app) {
+
+   $username = "admin";
+   $password = "Aev54I0Av13bhCxM";
+   // getting API endpoint from settings
+   $apiEndpoint = "http://54.68.58.181/resumematcher/find_resumes";
+   $post = json_encode($_POST);
+   $process = curl_init($apiEndpoint);
+   curl_setopt($process, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+   curl_setopt($process, CURLOPT_HEADER, 0);
+   curl_setopt($process, CURLOPT_USERPWD, $username . ":" . $password);
+   curl_setopt($process, CURLOPT_TIMEOUT, 30);
+   curl_setopt($process, CURLOPT_POST, 1);
+   curl_setopt($process, CURLOPT_POSTFIELDS, $post);
+   curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
+   $return = curl_exec($process);
+   curl_close($process);
+
+   print_r($return);
 });

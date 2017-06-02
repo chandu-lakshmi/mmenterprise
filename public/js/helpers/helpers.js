@@ -36,7 +36,7 @@
         			/* VALUMS's plugin for uploading files
 					* AJAX kind
 					*/
-					initUploader: function(opts){
+					initUploader: function(opts, cb){
 					    var config = {
 					        action: false,
 					        allowedExtensions: ["jpg", "gif", "png", "jpeg"],
@@ -95,6 +95,10 @@
 					            onSubmit: config.onSubmit,
 					            onComplete: config.onComplete,
 					            onProgress: config.onProgress
+					        }, function(handler){
+					        	if(cb){
+					        		cb(handler)
+					        	}
 					        });
 					                    
 					        $('#'+config.id+' .qq-upload-list').on('click touchend', '.icon-remove', function(e){

@@ -2,7 +2,7 @@
 
 // API settings
 return [
-		   'login' => [
+           'login' => [
                 'VERSION'  => 'v1',
                 'ENDPOINT' => '/enterprise/login'
             ],
@@ -186,6 +186,10 @@ return [
             'get_company_all_referrals' =>[
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/get_company_all_referrals'
+            ],
+            'upload_resume' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/upload_resume'
             ],
             'add_job' =>[
                 'VERSION' => 'v1',

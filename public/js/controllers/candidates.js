@@ -2,13 +2,17 @@
     "use strict";
 
     angular
-            .module('app.candidates', ['ui.grid', 'ui.grid.selection'])
+            .module('app.candidates', ['ui.grid', 'ui.grid.selection', 'rzModule'])
             .controller('CandidateController', CandidateController)
             .controller('ResumeRoomController', ResumeRoomController)
+            .controller('UploadResumeController', UploadResumeController)
+            .controller('FindResumeController', FindResumeController)
+            .directive('circliful', circliful)
 
     CandidateController.$inject = [];
     ResumeRoomController.$inject = ['$state', '$window', '$uibModal', '$http', '$q', '$timeout', 'ajaxService', 'App'];
-
+    UploadResumeController.$inject = ['$scope', '$http', '$timeout', '$window', 'App'];
+    FindResumeController.$inject = ['$scope', '$http', '$q', '$timeout', '$window', 'App'];
 
 
     function CandidateController() {
@@ -103,7 +107,7 @@
             {name: 'resume_name', displayName: 'RESUME', headerTooltip: 'RESUME',
                 cellTemplate: 'download-resume.html'
             },
-            {name: 'created_at', displayName: 'TIME', headerTooltip: 'Time'},
+            {name: 'created_at', displayName: 'DATE', headerTooltip: 'DATE'},
             {name: 'one_way_status', displayName: 'STATUS', headerTooltip: 'Status', cellTemplate: 'status-change.html', width: '14%'}
         ]
 
@@ -325,6 +329,290 @@
 
     }
 
+
+    function UploadResumeController($scope, $http, $timeout, $window,  App) {
+        
+        var vm = this;
+
+        this.filesInQueue = [];
+        function upload(id) {
+            if (id == 'upload')
+                $timeout(function () {
+                    $('input[type="file"]').attr('title', ' ');
+                }, 100);
+            App.Helpers.initUploader({
+                id: id,
+                dragText: "Drop files here to upload or ",
+                enableDragDrop : true,
+                multiple: true,
+                uploadButtonText: id == 'upload' ? "Choose file" : 'Change',
+                size: (10 * 1024 * 1024),
+                allowedExtensions: ['csv', 'pdf', 'doc', 'docx', 'cer'],
+                action: App.base_url + "file_upload",
+                showFileInfo: false,
+                shortMessages: true,
+                remove: true,
+                file_name: 'certificate_org_name',
+                path_name: 'certificate_path',
+                onSubmit: function (id, name, size) {
+                    vm.filesInQueue.push({tempId:id, fileName : name, value : 0, fileSize : Math.round(size / 1024) + 'KB', status : 0});
+                    $scope.$apply();
+
+                },
+                onComplete: function (id, name, response) {
+                    if(response.success){
+                        angular.forEach(vm.filesInQueue, function(file, fileIndex){
+                            if(file.tempId == id){
+                                vm.filesInQueue[fileIndex].status = 1;
+                            }
+                        })
+                        $scope.$apply();
+                        uploadResume(id, response);
+                    }
+                },
+                onProgress: function (id, fileName, loaded, total) {
+                    vm.filesInQueue[id].value = Math.round((loaded / total) * 100);
+                    vm.filesInQueue[id].remaining = Math.round(loaded / 1024) + 'KB';
+                    $scope.$apply();
+                },
+                onCancel : function(id, fileName){
+                    if(fileName){
+                        angular.forEach(vm.filesInQueue, function(file, fileIndex){
+                            if(file.tempId == id){
+                                vm.filesInQueue[fileIndex].cancel = 1;
+                            }
+                        })
+                    }
+
+                },
+                showMessage: function (msg, obj) {
+                    
+                },
+                onRemove: function () {
+                    console.log(arguments)
+                },
+                onRemoveComplete: function () {
+                }
+            }, function(para){
+                vm.fileHandler = para;
+            })
+        }
+
+        upload('upload');
+
+        this.deleteAllFiles = function(){
+            angular.forEach(vm.filesInQueue, function(file, fileIndex){
+                if(file.cancel){
+                    vm.filesInQueue[fileIndex].status = 0;
+                }
+            })
+        }
+
+        this.discardFile = function(){
+            angular.forEach(vm.filesInQueue, function(file){
+                if(file.status){
+                    vm.fileHandler.cancel(file.tempId)
+                }   
+            })
+        }
+
+        function uploadResume(id, response){
+            $http({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'POST',
+                url: 'upload_resume',
+                data: $.param({resume_name : response.org_name, resume : response.filename})
+            })
+            .then(function (response) {
+                vm.filesInQueue[id].status = 2;
+            });
+        }
+    }
+
+
+    function FindResumeController($scope, $http, $q, $timeout, $window,  App) {
+
+        var vm = this,
+            prevDescription,
+            prevWeightages,
+            cancelerAI,
+            cancelerSearchResume,
+            busy = true,
+            paginationOptions = {
+                pageNumber: 1,
+                pageSize: 25,
+                scoreRange : null
+            },
+            slider =  {
+                value: null,
+                options: {
+                    floor:0,
+                    ceil:4,
+                    showSelectionBar: true,
+                    onChange: function(id) {
+                        vm.searchResume();
+                    }
+                }
+            };
+
+        this.selectedResues = [];
+        this.inProgressSearchResumes = false;
+        this.hideSearchResume = false;
+        this.hideResumesList = false;
+        this.sliderRole = angular.copy(slider);
+        this.sliderLoc = angular.copy(slider);
+        this.sliderExp = angular.copy(slider);
+        this.sliderSkills = angular.copy(slider); 
+        this.filterOptions = ['75% to 100%', '50% to 70%', '0% to 50%'];
+
+        this.description = "Software engineer in Bangalore with 2 years of experience who knows jquery, html, css and angularjs";
+        this.critera = {};
+        this.weightages = {
+            role : 0,    
+            location : 0,
+            exp : 0, 
+            skills : 0 
+        }
+
+        this.aiTrigger = function() {
+
+            if(prevDescription == this.description){
+                return;
+            }
+
+            var params = {};
+                params.jd = this.description;
+                params.weights = this.weightages;
+
+            if (cancelerSearchResume) {
+                cancelerAI.resolve();
+            }
+
+            cancelerAI = $q.defer();
+
+            $http({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'POST',
+                url: App.base_url + 'getResumeParser',
+                data: $.param(params),
+                timeout: cancelerAI.promise
+            })
+            .then(function (response) {
+                prevDescription = vm.description;
+                prevWeightages = vm.critera;
+                if (response.status == 200) {
+                    vm.criteria = response.data;
+                    vm.criteria.skills = response.data.skills.toString().split(",").join(", ")
+                    busy = false;
+                }
+                else if (response.data.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+            });
+        }
+
+        this.searchResume = function() {
+            
+            if(JSON.stringify(prevWeightages) === JSON.stringify(vm.weightages)){
+                return;
+            }
+
+            var params = {};
+                params.jd = this.description;
+                params.weights = this.weightages;
+                params.tenant_id = 'tenant1';
+
+            if (cancelerSearchResume) {
+                cancelerSearchResume.resolve();
+            }
+
+            cancelerSearchResume = $q.defer();
+
+            $http({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'POST',
+                url: App.base_url + 'getResumesFindByWeights',
+                data: $.param(params),
+                timeout: cancelerSearchResume.promise
+            })
+            .then(function (response) {
+                prevWeightages = angular.copy(vm.weightages);
+                if (response.status == 200) {
+                    vm.matchedResume = response.data.resumes;
+                }
+                else if (response.data.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+            });
+        }
+
+        this.loadResumes = function(){
+            if(busy){
+                return;
+            }
+            this.searchResume();
+        }
+
+
+        this.selectResume = function(resumeIndex){
+            var position = this.selectedResues.indexOf(resumeIndex);
+            if(position < 0 ){
+                vm.selectedResues.push(resumeIndex);
+            }else{
+                vm.selectedResues.splice(position, 1);
+            }
+        }
+
+        this.toogleSearchResume = function(){
+            $("#ai-view").slideToggle('slow');
+            this.hideSearchResume = !this.hideSearchResume;
+        }
+
+        this.toogleResumesList = function(){
+            $("#hide-resumes").slideToggle('slow');
+            this.hideResumesList = !this.hideResumesList;
+        }
+        
+
+        $timeout(function () {
+            $scope.$broadcast('reCalcViewDimensions');
+        }, 100);
+    }
+
+
+
+
+
+
+    function circliful(){
+         return{
+            restrict: 'AE',
+            link: function (scope, element, attr) {
+                var color,
+                    score = Number(scope.$eval(attr.score));
+                if(score >= 90){
+                    color = '#2daf8b';
+                }else{
+                    color = score >= 70 ? '#16aefa' : '#f98015';
+                }
+                $(element).circliful({
+                    foregroundColor: color,
+                    percent: score,
+                    foregroundBorderWidth: 9,
+                    backgroundBorderWidth: 9,
+                    backgroundColor: '#d4dfe5',
+                    icon: '',
+                    iconSize: 30
+                });
+            }
+        }
+    }
 
 
 

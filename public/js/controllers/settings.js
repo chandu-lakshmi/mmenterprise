@@ -16,7 +16,7 @@
     MyProfileController.$inject = ['$http', '$scope', '$window', '$uibModal', 'UserDetails', 'CONFIG', 'App'];
     UserGroupController.$inject = ['$scope', '$window', '$element', 'CONFIG', '$http', '$q', 'permissionsService', 'userPermissions', 'App'];
     ConfigManagerController.$inject = ['$window', '$scope', '$timeout', '$http', 'App'];
-    IntManagerController.$inject = ['$scope', '$window', '$timeout', '$http', 'App'];
+    IntManagerController.$inject = ['$scope', '$window', '$state','$timeout', '$http', 'App'];
 
     function permissionsService() {
         var permissionData = {};
@@ -1113,7 +1113,7 @@
         upload('upload');
     }
 
-    function IntManagerController($scope, $window, $timeout, $http, App) {
+    function IntManagerController($scope, $window, $state, $timeout, $http, App) {
 
         var vm = this;
 
@@ -1147,7 +1147,11 @@
             })*/
             vm.mintmeshPartnes = [{hcm_name : 'SuccessFactors', hcm_id : 1}, {hcm_name : 'Zenefits', hcm_id : 2}, {hcm_name : 'Icims', hcm_id : 3}];
             //vm.mintmeshPartnes = [{hcm_name : 'SuccessFactors', hcm_id : 1}];
-            getPartnersData(0)
+           if($state.params.tab == 'zenefits'){
+                getPartnersData(1);
+           }else{
+                getPartnersData(0);
+           }    
         }
 
         function getPartnersData(i) {
