@@ -278,14 +278,20 @@ require __DIR__ . '/api_after_login.php';
 //General Apis
 require __DIR__ . '/api_general.php';
 
-$app->get('/xyz', function ($request, $response, $args) {
+$app->get('/getApp/{tab}', function ($request, $response, $args) {
 
-    // Arguments  
-    $args = commonArgs($this->settings);
+if(isset($_SESSION['ccode'])) {
+    $ccode = (string)$_SESSION['ccode'];
+  } else {
+    $ccode = (string)$_COOKIE['ccode'];
+  }
+  
+   // Arguments  
+   $args = commonArgs($this->settings);
 
     //Check Logged - If it is login it redirects to dashboard page
     if (empty(authenticate())) {
-        return $response->withRedirect($args['APP_DOMAIN'] . "settings/integration-manager");
+        return $response->withRedirect($args['APP_DOMAIN'] . "settings/integration-manager/zenefits");
     }
 
     // Render index view

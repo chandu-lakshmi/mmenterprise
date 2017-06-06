@@ -1480,21 +1480,21 @@ $app->post('/get_configuration',function ($request, $response, $args) use ($app)
 //Post Job
 $app->post('/getResumeParser', function ($request, $response, $args) use ($app) {
 
-   $username = "admin";
-   $password = "Aev54I0Av13bhCxM";
-   // getting API endpoint from settings
-   $apiEndpoint = "http://54.68.58.181/resumematcher/parse_jd";
-   $post = json_encode($_POST);
-   $process = curl_init($apiEndpoint);
-   curl_setopt($process, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-   curl_setopt($process, CURLOPT_HEADER, 0);
-   curl_setopt($process, CURLOPT_USERPWD, $username . ":" . $password);
-   curl_setopt($process, CURLOPT_TIMEOUT, 30);
-   curl_setopt($process, CURLOPT_POST, 1);
-   curl_setopt($process, CURLOPT_POSTFIELDS, $post);
-   curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
-   $return = curl_exec($process);
-   curl_close($process);
+    $username = "admin";
+    $password = "Aev54I0Av13bhCxM";
+    // getting API endpoint from settings
+    $apiEndpoint = "http://54.68.58.181/resumematcher/parse_jd";
+    $post = json_encode($_POST);
+    $process = curl_init($apiEndpoint);
+    curl_setopt($process, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+    curl_setopt($process, CURLOPT_HEADER, 0);
+    curl_setopt($process, CURLOPT_USERPWD, $username . ":" . $password);
+    curl_setopt($process, CURLOPT_TIMEOUT, 30);
+    curl_setopt($process, CURLOPT_POST, 1);
+    curl_setopt($process, CURLOPT_POSTFIELDS, $post);
+    curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
+    $return = curl_exec($process);
+    curl_close($process);
 
    print_r($return);
 });
@@ -1503,21 +1503,21 @@ $app->post('/getResumeParser', function ($request, $response, $args) use ($app) 
 //Get Resumes with weights
 $app->post('/getResumesFindByWeights', function ($request, $response, $args) use ($app) {
 
-   $username = "admin";
-   $password = "Aev54I0Av13bhCxM";
-   // getting API endpoint from settings
-   $apiEndpoint = "http://54.68.58.181/resumematcher/find_resumes";
-   $post = json_encode($_POST);
-   $process = curl_init($apiEndpoint);
-   curl_setopt($process, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-   curl_setopt($process, CURLOPT_HEADER, 0);
-   curl_setopt($process, CURLOPT_USERPWD, $username . ":" . $password);
-   curl_setopt($process, CURLOPT_TIMEOUT, 30);
-   curl_setopt($process, CURLOPT_POST, 1);
-   curl_setopt($process, CURLOPT_POSTFIELDS, $post);
-   curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
-   $return = curl_exec($process);
-   curl_close($process);
+    $username = "admin";
+    $password = "Aev54I0Av13bhCxM";
+    // getting API endpoint from settings
+    $apiEndpoint = "http://54.68.58.181/resumematcher/find_resumes";
+    $post = json_encode($_POST);
+    $process = curl_init($apiEndpoint);
+    curl_setopt($process, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+    curl_setopt($process, CURLOPT_HEADER, 0);
+    curl_setopt($process, CURLOPT_USERPWD, $username . ":" . $password);
+    curl_setopt($process, CURLOPT_TIMEOUT, 30);
+    curl_setopt($process, CURLOPT_POST, 1);
+    curl_setopt($process, CURLOPT_POSTFIELDS, $post);
+    curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
+    $return = curl_exec($process);
+    curl_close($process);
 
-   print_r($return);
+    return $return;
 });
