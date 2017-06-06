@@ -233,6 +233,7 @@
             })
         })
 
+
     }
 
     function HeaderController(UserDetails, CompanyDetails, App) {

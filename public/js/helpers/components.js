@@ -30,6 +30,7 @@
                 })
 
             })
+            
 
     CommonConfirmMessage.$inject = ["$scope", "$uibModalInstance", "paramsMdService", '$window', '$http', '$state', 'CONFIG'];
     epiSearch.$inject = ['App'];
