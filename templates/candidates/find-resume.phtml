@@ -27,6 +27,9 @@
 						</div>
 						<div flex="50">
 							<md-card class="criteria">
+								<div class="loader" ng-if="FindResumeCtrl.inProgressAI">
+									<img src="public/images/loader/spin.gif" alt="loading...">
+								</div>
 						       	<!-- <md-card-title>
 								        <md-card-title-text>
 								           <span class="md-headline">CRITERIA</span>
@@ -104,8 +107,7 @@
 			<div class="container-resume">
 				<div layout="row" class="header">
 					<i class="material-icons arrow-toogle" style="top: 16px;" ng-class="{'arrow-spin' : FindResumeCtrl.hideResumesList}" ng-click="FindResumeCtrl.toogleResumesList()">keyboard_arrow_down</i>
-					<div layout="column" flex="33" class="match" ng-bind="FindResumeCtrl.matchedResume.length + ' Resume(s) Matched'">
-						32 Resumes Matched
+					<div layout="column" flex="33" class="match" ng-bind="(!FindResumeCtrl.matchedResume.length ? 'No' : FindResumeCtrl.matchedResume.length) + ' Resume(s) Matched'">
 					</div>
 					<div layout="column" flex="33">
 						<md-input-container ng-style="{'opacity': FindResumeCtrl.hideResumesList ? '0' : ''}">
@@ -125,7 +127,7 @@
 					<div layout="column" flex="33" class="match zip">
 						<div layout="row">
 							<div class="box" ng-style="{'opacity': FindResumeCtrl.hideResumesList ? '0' : ''}">
-								<span ng-bind="'Selected: ' + FindResumeCtrl.selectedResues.length">Selected: 1</span>
+								<span ng-if="FindResumeCtrl.selectedResues.length" class="animated fadeIn" ng-bind="'Selected: ' + FindResumeCtrl.selectedResues.length"></span>
 								<a>Download Zip</a>	
 							</div>
 						</div>
@@ -133,20 +135,41 @@
 				</div>
 				<div id="hide-resumes">
 					<md-content class="md-padding">
+						<div class="row">
+							<div class="col-sm-5 loading-text animated slideInDown" ng-if="FindResumeCtrl.inProgressSearchResumes">Loading...</div>
+							<div class="col-sm-5 loading-text animated slideInDown" ng-if="!FindResumeCtrl.matchedResume.length && !FindResumeCtrl.inProgressSearchResumes">No Matched Resumes Found.</div>
+						</div>
 						<div class="row" infinite-scroll='FindResumeCtrl.loadResumes()'  infinite-scroll-distance='0' infinite-scroll-container="'.find-resume'">
 							<div class="col-sm-4" ng-repeat="resume in FindResumeCtrl.matchedResume track by $index">
 							  	<md-card ng-style="{'margin-top' : $index <= 2 ? '0' : '12px'}" class="animated zoomIn" ng-click="FindResumeCtrl.selectResume($index)">
 							  		<i class="material-icons select" ng-style="{'opacity' : FindResumeCtrl.selectedResues.indexOf($index) > -1 ? '1' : '0' }">network_cell</i>
 							        <md-card-title>
-							          	<md-card-title-text>
+							          	<md-card-title-text flex="80">
 								            <span class="md-subhead" ng-bind="resume.role">PHP DEVELOPER</span>
-								            <span class="md-headline" ng-bind="resume.name">Peter John</span>
+								            <span class="md-headline ellipsis" ng-bind="resume.name">
+								            	<md-tooltip class="find-resume-name" md-delay="demo.delayTooltip" ng-bind="resume.name"></md-tooltip>
+								            </span>
 								            <span class="md-subhead" ng-bind="resume.experience + ' Years Experience'">3.0 Years Experience</span>
 							          	</md-card-title-text>
-							          	<md-card-title-media>
+							          	<md-card-title-media flex="20">
 							            	<div class="md-media-sm card-media">
-							            		<div circliful score="resume.total_score"></div>
-							            		<div class="score" ng-style="{'left': resume.total_score.toString().length == 3 ? '34px' : ''}" ng-bind="resume.total_score"></div>
+							            		<div class="score" ng-bind="resume.total_score  | number : 0"></div>
+							            		<round-progress
+							            			class="ai-score"
+							            		    max="100"
+							            		    current="resume.total_score"
+							            		    color="{{ resume.total_score >=90 ? '#2dad8a' : (resume.total_score <= 70 ? '#f98015' : '#16aefa')}}"
+							            		    bgcolor="#eff0f2"
+							            		    radius="30"
+							            		    stroke="4"
+							            		    semi="false"
+							            		    rounded="true"
+							            		    clockwise="true"
+							            		    responsive="false"
+							            		    duration="800"
+							            		    animation="easeInOutQuart"
+							            		    animation-delay="1">
+							            		</round-progress>
 							            	</div>
 							          	</md-card-title-media>
 							        </md-card-title>
@@ -154,7 +177,9 @@
 							        	<md-card-title>
 								          	<md-card-title-text>
 									            <span class="md-subhead">SKILLS</span>
-									            <span ng-bind="resume.skills">Jquery , Angularjs , Nodejs , emberjs and knockoutjs.</span>
+									            <span dotdotdot="resume.skills" class="dotdotdot" ng-bind="resume.skills != '.' ? resume.skills : '--'">
+									            	<md-tooltip style="width: 326px;padding: 6px;" class="find-resume-name animated fadeIn" md-delay="demo.delayTooltip" ng-bind="resume.skills"></md-tooltip>
+									            </span>
 								            </md-card-title-text>
 							        	</md-card-title>
    									</md-card-content>
@@ -169,10 +194,6 @@
 							        </md-card-actions>
 							  	</md-card>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-5 loading-text" ng-if="FindResumeCtrl.inProgressSearchResumes">Loading...</div>
-							<div class="col-sm-5 loading-text" ng-if="!FindResumeCtrl.matchedResume.length">No Matched Resumes Found.</div>
 						</div>
 					</md-content>
 				</div>

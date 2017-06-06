@@ -2,16 +2,27 @@
     "use strict";
 
     angular
-            .module('app.candidates', ['ui.grid', 'ui.grid.selection', 'rzModule'])
+            .module('app.candidates', ['ui.grid', 'ui.grid.selection', 'rzModule', 'angular-svg-round-progressbar'])
             .controller('CandidateController', CandidateController)
             .controller('ResumeRoomController', ResumeRoomController)
             .controller('UploadResumeController', UploadResumeController)
             .controller('FindResumeController', FindResumeController)
-            .directive('circliful', circliful)
+            .directive('dotdotdot', function($timeout){
+                return {
+                    restrict: 'A',
+                    link: function(scope, element, attributes) {
+                        scope.$watch(attributes.dotdotdot, function() {
+                            setTimeout(function() {
+                                element.dotdotdot();
+                            });
+                        });
+                    }
+                }
+            })
 
     CandidateController.$inject = [];
     ResumeRoomController.$inject = ['$state', '$window', '$uibModal', '$http', '$q', '$timeout', 'ajaxService', 'App'];
-    UploadResumeController.$inject = ['$scope', '$http', '$timeout', '$window', 'App'];
+    UploadResumeController.$inject = ['$scope', '$http', '$timeout', '$window', '$uibModal', 'App'];
     FindResumeController.$inject = ['$scope', '$http', '$q', '$timeout', '$window', 'App'];
 
 
@@ -330,7 +341,7 @@
     }
 
 
-    function UploadResumeController($scope, $http, $timeout, $window,  App) {
+    function UploadResumeController($scope, $http, $timeout, $window, $uibModal, App) {
         
         var vm = this;
 
@@ -355,6 +366,7 @@
                 file_name: 'certificate_org_name',
                 path_name: 'certificate_path',
                 onSubmit: function (id, name, size) {
+                    console.log(arguments)
                     vm.filesInQueue.push({tempId:id, fileName : name, value : 0, fileSize : Math.round(size / 1024) + 'KB', status : 0});
                     $scope.$apply();
 
@@ -400,19 +412,33 @@
 
         upload('upload');
 
-        this.deleteAllFiles = function(){
-            angular.forEach(vm.filesInQueue, function(file, fileIndex){
-                if(file.cancel){
-                    vm.filesInQueue[fileIndex].status = 0;
-                }
+        this.discardFile = function(){
+            angular.forEach(vm.filesInQueue, function(file){
+                if(file.status == 0){
+                    vm.fileHandler.cancel(file.tempId)
+                }   
             })
         }
 
-        this.discardFile = function(){
-            angular.forEach(vm.filesInQueue, function(file){
-                if(file.status){
-                    vm.fileHandler.cancel(file.tempId)
-                }   
+        this.deleteFile = function(flag){
+            $uibModal.open({
+                animation: false,
+                backdrop: 'static',
+                keyboard: false,
+                templateUrl: 'templates/dialogs/common-confirm-msg.phtml',
+                openedClass: "referral-status confirm-message",
+                resolve: {
+                    paramsMdService: function() {
+                        return {
+                            firstMsg : 'Are you sure want to ',
+                            secondMsg : flag ? 'delete the RESUME ?' : 'delete ALL RESUMES ?',
+                            params : '',
+                            apiEndPoint : '',
+                        };
+                    }
+                },
+                controller: 'CommonConfirmMessage',
+                controllerAs: 'CommonConfirmMsgCtrl'
             })
         }
 
@@ -439,7 +465,6 @@
             prevWeightages,
             cancelerAI,
             cancelerSearchResume,
-            busy = true,
             paginationOptions = {
                 pageNumber: 1,
                 pageSize: 25,
@@ -450,14 +475,22 @@
                 options: {
                     floor:0,
                     ceil:4,
-                    showSelectionBar: true,
-                    onChange: function(id) {
+                    showSelectionBar: true
+                    /*onChange: function(id) {
                         vm.searchResume();
-                    }
+                    }*/
                 }
-            };
+            },
+            weightages = {
+                role : 0,    
+                location : 0,
+                exp : 0, 
+                skills : 0 
+            }
 
         this.selectedResues = [];
+        this.matchedResume = [];
+        this.inProgressAI = false; 
         this.inProgressSearchResumes = false;
         this.hideSearchResume = false;
         this.hideResumesList = false;
@@ -469,12 +502,7 @@
 
         this.description = "Software engineer in Bangalore with 2 years of experience who knows jquery, html, css and angularjs";
         this.critera = {};
-        this.weightages = {
-            role : 0,    
-            location : 0,
-            exp : 0, 
-            skills : 0 
-        }
+        this.weightages = angular.copy(weightages);
 
         this.aiTrigger = function() {
 
@@ -486,12 +514,12 @@
                 params.jd = this.description;
                 params.weights = this.weightages;
 
-            if (cancelerSearchResume) {
+            if (cancelerAI) {
                 cancelerAI.resolve();
             }
 
             cancelerAI = $q.defer();
-
+            this.inProgressAI = true;
             $http({
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -502,12 +530,12 @@
                 timeout: cancelerAI.promise
             })
             .then(function (response) {
-                prevDescription = vm.description;
-                prevWeightages = vm.critera;
                 if (response.status == 200) {
                     vm.criteria = response.data;
-                    vm.criteria.skills = response.data.skills.toString().split(",").join(", ")
-                    busy = false;
+                    vm.criteria.skills = response.data.skills.toString().split(",").join(", ");
+                    prevDescription = vm.description;
+                    prevWeightages = vm.critera;
+                    vm.inProgressAI = false;
                 }
                 else if (response.data.status_code == 400) {
                     $window.location = App.base_url + 'logout';
@@ -516,8 +544,7 @@
         }
 
         this.searchResume = function() {
-            
-            if(JSON.stringify(prevWeightages) === JSON.stringify(vm.weightages)){
+            if((JSON.stringify(prevWeightages) === JSON.stringify(vm.weightages) || !vm.criteria)){
                 return;
             }
 
@@ -531,7 +558,7 @@
             }
 
             cancelerSearchResume = $q.defer();
-
+            this.inProgressSearchResumes = true;
             $http({
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -544,7 +571,12 @@
             .then(function (response) {
                 prevWeightages = angular.copy(vm.weightages);
                 if (response.status == 200) {
-                    vm.matchedResume = response.data.resumes;
+                    angular.forEach(response.data.resumes, function(resumes){
+                        resumes.skills = resumes.skills.toString().slice(1, -1).concat('.').split(',').join(', ');
+                    })
+                    vm.selectedResues = [];
+                    vm.matchedResume = angular.copy(response.data.resumes) || [];
+                    vm.inProgressSearchResumes = false;
                 }
                 else if (response.data.status_code == 400) {
                     $window.location = App.base_url + 'logout';
@@ -553,7 +585,7 @@
         }
 
         this.loadResumes = function(){
-            if(busy){
+            if(this.inProgressAI){
                 return;
             }
             this.searchResume();
@@ -583,35 +615,7 @@
         $timeout(function () {
             $scope.$broadcast('reCalcViewDimensions');
         }, 100);
-    }
 
-
-
-
-
-
-    function circliful(){
-         return{
-            restrict: 'AE',
-            link: function (scope, element, attr) {
-                var color,
-                    score = Number(scope.$eval(attr.score));
-                if(score >= 90){
-                    color = '#2daf8b';
-                }else{
-                    color = score >= 70 ? '#16aefa' : '#f98015';
-                }
-                $(element).circliful({
-                    foregroundColor: color,
-                    percent: score,
-                    foregroundBorderWidth: 9,
-                    backgroundBorderWidth: 9,
-                    backgroundColor: '#d4dfe5',
-                    icon: '',
-                    iconSize: 30
-                });
-            }
-        }
     }
 
 

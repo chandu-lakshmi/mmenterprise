@@ -13,11 +13,11 @@
                 }
             ]);
 
-    DashboardController.$inject = ['$window', '$http', 'UserDetails', '$q', '$timeout', 'CompanyDetails', 'App'];
+    DashboardController.$inject = ['$scope', '$window', '$http', 'UserDetails', '$q', '$timeout', 'CompanyDetails', 'App'];
     HeaderController.$inject = ['UserDetails', 'CompanyDetails', 'App'];
     FooterController.$inject = [];
 
-    function DashboardController($window, $http, UserDetails, $q, $timeout, CompanyDetails, App) {
+    function DashboardController($scope, $window, $http, UserDetails, $q, $timeout, CompanyDetails, App) {
 
         $window.scrollTo(0, 0);
 
@@ -46,7 +46,7 @@
         vm.getSrc = function (arg) {
             return (arg !== '' || arg === 'null') ? arg : 'public/images/avatar.png';
         };
-        
+
         vm.daysList = [
             {days: 7, label: '7 Days'},
             {days: 30, label: '30 Days'},
@@ -168,7 +168,11 @@
             updateData(days, 'TOPREFERRALS', 'cancelleTopReferrals', 'loaderTopReferrals', 'topReferralsList', 'top_referrals', 'top_referrals_empty', new Date().getTimezoneOffset());
         }
 
+        var cancellerArr = [];
+
         function updateData(days, paraType, varPromise, spinner, typeList, paraResponse, noDataSpinner, timeZone) {
+
+            cancellerArr.push(varPromise);
 
             var params = $.param({
                 company_code: CompanyDetails.company_code,
@@ -219,6 +223,15 @@
                 }
             });
         }
+
+
+        $scope.$on('$destroy', function () {
+            angular.forEach(cancellerArr, function (varPromise) {
+                if (vm[varPromise]) {
+                    vm[varPromise].resolve();
+                }
+            })
+        })
 
     }
 

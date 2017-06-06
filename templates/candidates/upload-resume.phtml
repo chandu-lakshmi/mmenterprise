@@ -3,17 +3,16 @@
 		<div id="upload"></div>
 		<md-list class="list" flex="70">
 			<md-list-item class="md-1-line header-action">
-		        <div class="md-list-item-text">
+		        <div class="md-list-item-text" ng-show="(UploadResumeCtrl.filesInQueue | filter : {'status' : 0}).length">
 		          	<span class="title">Files in Queue ({{(UploadResumeCtrl.filesInQueue | filter : {'status' : 0}).length }})</span>
 		        </div>
 		        <p></p>
-	        	<md-button class="discard action" ng-click="UploadResumeCtrl.discardFile()">DISCARD</md-button>
-	        	<md-button class="delete action deleteALL" ng-click="UploadResumeCtrl.deleteAllFiles()">DELETE ALL</md-button>
+	        	<md-button class="discard action" ng-show="(UploadResumeCtrl.filesInQueue | filter : {'status' : 0}).length" ng-click="UploadResumeCtrl.discardFile()">DISCARD</md-button>
+	        	<md-button class="delete action deleteALL" ng-show="UploadResumeCtrl.filesInQueue.length > 1"  ng-click="UploadResumeCtrl.deleteFile(false)">DELETE ALL</md-button>
 	      	</md-list-item>
-			
 			<div class="file-container" flex="95">
 				<md-list-item ng-repeat="file in UploadResumeCtrl.filesInQueue" ng-click="">
-					<img alt="file.fileName." src="public/images/pdf.png" class="md-avatar" />
+					<span class="md-avatar" ng-style="{'background-position':file.fileName.split('.').pop()=='pdf' ? '13px -53px' : '13px 3px'}"></span>
 					<p flex="85">
 						<span class="file-name">{{file.fileName}}</span>
 						<md-progress-linear ng-if="!file.status" md-mode="determinate" value="{{file.value}}"></md-progress-linear>
@@ -23,8 +22,8 @@
 			        	<i class="material-icons abort" id="{{file.tempId}}">cancel</i>
 			      	</md-button>
 			      	<img src="public/images/loader/spin.gif" ng-if="file.status == 1" class="loader" alt="loading">
-			      	<md-button aria-label="delete" class="md-icon-button md-secondary" ng-if="file.status == 2">
-			      		<i class="material-icons delete">delete</i>
+			      	<md-button aria-label="delete" class="md-icon-button md-secondary delete" ng-click="UploadResumeCtrl.deleteFile(true)" ng-if="file.status == 2">
+			      		<i class="material-icons">delete</i>
 			      	</md-button>
 			      	<md-divider></md-divider>
 					</div>

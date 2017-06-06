@@ -1496,7 +1496,7 @@ $app->post('/getResumeParser', function ($request, $response, $args) use ($app) 
    $return = curl_exec($process);
    curl_close($process);
 
-   print_r($return);
+   return $return;
 });
 
 
@@ -1519,5 +1519,5 @@ $app->post('/getResumesFindByWeights', function ($request, $response, $args) use
    $return = curl_exec($process);
    curl_close($process);
 
-   print_r($return);
+   return $return;
 });
