@@ -1255,8 +1255,7 @@ $app->POST('/resume_file_upload',function ($request, $response, $args) {
             //upload the file and validate the size and file type
             $uploader = $file_upload->fileUpload($allowedExtensions, $sizeLimit);
             //return the file original and source name and path
-            $path = $args['PATH'];
-
+            $path   = $args['PATH'];
             $result = $file_upload->handleUpload(''.$path.'uploads/', FALSE, $myfilename);
             
             if (isset($result['success']) && $result['success'] == true) {
@@ -1271,29 +1270,10 @@ $app->POST('/resume_file_upload',function ($request, $response, $args) {
                
                 $fname =  str_replace('_',' ',$org_name);
                 $result['org_name'] = $fname;
+                $result['size']     = $result['size']/1000;
                 $result['filename'] = 'uploads/'.$myfilename.'.'.$result['ext'];
-                
-                // dynamically Access Token
-                $this->mintmeshAccessToken;
-                $_POST['file_name'] = $result['filename'];
-                
-                // getting API endpoint from settings
-                $apiEndpoint = getapiEndpoint($this->settings, 'validate_headers');
-                $companyDetails     = new Curl(array(
-                    'url'           => $apiEndpoint,
-                    'postData'      => $_POST
-                 ));
-
-                $response  = checkJsonResult( $companyDetails->loadCurl() );
-                $response  =  json_decode($response);
-                if($response->status_code == 200){
-                    $data['success'] = true;
-                    $data = $result;
-                }  else {
-                    $data['success'] = false;
-                    $data['msg'] = $response->message->msg[0] ;   
-                }         
-                echo htmlspecialchars(json_encode($data), ENT_NOQUOTES);
+                $data['success']    = true;
+                echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
             } else if(isset($result['error'])) {
                 #error for file size and Extensions
                 $data['success'] = false;

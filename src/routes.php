@@ -47,6 +47,7 @@ $app->get('/saml', function ($request, $response, $args) {
          // getting API endpoint from settings
          $apiEndpoint = getapiEndpoint($this->settings, 'special_grant_login');
          $_POST['emailId'] = $emailid;
+         $_POST['company_code'] = $ccode;
          $curl = new Curl(array(
             'url'           => $apiEndpoint,
             'postData'      => $_POST
