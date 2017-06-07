@@ -300,7 +300,7 @@ qq.FileUploaderBasic = function(o, cb){
         // messages                
         messages: {
             // typeError: "You have selected an invalid file type. Only {extensions} files are allowed.",
-            typeError: "Only {extensions} files are allowed.",
+            typeError: "Only {extensions} files is allowed.",
             sizeError: "{file} is too large, maximum file size is {sizeLimit}.",
             minSizeError: "{file} is too small, minimum file size is {minSizeLimit}.",
             emptyError: "{file} is empty.",
@@ -831,9 +831,9 @@ qq.extend(qq.FileUploader.prototype, {
             }
         });
 
-        $('.file-container').on('click','i.abort', function(event){
+       /* $('.file-container').on('click','i.abort', function(event){
             self._handler.cancel(Number(event.target.id));
-        });
+        });*/
         
     }    
 });

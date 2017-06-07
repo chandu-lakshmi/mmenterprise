@@ -159,15 +159,21 @@
     min-height: 500px;
     padding: 30px 0;
     overflow: auto; }
+    .candidates .upload-resume #upload.error-drop-area .qq-upload-drop-area {
+      border-color: #ff847b !important;
+      background: rgba(255, 202, 202, 0.23) !important; }
     .candidates .upload-resume #upload .qq-uploader {
       width: 95%;
       margin: 0 auto;
-      height: 98px; }
+      height: 166px; }
       .candidates .upload-resume #upload .qq-uploader .qq-upload-drop-area-active {
         border-color: #219070 !important;
-        transform: scale(0.98); }
+        transform: scale(0.98);
+        -webkit-transform: scale(0.98);
+        background: #f2fff7 !important; }
         .candidates .upload-resume #upload .qq-uploader .qq-upload-drop-area-active + .qq-upload-button {
-          transform: scale(0.98); }
+          transform: scale(0.98);
+          -webkit-transform: scale(0.98); }
       .candidates .upload-resume #upload .qq-uploader .qq-upload-drop-area {
         display: block !important;
         background: #f5f5f5;
@@ -179,7 +185,7 @@
         .candidates .upload-resume #upload .qq-uploader .qq-upload-drop-area .drag_txt {
           color: #9ea9a9;
           position: absolute;
-          top: 39px;
+          top: 72px;
           text-align: right;
           width: 53%;
           font-size: 16px;
@@ -190,7 +196,7 @@
         width: 98px;
         z-index: 9;
         height: 33px !important;
-        top: 38px;
+        top: 73px;
         left: 53%;
         text-align: left;
         text-indent: 4px;
@@ -203,6 +209,12 @@
         -webkit-transition: all 0.2s linear; }
         .candidates .upload-resume #upload .qq-uploader .qq-upload-button:hover {
           transform: scale(0.92); }
+    .candidates .upload-resume .instructions ul {
+      list-style: none;
+      color: #a6b3bd;
+      padding: 6px 30px; }
+      .candidates .upload-resume .instructions ul li.error-msg {
+        color: #c2433d; }
     .candidates .upload-resume md-list.list {
       margin: 0 auto; }
       .candidates .upload-resume md-list.list md-list-item.header-action {
@@ -245,10 +257,15 @@
               background: #e3e3e3; }
             .candidates .upload-resume md-list.list .file-container md-list-item p md-progress-linear .md-bar2 {
               background: #2b99ed; }
+            .candidates .upload-resume md-list.list .file-container md-list-item p md-progress-linear.discard .md-bar2, .candidates .upload-resume md-list.list .file-container md-list-item p md-progress-linear.discard .md-container {
+              background: #cc6464 !important; }
           .candidates .upload-resume md-list.list .file-container md-list-item p .file-size {
             color: #777777;
             font-size: 13px;
             font-style: italic; }
+          .candidates .upload-resume md-list.list .file-container md-list-item button {
+            position: absolute;
+            right: 0; }
           .candidates .upload-resume md-list.list .file-container md-list-item .loader {
             width: 30px;
             position: absolute;
@@ -258,11 +275,8 @@
             .candidates .upload-resume md-list.list .file-container md-list-item .close i {
               color: #e84949;
               font-size: 22px; }
-          .candidates .upload-resume md-list.list .file-container md-list-item .delete {
-            position: absolute;
-            right: 0; }
-            .candidates .upload-resume md-list.list .file-container md-list-item .delete i {
-              color: #565656; }
+          .candidates .upload-resume md-list.list .file-container md-list-item .delete i {
+            color: #565656; }
   .candidates .find-resume {
     height: calc(100vh - 160px);
     overflow-y: auto;
@@ -536,4 +550,3 @@ left: 0;
 top: 0; */
 
 /*# sourceMappingURL=candidates.css.map */
-

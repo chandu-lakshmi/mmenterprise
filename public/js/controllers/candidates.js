@@ -343,7 +343,7 @@
 
 
     function UploadResumeController($scope, $http, $timeout, $window, $uibModal, App) {
-        
+        /*Note filesInQueue object status 0 for file init upload, 1 for file moved done, 2 for s3 done , 3 for discard*/
         var vm = this;
 
         this.filesInQueue = [];
@@ -358,8 +358,8 @@
                 enableDragDrop : true,
                 multiple: true,
                 uploadButtonText: id == 'upload' ? "Choose file" : 'Change',
-                size: (10 * 1024 * 1024),
-                allowedExtensions: ['csv', 'pdf', 'doc', 'docx', 'cer'],
+                size: (5 * 1024 * 1024),
+                allowedExtensions: ['pdf', 'doc', 'docx', "jpg", "png", "jpeg"],
                 action: App.base_url + "file_upload",
                 showFileInfo: false,
                 shortMessages: true,
@@ -367,8 +367,8 @@
                 file_name: 'certificate_org_name',
                 path_name: 'certificate_path',
                 onSubmit: function (id, name, size) {
-                    console.log(arguments)
-                    vm.filesInQueue.push({tempId:id, fileName : name, value : 0, fileSize : Math.round(size / 1024) + 'KB', status : 0});
+                    vm.errorMsg = '';
+                    vm.filesInQueue.push({tempId:id, fileName : name, value : 0, fileSize : Math.round(size / 1024) + 'KB', status : 0, show : 0 , hasFileMoved : false });
                     $scope.$apply();
 
                 },
@@ -376,7 +376,7 @@
                     if(response.success){
                         angular.forEach(vm.filesInQueue, function(file, fileIndex){
                             if(file.tempId == id){
-                                vm.filesInQueue[fileIndex].status = 1;
+                                vm.filesInQueue[fileIndex].status = 1;  
                             }
                         })
                         $scope.$apply();
@@ -399,10 +399,10 @@
 
                 },
                 showMessage: function (msg, obj) {
-                    
+                    vm.errorMsg = msg;
+                    $scope.$apply();
                 },
                 onRemove: function () {
-                    console.log(arguments)
                 },
                 onRemoveComplete: function () {
                 }
@@ -416,9 +416,20 @@
         this.discardFile = function(){
             angular.forEach(vm.filesInQueue, function(file){
                 if(file.status == 0){
+                    file.status = 3;
+                    file.hasFileMoved = true;
                     vm.fileHandler.cancel(file.tempId)
                 }   
             })
+        }
+
+        this.deleteDiscardFile = function(index){
+            var file = vm.filesInQueue[index];
+            if(file.status != 3){
+                file.status = 3;
+                vm.fileHandler.cancel(file.tempId); 
+            }
+            file.show = 1;
         }
 
         this.deleteFile = function(flag){
@@ -454,6 +465,7 @@
             })
             .then(function (response) {
                 vm.filesInQueue[id].status = 2;
+                vm.filesInQueue[id].hasFileMoved = true;
             });
         }
     }

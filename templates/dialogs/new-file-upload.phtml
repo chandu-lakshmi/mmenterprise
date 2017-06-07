@@ -90,7 +90,7 @@
     </div>
 </form>
 <div class="modal-footer clearfix" ng-if="$state.params.importContacts && UploadContCtrl.footer != 1">
-    <span class="mm-btn ripplelink" ng-click="UploadContCtrl.uploadContacts()">SKIP</span>
+    <span class="mm-btn ripplelink" ng-click="UploadContCtrl.goImportContacts()">SKIP</span>
 </div>
 <div class="modal-footer clearfix" ng-if="UploadContCtrl.newBucketModal ? 'true' : UploadContCtrl.footer && !UploadContCtrl.newBucketModal">
     <div class="pull-left" ng-if="UploadContCtrl.newBucketModal">
@@ -109,6 +109,6 @@
         <span class="mm-btn ripplelink" ng-click="UploadContCtrl.uploadContacts()">UPLOAD CONTACTS</span>
     </div>
     <div ng-if="$state.params.importContacts">
-        <span class="mm-btn ripplelink" style="margin-right: 20px;" ng-if="UploadContCtrl.currentState" ng-click="UploadContCtrl.uploadContacts()">SKIP</span>
+        <span class="mm-btn ripplelink" style="margin-right: 20px;" ng-if="UploadContCtrl.currentState" ng-click="UploadContCtrl.goImportContacts()">SKIP</span>
     </div>
 </div>

@@ -126,18 +126,26 @@ $background : #eeeff1;
 
     .upload-resume{background: #fff;height: calc(100vh - 160px);min-height: 500px;padding: 30px 0;overflow: auto;
         #upload{
-            .qq-uploader{width: 95%;margin: 0 auto;height: 98px;
-                .qq-upload-drop-area-active{border-color: #219070 !important;transform: scale(0.98);
-                    & + .qq-upload-button{transform: scale(0.98)}
+            &.error-drop-area{
+                .qq-upload-drop-area{border-color: #ff847b !important;background: rgba(255, 202, 202, 0.23) !important}
+            }
+            .qq-uploader{width: 95%;margin: 0 auto;height: 166px;
+                .qq-upload-drop-area-active{border-color: #219070 !important;transform: scale(0.98);-webkit-transform: scale(0.98);background: #f2fff7 !important;
+                    & + .qq-upload-button{transform: scale(0.98);-webkit-transform: scale(0.98)}
                 }
                 .qq-upload-drop-area{display: block !important;background: #f5f5f5;border: 2px dashed #a6b3bd;transition: all 0.2s linear;-webkit-transition: all 0.2s linear;
                     .drag_img{background: transparent;}
-                    .drag_txt{color:#9ea9a9;position: absolute;top: 39px;text-align: right;width: 53%;font-size: 16px;font-weight: 700;}
+                    .drag_txt{color:#9ea9a9;position: absolute;top: 72px;text-align: right;width: 53%;font-size: 16px;font-weight: 700;}
                 }
-                .qq-upload-button{position: absolute;color:#0ba082;width: 98px;z-index: 9;height: 33px !important;top: 38px;left: 53%;text-align: left;text-indent: 4px;background: transparent;overflow: hidden;font-weight: 700;font-size: 17px;padding: 0;transition: all 0.2s linear;-webkit-transition: all 0.2s linear;
+                .qq-upload-button{position: absolute;color:#0ba082;width: 98px;z-index: 9;height: 33px !important;top: 73px;left: 53%;text-align: left;text-indent: 4px;background: transparent;overflow: hidden;font-weight: 700;font-size: 17px;padding: 0;transition: all 0.2s linear;-webkit-transition: all 0.2s linear;
                     &:hover{transform: scale(0.92)};
                 }
             } 
+        }
+        .instructions{
+            ul{list-style: none;color: #a6b3bd; padding: 6px 30px;
+                li.error-msg{color:#c2433d;}
+            }
         }
         md-list.list{margin: 0 auto;
             md-list-item.header-action{margin-top:24px;padding: 0 16px;
@@ -157,14 +165,18 @@ $background : #eeeff1;
                         md-progress-linear{height: auto;padding: 1px 0 !important;
                             .md-bar1{background: #e3e3e3}
                             .md-bar2{background: #2b99ed}
+                            &.discard{
+                                .md-bar2, .md-container{background: #cc6464 !important;}
+                            }
                         }
                         .file-size{color: #777777;font-size: 13px;font-style: italic;}
                     }
+                    button{position: absolute;right:0;}
                     .loader{width: 30px;position: absolute;right: 28px;}
                     .close{opacity: 1;
                         i{color: #e84949;font-size: 22px;}
                     }
-                    .delete{position: absolute;right: 0;
+                    .delete{
                         i{color: #565656;}
                     }
                 }

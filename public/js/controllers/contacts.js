@@ -1051,6 +1051,9 @@
             }
         }
 
+        this.goImportContacts = function(){
+            $state.go('importContactsList');
+        }
 
         // on state change modal close
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
