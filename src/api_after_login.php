@@ -1235,6 +1235,81 @@ $app->POST('/contacts_file_upload',function ($request, $response, $args) {
             echo htmlspecialchars(json_encode($data), ENT_NOQUOTES);
         }
 });
+//contacts upload
+$app->POST('/resume_file_upload',function ($request, $response, $args) {
+    $args       = commonData($this->settings);
+    require 'library/fileupload_library.php';
+    $file_upload = new fileupload_library; 
+        if (!isset($_REQUEST['filename']) && !isset($_FILES['qqfile'])) {
+            $_REQUEST['filename'] = $_REQUEST['qqfile'];
+        }
+        if (!empty($_SERVER['HTTP_WMTGOAT']) || isset($_FILES['qqfile']) || isset($_REQUEST['filename'])) {
+            if (!empty($_SERVER['HTTP_WMTGOAT'])) {
+                $_REQUEST['filename'] = $_SERVER['HTTP_WMTGOAT'];
+            }
+            
+            $allowedExtensions = array('doc','docx','pdf','rtf','jpg', 'png', 'jpeg','json');
+            // max file size in bytes
+            $sizeLimit = 5 * 1024 * 1024;
+            $myfilename = 'attach_' . mt_rand().time();
+            //upload the file and validate the size and file type
+            $uploader = $file_upload->fileUpload($allowedExtensions, $sizeLimit);
+            //return the file original and source name and path
+            $path = $args['PATH'];
+
+            $result = $file_upload->handleUpload(''.$path.'uploads/', FALSE, $myfilename);
+            
+            if (isset($result['success']) && $result['success'] == true) {
+                    
+                if (isset($_REQUEST['filename']) || isset($_REQUEST['qqfile'])) {
+                    $org_name = isset($_REQUEST['filename']) ? $_REQUEST['filename'] : (isset($_REQUEST['qqfile']) ? $_REQUEST['qqfile'] : '');
+                } elseif (isset($_FILES['qqfile'])) {
+                    $org_name = $_FILES['qqfile']['name'];
+                } else {
+                    $org_name = '';
+                }
+               
+                $fname =  str_replace('_',' ',$org_name);
+                $result['org_name'] = $fname;
+                $result['filename'] = 'uploads/'.$myfilename.'.'.$result['ext'];
+                
+                // dynamically Access Token
+                $this->mintmeshAccessToken;
+                $_POST['file_name'] = $result['filename'];
+                
+                // getting API endpoint from settings
+                $apiEndpoint = getapiEndpoint($this->settings, 'validate_headers');
+                $companyDetails     = new Curl(array(
+                    'url'           => $apiEndpoint,
+                    'postData'      => $_POST
+                 ));
+
+                $response  = checkJsonResult( $companyDetails->loadCurl() );
+                $response  =  json_decode($response);
+                if($response->status_code == 200){
+                    $data['success'] = true;
+                    $data = $result;
+                }  else {
+                    $data['success'] = false;
+                    $data['msg'] = $response->message->msg[0] ;   
+                }         
+                echo htmlspecialchars(json_encode($data), ENT_NOQUOTES);
+            } else if(isset($result['error'])) {
+                #error for file size and Extensions
+                $data['success'] = false;
+                $data['msg'] = $result['error'];
+                echo htmlspecialchars(json_encode($data), ENT_NOQUOTES);
+            } else {
+                $data['success'] = false;
+                $data['msg'] = 'Failed to upload file from source';
+                echo htmlspecialchars(json_encode($data), ENT_NOQUOTES);
+            }
+        } else {
+            $data['success'] = false;
+            $data['msg'] = 'No file uploaded';
+            echo htmlspecialchars(json_encode($data), ENT_NOQUOTES);
+        }
+});
 
 $app->get('/view_company_detail324',function ($request, $response, $args) {
   $this->mintmeshAccessToken;
