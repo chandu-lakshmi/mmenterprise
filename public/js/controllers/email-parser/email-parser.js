@@ -517,7 +517,7 @@
             uploadButtonText: "SELECT FILE",
             size: (1 * 1024 * 1024),
             allowedExtensions: ["DOC", "PDF", "RTF", "DOCX"],
-            action: App.base_url + "resumes_upload",
+            action: App.base_url + "resume_file_upload",
             showFileInfo: false,
             shortMessages: true,
             remove: false,
