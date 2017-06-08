@@ -278,6 +278,10 @@ return [
             'get_icims_hcm_list' =>[
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/get_icims_hcm_list'
+            ],
+            'download_resume' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/download_resume'
             ]
     ];
         

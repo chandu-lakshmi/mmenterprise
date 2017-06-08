@@ -1576,3 +1576,22 @@ $app->post('/getResumesFindByWeights', function ($request, $response, $args) use
 
     return $return;
 });
+
+//download resume
+$app->post('/download_resume',function ($request, $response, $args) use ($app) {
+   
+    // dynamically Access Token 
+   $this->mintmeshAccessToken;
+   $this->mintmeshCompanyId;
+   //$_POST['time_zone'] = $_SESSION['time_zone'];
+    // getting API endpoint from settings
+   $apiEndpoint = getapiEndpoint($this->settings, 'download_resume');
+   
+    $downloadDetails    = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+
+    return checkJsonResult( $downloadDetails->loadCurl() );
+    
+});
