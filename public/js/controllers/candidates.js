@@ -23,7 +23,7 @@
     CandidateController.$inject = [];
     ResumeRoomController.$inject = ['$state', '$window', '$uibModal', '$http', '$q', '$timeout', 'ajaxService', 'App'];
     UploadResumeController.$inject = ['$scope', '$http', '$timeout', '$window', '$uibModal', 'App'];
-    FindResumeController.$inject = ['$scope', '$http', '$q', '$timeout', '$window', 'App'];
+    FindResumeController.$inject = ['$scope', '$http', '$q', '$timeout', '$window', 'CompanyDetails', 'App'];
 
 
     function CandidateController() {
@@ -358,9 +358,10 @@
                 enableDragDrop : true,
                 multiple: true,
                 uploadButtonText: id == 'upload' ? "Choose file" : 'Change',
+                minSizeLimit : (1 * 1024),
                 size: (5 * 1024 * 1024),
-                allowedExtensions: ['pdf', 'doc', 'docx', "jpg", "png", "jpeg"],
-                action: App.base_url + "file_upload",
+                allowedExtensions: ['pdf', 'doc', 'docx', 'jpg', 'png', 'jpeg', 'txt'],
+                action: App.base_url + "resume_file_upload",
                 showFileInfo: false,
                 shortMessages: true,
                 remove: true,
@@ -368,7 +369,7 @@
                 path_name: 'certificate_path',
                 onSubmit: function (id, name, size) {
                     vm.errorMsg = '';
-                    vm.filesInQueue.push({tempId:id, fileName : name, value : 0, fileSize : Math.round(size / 1024) + 'KB', status : 0, show : 0 , hasFileMoved : false });
+                    vm.filesInQueue.push({tempId:id, fileName : name, value : 0, fileSize : Math.round(size / 1024) + 'KB', status : 0, show : 0 , hasFileMoved : false , cls : ''});
                     $scope.$apply();
 
                 },
@@ -376,12 +377,21 @@
                     if(response.success){
                         angular.forEach(vm.filesInQueue, function(file, fileIndex){
                             if(file.tempId == id){
-                                vm.filesInQueue[fileIndex].status = 1;  
+                                file.status = 1;  
                             }
                         })
-                        $scope.$apply();
                         uploadResume(id, response);
+                    }else{
+                        angular.forEach(vm.filesInQueue, function(file, fileIndex){
+                            if(file.tempId == id){
+                                file.status = 3;
+                                file.hasFileMoved = true;
+                                file.serverMsg = !response.msg ? 'File has an invalid extension, it should be one of doc, docx, pdf, rtf, jpg, png, jpeg, txt.' : response.msg;
+                                file.cls = 'error';
+                            }
+                        })
                     }
+                    $scope.$apply();
                 },
                 onProgress: function (id, fileName, loaded, total) {
                     vm.filesInQueue[id].value = Math.round((loaded / total) * 100);
@@ -399,6 +409,7 @@
 
                 },
                 showMessage: function (msg, obj) {
+                    console.log(msg)
                     vm.errorMsg = msg;
                     $scope.$apply();
                 },
@@ -427,6 +438,7 @@
             var file = vm.filesInQueue[index];
             if(file.status != 3){
                 file.status = 3;
+                file.hasFileMoved = true;
                 vm.fileHandler.cancel(file.tempId); 
             }
             file.show = 1;
@@ -464,14 +476,21 @@
                 data: $.param({resume_name : response.org_name, resume : response.filename})
             })
             .then(function (response) {
-                vm.filesInQueue[id].status = 2;
-                vm.filesInQueue[id].hasFileMoved = true;
+                if (response.data.status_code == 200) {
+                    vm.filesInQueue[id].status = 2;
+                    vm.filesInQueue[id].hasFileMoved = true;
+                    vm.filesInQueue[id].serverMsg = response.data.message.msg[0];
+                    vm.filesInQueue[id].cls = 'success';
+                }else if(response.data.status_code == 403){
+                    vm.filesInQueue[id].serverMsg = response.data.message.msg[0];
+                    vm.filesInQueue[id].cls = 'error';
+                }
             });
         }
     }
 
 
-    function FindResumeController($scope, $http, $q, $timeout, $window,  App) {
+    function FindResumeController($scope, $http, $q, $timeout, $window,  CompanyDetails, App) {
 
         var vm = this,
             prevDescription,
@@ -480,7 +499,7 @@
             cancelerSearchResume,
             paginationOptions = {
                 pageNumber: 1,
-                pageSize: 25,
+                pageSize: 10,
                 scoreRange : null
             },
             slider =  {
@@ -499,7 +518,8 @@
                 location : 0,
                 exp : 0, 
                 skills : 0 
-            }
+            },
+            tempResumes = [];
 
         this.selectedResues = [];
         this.matchedResume = [];
@@ -513,95 +533,65 @@
         this.sliderSkills = angular.copy(slider); 
         this.filterOptions = ['75% to 100%', '50% to 70%', '0% to 50%'];
 
-        this.description = "Software engineer in Bangalore with 2 years of experience who knows jquery, html, css and angularjs";
+        //this.description = "Software engineer in Bangalore with 2 years of experience who knows jquery, html, css and angularjs";
         this.critera = {};
         this.weightages = angular.copy(weightages);
 
         this.aiTrigger = function() {
+            if(this.description != prevDescription){
+                var params = {};
+                    params.jd = this.description;
+                    params.weights = this.weightages;
 
-            if(prevDescription == this.description){
-                return;
-            }
-
-            var params = {};
-                params.jd = this.description;
-                params.weights = this.weightages;
-
-            if (cancelerAI) {
-                cancelerAI.resolve();
-            }
-
-            cancelerAI = $q.defer();
-            this.inProgressAI = true;
-            $http({
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                },
-                method: 'POST',
-                url: App.base_url + 'getResumeParser',
-                data: $.param(params),
-                timeout: cancelerAI.promise
-            })
-            .then(function (response) {
-                if (response.status == 200) {
-                    vm.criteria = response.data;
-                    vm.criteria.skills = response.data.skills.toString().split(",").join(", ");
-                    prevDescription = vm.description;
-                    prevWeightages = vm.critera;
-                    vm.inProgressAI = false;
+                if (cancelerAI) {
+                    cancelerAI.resolve();
                 }
-                else if (response.data.status_code == 400) {
-                    $window.location = App.base_url + 'logout';
+
+                if (cancelerSearchResume) {
+                    cancelerSearchResume.resolve();
                 }
-            });
+
+                cancelerAI = $q.defer();
+                this.inProgressAI = true;
+                $http({
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                    },
+                    method: 'POST',
+                    url: App.base_url + 'getResumeParser',
+                    data: $.param(params),
+                    timeout: cancelerAI.promise
+                })
+                .then(function (response) {
+                    console.log(response)
+                    if (response.status == 200) {
+                        vm.criteria = response.data;
+                        vm.criteria.skills = response.data.skills.toString().split(",").join(", ");
+                        prevDescription = vm.description;
+                        prevWeightages = vm.critera;
+                        vm.inProgressAI = false;
+                    }
+                    else if (response.data.status_code == 400) {
+                        $window.location = App.base_url + 'logout';
+                    }
+                });
+            }
         }
 
         this.searchResume = function() {
-            if((JSON.stringify(prevWeightages) === JSON.stringify(vm.weightages) || !vm.criteria)){
-                return;
-            }
-
-            var params = {};
-                params.jd = this.description;
-                params.weights = this.weightages;
-                params.tenant_id = 'tenant1';
-
-            if (cancelerSearchResume) {
-                cancelerSearchResume.resolve();
-            }
-
-            cancelerSearchResume = $q.defer();
-            this.inProgressSearchResumes = true;
-            $http({
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                },
-                method: 'POST',
-                url: App.base_url + 'getResumesFindByWeights',
-                data: $.param(params),
-                timeout: cancelerSearchResume.promise
-            })
-            .then(function (response) {
-                prevWeightages = angular.copy(vm.weightages);
-                if (response.status == 200) {
-                    angular.forEach(response.data.resumes, function(resumes){
-                        resumes.skills = resumes.skills.toString().slice(1, -1).concat('.').split(',').join(', ');
-                    })
-                    vm.selectedResues = [];
-                    vm.matchedResume = angular.copy(response.data.resumes) || [];
-                    vm.inProgressSearchResumes = false;
+            if((JSON.stringify(prevWeightages) != JSON.stringify(vm.weightages)) && !!prevWeightages){
+                if (cancelerSearchResume) {
+                    cancelerSearchResume.resolve();
                 }
-                else if (response.data.status_code == 400) {
-                    $window.location = App.base_url + 'logout';
-                }
-            });
+                searchResume();
+            }
         }
 
         this.loadResumes = function(){
-            if(this.inProgressAI){
-                return;
+            if(vm.matchedResume.length >= paginationOptions.pageSize){
+                var resumes = tempResumes.splice(0 , paginationOptions.pageSize);
+                vm.matchedResume = vm.matchedResume.concat(resumes);
             }
-            this.searchResume();
         }
 
 
@@ -624,6 +614,43 @@
             this.hideResumesList = !this.hideResumesList;
         }
         
+        function searchResume () {
+            var params = {};
+                params.jd = vm.description;
+                params.weights = vm.weightages;
+                params.tenant_id = CompanyDetails.company_code;
+                //params.tenant_id = 'tenant1';
+
+            cancelerSearchResume = $q.defer();
+            vm.inProgressSearchResumes = true;
+            $http({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'POST',
+                url: App.base_url + 'getResumesFindByWeights',
+                data: $.param(params),
+                timeout: cancelerSearchResume.promise
+            })
+            .then(function (response) {
+                prevWeightages = angular.copy(vm.weightages);
+                if (response.status == 200) {
+                    angular.forEach(response.data.resumes, function(resumes){
+                        resumes.skills = resumes.skills.toString().slice(1, -1).concat('.').split(',').join(', ');
+                    });
+                    tempResumes = response.data.resumes;
+                    if(!response.data.resumes.length){
+                        vm.matchedResume = [];
+                    }else{
+                        vm.matchedResume = response.data.resumes.splice(0, paginationOptions.pageSize);
+                    }
+                    vm.inProgressSearchResumes = false;
+                }
+                else if (response.data.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+            });
+        }
 
         $timeout(function () {
             $scope.$broadcast('reCalcViewDimensions');

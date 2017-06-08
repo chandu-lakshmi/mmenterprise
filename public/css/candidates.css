@@ -263,13 +263,20 @@
             color: #777777;
             font-size: 13px;
             font-style: italic; }
+          .candidates .upload-resume md-list.list .file-container md-list-item p .error {
+            color: #cc6464;
+            font-size: 12px; }
+          .candidates .upload-resume md-list.list .file-container md-list-item p .success {
+            color: #0ba082;
+            font-size: 12px; }
           .candidates .upload-resume md-list.list .file-container md-list-item button {
             position: absolute;
             right: 0; }
           .candidates .upload-resume md-list.list .file-container md-list-item .loader {
             width: 30px;
             position: absolute;
-            right: 28px; }
+            right: 28px;
+            top: 18px; }
           .candidates .upload-resume md-list.list .file-container md-list-item .close {
             opacity: 1; }
             .candidates .upload-resume md-list.list .file-container md-list-item .close i {

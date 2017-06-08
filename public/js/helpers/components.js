@@ -241,19 +241,25 @@
         }
     }
 
-    function scrollTop() {
+    function scrollTop($window, $anchorScroll, $location) {
         return {
-            template: '<div id="dyscrollup-btn"><img src="public/images/arrow-top-green.svg" alt="up"/></div>',
-            link: function () {
-                $(window).on("scroll", function () {
-                    $(window).scrollTop() > 300 ? $('scroll-top div').addClass('move') : $('scroll-top div').removeClass('move');
+            template: '<div class="{{className}}"><img src="public/images/arrow-top-green.svg" alt="up"/></div>',
+            link: function (scope, ele, attr) {
+                scope.className = attr.viewLeftRight;
+                var id = attr.id ? '#' + attr.id : window,
+                    clsName = 'move-' + scope.className;
+                $(id).on("scroll", function () {
+                    $(id).scrollTop() > 300 ? $('scroll-top div').addClass(clsName) : $('scroll-top div').removeClass(clsName);
                 });
-                $("#dyscrollup-btn").on("click", function (e) {
+                ele.on("click", function (e) {
                     e.preventDefault();
-                    $("html, body").animate({
-                        scrollTop: 0
-                    }, 1000);
-                    return false;
+                    if(attr.id){
+                        $(id).stop().animate({ scrollTop: 0 }, 1000);
+                    }else{
+                        $("html, body").animate({
+                            scrollTop: 0
+                        }, 1000);
+                    }
                 });
             }
         }

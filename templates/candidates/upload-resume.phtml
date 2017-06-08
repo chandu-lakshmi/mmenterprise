@@ -3,7 +3,7 @@
 		<div id="upload" ng-class="{'error-drop-area' : !!UploadResumeCtrl.errorMsg }"></div>
 		<div class="instructions"> 
 			<ul>
-				<li>Only .pdf, .doc, .docx, .jpg, .png & .jpeg is allowed.</li>
+				<li>Only pdf, doc, docx, jpg, png, jpeg, txt files is allowed.</li>
 				<li>File size max 5MB is allowed. </li>
 				<li class="error-msg text-center" ng-bind="UploadResumeCtrl.errorMsg"></li>
 			</ul>
@@ -18,12 +18,13 @@
 	        	<md-button class="delete action deleteALL" ng-show="UploadResumeCtrl.filesInQueue.length > 1"  ng-click="UploadResumeCtrl.deleteFile(false)">DELETE ALL</md-button>
 	      	</md-list-item>
 			<div class="file-container" flex="95">
-				<md-list-item class="animated" ng-repeat="file in UploadResumeCtrl.filesInQueue" ng-if="!file.show" ng-click="">
+				<md-list-item class="animated fadeIn" ng-repeat="file in UploadResumeCtrl.filesInQueue" ng-if="!file.show" ng-click="">
 					<span class="md-avatar" ng-style="{'background-position':file.fileName.split('.').pop()=='pdf' ? '13px -53px' : '13px 3px'}"></span>
-					<p flex="85">
+					<p flex="85" class="md-list-item-text" layout="column">
 						<span class="file-name">{{file.fileName}}</span>
-						<md-progress-linear ng-class="{'discard' : file.status == 3}" ng-if="!file.status || file.status == 3" md-mode="determinate" value="{{file.value}}"></md-progress-linear>
-						<span class="file-size" ng-if="!file.status || file.status == 3">{{(file.remaining || 0) + ' of ' + file.fileSize +' (' + file.value + '% done)'}}</span>
+						<md-progress-linear  ng-class="{'discard' : file.status == 3}" ng-if="(!file.status || file.status == 3) && !file.serverMsg"" md-mode="determinate" value="{{file.value}}"></md-progress-linear>
+						<span class="file-size" ng-if="(!file.status || file.status == 3) && !file.serverMsg">{{(file.remaining || 0) + ' of ' + file.fileSize +' (' + file.value + '% done)'}}</span>
+						<span class="{{file.cls}} animated fadeIn" ng-if="file.serverMsg" ng-bind="file.serverMsg"></span>
 					</p>
 				    <md-button aria-label="cancel" class="md-icon-button md-secondary close" ng-if="!file.status || file.status == 3" ng-click="UploadResumeCtrl.deleteDiscardFile($index)">
 			        	<i class="material-icons abort" id="{{file.tempId}}">cancel</i>
@@ -33,7 +34,6 @@
 			      		<i class="material-icons">delete</i>
 			      	</md-button>
 			      	<md-divider></md-divider>
-					</div>
 		  		</md-list-item>
 		  	</div>
 		</md-list>

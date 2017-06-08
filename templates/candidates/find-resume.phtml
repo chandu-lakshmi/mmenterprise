@@ -1,4 +1,4 @@
-<div class="find-resume">
+<div class="find-resume" id="page">
 	<div class="container">
 		<div layout="column">
 			<div class="search-resume">
@@ -112,7 +112,7 @@
 					<div layout="column" flex="33">
 						<md-input-container ng-style="{'opacity': FindResumeCtrl.hideResumesList ? '0' : ''}">
 					        <label style="display:none !important">Filter By Score</label>
-					        <md-select ng-model="FindResumeCtrl.filterList" md-on-close="FindResumeCtrl.searchResume()"
+					        <md-select ng-model="FindResumeCtrl.filterList"
 					        	data-md-container-class="multiple-select" multiple placeholder="Filter By Score">
 					          	<!-- <md-select-header class="demo-select-header">
 						            <input ng-model="searchTerm" type="search" placeholder="Select Status"
@@ -201,3 +201,4 @@
 		</div>
 	</div>
 </div>
+<scroll-top data-id="page" view-left-right="right"></scroll-top>

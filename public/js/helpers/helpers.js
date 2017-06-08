@@ -46,6 +46,7 @@
 					        enableDragDrop: true,
 					        id: false,
 					        multiple: false,
+					        minSizeLimit: 0, // min size
 					        size: (2*1024),
 					        remove: true,
 					        removeItemURL: false,
@@ -78,6 +79,7 @@
 					            enableDragDrop: config.enableDragDrop,
 					            onInvalidExtn: config.onInvalidExtn,
 					            onSizeError: config.onSizeError,
+					            minSizeLimit: config.minSizeLimit,
 					            sizeLimit: config.size,
 					            allowedExtensions: config.allowedExtensions,
 					            hideShowDropArea: false,

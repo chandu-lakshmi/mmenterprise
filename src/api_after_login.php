@@ -1248,7 +1248,7 @@ $app->POST('/resume_file_upload',function ($request, $response, $args) {
                 $_REQUEST['filename'] = $_SERVER['HTTP_WMTGOAT'];
             }
             
-            $allowedExtensions = array('doc','docx','pdf','rtf','jpg', 'png', 'jpeg','json');
+            $allowedExtensions = array('doc','docx','pdf','rtf','jpg', 'png', 'jpeg','txt');
             // max file size in bytes
             $sizeLimit = 5 * 1024 * 1024;
             $myfilename = 'attach_' . mt_rand().time();
