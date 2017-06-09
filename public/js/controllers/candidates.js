@@ -19,11 +19,48 @@
                     }
                 }
             })
+            .filter('unique', function () {
+              return function (items, filterOn) {
+
+                if (filterOn === false) {
+                  return items;
+                }
+
+                if ((filterOn || angular.isUndefined(filterOn)) && angular.isArray(items)) {
+                  var hashCheck = {}, newItems = [];
+
+                  var extractValueToCompare = function (item) {
+                    if (angular.isObject(item) && angular.isString(filterOn)) {
+                      return item[filterOn];
+                    } else {
+                      return item;
+                    }
+                  };
+
+                  angular.forEach(items, function (item) {
+                    var valueToCheck, isDuplicate = false;
+
+                    for (var i = 0; i < newItems.length; i++) {
+                      if (angular.equals(extractValueToCompare(newItems[i]), extractValueToCompare(item))) {
+                        isDuplicate = true;
+                        break;
+                      }
+                    }
+                    if (!isDuplicate) {
+                      newItems.push(item);
+                    }
+
+                  });
+                  items = newItems;
+                }
+                return items;
+              };
+            })
 
     CandidateController.$inject = [];
     ResumeRoomController.$inject = ['$state', '$window', '$uibModal', '$http', '$q', '$timeout', 'ajaxService', 'App'];
     UploadResumeController.$inject = ['$scope', '$http', '$timeout', '$window', '$uibModal', 'App'];
-    FindResumeController.$inject = ['$scope', '$http', '$q', '$timeout', '$window', 'CompanyDetails', 'App'];
+    FindResumeController.$inject = ['$scope', '$http', '$q', '$timeout', '$filter', '$window', 'CompanyDetails', 'App'];
 
 
     function CandidateController() {
@@ -483,6 +520,8 @@
                     vm.filesInQueue[id].cls = 'success';
                 }else if(response.data.status_code == 403){
                     vm.filesInQueue[id].serverMsg = response.data.message.msg[0];
+                    vm.filesInQueue[id].status = 3;
+                    vm.filesInQueue[id].hasFileMoved = true;
                     vm.filesInQueue[id].cls = 'error';
                 }
             });
@@ -490,13 +529,15 @@
     }
 
 
-    function FindResumeController($scope, $http, $q, $timeout, $window,  CompanyDetails, App) {
+    function FindResumeController($scope, $http, $q, $timeout, $filter, $window, CompanyDetails, App) {
 
         var vm = this,
             prevDescription,
             prevWeightages,
+            prevScores,
             cancelerAI,
             cancelerSearchResume,
+            totalResumes = [],
             paginationOptions = {
                 pageNumber: 1,
                 pageSize: 10,
@@ -514,15 +555,16 @@
                 }
             },
             weightages = {
-                role : 0,    
-                location : 0,
-                exp : 0, 
-                skills : 0 
-            },
-            tempResumes = [];
+                role : 4,    
+                location : 4,
+                exp : 4, 
+                skills : 4 
+            };
 
         this.selectedResues = [];
-        this.matchedResume = [];
+        this.responseResumes = [];
+        this.displayResumes = [];
+        this.tempResumes = [];
         this.inProgressAI = false; 
         this.inProgressSearchResumes = false;
         this.hideSearchResume = false;
@@ -531,7 +573,7 @@
         this.sliderLoc = angular.copy(slider);
         this.sliderExp = angular.copy(slider);
         this.sliderSkills = angular.copy(slider); 
-        this.filterOptions = ['75% to 100%', '50% to 70%', '0% to 50%'];
+        this.filterOptions = [{ key : "75-100" , value:'75% to 100%' }, { key:"50-75" , value : '50% to 75%'}, { key:"0-50", value : '0% to 50%'}];
 
         //this.description = "Software engineer in Bangalore with 2 years of experience who knows jquery, html, css and angularjs";
         this.critera = {};
@@ -563,12 +605,11 @@
                     timeout: cancelerAI.promise
                 })
                 .then(function (response) {
-                    console.log(response)
                     if (response.status == 200) {
                         vm.criteria = response.data;
-                        vm.criteria.skills = response.data.skills.toString().split(",").join(", ");
+                        if(response.data.skills)
+                            vm.criteria.skills = response.data.skills.toString().split(",").join(", ");
                         prevDescription = vm.description;
-                        prevWeightages = vm.critera;
                         vm.inProgressAI = false;
                     }
                     else if (response.data.status_code == 400) {
@@ -579,7 +620,7 @@
         }
 
         this.searchResume = function() {
-            if((JSON.stringify(prevWeightages) != JSON.stringify(vm.weightages)) && !!prevWeightages){
+            if((JSON.stringify(prevWeightages) != JSON.stringify(vm.weightages)) || (this.description != prevDescription)){
                 if (cancelerSearchResume) {
                     cancelerSearchResume.resolve();
                 }
@@ -588,17 +629,40 @@
         }
 
         this.loadResumes = function(){
-            if(vm.matchedResume.length >= paginationOptions.pageSize){
-                var resumes = tempResumes.splice(0 , paginationOptions.pageSize);
-                vm.matchedResume = vm.matchedResume.concat(resumes);
-            }
+            //if(vm.displayResumes.length >= paginationOptions.pageSize){
+                var resumes = vm.tempResumes.splice(0 , paginationOptions.pageSize);
+                vm.displayResumes = vm.displayResumes.concat(angular.copy(resumes));
+            //}
         }
 
+        this.filterByScore = function(){
+            if(prevScores == this.selectedScore.toString()){
+                return;
+            }
 
-        this.selectResume = function(resumeIndex){
-            var position = this.selectedResues.indexOf(resumeIndex);
+            vm.displayResumes = [];
+            vm.selectedResues = [];
+            if(this.selectedScore.length){
+                var filteredResumes = [];
+                angular.forEach(this.selectedScore, function (value) {
+                    var arrValue = value.split('-');
+                    filteredResumes = filteredResumes.concat(minMaxFilter(Number(arrValue[0]), Number(arrValue[1])));
+                });
+                filteredResumes = angular.copy($filter('unique')(filteredResumes,'email'));
+                vm.tempResumes = angular.copy(filteredResumes );
+                vm.displayCount = filteredResumes.length;    
+            }else{
+                vm.tempResumes = angular.copy(vm.responseResumes);
+                vm.displayCount = vm.responseResumes.length;
+            }
+            prevScores = this.selectedScore.toString();
+            
+        }
+
+        this.selectResume = function(resumeEmail){
+            var position = this.selectedResues.indexOf(resumeEmail);
             if(position < 0 ){
-                vm.selectedResues.push(resumeIndex);
+                vm.selectedResues.push(resumeEmail);
             }else{
                 vm.selectedResues.splice(position, 1);
             }
@@ -633,23 +697,45 @@
                 timeout: cancelerSearchResume.promise
             })
             .then(function (response) {
-                prevWeightages = angular.copy(vm.weightages);
                 if (response.status == 200) {
+                    prevWeightages = angular.copy(vm.weightages);
+                    prevDescription = params.jd;
                     angular.forEach(response.data.resumes, function(resumes){
                         resumes.skills = resumes.skills.toString().slice(1, -1).concat('.').split(',').join(', ');
                     });
-                    tempResumes = response.data.resumes;
-                    if(!response.data.resumes.length){
-                        vm.matchedResume = [];
-                    }else{
-                        vm.matchedResume = response.data.resumes.splice(0, paginationOptions.pageSize);
+                    vm.responseResumes = angular.copy(response.data.resumes) || [];
+                    vm.tempResumes = angular.copy(vm.responseResumes);
+                    vm.displayCount = vm.responseResumes.length;
+                    vm.loadResumes();
+
+                    /*try{
+                        if(!response.data.resumes.length){
+                            vm.displayResumes = [];
+                        }else{
+                            vm.loadResumes();
+                        }
                     }
+                    catch(error){
+                        vm.displayResumes = [];
+                        prevWeightages = [];
+                        vm.tempResumes = [];
+                    }*/
                     vm.inProgressSearchResumes = false;
                 }
                 else if (response.data.status_code == 400) {
                     $window.location = App.base_url + 'logout';
                 }
             });
+        }
+
+        function minMaxFilter(min, max){
+            var filtered = [];
+            angular.forEach(vm.responseResumes, function(resume) {
+                if( resume.total_score >= min && resume.total_score <= max ) {
+                    filtered.push(resume);
+                }
+            });
+            return filtered;
         }
 
         $timeout(function () {

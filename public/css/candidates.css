@@ -523,20 +523,22 @@
     .weightages .rz-bar-wrapper .rz-selection {
       background: #4a6a7d; }
   .weightages .rz-pointer {
-    border-radius: 7px;
-    border: 1px solid #fff;
-    background: #4a6a7d;
-    width: 26px;
-    height: 26px;
-    top: -10px;
-    outline: none; }
+    border-radius: 6px;
+    border: 6px solid #4a6a7d;
+    background: transparent;
+    width: 24px;
+    height: 24px;
+    top: -9px;
+    outline: none;
+    box-shadow: -1px 0 #f9f9f9; }
     .weightages .rz-pointer:after {
       width: 0; }
   .weightages .rz-bubble {
-    top: -8px;
-    z-index: 99;
+    left: 4px;
+    bottom: -11px;
+    background: #4a6a7d;
     color: #fff;
-    padding: 1px 0 1px; }
+    z-index: 1; }
   .weightages .rz-floor, .weightages .rz-ceil {
     display: none; }
 

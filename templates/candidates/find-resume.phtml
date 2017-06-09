@@ -107,19 +107,19 @@
 			<div class="container-resume">
 				<div layout="row" class="header">
 					<i class="material-icons arrow-toogle" style="top: 16px;" ng-class="{'arrow-spin' : FindResumeCtrl.hideResumesList}" ng-click="FindResumeCtrl.toogleResumesList()">keyboard_arrow_down</i>
-					<div layout="column" flex="33" class="match" ng-bind="(!FindResumeCtrl.matchedResume.length ? 'No' : FindResumeCtrl.matchedResume.length) + ' Resume(s) Matched'">
+					<div layout="column" flex="33" class="match" ng-bind="(!FindResumeCtrl.displayCount ? 'No' : FindResumeCtrl.displayCount) + ' Resume(s) Matched'">
 					</div>
 					<div layout="column" flex="33">
 						<md-input-container ng-style="{'opacity': FindResumeCtrl.hideResumesList ? '0' : ''}">
 					        <label style="display:none !important">Filter By Score</label>
-					        <md-select ng-model="FindResumeCtrl.filterList"
-					        	data-md-container-class="multiple-select" multiple placeholder="Filter By Score">
+					        <md-select ng-model="FindResumeCtrl.selectedScore"
+					        	data-md-container-class="multiple-select" multiple placeholder="Filter By Score" md-on-close="FindResumeCtrl.filterByScore()">
 					          	<!-- <md-select-header class="demo-select-header">
 						            <input ng-model="searchTerm" type="search" placeholder="Select Status"
 						            	class="demo-header-searchbox md-text">
 					          	</md-select-header> -->
 					          	<md-optgroup label="SCORE RANGE">
-				            		<md-option ng-value="opts" ng-repeat="opts in FindResumeCtrl.filterOptions">{{opts}}</md-option>
+				            		<md-option ng-value="opts.key" ng-repeat="opts in FindResumeCtrl.filterOptions">{{opts.value}}</md-option>
 				            	</md-optgroup>
 					        </md-select>
 			      		</md-input-container>
@@ -137,19 +137,19 @@
 					<md-content class="md-padding">
 						<div class="row">
 							<div class="col-sm-5 loading-text animated slideInDown" ng-if="FindResumeCtrl.inProgressSearchResumes">Loading...</div>
-							<div class="col-sm-5 loading-text animated slideInDown" ng-if="!FindResumeCtrl.matchedResume.length && !FindResumeCtrl.inProgressSearchResumes">No Matched Resumes Found.</div>
+							<div class="col-sm-5 loading-text animated slideInDown" ng-if="!FindResumeCtrl.displayCount && !FindResumeCtrl.inProgressSearchResumes">No Matched Resumes Found.</div>
 						</div>
 						<div class="row" infinite-scroll='FindResumeCtrl.loadResumes()'  infinite-scroll-distance='0' infinite-scroll-container="'.find-resume'">
-							<div class="col-sm-4" ng-repeat="resume in FindResumeCtrl.matchedResume track by $index">
-							  	<md-card ng-style="{'margin-top' : $index <= 2 ? '0' : '12px'}" class="animated zoomIn" ng-click="FindResumeCtrl.selectResume($index)">
-							  		<i class="material-icons select" ng-style="{'opacity' : FindResumeCtrl.selectedResues.indexOf($index) > -1 ? '1' : '0' }">network_cell</i>
+							<div class="col-sm-4" ng-repeat="resume in FindResumeCtrl.displayResumes track by $index">
+							  	<md-card ng-style="{'margin-top' : $index <= 2 ? '0' : '12px'}" class="animated zoomIn" ng-click="FindResumeCtrl.selectResume(resume.email)">
+							  		<i class="material-icons select" ng-style="{'opacity' : FindResumeCtrl.selectedResues.indexOf(resume.email) > -1 ? '1' : '0' }">network_cell</i>
 							        <md-card-title>
 							          	<md-card-title-text flex="80">
-								            <span class="md-subhead" ng-bind="resume.role">PHP DEVELOPER</span>
+								            <span class="md-subhead" ng-bind="resume.role"></span>
 								            <span class="md-headline ellipsis" ng-bind="resume.name">
 								            	<md-tooltip class="find-resume-name" md-delay="demo.delayTooltip" ng-bind="resume.name"></md-tooltip>
 								            </span>
-								            <span class="md-subhead" ng-bind="resume.experience + ' Years Experience'">3.0 Years Experience</span>
+								            <span class="md-subhead" ng-bind="resume.experience + ' Years Experience'"></span>
 							          	</md-card-title-text>
 							          	<md-card-title-media flex="20">
 							            	<div class="md-media-sm card-media">
@@ -186,7 +186,7 @@
 							        <md-card-actions layout="row" layout-align="end center">
 							          	<span flex>
 							          		<i class="material-icons">location_on</i> 
-							          		<span ng-bind="resume.location">Hyderabad, Sec in India.</span>
+							          		<span ng-bind="resume.location"></span>
 							          	</span> 
 							          	<md-button class="md-fab md-mini md-primary" aria-label="Use Android" ng-click=" $event.stopPropagation();">
 								          	<i class="material-icons">file_download</i>

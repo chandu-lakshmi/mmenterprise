@@ -281,10 +281,10 @@ $background : #eeeff1;
         .rz-bar{background: #eee;height: 6px;}
         .rz-selection{background: #4a6a7d}
     }
-    .rz-pointer{border-radius: 7px;border: 1px solid #fff;background: #4a6a7d;width: 26px;height: 26px;top:-10px;outline:none;
+    .rz-pointer{border-radius: 6px;border: 6px solid #4a6a7d;background: transparent;width: 24px;height: 24px;top:-9px;outline:none;box-shadow: -1px 0 #f9f9f9;
         &:after{width: 0;};
     }
-    .rz-bubble{top: -8px;z-index: 99;color: #fff;padding:1px 0 1px;}
+    .rz-bubble{left: 4px;bottom: -11px;background: #4a6a7d;color: #fff;z-index: 1;}
     .rz-floor, .rz-ceil{display: none;}
 }
 *[ng-click]{
