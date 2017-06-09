@@ -102,7 +102,7 @@
 						    </md-card>
 						</div>
 					</div>
-					<md-button class="mm-btn action" ng-disabled="!FindResumeCtrl.hasAITrigger" ng-click="FindResumeCtrl.searchResume()">Search Resumes</md-button>
+					<md-button class="mm-btn action" ng-style="{'opacity' : FindResumeCtrl.hasAITrigger ? '1' : '0.8'}" ng-disabled="!FindResumeCtrl.hasAITrigger" ng-click="FindResumeCtrl.searchResume()">Search Resumes</md-button>
 				</div>
 			</div>
 			<div class="container-resume">
