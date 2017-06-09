@@ -547,7 +547,7 @@
                 value: null,
                 options: {
                     floor:0,
-                    ceil:4,
+                    ceil:5,
                     showSelectionBar: true
                     /*onChange: function(id) {
                         vm.searchResume();
@@ -565,6 +565,7 @@
         this.responseResumes = [];
         this.displayResumes = [];
         this.tempResumes = [];
+        this.submitted = false;
         this.inProgressAI = false; 
         this.inProgressSearchResumes = false;
         this.hideSearchResume = false;
@@ -582,42 +583,46 @@
 
         this.aiTrigger = function() {
             //if(this.description != prevDescription){
-                var params = {};
-                    params.jd = this.description;
-                    params.weights = this.weightages;
+                this.submitted = true;
+                if(this.description.length > 0){
+                    var params = {};
+                        params.jd = this.description;
+                        params.weights = this.weightages;
 
-                if (cancelerAI) {
-                    cancelerAI.resolve();
-                }
-
-                if (cancelerSearchResume) {
-                    cancelerSearchResume.resolve();
-                }
-
-                cancelerAI = $q.defer();
-                this.inProgressAI = true;
-                $http({
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                    },
-                    method: 'POST',
-                    url: App.base_url + 'getResumeParser',
-                    data: $.param(params),
-                    timeout: cancelerAI.promise
-                })
-                .then(function (response) {
-                    if (response.status == 200) {
-                        vm.criteria = response.data;
-                        if(response.data.skills)
-                            vm.criteria.skills = response.data.skills.toString().split(",").join(", ");
-                        prevDescription = vm.description;
-                        vm.inProgressAI = false;
-                        vm.hasAITrigger = true;
+                    if (cancelerAI) {
+                        cancelerAI.resolve();
                     }
-                    else if (response.data.status_code == 400) {
-                        $window.location = App.base_url + 'logout';
+
+                    if (cancelerSearchResume) {
+                        cancelerSearchResume.resolve();
                     }
-                });
+
+                    cancelerAI = $q.defer();
+                    this.inProgressAI = true;
+                    $http({
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                        },
+                        method: 'POST',
+                        url: App.base_url + 'getResumeParser',
+                        data: $.param(params),
+                        timeout: cancelerAI.promise
+                    })
+                    .then(function (response) {
+                        if (response.status == 200) {
+                            vm.criteria = response.data;
+                            if(response.data.skills)
+                                vm.criteria.skills = response.data.skills.toString().split(",").join(", ");
+                            prevDescription = vm.description;
+                            vm.inProgressAI = false;
+                            vm.hasAITrigger = true;
+                            vm.submitted = false;
+                        }
+                        else if (response.data.status_code == 400) {
+                            $window.location = App.base_url + 'logout';
+                        }
+                    });
+                }
             //}
         }
 
@@ -681,56 +686,59 @@
         }
         
         function searchResume () {
-            var params = {};
-                params.jd = vm.description;
-                params.weights = vm.weightages;
-                params.tenant_id = CompanyDetails.company_code;
-                //params.tenant_id = 'tenant1';
+            vm.submitted = true;
+            if(vm.description.length > 0){
+                var params = {};
+                    params.jd = vm.description;
+                    params.weights = vm.weightages;
+                    params.tenant_id = CompanyDetails.company_code;
+                    //params.tenant_id = 'tenant1';
 
-            cancelerSearchResume = $q.defer();
-            vm.inProgressSearchResumes = true;
-            $http({
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                },
-                method: 'POST',
-                url: App.base_url + 'getResumesFindByWeights',
-                data: $.param(params),
-                timeout: cancelerSearchResume.promise
-            })
-            .then(function (response) {
-                if (response.status == 200) {
-                    vm.displayResumes = [];
-                    vm.selectedResues = [];
-                    
-                    prevWeightages = angular.copy(vm.weightages);
-                    prevDescription = params.jd;
-                    angular.forEach(response.data.resumes, function(resumes){
-                        resumes.skills = resumes.skills.toString().slice(1, -1).concat('.').split(',').join(', ');
-                    });
-                    vm.responseResumes = angular.copy(response.data.resumes) || [];
-                    vm.tempResumes = angular.copy(vm.responseResumes);
-                    vm.displayCount = vm.responseResumes.length;
-                    vm.loadResumes();
-
-                    /*try{
-                        if(!response.data.resumes.length){
-                            vm.displayResumes = [];
-                        }else{
-                            vm.loadResumes();
-                        }
-                    }
-                    catch(error){
+                cancelerSearchResume = $q.defer();
+                vm.inProgressSearchResumes = true;
+                $http({
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                    },
+                    method: 'POST',
+                    url: App.base_url + 'getResumesFindByWeights',
+                    data: $.param(params),
+                    timeout: cancelerSearchResume.promise
+                })
+                .then(function (response) {
+                    if (response.status == 200) {
                         vm.displayResumes = [];
-                        prevWeightages = [];
-                        vm.tempResumes = [];
-                    }*/
-                    vm.inProgressSearchResumes = false;
-                }
-                else if (response.data.status_code == 400) {
-                    $window.location = App.base_url + 'logout';
-                }
-            });
+                        vm.selectedResues = [];
+
+                        prevWeightages = angular.copy(vm.weightages);
+                        prevDescription = params.jd;
+                        angular.forEach(response.data.resumes, function(resumes){
+                            resumes.skills = resumes.skills.toString().slice(1, -1).concat('.').split(',').join(', ');
+                        });
+                        vm.responseResumes = angular.copy(response.data.resumes) || [];
+                        vm.tempResumes = angular.copy(vm.responseResumes);
+                        vm.displayCount = vm.responseResumes.length;
+                        vm.loadResumes();
+                        vm.submitted = false;
+                        /*try{
+                            if(!response.data.resumes.length){
+                                vm.displayResumes = [];
+                            }else{
+                                vm.loadResumes();
+                            }
+                        }
+                        catch(error){
+                            vm.displayResumes = [];
+                            prevWeightages = [];
+                            vm.tempResumes = [];
+                        }*/
+                        vm.inProgressSearchResumes = false;
+                    }
+                    else if (response.data.status_code == 400) {
+                        $window.location = App.base_url + 'logout';
+                    }
+                });
+            }
         }
 
         function minMaxFilter(min, max){

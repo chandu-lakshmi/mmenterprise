@@ -22,6 +22,7 @@
 						       	</md-card-title> -->
 						        <md-card-content>
 						        	<textarea name="desc" flex id="" cols="30" rows="14" ng-blur="FindResumeCtrl.aiTrigger()" ng-model="FindResumeCtrl.description" class="md-padding"></textarea>
+						        	<div class="has-error-msg ng-scope" ng-if="!FindResumeCtrl.description.length && FindResumeCtrl.submitted">Please enter Job Description.</div>
 						        </md-card-content>
 						    </md-card>	
 						</div>
