@@ -1578,14 +1578,14 @@ $app->post('/getResumesFindByWeights', function ($request, $response, $args) use
 });
 
 //download resume
-$app->post('/download_resume',function ($request, $response, $args) use ($app) {
+$app->post('/getResumeDownload',function ($request, $response, $args) use ($app) {
    
     // dynamically Access Token 
    $this->mintmeshAccessToken;
    $this->mintmeshCompanyId;
    //$_POST['time_zone'] = $_SESSION['time_zone'];
     // getting API endpoint from settings
-   $apiEndpoint = getapiEndpoint($this->settings, 'download_resume');
+   $apiEndpoint = getapiEndpoint($this->settings, 'getResumeDownload');
    
     $downloadDetails    = new Curl(array(
         'url'           => $apiEndpoint,
@@ -1595,3 +1595,23 @@ $app->post('/download_resume',function ($request, $response, $args) use ($app) {
     return checkJsonResult( $downloadDetails->loadCurl() );
     
 });
+
+//download resume Zip
+$app->post('/getZipDownload',function ($request, $response, $args) use ($app) {
+   
+    // dynamically Access Token 
+   $this->mintmeshAccessToken;
+   $this->mintmeshCompanyId;
+   //$_POST['time_zone'] = $_SESSION['time_zone'];
+    // getting API endpoint from settings
+   $apiEndpoint = getapiEndpoint($this->settings, 'getZipDownload');
+   
+    $downloadDetails    = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+
+    return checkJsonResult( $downloadDetails->loadCurl() );
+    
+});
+

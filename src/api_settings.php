@@ -279,9 +279,13 @@ return [
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/get_icims_hcm_list'
             ],
-            'download_resume' =>[
-                'VERSION' => 'v1',
-                'ENDPOINT' => '/enterprise/download_resume'
+            'getResumeDownload' =>[
+                //'VERSION' => 'v1',
+                'ENDPOINT' => '/getResumeDownload'
+            ],
+            'getZipDownload' =>[
+                //'VERSION' => 'v1',
+                'ENDPOINT' => '/getZipDownload'
             ]
     ];
         

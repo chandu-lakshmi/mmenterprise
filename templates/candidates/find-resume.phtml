@@ -21,8 +21,7 @@
 								        </md-card-title-text>
 						       	</md-card-title> -->
 						        <md-card-content>
-						        	<textarea name="desc" flex id="" cols="30" rows="14" ng-blur="FindResumeCtrl.aiTrigger()" ng-model="FindResumeCtrl.description" class="md-padding"></textarea>
-						        	<div class="has-error-msg ng-scope" ng-if="!FindResumeCtrl.description.length && FindResumeCtrl.submitted">Please enter Job Description.</div>
+						        	<textarea name="desc" flex id="" cols="30" rows="14" placeholder="Enter job description here" ng-blur="FindResumeCtrl.aiTrigger()" ng-model="FindResumeCtrl.description" class="md-padding"></textarea>
 						        </md-card-content>
 						    </md-card>	
 						</div>
@@ -102,15 +101,15 @@
 						    </md-card>
 						</div>
 					</div>
-					<md-button class="mm-btn action" ng-style="{'opacity' : FindResumeCtrl.hasAITrigger ? '1' : '0.8'}" ng-disabled="!FindResumeCtrl.hasAITrigger" ng-click="FindResumeCtrl.searchResume()">Search Resumes</md-button>
+					<md-button class="mm-btn action" ng-style="{'opacity' : FindResumeCtrl.description.length > 3 ? '1' : '0.8'}" ng-disabled="!(FindResumeCtrl.description.length > 3)" ng-click="FindResumeCtrl.searchResume()">Search Resumes</md-button>
 				</div>
 			</div>
 			<div class="container-resume">
 				<div layout="row" class="header">
 					<i class="material-icons arrow-toogle" style="top: 16px;" ng-class="{'arrow-spin' : FindResumeCtrl.hideResumesList}" ng-click="FindResumeCtrl.toogleResumesList()">keyboard_arrow_down</i>
-					<div layout="column" flex="33" class="match" ng-bind="(!FindResumeCtrl.displayCount ? 'No' : FindResumeCtrl.displayCount) + ' Resume(s) Matched'">
+					<div layout="column" flex="30" class="match" ng-bind="(!FindResumeCtrl.displayCount ? 'No' : FindResumeCtrl.displayCount) + ' Resume(s) Matched'">
 					</div>
-					<div layout="column" flex="33">
+					<div layout="column" flex="20">
 						<md-input-container ng-style="{'opacity': FindResumeCtrl.hideResumesList ? '0' : ''}">
 					        <label style="display:none !important">Filter By Score</label>
 					        <md-select ng-model="FindResumeCtrl.selectedScore"
@@ -125,11 +124,26 @@
 					        </md-select>
 			      		</md-input-container>
 					</div>
-					<div layout="column" flex="33" class="match zip">
+					<div layout="column" flex="20">
+						<md-input-container ng-style="{'opacity': FindResumeCtrl.hideResumesList ? '0' : ''}">
+					        <label style="display:none !important">Filter By Score</label>
+					        <md-select ng-model="FindResumeCtrl.selectedCount"
+					        	data-md-container-class="multiple-select" multiple placeholder="Filter By Count" md-on-close="FindResumeCtrl.filterByCount()">
+					          	<!-- <md-select-header class="demo-select-header">
+						            <input ng-model="searchTerm" type="search" placeholder="Select Status"
+						            	class="demo-header-searchbox md-text">
+					          	</md-select-header> -->
+					          	<md-optgroup label="COUNT RANGE">
+				            		<md-option ng-value="opts.key" ng-repeat="opts in FindResumeCtrl.filterOptions2">{{opts.value}}</md-option>
+				            	</md-optgroup>
+					        </md-select>
+			      		</md-input-container>
+					</div>
+					<div layout="column" flex="30" class="match zip">
 						<div layout="row">
 							<div class="box" ng-style="{'opacity': FindResumeCtrl.hideResumesList ? '0' : ''}">
 								<span ng-if="FindResumeCtrl.selectedResues.length" class="animated fadeIn" ng-bind="'Selected: ' + FindResumeCtrl.selectedResues.length"></span>
-								<a>Download Zip</a>	
+								<a ng-click="FindResumeCtrl.downloadZip()">Download Zip</a>	
 							</div>
 						</div>
 					</div>
@@ -141,7 +155,7 @@
 							<div class="col-sm-5 loading-text animated slideInDown" ng-if="!FindResumeCtrl.displayCount && !FindResumeCtrl.inProgressSearchResumes">No Matched Resumes Found.</div>
 						</div>
 						<div class="row" infinite-scroll='FindResumeCtrl.loadResumes()'  infinite-scroll-distance='0' infinite-scroll-container="'.find-resume'">
-							<div class="col-sm-4" ng-repeat="resume in FindResumeCtrl.displayResumes track by $index">
+							<div class="col-sm-4" ng-repeat="resume in FindResumeCtrl.displayResumes">
 							  	<md-card ng-style="{'margin-top' : $index <= 2 ? '0' : '12px'}" class="animated zoomIn" ng-click="FindResumeCtrl.selectResume(resume.email)">
 							  		<i class="material-icons select" ng-style="{'opacity' : FindResumeCtrl.selectedResues.indexOf(resume.email) > -1 ? '1' : '0' }">network_cell</i>
 							        <md-card-title>
@@ -189,7 +203,7 @@
 							          		<i class="material-icons">location_on</i> 
 							          		<span ng-bind="resume.location"></span>
 							          	</span> 
-							          	<md-button class="md-fab md-mini md-primary" aria-label="Use Android" ng-click=" $event.stopPropagation();">
+							          	<md-button class="md-fab md-mini md-primary" aria-label="Use Android" ng-click="FindResumeCtrl.downloadSingleResume(resume.doc_id);$event.stopPropagation();">
 								          	<i class="material-icons">file_download</i>
 								        </md-button>
 							        </md-card-actions>

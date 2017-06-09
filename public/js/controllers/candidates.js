@@ -568,6 +568,7 @@
         this.submitted = false;
         this.inProgressAI = false; 
         this.inProgressSearchResumes = false;
+        this.inProgressDownloadZip = false;
         this.hideSearchResume = false;
         this.hideResumesList = false;
         this.hasAITrigger = false;
@@ -576,15 +577,16 @@
         this.sliderExp = angular.copy(slider);
         this.sliderSkills = angular.copy(slider); 
         this.filterOptions = [{ key : "75-100" , value:'75% to 100%' }, { key:"50-75" , value : '50% to 75%'}, { key:"0-50", value : '0% to 50%'}];
+        this.filterOptions2 = [{ key : 10 , value:'Top 10' }, { key: 50 , value : 'Top 50'}, { key:100, value : 'Top 100'}];
 
         //this.description = "Software engineer in Bangalore with 2 years of experience who knows jquery, html, css and angularjs";
+        this.description = "";
         this.critera = {};
         this.weightages = angular.copy(weightages);
 
         this.aiTrigger = function() {
             //if(this.description != prevDescription){
-                this.submitted = true;
-                if(this.description.length > 0){
+                if(this.description.length > 3){
                     var params = {};
                         params.jd = this.description;
                         params.weights = this.weightages;
@@ -616,7 +618,6 @@
                             prevDescription = vm.description;
                             vm.inProgressAI = false;
                             vm.hasAITrigger = true;
-                            vm.submitted = false;
                         }
                         else if (response.data.status_code == 400) {
                             $window.location = App.base_url + 'logout';
@@ -644,9 +645,9 @@
         }
 
         this.filterByScore = function(){
-            /*if(prevScores == this.selectedScore.toString()){
+            if(!vm.displayResumes.length){
                 return;
-            }*/
+            }
 
             vm.displayResumes = [];
             vm.selectedResues = [];
@@ -658,13 +659,61 @@
                 });
                 filteredResumes = angular.copy($filter('unique')(filteredResumes,'email'));
                 vm.tempResumes = angular.copy(filteredResumes );
-                vm.displayCount = filteredResumes.length;    
+                vm.displayCount = filteredResumes.length;  
+                vm.loadResumes();
             }else{
                 vm.tempResumes = angular.copy(vm.responseResumes);
                 vm.displayCount = vm.responseResumes.length;
             }
             //prevScores = this.selectedScore.toString();
             
+        }
+
+        this.filterByCount = function(){
+            if(!vm.displayResumes.length){
+                return;
+            }
+        }
+
+        this.downloadZip = function () {
+            this.inProgressDownloadZip = true;
+            $http({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'POST',
+                url: App.base_url + 'getZipDownload',
+                //data: $.param({company_id : CompanyDetails.company_code, resumes : vm.selectedResues}),
+                data: $.param({company_id : 230, resumes : [900]})
+            })
+            .then(function (response) {
+                if (response.status == 200) {
+                    vm.inProgressDownloadZip = true;
+                }
+                else if (response.data.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+            });
+        }
+
+        this.downloadSingleResume = function (doc_id) {
+            $http({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'POST',
+                url: App.base_url + 'getResumeDownload',
+                //data: $.param({company_id : CompanyDetails.company_code, resumes : vm.selectedResues}),
+                data: $.param({company_id : 230, doc_id : 900})
+            })
+            .then(function (response) {
+                if (response.status == 200) {
+                    console.log(response)
+                }
+                else if (response.data.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+            });
         }
 
         this.selectResume = function(resumeEmail){
@@ -687,59 +736,58 @@
         }
         
         function searchResume () {
-            vm.submitted = true;
-            if(vm.description.length > 0){
-                var params = {};
-                    params.jd = vm.description;
-                    params.weights = vm.weightages;
-                    params.tenant_id = CompanyDetails.company_code;
-                    //params.tenant_id = 'tenant1';
+            var params = {};
+                params.jd = vm.description;
+                params.weights = vm.weightages;
+                params.tenant_id = CompanyDetails.company_code;
+                //params.tenant_id = 'tenant1';
 
-                cancelerSearchResume = $q.defer();
-                vm.inProgressSearchResumes = true;
-                $http({
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                    },
-                    method: 'POST',
-                    url: App.base_url + 'getResumesFindByWeights',
-                    data: $.param(params),
-                    timeout: cancelerSearchResume.promise
-                })
-                .then(function (response) {
-                    if (response.status == 200) {
-                        vm.displayResumes = [];
-                        vm.selectedResues = [];
+            cancelerSearchResume = $q.defer();
+            vm.inProgressSearchResumes = true;
+            $http({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'POST',
+                url: App.base_url + 'getResumesFindByWeights',
+                data: $.param(params),
+                timeout: cancelerSearchResume.promise
+            })
+            .then(function (response) {
+                console.log(response)
+                if (response.status == 200) {
+                    vm.displayResumes = [];
+                    vm.selectedResues = [];
 
-                        prevWeightages = angular.copy(vm.weightages);
-                        prevDescription = params.jd;
-                        angular.forEach(response.data.resumes, function(resumes){
-                            resumes.skills = resumes.skills.toString().slice(1, -1).concat('.').split(',').join(', ');
-                        });
-                        vm.responseResumes = angular.copy(response.data.resumes) || [];
-                        vm.tempResumes = angular.copy(vm.responseResumes);
-                        vm.displayCount = vm.responseResumes.length;
-                        vm.loadResumes();
-                        vm.submitted = false;
-                        /*try{
-                            if(!response.data.resumes.length){
-                                vm.displayResumes = [];
-                            }else{
-                                vm.loadResumes();
-                            }
-                        }
-                        catch(error){
+                    prevWeightages = angular.copy(vm.weightages);
+                    prevDescription = params.jd;
+                    angular.forEach(response.data.resumes, function(resumes){
+                        resumes.skills = resumes.skills.toString().slice(1, -1).concat('.').split(',').join(', ');
+                    });
+                    vm.responseResumes = angular.copy(response.data.resumes) || [];
+                    vm.tempResumes = angular.copy(vm.responseResumes);
+                    vm.displayCount = vm.responseResumes.length;
+                    vm.loadResumes();
+                    vm.submitted = false;
+                    /*try{
+                        if(!response.data.resumes.length){
                             vm.displayResumes = [];
-                            prevWeightages = [];
-                            vm.tempResumes = [];
-                        }*/
-                        vm.inProgressSearchResumes = false;
+                        }else{
+                            vm.loadResumes();
+                        }
                     }
-                    else if (response.data.status_code == 400) {
-                        $window.location = App.base_url + 'logout';
-                    }
-                });
-            }
+                    catch(error){
+                        vm.displayResumes = [];
+                        prevWeightages = [];
+                        vm.tempResumes = [];
+                    }*/
+                    vm.inProgressSearchResumes = false;
+                    //vm.toogleSearchResume();
+                }
+                else if (response.data.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+            });
         }
 
         function minMaxFilter(min, max){
