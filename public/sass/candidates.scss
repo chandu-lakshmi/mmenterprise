@@ -191,7 +191,7 @@ $background : #eeeff1;
             div[layout="column"]{
                 .search-resume{position:relative;background: #fff;margin: 30px 0 22px 0;box-shadow: 0px 0px 3px #767877;
                     .headline{font-size: 18px;font-weight: bold;color: #636363;
-                        .name{padding:20px;
+                        .name{padding:20px 16px;
                             &.first{padding-left:24px;}
                             &.animated{transition: linear 0.5s opacity;-webkit-transition: linear 0.5s opacity}
                         }
@@ -209,7 +209,7 @@ $background : #eeeff1;
                         }
                     }
                     .criteria{
-                        md-card-title{padding:16px 0 10px 20px}
+                        md-card-title{padding:16px 0 28px 20px}
                         md-card-content{padding-left: 18px;
                             .list{padding: 12px 0 14px;}
                             .slide{

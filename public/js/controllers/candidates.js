@@ -632,6 +632,7 @@
                     cancelerSearchResume.resolve();
                 }
                 searchResume();
+                this.selectedScore = "";
             //}
         }
 
