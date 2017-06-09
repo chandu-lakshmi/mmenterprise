@@ -540,7 +540,7 @@
             totalResumes = [],
             paginationOptions = {
                 pageNumber: 1,
-                pageSize: 10,
+                pageSize: 15,
                 scoreRange : null
             },
             slider =  {
@@ -555,10 +555,10 @@
                 }
             },
             weightages = {
-                role : 4,    
-                location : 4,
-                exp : 4, 
-                skills : 4 
+                role : 5,    
+                location : 5,
+                exp : 5, 
+                skills : 5 
             };
 
         this.selectedResues = [];
@@ -569,6 +569,7 @@
         this.inProgressSearchResumes = false;
         this.hideSearchResume = false;
         this.hideResumesList = false;
+        this.hasAITrigger = false;
         this.sliderRole = angular.copy(slider);
         this.sliderLoc = angular.copy(slider);
         this.sliderExp = angular.copy(slider);
@@ -580,7 +581,7 @@
         this.weightages = angular.copy(weightages);
 
         this.aiTrigger = function() {
-            if(this.description != prevDescription){
+            //if(this.description != prevDescription){
                 var params = {};
                     params.jd = this.description;
                     params.weights = this.weightages;
@@ -611,21 +612,22 @@
                             vm.criteria.skills = response.data.skills.toString().split(",").join(", ");
                         prevDescription = vm.description;
                         vm.inProgressAI = false;
+                        vm.hasAITrigger = true;
                     }
                     else if (response.data.status_code == 400) {
                         $window.location = App.base_url + 'logout';
                     }
                 });
-            }
+            //}
         }
 
         this.searchResume = function() {
-            if((JSON.stringify(prevWeightages) != JSON.stringify(vm.weightages)) || (this.description != prevDescription)){
+            //if((JSON.stringify(prevWeightages) != JSON.stringify(vm.weightages)) || (this.description != prevDescription)){
                 if (cancelerSearchResume) {
                     cancelerSearchResume.resolve();
                 }
                 searchResume();
-            }
+            //}
         }
 
         this.loadResumes = function(){
@@ -636,9 +638,9 @@
         }
 
         this.filterByScore = function(){
-            if(prevScores == this.selectedScore.toString()){
+            /*if(prevScores == this.selectedScore.toString()){
                 return;
-            }
+            }*/
 
             vm.displayResumes = [];
             vm.selectedResues = [];
@@ -655,7 +657,7 @@
                 vm.tempResumes = angular.copy(vm.responseResumes);
                 vm.displayCount = vm.responseResumes.length;
             }
-            prevScores = this.selectedScore.toString();
+            //prevScores = this.selectedScore.toString();
             
         }
 
@@ -698,6 +700,9 @@
             })
             .then(function (response) {
                 if (response.status == 200) {
+                    vm.displayResumes = [];
+                    vm.selectedResues = [];
+                    
                     prevWeightages = angular.copy(vm.weightages);
                     prevDescription = params.jd;
                     angular.forEach(response.data.resumes, function(resumes){

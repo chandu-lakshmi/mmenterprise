@@ -15,7 +15,7 @@
 		        </div>
 		        <p></p>
 	        	<md-button class="discard action" ng-show="(UploadResumeCtrl.filesInQueue | filter : {'status' : 0}).length" ng-click="UploadResumeCtrl.discardFile()">DISCARD</md-button>
-	        	<md-button class="delete action deleteALL" ng-show="UploadResumeCtrl.filesInQueue.length > 1"  ng-click="UploadResumeCtrl.deleteFile(false)">DELETE ALL</md-button>
+	        	<md-button class="delete action deleteALL" ng-show="(UploadResumeCtrl.filesInQueue | filter : {'hasFileMoved' : true }).length > 1"  ng-click="UploadResumeCtrl.deleteFile(false)">DELETE ALL</md-button>
 	      	</md-list-item>
 			<div class="file-container" flex="95">
 				<md-list-item class="animated fadeIn" ng-repeat="file in UploadResumeCtrl.filesInQueue" ng-if="!file.show" ng-click="">
