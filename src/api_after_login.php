@@ -1605,7 +1605,7 @@ $app->get('/getZipDownload',function ($request, $response, $args) use ($app) {
    //$_POST['time_zone'] = $_SESSION['time_zone'];
     // getting API endpoint from settings
    $apiEndpoint = getapiEndpoint($this->settings, 'getZipDownload');
-    print_r($_POST).exit;
+   
     $downloadDetails    = new Curl(array(
         'url'           => $apiEndpoint,
         'postData'      => $_POST

@@ -524,7 +524,7 @@
                 resolve: {
                     paramsMdService: function() {
                         return {
-                            firstMsg : 'Are you sure, You want to ',
+                            firstMsg : 'Are you sure you want to ',
                             secondMsg : flag ? 'delete the RESUME ?' : 'delete ALL RESUMES ?',
                             params : '',
                             apiEndPoint : '',
