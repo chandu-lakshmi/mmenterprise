@@ -87,7 +87,7 @@
             })
 
     CandidateController.$inject = [];
-    ResumeRoomController.$inject = ['$state', '$window', '$uibModal', '$http', '$q', '$timeout', 'ajaxService', 'App'];
+    ResumeRoomController.$inject = ['$state', '$window', '$uibModal', '$http', '$q', '$timeout', 'ajaxService', 'CompanyDetails', 'App'];
     UploadResumeController.$inject = ['$scope', '$http', '$timeout', '$window', '$uibModal', 'App'];
     FindResumeController.$inject = ['$scope', '$http', '$q', '$timeout', '$filter', '$window', 'CompanyDetails', 'App'];
 
@@ -98,7 +98,7 @@
     }
 
 
-    function ResumeRoomController($state, $window, $uibModal, $http, $q, $timeout, ajaxService, App) {
+    function ResumeRoomController($state, $window, $uibModal, $http, $q, $timeout, ajaxService, CompanyDetails, App) {
 
         var vm = this, canceler,
                 gridApiCall = App.base_url + 'get_company_all_referrals';
@@ -402,7 +402,9 @@
         }
 
         function downloadResume(row) {
-            return row.entity.resume_path;
+            //console.log(row)
+            //row.entity.resume_path
+            return App.API_DOMAIN + "getResumeDownload?company_id=" + CompanyDetails.company_code + "&doc_id=" + 900 ;
         }
 
     }
@@ -604,7 +606,6 @@
         this.submitted = false;
         this.inProgressAI = false; 
         this.inProgressSearchResumes = false;
-        this.inProgressDownloadZip = false;
         this.hideSearchResume = false;
         this.hideResumesList = false;
         this.hasAITrigger = false;
@@ -718,45 +719,11 @@
         }
 
         this.downloadZip = function () {
-            this.inProgressDownloadZip = true;
-            $http({
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                },
-                responseType:'arraybuffer',
-                method: 'POST',
-                url: App.base_url + 'getZipDownload',
-                //data: $.param({company_id : CompanyDetails.company_code, resumes : vm.selectedResues}),
-                data: $.param({company_id : 230, resumes : [900]})
-            })
-            .then(function (response) {
-                if (response.status == 200) {
-                    vm.inProgressDownloadZip = true;
-                }
-                else if (response.data.status_code == 400) {
-                    $window.location = App.base_url + 'logout';
-                }
-            });
+            return App.API_DOMAIN + "getResumeDownload?company_id=" + CompanyDetails.company_code + "&resumes=" + "900, 901";
         }
 
-        this.downloadSingleResume = function (doc_id) {
-            $http({
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                },
-                method: 'POST',
-                url: App.base_url + 'getResumeDownload',
-                //data: $.param({company_id : CompanyDetails.company_code, resumes : vm.selectedResues}),
-                data: $.param({company_id : 230, doc_id : 900})
-            })
-            .then(function (response) {
-                if (response.status == 200) {
-                    console.log(response)
-                }
-                else if (response.data.status_code == 400) {
-                    $window.location = App.base_url + 'logout';
-                }
-            });
+        this.downloadResume = function (doc_id) {
+            return App.API_DOMAIN + "getResumeDownload?company_id=" + CompanyDetails.company_code + "&doc_id=" + 900;
         }
 
         this.selectResume = function(resumeEmail){
@@ -842,7 +809,6 @@
             $scope.$broadcast('reCalcViewDimensions');
         }, 100);*/
 
-        //window.location = App.API_DOMAIN + "getZipDownload?company_id=230&resumes=900";
 
     }
 

@@ -148,7 +148,7 @@
 						<div layout="row">
 							<div class="box" ng-style="{'opacity': FindResumeCtrl.hideResumesList ? '0' : ''}">
 								<span ng-if="FindResumeCtrl.selectedResues.length" class="animated fadeIn" ng-bind="'Selected: ' + FindResumeCtrl.selectedResues.length"></span>
-								<a href="http://192.168.33.10/sprint11/api/getZipDownload?company_id=230&resumes=900" download target="_self">Download Zip</a>	
+								<a href="{{FindResumeCtrl.downloadZip()}}" download target="_self">Download Zip</a>	
 							</div>
 						</div>
 					</div>
@@ -247,7 +247,7 @@
 							          		<span ng-bind="resume.location"></span>
 							          	</span> 
 							          	<md-button class="md-fab md-mini md-primary" aria-label="Use Android" ng-click="FindResumeCtrl.downloadSingleResume(resume.doc_id);$event.stopPropagation();">
-							          	<a href="http://192.168.33.10/sprint11/api/getResumeDownload?company_id=230&resumes=900" download target="_self"><i class="material-icons">file_download</i></a>
+							          	<a href="{{FindResumeCtrl.downloadResume()}}" download target="_self"><i class="material-icons">file_download</i></a>
 								        </md-button>
 							        </md-card-actions>
 							  	</md-card>
