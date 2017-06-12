@@ -622,8 +622,8 @@
         this.filterOptions = [{ key : "75-100" , value:'75% to 100%' }, { key:"50-75" , value : '50% to 75%'}, { key:"0-50", value : '0% to 50%'}];
         this.filterOptions2 = [{ key : 10 , value:'Top 10' }, { key: 50 , value : 'Top 50'}, { key:100, value : 'Top 100'}];
 
-        this.description = "Software engineer in Bangalore with 2 years of experience who knows jquery, html, css and angularjs";
-        //this.description = "";
+        //this.description = "Software engineer in Bangalore with 2 years of experience who knows jquery, html, css and angularjs";
+        this.description = "";
         this.critera = {};
         //this.weightages = angular.copy(weightages);
 
@@ -719,7 +719,7 @@
         }
 
         this.downloadZip = function () {
-            return App.API_DOMAIN + "getResumeDownload?company_id=" + CompanyDetails.company_code + "&resumes=" + "900, 901";
+            return App.API_DOMAIN + "getZipDownload?company_id=" + CompanyDetails.company_code + "&resumes=" + "900, 901";
         }
 
         this.downloadResume = function (doc_id) {
