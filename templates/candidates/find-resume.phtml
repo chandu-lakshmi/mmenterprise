@@ -112,10 +112,10 @@
 			<div class="container-resume">
 				<div layout="row" class="header">
 					<i class="material-icons arrow-toogle" style="top: 16px;" ng-class="{'arrow-spin' : FindResumeCtrl.hideResumesList}" ng-click="FindResumeCtrl.toogleResumesList()">keyboard_arrow_down</i>
-					<div layout="column" flex="30" class="match" ng-bind="(!FindResumeCtrl.displayCount ? 'No' : FindResumeCtrl.displayCount) + ' Resume(s) Matched'">
+					<div layout="column" flex="33" class="match" ng-bind="(!FindResumeCtrl.displayCount ? 'No' : FindResumeCtrl.displayCount) + ' Resume(s) Matched'">
 					</div>
-					<div layout="column" flex="20">
-						<md-input-container ng-style="{'opacity': FindResumeCtrl.hideResumesList ? '0' : ''}" ng-if="FindResumeCtrl.responseResumes.length" class="animated fadeIn" >
+					<div layout="column" flex="33">
+						<md-input-container ng-style="{'opacity': FindResumeCtrl.hideResumesList ? '0' : ''}" ng-if="FindResumeCtrl.responseResumes.length" class="animated fadeIn" style="margin:0 23.5%;">
 					        <label style="display:none !important">Filter By Score</label>
 					        <md-select ng-model="FindResumeCtrl.selectedScore"
 					        	data-md-container-class="multiple-select" multiple placeholder="Filter By Score" md-on-close="FindResumeCtrl.filterByScore()">
@@ -129,21 +129,21 @@
 					        </md-select>
 			      		</md-input-container>
 					</div>
-					<div layout="column" flex="20">
+					<!-- <div layout="column" flex="20">
 						<md-input-container ng-style="{'opacity': FindResumeCtrl.hideResumesList ? '0' : ''}" ng-if="FindResumeCtrl.responseResumes.length" class="animated fadeIn" >
 					        <label style="display:none !important">Filter By Score</label>
 					        <md-select ng-model="FindResumeCtrl.selectedCount"
 					        	data-md-container-class="multiple-select" multiple placeholder="Filter By Count" md-on-close="FindResumeCtrl.filterByCount()">
-					          	<!-- <md-select-header class="demo-select-header">
+					          	<md-select-header class="demo-select-header">
 						            <input ng-model="searchTerm" type="search" placeholder="Select Status"
 						            	class="demo-header-searchbox md-text">
-					          	</md-select-header> -->
+					          	</md-select-header>
 					          	<md-optgroup label="COUNT RANGE">
-				            		<md-option ng-value="opts.key" ng-repeat="opts in FindResumeCtrl.filterOptions2">{{opts.value}}</md-option>
-				            	</md-optgroup>
+									            		<md-option ng-value="opts.key" ng-repeat="opts in FindResumeCtrl.filterOptions2">{{opts.value}}</md-option>
+									            	</md-optgroup>
 					        </md-select>
-			      		</md-input-container>
-					</div>
+								      		</md-input-container>
+					</div> -->
 					<div layout="column" flex="30" class="match zip">
 						<div layout="row">
 							<div class="box" ng-style="{'opacity': FindResumeCtrl.hideResumesList ? '0' : ''}">

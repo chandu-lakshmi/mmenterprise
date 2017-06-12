@@ -400,7 +400,7 @@
             .candidates .find-resume .container div[layout="column"] .container-resume .header .match .box a {
               color: #1d8e70; }
         .candidates .find-resume .container div[layout="column"] .container-resume .header md-input-container {
-          width: 75%;
+          width: 52%;
           margin: 0;
           transition: linear 0.5s opacity;
           -webkit-transition: linear 0.5s opacity; }
@@ -410,7 +410,7 @@
             font-weight: 700; }
             .candidates .find-resume .container div[layout="column"] .container-resume .header md-input-container md-select-value span {
               overflow: hidden;
-              max-width: 84%; }
+              max-width: 86%; }
       .candidates .find-resume .container div[layout="column"] .container-resume md-content {
         background: transparent;
         padding: 0 27px 16px; }

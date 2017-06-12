@@ -479,7 +479,6 @@
 
                 },
                 showMessage: function (msg, obj) {
-                    console.log(msg)
                     vm.errorMsg = msg;
                     $scope.$apply();
                 },
