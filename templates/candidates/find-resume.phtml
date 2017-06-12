@@ -115,7 +115,7 @@
 					<div layout="column" flex="33" class="match" ng-bind="(!FindResumeCtrl.displayCount ? 'No' : FindResumeCtrl.displayCount) + ' Resume(s) Matched'">
 					</div>
 					<div layout="column" flex="33">
-						<md-input-container ng-style="{'opacity': FindResumeCtrl.hideResumesList ? '0' : ''}" ng-if="FindResumeCtrl.responseResumes.length" class="animated fadeIn" style="margin:0 23.5%;">
+						<md-input-container ng-style="{'opacity': FindResumeCtrl.hideResumesList ? '0' : ''}" ng-if="FindResumeCtrl.responseResumes.length && !FindResumeCtrl.hideResumesList" class="animated fadeIn" style="margin:0 23.5%;">
 					        <label style="display:none !important">Filter By Score</label>
 					        <md-select ng-model="FindResumeCtrl.selectedScore"
 					        	data-md-container-class="multiple-select" multiple placeholder="Filter By Score" md-on-close="FindResumeCtrl.filterByScore()">
