@@ -404,7 +404,8 @@
         function downloadResume(row) {
             //console.log(row)
             //row.entity.resume_path
-            return App.API_DOMAIN + "getResumeDownload?company_id=" + CompanyDetails.company_code + "&doc_id=" + 900 ;
+            //return App.API_DOMAIN + "getResumeDownload?company_id=" + CompanyDetails.company_code + "&doc_id=" + 900;
+            return App.API_DOMAIN + "getResumeDownload?company_id=329244&doc_id=1";
         }
 
     }
@@ -719,11 +720,13 @@
         }
 
         this.downloadZip = function () {
-            return App.API_DOMAIN + "getZipDownload?company_id=" + CompanyDetails.company_code + "&resumes=" + "900,901";
+            //return App.API_DOMAIN + "getZipDownload?company_id=" + CompanyDetails.company_code + "&resumes=" + "900,901";
+            return App.API_DOMAIN + "getZipDownload?company_id=329244&resumes=2,1";
         }
 
         this.downloadResume = function (doc_id) {
-            return App.API_DOMAIN + "getResumeDownload?company_id=" + CompanyDetails.company_code + "&doc_id=" + 900;
+            //return App.API_DOMAIN + "getResumeDownload?company_id=" + CompanyDetails.company_code + "&doc_id=" + 900;
+            return App.API_DOMAIN + "getResumeDownload?company_id=329244&doc_id=1";
         }
 
         this.selectResume = function(resumeEmail){

@@ -1579,39 +1579,39 @@ $app->post('/getResumesFindByWeights', function ($request, $response, $args) use
 
 //download resume
 $app->get('/getResumeDownload',function ($request, $response, $args) use ($app) {
-   
-    // dynamically Access Token 
-   $this->mintmeshAccessToken;
-   $this->mintmeshCompanyId;
-   //$_POST['time_zone'] = $_SESSION['time_zone'];
-    // getting API endpoint from settings
-   $apiEndpoint = getapiEndpoint($this->settings, 'getResumeDownload');
-   
-    $downloadDetails    = new Curl(array(
-        'url'           => $apiEndpoint,
-        'postData'      => $_POST
-     ));
+ 
+   // dynamically Access Token
+  $this->mintmeshAccessToken;
+  $this->mintmeshCompanyId;
+  //$_POST['time_zone'] = $_SESSION['time_zone'];
+   // getting API endpoint from settings
+  $apiEndpoint = getapiEndpoint($this->settings, 'getResumeDownload');
+ 
+   $downloadDetails    = new Curl(array(
+       'url'           => $apiEndpoint,
+       'postData'      => $_GET
+    ));
 
-    return checkJsonResult( $downloadDetails->loadCurl() );
-    
+   return checkJsonResult( $downloadDetails->loadCurl() );
+   
 });
 
 //download resume Zip
 $app->get('/getZipDownload',function ($request, $response, $args) use ($app) {
-   
-    // dynamically Access Token 
-   $this->mintmeshAccessToken;
-   $this->mintmeshCompanyId;
-   //$_POST['time_zone'] = $_SESSION['time_zone'];
-    // getting API endpoint from settings
-   $apiEndpoint = getapiEndpoint($this->settings, 'getZipDownload');
-   
-    $downloadDetails    = new Curl(array(
-        'url'           => $apiEndpoint,
-        'postData'      => $_POST
-     ));
+ 
+   // dynamically Access Token
+  $this->mintmeshAccessToken;
+  $this->mintmeshCompanyId;
+  //$_POST['time_zone'] = $_SESSION['time_zone'];
+   // getting API endpoint from settings
+  $apiEndpoint = getapiEndpoint($this->settings, 'getZipDownload');
+ 
+   $downloadDetails    = new Curl(array(
+       'url'           => $apiEndpoint,
+       'postData'      => $_GET
+    ));
 
-    return checkJsonResult( $downloadDetails->loadCurl() );
-    
+   return checkJsonResult( $downloadDetails->loadCurl() );
+   
 });
 

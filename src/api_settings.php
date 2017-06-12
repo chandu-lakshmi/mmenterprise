@@ -280,12 +280,12 @@ return [
                 'ENDPOINT' => '/enterprise/get_icims_hcm_list'
             ],
             'getResumeDownload' =>[
-                //'VERSION' => 'v1',
-                'ENDPOINT' => '/getResumeDownload'
+               'VERSION' => 'v1',
+               'ENDPOINT' => '/getResumeDownload'
             ],
             'getZipDownload' =>[
-                //'VERSION' => 'v1',
-                'ENDPOINT' => '/getZipDownload'
+               'VERSION' => 'v1',
+               'ENDPOINT' => '/getZipDownload'
             ]
     ];
         
