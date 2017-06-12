@@ -500,15 +500,17 @@
           .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card md-card-actions {
             background: #f9f9f9;
             margin: 0;
-            padding: 4px 16px;
+            padding: 8px 16px;
             border-top: 1px solid #dad5d5;
             color: #666666; }
             .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card md-card-actions i {
               vertical-align: middle;
-              color: #8e8e8e; }
-            .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card md-card-actions button, .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card md-card-actions button:hover {
-              background: #ebebeb;
-              box-shadow: none; }
+              color: #8e8e8e;
+              padding: 4px; }
+              .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card md-card-actions i.down {
+                background: #ebebeb;
+                border-radius: 50%;
+                font-size: 20px; }
         .candidates .find-resume .container div[layout="column"] .container-resume md-content .loading-text {
           color: #8e8e8e;
           font-weight: 700;

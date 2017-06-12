@@ -115,7 +115,7 @@
 					<div layout="column" flex="30" class="match" ng-bind="(!FindResumeCtrl.displayCount ? 'No' : FindResumeCtrl.displayCount) + ' Resume(s) Matched'">
 					</div>
 					<div layout="column" flex="20">
-						<md-input-container ng-style="{'opacity': FindResumeCtrl.hideResumesList ? '0' : ''}">
+						<md-input-container ng-style="{'opacity': FindResumeCtrl.hideResumesList ? '0' : ''}" ng-if="FindResumeCtrl.responseResumes.length" class="animated fadeIn" >
 					        <label style="display:none !important">Filter By Score</label>
 					        <md-select ng-model="FindResumeCtrl.selectedScore"
 					        	data-md-container-class="multiple-select" multiple placeholder="Filter By Score" md-on-close="FindResumeCtrl.filterByScore()">
@@ -130,7 +130,7 @@
 			      		</md-input-container>
 					</div>
 					<div layout="column" flex="20">
-						<md-input-container ng-style="{'opacity': FindResumeCtrl.hideResumesList ? '0' : ''}">
+						<md-input-container ng-style="{'opacity': FindResumeCtrl.hideResumesList ? '0' : ''}" ng-if="FindResumeCtrl.responseResumes.length" class="animated fadeIn" >
 					        <label style="display:none !important">Filter By Score</label>
 					        <md-select ng-model="FindResumeCtrl.selectedCount"
 					        	data-md-container-class="multiple-select" multiple placeholder="Filter By Count" md-on-close="FindResumeCtrl.filterByCount()">
@@ -147,8 +147,10 @@
 					<div layout="column" flex="30" class="match zip">
 						<div layout="row">
 							<div class="box" ng-style="{'opacity': FindResumeCtrl.hideResumesList ? '0' : ''}">
-								<span ng-if="FindResumeCtrl.selectedResues.length" class="animated fadeIn" ng-bind="'Selected: ' + FindResumeCtrl.selectedResues.length"></span>
-								<a href="{{FindResumeCtrl.downloadZip()}}" download target="_self">Download Zip</a>	
+								<div  ng-if="FindResumeCtrl.selectedResues.length" class="animated fadeIn" >
+									<span ng-bind="'Selected: ' + FindResumeCtrl.selectedResues.length"></span>
+									<a href="{{FindResumeCtrl.downloadZip()}}" download target="_self">Download Zip</a>
+								</div>	
 							</div>
 						</div>
 					</div>
@@ -246,9 +248,9 @@
 							          		<i class="material-icons">location_on</i> 
 							          		<span ng-bind="resume.location"></span>
 							          	</span> 
-							          	<md-button class="md-fab md-mini md-primary" aria-label="Use Android" ng-click="FindResumeCtrl.downloadSingleResume(resume.doc_id);$event.stopPropagation();">
-							          	<a href="{{FindResumeCtrl.downloadResume()}}" download target="_self"><i class="material-icons">file_download</i></a>
-								        </md-button>
+							          	<!-- <md-button class="md-fab md-mini md-primary" aria-label="Use Android"> -->
+							          	<a href="{{FindResumeCtrl.downloadResume(resume.doc_id)}}" ng-click="$event.stopPropagation();" download target="_self"><i class="material-icons down">file_download</i></a>
+								        <!-- </md-button> -->
 							        </md-card-actions>
 							  	</md-card>
 							</div>

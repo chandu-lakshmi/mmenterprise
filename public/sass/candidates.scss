@@ -272,9 +272,10 @@ $background : #eeeff1;
                                     .dotdotdot{height: 60px;overflow: hidden;}
                                 }
                             } */
-                            md-card-actions{background: #f9f9f9;margin: 0;padding: 4px 16px;border-top: 1px solid #dad5d5;color: #666666;
-                                i{vertical-align: middle;color:#8e8e8e;}
-                                button,button:hover{background: #ebebeb;box-shadow: none;}
+                            md-card-actions{background: #f9f9f9;margin: 0;padding: 8px 16px;border-top: 1px solid #dad5d5;color: #666666;
+                                i{vertical-align: middle;color:#8e8e8e;padding: 4px;
+                                    &.down{background: #ebebeb;border-radius: 50%;font-size: 20px;}
+                                }
                             }
                         }
                         .loading-text{color:#8e8e8e;font-weight:700;float: none;margin: 14px auto;text-align: center;border: 1px solid #e8e8e8;width: 45%;padding: 6px;border-radius: 2px;font-size: 18px}    
