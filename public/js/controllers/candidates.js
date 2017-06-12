@@ -436,12 +436,14 @@
                 file_name: 'certificate_org_name',
                 path_name: 'certificate_path',
                 onSubmit: function (id, name, size) {
+                    console.log(arguments)
                     vm.errorMsg = '';
                     vm.filesInQueue.push({tempId:id, fileName : name, value : 0, fileSize : Math.round(size / 1024) + 'KB', status : 0, show : 0 , hasFileMoved : false , cls : ''});
                     $scope.$apply();
 
                 },
                 onComplete: function (id, name, response) {
+
                     if(response.success){
                         angular.forEach(vm.filesInQueue, function(file, fileIndex){
                             if(file.tempId == id){
@@ -522,7 +524,7 @@
                 resolve: {
                     paramsMdService: function() {
                         return {
-                            firstMsg : 'Are you sure want to ',
+                            firstMsg : 'Are you sure, You want to ',
                             secondMsg : flag ? 'delete the RESUME ?' : 'delete ALL RESUMES ?',
                             params : '',
                             apiEndPoint : '',
@@ -598,7 +600,6 @@
                 model : null
             }
 
-        this.App = App;
         this.selectedResues = [];
         this.responseResumes = [];
         this.displayResumes = [];
@@ -688,7 +689,7 @@
         }
 
         this.filterByScore = function(){
-            if(!vm.displayResumes.length || (!this.selectedScore.length && prevScores == this.selectedScore.toString()) ){
+            if((!this.selectedScore.length && (prevScores == this.selectedScore.toString())) ){
                 return;
             }
 
@@ -719,7 +720,7 @@
         }
 
         this.downloadZip = function () {
-            return App.API_DOMAIN + "getZipDownload?company_id=" + CompanyDetails.company_code + "&resumes=" + "900, 901";
+            return App.API_DOMAIN + "getZipDownload?company_id=" + CompanyDetails.company_code + "&resumes=" + "900,901";
         }
 
         this.downloadResume = function (doc_id) {

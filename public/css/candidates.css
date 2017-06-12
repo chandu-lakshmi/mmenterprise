@@ -325,11 +325,11 @@
         .candidates .find-resume .container div[layout="column"] .search-resume md-card md-card-content {
           padding: 0 24px 24px; }
           .candidates .find-resume .container div[layout="column"] .search-resume md-card md-card-content textarea {
+            min-height: 392px;
             resize: vertical;
             width: 100%;
             background: #fafafa;
             font-size: 14px;
-            color: #212121;
             line-height: 24px;
             word-spacing: 2px;
             outline: none;

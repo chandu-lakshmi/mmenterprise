@@ -1578,7 +1578,7 @@ $app->post('/getResumesFindByWeights', function ($request, $response, $args) use
 });
 
 //download resume
-$app->post('/getResumeDownload',function ($request, $response, $args) use ($app) {
+$app->get('/getResumeDownload',function ($request, $response, $args) use ($app) {
    
     // dynamically Access Token 
    $this->mintmeshAccessToken;
@@ -1605,7 +1605,7 @@ $app->get('/getZipDownload',function ($request, $response, $args) use ($app) {
    //$_POST['time_zone'] = $_SESSION['time_zone'];
     // getting API endpoint from settings
    $apiEndpoint = getapiEndpoint($this->settings, 'getZipDownload');
-   
+    print_r($_POST).exit;
     $downloadDetails    = new Curl(array(
         'url'           => $apiEndpoint,
         'postData'      => $_POST

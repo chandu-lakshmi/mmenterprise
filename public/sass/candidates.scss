@@ -204,7 +204,7 @@ $background : #eeeff1;
                             .md-headline{font-size: 18px;font-weight: bold;color: #636363;}
                         }
                         md-card-content{padding: 0 24px 24px;
-                            textarea{resize: vertical; width: 100%;background: #fafafa;font-size: 14px;color: #212121; line-height: 24px;word-spacing: 2px;outline:none;border-radius: 4px;outline:none;border: 1px solid #ddd;}
+                            textarea{min-height: 392px;resize: vertical; width: 100%;background: #fafafa;font-size: 14px;line-height: 24px;word-spacing: 2px;outline:none;border-radius: 4px;outline:none;border: 1px solid #ddd;}
                             .key{text-transform: capitalize;font-weight: 700;color:#565656;}
                         }
                     }
