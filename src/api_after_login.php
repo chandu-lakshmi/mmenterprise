@@ -1597,7 +1597,7 @@ $app->post('/getResumeDownload',function ($request, $response, $args) use ($app)
 });
 
 //download resume Zip
-$app->post('/getZipDownload',function ($request, $response, $args) use ($app) {
+$app->get('/getZipDownload',function ($request, $response, $args) use ($app) {
    
     // dynamically Access Token 
    $this->mintmeshAccessToken;

@@ -214,6 +214,12 @@ $background : #eeeff1;
                             .list{padding: 12px 0 14px;}
                             .slide{
                                 div[layout="column"]{padding:2px 16px 16px;}
+                                myslider{margin: 10px 0;width: 90%;
+                                    .ui-widget.ui-widget-content{border: 0;background: #4a6a7d;height: 6px;cursor: pointer;
+                                        .ui-slider-handle{width: 26px;height: 26px;font-size:14px;text-align: center;line-height: 24px;top: -9px;border-radius: 6px;background: rgb(74, 106, 125);color: rgb(255, 255, 255);border-color: rgb(255, 255, 255);cursor: pointer;}
+                                        .ui-widget-header{background: #eee}
+                                    }
+                                }
                             }
                         }
                     }
@@ -242,7 +248,17 @@ $background : #eeeff1;
                             i.select{position: absolute;z-index: -1;-webkit-transform: rotate(180deg);transform: rotate(180deg);font-size: 60px;left: -6px;top: -13px;color: #1d8e6f;transition: all 0.3s linear;opacity: 0;
                                 &:before{box-sizing: border-box;-webkit-transform: rotate(45deg);transform: rotate(217deg);position: absolute;left: 34.66667px;top: 26.22222px;color: #fff;display: table;width: 10.66667px;height: 17.33333px;border-width: 3px;border-style: solid;border-top: 0;border-left: 0;content: "";};
                             }
-                            md-card-title{padding: 20px 24px 0;
+                            .resume{padding: 20px;color: #212121;
+                                .role,.skill{font-weight: 800;color: #8e8e8e;}
+                                .name{margin: 0;}
+                                .cir-progress{position: relative;
+                                    .ai-score{position: absolute !important;top: 0;right: 0;}
+                                    .score{position: absolute;width: 120%;text-align: center;top: 17px;font-size: 20px;}
+                                }
+                                .skill{padding: 12px 0 0;}
+                                .dotdotdot{height: 60px;overflow: hidden;}
+                            }
+                            /* md-card-title{padding: 20px 24px 0;
                                 .md-subhead:first-child{font-weight:600;color:#8d8d8d;}
                                 .md-headline{line-height: 25px;color: #212121;font-weight:600;max-width:95%;display:inline-block;}
                                 .md-subhead{color: #212121}
@@ -250,12 +266,12 @@ $background : #eeeff1;
                                     .ai-score{position: absolute !important;padding-bottom: 0px;top: 8px;right: -4px;}
                                     .score{position: absolute;width: 111%;text-align: center;top: 25px;font-size: 20px;}
                                 }
-                            };
-                            md-card-content{padding: 0 24px 24px;
+                            };*/
+                            /* md-card-content{padding: 0 24px 24px;
                                 md-card-title{padding: 0 0 6px;
                                     .dotdotdot{height: 60px;overflow: hidden;}
                                 }
-                            }
+                            } */
                             md-card-actions{background: #f9f9f9;margin: 0;padding: 4px 16px;border-top: 1px solid #dad5d5;color: #666666;
                                 i{vertical-align: middle;color:#8e8e8e;}
                                 button,button:hover{background: #ebebeb;box-shadow: none;}
@@ -276,7 +292,7 @@ $background : #eeeff1;
 .find-resume-name.md-show{
     transition: all 0.5s linear !important;
 } 
-.weightages{margin-top: 10px;
+/* .weightages{margin-top: 10px;
     .rz-bar-wrapper{cursor: pointer;;
         .rz-bar{background: #eee;height: 6px;}
         .rz-selection{background: #4a6a7d}
@@ -286,7 +302,7 @@ $background : #eeeff1;
     }
     .rz-bubble{left: 4px;bottom: -11px;background: #4a6a7d;color: #fff;z-index: 1;}
     .rz-floor, .rz-ceil{display: none;}
-}
+} */
 *[ng-click]{
     outline: none;
 }

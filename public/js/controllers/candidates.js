@@ -56,6 +56,35 @@
                 return items;
               };
             })
+            .directive('myslider', function($timeout){
+                return {
+                    scope:{
+                        data : '='
+                    },
+                    template : '<div id="{{data.id}}"><div id="{{data.id}}-handle" class="ui-slider-handle"></div></div',
+                    restrict :'AE',
+                    link:function(scope, element, attr){
+                        $timeout(function(){
+                            var handle = $( "#" + scope.data.id + '-handle' );
+                            $('#' + scope.data.id ).slider({
+                                min: scope.data.min,
+                                max: scope.data.max,
+                                range: "max",
+                                value: scope.data.value,
+                                create: function() {
+                                    var initVal = $( this ).slider( "value" );
+                                    handle.text( initVal );
+                                    scope.data.model = initVal;
+                                },
+                                slide: function( event, ui ) {
+                                    handle.text( ui.value )
+                                    scope.data.model = ui.value;
+                                }
+                            });
+                        })
+                    }
+                }           
+            })
 
     CandidateController.$inject = [];
     ResumeRoomController.$inject = ['$state', '$window', '$uibModal', '$http', '$q', '$timeout', 'ajaxService', 'App'];
@@ -534,24 +563,24 @@
         var vm = this,
             prevDescription,
             prevWeightages,
-            prevScores,
             cancelerAI,
             cancelerSearchResume,
+            prevScores = "",
             totalResumes = [],
             paginationOptions = {
                 pageNumber: 1,
                 pageSize: 15,
                 scoreRange : null
             },
-            slider =  {
+            /*slider =  {
                 value: null,
                 options: {
                     floor:0,
                     ceil:5,
                     showSelectionBar: true
-                    /*onChange: function(id) {
+                    onChange: function(id) {
                         vm.searchResume();
-                    }*/
+                    }
                 }
             },
             weightages = {
@@ -559,8 +588,15 @@
                 location : 5,
                 exp : 5, 
                 skills : 5 
-            };
+            };*/
+            slider_opts = {
+                min : 0,
+                max : 5,
+                value : 5,
+                model : null
+            }
 
+        this.App = App;
         this.selectedResues = [];
         this.responseResumes = [];
         this.displayResumes = [];
@@ -572,24 +608,30 @@
         this.hideSearchResume = false;
         this.hideResumesList = false;
         this.hasAITrigger = false;
-        this.sliderRole = angular.copy(slider);
+        this.slider_opts_role = angular.extend({}, slider_opts, {id : 'ai-role'})
+        this.slider_opts_loc = angular.extend({}, slider_opts, {id : 'ai-loc'})
+        this.slider_opts_exp = angular.extend({}, slider_opts, {id : 'ai-exp'})
+        this.slider_opts_skills = angular.extend({}, slider_opts, {id : 'ai-skills'})
+
+        /*this.sliderRole = angular.copy(slider);
         this.sliderLoc = angular.copy(slider);
         this.sliderExp = angular.copy(slider);
-        this.sliderSkills = angular.copy(slider); 
+        this.sliderSkills = angular.copy(slider); */
+
         this.filterOptions = [{ key : "75-100" , value:'75% to 100%' }, { key:"50-75" , value : '50% to 75%'}, { key:"0-50", value : '0% to 50%'}];
         this.filterOptions2 = [{ key : 10 , value:'Top 10' }, { key: 50 , value : 'Top 50'}, { key:100, value : 'Top 100'}];
 
-        //this.description = "Software engineer in Bangalore with 2 years of experience who knows jquery, html, css and angularjs";
-        this.description = "";
+        this.description = "Software engineer in Bangalore with 2 years of experience who knows jquery, html, css and angularjs";
+        //this.description = "";
         this.critera = {};
-        this.weightages = angular.copy(weightages);
+        //this.weightages = angular.copy(weightages);
 
         this.aiTrigger = function() {
             //if(this.description != prevDescription){
                 if(this.description.length > 3){
                     var params = {};
                         params.jd = this.description;
-                        params.weights = this.weightages;
+                        //params.weights = this.weightages;
 
                     if (cancelerAI) {
                         cancelerAI.resolve();
@@ -645,7 +687,7 @@
         }
 
         this.filterByScore = function(){
-            if(!vm.displayResumes.length){
+            if(!vm.displayResumes.length || (!this.selectedScore.length && prevScores == this.selectedScore.toString()) ){
                 return;
             }
 
@@ -659,13 +701,13 @@
                 });
                 filteredResumes = angular.copy($filter('unique')(filteredResumes,'email'));
                 vm.tempResumes = angular.copy(filteredResumes );
-                vm.displayCount = filteredResumes.length;  
-                vm.loadResumes();
+                vm.displayCount = filteredResumes.length; 
             }else{
                 vm.tempResumes = angular.copy(vm.responseResumes);
                 vm.displayCount = vm.responseResumes.length;
             }
-            //prevScores = this.selectedScore.toString();
+            vm.loadResumes();
+            prevScores = this.selectedScore.toString();
             
         }
 
@@ -681,6 +723,7 @@
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                 },
+                responseType:'arraybuffer',
                 method: 'POST',
                 url: App.base_url + 'getZipDownload',
                 //data: $.param({company_id : CompanyDetails.company_code, resumes : vm.selectedResues}),
@@ -738,9 +781,13 @@
         function searchResume () {
             var params = {};
                 params.jd = vm.description;
-                params.weights = vm.weightages;
+                params.weights = {
+                    role : vm.slider_opts_role.model,
+                    location : vm.slider_opts_loc.model,
+                    exp : vm.slider_opts_exp.model,
+                    skills : vm.slider_opts_skills.model
+                };
                 params.tenant_id = CompanyDetails.company_code;
-                //params.tenant_id = 'tenant1';
 
             cancelerSearchResume = $q.defer();
             vm.inProgressSearchResumes = true;
@@ -754,7 +801,6 @@
                 timeout: cancelerSearchResume.promise
             })
             .then(function (response) {
-                console.log(response)
                 if (response.status == 200) {
                     vm.displayResumes = [];
                     vm.selectedResues = [];
@@ -765,24 +811,16 @@
                         resumes.skills = resumes.skills.toString().slice(1, -1).concat('.').split(',').join(', ');
                     });
                     vm.responseResumes = angular.copy(response.data.resumes) || [];
+                    
                     vm.tempResumes = angular.copy(vm.responseResumes);
                     vm.displayCount = vm.responseResumes.length;
                     vm.loadResumes();
                     vm.submitted = false;
-                    /*try{
-                        if(!response.data.resumes.length){
-                            vm.displayResumes = [];
-                        }else{
-                            vm.loadResumes();
-                        }
-                    }
-                    catch(error){
-                        vm.displayResumes = [];
-                        prevWeightages = [];
-                        vm.tempResumes = [];
-                    }*/
                     vm.inProgressSearchResumes = false;
-                    //vm.toogleSearchResume();
+                    if(!$('#hide-resumes').is(':visible')){
+                        vm.toogleResumesList();
+                    }
+                    vm.toogleSearchResume();
                 }
                 else if (response.data.status_code == 400) {
                     $window.location = App.base_url + 'logout';
@@ -800,9 +838,11 @@
             return filtered;
         }
 
-        $timeout(function () {
+        /*$timeout(function () {
             $scope.$broadcast('reCalcViewDimensions');
-        }, 100);
+        }, 100);*/
+
+        //window.location = App.API_DOMAIN + "getZipDownload?company_id=230&resumes=900";
 
     }
 

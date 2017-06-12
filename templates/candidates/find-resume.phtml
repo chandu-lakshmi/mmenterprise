@@ -78,21 +78,26 @@
 						        			<div layout="row">
 						        				<div layout="column" flex="50">
 						        					<span>Role</span>
-						        					<rzslider class="weightages" rz-slider-model="FindResumeCtrl.weightages.role" rz-slider-options="FindResumeCtrl.sliderRole.options"></rzslider>
+						        					<myslider data="FindResumeCtrl.slider_opts_role"></myslider>
+
+						        					<!-- <rzslider class="weightages" rz-slider-model="FindResumeCtrl.weightages.role" rz-slider-options="FindResumeCtrl.sliderRole.options"></rzslider> -->
 						        				</div>
 						        				<div layout="column" flex="50">
 						        					<span>Location</span>
-						        					<rzslider class="weightages" rz-slider-model="FindResumeCtrl.weightages.location" rz-slider-options="FindResumeCtrl.sliderLoc.options"></rzslider>
+						        					<myslider data="FindResumeCtrl.slider_opts_loc"></myslider>
+						        					<!-- <rzslider class="weightages" rz-slider-model="FindResumeCtrl.weightages.location" rz-slider-options="FindResumeCtrl.sliderLoc.options"></rzslider> -->
 						        				</div>
 						        			</div>
 						        			<div layout="row">
 						        				<div layout="column" flex="50">
 						        					<span>Experience</span>
-						        					<rzslider class="weightages" rz-slider-model="FindResumeCtrl.weightages.exp" rz-slider-options="FindResumeCtrl.sliderExp.options"></rzslider>
+						        					<myslider data="FindResumeCtrl.slider_opts_exp"></myslider>
+						        					<!-- <rzslider class="weightages" rz-slider-model="FindResumeCtrl.weightages.exp" rz-slider-options="FindResumeCtrl.sliderExp.options"></rzslider> -->
 						        				</div>
 						        				<div layout="column" flex="50">
 						        					<span>Skills</span>
-						        					<rzslider class="weightages" rz-slider-model="FindResumeCtrl.weightages.skills" rz-slider-options="FindResumeCtrl.sliderSkills.options"></rzslider>
+						        					<myslider data="FindResumeCtrl.slider_opts_skills"></myslider>
+						        					<!-- <rzslider class="weightages" rz-slider-model="FindResumeCtrl.weightages.skills" rz-slider-options="FindResumeCtrl.sliderSkills.options"></rzslider> -->
 						        				</div>
 						        			</div>
 						        		</div>
@@ -143,7 +148,7 @@
 						<div layout="row">
 							<div class="box" ng-style="{'opacity': FindResumeCtrl.hideResumesList ? '0' : ''}">
 								<span ng-if="FindResumeCtrl.selectedResues.length" class="animated fadeIn" ng-bind="'Selected: ' + FindResumeCtrl.selectedResues.length"></span>
-								<a ng-click="FindResumeCtrl.downloadZip()">Download Zip</a>	
+								<a href="http://192.168.33.10/sprint11/api/getZipDownload?company_id=230&resumes=900" download target="_self">Download Zip</a>	
 							</div>
 						</div>
 					</div>
@@ -158,13 +163,51 @@
 							<div class="col-sm-4" ng-repeat="resume in FindResumeCtrl.displayResumes">
 							  	<md-card ng-style="{'margin-top' : $index <= 2 ? '0' : '12px'}" class="animated zoomIn" ng-click="FindResumeCtrl.selectResume(resume.email)">
 							  		<i class="material-icons select" ng-style="{'opacity' : FindResumeCtrl.selectedResues.indexOf(resume.email) > -1 ? '1' : '0' }">network_cell</i>
-							        <md-card-title>
+							  		<div layout="column" class="resume">
+							  			<div layout="row">
+							  				<div layout="column" flex="75">
+							  					<span class="role" ng-bind="resume.role"></span>
+    								            <h3 class="name ellipsis" ng-bind="resume.name">
+    								            	<md-tooltip class="find-resume-name" md-delay="demo.delayTooltip" ng-bind="resume.name"></md-tooltip>
+    								            </h3>
+    								            <span ng-bind="resume.experience + ' Years Experience'"></span>
+							  				</div>
+							  				<div layout="column" class="cir-progress" flex="25">
+						  						<div class="score" ng-bind="resume.total_score  | number : 0"></div>
+						  						<round-progress
+						  							class="ai-score"
+						  						    max="100"
+						  						    current="resume.total_score"
+						  						    color="{{ resume.total_score >=90 ? '#2dad8a' : (resume.total_score <= 70 ? '#f98015' : '#16aefa')}}"
+						  						    bgcolor="#eff0f2"
+						  						    radius="30"
+						  						    stroke="4"
+						  						    semi="false"
+						  						    rounded="true"
+						  						    clockwise="true"
+						  						    responsive="false"
+						  						    duration="800"
+						  						    animation="easeInOutQuart"
+						  						    animation-delay="1">
+						  						</round-progress>
+							  				</div>
+							  			</div>
+							  			<div layout="row">
+							  				<span class="skill">SKILLS</span>
+							  			</div>
+							  			<div layout="row">
+							  				<span dotdotdot="resume.skills" class="dotdotdot" ng-bind="resume.skills != '.' ? resume.skills : '--'">
+							  					<md-tooltip style="width: 326px;padding: 6px;" class="find-resume-name animated fadeIn" md-delay="demo.delayTooltip" ng-bind="resume.skills"></md-tooltip>
+							  				</span>
+							  			</div>
+							  		</div>
+							        <!-- <md-card-title>
 							          	<md-card-title-text flex="80">
-								            <span class="md-subhead" ng-bind="resume.role"></span>
-								            <span class="md-headline ellipsis" ng-bind="resume.name">
-								            	<md-tooltip class="find-resume-name" md-delay="demo.delayTooltip" ng-bind="resume.name"></md-tooltip>
-								            </span>
-								            <span class="md-subhead" ng-bind="resume.experience + ' Years Experience'"></span>
+							        								            <span class="md-subhead" ng-bind="resume.role"></span>
+							        								            <span class="md-headline ellipsis" ng-bind="resume.name">
+							        								            	<md-tooltip class="find-resume-name" md-delay="demo.delayTooltip" ng-bind="resume.name"></md-tooltip>
+							        								            </span>
+							        								            <span class="md-subhead" ng-bind="resume.experience + ' Years Experience'"></span>
 							          	</md-card-title-text>
 							          	<md-card-title-media flex="20">
 							            	<div class="md-media-sm card-media">
@@ -187,24 +230,24 @@
 							            		</round-progress>
 							            	</div>
 							          	</md-card-title-media>
-							        </md-card-title>
-							        <md-card-content>
+							        </md-card-title> -->
+							        <!-- <md-card-content>
 							        	<md-card-title>
-								          	<md-card-title-text>
-									            <span class="md-subhead">SKILLS</span>
-									            <span dotdotdot="resume.skills" class="dotdotdot" ng-bind="resume.skills != '.' ? resume.skills : '--'">
-									            	<md-tooltip style="width: 326px;padding: 6px;" class="find-resume-name animated fadeIn" md-delay="demo.delayTooltip" ng-bind="resume.skills"></md-tooltip>
-									            </span>
-								            </md-card-title-text>
-							        	</md-card-title>
-   									</md-card-content>
+						        								          	<md-card-title-text>
+						        									            <span class="md-subhead">SKILLS</span>
+						        									            <span dotdotdot="resume.skills" class="dotdotdot" ng-bind="resume.skills != '.' ? resume.skills : '--'">
+						        									            	<md-tooltip style="width: 326px;padding: 6px;" class="find-resume-name animated fadeIn" md-delay="demo.delayTooltip" ng-bind="resume.skills"></md-tooltip>
+						        									            </span>
+						        								            </md-card-title-text>
+						        	</md-card-title>
+							           									</md-card-content> -->
 							        <md-card-actions layout="row" layout-align="end center">
 							          	<span flex>
 							          		<i class="material-icons">location_on</i> 
 							          		<span ng-bind="resume.location"></span>
 							          	</span> 
 							          	<md-button class="md-fab md-mini md-primary" aria-label="Use Android" ng-click="FindResumeCtrl.downloadSingleResume(resume.doc_id);$event.stopPropagation();">
-								          	<i class="material-icons">file_download</i>
+							          	<a href="http://192.168.33.10/sprint11/api/getResumeDownload?company_id=230&resumes=900" download target="_self"><i class="material-icons">file_download</i></a>
 								        </md-button>
 							        </md-card-actions>
 							  	</md-card>
