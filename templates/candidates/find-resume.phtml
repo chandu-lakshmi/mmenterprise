@@ -46,7 +46,7 @@
 									<div layout="column">
 										<div layout="row" class="list">
 											<div layout="column" flex="20" class="key">Experience :</div>
-											<div layout="column" flex="80" ng-bind="FindResumeCtrl.criteria.exp"></div>
+											<div layout="column" flex="80" ng-if="FindResumeCtrl.criteria.exp" ng-bind="FindResumeCtrl.criteria.exp + ' Year(s)'"></div>
 										</div>
 										<md-divider></md-divider>
 									</div>
