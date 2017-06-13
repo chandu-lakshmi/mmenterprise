@@ -289,4 +289,20 @@
                 }
             ])
 
+            .run(function($window, $rootScope, $uibModal) {
+                $rootScope.online = navigator.onLine;
+                $window.addEventListener("offline", function() {
+                    $rootScope.$apply(function() {
+                        $rootScope.online = false;
+                        $('#network-error').modal('show');
+                    });
+                }, false);
+                $window.addEventListener("online", function() {
+                    $rootScope.$apply(function() {
+                        $rootScope.online = true;
+                        $('#network-error').modal('hide');
+                    });
+                }, false);
+            })
+
 }());

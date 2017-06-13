@@ -135,6 +135,19 @@ and open the template in the editor.
         
         <script type="text/javascript" src="public/js/app.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
         <script type="text/javascript" src="public/js/helpers/http-interceptor.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
-    <script type="text/javascript" src="public/js/controllers/candidates.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
+        <script type="text/javascript" src="public/js/controllers/candidates.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
+
+        <div id="network-error" class="modal network-error" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-header animated zoomIn">
+                    <div class="header-pic"><img src="public/images/network.png" alt="network-error"></div>
+                    <h2>Network Error</h2>
+                    <p>There is a problem communication with the server.</p>
+                    <p>Please contact your administrator or can reload the application.</p>
+                    <md-button class="mm-btn"  onClick="window.location.reload()">RELOAD APPLICATION</md-button>
+                </div>
+            </div>
+        </div>
+
     </body>
 </html>

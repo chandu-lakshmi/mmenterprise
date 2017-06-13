@@ -88,7 +88,7 @@
 
     CandidateController.$inject = [];
     ResumeRoomController.$inject = ['$state', '$window', '$uibModal', '$http', '$q', '$timeout', 'ajaxService', 'CompanyDetails', 'App'];
-    UploadResumeController.$inject = ['$scope', '$http', '$timeout', '$window', '$uibModal', 'App'];
+    UploadResumeController.$inject = ['$rootScope', '$scope', '$http', '$timeout', '$window', '$uibModal', 'App'];
     FindResumeController.$inject = ['$scope', '$http', '$q', '$timeout', '$filter', '$window', 'CompanyDetails', 'App'];
 
 
@@ -411,7 +411,7 @@
     }
 
 
-    function UploadResumeController($scope, $http, $timeout, $window, $uibModal, App) {
+    function UploadResumeController($rootScope, $scope, $http, $timeout, $window, $uibModal, App) {
         /*Note filesInQueue object status 0 for file init upload, 1 for file moved done, 2 for s3 done , 3 for discard*/
         var vm = this;
 
@@ -437,7 +437,6 @@
                 file_name: 'certificate_org_name',
                 path_name: 'certificate_path',
                 onSubmit: function (id, name, size) {
-                    console.log(arguments)
                     vm.errorMsg = '';
                     vm.filesInQueue.push({tempId:id, fileName : name, value : 0, fileSize : Math.round(size / 1024) + 'KB', status : 0, show : 0 , hasFileMoved : false , cls : ''});
                     $scope.$apply();
@@ -559,6 +558,7 @@
                 }
             });
         }
+        
     }
 
 
@@ -811,6 +811,8 @@
         /*$timeout(function () {
             $scope.$broadcast('reCalcViewDimensions');
         }, 100);*/
+
+
 
 
     }

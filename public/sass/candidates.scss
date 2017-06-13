@@ -312,6 +312,21 @@ $background : #eeeff1;
 }
 
 
+#network-error{
+    &.modal {text-align: center;padding: 0!important;}
+    &.modal:before {content: ''; display: inline-block;height: 100%;vertical-align: middle;margin-right: -4px;}
+    .modal-dialog {display: inline-block;text-align: left;vertical-align: middle;
+        .modal-header{width: 500px;text-align:center;min-height: 370px;padding: 36px;background: #fff;margin: 0 auto;
+            .header-pic{height: 80px;
+                img{width: 80px}
+            }
+            h2{color: #5d5757}
+            p{color: #b2b2b2}
+            button{padding: 5px 20px;border-radius: 0;margin-top: 28px;cursor: pointer;}
+        }
+    }
+}
+
    /*  position: absolute;
    border-left: 48px solid green;
    border-top: 48px solid transparent;
