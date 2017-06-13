@@ -168,7 +168,7 @@
 							  		<div layout="column" class="resume">
 							  			<div layout="row">
 							  				<div layout="column" flex="75">
-							  					<span class="role" ng-bind="resume.role"></span>
+							  					<span class="role" ng-bind="!resume.role ? '--' : resume.role"></span>
     								            <h3 class="name ellipsis" ng-bind="resume.name">
     								            	<md-tooltip class="find-resume-name" md-delay="demo.delayTooltip" ng-bind="resume.name"></md-tooltip>
     								            </h3>
@@ -246,7 +246,7 @@
 							        <md-card-actions layout="row" layout-align="end center">
 							          	<span flex>
 							          		<i class="material-icons">location_on</i> 
-							          		<span ng-bind="resume.location"></span>
+							          		<span ng-bind="!resume.location ? '--' : resume.location"></span>
 							          	</span> 
 							          	<!-- <md-button class="md-fab md-mini md-primary" aria-label="Use Android"> -->
 							          	<a href="{{FindResumeCtrl.downloadResume(resume.doc_id)}}" ng-click="$event.stopPropagation();" download target="_self"><i class="material-icons down">file_download</i></a>

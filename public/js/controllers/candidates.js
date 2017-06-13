@@ -7,89 +7,11 @@
             .controller('ResumeRoomController', ResumeRoomController)
             .controller('UploadResumeController', UploadResumeController)
             .controller('FindResumeController', FindResumeController)
-            .directive('dotdotdot', function($timeout){
-                return {
-                    restrict: 'A',
-                    link: function(scope, element, attributes) {
-                        scope.$watch(attributes.dotdotdot, function() {
-                            setTimeout(function() {
-                                element.dotdotdot();
-                            });
-                        });
-                    }
-                }
-            })
-            .filter('unique', function () {
-              return function (items, filterOn) {
-
-                if (filterOn === false) {
-                  return items;
-                }
-
-                if ((filterOn || angular.isUndefined(filterOn)) && angular.isArray(items)) {
-                  var hashCheck = {}, newItems = [];
-
-                  var extractValueToCompare = function (item) {
-                    if (angular.isObject(item) && angular.isString(filterOn)) {
-                      return item[filterOn];
-                    } else {
-                      return item;
-                    }
-                  };
-
-                  angular.forEach(items, function (item) {
-                    var valueToCheck, isDuplicate = false;
-
-                    for (var i = 0; i < newItems.length; i++) {
-                      if (angular.equals(extractValueToCompare(newItems[i]), extractValueToCompare(item))) {
-                        isDuplicate = true;
-                        break;
-                      }
-                    }
-                    if (!isDuplicate) {
-                      newItems.push(item);
-                    }
-
-                  });
-                  items = newItems;
-                }
-                return items;
-              };
-            })
-            .directive('myslider', function($timeout){
-                return {
-                    scope:{
-                        data : '='
-                    },
-                    template : '<div id="{{data.id}}"><div id="{{data.id}}-handle" class="ui-slider-handle"></div></div',
-                    restrict :'AE',
-                    link:function(scope, element, attr){
-                        $timeout(function(){
-                            var handle = $( "#" + scope.data.id + '-handle' );
-                            $('#' + scope.data.id ).slider({
-                                min: scope.data.min,
-                                max: scope.data.max,
-                                range: "max",
-                                value: scope.data.value,
-                                create: function() {
-                                    var initVal = $( this ).slider( "value" );
-                                    handle.text( initVal );
-                                    scope.data.model = initVal;
-                                },
-                                slide: function( event, ui ) {
-                                    handle.text( ui.value )
-                                    scope.data.model = ui.value;
-                                }
-                            });
-                        })
-                    }
-                }           
-            })
 
     CandidateController.$inject = [];
     ResumeRoomController.$inject = ['$state', '$window', '$uibModal', '$http', '$q', '$timeout', 'ajaxService', 'CompanyDetails', 'App'];
     UploadResumeController.$inject = ['$rootScope', '$scope', '$http', '$timeout', '$window', '$uibModal', 'App'];
-    FindResumeController.$inject = ['$scope', '$http', '$q', '$timeout', '$filter', '$window', 'CompanyDetails', 'App'];
+    FindResumeController.$inject = ['$scope', '$http', '$q', '$timeout', '$filter', 'orderByFilter', '$window', 'CompanyDetails', 'App'];
 
 
     function CandidateController() {
@@ -457,6 +379,9 @@
                                 file.status = 3;
                                 file.hasFileMoved = true;
                                 file.serverMsg = !response.msg ? 'File has an invalid extension, it should be one of doc, docx, pdf, rtf, jpg, png, jpeg, txt.' : response.msg;
+                                if(!$rootScope.online){
+                                    file.serverMsg = 'Network Error';
+                                }
                                 file.cls = 'error';
                             }
                         })
@@ -562,7 +487,7 @@
     }
 
 
-    function FindResumeController($scope, $http, $q, $timeout, $filter, $window, CompanyDetails, App) {
+    function FindResumeController($scope, $http, $q, $timeout, $filter, orderByFilter, $window, CompanyDetails, App) {
 
         var vm = this,
             prevDescription,
@@ -702,6 +627,7 @@
                     filteredResumes = filteredResumes.concat(minMaxFilter(Number(arrValue[0]), Number(arrValue[1])));
                 });
                 filteredResumes = angular.copy($filter('unique')(filteredResumes,'email'));
+                filteredResumes = angular.copy(orderByFilter(filteredResumes, 'total_score', true));
                 vm.tempResumes = angular.copy(filteredResumes );
                 vm.displayCount = filteredResumes.length; 
             }else{

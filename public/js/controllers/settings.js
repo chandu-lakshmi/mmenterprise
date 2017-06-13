@@ -1119,6 +1119,7 @@
 
         vm.loader = true;
         vm.mintmeshPartnes = [];
+        vm.showSynWithZenefits = false;
         vm.show_error = false;
         vm.partnerDetails = {};
 
@@ -1180,10 +1181,14 @@
             })
                     .then(function (response) {
                         var status = response.data.status_code;
+                        vm.showSynWithZenefits = false;
                         vm.loader = false;
                         if (status == 200) {
                             vm.partnerDetails = response.data.data[0];
                             vm.checkbox = vm.partnerDetails.hcm_status == 'enable' ? true : false;
+                            if(url == 'get_zenefits_hcm_list' && vm.partnerDetails){
+                                vm.showSynWithZenefits = !vm.partnerDetails.hasOwnProperty('hcm_access_token');
+                            }
                         }
                         else if (status == 403) {
                             vm.partnerDetails.hcm_id = vm.mintmeshPartnes[vm.activeIndex].hcm_id;

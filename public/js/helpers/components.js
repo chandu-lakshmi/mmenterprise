@@ -3,7 +3,9 @@
     angular
 
             .module('app.components', ['app.constants'])
+
             .controller('CommonConfirmMessage', CommonConfirmMessage)
+
             .directive('bucketsView', bucketsView)
             .directive('epiSearch', epiSearch)
             .directive('socialSharing', socialSharing)
@@ -11,11 +13,16 @@
             .directive('copyUrl', copyUrl)
             .directive('checkCharZero', checkCharZero)
             .directive('ripplelink', ripplelink)
+            .directive('dotdotdot' , dotdotdot)
+            .directive('myslider', myslider)
+
+            .filter('unique', unique)
+
+
             //.directive('epiMultipleSelect', epiMultipleSelect)
             // .directive('toolTip', toolTip)
 
             .config(function (App) {
-
                 angular.extend(App.Components, {
                     spinner: function (opts) {
                         var config = {
@@ -28,12 +35,12 @@
                         return spinner;
                     }
                 })
-
             })
             
 
     CommonConfirmMessage.$inject = ["$scope", "$uibModalInstance", "paramsMdService", '$window', '$http', '$state', 'CONFIG'];
     epiSearch.$inject = ['App'];
+    myslider.$inject = ['$timeout'];
 
 
     
@@ -369,6 +376,88 @@
         }
     }
 
+
+    function dotdotdot($timeout) {
+        return {
+            restrict: 'A',
+            link: function(scope, element, attributes) {
+                scope.$watch(attributes.dotdotdot, function() {
+                    setTimeout(function() {
+                        element.dotdotdot();
+                    });
+                });
+            }
+        }
+    }
+
+    function unique() {
+        return function (items, filterOn) {
+
+            if (filterOn === false) {
+              return items;
+            }
+
+            if ((filterOn || angular.isUndefined(filterOn)) && angular.isArray(items)) {
+              var hashCheck = {}, newItems = [];
+
+              var extractValueToCompare = function (item) {
+                if (angular.isObject(item) && angular.isString(filterOn)) {
+                  return item[filterOn];
+                } else {
+                  return item;
+                }
+              };
+
+              angular.forEach(items, function (item) {
+                var valueToCheck, isDuplicate = false;
+
+                for (var i = 0; i < newItems.length; i++) {
+                  if (angular.equals(extractValueToCompare(newItems[i]), extractValueToCompare(item))) {
+                    isDuplicate = true;
+                    break;
+                  }
+                }
+                if (!isDuplicate) {
+                  newItems.push(item);
+                }
+
+              });
+              items = newItems;
+            }
+            return items;
+        };
+    }
+
+    function myslider($timeout) {
+        return {
+            scope:{
+                data : '='
+            },
+            template : '<div id="{{data.id}}"><div id="{{data.id}}-handle" class="ui-slider-handle"></div></div',
+            restrict :'AE',
+            link:function(scope, element, attr){
+                $timeout(function(){
+                    var handle = $( "#" + scope.data.id + '-handle' );
+                    $('#' + scope.data.id ).slider({
+                        min: scope.data.min,
+                        max: scope.data.max,
+                        range: "max",
+                        value: scope.data.value,
+                        create: function() {
+                            var initVal = $( this ).slider( "value" );
+                            handle.text( initVal );
+                            scope.data.model = initVal;
+                        },
+                        slide: function( event, ui ) {
+                            handle.text( ui.value )
+                            scope.data.model = ui.value;
+                        }
+                    });
+                })
+            }
+        }
+    }
+    
     /*function toolTip(){
      return {
      restrict : 'AC',
