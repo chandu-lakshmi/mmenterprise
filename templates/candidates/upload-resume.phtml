@@ -8,35 +8,37 @@
 				<li class="error-msg text-center" ng-bind="UploadResumeCtrl.errorMsg"></li>
 			</ul>
 		</div>
-		<md-list class="list" flex="70">
-			<md-list-item class="md-1-line header-action">
-		        <div class="md-list-item-text" ng-show="(UploadResumeCtrl.filesInQueue | filter : {'hasFileMoved' : false }).length">
-		          	<span class="title">Files in Queue ({{(UploadResumeCtrl.filesInQueue | filter : {'hasFileMoved' : false }).length }})</span>
-		        </div>
-		        <p></p>
-	        	<md-button class="discard action" ng-show="(UploadResumeCtrl.filesInQueue | filter : {'status' : 0}).length" ng-click="UploadResumeCtrl.discardFile()">DISCARD</md-button>
-	        	<md-button class="delete action deleteALL" ng-show="(UploadResumeCtrl.filesInQueue | filter : {'cls' : 'success' }).length > 1"  ng-click="UploadResumeCtrl.deleteFile(false)">DELETE ALL</md-button>
-	      	</md-list-item>
-			<div class="file-container" flex="95">
-				<md-list-item class="animated fadeIn" ng-repeat="file in UploadResumeCtrl.filesInQueue" ng-if="!file.show" ng-click="">
-					<span class="md-avatar" ng-style="{'background-position':file.fileName.split('.').pop()=='pdf' ? '13px -53px' : '13px 3px'}"></span>
-					<p flex="85" class="md-list-item-text" layout="column">
-						<span class="file-name">{{file.fileName}}</span>
-						<md-progress-linear  ng-class="{'discard' : file.status == 3}" ng-if="(!file.status || file.status == 3) && !file.serverMsg"" md-mode="determinate" value="{{file.value}}"></md-progress-linear>
-						<span class="file-size" ng-if="(!file.status || file.status == 3) && !file.serverMsg">{{(file.remaining || 0) + ' of ' + file.fileSize +' (' + file.value + '% done)'}}</span>
-						<span class="{{file.cls}} animated fadeIn" ng-if="file.serverMsg" ng-bind="file.serverMsg"></span>
-					</p>
-				    <md-button aria-label="cancel" class="md-icon-button md-secondary close" ng-if="!file.status || file.status == 3" ng-click="UploadResumeCtrl.deleteDiscardFile($index)">
-			        	<i class="material-icons abort" id="{{file.tempId}}">cancel</i>
-			      	</md-button>
-			      	<img src="public/images/loader/spin.gif" ng-if="file.status == 1" class="loader" alt="loading">
-			      	<md-button aria-label="delete" class="md-icon-button md-secondary delete" ng-click="UploadResumeCtrl.deleteFile(true)" ng-if="file.status == 2">
-			      		<i class="material-icons">delete</i>
-			      	</md-button>
-			      	<md-divider></md-divider>
-		  		</md-list-item>
-		  	</div>
-		</md-list>
+		<div>
+			<md-list class="list" flex="70">
+				<md-list-item class="md-1-line header-action">
+			        <div class="md-list-item-text" ng-show="(UploadResumeCtrl.filesInQueue | filter : {'inProgress' : true }).length">
+			          	<span class="title">Files in Queue ({{(UploadResumeCtrl.filesInQueue | filter : {'inProgress' : true }).length }})</span>
+			        </div>
+			        <p></p>
+		        	<md-button class="discard action" ng-show="(UploadResumeCtrl.filesInQueue | filter : {'status' : 'qqUploading'}).length" ng-click="UploadResumeCtrl.discardFile()">DISCARD</md-button>
+		        	<md-button class="delete action deleteALL" ng-show="(UploadResumeCtrl.filesInQueue | filter : {'cls' : 'success' }).length > 1"  ng-click="UploadResumeCtrl.deleteFile(false)">DELETE ALL</md-button>
+		      	</md-list-item>
+				<div class="file-container" flex="95">
+					<md-list-item class="animated fadeIn" ng-repeat="file in UploadResumeCtrl.filesInQueue" ng-if="file.showFile" ng-click="">
+						<span class="md-avatar" ng-style="{'background-position':file.fileName.split('.').pop()=='pdf' ? '13px -53px' : '13px 3px'}"></span>
+						<p flex="85" class="md-list-item-text" layout="column">
+							<span class="file-name">{{file.fileName}}</span>
+							<md-progress-linear  ng-class="{'discard' : file.status == 'failed'}" ng-if="(file.status == 'qqUploading' || file.status == 'failed') && !file.serverMsg" md-mode="determinate" value="{{file.value}}"></md-progress-linear>
+							<span class="file-size" ng-if="(file.status == 'qqUploading' || file.status == 'failed') && !file.serverMsg">{{(file.remaining || 0) + ' of ' + file.fileSize +' (' + file.value + '% done)'}}</span>
+							<span class="{{file.cls}} animated fadeIn" ng-if="file.serverMsg" ng-bind="file.serverMsg"></span>
+						</p>
+					    <md-button aria-label="cancel" class="md-icon-button md-secondary close" ng-if="file.status == 'qqUploading' || file.status == 'failed'" ng-click="UploadResumeCtrl.deleteDiscardFile($index)">
+				        	<i class="material-icons abort" id="{{file.tempId}}">cancel</i>
+				      	</md-button>
+				      	<img src="public/images/loader/spin.gif" ng-if="file.status == 's3Uploading'" class="loader" alt="loading">
+				      	<md-button aria-label="delete" class="md-icon-button md-secondary delete" ng-click="UploadResumeCtrl.deleteFile(true)" ng-if="file.status == 's3Uploaded'">
+				      		<i class="material-icons">delete</i>
+				      	</md-button>
+				      	<md-divider></md-divider>
+			  		</md-list-item>
+			  	</div>
+			</md-list>
+		</div>
 	</div>
 </div>
 

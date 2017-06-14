@@ -1193,6 +1193,9 @@
                         else if (status == 403) {
                             vm.partnerDetails.hcm_id = vm.mintmeshPartnes[vm.activeIndex].hcm_id;
                             vm.checkbox = false;
+                            if(url == 'get_zenefits_hcm_list'){
+                                vm.showSynWithZenefits = true;
+                            }
                         }
                     }, function (response) {
                         console.log(response)

@@ -334,7 +334,12 @@
 
 
     function UploadResumeController($rootScope, $scope, $http, $timeout, $window, $uibModal, App) {
-        /*Note filesInQueue object status 0 for file init upload, 1 for file moved done, 2 for s3 done , 3 for discard*/
+        /*Note filesInQueue object status( 
+            1->qqUploading--valid file(progressbar(blue), crossMark) 
+            2-> s3Uploading--apiTriggering(progressbar(blue), loadingspinner), 
+            3->s3Uploaded--sucesss(serverMessage , deleteIcon) 
+            4->failed(progressbar(red), crossMark);
+        */
         var vm = this;
 
         this.filesInQueue = [];
@@ -360,7 +365,7 @@
                 path_name: 'certificate_path',
                 onSubmit: function (id, name, size) {
                     vm.errorMsg = '';
-                    vm.filesInQueue.push({tempId:id, fileName : name, value : 0, fileSize : Math.round(size / 1024) + 'KB', status : 0, show : 0 , hasFileMoved : false , cls : ''});
+                    vm.filesInQueue.push({tempId:id, fileName : name, value : 0, fileSize : Math.round(size / 1024) + 'KB', showFile : true , status : 'qqUploading', inProgress : true , cls : ''});
                     $scope.$apply();
 
                 },
@@ -369,15 +374,15 @@
                     if(response.success){
                         angular.forEach(vm.filesInQueue, function(file, fileIndex){
                             if(file.tempId == id){
-                                file.status = 1;  
+                                file.status = 's3Uploading';  
                             }
                         })
                         uploadResume(id, response);
                     }else{
                         angular.forEach(vm.filesInQueue, function(file, fileIndex){
                             if(file.tempId == id){
-                                file.status = 3;
-                                file.hasFileMoved = true;
+                                file.status = 'failed';
+                                file.inProgress = false;
                                 file.serverMsg = !response.msg ? 'File has an invalid extension, it should be one of doc, docx, pdf, rtf, jpg, png, jpeg, txt.' : response.msg;
                                 if(!$rootScope.online){
                                     file.serverMsg = 'Network Error';
@@ -394,13 +399,13 @@
                     $scope.$apply();
                 },
                 onCancel : function(id, fileName){
-                    if(fileName){
+                    /*if(fileName){
                         angular.forEach(vm.filesInQueue, function(file, fileIndex){
                             if(file.tempId == id){
                                 vm.filesInQueue[fileIndex].cancel = 1;
                             }
                         })
-                    }
+                    }*/
 
                 },
                 showMessage: function (msg, obj) {
@@ -420,9 +425,9 @@
 
         this.discardFile = function(){
             angular.forEach(vm.filesInQueue, function(file){
-                if(file.status == 0){
-                    file.status = 3;
-                    file.hasFileMoved = true;
+                if(file.status == 'qqUploading'){
+                    file.status = 'failed';
+                    file.inProgress = false;
                     vm.fileHandler.cancel(file.tempId)
                 }   
             })
@@ -430,12 +435,12 @@
 
         this.deleteDiscardFile = function(index){
             var file = vm.filesInQueue[index];
-            if(file.status != 3){
-                file.status = 3;
-                file.hasFileMoved = true;
+            if(file.status != 'failed'){
+                file.status = 'failed';
+                file.inProgress = false;
                 vm.fileHandler.cancel(file.tempId); 
             }
-            file.show = 1;
+            file.showFile = false;
         }
 
         this.deleteFile = function(flag){
@@ -471,16 +476,14 @@
             })
             .then(function (response) {
                 if (response.data.status_code == 200) {
-                    vm.filesInQueue[id].status = 2;
-                    vm.filesInQueue[id].hasFileMoved = true;
-                    vm.filesInQueue[id].serverMsg = response.data.message.msg[0];
+                    vm.filesInQueue[id].status = 's3Uploaded';
                     vm.filesInQueue[id].cls = 'success';
                 }else if(response.data.status_code == 403){
-                    vm.filesInQueue[id].serverMsg = response.data.message.msg[0];
-                    vm.filesInQueue[id].status = 3;
-                    vm.filesInQueue[id].hasFileMoved = true;
+                    vm.filesInQueue[id].status = "failed";
                     vm.filesInQueue[id].cls = 'error';
                 }
+                vm.filesInQueue[id].serverMsg = response.data.message.msg[0];
+                vm.filesInQueue[id].inProgress = false;
             });
         }
         
@@ -628,7 +631,7 @@
                 });
                 filteredResumes = angular.copy($filter('unique')(filteredResumes,'email'));
                 filteredResumes = angular.copy(orderByFilter(filteredResumes, 'total_score', true));
-                vm.tempResumes = angular.copy(filteredResumes );
+                vm.tempResumes = angular.copy(filteredResumes);
                 vm.displayCount = filteredResumes.length; 
             }else{
                 vm.tempResumes = angular.copy(vm.responseResumes);
