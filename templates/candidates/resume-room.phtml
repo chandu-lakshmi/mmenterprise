@@ -100,7 +100,7 @@
 <script type="text/ng-template" id="download-resume.html">
 	<div class="ui-grid-cell-contents ui-grid-download" title="{{ COL_FIELD }}" ng-click="$event.stopPropagation()">
 		<a href="{{grid.appScope.downloadResume(row)}}" download>
-			<div class="download" ng-click="grid.appScope.downloadResume(row)"></div>
+			<div class="download" ng-click="grid.appScope.downloadResume(row, 'fullpath')"></div>
 		</a>
 		<a href="{{$root.base_url+'viewer?url='+grid.appScope.downloadResume(row)}}" title="" target="_blank">{{ COL_FIELD }}</a>
 	</div>

@@ -323,11 +323,11 @@
             return row.entity.awt_status;
         }
 
-        function downloadResume(row) {
+        function downloadResume(row, path) {
             //console.log(row)
             //row.entity.resume_path
             //return App.API_DOMAIN + "getResumeDownload?company_id=" + CompanyDetails.company_code + "&doc_id=" + 900;
-            return App.API_DOMAIN + "getResumeDownload?company_id=329244&doc_id=1";
+            return path ? App.API_DOMAIN + "getResumeDownload?company_id=329244&doc_id=1" : "https://s3-us-west-2.amazonaws.com/mintmesh%2Fstg%2FNonMintmeshReferredResumes/237_19729497811885490299_Madhusudhan_Reddy_iOS_1496057042.doc";
         }
 
     }

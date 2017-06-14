@@ -294,6 +294,7 @@
                 $window.addEventListener("offline", function() {
                     $rootScope.$apply(function() {
                         $rootScope.online = false;
+                        $('#network-error').modal({show: true, keyboard: false, backdrop: 'static'});
                     });
                 }, false);
                 $window.addEventListener("online", function() {
