@@ -52,19 +52,26 @@
                                         <div ng-if="suc_fac_form.hcm_password.$error.required && IntMngCtrl.show_error"  class="has-error-msg">Please Enter Password.</div>
                                     </md-input-container>
                                 </div>
-                                <div flex="50">
-                                    <md-input-container ng-if="IntMngCtrl.activeIndex == 1">
-									
+                                <div flex="50" ng-if="IntMngCtrl.activeIndex == 1">
+                                    <md-input-container>
                                         <!--<label>Access Token</label>-->
                                         <input name="hcm_access_token" type="hidden" ng-model="IntMngCtrl.partnerDetails.hcm_access_token" required ng-class="{'has-error-border': suc_fac_form.hcm_access_token.$invalid && IntMngCtrl.show_error}" >
                                         <div ng-if="suc_fac_form.hcm_access_token.$error.required && IntMngCtrl.show_error"  class="has-error-msg">Please Enter Access Token.</div>
                                     </md-input-container>
                                 </div>
-								<div>
-								<md-input-container ng-if="IntMngCtrl.activeIndex == 1 && IntMngCtrl.showSynWithZenefits">
-								    <a href="https://secure.zenefits.com/oauth2/platform-authorize/?scope=platform companies people people.work_email people.manager people.status employments&state={{companyDetails.company_code}}&redirect_uri=http://202.63.105.85/mintmesh/getAccesCode&response_type=code&client_id=5zr3cWgul9peKR3al1AZ65qcsbWC3JJr8jRd0IDU"><img alt="Sync with Zenefits" height="42" width="200" src="https://secure.zenefits.com/static/img/sync-with-zenefits-platform-button.png" srcset="https://secure.zenefits.com/static/img/sync-with-zenefits-platform-button.png 1x, https://secure.zenefits.com/static/img/sync-with-zenefits-platform-button@2x.png 2x" style="border:none;"/></a>
-								 </md-input-container>
-								</div>
+                            </div>
+                            <div layout="row" ng-if="IntMngCtrl.activeIndex == 1">
+                                <div flex="50">
+                                    <div ng-if="!IntMngCtrl.showSynWithZenefits" style="padding-top: 31px;color: #0ba082">
+                                        Integration done successfully. Check 'Start running the job'  check box to get the contacts from Zenifits.
+                                    </div>
+                                </div>
+                                <div flex="50" class="text-right">
+                                    <md-input-container>
+                                        <a ng-if="IntMngCtrl.showSynWithZenefits" href="https://secure.zenefits.com/oauth2/platform-authorize/?scope=platform companies people people.work_email people.manager people.status employments&state={{companyDetails.company_code}}&redirect_uri=http://202.63.105.85/mintmesh/getAccesCode&response_type=code&client_id=5zr3cWgul9peKR3al1AZ65qcsbWC3JJr8jRd0IDU"><img alt="Sync with Zenefits" height="42" width="200" src="https://secure.zenefits.com/static/img/sync-with-zenefits-platform-button.png" srcset="https://secure.zenefits.com/static/img/sync-with-zenefits-platform-button.png 1x, https://secure.zenefits.com/static/img/sync-with-zenefits-platform-button@2x.png 2x" style="border:none;"/></a>
+                                        <img ng-if="!IntMngCtrl.showSynWithZenefits" alt="Sync with Zenefits" height="42" width="200" src="https://secure.zenefits.com/static/img/sync-with-zenefits-platform-button.png" srcset="https://secure.zenefits.com/static/img/sync-with-zenefits-platform-button.png 1x, https://secure.zenefits.com/static/img/sync-with-zenefits-platform-button@2x.png 2x" style="opacity: 0.8;border: none;cursor:not-allowed;"/>
+                                    </md-input-container>
+                                </div>
                             </div>
                             <div layout="row">
                                 <div flex="50">
