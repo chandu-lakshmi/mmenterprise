@@ -1120,6 +1120,7 @@
         vm.loader = true;
         vm.mintmeshPartnes = [];
         vm.showSynWithZenefits = false;
+        vm.showSynWithZenefitsMsg = false;
         vm.show_error = false;
         vm.partnerDetails = {};
 
@@ -1188,6 +1189,7 @@
                             vm.checkbox = vm.partnerDetails.hcm_status == 'enable' ? true : false;
                             if(url == 'get_zenefits_hcm_list' && vm.partnerDetails){
                                 vm.showSynWithZenefits = !vm.partnerDetails.hasOwnProperty('hcm_access_token');
+                                vm.showSynWithZenefitsMsg = !vm.showSynWithZenefits;
                             }
                         }
                         else if (status == 403) {
@@ -1195,6 +1197,7 @@
                             vm.checkbox = false;
                             if(url == 'get_zenefits_hcm_list'){
                                 vm.showSynWithZenefits = true;
+                                vm.showSynWithZenefitsMsg = true;
                             }
                         }
                     }, function (response) {

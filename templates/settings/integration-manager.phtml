@@ -53,16 +53,16 @@
                                     </md-input-container>
                                 </div>
                                 <div flex="50" ng-if="IntMngCtrl.activeIndex == 1">
-                                    <md-input-container>
                                         <!--<label>Access Token</label>-->
                                         <input name="hcm_access_token" type="hidden" ng-model="IntMngCtrl.partnerDetails.hcm_access_token" required ng-class="{'has-error-border': suc_fac_form.hcm_access_token.$invalid && IntMngCtrl.show_error}" >
                                         <div ng-if="suc_fac_form.hcm_access_token.$error.required && IntMngCtrl.show_error"  class="has-error-msg">Please Enter Access Token.</div>
-                                    </md-input-container>
+                                    <!-- <md-input-container>
+                                    </md-input-container> -->
                                 </div>
                             </div>
                             <div layout="row" ng-if="IntMngCtrl.activeIndex == 1">
                                 <div flex="50">
-                                    <div ng-if="!IntMngCtrl.showSynWithZenefits" style="padding-top: 31px;color: #0ba082">
+                                    <div ng-if="IntMngCtrl.showSynWithZenefitsMsg" style="padding-top: 31px;color: #0ba082">
                                         Integration done successfully. Check 'Start running the job'  check box to get the contacts from Zenifits.
                                     </div>
                                 </div>
