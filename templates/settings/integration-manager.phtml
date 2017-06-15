@@ -60,25 +60,19 @@
                                     </md-input-container> -->
                                 </div>
                             </div>
+                            
+                            <p ng-if="IntMngCtrl.activeIndex == 1 && IntMngCtrl.showSynWithZenefitsMsg" class="animated fadeIn" style="color: #0ba082">Integration done successfully. Check '<b>Start running the job</b>'  check box to get the contacts from Zenifits.
+                            </p>
+
                             <div layout="row" ng-if="IntMngCtrl.activeIndex == 1">
                                 <div flex="50">
-                                    <div ng-if="IntMngCtrl.showSynWithZenefitsMsg" style="padding-top: 31px;color: #0ba082">
-                                        Integration done successfully. Check 'Start running the job'  check box to get the contacts from Zenifits.
-                                    </div>
+                                    <md-checkbox style="margin:10px 0" ng-model="IntMngCtrl.checkbox" aria-label="start project" class="md-primary">Start running the job</md-checkbox>
                                 </div>
                                 <div flex="50" class="text-right">
-                                    <md-input-container>
-                                        <a ng-if="IntMngCtrl.showSynWithZenefits" href="https://secure.zenefits.com/oauth2/platform-authorize/?scope=platform companies people people.work_email people.manager people.status employments&state={{companyDetails.company_code}}&redirect_uri=http://202.63.105.85/mintmesh/getAccesCode&response_type=code&client_id=5zr3cWgul9peKR3al1AZ65qcsbWC3JJr8jRd0IDU"><img alt="Sync with Zenefits" height="42" width="200" src="https://secure.zenefits.com/static/img/sync-with-zenefits-platform-button.png" srcset="https://secure.zenefits.com/static/img/sync-with-zenefits-platform-button.png 1x, https://secure.zenefits.com/static/img/sync-with-zenefits-platform-button@2x.png 2x" style="border:none;"/></a>
-                                        <img ng-if="!IntMngCtrl.showSynWithZenefits" alt="Sync with Zenefits" height="42" width="200" src="https://secure.zenefits.com/static/img/sync-with-zenefits-platform-button.png" srcset="https://secure.zenefits.com/static/img/sync-with-zenefits-platform-button.png 1x, https://secure.zenefits.com/static/img/sync-with-zenefits-platform-button@2x.png 2x" style="opacity: 0.8;border: none;cursor:not-allowed;"/>
-                                    </md-input-container>
+                                    <a ng-if="IntMngCtrl.showSynWithZenefits" href="https://secure.zenefits.com/oauth2/platform-authorize/?scope=platform companies people people.work_email people.manager people.status employments&state={{companyDetails.company_code}}&redirect_uri=http://202.63.105.85/mintmesh/getAccesCode&response_type=code&client_id=5zr3cWgul9peKR3al1AZ65qcsbWC3JJr8jRd0IDU"><img alt="Sync with Zenefits" height="42" width="200" src="https://secure.zenefits.com/static/img/sync-with-zenefits-platform-button.png" srcset="https://secure.zenefits.com/static/img/sync-with-zenefits-platform-button.png 1x, https://secure.zenefits.com/static/img/sync-with-zenefits-platform-button@2x.png 2x" style="border:none;"/></a>
+                                    <img ng-if="!IntMngCtrl.showSynWithZenefits" alt="Sync with Zenefits" height="42" width="200" src="https://secure.zenefits.com/static/img/sync-with-zenefits-platform-button.png" srcset="https://secure.zenefits.com/static/img/sync-with-zenefits-platform-button.png 1x, https://secure.zenefits.com/static/img/sync-with-zenefits-platform-button@2x.png 2x" style="opacity: 0.8;border: none;cursor:not-allowed;"/>
                                 </div>
                             </div>
-                            <div layout="row">
-                                <div flex="50">
-                                    <md-checkbox ng-model="IntMngCtrl.checkbox" aria-label="start project" class="md-primary">Start running the job</md-checkbox>
-                                </div>
-                            </div>
-
                             <div class="loader" ng-if="IntMngCtrl.loader">
                                 <img src="public/images/loader/spin.gif" alt="loader" width="25%">
                             </div>
