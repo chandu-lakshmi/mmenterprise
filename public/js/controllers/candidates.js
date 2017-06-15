@@ -2,7 +2,7 @@
     "use strict";
 
     angular
-            .module('app.candidates', ['ui.grid', 'ui.grid.selection', 'rzModule', 'angular-svg-round-progressbar'])
+            .module('app.candidates', ['ui.grid', 'ui.grid.selection', 'angular-svg-round-progressbar'])
             .controller('CandidateController', CandidateController)
             .controller('ResumeRoomController', ResumeRoomController)
             .controller('UploadResumeController', UploadResumeController)
