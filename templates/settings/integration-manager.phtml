@@ -60,9 +60,11 @@
                                     </md-input-container> -->
                                 </div>
                             </div>
-                            
-                            <p ng-if="IntMngCtrl.activeIndex == 1 && IntMngCtrl.showSynWithZenefitsMsg" class="animated fadeIn" style="color: #0ba082">Integration done successfully. Check '<b>Start running the job</b>'  check box to get the contacts from Zenifits.
-                            </p>
+
+                            <div ng-if="IntMngCtrl.activeIndex == 1 && IntMngCtrl.showSynWithZenefitsMsg" class="animated fadeIn text-center" style="color: #0ba082">
+                                <div>Integration done successfully.</div>
+                                <p>Check Start running the job check box to get the contacts from Zenifits.</p>
+                            </div>
 
                             <div layout="row" ng-if="IntMngCtrl.activeIndex == 1">
                                 <div flex="50">
