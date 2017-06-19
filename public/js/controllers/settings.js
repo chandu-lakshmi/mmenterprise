@@ -1219,6 +1219,7 @@
                 vm.loading = false;
                 angular.extend(vm.partnerDetails, data)
                 vm.checkbox = data.hcm_status == 'enable' ? true : false;
+                vm.startRunJob = vm.checkbox;
             });
         }
 
