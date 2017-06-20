@@ -324,10 +324,7 @@
         }
 
         function downloadResume(row, path) {
-            //console.log(row)
-            //row.entity.resume_path
-            //return App.API_DOMAIN + "getResumeDownload?company_id=" + CompanyDetails.company_code + "&doc_id=" + 900;
-            return path ? App.API_DOMAIN + "getResumeDownload?company_id=329244&doc_id=1" : row.entity.resume_path;
+            return path ? (App.API_DOMAIN + "getResumeDownload?company_id=" + CompanyDetails.company_code + "&doc_id=" + row.entity.document_id) : row.entity.resume_path;
         }
 
     }
