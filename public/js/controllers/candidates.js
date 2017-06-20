@@ -2,7 +2,7 @@
     "use strict";
 
     angular
-            .module('app.candidates', ['ui.grid', 'ui.grid.selection', 'angular-svg-round-progressbar'])
+            .module('app.candidates', ['ui.grid', 'ui.grid.selection', 'angular-svg-round-progressbar', 'textAngular'])
             .controller('CandidateController', CandidateController)
             .controller('ResumeRoomController', ResumeRoomController)
             .controller('UploadResumeController', UploadResumeController)
@@ -324,7 +324,6 @@
         }
 
         function downloadResume(row, path) {
-            console.log(row)
             //console.log(row)
             //row.entity.resume_path
             //return App.API_DOMAIN + "getResumeDownload?company_id=" + CompanyDetails.company_code + "&doc_id=" + 900;
@@ -384,7 +383,7 @@
                             if(file.tempId == id){
                                 file.status = 'failed';
                                 file.inProgress = false;
-                                file.serverMsg = !response.msg ? 'File has an invalid extension, it should be one of doc, docx, pdf, rtf, jpg, png, jpeg, txt.' : response.msg;
+                                file.serverMsg = !response.msg ? 'File not uploaded.' : response.msg;
                                 if(!$rootScope.online){
                                     file.serverMsg = 'Network Error';
                                 }
@@ -505,23 +504,6 @@
                 pageSize: 15,
                 scoreRange : null
             },
-            /*slider =  {
-                value: null,
-                options: {
-                    floor:0,
-                    ceil:5,
-                    showSelectionBar: true
-                    onChange: function(id) {
-                        vm.searchResume();
-                    }
-                }
-            },
-            weightages = {
-                role : 5,    
-                location : 5,
-                exp : 5, 
-                skills : 5 
-            };*/
             slider_opts = {
                 min : 0,
                 max : 5,
@@ -544,77 +526,64 @@
         this.slider_opts_exp = angular.extend({}, slider_opts, {id : 'ai-exp'})
         this.slider_opts_skills = angular.extend({}, slider_opts, {id : 'ai-skills'})
 
-        /*this.sliderRole = angular.copy(slider);
-        this.sliderLoc = angular.copy(slider);
-        this.sliderExp = angular.copy(slider);
-        this.sliderSkills = angular.copy(slider); */
-
         this.filterOptions = [{ key : "75-100" , value:'75% to 100%' }, { key:"50-75" , value : '50% to 75%'}, { key:"0-50", value : '0% to 50%'}];
         this.filterOptions2 = [{ key : 10 , value:'Top 10' }, { key: 50 , value : 'Top 50'}, { key:100, value : 'Top 100'}];
 
         //this.description = "Software engineer in Bangalore with 2 years of experience who knows jquery, html, css and angularjs";
         this.description = "";
         this.critera = {};
-        //this.weightages = angular.copy(weightages);
 
         this.aiTrigger = function() {
-            //if(this.description != prevDescription){
-                if(this.description.length > 3){
-                    var params = {};
-                        params.jd = this.description;
-                        //params.weights = this.weightages;
+            if(this.description.length > 3){
+                var params = {};
+                    params.jd = this.description;
 
-                    if (cancelerAI) {
-                        cancelerAI.resolve();
-                    }
-
-                    if (cancelerSearchResume) {
-                        cancelerSearchResume.resolve();
-                    }
-
-                    cancelerAI = $q.defer();
-                    this.inProgressAI = true;
-                    $http({
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                        },
-                        method: 'POST',
-                        url: App.base_url + 'getResumeParser',
-                        data: $.param(params),
-                        timeout: cancelerAI.promise
-                    })
-                    .then(function (response) {
-                        if (response.status == 200) {
-                            vm.criteria = response.data;
-                            if(response.data.skills)
-                                vm.criteria.skills = response.data.skills.toString().split(",").join(", ");
-                            prevDescription = vm.description;
-                            vm.inProgressAI = false;
-                            vm.hasAITrigger = true;
-                        }
-                        else if (response.data.status_code == 400) {
-                            $window.location = App.base_url + 'logout';
-                        }
-                    });
+                if (cancelerAI) {
+                    cancelerAI.resolve();
                 }
-            //}
-        }
 
-        this.searchResume = function() {
-            //if((JSON.stringify(prevWeightages) != JSON.stringify(vm.weightages)) || (this.description != prevDescription)){
                 if (cancelerSearchResume) {
                     cancelerSearchResume.resolve();
                 }
-                searchResume();
-                this.selectedScore = "";
-            //}
+
+                cancelerAI = $q.defer();
+                this.inProgressAI = true;
+                $http({
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                    },
+                    method: 'POST',
+                    url: App.base_url + 'getResumeParser',
+                    data: $.param(params),
+                    timeout: cancelerAI.promise
+                })
+                .then(function (response) {
+                    if (response.status == 200) {
+                        vm.criteria = response.data;
+                        if(response.data.skills)
+                            vm.criteria.skills = response.data.skills.toString().split(",").join(", ");
+                        prevDescription = vm.description;
+                        vm.inProgressAI = false;
+                        vm.hasAITrigger = true;
+                    }
+                    else if (response.data.status_code == 400) {
+                        $window.location = App.base_url + 'logout';
+                    }
+                });
+            }
+        }
+
+        this.searchResume = function() {
+            if (cancelerSearchResume) {
+                cancelerSearchResume.resolve();
+            }
+            searchResume();
+            this.selectedScore = "";
         }
 
         this.loadResumes = function(){
-            //if(vm.displayResumes.length >= paginationOptions.pageSize){
-                var resumes = vm.tempResumes.splice(0 , paginationOptions.pageSize);
-                vm.displayResumes = vm.displayResumes.concat(angular.copy(resumes));
-            //}
+            var resumes = vm.tempResumes.splice(0 , paginationOptions.pageSize);
+            vm.displayResumes = vm.displayResumes.concat(angular.copy(resumes));
         }
 
         this.filterByScore = function(){
@@ -737,13 +706,6 @@
             });
             return filtered;
         }
-
-        /*$timeout(function () {
-            $scope.$broadcast('reCalcViewDimensions');
-        }, 100);*/
-
-
-
 
     }
 

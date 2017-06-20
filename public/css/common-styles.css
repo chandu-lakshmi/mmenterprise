@@ -92,7 +92,9 @@ input::-moz-placeholder {
     z-index: -1; }
     .qq-uploader .qq-upload-list li:not(.qq-upload-success) {
       background: rgba(0, 0, 0, 0.5);
-      height: 100%; }
+      height: 100%;
+      font-size: 13px;
+      padding: 6px; }
       .qq-uploader .qq-upload-list li:not(.qq-upload-success) .upload-fail {
         word-break: break-word; }
       .qq-uploader .qq-upload-list li:not(.qq-upload-success) .progress-text {

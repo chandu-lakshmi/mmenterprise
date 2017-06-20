@@ -1118,6 +1118,7 @@
         var vm = this;
 
         vm.loader = true;
+        vm.zenefitsInProgress = false;
         vm.mintmeshPartnes = [];
         vm.showSynWithZenefits = false;
         vm.show_error = false;
@@ -1163,6 +1164,8 @@
 
         function getPartners(id) {
             var url;
+            vm.loader = true;
+            vm.zenefitsInProgress = true;
             if (id == 2) {
                 url = 'get_zenefits_hcm_list';
             }else if(id == 1){
@@ -1170,7 +1173,6 @@
             }else if(id == 3){
                  url = 'get_icims_hcm_list';
             }
-
             $http({
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -1190,6 +1192,9 @@
                             if(url == 'get_zenefits_hcm_list' && vm.partnerDetails){
                                 vm.showSynWithZenefits = !vm.partnerDetails.hasOwnProperty('hcm_access_token');
                             }
+                            if(url == 'get_zenefits_hcm_list'){
+                               vm.zenefitsInProgress = false; 
+                            }
                         }
                         else if (status == 403) {
                             vm.partnerDetails.hcm_id = vm.mintmeshPartnes[vm.activeIndex].hcm_id;
@@ -1197,6 +1202,7 @@
                             vm.startRunJob = false;
                             if(url == 'get_zenefits_hcm_list'){
                                 vm.showSynWithZenefits = true;
+                                vm.zenefitsInProgress = false; 
                             }
                         }
                     }, function (response) {

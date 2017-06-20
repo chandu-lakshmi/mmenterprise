@@ -781,6 +781,21 @@ body.set-password {
         margin-top: 0;
         min-height: 95%;
         position: relative; }
+        .settings .manager-tab .saml .rt md-card .im-spinner, .settings .manager-tab .hcms .rt md-card .im-spinner {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          background: #fff;
+          z-index: 99; }
+          .settings .manager-tab .saml .rt md-card .im-spinner div, .settings .manager-tab .hcms .rt md-card .im-spinner div {
+            position: absolute;
+            left: calc(50% - 32px);
+            top: calc(50% - 32px); }
+            .settings .manager-tab .saml .rt md-card .im-spinner div img, .settings .manager-tab .hcms .rt md-card .im-spinner div img {
+              width: 64px;
+              height: 64px; }
         .settings .manager-tab .saml .rt md-card .loader, .settings .manager-tab .hcms .rt md-card .loader {
           position: absolute;
           top: 35%;
@@ -942,6 +957,10 @@ body.set-password {
             .settings .manager-tab .saml .rt md-card md-card-content .modern-select .chosen-container-active .chosen-choices, .settings .manager-tab .saml .rt md-card md-card-content .modern-select .chosen-container-has-value .chosen-choices, .settings .manager-tab .hcms .rt md-card md-card-content .modern-select .chosen-container-active .chosen-choices, .settings .manager-tab .hcms .rt md-card md-card-content .modern-select .chosen-container-has-value .chosen-choices {
               border: 0;
               border-bottom: 1px solid #208d6e; }
+          .settings .manager-tab .saml .rt md-card md-card-content .msg-sync, .settings .manager-tab .hcms .rt md-card md-card-content .msg-sync {
+            color: #0ba082; }
+          .settings .manager-tab .saml .rt md-card md-card-content .msg-job-run, .settings .manager-tab .hcms .rt md-card md-card-content .msg-job-run {
+            color: #50778e; }
         .settings .manager-tab .saml .rt md-card md-card-actions, .settings .manager-tab .hcms .rt md-card md-card-actions {
           position: absolute;
           width: 93%;

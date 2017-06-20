@@ -1,9 +1,13 @@
 <div class="find-resume" id="page">
 	<div class="container">
+		<!-- <form name="sp">
+			<div text-angular class="mm-text-editor" name="ig" ta-max-text="10" ta-toolbar= "[
+		      ['bold', 'italics', 'underline', 'strikeThrough', 'ul', 'ol', 'justifyLeft', 'justifyCenter', 'justifyRight', 'indent', 'outdent', 'quote', 'charcount']]" required ng-model="htmlVariable"></div>
+		</form> -->
 		<div layout="column">
 			<div class="search-resume">
 				<div layout="row" class="headline">
-					<div flex="50" class="name first">
+					<div flex="50" class="name first" ng-click="window.alert()">
 						JOB DESCRIPTION
 					</div>
 					<div flex="50" class="name animated" ng-style="{'opacity': FindResumeCtrl.hideSearchResume ? '0' : ''}">

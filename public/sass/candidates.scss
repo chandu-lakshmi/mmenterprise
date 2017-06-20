@@ -284,34 +284,19 @@ $background : #eeeff1;
                 }
             }
             .arrow-toogle{position: absolute;right: 10px;font-size: 40px;top: 10px;color: #8e8e8e;cursor: pointer;-webkit-transform: rotate(0deg);transform: rotate(0deg);-webkit-transition: -webkit-transform 0.3s ease-in-out;transition: -webkit-transform 0.3s ease-in-out;transition: transform 0.3s ease-in-out;transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;}
+            .arrow-spin{-webkit-transform: rotate(180deg) !important;transform: rotate(180deg) !important;}
         }
     }
 
 }
 
+*[ng-click]{outline: none;}
+
+/* tooltip in resume room */
 .find-resume-name{background: rgba(0, 0, 0, 0.7); padding: 0 6px;}
-.find-resume-name.md-show{
-    transition: all 0.5s linear !important;
-} 
-/* .weightages{margin-top: 10px;
-    .rz-bar-wrapper{cursor: pointer;;
-        .rz-bar{background: #eee;height: 6px;}
-        .rz-selection{background: #4a6a7d}
-    }
-    .rz-pointer{border-radius: 6px;border: 6px solid #4a6a7d;background: transparent;width: 24px;height: 24px;top:-9px;outline:none;box-shadow: -1px 0 #f9f9f9;
-        &:after{width: 0;};
-    }
-    .rz-bubble{left: 4px;bottom: -11px;background: #4a6a7d;color: #fff;z-index: 1;}
-    .rz-floor, .rz-ceil{display: none;}
-} */
-*[ng-click]{
-    outline: none;
-}
-.arrow-spin{
-    -webkit-transform: rotate(180deg) !important;transform: rotate(180deg) !important;
-}
+.find-resume-name.md-show{transition: all 0.5s linear !important;} 
 
-
+/* Model for network error */
 #network-error{z-index: 999999;
     &.modal {text-align: center;padding: 0!important;}
     &.modal:before {content: ''; display: inline-block;height: 100%;vertical-align: middle;margin-right: -4px;}
@@ -326,14 +311,15 @@ $background : #eeeff1;
         }
     }
 }
-
-   /*  position: absolute;
-   border-left: 48px solid green;
-   border-top: 48px solid transparent;
-   height: 48px;
-   width: 48px;
-   transform: rotate(90deg);
-   left: 0;
-   top: 0; */
-
    
+/* text-editor for textarea */
+.mm-text-editor{position: relative;
+    .ta-toolbar{position: absolute; bottom: 0;left: 0;z-index: 1;padding: 6px;
+        button, #toolbarCC{background: #f5f5f5; color: #6f6f6f;opacity: 1;
+            &.active{color : #181818;box-shadow: none;}
+        }
+    }
+    .ta-scroll-window > .ta-bind{padding-bottom: 52px;
+
+    }
+}

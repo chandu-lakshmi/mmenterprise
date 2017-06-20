@@ -447,6 +447,11 @@ body.set-password{overflow: hidden;}
                           .rt{padding-left: 20px;padding-top: 33px;
                               select{visibility: hidden;}
                               md-card{padding: 20px;margin-top: 0;min-height: 95%;position: relative;
+                                      .im-spinner{position: absolute;width: 100%;height: 100%;top: 0;left: 0;background: #fff;z-index: 99;
+                                        div{position: absolute;left: calc(50% - 32px);top: calc(50% - 32px);
+                                          img{width:64px;height:64px}
+                                        }
+                                      }
                                       .loader{position: absolute;top: 35%;left: 45%;
                                               img{width: 45%;}
                                               h4.err{text-align: center;line-height: 6em;color: #5e5e5e;}
@@ -526,6 +531,8 @@ body.set-password{overflow: hidden;}
                                                                          .chosen-choices{border: 0;border-bottom: 1px solid #208d6e}
                                                                      }
                                                       }
+                                                      .msg-sync{color: #0ba082}
+                                                      .msg-job-run{color: #50778e;}
                                       }
                                       md-card-actions{position: absolute;width: 93%;bottom: 10px;
                                                       .bor{border-top: 1px solid #ccc;padding-top: 15px;}
