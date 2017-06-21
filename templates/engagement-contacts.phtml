@@ -138,10 +138,15 @@
 <!-- resume -->
 <script type="text/ng-template" id="resumes-template.phtml">
 	<div class="ui-grid-cell-contents ui-grid-download">
-		<a href="{{grid.appScope.downloadResume(row)}}" download ng-click="$event.stopPropagation()">
-			<div class="download" ng-click="grid.appScope.downloadResume(row)"></div>
+		<a href="{{grid.appScope.downloadResume(row, 'down')}}" download ng-click="$event.stopPropagation()">
+			<div class="download"></div>
 		</a>
 		<a href="{{$root.base_url+'viewer?url='+grid.appScope.downloadResume(row)}}" title="" target="_blank">{{ COL_FIELD }}</a>
+
+		<!-- <a href="{{grid.appScope.downloadResume(row)}}" download ng-click="$event.stopPropagation()">
+			<div class="download" ng-click="grid.appScope.downloadResume(row)"></div>
+		</a>
+		<a href="{{$root.base_url+'viewer?url='+grid.appScope.downloadResume(row)}}" title="" target="_blank">{{ COL_FIELD }}</a> -->
 	</div>
 </script>
 

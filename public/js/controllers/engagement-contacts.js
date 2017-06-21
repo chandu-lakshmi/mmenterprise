@@ -11,7 +11,7 @@
         .service('tabsName', tabsName);
 
         EngagementContactsController.$inject = ['$window', 'uiGridConstants', '$http', '$q', 'jobDetails', '$uibModal',
-                                                    'tabsName', 'ajaxData', 'ajaxService', 'UserDetails', 'App']
+                                                    'tabsName', 'ajaxData', 'ajaxService', 'UserDetails', 'CompanyDetails', 'App']
         ReferralStatus.$inject = ['$scope', '$window', '$uibModalInstance', 'referralObj', '$http', 'ajaxService', 'App'];
         ajaxService.$inject = ['$http', '$q', 'jobDetails', 'App'];
 
@@ -57,7 +57,7 @@
         var tab_name = '';
     }
 
-    function EngagementContactsController($window, uiGridConstants, $http, $q, jobDetails, $uibModal, tabsName, ajaxData, ajaxService, UserDetails, App){
+    function EngagementContactsController($window, uiGridConstants, $http, $q, jobDetails, $uibModal, tabsName, ajaxData, ajaxService, UserDetails, CompanyDetails, App){
 
     	$window.scrollTo(0,0);
 
@@ -114,8 +114,8 @@
         vm.gridOptions.data = vm.data;
 
         // resume url
-        function downloadResume(row){
-            return row.entity.resume_path;
+        function downloadResume(row, path){
+            return path ? (App.API_DOMAIN + "getResumeDownload?company_id=" + CompanyDetails.company_code + "&doc_id=" + row.entity.document_id) : row.entity.resume_path;
         }
 
         // Accept and Decline status change
