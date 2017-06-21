@@ -596,7 +596,7 @@
                     var arrValue = value.split('-');
                     filteredResumes = filteredResumes.concat(minMaxFilter(Number(arrValue[0]), Number(arrValue[1])));
                 });
-                filteredResumes = angular.copy($filter('unique')(filteredResumes,'email'));
+                filteredResumes = angular.copy($filter('unique')(filteredResumes,'doc_id'));
                 filteredResumes = angular.copy(orderByFilter(filteredResumes, 'total_score', true));
                 vm.tempResumes = angular.copy(filteredResumes);
                 vm.displayCount = filteredResumes.length; 
@@ -616,13 +616,12 @@
         }
 
         this.downloadZip = function () {
-            //return App.API_DOMAIN + "getZipDownload?company_id=" + CompanyDetails.company_code + "&resumes=" + "900,901";
-            return App.API_DOMAIN + "getZipDownload?company_id=329244&resumes=2,1";
+            return App.API_DOMAIN + "getZipDownload?company_id=" + CompanyDetails.company_code + "&resumes=" + vm.selectedResues.toString();
+            //return App.API_DOMAIN + "getZipDownload?company_id=329244&resumes=2,1";
         }
 
         this.downloadResume = function (doc_id) {
-            //return App.API_DOMAIN + "getResumeDownload?company_id=" + CompanyDetails.company_code + "&doc_id=" + 900;
-            return App.API_DOMAIN + "getResumeDownload?company_id=329244&doc_id=1";
+            return App.API_DOMAIN + "getResumeDownload?company_id=" + CompanyDetails.company_code + "&doc_id=" + doc_id;
         }
 
         this.selectResume = function(resumeEmail){

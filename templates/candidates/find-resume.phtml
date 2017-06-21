@@ -167,8 +167,8 @@
 						</div>
 						<div class="row" infinite-scroll='FindResumeCtrl.loadResumes()'  infinite-scroll-distance='0' infinite-scroll-container="'.find-resume'">
 							<div class="col-sm-4" ng-repeat="resume in FindResumeCtrl.displayResumes">
-							  	<md-card ng-style="{'margin-top' : $index <= 2 ? '0' : '12px'}" class="animated zoomIn" ng-click="FindResumeCtrl.selectResume(resume.email)">
-							  		<i class="material-icons select" ng-style="{'opacity' : FindResumeCtrl.selectedResues.indexOf(resume.email) > -1 ? '1' : '0' }">network_cell</i>
+							  	<md-card ng-style="{'margin-top' : $index <= 2 ? '0' : '12px'}" class="animated zoomIn" ng-click="FindResumeCtrl.selectResume(resume.doc_id)">
+							  		<i class="material-icons select" ng-style="{'opacity' : FindResumeCtrl.selectedResues.indexOf(resume.doc_id) > -1 ? '1' : '0' }">network_cell</i>
 							  		<div layout="column" class="resume">
 							  			<div layout="row">
 							  				<div layout="column" flex="75">
