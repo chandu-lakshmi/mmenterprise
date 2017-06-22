@@ -67,11 +67,11 @@
                                 </div> -->
                             </div>
                             <div ng-if="IntMngCtrl.activeIndex == 1 && !IntMngCtrl.zenefitsInProgress && !IntMngCtrl.showSynWithZenefits" class="animated fadeIn text-center msg-sync">Synced Successfully.</div>
-                            <div layout="row" ng-if="IntMngCtrl.activeIndex == 1">
+                            <div layout="row">
                                 <div flex="50">
                                     <md-checkbox style="margin:10px 0" ng-model="IntMngCtrl.checkbox" aria-label="start project" class="md-primary">Start running the job</md-checkbox>
                                 </div>
-                                <div flex="50" class="text-right">
+                                <div flex="50" class="text-right" ng-if="IntMngCtrl.activeIndex == 1">
                                     <a ng-if="IntMngCtrl.showSynWithZenefits" href="https://secure.zenefits.com/oauth2/platform-authorize/?scope=platform companies people people.work_email people.manager people.status employments&state={{companyDetails.company_code}}&redirect_uri=http://202.63.105.85/mintmesh/getAccesCode&response_type=code&client_id=5zr3cWgul9peKR3al1AZ65qcsbWC3JJr8jRd0IDU"><img alt="Sync with Zenefits" height="42" width="200" src="https://secure.zenefits.com/static/img/sync-with-zenefits-platform-button.png" srcset="https://secure.zenefits.com/static/img/sync-with-zenefits-platform-button.png 1x, https://secure.zenefits.com/static/img/sync-with-zenefits-platform-button@2x.png 2x" style="border:none;"/></a>
                                     <img ng-if="!IntMngCtrl.showSynWithZenefits" alt="Sync with Zenefits" height="42" width="200" src="https://secure.zenefits.com/static/img/sync-with-zenefits-platform-button.png" srcset="https://secure.zenefits.com/static/img/sync-with-zenefits-platform-button.png 1x, https://secure.zenefits.com/static/img/sync-with-zenefits-platform-button@2x.png 2x" style="opacity: 0.8;border: none;cursor:not-allowed;"/>
                                 </div>
