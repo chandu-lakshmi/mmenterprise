@@ -74,6 +74,13 @@ return [
         'EMAIL_PARSER' => [
             // Angular Application domain
             'EMAIL_PARSER_DOMAIN' => 'http://202.63.105.85/mmenterprise/email-parser/',
+        ],
+        'AI_PARSER' => [
+            'BASE_URL' => 'http://54.68.58.181/resumematcher/',
+            'USERNAME' => 'admin',
+            'PASSWORD' => 'Aev54I0Av13bhCxM',
+            'FIND_RESUMES' => 'find_resumes',
+            'PARSE_JD'  => 'parse_jd'
         ]
         
     ],
