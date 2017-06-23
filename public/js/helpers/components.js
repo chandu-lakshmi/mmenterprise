@@ -54,32 +54,6 @@
             
             scope.success_loader = true;
             
-            /*var closeJobId = $.param({
-                post_id : jobParam
-            })
-
-            var closeJob = $http({
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                },
-                method : 'POST',
-                data : closeJobId,
-                url : CONFIG.APP_DOMAIN + 'deactivate_post',
-            })
-
-            closeJob.success(function(response){
-                if(response.status_code == 200){
-                    $state.go('app.job');
-                    $window.scrollTo(0, 0);         
-                }
-                else if(response.status_code == 406){
-                    scope.defaultTemplate = false;
-                    scope.pendingReferralsTemplate = true;
-                }
-                else if(response.status_code == 400){
-                    $window.location = CONFIG.APP_DOMAIN + 'logout';
-                }
-            })*/
         }
 
         $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
