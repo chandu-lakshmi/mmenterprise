@@ -63,7 +63,7 @@ class Curl {
     /**
      * Load the AI curl 
      *
-     * @param  string $_POst (optional)
+     * @param  string $_POST
      * @return mixed
      */
     public function loadAICurl() {

@@ -60,7 +60,7 @@ return [
            // Angular Application domain
            'EMAIL_PARSER_DOMAIN' => 'http://192.168.33.10/mmenterprise/email-parser/',
        ],
-        
+        'MAX_RESUME_FILE_UPLOAD_SIZE' => 5 * 1024 * 1024,
         'AI_PARSER' => [
             'BASE_URL' => 'http://54.68.58.181/resumematcher/',
             'USERNAME' => 'admin',

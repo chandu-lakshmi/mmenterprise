@@ -1250,7 +1250,7 @@ $app->POST('/resume_file_upload',function ($request, $response, $args) {
             
             $allowedExtensions = array('doc','docx','pdf','rtf','jpg', 'png', 'jpeg','txt');
             // max file size in bytes
-            $sizeLimit = 5 * 1024 * 1024;
+            $sizeLimit  = $this->settings['MAX_RESUME_FILE_UPLOAD_SIZE'];
             $myfilename = 'attach_' . mt_rand().time();
             //upload the file and validate the size and file type
             $uploader = $file_upload->fileUpload($allowedExtensions, $sizeLimit);
