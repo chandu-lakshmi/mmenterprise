@@ -11,7 +11,8 @@
       .candidates .sub-header ul li {
         display: inline-block;
         position: relative;
-        padding: 30px 0px 12px 0px; }
+        padding: 30px 0px 12px 0px;
+        margin: 0 15px; }
         .candidates .sub-header ul li a {
           color: #6b8b9a;
           outline: none;
@@ -29,6 +30,8 @@
               left: 0px;
               right: 0px;
               border-bottom: 3px solid #14acff; }
+        .candidates .sub-header ul li:first-child {
+          margin-left: 0; }
   .candidates .resume-room {
     min-height: calc(100vh - 160px); }
     .candidates .resume-room .filter {
@@ -150,5 +153,457 @@
           text-align: center;
           text-transform: uppercase;
           margin-left: 15px; }
+  .candidates .upload-resume {
+    background: #fff;
+    height: calc(100vh - 160px);
+    min-height: 500px;
+    padding: 30px 0;
+    overflow: auto; }
+    .candidates .upload-resume #upload.error-drop-area .qq-upload-drop-area {
+      border-color: #ff847b !important;
+      background: rgba(255, 202, 202, 0.23) !important; }
+    .candidates .upload-resume #upload .qq-uploader {
+      width: 95%;
+      margin: 0 auto;
+      height: 166px; }
+      .candidates .upload-resume #upload .qq-uploader .qq-upload-drop-area-active {
+        border-color: #219070 !important;
+        transform: scale(0.98);
+        -webkit-transform: scale(0.98);
+        background: #f2fff7 !important; }
+        .candidates .upload-resume #upload .qq-uploader .qq-upload-drop-area-active + .qq-upload-button {
+          transform: scale(0.98);
+          -webkit-transform: scale(0.98); }
+      .candidates .upload-resume #upload .qq-uploader .qq-upload-drop-area {
+        display: block !important;
+        background: #f5f5f5;
+        border: 2px dashed #a6b3bd;
+        transition: all 0.2s linear;
+        -webkit-transition: all 0.2s linear; }
+        .candidates .upload-resume #upload .qq-uploader .qq-upload-drop-area .drag_img {
+          background: transparent; }
+        .candidates .upload-resume #upload .qq-uploader .qq-upload-drop-area .drag_txt {
+          color: #9ea9a9;
+          position: absolute;
+          top: 72px;
+          text-align: right;
+          width: 53%;
+          font-size: 16px;
+          font-weight: 700; }
+      .candidates .upload-resume #upload .qq-uploader .qq-upload-button {
+        position: absolute;
+        color: #0ba082;
+        width: 98px;
+        z-index: 9;
+        height: 33px !important;
+        top: 73px;
+        left: 53%;
+        text-align: left;
+        text-indent: 4px;
+        background: transparent;
+        overflow: hidden;
+        font-weight: 700;
+        font-size: 17px;
+        padding: 0;
+        transition: all 0.2s linear;
+        -webkit-transition: all 0.2s linear; }
+        .candidates .upload-resume #upload .qq-uploader .qq-upload-button:hover {
+          transform: scale(0.92); }
+    .candidates .upload-resume .instructions ul {
+      list-style: none;
+      color: #a6b3bd;
+      padding: 6px 30px; }
+      .candidates .upload-resume .instructions ul li.error-msg {
+        color: #c2433d; }
+    .candidates .upload-resume md-list.list {
+      margin: 0 auto; }
+      .candidates .upload-resume md-list.list md-list-item.header-action {
+        margin-top: 24px;
+        padding: 0 16px; }
+        .candidates .upload-resume md-list.list md-list-item.header-action .md-list-item-text .title {
+          color: #565656;
+          font-weight: 900;
+          font-size: 18px;
+          word-spacing: 1.2px;
+          margin-left: 4px; }
+        .candidates .upload-resume md-list.list md-list-item.header-action .action {
+          color: #648699;
+          font-size: 14px;
+          font-weight: 800;
+          margin-right: 0; }
+        .candidates .upload-resume md-list.list md-list-item.header-action .delete {
+          color: #e05a5a; }
+      .candidates .upload-resume md-list.list .file-container {
+        margin: 0 auto; }
+        .candidates .upload-resume md-list.list .file-container md-list-item {
+          min-height: 68px;
+          border: 1px solid #e3e3e3;
+          border-bottom: 0;
+          padding-left: 0; }
+          .candidates .upload-resume md-list.list .file-container md-list-item .md-avatar {
+            background: url(../images/uploading_files_icons.png);
+            border-radius: 0;
+            background-repeat: no-repeat;
+            background-size: 67% 228%; }
+            .candidates .upload-resume md-list.list .file-container md-list-item .md-avatar.pdf {
+              background-position: 13px -54px !important; }
+          .candidates .upload-resume md-list.list .file-container md-list-item p .file-name {
+            color: #555555;
+            font-weight: 600; }
+          .candidates .upload-resume md-list.list .file-container md-list-item p md-progress-linear {
+            height: auto;
+            padding: 1px 0 !important; }
+            .candidates .upload-resume md-list.list .file-container md-list-item p md-progress-linear .md-bar1 {
+              background: #e3e3e3; }
+            .candidates .upload-resume md-list.list .file-container md-list-item p md-progress-linear .md-bar2 {
+              background: #2b99ed; }
+            .candidates .upload-resume md-list.list .file-container md-list-item p md-progress-linear.discard .md-bar2, .candidates .upload-resume md-list.list .file-container md-list-item p md-progress-linear.discard .md-container {
+              background: #cc6464 !important; }
+          .candidates .upload-resume md-list.list .file-container md-list-item p .file-size {
+            color: #777777;
+            font-size: 13px;
+            font-style: italic; }
+          .candidates .upload-resume md-list.list .file-container md-list-item p .error {
+            color: #cc6464;
+            font-size: 12px; }
+          .candidates .upload-resume md-list.list .file-container md-list-item p .success {
+            color: #0ba082;
+            font-size: 12px; }
+          .candidates .upload-resume md-list.list .file-container md-list-item button {
+            position: absolute;
+            right: 0; }
+          .candidates .upload-resume md-list.list .file-container md-list-item .loader {
+            width: 30px;
+            position: absolute;
+            right: 28px;
+            top: 18px; }
+          .candidates .upload-resume md-list.list .file-container md-list-item .close {
+            opacity: 1; }
+            .candidates .upload-resume md-list.list .file-container md-list-item .close i {
+              color: #e84949;
+              font-size: 22px; }
+          .candidates .upload-resume md-list.list .file-container md-list-item .delete i {
+            color: #565656; }
+  .candidates .find-resume {
+    height: calc(100vh - 160px);
+    overflow-y: auto;
+    min-height: 300px; }
+    .candidates .find-resume .container div[layout="column"] .search-resume {
+      position: relative;
+      background: #fff;
+      margin: 30px 0 22px 0;
+      box-shadow: 0px 0px 3px #767877; }
+      .candidates .find-resume .container div[layout="column"] .search-resume .headline {
+        font-size: 18px;
+        font-weight: bold;
+        color: #636363; }
+        .candidates .find-resume .container div[layout="column"] .search-resume .headline .name {
+          padding: 20px 16px; }
+          .candidates .find-resume .container div[layout="column"] .search-resume .headline .name.first {
+            padding-left: 24px; }
+          .candidates .find-resume .container div[layout="column"] .search-resume .headline .name.animated {
+            transition: linear 0.5s opacity;
+            -webkit-transition: linear 0.5s opacity; }
+      .candidates .find-resume .container div[layout="column"] .search-resume md-card {
+        margin: 0;
+        box-shadow: none;
+        position: relative; }
+        .candidates .find-resume .container div[layout="column"] .search-resume md-card .loader {
+          position: absolute;
+          text-align: center;
+          left: calc(50% - 25px);
+          top: 161px; }
+          .candidates .find-resume .container div[layout="column"] .search-resume md-card .loader img {
+            width: 50px;
+            margin: 0 auto; }
+        .candidates .find-resume .container div[layout="column"] .search-resume md-card md-card-title {
+          padding: 16px 24px 16px; }
+          .candidates .find-resume .container div[layout="column"] .search-resume md-card md-card-title .md-headline {
+            font-size: 18px;
+            font-weight: bold;
+            color: #636363; }
+        .candidates .find-resume .container div[layout="column"] .search-resume md-card md-card-content {
+          padding: 0 24px 24px; }
+          .candidates .find-resume .container div[layout="column"] .search-resume md-card md-card-content textarea {
+            min-height: 392px;
+            resize: vertical;
+            width: 100%;
+            background: #fafafa;
+            font-size: 14px;
+            line-height: 24px;
+            word-spacing: 2px;
+            outline: none;
+            border-radius: 4px;
+            outline: none;
+            border: 1px solid #ddd; }
+          .candidates .find-resume .container div[layout="column"] .search-resume md-card md-card-content .key {
+            text-transform: capitalize;
+            font-weight: 700;
+            color: #565656; }
+      .candidates .find-resume .container div[layout="column"] .search-resume .criteria md-card-title {
+        padding: 16px 0 28px 20px; }
+      .candidates .find-resume .container div[layout="column"] .search-resume .criteria md-card-content {
+        padding-left: 18px; }
+        .candidates .find-resume .container div[layout="column"] .search-resume .criteria md-card-content .list {
+          padding: 12px 0 14px; }
+        .candidates .find-resume .container div[layout="column"] .search-resume .criteria md-card-content .slide div[layout="column"] {
+          padding: 2px 16px 16px; }
+        .candidates .find-resume .container div[layout="column"] .search-resume .criteria md-card-content .slide myslider {
+          margin: 10px 0;
+          width: 90%; }
+          .candidates .find-resume .container div[layout="column"] .search-resume .criteria md-card-content .slide myslider .ui-widget.ui-widget-content {
+            border: 0;
+            background: #4a6a7d;
+            height: 6px;
+            cursor: pointer; }
+            .candidates .find-resume .container div[layout="column"] .search-resume .criteria md-card-content .slide myslider .ui-widget.ui-widget-content .ui-slider-handle {
+              width: 26px;
+              height: 26px;
+              font-size: 14px;
+              text-align: center;
+              line-height: 24px;
+              top: -9px;
+              border-radius: 6px;
+              background: #4a6a7d;
+              color: white;
+              border-color: white;
+              cursor: pointer; }
+            .candidates .find-resume .container div[layout="column"] .search-resume .criteria md-card-content .slide myslider .ui-widget.ui-widget-content .ui-widget-header {
+              background: #eee; }
+      .candidates .find-resume .container div[layout="column"] .search-resume .action {
+        margin: 0 auto 28px;
+        text-transform: capitalize;
+        width: 190px;
+        display: block;
+        height: 50px;
+        line-height: 50px;
+        font-weight: 700; }
+    .candidates .find-resume .container div[layout="column"] .container-resume {
+      background: #fff;
+      position: relative;
+      margin-bottom: 40px;
+      box-shadow: 0px 0px 3px #767877; }
+      .candidates .find-resume .container div[layout="column"] .container-resume .header {
+        padding: 17px 24px 17px 24px; }
+        .candidates .find-resume .container div[layout="column"] .container-resume .header .match {
+          font-size: 18px;
+          font-weight: 700;
+          color: #636363;
+          margin-top: 6px; }
+          .candidates .find-resume .container div[layout="column"] .container-resume .header .match.zip {
+            padding-left: 14px; }
+          .candidates .find-resume .container div[layout="column"] .container-resume .header .match .box {
+            transition: linear 0.5s opacity;
+            -webkit-transition: linear 0.5s opacity; }
+            .candidates .find-resume .container div[layout="column"] .container-resume .header .match .box span {
+              margin-right: 22px; }
+            .candidates .find-resume .container div[layout="column"] .container-resume .header .match .box a {
+              color: #1d8e70; }
+        .candidates .find-resume .container div[layout="column"] .container-resume .header md-input-container {
+          width: 52%;
+          margin: 0;
+          transition: linear 0.5s opacity;
+          -webkit-transition: linear 0.5s opacity; }
+          .candidates .find-resume .container div[layout="column"] .container-resume .header md-input-container md-select-value {
+            color: #636363;
+            font-size: 18px;
+            font-weight: 700; }
+            .candidates .find-resume .container div[layout="column"] .container-resume .header md-input-container md-select-value span {
+              overflow: hidden;
+              max-width: 86%; }
+      .candidates .find-resume .container div[layout="column"] .container-resume md-content {
+        background: transparent;
+        padding: 0 27px 16px; }
+        .candidates .find-resume .container div[layout="column"] .container-resume md-content .col-sm-4 {
+          padding: 0; }
+        .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card {
+          cursor: pointer;
+          border: 1px solid #dcdcdc;
+          box-shadow: none;
+          margin: 12px;
+          overflow: hidden;
+          position: relative;
+          border-radius: 4px;
+          /* md-card-title{padding: 20px 24px 0;
+              .md-subhead:first-child{font-weight:600;color:#8d8d8d;}
+              .md-headline{line-height: 25px;color: #212121;font-weight:600;max-width:95%;display:inline-block;}
+              .md-subhead{color: #212121}
+              md-card-title-media{position: relative;;
+                  .ai-score{position: absolute !important;padding-bottom: 0px;top: 8px;right: -4px;}
+                  .score{position: absolute;width: 111%;text-align: center;top: 25px;font-size: 20px;}
+              }
+          };*/
+          /* md-card-content{padding: 0 24px 24px;
+              md-card-title{padding: 0 0 6px;
+                  .dotdotdot{height: 60px;overflow: hidden;}
+              }
+          } */ }
+          .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card:active {
+            transform: scale(0.99);
+            -webkit-transform: scale(0.99); }
+          .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card:hover {
+            box-shadow: 0 0 18px #e8e9ea;
+            transition: 0.8s all linear;
+            -webkit-transition: 0.8s all linear; }
+          .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card i.select {
+            position: absolute;
+            z-index: -1;
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+            font-size: 60px;
+            left: -6px;
+            top: -13px;
+            color: #1d8e6f;
+            transition: all 0.3s linear;
+            opacity: 0; }
+            .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card i.select:before {
+              box-sizing: border-box;
+              -webkit-transform: rotate(45deg);
+              transform: rotate(217deg);
+              position: absolute;
+              left: 34.66667px;
+              top: 26.22222px;
+              color: #fff;
+              display: table;
+              width: 10.66667px;
+              height: 17.33333px;
+              border-width: 3px;
+              border-style: solid;
+              border-top: 0;
+              border-left: 0;
+              content: ""; }
+          .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card .resume {
+            padding: 20px;
+            color: #212121; }
+            .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card .resume .role, .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card .resume .skill {
+              font-weight: 800;
+              color: #8e8e8e; }
+            .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card .resume .name {
+              margin: 0; }
+            .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card .resume .cir-progress {
+              position: relative; }
+              .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card .resume .cir-progress .ai-score {
+                position: absolute !important;
+                top: 0;
+                right: 0; }
+              .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card .resume .cir-progress .score {
+                position: absolute;
+                width: 120%;
+                text-align: center;
+                top: 17px;
+                font-size: 20px; }
+            .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card .resume .skill {
+              padding: 12px 0 0; }
+            .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card .resume .dotdotdot {
+              height: 60px;
+              overflow: hidden; }
+          .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card md-card-actions {
+            background: #f9f9f9;
+            margin: 0;
+            padding: 8px 16px;
+            border-top: 1px solid #dad5d5;
+            color: #666666; }
+            .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card md-card-actions i {
+              vertical-align: middle;
+              color: #8e8e8e;
+              padding: 4px; }
+              .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card md-card-actions i.down {
+                background: #ebebeb;
+                border-radius: 50%;
+                font-size: 20px; }
+        .candidates .find-resume .container div[layout="column"] .container-resume md-content .loading-text {
+          color: #8e8e8e;
+          font-weight: 700;
+          float: none;
+          margin: 14px auto;
+          text-align: center;
+          border: 1px solid #e8e8e8;
+          width: 45%;
+          padding: 6px;
+          border-radius: 2px;
+          font-size: 18px; }
+    .candidates .find-resume .container .arrow-toogle {
+      position: absolute;
+      right: 10px;
+      font-size: 40px;
+      top: 10px;
+      color: #8e8e8e;
+      cursor: pointer;
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+      -webkit-transition: -webkit-transform 0.3s ease-in-out;
+      transition: -webkit-transform 0.3s ease-in-out;
+      transition: transform 0.3s ease-in-out;
+      transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out; }
+    .candidates .find-resume .container .arrow-spin {
+      -webkit-transform: rotate(180deg) !important;
+      transform: rotate(180deg) !important; }
+
+*[ng-click] {
+  outline: none; }
+
+/* tooltip in resume room */
+.find-resume-name {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 0 6px; }
+
+.find-resume-name.md-show {
+  transition: all 0.5s linear !important; }
+
+/* Model for network error */
+#network-error {
+  z-index: 999999; }
+  #network-error.modal {
+    text-align: center;
+    padding: 0 !important; }
+  #network-error.modal:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -4px; }
+  #network-error .modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle; }
+    #network-error .modal-dialog .modal-header {
+      width: 500px;
+      text-align: center;
+      min-height: 370px;
+      padding: 36px;
+      background: #fff;
+      margin: 0 auto; }
+      #network-error .modal-dialog .modal-header .header-pic {
+        height: 80px; }
+        #network-error .modal-dialog .modal-header .header-pic img {
+          width: 80px; }
+      #network-error .modal-dialog .modal-header h2 {
+        color: #5d5757; }
+      #network-error .modal-dialog .modal-header p {
+        color: #b2b2b2; }
+      #network-error .modal-dialog .modal-header button {
+        padding: 5px 20px;
+        border-radius: 0;
+        margin-top: 28px;
+        cursor: pointer; }
+
+/* text-editor for textarea */
+.mm-text-editor {
+  position: relative; }
+  .mm-text-editor .ta-toolbar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    padding: 6px; }
+    .mm-text-editor .ta-toolbar button, .mm-text-editor .ta-toolbar #toolbarCC {
+      background: #f5f5f5;
+      color: #6f6f6f;
+      opacity: 1; }
+      .mm-text-editor .ta-toolbar button.active, .mm-text-editor .ta-toolbar #toolbarCC.active {
+        color: #181818;
+        box-shadow: none; }
+  .mm-text-editor .ta-scroll-window > .ta-bind {
+    padding-bottom: 52px; }
 
 /*# sourceMappingURL=candidates.css.map */

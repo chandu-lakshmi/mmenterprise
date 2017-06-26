@@ -1,0 +1,12 @@
+<div class="modal-header">
+	<img src="public/images/cross_icon.png" alt="close" class="img-close" ng-click="$dismiss()">
+	<div style="padding:40px;overflow:hidden">
+		<span>
+			<p>{{CommonConfirmMsgCtrl.data.firstMsg}} <br>{{CommonConfirmMsgCtrl.data.secondMsg}}</p>
+			<div style="background:#fff;border:1px solid red;color:#e66a6a" ng-click="$dismiss()">No</div>
+			<div ng-click="CommonConfirmMsgCtrl.userConfirm()" class="load ripplelink pull-right">Yes<img src="public/images/loader/dot.svg" ng-if="CommonConfirmMsgCtrl.
+			success_loader"/></div>
+		</span>
+	</div>
+</div>
+

@@ -80,6 +80,7 @@ $container['errorHandler'] = function ($c) {
      /*return $c['response']->withStatus(500)
                           ->withHeader('Content-Type', 'text/html')
                           ->write($exception->getMessage());*/
+     session_destroy();
      $args = commonArgs( $c->get('settings'));
      $args['exception_message'] = $exception->getMessage();
      $settings = $c->get('settings')['renderer'];

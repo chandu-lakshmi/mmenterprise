@@ -89,7 +89,9 @@
 
     </div>
 </form>
-
+<div class="modal-footer clearfix" ng-if="$state.params.importContacts && UploadContCtrl.footer != 1">
+    <span class="mm-btn ripplelink" ng-click="UploadContCtrl.goImportContacts()">SKIP</span>
+</div>
 <div class="modal-footer clearfix" ng-if="UploadContCtrl.newBucketModal ? 'true' : UploadContCtrl.footer && !UploadContCtrl.newBucketModal">
     <div class="pull-left" ng-if="UploadContCtrl.newBucketModal">
         <span ng-if="UploadContCtrl.new_bucket.succesLoader"><img src="public/images/loader/upload_file.gif" alt="loader" style="margin:5px;" > Uploading</span>
@@ -101,8 +103,12 @@
     <div class="pull-right disabled" ng-if="!UploadContCtrl.currentState">
         <span class="mm-btn ripplelink" ng-click="UploadContCtrl.newBucketModal ? UploadContCtrl.new_bucket.upload(new_bucket_form.$valid) : UploadContCtrl.uploadContacts()" ng-bind="UploadContCtrl.newBucketModal ? 'UPLOAD CONTACTS' : 'ADD CONTACTS'"></span>
     </div>
+
     <!--IMPORT Contacts-->
     <div class="pull-right disabled" ng-if="UploadContCtrl.currentState">
         <span class="mm-btn ripplelink" ng-click="UploadContCtrl.uploadContacts()">UPLOAD CONTACTS</span>
+    </div>
+    <div ng-if="$state.params.importContacts">
+        <span class="mm-btn ripplelink" style="margin-right: 20px;" ng-if="UploadContCtrl.currentState" ng-click="UploadContCtrl.goImportContacts()">SKIP</span>
     </div>
 </div>

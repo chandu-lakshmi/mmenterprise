@@ -36,7 +36,7 @@
         			/* VALUMS's plugin for uploading files
 					* AJAX kind
 					*/
-					initUploader: function(opts){
+					initUploader: function(opts, cb){
 					    var config = {
 					        action: false,
 					        allowedExtensions: ["jpg", "gif", "png", "jpeg"],
@@ -46,6 +46,7 @@
 					        enableDragDrop: true,
 					        id: false,
 					        multiple: false,
+					        minSizeLimit: 0, // min size
 					        size: (2*1024),
 					        remove: true,
 					        removeItemURL: false,
@@ -78,6 +79,7 @@
 					            enableDragDrop: config.enableDragDrop,
 					            onInvalidExtn: config.onInvalidExtn,
 					            onSizeError: config.onSizeError,
+					            minSizeLimit: config.minSizeLimit,
 					            sizeLimit: config.size,
 					            allowedExtensions: config.allowedExtensions,
 					            hideShowDropArea: false,
@@ -95,6 +97,10 @@
 					            onSubmit: config.onSubmit,
 					            onComplete: config.onComplete,
 					            onProgress: config.onProgress
+					        }, function(handler){
+					        	if(cb){
+					        		cb(handler)
+					        	}
 					        });
 					                    
 					        $('#'+config.id+' .qq-upload-list').on('click touchend', '.icon-remove', function(e){

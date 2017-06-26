@@ -47,6 +47,7 @@ $app->get('/saml', function ($request, $response, $args) {
          // getting API endpoint from settings
          $apiEndpoint = getapiEndpoint($this->settings, 'special_grant_login');
          $_POST['emailId'] = $emailid;
+         $_POST['company_code'] = $ccode;
          $curl = new Curl(array(
             'url'           => $apiEndpoint,
             'postData'      => $_POST
@@ -278,4 +279,22 @@ require __DIR__ . '/api_after_login.php';
 //General Apis
 require __DIR__ . '/api_general.php';
 
+$app->get('/getApp/{tab}', function ($request, $response, $args) {
 
+if(isset($_SESSION['ccode'])) {
+    $ccode = (string)$_SESSION['ccode'];
+  } else {
+    $ccode = (string)$_COOKIE['ccode'];
+  }
+  
+   // Arguments  
+   $args = commonArgs($this->settings);
+
+    //Check Logged - If it is login it redirects to dashboard page
+    if (empty(authenticate())) {
+        return $response->withRedirect($args['APP_DOMAIN'] . "settings/integration-manager/zenefits");
+    }
+
+    // Render index view
+    return $this->renderer->render($response, 'index.phtml', $args);
+});

@@ -52,7 +52,6 @@ class fileupload_library {
         if (!is_writable($uploadDirectory)){
             return array('error' => "Server error. Upload directory isn't writable.");
         }
-        
         if (!$this->file){
             return array('error' => 'No files were uploaded.');
         }
@@ -68,7 +67,8 @@ class fileupload_library {
         }*/
         
         if ($size > $this->sizeLimit) {
-            return array('error' => 'File is too large');
+            //return array('error' => 'File is too large');
+            return array('error' => 'File size should be less than '.$this->sizeLimit.'mb');
         }
         if (isset($_REQUEST['filename'])) {
         $pathinfo = pathinfo($this->getName2());

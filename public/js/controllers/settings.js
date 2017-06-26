@@ -16,7 +16,7 @@
     MyProfileController.$inject = ['$http', '$scope', '$window', '$uibModal', 'UserDetails', 'CONFIG', 'App'];
     UserGroupController.$inject = ['$scope', '$window', '$element', 'CONFIG', '$http', '$q', 'permissionsService', 'userPermissions', 'App'];
     ConfigManagerController.$inject = ['$window', '$scope', '$timeout', '$http', 'App'];
-    IntManagerController.$inject = ['$scope', '$window', '$timeout', '$http', 'App'];
+    IntManagerController.$inject = ['$scope', '$window', '$state','$timeout', '$http', 'App'];
 
     function permissionsService() {
         var permissionData = {};
@@ -1113,12 +1113,14 @@
         upload('upload');
     }
 
-    function IntManagerController($scope, $window, $timeout, $http, App) {
+    function IntManagerController($scope, $window, $state, $timeout, $http, App) {
 
         var vm = this;
 
         vm.loader = true;
+        vm.zenefitsInProgress = false;
         vm.mintmeshPartnes = [];
+        vm.showSynWithZenefits = false;
         vm.show_error = false;
         vm.partnerDetails = {};
 
@@ -1145,9 +1147,13 @@
             }, function (response) {
 
             })*/
-            vm.mintmeshPartnes = [{hcm_name : 'SuccessFactors', hcm_id : 1}, {hcm_name : 'Zenefits', hcm_id : 2}, {hcm_name : 'Icims', hcm_id : 3}];
+            vm.mintmeshPartnes = [{hcm_name : 'SuccessFactors', hcm_id : 1}, {hcm_name : 'Zenefits', hcm_id : 2}, {hcm_name : 'iCIMS', hcm_id : 3}];
             //vm.mintmeshPartnes = [{hcm_name : 'SuccessFactors', hcm_id : 1}];
-            getPartnersData(0)
+           if($state.params.tab == 'zenefits'){
+                getPartnersData(1);
+           }else{
+                getPartnersData(0);
+           }    
         }
 
         function getPartnersData(i) {
@@ -1158,6 +1164,8 @@
 
         function getPartners(id) {
             var url;
+            vm.loader = true;
+            vm.zenefitsInProgress = true;
             if (id == 2) {
                 url = 'get_zenefits_hcm_list';
             }else if(id == 1){
@@ -1165,7 +1173,6 @@
             }else if(id == 3){
                  url = 'get_icims_hcm_list';
             }
-
             $http({
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -1176,14 +1183,27 @@
             })
                     .then(function (response) {
                         var status = response.data.status_code;
+                        vm.showSynWithZenefits = false;
                         vm.loader = false;
                         if (status == 200) {
                             vm.partnerDetails = response.data.data[0];
                             vm.checkbox = vm.partnerDetails.hcm_status == 'enable' ? true : false;
+                            vm.startRunJob = vm.checkbox;
+                            if(url == 'get_zenefits_hcm_list' && vm.partnerDetails){
+                                vm.showSynWithZenefits = !vm.partnerDetails.hasOwnProperty('hcm_access_token');
+                            }
+                            if(url == 'get_zenefits_hcm_list'){
+                               vm.zenefitsInProgress = false; 
+                            }
                         }
                         else if (status == 403) {
                             vm.partnerDetails.hcm_id = vm.mintmeshPartnes[vm.activeIndex].hcm_id;
                             vm.checkbox = false;
+                            vm.startRunJob = false;
+                            if(url == 'get_zenefits_hcm_list'){
+                                vm.showSynWithZenefits = true;
+                                vm.zenefitsInProgress = false; 
+                            }
                         }
                     }, function (response) {
                         console.log(response)
@@ -1205,6 +1225,7 @@
                 vm.loading = false;
                 angular.extend(vm.partnerDetails, data)
                 vm.checkbox = data.hcm_status == 'enable' ? true : false;
+                vm.startRunJob = vm.checkbox;
             });
         }
 

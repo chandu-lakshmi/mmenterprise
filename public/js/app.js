@@ -159,6 +159,18 @@
                     controller: 'ResumeRoomController',
                     controllerAs: 'ResumeRoomCtrl'
                 })
+                $stateProvider.state('app.candidates.uploadResume', {
+                    url: '^/candidates/upload-resume',
+                    templateUrl: App.base_url + 'templates/candidates/upload-resume.phtml',
+                    controller: 'UploadResumeController',
+                    controllerAs: 'UploadResumeCtrl'
+                })
+                $stateProvider.state('app.candidates.findResume', {
+                    url: '^/candidates/find-resume',
+                    templateUrl: App.base_url + 'templates/candidates/find-resume.phtml',
+                    controller: 'FindResumeController',
+                    controllerAs: 'FindResumeCtrl'
+                })
                 $stateProvider.state('app.campaigns', {
                     url: '^/campaigns',
                     templateUrl: App.base_url + 'templates/campaigns/campaigns.phtml',
@@ -222,7 +234,7 @@
                     controllerAs: 'ConfigMngCtrl'
                 })
                 $stateProvider.state('app.settings.intManager', {
-                    url: '^/settings/integration-manager',
+                    url: '^/settings/integration-manager/:tab',
                     templateUrl: App.base_url + 'templates/settings/integration-manager.phtml',
                     controller: 'IntManagerController',
                     controllerAs: 'IntMngCtrl'
@@ -276,5 +288,21 @@
                     $rootScope.$stateParams = $stateParams;
                 }
             ])
+
+            .run(function($window, $rootScope, $uibModal) {
+                $rootScope.online = navigator.onLine;
+                $window.addEventListener("offline", function() {
+                    $rootScope.$apply(function() {
+                        $rootScope.online = false;
+                        $('#network-error').modal({show: true, keyboard: false, backdrop: 'static'});
+                    });
+                }, false);
+                $window.addEventListener("online", function() {
+                    $rootScope.$apply(function() {
+                        $rootScope.online = true;
+                        $('#network-error').modal('hide');
+                    });
+                }, false);
+            })
 
 }());

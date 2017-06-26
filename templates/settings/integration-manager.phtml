@@ -1,6 +1,7 @@
 <div class="manager-tab integration">
-    <div class="init-loader" ng-if="IntMngCtrl.loader"></div>
-    <div class="container" ng-show="!IntMngCtrl.loader">
+    <!-- <div class="init-loader" ng-if="IntMngCtrl.loader"></div> -->
+    <!-- <div class="container" ng-show="!IntMngCtrl.loader"> -->
+    <div class="container">
         <div class="hcms" layout="row">
             <div class="lt" flex="20">
                 <!--<div class="ad-pt" layout="row">
@@ -21,6 +22,11 @@
             <md-divider></md-divider>
             <div class="rt" flex="80">
                 <md-card>
+                    <div class="im-spinner" ng-if="IntMngCtrl.loader">
+                        <div>
+                            <img src="public/images/loader/spin.gif" alt="loading">
+                        </div>
+                    </div>
                     <md-card-content>
                         <form name="suc_fac_form" novalidate autocomplete="off">
                             <input name="hcm_id" value="{{IntMngCtrl.partnerDetails.hcm_id}}" type="hidden">
@@ -52,23 +58,31 @@
                                         <div ng-if="suc_fac_form.hcm_password.$error.required && IntMngCtrl.show_error"  class="has-error-msg">Please Enter Password.</div>
                                     </md-input-container>
                                 </div>
-                                <div flex="50">
-                                    <md-input-container ng-if="IntMngCtrl.activeIndex == 1">
+                                <!-- <div flex="50" ng-if="IntMngCtrl.activeIndex == 1">
                                         <label>Access Token</label>
-                                        <input name="hcm_access_token" type="text" ng-model="IntMngCtrl.partnerDetails.hcm_access_token" required ng-class="{'has-error-border': suc_fac_form.hcm_access_token.$invalid && IntMngCtrl.show_error}">
+                                        <input name="hcm_access_token" type="hidden" ng-model="IntMngCtrl.partnerDetails.hcm_access_token" required ng-class="{'has-error-border': suc_fac_form.hcm_access_token.$invalid && IntMngCtrl.show_error}" >
                                         <div ng-if="suc_fac_form.hcm_access_token.$error.required && IntMngCtrl.show_error"  class="has-error-msg">Please Enter Access Token.</div>
+                                    <md-input-container>
                                     </md-input-container>
-                                </div>
+                                </div> -->
                             </div>
+                            <div ng-if="IntMngCtrl.activeIndex == 1 && !IntMngCtrl.zenefitsInProgress && !IntMngCtrl.showSynWithZenefits" class="animated fadeIn text-center msg-sync">Synced Successfully.</div>
                             <div layout="row">
                                 <div flex="50">
-                                    <md-checkbox ng-model="IntMngCtrl.checkbox" aria-label="start project" class="md-primary">Start running the job</md-checkbox>
+                                    <md-checkbox style="margin:10px 0" ng-model="IntMngCtrl.checkbox" aria-label="start project" class="md-primary">Start running the job</md-checkbox>
+                                </div>
+                                <div flex="50" class="text-right" ng-if="IntMngCtrl.activeIndex == 1">
+                                    <a ng-if="IntMngCtrl.showSynWithZenefits" href="https://secure.zenefits.com/oauth2/platform-authorize/?scope=platform companies people people.work_email people.manager people.status employments&state={{companyDetails.company_code}}&redirect_uri=http://202.63.105.85/mintmesh/getAccesCode&response_type=code&client_id=5zr3cWgul9peKR3al1AZ65qcsbWC3JJr8jRd0IDU"><img alt="Sync with Zenefits" height="42" width="200" src="https://secure.zenefits.com/static/img/sync-with-zenefits-platform-button.png" srcset="https://secure.zenefits.com/static/img/sync-with-zenefits-platform-button.png 1x, https://secure.zenefits.com/static/img/sync-with-zenefits-platform-button@2x.png 2x" style="border:none;"/></a>
+                                    <img ng-if="!IntMngCtrl.showSynWithZenefits" alt="Sync with Zenefits" height="42" width="200" src="https://secure.zenefits.com/static/img/sync-with-zenefits-platform-button.png" srcset="https://secure.zenefits.com/static/img/sync-with-zenefits-platform-button.png 1x, https://secure.zenefits.com/static/img/sync-with-zenefits-platform-button@2x.png 2x" style="opacity: 0.8;border: none;cursor:not-allowed;"/>
                                 </div>
                             </div>
-
-                            <div class="loader" ng-if="IntMngCtrl.loader">
-                                <img src="public/images/loader/spin.gif" alt="loader" width="25%">
+                            <div ng-if="IntMngCtrl.activeIndex == 1 && !IntMngCtrl.zenefitsInProgress" class="msg-job-run">
+                                <p ng-if="!IntMngCtrl.startRunJob">Check the box for start running the job and click Save.</p>
+                                <p ng-if="IntMngCtrl.startRunJob">Uncheck  the box for stop running the job and click Save.</p>
                             </div>
+                            <!-- <div class="loader" ng-if="IntMngCtrl.loader">
+                                <img src="public/images/loader/spin.gif" alt="loader" width="25%">
+                            </div> -->
                         </form>
                     </md-card-content>
                     <md-card-actions style="min-height: 53px;">

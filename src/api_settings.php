@@ -2,7 +2,7 @@
 
 // API settings
 return [
-		   'login' => [
+           'login' => [
                 'VERSION'  => 'v1',
                 'ENDPOINT' => '/enterprise/login'
             ],
@@ -187,6 +187,10 @@ return [
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/get_company_all_referrals'
             ],
+            'upload_resume' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/upload_resume'
+            ],
             'add_job' =>[
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/add_job'
@@ -274,6 +278,14 @@ return [
             'get_icims_hcm_list' =>[
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/get_icims_hcm_list'
+            ],
+            'getResumeDownload' =>[
+               'VERSION' => 'v1',
+               'ENDPOINT' => '/getResumeDownload'
+            ],
+            'getZipDownload' =>[
+               'VERSION' => 'v1',
+               'ENDPOINT' => '/getZipDownload'
             ]
     ];
         

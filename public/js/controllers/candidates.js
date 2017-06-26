@@ -2,21 +2,25 @@
     "use strict";
 
     angular
-            .module('app.candidates', ['ui.grid', 'ui.grid.selection'])
+            .module('app.candidates', ['ui.grid', 'ui.grid.selection', 'angular-svg-round-progressbar', 'textAngular'])
             .controller('CandidateController', CandidateController)
             .controller('ResumeRoomController', ResumeRoomController)
+            .controller('UploadResumeController', UploadResumeController)
+            .controller('FindResumeController', FindResumeController)
 
     CandidateController.$inject = [];
-    ResumeRoomController.$inject = ['$state', '$window', '$uibModal', '$http', '$q', '$timeout', 'ajaxService', 'App'];
-
+    ResumeRoomController.$inject = ['$state', '$window', '$uibModal', '$http', '$q', '$timeout', 'ajaxService', 'CompanyDetails', 'App'];
+    UploadResumeController.$inject = ['$rootScope', '$scope', '$http', '$timeout', '$window', '$uibModal', 'App'];
+    FindResumeController.$inject = ['$scope', '$http', '$q', '$timeout', '$filter', 'orderByFilter', '$window', 'CompanyDetails', 'App'];
 
 
     function CandidateController() {
 
+
     }
 
 
-    function ResumeRoomController($state, $window, $uibModal, $http, $q, $timeout, ajaxService, App) {
+    function ResumeRoomController($state, $window, $uibModal, $http, $q, $timeout, ajaxService, CompanyDetails, App) {
 
         var vm = this, canceler,
                 gridApiCall = App.base_url + 'get_company_all_referrals';
@@ -103,7 +107,7 @@
             {name: 'resume_name', displayName: 'RESUME', headerTooltip: 'RESUME',
                 cellTemplate: 'download-resume.html'
             },
-            {name: 'created_at', displayName: 'TIME', headerTooltip: 'Time'},
+            {name: 'created_at', displayName: 'DATE', headerTooltip: 'DATE'},
             {name: 'one_way_status', displayName: 'STATUS', headerTooltip: 'Status', cellTemplate: 'status-change.html', width: '14%'}
         ]
 
@@ -319,12 +323,387 @@
             return row.entity.awt_status;
         }
 
-        function downloadResume(row) {
-            return row.entity.resume_path;
+        function downloadResume(row, path) {
+            return path ? (App.API_DOMAIN + "getResumeDownload?company_id=" + CompanyDetails.company_code + "&doc_id=" + row.entity.document_id) : row.entity.resume_path;
         }
 
     }
 
+
+    function UploadResumeController($rootScope, $scope, $http, $timeout, $window, $uibModal, App) {
+        /*Note filesInQueue object status( 
+            1->qqUploading--valid file(progressbar(blue), crossMark) 
+            2-> s3Uploading--apiTriggering(progressbar(blue), loadingspinner), 
+            3->s3Uploaded--sucesss(serverMessage , deleteIcon) 
+            4->failed(progressbar(red), crossMark);
+        */
+        var vm = this;
+
+        this.filesInQueue = [];
+        function upload(id) {
+            if (id == 'upload')
+                $timeout(function () {
+                    $('input[type="file"]').attr('title', ' ');
+                }, 100);
+            App.Helpers.initUploader({
+                id: id,
+                dragText: "Drop files here to upload or ",
+                enableDragDrop : true,
+                multiple: true,
+                uploadButtonText: id == 'upload' ? "Choose file" : 'Change',
+                minSizeLimit : (1 * 1024),
+                size: (5 * 1024 * 1024),
+                allowedExtensions: ['pdf', 'doc', 'docx', 'jpg', 'png', 'jpeg', 'txt'],
+                action: App.base_url + "resume_file_upload",
+                showFileInfo: false,
+                shortMessages: true,
+                remove: true,
+                file_name: 'certificate_org_name',
+                path_name: 'certificate_path',
+                onSubmit: function (id, name, size) {
+                    vm.errorMsg = '';
+                    vm.filesInQueue.push({tempId:id, fileName : name, value : 0, fileSize : Math.round(size / 1024) + 'KB', showFile : true , status : 'qqUploading', inProgress : true , cls : ''});
+                    $scope.$apply();
+
+                },
+                onComplete: function (id, name, response) {
+
+                    if(response.success){
+                        angular.forEach(vm.filesInQueue, function(file, fileIndex){
+                            if(file.tempId == id){
+                                file.status = 's3Uploading';  
+                            }
+                        })
+                        uploadResume(id, response);
+                    }else{
+                        angular.forEach(vm.filesInQueue, function(file, fileIndex){
+                            if(file.tempId == id){
+                                file.status = 'failed';
+                                file.inProgress = false;
+                                file.serverMsg = !response.msg ? 'File not uploaded.' : response.msg;
+                                if(!$rootScope.online){
+                                    file.serverMsg = 'Network Error';
+                                }
+                                file.cls = 'error';
+                            }
+                        })
+                    }
+                    $scope.$apply();
+                },
+                onProgress: function (id, fileName, loaded, total) {
+                    vm.filesInQueue[id].value = Math.round((loaded / total) * 100);
+                    vm.filesInQueue[id].remaining = Math.round(loaded / 1024) + 'KB';
+                    $scope.$apply();
+                },
+                onCancel : function(id, fileName){
+                    /*if(fileName){
+                        angular.forEach(vm.filesInQueue, function(file, fileIndex){
+                            if(file.tempId == id){
+                                vm.filesInQueue[fileIndex].cancel = 1;
+                            }
+                        })
+                    }*/
+
+                },
+                showMessage: function (msg, obj) {
+                    vm.errorMsg = msg;
+                    $scope.$apply();
+                },
+                onRemove: function () {
+                },
+                onRemoveComplete: function () {
+                }
+            }, function(para){
+                vm.fileHandler = para;
+            })
+        }
+
+        upload('upload');
+
+        this.discardFile = function(){
+            angular.forEach(vm.filesInQueue, function(file){
+                if(file.status == 'qqUploading'){
+                    file.status = 'failed';
+                    file.inProgress = false;
+                    vm.fileHandler.cancel(file.tempId)
+                }   
+            })
+        }
+
+        this.deleteDiscardFile = function(index){
+            var file = vm.filesInQueue[index];
+            if(file.status != 'failed'){
+                file.status = 'failed';
+                file.inProgress = false;
+                vm.fileHandler.cancel(file.tempId); 
+            }
+            file.showFile = false;
+        }
+
+        this.deleteFile = function(flag){
+            $uibModal.open({
+                animation: false,
+                backdrop: 'static',
+                keyboard: false,
+                templateUrl: 'templates/dialogs/common-confirm-msg.phtml',
+                openedClass: "referral-status confirm-message",
+                resolve: {
+                    paramsMdService: function() {
+                        return {
+                            firstMsg : 'Are you sure you want to ',
+                            secondMsg : flag ? 'delete the RESUME ?' : 'delete ALL RESUMES ?',
+                            params : '',
+                            apiEndPoint : '',
+                        };
+                    }
+                },
+                controller: 'CommonConfirmMessage',
+                controllerAs: 'CommonConfirmMsgCtrl'
+            })
+        }
+
+        function uploadResume(id, response){
+            $http({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'POST',
+                url: 'upload_resume',
+                data: $.param({resume_name : response.org_name, resume : response.filename})
+            })
+            .then(function (response) {
+                if (response.data.status_code == 200) {
+                    vm.filesInQueue[id].status = 's3Uploaded';
+                    vm.filesInQueue[id].cls = 'success';
+                }else if(response.data.status_code == 403){
+                    vm.filesInQueue[id].status = "failed";
+                    vm.filesInQueue[id].cls = 'error';
+                }
+                vm.filesInQueue[id].serverMsg = response.data.message.msg[0];
+                vm.filesInQueue[id].inProgress = false;
+            });
+        }
+        
+    }
+
+
+    function FindResumeController($scope, $http, $q, $timeout, $filter, orderByFilter, $window, CompanyDetails, App) {
+
+        var vm = this,
+            prevDescription,
+            prevWeightages,
+            cancelerAI,
+            cancelerSearchResume,
+            prevScores = "",
+            totalResumes = [],
+            paginationOptions = {
+                pageNumber: 1,
+                pageSize: 15,
+                scoreRange : null
+            },
+            slider_opts = {
+                min : 0,
+                max : 5,
+                value : 5,
+                model : null
+            }
+
+        this.selectedResues = [];
+        this.responseResumes = [];
+        this.displayResumes = [];
+        this.tempResumes = [];
+        this.submitted = false;
+        this.inProgressAI = false; 
+        this.inProgressSearchResumes = false;
+        this.hideSearchResume = false;
+        this.hideResumesList = false;
+        this.hasAITrigger = false;
+        this.slider_opts_role = angular.extend({}, slider_opts, {id : 'ai-role'})
+        this.slider_opts_loc = angular.extend({}, slider_opts, {id : 'ai-loc'})
+        this.slider_opts_exp = angular.extend({}, slider_opts, {id : 'ai-exp'})
+        this.slider_opts_skills = angular.extend({}, slider_opts, {id : 'ai-skills'})
+
+        this.filterOptions = [{ key : "75-100" , value:'75% to 100%' }, { key:"50-75" , value : '50% to 75%'}, { key:"0-50", value : '0% to 50%'}];
+        this.filterOptions2 = [{ key : 10 , value:'Top 10' }, { key: 50 , value : 'Top 50'}, { key:100, value : 'Top 100'}];
+
+        //this.description = "Software engineer in Bangalore with 2 years of experience who knows jquery, html, css and angularjs";
+        this.description = "";
+        this.critera = {};
+
+        this.aiTrigger = function() {
+            if(this.description.length > 3){
+                var params = {};
+                    params.jd = this.description;
+
+                if (cancelerAI) {
+                    cancelerAI.resolve();
+                }
+
+                if (cancelerSearchResume) {
+                    cancelerSearchResume.resolve();
+                }
+
+                cancelerAI = $q.defer();
+                this.inProgressAI = true;
+                $http({
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                    },
+                    method: 'POST',
+                    url: App.base_url + 'getResumeParser',
+                    data: $.param(params),
+                    timeout: cancelerAI.promise
+                })
+                .then(function (response) {
+                    if (response.status == 200) {
+                        vm.criteria = response.data;
+                        if(response.data.skills)
+                            vm.criteria.skills = response.data.skills.toString().split(",").join(", ");
+                        prevDescription = vm.description;
+                        vm.inProgressAI = false;
+                        vm.hasAITrigger = true;
+                    }
+                    else if (response.data.status_code == 400) {
+                        $window.location = App.base_url + 'logout';
+                    }
+                });
+            }
+        }
+
+        this.searchResume = function() {
+            if (cancelerSearchResume) {
+                cancelerSearchResume.resolve();
+            }
+            searchResume();
+            this.selectedScore = "";
+        }
+
+        this.loadResumes = function(){
+            var resumes = vm.tempResumes.splice(0 , paginationOptions.pageSize);
+            vm.displayResumes = vm.displayResumes.concat(angular.copy(resumes));
+        }
+
+        this.filterByScore = function(){
+            if((!this.selectedScore.length && (prevScores == this.selectedScore.toString())) ){
+                return;
+            }
+
+            vm.displayResumes = [];
+            vm.selectedResues = [];
+            if(this.selectedScore.length){
+                var filteredResumes = [];
+                angular.forEach(this.selectedScore, function (value) {
+                    var arrValue = value.split('-');
+                    filteredResumes = filteredResumes.concat(minMaxFilter(Number(arrValue[0]), Number(arrValue[1])));
+                });
+                filteredResumes = angular.copy($filter('unique')(filteredResumes,'doc_id'));
+                filteredResumes = angular.copy(orderByFilter(filteredResumes, 'total_score', true));
+                vm.tempResumes = angular.copy(filteredResumes);
+                vm.displayCount = filteredResumes.length; 
+            }else{
+                vm.tempResumes = angular.copy(vm.responseResumes);
+                vm.displayCount = vm.responseResumes.length;
+            }
+            vm.loadResumes();
+            prevScores = this.selectedScore.toString();
+            
+        }
+
+        this.filterByCount = function(){
+            if(!vm.displayResumes.length){
+                return;
+            }
+        }
+
+        this.downloadZip = function () {
+            return App.API_DOMAIN + "getZipDownload?company_id=" + CompanyDetails.company_code + "&resumes=" + vm.selectedResues.toString();
+            //return App.API_DOMAIN + "getZipDownload?company_id=329244&resumes=2,1";
+        }
+
+        this.downloadResume = function (doc_id) {
+            return App.API_DOMAIN + "getResumeDownload?company_id=" + CompanyDetails.company_code + "&doc_id=" + doc_id;
+        }
+
+        this.selectResume = function(resumeEmail){
+            var position = this.selectedResues.indexOf(resumeEmail);
+            if(position < 0 ){
+                vm.selectedResues.push(resumeEmail);
+            }else{
+                vm.selectedResues.splice(position, 1);
+            }
+        }
+
+        this.toogleSearchResume = function(){
+            $("#ai-view").slideToggle('slow');
+            this.hideSearchResume = !this.hideSearchResume;
+        }
+
+        this.toogleResumesList = function(){
+            $("#hide-resumes").slideToggle('slow');
+            this.hideResumesList = !this.hideResumesList;
+        }
+        
+        function searchResume () {
+            var params = {};
+                params.jd = vm.description;
+                params.weights = {
+                    role : vm.slider_opts_role.model,
+                    location : vm.slider_opts_loc.model,
+                    exp : vm.slider_opts_exp.model,
+                    skills : vm.slider_opts_skills.model
+                };
+                params.tenant_id = CompanyDetails.company_code;
+
+            cancelerSearchResume = $q.defer();
+            vm.inProgressSearchResumes = true;
+            $http({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'POST',
+                url: App.base_url + 'getResumesFindByWeights',
+                data: $.param(params),
+                timeout: cancelerSearchResume.promise
+            })
+            .then(function (response) {
+                if (response.status == 200) {
+                    vm.displayResumes = [];
+                    vm.selectedResues = [];
+
+                    prevWeightages = angular.copy(vm.weightages);
+                    prevDescription = params.jd;
+                    angular.forEach(response.data.resumes, function(resumes){
+                        resumes.skills = resumes.skills.toString().slice(1, -1).concat('.').split(',').join(', ');
+                    });
+                    vm.responseResumes = angular.copy(response.data.resumes) || [];
+                    
+                    vm.tempResumes = angular.copy(vm.responseResumes);
+                    vm.displayCount = vm.responseResumes.length;
+                    vm.loadResumes();
+                    vm.submitted = false;
+                    vm.inProgressSearchResumes = false;
+                    if(!$('#hide-resumes').is(':visible')){
+                        vm.toogleResumesList();
+                    }
+                    vm.toogleSearchResume();
+                }
+                else if (response.data.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+            });
+        }
+
+        function minMaxFilter(min, max){
+            var filtered = [];
+            angular.forEach(vm.responseResumes, function(resume) {
+                if( resume.total_score >= min && resume.total_score <= max ) {
+                    filtered.push(resume);
+                }
+            });
+            return filtered;
+        }
+
+    }
 
 
 

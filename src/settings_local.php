@@ -35,10 +35,10 @@ return [
             'PREFIX' => '/enterprise',
 
             // Angular Application domain
-            'APP_DOMAIN' => 'http://localhost/mmenterprise_11/',
+            'APP_DOMAIN' => 'http://192.168.33.10/mmenterprise/',
 
             // Application API domain
-            'API_DOMAIN' => 'http://localhost/mintmesh_11/',
+            'API_DOMAIN' => 'http://192.168.33.10/mintmesh/',
 
             //Client keys
             'CLIENT_ID'         => 'G7iLdQoeZy0Ef06C',
@@ -49,7 +49,7 @@ return [
 
             //qquploader path
             'PATH'    => '/var/www/public/mintmesh_11/',
-            'PREVIEW_PATH'  => 'http://192.168.33.10/mintmesh_10/',
+            'PREVIEW_PATH'  => 'http://192.168.33.10/mintmesh/',
             //Version
             'APP_VERSION' => '1.5' 
             
@@ -58,8 +58,17 @@ return [
        // email parser
        'EMAIL_PARSER' => [
            // Angular Application domain
-           'EMAIL_PARSER_DOMAIN' => 'http://localhost/mmenterprise_11/email-parser/',
-       ]
+           'EMAIL_PARSER_DOMAIN' => 'http://192.168.33.10/mmenterprise/email-parser/',
+       ],
+        'MAX_RESUME_FILE_UPLOAD_SIZE' => 5 * 1024 * 1024,
+        'AI_PARSER' => [
+            'BASE_URL' => 'http://54.68.58.181/resumematcher/',
+            'USERNAME' => 'admin',
+            'PASSWORD' => 'Aev54I0Av13bhCxM',
+            'FIND_RESUMES' => 'find_resumes',
+            'PARSE_JD'  => 'parse_jd'
+        ],
+        'S3_BASE_URL' => 'https://s3-us-west-2.amazonaws.com/mintmeshresumedev/'
     
     ],
 ];

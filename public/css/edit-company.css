@@ -251,16 +251,22 @@ scroll-top div {
   height: 56px;
   -webkit-transition: all .4s;
   transition: all .4s;
-  left: -56px;
   border-radius: 50%;
   text-align: center;
   border: 2px solid #248d6f; }
+  scroll-top div.left {
+    left: -56px; }
+  scroll-top div.right {
+    right: -56px; }
   scroll-top div img {
     width: 20px;
     height: 26px;
     margin-top: 13px; }
-  scroll-top div.move {
+  scroll-top div.move-left {
     left: 28px;
+    display: block; }
+  scroll-top div.move-right {
+    right: 28px;
     display: block; }
 
 /* tooltip */

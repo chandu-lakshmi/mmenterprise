@@ -74,7 +74,16 @@ return [
         'EMAIL_PARSER' => [
             // Angular Application domain
             'EMAIL_PARSER_DOMAIN' => 'https://enterprisestaging.mintmesh.com/email/',
-        ]
+        ],
+        'MAX_RESUME_FILE_UPLOAD_SIZE' => 5 * 1024 * 1024,
+        'AI_PARSER' => [
+            'BASE_URL' => 'http://54.68.58.181/resumematcher/',
+            'USERNAME' => 'admin',
+            'PASSWORD' => 'Aev54I0Av13bhCxM',
+            'FIND_RESUMES' => 'find_resumes',
+            'PARSE_JD'  => 'parse_jd'
+        ],
+        'S3_BASE_URL' => 'https://s3-us-west-2.amazonaws.com/mintmeshresumestg/'
         
     ],
 ];

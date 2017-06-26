@@ -258,7 +258,7 @@ $app->get('/job/post-job-2',function ($request, $response, $args) use ($app) {
 
 //Post job Page
 $app->get('/postJob',function ($request, $response, $args) use ($app) {
-	//Arguments
+  //Arguments
     $this->mintmeshAccessToken;
     $args       = commonData($this->settings);
     if(!empty(authenticate())){
@@ -596,6 +596,58 @@ $app->get('/candidates/resume-room',function ($request, $response, $args) use ($
     return $this->renderer->render($response, 'index.phtml', $args);
 });
 
+//candidates upload-resume
+$app->get('/candidates/upload-resume',function ($request, $response, $args) use ($app) {
+    //Arguments
+    $this->mintmeshAccessToken;
+    $args       = commonData($this->settings);
+    
+    //Check Logged in or not
+    if(!empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']);
+    }
+
+    $args['comp_data'] = companyProfile($this->settings);
+    // Render dashboard view
+    return $this->renderer->render($response, 'index.phtml', $args);
+});
+
+//candidates find-resume
+$app->get('/candidates/find-resume',function ($request, $response, $args) use ($app) {
+    //Arguments
+    $this->mintmeshAccessToken;
+    $args       = commonData($this->settings);
+    
+    //Check Logged in or not
+    if(!empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']);
+    }
+
+    $args['comp_data'] = companyProfile($this->settings);
+    // Render dashboard view
+    return $this->renderer->render($response, 'index.phtml', $args);
+});
+
+//upload bulk resume
+$app->post('/upload_resume',function ($request, $response, $args) use ($app) {
+   
+    // dynamically Access Token 
+   $this->mintmeshAccessToken;
+   $this->mintmeshCompanyId;
+   //$_POST['time_zone'] = $_SESSION['time_zone'];
+    // getting API endpoint from settings
+   $apiEndpoint = getapiEndpoint($this->settings, 'upload_resume');
+   
+    $candidatesList    = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+
+    return checkJsonResult( $candidatesList->loadCurl() );
+    
+});
+
+
 $app->post('/get_company_all_referrals',function ($request, $response, $args) use ($app) {
    
     // dynamically Access Token 
@@ -702,7 +754,7 @@ $app->get('/settings/configuration-manager',function ($request, $response, $args
 });
 
 // integration manager
-$app->get('/settings/integration-manager',function ($request, $response, $args) use ($app) {
+$app->get('/settings/integration-manager/{tab}',function ($request, $response, $args) use ($app) {
      
     //Arguments
     $this->mintmeshAccessToken;
@@ -1183,6 +1235,61 @@ $app->POST('/contacts_file_upload',function ($request, $response, $args) {
             echo htmlspecialchars(json_encode($data), ENT_NOQUOTES);
         }
 });
+//contacts upload
+$app->POST('/resume_file_upload',function ($request, $response, $args) {
+    $args       = commonData($this->settings);
+    require 'library/fileupload_library.php';
+    $file_upload = new fileupload_library; 
+        if (!isset($_REQUEST['filename']) && !isset($_FILES['qqfile'])) {
+            $_REQUEST['filename'] = $_REQUEST['qqfile'];
+        }
+        if (!empty($_SERVER['HTTP_WMTGOAT']) || isset($_FILES['qqfile']) || isset($_REQUEST['filename'])) {
+            if (!empty($_SERVER['HTTP_WMTGOAT'])) {
+                $_REQUEST['filename'] = $_SERVER['HTTP_WMTGOAT'];
+            }
+            
+            $allowedExtensions = array('doc','docx','pdf','rtf','jpg', 'png', 'jpeg','txt');
+            // max file size in bytes
+            $sizeLimit  = $this->settings['MAX_RESUME_FILE_UPLOAD_SIZE'];
+            $myfilename = 'attach_' . mt_rand().time();
+            //upload the file and validate the size and file type
+            $uploader = $file_upload->fileUpload($allowedExtensions, $sizeLimit);
+            //return the file original and source name and path
+            $path   = $args['PATH'];
+            $result = $file_upload->handleUpload(''.$path.'uploads/', FALSE, $myfilename);
+            
+            if (isset($result['success']) && $result['success'] == true) {
+                    
+                if (isset($_REQUEST['filename']) || isset($_REQUEST['qqfile'])) {
+                    $org_name = isset($_REQUEST['filename']) ? $_REQUEST['filename'] : (isset($_REQUEST['qqfile']) ? $_REQUEST['qqfile'] : '');
+                } elseif (isset($_FILES['qqfile'])) {
+                    $org_name = $_FILES['qqfile']['name'];
+                } else {
+                    $org_name = '';
+                }
+               
+                $fname =  str_replace('_',' ',$org_name);
+                $result['org_name'] = $fname;
+                $result['size']     = $result['size']/1000;
+                $result['filename'] = 'uploads/'.$myfilename.'.'.$result['ext'];
+                $data['success']    = true;
+                echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
+            } else if(isset($result['error'])) {
+                #error for file size and Extensions
+                $data['success'] = false;
+                $data['msg'] = $result['error'];
+                echo htmlspecialchars(json_encode($data), ENT_NOQUOTES);
+            } else {
+                $data['success'] = false;
+                $data['msg'] = 'Failed to upload file from source';
+                echo htmlspecialchars(json_encode($data), ENT_NOQUOTES);
+            }
+        } else {
+            $data['success'] = false;
+            $data['msg'] = 'No file uploaded';
+            echo htmlspecialchars(json_encode($data), ENT_NOQUOTES);
+        }
+});
 
 $app->get('/view_company_detail324',function ($request, $response, $args) {
   $this->mintmeshAccessToken;
@@ -1424,3 +1531,80 @@ $app->post('/get_configuration',function ($request, $response, $args) use ($app)
 
      return checkJsonResult( $configurationDetails->loadCurl() );
 });
+
+//Post Job
+$app->post('/getResumeParser', function ($request, $response, $args) use ($app) {
+
+    $username = $this->settings['AI_PARSER']['USERNAME'];
+    $password = $this->settings['AI_PARSER']['PASSWORD'];
+    // getting API endpoint from settings
+    $endpoint = $this->settings['AI_PARSER']['BASE_URL'].$this->settings['AI_PARSER']['PARSE_JD'];
+    $post = json_encode($_POST);
+    $configurationDetails   = new Curl(array(
+        'endpoint'      => $endpoint,
+        'username'      => $username,
+        'password'      => $password,
+        'postData'      => $post
+     ));
+    
+    return $configurationDetails->loadAICurl();
+});
+
+
+//Get Resumes with weights
+$app->post('/getResumesFindByWeights', function ($request, $response, $args) use ($app) {
+
+    $username = $this->settings['AI_PARSER']['USERNAME'];
+    $password = $this->settings['AI_PARSER']['PASSWORD'];
+    // getting API endpoint from settings
+    $endpoint = $this->settings['AI_PARSER']['BASE_URL'].$this->settings['AI_PARSER']['FIND_RESUMES'];
+    $post = json_encode($_POST);
+    
+    $configurationDetails   = new Curl(array(
+        'endpoint'      => $endpoint,
+        'username'      => $username,
+        'password'      => $password,
+        'postData'      => $post
+     ));
+    
+    return $configurationDetails->loadAICurl();
+});
+
+//download resume
+$app->get('/getResumeDownload',function ($request, $response, $args) use ($app) {
+ 
+   // dynamically Access Token
+  $this->mintmeshAccessToken;
+  $this->mintmeshCompanyId;
+  //$_POST['time_zone'] = $_SESSION['time_zone'];
+   // getting API endpoint from settings
+  $apiEndpoint = getapiEndpoint($this->settings, 'getResumeDownload');
+ 
+   $downloadDetails    = new Curl(array(
+       'url'           => $apiEndpoint,
+       'postData'      => $_GET
+    ));
+
+   return checkJsonResult( $downloadDetails->loadCurl() );
+   
+});
+
+//download resume Zip
+$app->get('/getZipDownload',function ($request, $response, $args) use ($app) {
+ 
+   // dynamically Access Token
+  $this->mintmeshAccessToken;
+  $this->mintmeshCompanyId;
+  //$_POST['time_zone'] = $_SESSION['time_zone'];
+   // getting API endpoint from settings
+  $apiEndpoint = getapiEndpoint($this->settings, 'getZipDownload');
+ 
+   $downloadDetails    = new Curl(array(
+       'url'           => $apiEndpoint,
+       'postData'      => $_GET
+    ));
+
+   return checkJsonResult( $downloadDetails->loadCurl() );
+   
+});
+

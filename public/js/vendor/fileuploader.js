@@ -273,7 +273,7 @@ var qq = qq || {};
 /**
  * Creates upload button, validates upload, but doesn't create file list or dd. 
  */
-qq.FileUploaderBasic = function(o){
+qq.FileUploaderBasic = function(o, cb){
     this._options = {
         // set to true to see the server response
         debug: false,
@@ -291,7 +291,7 @@ qq.FileUploaderBasic = function(o){
         abortOnFailure: true, // Fail all files if one doesn't meet the criteria
         // events
         // return false to cancel submit
-        onSubmit: function(id, fileName){},
+        onSubmit: function(id, fileName, size){},
         onProgress: function(id, fileName, loaded, total){},
         onComplete: function(id, fileName, responseJSON){},
         onCancel: function(id, fileName){},
@@ -301,8 +301,8 @@ qq.FileUploaderBasic = function(o){
         messages: {
             // typeError: "You have selected an invalid file type. Only {extensions} files are allowed.",
             typeError: "Only {extensions} files are allowed.",
-            sizeError: "{file} is too large, maximum file size is {sizeLimit}.",
-            minSizeError: "{file} is too small, minimum file size is {minSizeLimit}.",
+            sizeError: "The specified file {file} could not be uploaded. The file is exceeding the maximum file size of {sizeLimit}.",
+            minSizeError: "{file} is too small, min {minSizeLimit} is allowed.",
             emptyError: "{file} is empty.",
             onLeave: "The files are being uploaded, if you leave now the upload will be cancelled."            
         },
@@ -321,6 +321,9 @@ qq.FileUploaderBasic = function(o){
     // number of files being uploaded
     this._filesInProgress = 0;
     this._handler = this._createUploadHandler();
+    if(cb){
+        cb(this._handler);
+    }
     
     if (this._options.button){ 
         this._button = this._createUploadButton(this._options.button);
@@ -328,7 +331,7 @@ qq.FileUploaderBasic = function(o){
                         
     this._preventLeaveInProgress();         
 };
-   
+var myFiles;
 qq.FileUploaderBasic.prototype = {
     setParams: function(params){
         this._options.params = params;
@@ -408,7 +411,7 @@ qq.FileUploaderBasic.prototype = {
             return self._options.messages.onLeave;             
         });        
     },
-    _onSubmit: function(id, fileName){
+    _onSubmit: function(id, fileName, size){
         this._filesInProgress++;  
     },
     _onProgress: function(id, fileName, loaded, total){
@@ -448,12 +451,13 @@ qq.FileUploaderBasic.prototype = {
             this._uploadFile(goodFiles[i]);
         }        
     },       
-    _uploadFile: function(fileContainer){      
+    _uploadFile: function(fileContainer){   
+        myFiles  = fileContainer.size;
         var id = this._handler.add(fileContainer);
         var fileName = this._handler.getName(id);
         
-        if (this._options.onSubmit(id, fileName) !== false){
-            this._onSubmit(id, fileName);
+        if (this._options.onSubmit(id, fileName, myFiles) !== false){
+            this._onSubmit(id, fileName, fileName, myFiles);
             this._handler.upload(id, this._options.params);
         }
     },      
@@ -623,9 +627,9 @@ qq.FileUploader = function(o){
     
     this._bindCancelEvent();
     
-    /*if(this._options.enableDragDrop){
+    if(this._options.enableDragDrop){
         this._setupDragDrop();
-    }*/
+    }
 };
 
 // inherit from Basic Uploader
@@ -726,7 +730,7 @@ qq.extend(qq.FileUploader.prototype, {
             e.preventDefault();
         });               
     },
-    _onSubmit: function(id, fileName){
+    _onSubmit: function(id, fileName, size){
         qq.FileUploaderBasic.prototype._onSubmit.apply(this, arguments);
         this._addToList(id, fileName);  
     },
@@ -826,6 +830,11 @@ qq.extend(qq.FileUploader.prototype, {
                 qq.remove(item);
             }
         });
+
+       /* $('.file-container').on('click','i.abort', function(event){
+            self._handler.cancel(Number(event.target.id));
+        });*/
+        
     }    
 });
     
@@ -961,7 +970,6 @@ qq.UploadButton = function(o){
     
     this._input = this._createInput();
 };
-
 qq.UploadButton.prototype = {
     /* returns file input element */    
     getInput: function(){
@@ -1056,6 +1064,8 @@ qq.UploadHandlerAbstract = function(o){
     // params for files in queue
     this._params = [];
 };
+
+
 qq.UploadHandlerAbstract.prototype = {
     log: function(str){
         if (this._options.debug && window.console) console.log('[uploader] ' + str);        
