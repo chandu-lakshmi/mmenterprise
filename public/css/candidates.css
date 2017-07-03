@@ -367,9 +367,13 @@
               background: #4a6a7d;
               color: white;
               border-color: white;
-              cursor: pointer; }
+              cursor: pointer;
+              transition: 0.5s all linear;
+              -webkit-transition: 0.5s all linear; }
             .candidates .find-resume .container div[layout="column"] .search-resume .criteria md-card-content .slide myslider .ui-widget.ui-widget-content .ui-widget-header {
-              background: #eee; }
+              background: #eee;
+              transition: 0.5s all linear;
+              -webkit-transition: 0.5s all linear; }
       .candidates .find-resume .container div[layout="column"] .search-resume .action {
         margin: 0 auto 28px;
         text-transform: capitalize;
@@ -423,21 +427,7 @@
           margin: 12px;
           overflow: hidden;
           position: relative;
-          border-radius: 4px;
-          /* md-card-title{padding: 20px 24px 0;
-              .md-subhead:first-child{font-weight:600;color:#8d8d8d;}
-              .md-headline{line-height: 25px;color: #212121;font-weight:600;max-width:95%;display:inline-block;}
-              .md-subhead{color: #212121}
-              md-card-title-media{position: relative;;
-                  .ai-score{position: absolute !important;padding-bottom: 0px;top: 8px;right: -4px;}
-                  .score{position: absolute;width: 111%;text-align: center;top: 25px;font-size: 20px;}
-              }
-          };*/
-          /* md-card-content{padding: 0 24px 24px;
-              md-card-title{padding: 0 0 6px;
-                  .dotdotdot{height: 60px;overflow: hidden;}
-              }
-          } */ }
+          border-radius: 4px; }
           .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card:active {
             transform: scale(0.99);
             -webkit-transform: scale(0.99); }
@@ -503,6 +493,8 @@
             padding: 8px 16px;
             border-top: 1px solid #dad5d5;
             color: #666666; }
+            .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card md-card-actions .ellipsis span {
+              vertical-align: middle; }
             .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card md-card-actions i {
               vertical-align: middle;
               color: #8e8e8e;
@@ -511,6 +503,9 @@
                 background: #ebebeb;
                 border-radius: 50%;
                 font-size: 20px; }
+              .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card md-card-actions i.loc {
+                padding: 0;
+                font-size: 22px; }
         .candidates .find-resume .container div[layout="column"] .container-resume md-content .loading-text {
           color: #8e8e8e;
           font-weight: 700;
