@@ -35,10 +35,10 @@ return [
             'PREFIX' => '/enterprise',
 
             // Angular Application domain
-            'APP_DOMAIN' => 'http://192.168.33.10/mmenterprise/',
+            'APP_DOMAIN' => 'http://192.168.33.10/sprint12Community/Enterprise/',
 
             // Application API domain
-            'API_DOMAIN' => 'http://192.168.33.10/mintmesh/',
+            'API_DOMAIN' => 'http://192.168.33.10/sprint12Community/api/',
 
             //Client keys
             'CLIENT_ID'         => 'G7iLdQoeZy0Ef06C',
@@ -49,7 +49,7 @@ return [
 
             //qquploader path
             'PATH'    => '/var/www/public/mintmesh_11/',
-            'PREVIEW_PATH'  => 'http://192.168.33.10/mintmesh/',
+            'PREVIEW_PATH'  => 'http://192.168.33.10/sprint12Community/api/',
             //Version
             'APP_VERSION' => '1.5' 
             
@@ -58,7 +58,7 @@ return [
        // email parser
        'EMAIL_PARSER' => [
            // Angular Application domain
-           'EMAIL_PARSER_DOMAIN' => 'http://192.168.33.10/mmenterprise/email-parser/',
+           'EMAIL_PARSER_DOMAIN' => 'http://192.168.33.10/sprint12Community/Enterprise/email-parser/',
        ],
         'MAX_RESUME_FILE_UPLOAD_SIZE' => 5 * 1024 * 1024,
         'AI_PARSER' => [

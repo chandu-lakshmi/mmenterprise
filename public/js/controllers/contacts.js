@@ -674,7 +674,6 @@
         }
 
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-
             $uibModalInstance.dismiss('cancel');
 
         })
