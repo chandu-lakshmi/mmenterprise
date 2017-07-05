@@ -531,7 +531,7 @@
             })
         }
         
-        this.trashBucket = function (bkt){
+        this.trashBucket = function (bkt, bktIndex){
             var bktName = bkt.bucket_name.toUpperCase();
             $uibModal.open({
                 animation: false,
@@ -555,7 +555,10 @@
             })
             
             function deleteCallback(res){
-                console.log(res);
+                scope.getGridData('ALL CONTACTS', '0', '', '');
+                scope.getActiveBucketCount(-1);
+                scope.bucketNames.splice(bktIndex, 1);
+                bucketsCount();
             }
         }
 
