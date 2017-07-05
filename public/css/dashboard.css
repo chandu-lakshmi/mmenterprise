@@ -1182,6 +1182,20 @@ ul.new-tabs > li.active > a{
     padding: 15px;
     color:#222;
 }
+.post-job .mm-text-editor{
+    padding: 6px 12px;           
+    border: 1px solid #ccc !important;
+    border-radius: 4px;
+}
+.post-job .mm-text-editor .ta-toolbar{
+    padding:6px;
+}
+.post-job .mm-text-editor.focussed{
+    border-color: #208d6e;
+    outline: 0;
+    -webkit-box-shadow:0px 1px 1px rgba(29, 142, 112, 1) inset, 0px 2px 8px rgba(92, 185, 160, 1);
+    box-shadow:0px 1px 1px rgba(29, 142, 112, 1) inset, 0px 2px 8px rgba(92, 185, 160, 1);
+}
 .post-job .easy-autocomplete.has-error-border input{
     border: 1px solid red;
 }

@@ -1,153 +1,155 @@
 
 <div class="post-job">
+    <section>
+        <div class="container" style="padding-bottom: 80px;">
+            <div class="job-title" style="padding-left:0px;">
+                <a ui-sref="^.job"><img src="public/images/back-arrow-black.svg" alt="arrowback" style="margin-top:30px;"></a>
+                <span class="company-name">{{PtJobCtrl.company_name| uppercase}}</span>
+                <h2 class="text-center">Create Your Job</h2>
+            </div>
 
-	<section>
-		<div class="container" style="padding-bottom: 80px;">
-			<div class="job-title" style="padding-left:0px;">
-				<a ui-sref="^.job"><img src="public/images/back-arrow-black.svg" alt="arrowback" style="margin-top:30px;"></a>
-				<span class="company-name">{{PtJobCtrl.company_name | uppercase}}</span>
-				<h2 class="text-center">Create Your Job</h2>
-			</div>
-
-			<div class="content">
-				<form role="form" name="post_job" novalidate onkeypress="return (event.keyCode == 13 && event.target.tagName != 'TEXTAREA') ? false : true " autocomplete="off">
-					<div class="row">
-						<div class="col-sm-4">
-							<!-- <div class="form-group">
-								<label for="job_title">Job Title*</label>
-								<div angucomplete-alt id="ex1"
-									  placeholder="Search Jobs"
-									  maxlength="50"
-									  pause="100"
-									  remote-api-handler="PtJobCtrl.getServices"
-									  title-field="service_name"
-									  selected-object="PtJobCtrl.postJob1.job_title"
-									  search-fields="name"
-									  title-field="name"
-									  minlength="1"
-									  input-class="form-control"
-									  match-class="highlight"
-									  field-required="true">
-								</div>
-							</div> -->
-							<div class="form-group">
-								<label for="job_title">Job Title*</label>
-							  	<input type="text" class="form-control" id="job_title" name="job_title" ng-model="PtJobCtrl.postJob1.job_title" value="" required ng-keyup="PtJobCtrl.job_title_suggestion(PtJobCtrl.postJob1.job_title)" autocomplete="off">
-							  	<div class="error-spacer"></div>
-							  	<div ng-if="post_job.job_title.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Job Title Field is Required.</div>
-							</div>
-						</div>
-						<div class="col-sm-4">
-							<div class="form-group">
-								<label for="job_func">Job Function*</label>
-								<i class="fa fa-angle-down fa-feedback" style="color: #F46113"></i>
-								<select class="form-control" id="job_func" name="job_func" ng-model="PtJobCtrl.postJob1.job_func" required ng-options="job_functions.job_function_name for job_functions in PtJobCtrl.job_function">
-									<option selected disabled value="">Please Select</option>
-								</select>
-								<div class="error-spacer"></div>
-								<div ng-if="post_job.job_func.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Job Function Field is Required.</div>
-							</div>
-						</div>
-						<div class="col-sm-4">
-							<div class="form-group">
-								<label for="location">Location*</label>
-								<input id="location" class="form-control" ng-model="PtJobCtrl.postJob1.location" name="location" ng-autocomplete="PtJobCtrl.geo_location" details="PtJobCtrl.geo_details" options="PtJobCtrl.geo_options" required class="has-error-border" apiplaceholder="Please Choose Location">
-								<div class="error-spacer"></div>
-								<div ng-if="post_job.location.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Location Field is Required.</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-4">
-							<div class="form-group">
-								<label for="industry">Industry*</label>
-								<i class="fa fa-angle-down fa-feedback" style="color: #F46113"></i>
-								<select class="form-control" id="industry" ng-model="PtJobCtrl.postJob1.industry" name="industry" required ng-options="industry.industry_name for industry in PtJobCtrl.industry_list">
-									<option  selected disabled value="">Please Select</option>
-								</select>
-								<div class="error-spacer"></div>
-								<div ng-if="post_job.industry.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Industry Field is Required.</div>
-							</div>
-						</div>
-						<div class="col-sm-4">
-							<div class="form-group">
-								<label for="emp_type">Employment Type*</label>
-								<i class="fa fa-angle-down fa-feedback" style="color: #F46113"></i>
-								<select class="form-control" id="emp_type" ng-model="PtJobCtrl.postJob1.emp_type" name="emp_type" required ng-options="employmentTypes.employment_type_name for employmentTypes in PtJobCtrl.employment_type">
-									<option selected disabled value="">Please Select</option>
-								</select>
-								<div class="error-spacer"></div>
-								<div ng-if="post_job.emp_type.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Employment Type Field is Required.</div>
-							</div>
-						</div>
-						<div class="col-sm-4">
-							<div class="form-group">
-								<label for="experience">Experience*</label>
-								<i class="fa fa-angle-down fa-feedback" style="color: #F46113"></i>
-								<select class="form-control" id="experience" ng-model="PtJobCtrl.postJob1.experience" name="experience" required ng-options="experiences.experience_name for experiences in PtJobCtrl.experience">
-									<option selected disabled value="">Please Select</option>
-								</select>
-								<div class="error-spacer"></div>
-								<div ng-if="post_job.experience.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Experience Field is Required.</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-4">
-							<div class="form-group">
-								<label for="vacancy">Number of Vacancies*</label>
-								<input type="text" class="form-control" id="vacancy" name="vacancy" value="" ng-model="PtJobCtrl.postJob1.no_of_vacancies" ng-pattern="/(^[^0]$)|(^[1-9]\d{0,}$)/" maxlength="10" check-char-zero required>
-								<div class="error-spacer"></div>
-								<div ng-if="post_job.vacancy.$error.pattern" class="has-error-msg">Number of Vacancies should not be zero.</div>
-								<div ng-if="post_job.vacancy.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Number of Vacancies Field is Required.</div>
-							</div>
-						</div>
-						<div class="col-sm-4">
-							<div class="form-group">
-								<label for="pos-id">Position ID</label>
-								<input type="text" class="form-control" id="pos-id" value="" ng-model="PtJobCtrl.postJob1.position_id">
-							</div>
-						</div>
-						<div class="col-sm-4">
-							<div class="form-group">
-								<label for="req-id">Requisition ID</label>
-								<input type="text" class="form-control" id="req-id" value="" ng-model="PtJobCtrl.postJob1.requistion_id">
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-4">
-							<div class="form-group">
-							  	<label for="job-type">Job Type*</label>
-							  	<i class="fa fa-angle-down fa-feedback" style="color: #F46113"></i>
-							  	<select class="form-control" name="post_type" id="job-type" required  ng-model="PtJobCtrl.postJob1.post_type">
-								    <option selected disabled value="">Please Select</option>
-								    <option value="internal">Internal</option>
-								    <option value="external">External</option>
-							  	</select>
-								<div class="error-spacer"></div>
-								<div  ng-if="post_job.post_type.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Job Type Field is Required.</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-12">
-							<div class="form-group">
-								<label for="job_desc">Job Description*</label>
-								<textarea class="form-control" id="job_desc" rows="6" ng-model="PtJobCtrl.postJob1.job_desc" name="job_desc" required maxlength="5000"></textarea>
-								<div class="error-spacer"></div>
-								<div>
-									<div ng-if="post_job.job_desc.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Job Description Field is Required.</div>
-								    <span class="max_length">Remaining {{5000 - PtJobCtrl.postJob1.job_desc.length}} / 5000 left</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="text-center" style="padding: 50px 0;">
-						<span ng-click="PtJobCtrl.postJob(post_job.$valid)" class="ripplelink mm-btn" style="padding: 12px 24px;">CONTINUE&nbsp;&nbsp;<img src="public/images/arrow-buttons.svg" style="vertical-align:initial"></span>
-					</div>
-				</form>
-			</div>
-		</div>
-	</section>
+            <div class="content">
+                <form role="form" name="post_job" novalidate onkeypress="return (event.keyCode == 13 && (event.target.tagName == 'INPUT' || event.target.tagName == 'SELECT')) ? false : true" autocomplete="off">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <!-- <div class="form-group">
+                                    <label for="job_title">Job Title*</label>
+                                    <div angucomplete-alt id="ex1"
+                                              placeholder="Search Jobs"
+                                              maxlength="50"
+                                              pause="100"
+                                              remote-api-handler="PtJobCtrl.getServices"
+                                              title-field="service_name"
+                                              selected-object="PtJobCtrl.postJob1.job_title"
+                                              search-fields="name"
+                                              title-field="name"
+                                              minlength="1"
+                                              input-class="form-control"
+                                              match-class="highlight"
+                                              field-required="true">
+                                    </div>
+                            </div> -->
+                            <div class="form-group">
+                                <label for="job_title">Job Title*</label>
+                                <input type="text" class="form-control" id="job_title" name="job_title" ng-model="PtJobCtrl.postJob1.job_title" value="" required ng-keyup="PtJobCtrl.job_title_suggestion(PtJobCtrl.postJob1.job_title)" autocomplete="off">
+                                <div class="error-spacer"></div>
+                                <div ng-if="post_job.job_title.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Job Title Field is Required.</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="job_func">Job Function*</label>
+                                <i class="fa fa-angle-down fa-feedback" style="color: #F46113"></i>
+                                <select class="form-control" id="job_func" name="job_func" ng-model="PtJobCtrl.postJob1.job_func" required ng-options="job_functions.job_function_name for job_functions in PtJobCtrl.job_function">
+                                    <option selected disabled value="">Please Select</option>
+                                </select>
+                                <div class="error-spacer"></div>
+                                <div ng-if="post_job.job_func.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Job Function Field is Required.</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="location">Location*</label>
+                                <input id="location" class="form-control" ng-model="PtJobCtrl.postJob1.location" name="location" ng-autocomplete="PtJobCtrl.geo_location" details="PtJobCtrl.geo_details" options="PtJobCtrl.geo_options" required class="has-error-border" apiplaceholder="Please Choose Location">
+                                <div class="error-spacer"></div>
+                                <div ng-if="post_job.location.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Location Field is Required.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="industry">Industry*</label>
+                                <i class="fa fa-angle-down fa-feedback" style="color: #F46113"></i>
+                                <select class="form-control" id="industry" ng-model="PtJobCtrl.postJob1.industry" name="industry" required ng-options="industry.industry_name for industry in PtJobCtrl.industry_list">
+                                    <option  selected disabled value="">Please Select</option>
+                                </select>
+                                <div class="error-spacer"></div>
+                                <div ng-if="post_job.industry.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Industry Field is Required.</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="emp_type">Employment Type*</label>
+                                <i class="fa fa-angle-down fa-feedback" style="color: #F46113"></i>
+                                <select class="form-control" id="emp_type" ng-model="PtJobCtrl.postJob1.emp_type" name="emp_type" required ng-options="employmentTypes.employment_type_name for employmentTypes in PtJobCtrl.employment_type">
+                                    <option selected disabled value="">Please Select</option>
+                                </select>
+                                <div class="error-spacer"></div>
+                                <div ng-if="post_job.emp_type.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Employment Type Field is Required.</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="experience">Experience*</label>
+                                <i class="fa fa-angle-down fa-feedback" style="color: #F46113"></i>
+                                <select class="form-control" id="experience" ng-model="PtJobCtrl.postJob1.experience" name="experience" required ng-options="experiences.experience_name for experiences in PtJobCtrl.experience">
+                                    <option selected disabled value="">Please Select</option>
+                                </select>
+                                <div class="error-spacer"></div>
+                                <div ng-if="post_job.experience.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Experience Field is Required.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="vacancy">Number of Vacancies*</label>
+                                <input type="text" class="form-control" id="vacancy" name="vacancy" value="" ng-model="PtJobCtrl.postJob1.no_of_vacancies" ng-pattern="/(^[^0]$)|(^[1-9]\d{0,}$)/" maxlength="10" check-char-zero required>
+                                <div class="error-spacer"></div>
+                                <div ng-if="post_job.vacancy.$error.pattern" class="has-error-msg">Number of Vacancies should not be zero.</div>
+                                <div ng-if="post_job.vacancy.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Number of Vacancies Field is Required.</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="pos-id">Position ID</label>
+                                <input type="text" class="form-control" id="pos-id" value="" ng-model="PtJobCtrl.postJob1.position_id">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="req-id">Requisition ID</label>
+                                <input type="text" class="form-control" id="req-id" value="" ng-model="PtJobCtrl.postJob1.requistion_id">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="job-type">Job Type*</label>
+                                <i class="fa fa-angle-down fa-feedback" style="color: #F46113"></i>
+                                <select class="form-control" name="post_type" id="job-type" required  ng-model="PtJobCtrl.postJob1.post_type">
+                                    <option selected disabled value="">Please Select</option>
+                                    <option value="internal">Internal</option>
+                                    <option value="external">External</option>
+                                </select>
+                                <div class="error-spacer"></div>
+                                <div  ng-if="post_job.post_type.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Job Type Field is Required.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="job_desc">Job Description*</label>
+                                <div text-angular class="mm-text-editor" name="job_desc" ta-max-text="5000" ng-model="PtJobCtrl.postJob1.job_desc" name="job_desc" required ta-toolbar= "[
+                                     ['bold', 'italics', 'underline', 'strikeThrough', 'ul', 'ol', 'justifyLeft', 'justifyCenter', 'justifyRight', 'indent', 'outdent', 'quote', 'charcount']]" required></div>
+<!--                                <textarea class="form-control" id="job_desc" rows="6" ng-model="PtJobCtrl.postJob1.job_desc" name="job_desc" required maxlength="5000"></textarea>-->
+                                <div class="error-spacer"></div>
+                                <div>
+                                    <div ng-if="post_job.job_desc.$error.taMaxText" class="has-error-msg">Job Description must be no longer than 5000 characters.</div>
+                                    <div ng-if="PtJobCtrl.job_post_error" class="has-error-msg">Job Description Field is Required.</div>
+                                    <span class="max_length">Remaining {{5000 - PtJobCtrl.jdCharCount}} / 5000 left</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center" style="padding: 50px 0;">
+                        <span ng-click="PtJobCtrl.postJob(post_job.$valid)" class="ripplelink mm-btn" style="padding: 12px 24px;">CONTINUE&nbsp;&nbsp;<img src="public/images/arrow-buttons.svg" style="vertical-align:initial"></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
 </div>
