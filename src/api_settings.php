@@ -286,6 +286,10 @@ return [
             'getZipDownload' =>[
                'VERSION' => 'v1',
                'ENDPOINT' => '/getZipDownload'
+            ],
+            'update_bucket' =>[
+               'VERSION' => 'v1',
+               'ENDPOINT' => '/enterprise/update_bucket'
             ]
     ];
         

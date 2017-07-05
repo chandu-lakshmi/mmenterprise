@@ -530,7 +530,34 @@
                 //console.log(response);
             })
         }
-
+        
+        this.trashBucket = function (bkt){
+            var bktName = bkt.bucket_name.toUpperCase();
+            $uibModal.open({
+                animation: false,
+                backdrop: 'static',
+                keyboard: false,
+                templateUrl: 'templates/dialogs/common-confirm-msg.phtml',
+                openedClass: "referral-status confirm-message",
+                resolve: {
+                    paramsMdService: function () {
+                        return {
+                            firstMsg: 'Are you sure you want to ',
+                            secondMsg: 'delete the '+ bktName +'?',
+                            params: {bucket_id : bkt.bucket_id},
+                            apiEndPoint: 'update_bucket',
+                            callback : deleteCallback
+                        };
+                    }
+                },
+                controller: 'CommonConfirmMessage',
+                controllerAs: 'CommonConfirmMsgCtrl'
+            })
+            
+            function deleteCallback(res){
+                console.log(res);
+            }
+        }
 
         //invite
         this.invite = function () {

@@ -161,6 +161,24 @@ $app->post('/contact_list',function ($request, $response, $args) use ($app) {
      return checkJsonResult( $bucketList->loadCurl() );
 });
 
+//trash bucket
+$app->post('/update_bucket',function ($request, $response, $args) use ($app) {
+    
+    // dynamically Access Token, Company id
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    
+    // getting API endpoint from settings
+    $apiEndpoint = getapiEndpoint($this->settings, 'update_bucket');
+   
+    $bucketList     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+
+     return checkJsonResult( $bucketList->loadCurl() );
+});
+
 //Job Post
 $app->post('/email_invitation',function ($request, $response, $args) use ($app) {
     
