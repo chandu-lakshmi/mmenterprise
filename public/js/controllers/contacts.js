@@ -628,38 +628,41 @@
         this.body = "We bring this powerful referral  platform to you. Please download the app and sign up. We are excited to have you be a part of our success here at MintMesh Enterprise.";
 
         var scope = this;
-        this.invite = function () {
-            scope.invite_cond = true;
-            var list = listContacts.selectedCts.toString();
-            var paramas = $.param({
-                action: 'invite',
-                invite_contacts: list,
-                email_subject: scope.subject,
-                email_body: scope.body
-            });
-            var invite_contacts = $http({
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                },
-                method: 'POST',
-                url: App.base_url + 'other_edits_in_contact_list',
-                data: paramas
-            })
-            invite_contacts.success(function (response) {
-                if (response.status_code == 200) {
+        this.submitted = false;
+        this.invite = function (invitation_frm) {
+            this.submitted = true;
+            if(invitation_frm.$valid){
+                scope.invite_cond = true;
+                var list = listContacts.selectedCts.toString();
+                var paramas = $.param({
+                    action: 'invite',
+                    invite_contacts: list,
+                    email_subject: scope.subject,
+                    email_body: scope.body
+                });
+                var invite_contacts = $http({
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                    },
+                    method: 'POST',
+                    url: App.base_url + 'other_edits_in_contact_list',
+                    data: paramas
+                })
+                invite_contacts.success(function (response) {
+                    if (response.status_code == 200) {
+                        scope.invite_cond = false;
+                        scope.successMsg = true;
+                        listContacts.resetSelectedCts();
+                    }
+                    else if (response.status_code == 400) {
+                        $window.location = App.base_url + 'logout';
+                    }
+                })
+                invite_contacts.error(function (response) {
+                    console.log(response)
                     scope.invite_cond = false;
-                    scope.successMsg = true;
-                    listContacts.resetSelectedCts();
-                }
-                else if (response.status_code == 400) {
-                    $window.location = App.base_url + 'logout';
-                }
-            })
-            invite_contacts.error(function (response) {
-                console.log(response)
-                scope.invite_cond = false;
-            })
-
+                })
+            }
         };
 
         this.jumpPage = function () {
@@ -672,6 +675,7 @@
                 $window.location = App.base_url + 'job';
             }
         }
+        
 
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             $uibModalInstance.dismiss('cancel');
