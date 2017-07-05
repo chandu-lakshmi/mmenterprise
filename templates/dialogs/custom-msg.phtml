@@ -12,7 +12,7 @@
             <label>Message:</label>
             <form name="invitation_frm">
                 <div text-angular class="mm-text-editor" name="msg" ng-model="ctrl.body" required ta-toolbar= "[
-                     ['bold', 'italics', 'underline', 'strikeThrough', 'ul', 'ol', 'justifyLeft', 'justifyCenter', 'justifyRight', 'indent', 'outdent', 'quote']]" required ng-model="htmlVariable"></div>
+                     ['bold', 'italics', 'underline', 'strikeThrough', 'ul', 'ol', 'justifyLeft', 'justifyCenter', 'justifyRight', 'insertLink', 'charcount']]" required ng-model="htmlVariable"></div>
                 <div class="has-error-msg" ng-show="invitation_frm.msg.$error.required && ctrl.submitted">Please enter custom message.</div>
             </form> 
 <!--            <textarea rows="4" spellcheck="false" ng-model="ctrl.body"></textarea>-->

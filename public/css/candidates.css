@@ -604,6 +604,8 @@
       .mm-text-editor .ta-toolbar button.active, .mm-text-editor .ta-toolbar #toolbarCC.active {
         color: #181818;
         box-shadow: none; }
+  .mm-text-editor .btn {
+    padding: 4px 10px; }
   .mm-text-editor .ta-scroll-window > .ta-bind {
     outline: none;
     padding-left: 0;

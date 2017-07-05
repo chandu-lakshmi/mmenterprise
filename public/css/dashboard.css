@@ -1196,7 +1196,7 @@ ul.new-tabs > li.active > a{
     -webkit-box-shadow:0px 1px 1px rgba(29, 142, 112, 1) inset, 0px 2px 8px rgba(92, 185, 160, 1);
     box-shadow:0px 1px 1px rgba(29, 142, 112, 1) inset, 0px 2px 8px rgba(92, 185, 160, 1);
 }
-.post-job .mm-text-editor button[name="quote"]{
+.post-job .mm-text-editor button[name="justifyRight"]{
     border-radius: 0 4px 4px 0 !important;
 }
 .post-job .mm-text-editor #toolbarCC{

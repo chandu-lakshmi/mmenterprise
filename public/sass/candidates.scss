@@ -313,6 +313,7 @@ $background : #eeeff1;
             &.active{color : #181818;box-shadow: none;}
         }
     }
+    .btn{padding: 4px 10px}
     .ta-scroll-window{
         & > .ta-bind{outline: none;padding-left: 0;min-height: inherit;}
         &.form-control{border-color: transparent !important; box-shadow: none !important;min-height: 116px;max-height: 220px;margin-bottom: 40px;}
