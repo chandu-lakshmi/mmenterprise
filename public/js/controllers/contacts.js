@@ -195,7 +195,7 @@
         gridValidtion('charValidation', '');
         gridValidtion('charValidationReq', /^[a-zA-Z0-9- ]{0,100}$/);
         gridValidtion('charOtherId', /^[a-zA-Z0-9-]{0,100}$/);
-        gridValidtion('numValidation', /^[-0-9]{0,15}$/);
+        gridValidtion('numValidation', /^[0-9+-]{0,15}$/);
         gridValidtion('statusValidation', '');
 
 
