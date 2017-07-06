@@ -1,4 +1,4 @@
-<div class="modal-header">
+<div class="modal-header" ng-if="CommonConfirmMsgCtrl.actionScreen">
 	<img src="public/images/cross_icon.png" alt="close" class="img-close" ng-click="$dismiss()">
 	<div style="padding:40px;overflow:hidden">
 		<span>
@@ -8,5 +8,11 @@
 			success_loader"/></div>
 		</span>
 	</div>
+</div>
+<div class="invited-contact animated zoomIn" ng-if="!CommonConfirmMsgCtrl.actionScreen" style="padding: 47px">
+    <div class="modal-header text-center" style="border-bottom:0">
+        <img src="public/images/tickmark.svg" alt="tickmark">
+        <h3 ng-bind="CommonConfirmMsgCtrl.responseMsg"></h3>
+    </div>
 </div>
 

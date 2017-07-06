@@ -38,16 +38,18 @@
             })
             
 
-    CommonConfirmMessage.$inject = ["$scope", "$uibModalInstance", "paramsMdService", '$window', '$http', 'App'];
+    CommonConfirmMessage.$inject = ["$scope", "$uibModalInstance", "paramsMdService", '$window', '$http', '$timeout', 'App'];
     epiSearch.$inject = ['App'];
     myslider.$inject = ['$timeout'];
 
 
     
-    function CommonConfirmMessage($scope, $uibModalInstance, paramsMdService, $window, $http, App){
+    function CommonConfirmMessage($scope, $uibModalInstance, paramsMdService, $window, $http, $timeout, App){
         var scope = this;
 
+
         this.data = paramsMdService;
+        this.actionScreen = true;
         this.success_loader = false;
         this.userConfirm = function(){
             scope.success_loader = true;
@@ -63,7 +65,11 @@
             .success(function (response) {
                 if (response.status_code == 200) {
                     paramsMdService.callback(response);
-                    $uibModalInstance.dismiss('cancel');
+                    scope.responseMsg = response.message.msg[0];                    
+                    scope.actionScreen = false;
+                    $timeout(function(){
+                      $uibModalInstance.dismiss('cancel');  
+                  }, 2000);
                 }
                 else if (response.status_code == 400) {
                     $window.location = App.base_url + 'logout';
