@@ -18,8 +18,7 @@
                             <md-tooltip>{{bkt.bucket_name}}</md-tooltip>
                         </span>
                         <span> ({{bkt.count|| 0}})</span>
-                        <i class="material-icons del animated fadeIn" ng-click="ContactCtrl.trashBucket(bkt, $index);$event.stopPropagation();" ng-if="(bkt.bucket_name === ContactCtrl.activeBucket && bkt.company_id !== 0)">delete</i>
-                        
+                        <i class="material-icons del animated fadeIn" ng-click="ContactCtrl.trashBucket(bkt, $index);$event.stopPropagation();" ng-if="(bkt.bucket_name == ContactCtrl.activeBucket && bkt.company_id != 0)">delete</i>
                     </div>
                 </div>
             </div>
