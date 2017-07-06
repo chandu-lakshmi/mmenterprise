@@ -56,6 +56,7 @@
         }
     }
 
+
     function ContactsController($window, $http, $q, buckets, uiGridValidateService, $uibModal, App, userPermissions, $stateParams) {
 
         var scope = this;
@@ -543,7 +544,7 @@
                     paramsMdService: function () {
                         return {
                             firstMsg: 'Are you sure you want to ',
-                            secondMsg: 'delete the '+ bktName +'?',
+                            secondMsg: 'delete the '+ bktName +' Community?',
                             params: {bucket_id : bkt.bucket_id},
                             apiEndPoint: 'update_bucket',
                             callback : deleteCallback
