@@ -721,6 +721,7 @@
 
         var scope = this;
         this.currentState = $state.params.importContacts;
+        this.bktExists = false;
 
         if (scope.currentState) {
             scope.loader = true;
@@ -971,6 +972,10 @@
                         }, 100);
 
                     }
+                    /*else if (response.status_code == 401){
+                        scope.bktExists = true;
+                        scope.responseMsg = response.message.msg[0];       
+                    }*/
                     else if (response.status_code == 400) {
                         $window.location = App.base_url + 'logout';
                     }
