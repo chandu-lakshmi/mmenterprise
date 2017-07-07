@@ -475,6 +475,15 @@
                 vm.loader = true;
                 angular.element('.footer .disabled').css('pointer-events', 'none');
                 var data = $('form[name="' + flag + '_form"]').serialize();
+                var backEndParams = {
+                    ref: ref,
+                    flag: vm.status,
+                    timeZone: new Date().getTimezoneOffset()
+                };
+
+                if($stateParams.jc == 2){
+                    angular.extend(backEndParams, {post_id : vm.referralDetails.post_id, refrel : vm.referralDetails.refrel});
+                }
 
                 $http({
                     headers: {
@@ -482,20 +491,21 @@
                     },
                     method: 'POST',
                     url: apiCall,
-                    data: data + '&' + $.param({
-                        ref: ref,
-                        flag: vm.status,
-                        timeZone: new Date().getTimezoneOffset()
-                    })
+                    data: data + '&' + $.param(backEndParams)
                 })
                         .then(function (response) {
                             vm.loader = false;
                             angular.element('.footer .disabled').css('pointer-events', 'auto');
                             if (response.data.status_code == 200) {
                                 vm.backendMsg = response.data.message.msg[0];
-                                if ($stateParams.jc == 0 || $stateParams.jc == 2) {
+                                if ($stateParams.jc == 0) {
                                     setTimeout(function () {
                                         $state.go('allJobs', {ref: ref, share_status: $stateParams.share_status})
+                                    }, 1000);
+                                }
+                                else if($stateParams.jc == 2){
+                                    setTimeout(function () {
+                                        $state.go('allJobs', {ref: vm.referralDetails.refrel, share_status: $stateParams.share_status})
                                     }, 1000);
                                 }
                                 else {
