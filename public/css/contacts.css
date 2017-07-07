@@ -988,6 +988,7 @@
     white-space: nowrap;
     display: inline-block;
     vertical-align: -webkit-baseline-middle;
+    vertical-align: -moz-middle-with-baseline;
     width: 80%;
     padding-left: 5px;
 }
