@@ -505,8 +505,7 @@
                                 }
                                 else if($stateParams.jc == 2){
                                     setTimeout(function () {
-                                        App.ref = vm.referralDetails.refrel;
-                                        $state.go('allJobs', {ref: vm.referralDetails.refrel, share_status: $stateParams.share_status})
+                                        $state.go('allJobs', {ref: vm.referralDetails.ref, share_status: $stateParams.share_status})
                                     }, 1000);
                                 }
                                 else {
