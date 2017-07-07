@@ -108,7 +108,8 @@ $app->get('/email/candidate-details/{status}', function ($request, $response, $a
     $args['camp_ref'] = $_POST['camp_ref'];
     $args['ref'] = $_GET['ref'];
     if($_GET['jc'] == 2){
-        $_POST['reference_id'] = $args['ref'];
+        $_POST['ref'] = $args['ref'];
+        $_POST['refrel'] = $args['refrel'];
         $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_mobile_ref');
         $Details     = new Curl(array(
             'url'           => $apiEndpoint,
