@@ -44,7 +44,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="list" infinite-scroll='AllCampaignsCtrl.infiniteScroll.nextPage()' infinite-scroll-disabled='AllCampaignsCtrl.infiniteScroll.busy' infinite-scroll-distance='1' style="position:relative;min-height:350px;" class="list">
+                <div class="list" infinite-scroll='AllCampaignsCtrl.infiniteScroll.nextPage()' infinite-scroll-disabled='AllCampaignsCtrl.infiniteScroll.busy' infinite-scroll-distance='0' style="position:relative;min-height:350px;" class="list">
                     <div class="row" ng-repeat="list in AllCampaignsCtrl.infiniteScroll.list">
                         <a ui-sref="jobDetails({ref: list.ref_code})" title="" class="detail">
                             <div class="col-sm-8">
