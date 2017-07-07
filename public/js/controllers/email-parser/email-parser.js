@@ -393,10 +393,12 @@
         }
 
         if ($stateParams.share_status == 'share') {
-            if ($stateParams.jc == 0)
+            if ($stateParams.jc == 0 || $stateParams.jc == 2){
                 vm.referralDetails = angular.copy(ReferralDetails);
-            else
+            }
+            else{
                 vm.referralDetails = angular.copy(CampaignDetails);
+            }
             if ($state.current.name == 'candidateDetails') {
                 vm.shareReferral = angular.copy(ReferralDetails.emailid);
                 vm.referralDetails.emailid = '';
@@ -404,7 +406,7 @@
         }
         else {
             // vm.referralDetails = ReferralDetails;
-            if ($stateParams.jc == 0)
+            if ($stateParams.jc == 0 || $stateParams.jc == 2)
                 vm.referralDetails = angular.copy(ReferralDetails);
             else
                 vm.referralDetails = angular.copy(CampaignDetails);
@@ -418,6 +420,9 @@
 
         var ref = $stateParams.ref;
         var apiCall = App.base_url + 'apply_job';
+        if($stateParams.jc == 2){
+            apiCall = App.base_url + 'apply_job_ref';
+        }
 
         this.fileName = 'Select a file to upload...';
 
