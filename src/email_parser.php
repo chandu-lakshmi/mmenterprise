@@ -196,6 +196,24 @@ $app->post('/apply_job',function ($request, $response, $args) use ($app) {
      return checkJsonResult( $Details->loadCurl() );
 });
 
+$app->post('/apply_job_ref',function ($request, $response, $args) use ($app) {
+    $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_campaign_ref');
+    $Details     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+    ));
+    $args['referralDetails'] = checkJsonResult( $Details->loadCurl() );
+    $checkResult['refDetails'] = json_decode($args['referralDetails']);
+    $_POST['post_id'] =  $checkResult['refDetails']->post_id;
+    $_POST['reference_id'] =  $checkResult['refDetails']->reference_id;
+    $apiEndpoint = getapiEndpoint($this->settings, 'apply_job_ref');
+    $Details     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+     return checkJsonResult( $Details->loadCurl() );
+});
+
 $app->post('/apply_jobs_list',function ($request, $response, $args) use ($app) {
     
     $apiEndpoint = getapiEndpoint($this->settings, 'apply_jobs_list');

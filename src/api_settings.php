@@ -295,5 +295,9 @@ return [
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/decrypt_mobile_ref'
             ],
+            'apply_job_ref' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/apply_job_ref'
+            ],
     ];
         
