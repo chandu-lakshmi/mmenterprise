@@ -1190,7 +1190,7 @@ ul.new-tabs > li.active > a{
 .post-job .mm-text-editor .ta-toolbar{
     padding:6px;
     text-align: center;
-    width: 112%;
+    width: 100%;
 }
 .post-job .mm-text-editor .btn-group{
     float:none;
@@ -1200,13 +1200,13 @@ ul.new-tabs > li.active > a{
     outline: 0;
     -webkit-box-shadow:0px 1px 1px rgba(29, 142, 112, 1) inset, 0px 2px 8px rgba(92, 185, 160, 1);
     box-shadow:0px 1px 1px rgba(29, 142, 112, 1) inset, 0px 2px 8px rgba(92, 185, 160, 1);
-}
+}/* 
 .post-job .mm-text-editor button[name="justifyRight"]{
     border-radius: 0 4px 4px 0 !important;
 }
 .post-job .mm-text-editor #toolbarCC{
     visibility: hidden;
-}
+} */
 .post-job .easy-autocomplete.has-error-border input{
     border: 1px solid red;
 }

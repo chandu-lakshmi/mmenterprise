@@ -139,8 +139,8 @@
                                 <div class="error-spacer"></div>
                                 <div>
                                     <div ng-if="post_job.job_desc.$error.taMaxText" class="has-error-msg">Job Description must be no longer than 5000 characters.</div>
-                                    <div ng-if="PtJobCtrl.job_post_error" class="has-error-msg">Job Description Field is Required.</div>
-                                    <span class="max_length">Remaining {{5000 - PtJobCtrl.jdCharCount}} / 5000 left</span>
+                                    <div ng-if="post_job.job_desc.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Job Description Field is Required.</div>
+                                    <!-- <span class="max_length">Remaining {{5000 - PtJobCtrl.jdCharCount}} / 5000 left</span> -->
                                 </div>
                             </div>
                         </div>
