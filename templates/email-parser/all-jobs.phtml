@@ -16,7 +16,7 @@
                     Total Jobs: <span ng-bind="AllJobsCtrl.infiniteScroll.total_count || 0"></span>
                 </div>
             </div>
-            <div infinite-scroll='AllJobsCtrl.infiniteScroll.nextPage()' infinite-scroll-disabled='AllJobsCtrl.infiniteScroll.busy' infinite-scroll-distance='1' class="list">
+            <div infinite-scroll='AllJobsCtrl.infiniteScroll.nextPage()' infinite-scroll-disabled='AllJobsCtrl.infiniteScroll.busy' infinite-scroll-distance='0' class="list">
                 <div class="row" ng-repeat="list in AllJobsCtrl.infiniteScroll.list">
                     <a ui-sref="jobDetails({ref: list.ref_code, share_status: sh_cd})" title="" class="details">
                         <div class="col-sm-8">
