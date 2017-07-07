@@ -107,7 +107,15 @@ $app->get('/email/candidate-details/{status}', function ($request, $response, $a
     $args = parserData($this->settings);
     $args['camp_ref'] = $_POST['camp_ref'];
     $args['ref'] = $_GET['ref'];
-    if($_GET['jc'] == 1){
+    if($_GET['jc'] == 2){
+        $_POST['reference_id'] = $args['ref'];
+        $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_mobile_ref');
+        $Details     = new Curl(array(
+            'url'           => $apiEndpoint,
+            'postData'      => $_POST
+        ));
+        $args['referralDetails'] = checkJsonResult( $Details->loadCurl() );
+    } else if($_GET['jc'] == 1){
         $_POST['ref'] = $args['camp_ref'];
         $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_campaign_ref');
         $Details     = new Curl(array(
@@ -115,8 +123,7 @@ $app->get('/email/candidate-details/{status}', function ($request, $response, $a
             'postData'      => $_POST
         ));
         $args['campaignDetails'] = checkJsonResult( $Details->loadCurl() );
-    }
-    else{
+    } else {
         $_POST['ref'] = $args['ref'];
         $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_ref');
         $Details     = new Curl(array(
