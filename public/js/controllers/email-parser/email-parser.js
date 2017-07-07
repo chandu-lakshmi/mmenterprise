@@ -493,7 +493,7 @@
                             angular.element('.footer .disabled').css('pointer-events', 'auto');
                             if (response.data.status_code == 200) {
                                 vm.backendMsg = response.data.message.msg[0];
-                                if ($stateParams.jc == 0) {
+                                if ($stateParams.jc == 0 || $stateParams.jc == 2) {
                                     setTimeout(function () {
                                         $state.go('allJobs', {ref: ref, share_status: $stateParams.share_status})
                                     }, 1000);
