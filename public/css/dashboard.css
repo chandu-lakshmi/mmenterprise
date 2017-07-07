@@ -1189,6 +1189,11 @@ ul.new-tabs > li.active > a{
 }
 .post-job .mm-text-editor .ta-toolbar{
     padding:6px;
+    text-align: center;
+    width: 112%;
+}
+.post-job .mm-text-editor .btn-group{
+    float:none;
 }
 .post-job .mm-text-editor.focussed{
     border-color: #208d6e;

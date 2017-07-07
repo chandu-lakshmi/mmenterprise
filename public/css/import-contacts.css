@@ -189,6 +189,9 @@
   background: transparent;
   outline: 0;
 }
+.import_verify .modal-body .text_area .ta-toolbar{
+  margin-left: 10px;
+}
 .im_c_foot{
   padding: 16px;
   border-top: 1px solid silver;
