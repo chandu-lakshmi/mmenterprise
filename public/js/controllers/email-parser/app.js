@@ -2,7 +2,7 @@
 "use strict";
 
 	angular
-		.module('emailParser', ['ui.router', 'ui.bootstrap',
+		.module('emailParser', ['ui.router', 'ui.bootstrap', 'ngSanitize',
 			'app.constants', 'app.components','app.helpers',
 			'app.email.parser'
 		])
