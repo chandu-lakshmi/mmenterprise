@@ -5,8 +5,8 @@
 		<div class="container">
 			<ul>
 				<li><a ui-sref="^.candidates.resumeRoom" ui-sref-active="active"><span class="background two"></span><span class="text">RESUME ROOM</span></a></li>
-				<li><a ui-sref="^.candidates.uploadResume" ui-sref-active="active"><span class="background two"></span><span class="text">UPLOAD RESUME</span></a></li>
-				<li><a ui-sref="^.candidates.findResume" ui-sref-active="active"><span class="background two"></span><span class="text">FIND RESUME</span></a></li>
+				<li ng-if="CandidateCtrl.enableAIModule"><a ui-sref="^.candidates.uploadResume" ui-sref-active="active"><span class="background two"></span><span class="text">UPLOAD RESUME</span></a></li>
+				<li ng-if="CandidateCtrl.enableAIModule"><a ui-sref="^.candidates.findResume" ui-sref-active="active"><span class="background two"></span><span class="text">FIND RESUME</span></a></li>
 			</ul>
 		</div>
 	</div>
