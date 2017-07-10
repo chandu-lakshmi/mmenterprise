@@ -141,8 +141,8 @@
 		<a href="{{grid.appScope.downloadResume(row, 'down')}}" download ng-click="$event.stopPropagation()">
 			<div class="download"></div>
 		</a>
-		<a href="{{$root.base_url+'viewer?url='+grid.appScope.downloadResume(row)}}" target="_blank">{{ COL_FIELD }}</a>
-
+		<a ng-if="row.entity.document_id" href="{{$root.base_url+'viewer?url='+grid.appScope.downloadResume(row)}}" target="_blank">{{ COL_FIELD }}</a>
+		<span ng-if="!row.entity.document_id">{{COL_FIELD}}</span>
 		<!-- <a href="{{grid.appScope.downloadResume(row)}}" download ng-click="$event.stopPropagation()">
 			<div class="download" ng-click="grid.appScope.downloadResume(row)"></div>
 		</a>
