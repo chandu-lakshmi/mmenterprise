@@ -427,9 +427,9 @@
         this.fileName = 'Select a file to upload...';
 
         $("#can-mobile").intlTelInput({
-            preferredCountries: ['in', 'us', 'gb'],
+            preferredCountries: ['us', 'in', 'gb'],
             nationalMode: false,
-            initialCountry: "in",
+            initialCountry: "us",
             separateDialCode: true
 
         });
