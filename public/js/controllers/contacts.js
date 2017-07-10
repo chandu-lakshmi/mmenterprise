@@ -56,6 +56,7 @@
         }
     }
 
+
     function ContactsController($window, $http, $q, buckets, uiGridValidateService, $uibModal, App, userPermissions, $stateParams) {
 
         var scope = this;
@@ -195,7 +196,7 @@
         gridValidtion('charValidation', '');
         gridValidtion('charValidationReq', /^[a-zA-Z0-9- ]{0,100}$/);
         gridValidtion('charOtherId', /^[a-zA-Z0-9-]{0,100}$/);
-        gridValidtion('numValidation', /^[-0-9]{0,15}$/);
+        gridValidtion('numValidation', /^[0-9+-]{0,15}$/);
         gridValidtion('statusValidation', '');
 
 
@@ -530,7 +531,37 @@
                 //console.log(response);
             })
         }
-
+        
+        this.trashBucket = function (bkt, bktIndex){
+            var bktName = bkt.bucket_name.toUpperCase();
+            $uibModal.open({
+                animation: false,
+                backdrop: 'static',
+                keyboard: false,
+                templateUrl: 'templates/dialogs/common-confirm-msg.phtml',
+                openedClass: "referral-status confirm-message",
+                resolve: {
+                    paramsMdService: function () {
+                        return {
+                            firstMsg: 'Are you sure you want to ',
+                            secondMsg: 'delete the '+ bktName +' Community?',
+                            params: {bucket_id : bkt.bucket_id},
+                            apiEndPoint: 'update_bucket',
+                            callback : deleteCallback
+                        };
+                    }
+                },
+                controller: 'CommonConfirmMessage',
+                controllerAs: 'CommonConfirmMsgCtrl'
+            })
+            
+            function deleteCallback(res){
+                scope.getGridData('ALL CONTACTS', '0', '', '');
+                scope.getActiveBucketCount(-1);
+                scope.bucketNames.splice(bktIndex, 1);
+                bucketsCount();
+            }
+        }
 
         //invite
         this.invite = function () {
@@ -628,38 +659,41 @@
         this.body = "We bring this powerful referral  platform to you. Please download the app and sign up. We are excited to have you be a part of our success here at MintMesh Enterprise.";
 
         var scope = this;
-        this.invite = function () {
-            scope.invite_cond = true;
-            var list = listContacts.selectedCts.toString();
-            var paramas = $.param({
-                action: 'invite',
-                invite_contacts: list,
-                email_subject: scope.subject,
-                email_body: scope.body
-            });
-            var invite_contacts = $http({
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                },
-                method: 'POST',
-                url: App.base_url + 'other_edits_in_contact_list',
-                data: paramas
-            })
-            invite_contacts.success(function (response) {
-                if (response.status_code == 200) {
+        this.submitted = false;
+        this.invite = function (invitation_frm) {
+            this.submitted = true;
+            if(invitation_frm.$valid){
+                scope.invite_cond = true;
+                var list = listContacts.selectedCts.toString();
+                var paramas = $.param({
+                    action: 'invite',
+                    invite_contacts: list,
+                    email_subject: scope.subject,
+                    email_body: scope.body
+                });
+                var invite_contacts = $http({
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                    },
+                    method: 'POST',
+                    url: App.base_url + 'other_edits_in_contact_list',
+                    data: paramas
+                })
+                invite_contacts.success(function (response) {
+                    if (response.status_code == 200) {
+                        scope.invite_cond = false;
+                        scope.successMsg = true;
+                        listContacts.resetSelectedCts();
+                    }
+                    else if (response.status_code == 400) {
+                        $window.location = App.base_url + 'logout';
+                    }
+                })
+                invite_contacts.error(function (response) {
+                    console.log(response)
                     scope.invite_cond = false;
-                    scope.successMsg = true;
-                    listContacts.resetSelectedCts();
-                }
-                else if (response.status_code == 400) {
-                    $window.location = App.base_url + 'logout';
-                }
-            })
-            invite_contacts.error(function (response) {
-                console.log(response)
-                scope.invite_cond = false;
-            })
-
+                })
+            }
         };
 
         this.jumpPage = function () {
@@ -672,9 +706,9 @@
                 $window.location = App.base_url + 'job';
             }
         }
+        
 
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-
             $uibModalInstance.dismiss('cancel');
 
         })
@@ -687,6 +721,7 @@
 
         var scope = this;
         this.currentState = $state.params.importContacts;
+        this.bktExists = false;
 
         if (scope.currentState) {
             scope.loader = true;
@@ -937,6 +972,10 @@
                         }, 100);
 
                     }
+                    /*else if (response.status_code == 401){
+                        scope.bktExists = true;
+                        scope.responseMsg = response.message.msg[0];       
+                    }*/
                     else if (response.status_code == 400) {
                         $window.location = App.base_url + 'logout';
                     }

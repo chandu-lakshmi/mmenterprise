@@ -443,11 +443,11 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 .job_des_info div:first-child{
 	color:gray;
 }
-.job-des-text p:first-child{
+ .job-des-text p.heading{
 	padding-bottom: 7px;
 	display: block;
 	color: gray;
-}
+} 
 .confirm-message .modal{
 	top: calc(50% - 128px);
 }

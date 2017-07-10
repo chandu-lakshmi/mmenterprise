@@ -52,7 +52,8 @@
 			        </span>
 			    </div>
 			    <div class="pull-right disabled" ng-init="sh_cd = $stateParams.share_status">
-			        <span class="cancel"><a ui-sref="{{$stateParams.jc == 1 ? 'allCampaigns({ref: $root.camp_ref,share_status:sh_cd})' : 'allJobs({ref: $root.ref,share_status:sh_cd})'}}">Cancel</a></span>
+			        <span class="cancel" ng-if="$stateParams.jc != 2"><a ui-sref="{{$stateParams.jc == 1 ? 'allCampaigns({ref: $root.camp_ref,share_status:sh_cd})' : 'allJobs({ref: $root.ref,share_status:sh_cd})'}}">Cancel</a></span>
+			        <span class="cancel" ng-if="$stateParams.jc == 2"><a ui-sref="allJobs({ref: ApplyJobCtrl.referralDetails.ref,share_status:sh_cd})">Cancel</a></span>
 					<span class="submit" ng-click="ApplyJobCtrl.postFormData(apply_form.$invalid, 'apply')">SUBMIT</span>
 			    </div>
 			</div>

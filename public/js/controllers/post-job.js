@@ -199,6 +199,11 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
         $state.go('^.postJob2');
       }
     }
+    
+    /*$scope.$watch('PtJobCtrl.postJob1.job_desc', function(){
+        scope.jdCharCount = $('#toolbarCC span').text();
+    });*/
+        
 
 }])
 

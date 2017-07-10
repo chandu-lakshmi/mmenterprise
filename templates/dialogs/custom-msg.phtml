@@ -1,20 +1,25 @@
 <div ng-if="!ctrl.successMsg" style="background:#F0F0F0">
     <img class="cross_close" ng-click="$dismiss()" src="public/images/close-popup.svg" alt="arrow">
-     <div class="modal-header">
+    <div class="modal-header">
         <h3 class="modal-title" style="color:#808080;padding:2px">Add a custom message to your Invitation</h3>
     </div>
     <div class="modal-body" style="padding: 4%;">
-       <!--  <div class="input_subj">
-            <label>Subject:</label>
-            <input type="text" ng-model="ctrl.subject">
-        </div> -->
+        <!--  <div class="input_subj">
+             <label>Subject:</label>
+             <input type="text" ng-model="ctrl.subject">
+         </div> -->
         <div  class="text_area">
             <label>Message:</label>
-            <textarea rows="4" spellcheck="false" ng-model="ctrl.body"></textarea>
+            <form name="invitation_frm">
+                <div text-angular class="mm-text-editor" name="msg" ng-model="ctrl.body" required ta-toolbar= "[
+                     ['bold', 'italics', 'underline', 'strikeThrough', 'ul', 'ol', 'justifyLeft', 'justifyCenter', 'justifyRight', 'insertLink', 'charcount']]" required ng-model="htmlVariable"></div>
+                <div class="has-error-msg" ng-show="invitation_frm.msg.$error.required && ctrl.submitted">Please enter custom message.</div>
+            </form> 
+<!--            <textarea rows="4" spellcheck="false" ng-model="ctrl.body"></textarea>-->
         </div>
     </div>
     <div class="modal-footer" style="background:#E3E3E3">
-     <button class="btn" type="button" ng-click="ctrl.invite()" ng-disabled="ctrl.invite_cond">INVITE SELECTED<img src="public/images/arrow-buttons.svg" alt="arrow"></button>
+        <button class="btn" type="button" ng-click="ctrl.invite(invitation_frm)" ng-disabled="ctrl.invite_cond">INVITE SELECTED<img src="public/images/arrow-buttons.svg" alt="arrow"></button>
     </div>
 </div>
 <div ng-if="ctrl.successMsg" class="invited-contact" >
@@ -24,6 +29,7 @@
         <p>Thank You!</p>
     </div>
     <div class="modal-footer" style="border-top:0;padding-bottom:40px">
-        <a ng-click="ctrl.jumpPage();$dismiss()"><button class="btn" type="button">  NEXT<img src="public/images/arrow-buttons.svg" alt="arrow"></button></a>
+        <a ng-click="ctrl.jumpPage();
+            $dismiss()"><button class="btn" type="button">  NEXT<img src="public/images/arrow-buttons.svg" alt="arrow"></button></a>
     </div>
 </div>

@@ -38,22 +38,43 @@
             })
             
 
-    CommonConfirmMessage.$inject = ["$scope", "$uibModalInstance", "paramsMdService", '$window', '$http', '$state', 'CONFIG'];
+    CommonConfirmMessage.$inject = ["$scope", "$uibModalInstance", "paramsMdService", '$window', '$http', '$timeout', 'App'];
     epiSearch.$inject = ['App'];
     myslider.$inject = ['$timeout'];
 
 
     
-    function CommonConfirmMessage($scope, $uibModalInstance, paramsMdService, $window, $http, $state, CONFIG){
+    function CommonConfirmMessage($scope, $uibModalInstance, paramsMdService, $window, $http, $timeout, App){
         var scope = this;
 
-        this.data = paramsMdService;
-        this.success_loader = false;
 
+        this.data = paramsMdService;
+        this.actionScreen = true;
+        this.success_loader = false;
         this.userConfirm = function(){
-            
             scope.success_loader = true;
             
+            $http({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'POST',
+                data: $.param(paramsMdService.params),
+                url: App.base_url + paramsMdService.apiEndPoint
+            })
+            .success(function (response) {
+                if (response.status_code == 200) {
+                    paramsMdService.callback(response);
+                    scope.responseMsg = response.message.msg[0];                    
+                    scope.actionScreen = false;
+                    $timeout(function(){
+                      $uibModalInstance.dismiss('cancel');  
+                  }, 2000);
+                }
+                else if (response.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+            });
         }
 
         $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {

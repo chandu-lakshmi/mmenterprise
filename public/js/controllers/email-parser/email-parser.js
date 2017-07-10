@@ -393,10 +393,12 @@
         }
 
         if ($stateParams.share_status == 'share') {
-            if ($stateParams.jc == 0)
+            if ($stateParams.jc == 0 || $stateParams.jc == 2){
                 vm.referralDetails = angular.copy(ReferralDetails);
-            else
+            }
+            else{
                 vm.referralDetails = angular.copy(CampaignDetails);
+            }
             if ($state.current.name == 'candidateDetails') {
                 vm.shareReferral = angular.copy(ReferralDetails.emailid);
                 vm.referralDetails.emailid = '';
@@ -404,7 +406,7 @@
         }
         else {
             // vm.referralDetails = ReferralDetails;
-            if ($stateParams.jc == 0)
+            if ($stateParams.jc == 0 || $stateParams.jc == 2)
                 vm.referralDetails = angular.copy(ReferralDetails);
             else
                 vm.referralDetails = angular.copy(CampaignDetails);
@@ -418,13 +420,16 @@
 
         var ref = $stateParams.ref;
         var apiCall = App.base_url + 'apply_job';
+        if($stateParams.jc == 2){
+            apiCall = App.base_url + 'apply_job_ref';
+        }
 
         this.fileName = 'Select a file to upload...';
 
         $("#can-mobile").intlTelInput({
-            preferredCountries: ['in', 'us', 'gb'],
+            preferredCountries: ['us', 'in', 'gb'],
             nationalMode: false,
-            initialCountry: "in",
+            initialCountry: "us",
             separateDialCode: true
 
         });
@@ -470,6 +475,15 @@
                 vm.loader = true;
                 angular.element('.footer .disabled').css('pointer-events', 'none');
                 var data = $('form[name="' + flag + '_form"]').serialize();
+                var backEndParams = {
+                    ref: ref,
+                    flag: vm.status,
+                    timeZone: new Date().getTimezoneOffset()
+                };
+
+                if($stateParams.jc == 2){
+                    angular.extend(backEndParams, {post_id : vm.referralDetails.post_id, refrel : vm.referralDetails.refrel});
+                }
 
                 $http({
                     headers: {
@@ -477,11 +491,7 @@
                     },
                     method: 'POST',
                     url: apiCall,
-                    data: data + '&' + $.param({
-                        ref: ref,
-                        flag: vm.status,
-                        timeZone: new Date().getTimezoneOffset()
-                    })
+                    data: data + '&' + $.param(backEndParams)
                 })
                         .then(function (response) {
                             vm.loader = false;
@@ -491,6 +501,11 @@
                                 if ($stateParams.jc == 0) {
                                     setTimeout(function () {
                                         $state.go('allJobs', {ref: ref, share_status: $stateParams.share_status})
+                                    }, 1000);
+                                }
+                                else if($stateParams.jc == 2){
+                                    setTimeout(function () {
+                                        $state.go('allJobs', {ref: vm.referralDetails.ref, share_status: $stateParams.share_status})
                                     }, 1000);
                                 }
                                 else {

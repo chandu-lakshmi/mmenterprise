@@ -286,6 +286,18 @@ return [
             'getZipDownload' =>[
                'VERSION' => 'v1',
                'ENDPOINT' => '/getZipDownload'
-            ]
+            ],
+            'update_bucket' =>[
+               'VERSION' => 'v1',
+               'ENDPOINT' => '/enterprise/update_bucket'
+            ],
+            'decrypt_mobile_ref' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/decrypt_mobile_ref'
+            ],
+            'apply_job_ref' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/apply_job_ref'
+            ],
     ];
         

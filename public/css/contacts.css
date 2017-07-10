@@ -3,37 +3,42 @@
 .grid-contacts select.form-control option[value^="?"]{display: none}
 
 .grid-contacts{
-  	background: #eeeff1;
-  	font-size: 16px;
+    background: #eeeff1;
+    font-size: 16px;
 }
 .grid-contacts div:focus{
-	outline: none !important;
+    outline: none !important;
 }
 .grid-contacts .container{
-  	/*width: 1200px;
-	padding: 0px;*/
-	padding-bottom: 40px;
+    /*width: 1200px;
+    padding: 0px;*/
+    padding-bottom: 40px;
 }
 .grid-contacts .container .container-lt{
-	width: 20%;
-	padding: 10px 10px 0 0;
-	float: left;
+    width: 20%;
+    padding: 10px 10px 0 0;
+    float: left;
 }
 .grid-contacts .container .container-lt .dropdown{
-	margin-bottom: 23px;
+    margin-bottom: 23px;
 }
 .grid-contacts .container .container-lt .dropdown .dropdown-menu{
     border:0;
 }
 .grid-contacts .container .container-lt .bkt-container{
-	height: calc(100vh - 220px);
+    height: calc(100vh - 220px);
     overflow-y: auto;
     min-height: 458px;
 }
+.grid-contacts .container .container-lt .bkt-container .del{
+    float:right;
+    color:#fff;
+    margin-right: 4px;
+}
 .grid-contacts .container .container-lt .bkt-container > span,
 .grid-contacts .container .container-lt .bkt-container > div div{
-	display: block;
-    padding: 14px 0 14px 16px;
+    display: block;
+    padding: 14px 0 14px 10px;
     text-align: left;
     font-size: 14px;
     outline: 0;
@@ -42,7 +47,7 @@
     margin-bottom: 4px;
 }
 .grid-contacts .container .container-lt .bkt-container  div span:first-child,.word-ellipsis{
-	max-width: 145px;
+    max-width: 120px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -50,13 +55,13 @@
     vertical-align: middle;
 }
 /*.grid-contacts .container .container-lt span span{
-	display: inline-block;
+        display: inline-block;
 }*/
 .grid-contacts .container .container-lt .dropdown button,
 .grid-contacts .open > .dropdown-toggle.btn-primary:hover
 .grid-contacts .open > .dropdown-toggle.btn-primary:focus,
 .grid-contacts .open > .dropdown-toggle.btn-primary:active{
-	padding: 10px 43px;
+    padding: 10px 43px;
     background-color: #1d8e70;
     font-size: 16px;
     border-color: #1d8e70;
@@ -64,18 +69,18 @@
     outline:none;
 }
 .grid-contacts .container .container-lt .dropdown ul{
-	width: 100%;
-	margin: 0;
-	padding: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
 .grid-contacts .container .container-lt .dropdown ul li:not(:last-child){
-	border-bottom: 1px solid #d4d4d4;
+    border-bottom: 1px solid #d4d4d4;
 }
 .grid-contacts .container .container-lt .dropdown ul a{
-	padding: 20px;
+    padding: 20px;
 }
 /*.grid-contacts .container .container-lt .active-bucket{
-	padding: 11px 42px;
+        padding: 11px 42px;
     border-radius: 4px;
     margin-bottom: 23px;
     color: #fff;
@@ -84,18 +89,18 @@
     cursor: pointer;
 }
 .grid-contacts .container .container-lt .active-bucket a, .grid-contacts .container .container-lt .active-bucket a:hover{
-	color: #fff !important;
+        color: #fff !important;
 }*/
 .grid-contacts .container .container-lt .activeBucketCls{
-	background-color: #969c9c;
-	color: #fff !important;
+    background-color: #969c9c;
+    color: #fff !important;
 }
 .grid-contacts .container .container-rt{
-	width: 80%;
-	float: right;
-	border:1px solid #ccc;
-	border-top: 0;
-	background-color: #fff;
+    width: 80%;
+    float: right;
+    border:1px solid #ccc;
+    border-top: 0;
+    background-color: #fff;
     position: relative;
 }
 .grid-contacts .container .container-rt .zeroRecords{
@@ -109,19 +114,19 @@
     color: #8f3e43;
 }
 .grid-contacts .container .container-rt .search span{
-	display: inline-block;
-	max-width: 250px;
+    display: inline-block;
+    max-width: 250px;
 }
 .grid-contacts .container .container-rt md-input-container{
-	float: right;
-	margin: -12px 0 0;
+    float: right;
+    margin: -12px 0 0;
     display: inline-block;
 }
 .grid-contacts .container .container-rt md-input-container .md-errors-spacer{
-	min-height: 0;
+    min-height: 0;
 }
 .grid-contacts .container .container-rt .search{
-	position: relative;
+    position: relative;
     padding: 15px;
 }
 .grid-contacts .container .container-rt .search span.hr{
@@ -131,33 +136,33 @@
     margin: 0 12px;
 }
 .grid-contacts .container .container-rt .search div{
-	display: inline-block;
+    display: inline-block;
     text-align: center;
     position: absolute;
     left: 48%;
     top: 16px;
 }
 .grid-contacts .container .container-rt .search div img{
-	width: 30px;
-	height: 30px;
+    width: 30px;
+    height: 30px;
 }
 .grid-contacts .container .container-rt .search div span{
-	display: none;
-	color: #be7276;
-	margin-left: -66px;
+    display: none;
+    color: #be7276;
+    margin-left: -66px;
 }
 .grid-contacts .container .container-rt .search input{
-	padding: 2px 30px 0 2px !important;
+    padding: 2px 30px 0 2px !important;
 }
 .grid-contacts .container .container-rt .search img[alt='buffer']{
-	width: 20px;
+    width: 20px;
     height: 20px;
     position: absolute;
     left: -28px;
     top: 12px;
 }
 .grid-contacts .container .container-rt .search img[alt='feedback_left']{
-	position: absolute;
+    position: absolute;
     top: 12px;
     right: 6px;
     width: 16px;
@@ -166,7 +171,7 @@
 }
 /* grid style */
 .grid-contacts .grid-container{
-	clear: both;
+    clear: both;
 }
 .grid-contacts .grid-container .inline-grid{
     font-size: 14px;
@@ -177,10 +182,10 @@
     min-height: 400px;
 }
 .grid-contacts .grid-container .inline-grid .ui-grid-viewport {
-   overflow-anchor: none;
+    overflow-anchor: none;
 }
 .grid-contacts .ui-grid-header-viewport{
-  	height: 43px;
+    height: 43px;
     line-height: 46px;
     color: #959698;
     background: #f3f7f8;
@@ -194,7 +199,7 @@
     display: table-row;
 }
 .grid-contacts .inline-grid .ui-grid-contents-wrapper > .ui-grid-render-container .ui-grid-canvas .ui-grid-cell{
-	line-height: 65px;
+    line-height: 65px;
 }
 .grid-contacts .ui-grid-cell{
     float: none;
@@ -217,32 +222,32 @@
     line-height: 20px;*/
 }
 .grid-contacts .grid-other-id .ui-grid-cell-contents-hidden + .ng-scope input{
-	text-transform: uppercase;
+    text-transform: uppercase;
 }
 /*.grid-contacts .ui-grid-canvas{
     padding: 0;
 }*/
 .grid-contacts .ui-grid-cell select{
-	width: 75% !important;
+    width: 75% !important;
     padding-left: 0;
     border-radius: 0;
 }
 
 .grid-contacts .ui-grid-row .ng-scope div{
-	padding-right: 14px;
+    padding-right: 14px;
     border: 1px solid transparent;
     position: relative;
-   /* margin-top: -1px;
-    pointer-events: none;*/
+    /* margin-top: -1px;
+     pointer-events: none;*/
 }
 /*.grid-contacts .ui-grid-disable-selection.ng-scope{
-	height: 74px !important;
+        height: 74px !important;
 }*/
 .grid-contacts .grid-other-id{
-	text-transform: uppercase;
+    text-transform: uppercase;
 }
 .grid-contacts .hover-enable .ui-grid-contents-wrapper > .ui-grid-render-container .ui-grid-canvas div[ui-grid-row="row"] div:not(.grid-no-hover):hover div:not(.invalid):first-child:before{
-	content: '';
+    content: '';
     position: absolute;
     border: 1px solid #0990e2;
     width: 89%;
@@ -273,20 +278,20 @@
 }
 
 .grid-contacts .ui-grid-cell-focus{
-  	background: transparent;
-   /* height: 38px;
-    width: 78%;
-    line-height: 38px;*/
+    background: transparent;
+    /* height: 38px;
+     width: 78%;
+     line-height: 38px;*/
 }
 .grid-contacts .ui-grid-focuser:focus {
-  	box-shadow: none;
+    box-shadow: none;
 }
 .grid-contacts .ui-grid-pinned-container .ui-grid-header .ui-grid-icon-ok:before{
-	top: 10px;
+    top: 10px;
     left: 13px;
 }
 .grid-contacts .ui-grid-icon-ok:before{
-  	position: relative;
+    position: relative;
     background: url('../images/checkbox_unchecked.svg');
     width: 26px;
     height: 26px;
@@ -303,13 +308,13 @@
     background-repeat: no-repeat;
 }
 .grid-contacts .ui-grid-selection-row-header-buttons{
-  	opacity: 1;
+    opacity: 1;
 }
 .grid-contacts  .ui-grid-row-dirty .ui-grid-cell{
-	color: rgba(0,0,0,.87);
+    color: rgba(0,0,0,.87);
 }
 /*.grid-contacts	.select-box div:before{
-	content: '';
+        content: '';
     position: absolute;
     width: 120px;
     height: 40px;
@@ -320,35 +325,35 @@
 .grid-contacts .ui-grid-row.ui-grid-row-selected > [ui-grid-row] > .ui-grid-cell,
 .grid-contacts .ui-grid-row.ui-grid-row-selected .ui-grid-disable-selection div,
 .grid-contacts .ui-grid-row.ui-grid-row-selected{
-  	background-color: #f8fcff !important;
+    background-color: #f8fcff !important;
 }
 
 /* validation & loaders */
 .grid-contacts div.ui-grid-cell-contents.invalid{
-	margin-right: 24px;
+    margin-right: 24px;
     height: 96%;
     width: 89%;
     border: 1px solid red;
 }
 .grid-contacts .grid-msg-overlay{
-	top: 42px;
-	background-color: rgb(249,249,249, 0.5);
+    top: 42px;
+    background-color: rgb(249,249,249, 0.5);
 }
 .grid-contacts .grid-msg-overlay .msg{
-	border: 0;
-	background-color: transparent;
-	top: 35.5%;
+    border: 0;
+    background-color: transparent;
+    top: 35.5%;
 }
 .grid-contacts .grid-msg-overlay img{
-	width: 86px;
+    width: 86px;
     height: 86px;
 }
 /*footer bg color */
 .grid-contacts .container .container-rt .grid-footer{
- 	height: 70px;
-  	background: #eeeff1;
-  	border-top: 0;
-  	font-size: 14px;
+    height: 70px;
+    background: #eeeff1;
+    border-top: 0;
+    font-size: 14px;
     overflow: hidden;
     line-height: 70px;
 }
@@ -377,88 +382,88 @@
     margin:18px 0 0 0;
 }
 .container .container-rt .form-control:focus{
-	border-color: #cbcbcb;
-	box-shadow: none;
+    border-color: #cbcbcb;
+    box-shadow: none;
 }
 .container .container-rt .separated-s{
-	color: #c46968;
+    color: #c46968;
 }
 .container .container-rt .active-s{
-	color: #0d8e68;
+    color: #0d8e68;
 }
 .container .container-rt .inactive-s{
-	color: #888888;
+    color: #888888;
 }
 .grid-contacts .ui-grid-row{
-	border-bottom: 1px solid #e6e8e8 !important;
-	overflow: hidden;
+    border-bottom: 1px solid #e6e8e8 !important;
+    overflow: hidden;
 }
 /*.ui-grid-cell{
-	height: 0px;
+        height: 0px;
 }*/
 
 /* upload-contacts in dashboard*/
 /*.upload-contacts{
-	background: #eeeff1;
+        background: #eeeff1;
 }
 .upload-contacts .container{
-	padding-bottom: 100px;
+        padding-bottom: 100px;
 }
 .upload-contacts .head{
-	padding: 15px 0;
-	display: inline-block;
+        padding: 15px 0;
+        display: inline-block;
 }
 .upload-contacts .head span{
-	font-size: 18px;
-	font-weight: bold;
-	margin-left: 13px;
-	color: #636363;
-	vertical-align: middle;
+        font-size: 18px;
+        font-weight: bold;
+        margin-left: 13px;
+        color: #636363;
+        vertical-align: middle;
 }
 .upload-contacts .box{
-	border: 1px solid #cdcdcd;
-	box-shadow: 2px 1px 10px #cdcdcd;
+        border: 1px solid #cdcdcd;
+        box-shadow: 2px 1px 10px #cdcdcd;
 }
 .upload-contacts .box .box-content{
-	min-height:800px;
-	background: #fff;
-	padding: 55px 0;
+        min-height:800px;
+        background: #fff;
+        padding: 55px 0;
 }
 .upload-contacts .box .box-content .heading h3{
-	margin: 0;
+        margin: 0;
 }
 .upload-contacts .box .box-content .heading p{
-	margin: 16px 0;
+        margin: 16px 0;
 }
 .upload-contacts .box .box-content .heading p > span{
-	color:#999999;
-	vertical-align: middle;
+        color:#999999;
+        vertical-align: middle;
 }
 .upload-contacts .box .box-content .file-uploading{
-	width: 60%;
-	margin: 0 auto;
-	padding: 10px 56px;
+        width: 60%;
+        margin: 0 auto;
+        padding: 10px 56px;
 }
 .upload-contacts .box .box-content .file-uploading .row > div.col-sm-4{
-	width: 160px;
-	height: 160px;
-	margin: 20px;
-	padding: 0;
-	margin-bottom: 35px;
+        width: 160px;
+        height: 160px;
+        margin: 20px;
+        padding: 0;
+        margin-bottom: 35px;
 }
 .upload-contacts .box .box-content .file-uploading .row > div.col-sm-4 .upload-bucket{
-	width: 100%;
-	height: 100%;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	cursor: pointer;
+        width: 100%;
+        height: 100%;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
 }
 .upload-contacts .box .box-content .file-uploading .row > div.col-sm-4 .upload-bucket div img[alt='upload']{
-	width: 25px;
-	height: 25px;
+        width: 25px;
+        height: 25px;
 }
 .upload-contacts .box .box-content .file-uploading .row > div.col-sm-4 .upload-bucket div p{
-	margin-top: 10px;
+        margin-top: 10px;
     font-size: 18px;
     color: #fff;
 }
@@ -470,25 +475,25 @@
     color: #808080;
 }
 .upload-contacts .box .box-content .file-uploading .row > div.col-sm-4 .upload-bucket + p{
-	color: #818181;
-	font-size: 12px;
-	margin-top: 14px;
-	outline: none;
+        color: #818181;
+        font-size: 12px;
+        margin-top: 14px;
+        outline: none;
 }
 .upload-contacts .box .box-footer{
-	background: #f2f2f2;
-	padding: 15px 20px;
-	overflow: hidden;
+        background: #f2f2f2;
+        padding: 15px 20px;
+        overflow: hidden;
 }
 .upload-contacts .box .box-footer .btn-add{
-	background: #1d8e70;
-	color: #fff;
-	padding: 12px 33px;
-	display: inline-block;
-	border: 2px solid #1c8368;
-	border-radius: 5px;
-	cursor: pointer;
-	position: relative;
+        background: #1d8e70;
+        color: #fff;
+        padding: 12px 33px;
+        display: inline-block;
+        border: 2px solid #1c8368;
+        border-radius: 5px;
+        cursor: pointer;
+        position: relative;
 }
 .upload-contacts .box .box-footer .btn-cancel{
     color: #959595;
@@ -499,7 +504,7 @@
     font-size: 17px;
 }
 .upload-contacts .box .box-footer .btn-add img[alt='dot']{
-	position: absolute;
+        position: absolute;
     right: -8px;
     top: 3px;
 }*/
@@ -507,40 +512,40 @@
 
 /* qq uploader*/
 /*.upload-contacts .box .box-content .file-uploading .upload-bucket .qq-uploader{
-	height: 100%;
-	margin-bottom: 0;
-	padding-top: 0;
+        height: 100%;
+        margin-bottom: 0;
+        padding-top: 0;
 }
 .upload-contacts .box .box-content .file-uploading .upload-bucket .qq-upload-fail{
-	position: absolute;
+        position: absolute;
     font-size: 13px;
     color: #983a3a;
     white-space: nowrap;
     bottom: -18px;
 }
 .upload-contacts .box .box-content .file-uploading .upload-bucket .qq-uploader .qq-upload-button{
-	background: transparent;
-	height: 100%;
-	width: 100%;
-	text-shadow: none;
-	font-weight: normal;
-	text-transform: uppercase;
+        background: transparent;
+        height: 100%;
+        width: 100%;
+        text-shadow: none;
+        font-weight: normal;
+        text-transform: uppercase;
 }
 .upload-contacts .box .box-content .file-uploading .upload-bucket .qq-uploader .qq-upload-list{
-	z-index: 1;
-	top: 65%;
+        z-index: 1;
+        top: 65%;
 }
 .qq-upload-success span:nth-child(n+1),.qq-upload-success a{
-	display: none !important;
+        display: none !important;
 }
 .upload-contacts .box .box-content .file-uploading .upload-bucket .qq-uploader .qq-upload-button span.align-title{
-	position: absolute;
-	top: 30%;
-	width: 100%;
-	left: 0;
+        position: absolute;
+        top: 30%;
+        width: 100%;
+        left: 0;
 }
 .upload-contacts .box .box-content .file-uploading .upload-bucket .qq-uploader .qq-upload-button span.align-title p{
-	width: 80%;
+        width: 80%;
     margin: 10px auto 0;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -583,7 +588,7 @@
 }
 .upload-contacts .box .box-content .file-uploading .upload-bucket .qq-uploader .qq-upload-drop-area .file-name:hover .overlay,
 .upload-contacts .box .box-content .file-uploading .upload-bucket .qq-uploader .qq-upload-drop-area .file-name:hover i.fa{
-	display: block;
+        display: block;
 }*/
 
 
@@ -597,35 +602,35 @@
     border-color: #999;
 }
 .bucket-modal .modal-header{
-	padding: 10px 0;
+        padding: 10px 0;
 }
 .bucket-modal .modal-header h3.modal-title{
-	color: #fff;
+        color: #fff;
 }
 .bucket-modal .modal-body{
-	padding: 40px;
+        padding: 40px;
 }
 .bucket-modal .modal-body .browse{
-	border: 1px solid;
-	padding: 12px 50px;
-	cursor: pointer;
+        border: 1px solid;
+        padding: 12px 50px;
+        cursor: pointer;
 }
 .bucket-modal .modal-body .browse input[type='file']{
-	display: none;
+        display: none;
 }
 .bucket-modal .modal-footer{
-	padding: 10px 20px 10px 0;
+        padding: 10px 20px 10px 0;
 }
 .bucket-modal .modal-footer .btn-upload{
-	border: 1px solid;
-	padding: 10px 20px;
-	cursor: pointer;
-	outline: none;
+        border: 1px solid;
+        padding: 10px 20px;
+        cursor: pointer;
+        outline: none;
 }
 .bucket-modal .modal-footer .btn-cancel{
-	padding: 10px 20px;
-	color: #959595;
-	outline: none;
+        padding: 10px 20px;
+        color: #959595;
+        outline: none;
 }*/
 
 
@@ -640,17 +645,17 @@
 }
 .bucket-modal .modal-dialog,
 .contact-modal .modal-dialog{
-	width: 990px;
-	height: 670px;
-	overflow-y:	auto;
+    width: 990px;
+    height: 670px;
+    overflow-y:	auto;
     /*margin: 0; */
     margin: 5% 0;
 }
 .bucket-modal .modal-dialog .modal-content,
 .contact-modal .modal-dialog .modal-content{
-	border-radius: 0;
-	width: 100%;
-	height: 100%; 
+    border-radius: 0;
+    width: 100%;
+    height: 100%; 
 }
 .bucket-modal .modal-dialog .modal-footer,
 .contact-modal .modal-dialog .modal-footer{
@@ -661,7 +666,7 @@
 }
 .bucket-modal .modal-footer .mm-btn,
 .contact-modal .modal-footer .mm-btn{
-   padding: 14px 24px;
+    padding: 14px 24px;
 }
 .bucket-modal .modal-body img[alt='close'],
 .bucket-modal .modal-body img[alt='back'],
@@ -702,48 +707,48 @@
     width: 100%;
 }
 .bucket-modal .modal-body .contacts-group .close{
-	opacity: 0.6;
-	outline: none;
+    opacity: 0.6;
+    outline: none;
 }
 .bucket-modal .modal-body .contacts-group .close:hover,
 .bucket-modal .modal-body .contacts-group .close:focus{
-	opacity: 1;
+    opacity: 1;
 }
 
 
-    /* bucket styles (qq-uploader) */
+/* bucket styles (qq-uploader) */
 .bucket-modal .modal-body .contacts-group .file-uploading{
-	width: 64%;
-	margin: 0 auto;
+    width: 64%;
+    margin: 0 auto;
 }
 .bucket-modal .modal-body .contacts-group .file-uploading .row{
-	margin: 0;
-	margin-left: 45px;
+    margin: 0;
+    margin-left: 45px;
 }
 .bucket-modal .modal-body .contacts-group .file-uploading .row > div.col-sm-4{
-	width: 160px;
-	height: 160px;
-	margin: 20px;
-	padding: 0;
-	margin-left: 0;
-	margin-bottom: 0;
+    width: 160px;
+    height: 160px;
+    margin: 20px;
+    padding: 0;
+    margin-left: 0;
+    margin-bottom: 0;
 }
 .bucket-modal .modal-body .contacts-group .file-uploading .row > div.col-sm-4 .upload-bucket{
-	width: 100%;
-	height: 100%;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	cursor: pointer;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
 }
 .bucket-modal .modal-body .contacts-group .file-uploading .row > div.col-sm-4 .upload-bucket.new-bucket{
-	width: 100%;
-	height: 100%;
-	border: 2px dashed #ccc;
-	background: #f3f7fa;
+    width: 100%;
+    height: 100%;
+    border: 2px dashed #ccc;
+    background: #f3f7fa;
     outline: none;
 }
 .bucket-modal .modal-body .contacts-group .file-uploading .row > div.col-sm-4 .upload-bucket.new-bucket p.own{
-	font-size: 18px;
+    font-size: 18px;
     position: absolute;
     top: 40%;
     color: #808080;
@@ -834,39 +839,39 @@
 .bucket-modal .modal-body .qq-uploader .drag_img{display: none;}
 
 /*.bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader{
-	height: 100%;
-	margin-bottom: 0;
-	padding-top: 0;
+        height: 100%;
+        margin-bottom: 0;
+        padding-top: 0;
 }
 .bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-upload-fail{
-	position: absolute;
+        position: absolute;
     font-size: 13px;
     color: #983a3a;
     white-space: nowrap;
     bottom: -18px;
 }
 .bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader .qq-upload-button{
-	background: transparent;
-	height: 100%;
-	width: 100%;
-	text-shadow: none;
-	font-weight: normal;
-	text-transform: uppercase;
+        background: transparent;
+        height: 100%;
+        width: 100%;
+        text-shadow: none;
+        font-weight: normal;
+        text-transform: uppercase;
 }
 .bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader .qq-upload-list{
-	z-index: -1;
-	top: 0;
+        z-index: -1;
+        top: 0;
 }
 .bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader .qq-upload-button span.align-title{
-	position: absolute;
-	top: 35%;
-	width: 100%;
-	left: 0;
-	font-size: 18px;
+        position: absolute;
+        top: 35%;
+        width: 100%;
+        left: 0;
+        font-size: 18px;
     text-transform: capitalize;
 }
 .bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader .qq-upload-button span.align-title p{
-	width: 80%;
+        width: 80%;
     margin: 10px auto 0;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -910,7 +915,7 @@
 }
 .bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader .qq-upload-drop-area .file-name:hover .overlay,
 .bucket-modal .modal-body .contacts-group .file-uploading .upload-bucket .qq-uploader .qq-upload-drop-area .file-name:hover i.fa{
-	display: block;
+        display: block;
 }
 */
 
@@ -922,7 +927,7 @@
     margin-top: 60px;
 }
 
-    /* new bucket qq-uploader */
+/* new bucket qq-uploader */
 .bucket-modal .modal-body #new-bucket{
     height: 50px;
 }
@@ -983,6 +988,7 @@
     white-space: nowrap;
     display: inline-block;
     vertical-align: -webkit-baseline-middle;
+    vertical-align: -moz-middle-with-baseline;
     width: 80%;
     padding-left: 5px;
 }
@@ -1008,7 +1014,7 @@
     width: 45%;
 }
 
-    /* angular material css */
+/* angular material css */
 .contact-modal .modal-body .new-contact .content md-input-container{
     margin: 25px 0 0;
 }

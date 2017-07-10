@@ -107,7 +107,18 @@ $app->get('/email/candidate-details/{status}', function ($request, $response, $a
     $args = parserData($this->settings);
     $args['camp_ref'] = $_POST['camp_ref'];
     $args['ref'] = $_GET['ref'];
-    if($_GET['jc'] == 1){
+    
+    if($_GET['jc'] == 2){
+        $args['refrel']     = $_GET['refrel'];
+        $_POST['ref']       = $args['ref'];
+        $_POST['refrel']    = $args['refrel'];
+        $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_mobile_ref');
+        $Details     = new Curl(array(
+            'url'           => $apiEndpoint,
+            'postData'      => $_POST
+        ));
+        $args['referralDetails'] = checkJsonResult( $Details->loadCurl() );
+    } else if($_GET['jc'] == 1){
         $_POST['ref'] = $args['camp_ref'];
         $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_campaign_ref');
         $Details     = new Curl(array(
@@ -115,8 +126,7 @@ $app->get('/email/candidate-details/{status}', function ($request, $response, $a
             'postData'      => $_POST
         ));
         $args['campaignDetails'] = checkJsonResult( $Details->loadCurl() );
-    }
-    else{
+    } else {
         $_POST['ref'] = $args['ref'];
         $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_ref');
         $Details     = new Curl(array(
@@ -182,6 +192,16 @@ $app->post('/apply_job',function ($request, $response, $args) use ($app) {
     $_POST['post_id'] =  $checkResult['refDetails']->post_id;
     $_POST['reference_id'] =  $checkResult['refDetails']->reference_id;
     $apiEndpoint = getapiEndpoint($this->settings, 'apply_job');
+    $Details     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+     return checkJsonResult( $Details->loadCurl() );
+});
+
+$app->post('/apply_job_ref',function ($request, $response, $args) use ($app) {
+    
+    $apiEndpoint = getapiEndpoint($this->settings, 'apply_job_ref');
     $Details     = new Curl(array(
         'url'           => $apiEndpoint,
         'postData'      => $_POST
