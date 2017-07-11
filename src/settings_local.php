@@ -51,7 +51,7 @@ return [
             'PATH'    => '/var/www/public/mintmesh_11/',
             'PREVIEW_PATH'  => 'http://192.168.33.10/mintmesh/',
             //Version
-            'APP_VERSION' => '1.5' 
+            'APP_VERSION' => '1.6' 
             
         ],
 
