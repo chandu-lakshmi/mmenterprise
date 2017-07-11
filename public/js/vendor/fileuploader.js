@@ -1,3 +1,5 @@
+
+
 /**
  * http://github.com/Valums-File-Uploader/file-uploader
  * 
@@ -1426,6 +1428,7 @@ qq.extend(qq.UploadHandlerXhr.prototype, {
         xhr.open("POST", queryString, true);
         xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
         xhr.setRequestHeader("X-File-Name", encodeURIComponent(name));
+        console.log(this._options.encoding);
         if (this._options.encoding == 'multipart') {
             var formData = new FormData();
             formData.append(name, file);
