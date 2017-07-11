@@ -53,6 +53,7 @@
 					        uploadButtonText: "Upload a file",
 					        showFileInfo: true,
 					        shortMessages: false,
+					        encoding : 'browser',
 					        file_name: "filename",
 					        path_name: "filepath",
 					        
@@ -84,6 +85,7 @@
 					            allowedExtensions: config.allowedExtensions,
 					            hideShowDropArea: false,
 					            customParams: config.customParams,
+					            encoding: config.encoding,
 					            buttonClass: config.buttonClass,
 					            onCancel: config.onCancel,
 					            showMessage: function(msg, obj){
