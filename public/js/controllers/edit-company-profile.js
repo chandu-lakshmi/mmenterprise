@@ -7,9 +7,9 @@
             .controller('editCompanyProfileController', editCompanyProfileController)
 
 
-    editCompanyProfileController.$inject = ['$scope', 'httpService', 'pendingRequests', 'detectBrowser', '$window', 'CompanyDetails', 'App'];
+    editCompanyProfileController.$inject = ['$scope', 'httpService', 'pendingRequests', '$window', 'CompanyDetails', 'App'];
 
-    function editCompanyProfileController($scope, httpService, pendingRequests, detectBrowser,  $window, CompanyDetails, App) {
+    function editCompanyProfileController($scope, httpService, pendingRequests,  $window, CompanyDetails, App) {
         var vm = this, dublicateData, canceller;
         var image_path = '', mul_image_path = [], bonus_file_path = '';
         
@@ -382,7 +382,6 @@
             action: App.base_url + "file_upload",
             showFileInfo: false,
             shortMessages: true,
-            encoding :  !detectBrowser.getBrowser() ?  'default' : 'multipart',
             remove: true,
             file_name: 'referral_org_name',
             path_name: 'referral_bonus_file',
