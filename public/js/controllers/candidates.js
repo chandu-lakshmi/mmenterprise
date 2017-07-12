@@ -18,7 +18,7 @@
 
     function CandidateController() {
 
-        this.enableAIModule = false;
+        this.enableAIModule = true;
     }
 
 
