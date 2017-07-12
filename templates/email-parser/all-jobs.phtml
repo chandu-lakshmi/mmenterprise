@@ -18,7 +18,7 @@
             </div>
             <div infinite-scroll='AllJobsCtrl.infiniteScroll.nextPage()' infinite-scroll-disabled='AllJobsCtrl.infiniteScroll.busy' infinite-scroll-distance='0' class="list">
                 <div class="row" ng-repeat="list in AllJobsCtrl.infiniteScroll.list">
-                    <a ui-sref="jobDetails({ref: list.ref_code, share_status: sh_cd})" title="" class="details">
+                    <a ng-click="AllJobsCtrl.updateReferralDetails(list)" ui-sref="jobDetails({ref: list.ref_code, share_status: sh_cd})" title="" class="details">
                         <div class="col-sm-8">
                             <span ng-bind="AllJobsCtrl.infiniteScroll.companyName"></span>
                             <p ng-bind="list.job_name"></p>
