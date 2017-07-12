@@ -10,7 +10,7 @@
             .controller('AllCampaignsController', AllCampaignsController)
 
     modalController.$injext = ['$scope', '$state', '$stateParams', '$uibModalInstance', 'App'];
-    AllJobsController.$inject = ['$http', '$stateParams', '$q', 'App'];
+    AllJobsController.$inject = ['$http', '$stateParams', '$q', 'ReferralDetails', 'App'];
     JobDetailsController.$inject = ['$http', '$stateParams', '$window', 'App'];
     ApplyJobController.$inject = ['$scope', '$state', '$stateParams', '$location', '$window', '$http', '$uibModal', 'App', 'ReferralDetails', 'CampaignDetails'];
     AllCampaignsController.$inject = ['$http', '$window', '$q', 'App', 'CampaignDetails'];
@@ -39,7 +39,7 @@
         })
     }
 
-    function AllJobsController($http, $stateParams, $q, App) {
+    function AllJobsController($http, $stateParams, $q, ReferralDetails, App) {
 
         var vm = this,
                 canceler;
@@ -250,6 +250,12 @@
                     url: vm.shareUrl
                 }
             }
+        }
+
+        vm.updateReferralDetails = function(job) {
+            ReferralDetails.title = job.job_name;
+            ReferralDetails.experience = job.experience;
+            ReferralDetails.location = job.location;
         }
 
     }

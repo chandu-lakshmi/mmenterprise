@@ -5,7 +5,19 @@
 				<img ng-src="{{ApplyJobCtrl.referralDetails.company_logo}}" alt="company-logo" ng-if="ApplyJobCtrl.referralDetails.company_logo != ''"  draggable="false">
 				<span class="company-name" ng-if="ApplyJobCtrl.referralDetails.company_logo == ''">{{ApplyJobCtrl.referralDetails.company_name | uppercase}}</span>	
 			</h1>
-			<div class="title-underline"></div>
+			<!-- <div class="title-underline"></div> -->
+			<div class="referral-details">
+                <h3 ng-bind="ReferralDetails.title"></h3>
+                <h5>
+                	<span>Experience: </span>
+                	<span class="exp" ng-bind="ReferralDetails.experience"></span>
+                </h5>
+                <h5>
+                	<span>Location:</span> 
+                	<span class="loc" ng-bind="ReferralDetails.location"></span>
+                </h5>
+                <hr>
+            </div>
 			<div class="row">
 				<form name="apply_form" autocomplete="off" novalidate>
 					<h3 class="title">Candidate Details</h3>
