@@ -17,8 +17,8 @@
                 </div>
             </div>
             <div infinite-scroll='AllJobsCtrl.infiniteScroll.nextPage()' infinite-scroll-disabled='AllJobsCtrl.infiniteScroll.busy' infinite-scroll-distance='0' class="list">
-                <div class="row" ng-repeat="list in AllJobsCtrl.infiniteScroll.list">
-                    <a ng-click="AllJobsCtrl.updateReferralDetails(list)" ui-sref="jobDetails({ref: list.ref_code, share_status: sh_cd})" title="" class="details">
+                <div class="row" ng-repeat="list in AllJobsCtrl.infiniteScroll.list" ng-click="AllJobsCtrl.updateReferralDetails(list)">
+                    <a ui-sref="jobDetails({ref: list.ref_code, share_status: sh_cd})" title="" class="details">
                         <div class="col-sm-8">
                             <span ng-bind="AllJobsCtrl.infiniteScroll.companyName"></span>
                             <p ng-bind="list.job_name"></p>
@@ -31,8 +31,8 @@
                         </div>
                     </a>
                     <div class="col-sm-4 buttons" ng-init="sh_cd = $stateParams.share_status">
-                        <a class="apply" ng-click="AllJobsCtrl.updateReferralDetails(list)" ui-sref="referralDetails({ref: list.ref_code,flag: 0, status:list.status, jc:0, share_status: sh_cd})" ng-if="list.post_type == 'external'">REFER</a>
-                        <a class="apply" ng-click="AllJobsCtrl.updateReferralDetails(list)" ui-sref="candidateDetails({ref: list.ref_code, flag: 0, status:list.status, jc:0, share_status: sh_cd})" ng-if="list.post_type == 'internal' || sh_cd == 'share'">APPLY</a>
+                        <a class="apply" ui-sref="referralDetails({ref: list.ref_code,flag: 0, status:list.status, jc:0, share_status: sh_cd})" ng-if="list.post_type == 'external'">REFER</a>
+                        <a class="apply" ui-sref="candidateDetails({ref: list.ref_code, flag: 0, status:list.status, jc:0, share_status: sh_cd})" ng-if="list.post_type == 'internal' || sh_cd == 'share'">APPLY</a>
                     </div>
                 </div>
                 <div class="overlay" ng-if="AllJobsCtrl.loader">
