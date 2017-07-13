@@ -469,10 +469,21 @@
 
         vm.postFormData = postFormData;
 
-        vm.chkFile = true;
+        if($state.current.name == 'candidateDetails' || $stateParams.flag == 1){
+            vm.chkFile = true;
+        }else{
+            vm.chkFile = false;
+        }
+        
         function postFormData(formValid, flag) {
 
             vm.backendError = '';
+
+            /*if (formValid || vm.chkFile) {
+                vm.errorRequired = true;
+                return;
+            }*/
+
             if (formValid || vm.chkFile) {
                 vm.errorRequired = true;
                 return;
