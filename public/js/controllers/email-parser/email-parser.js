@@ -373,6 +373,7 @@
         vm.status = $location.search().flag;
         vm.backendError = '';
         vm.loader = false;
+        vm.viewReferralDetails = true;
         vm.backendMsg = '';
 
         // Job Functions Dropdown
@@ -389,6 +390,7 @@
 
         // pagetitle
         if ($stateParams.flag == 1) {
+            vm.viewReferralDetails = false;
             $state.current.data.pageTitle = 'MintMesh ( Drop CV )';
         }
         else if ($state.current.name == 'candidateDetails') {

@@ -6,7 +6,7 @@
 				<span class="company-name" ng-if="ApplyJobCtrl.referralDetails.company_logo == ''">{{ApplyJobCtrl.referralDetails.company_name | uppercase}}</span>	
 			</h1>
 			<!-- <div class="title-underline"></div> -->
-			<div class="referral-details">
+			<div class="referral-details" ng-if="ApplyJobCtrl.viewReferralDetails">
                 <h3 ng-bind="ReferralDetails.title"></h3>
                 <h5>
                 	<span>Experience: </span>
