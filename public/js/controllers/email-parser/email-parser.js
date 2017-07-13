@@ -12,8 +12,8 @@
     modalController.$injext = ['$scope', '$state', '$stateParams', '$uibModalInstance', 'App'];
     AllJobsController.$inject = ['$http', '$stateParams', '$q', 'ReferralDetails', 'App'];
     JobDetailsController.$inject = ['$http', '$stateParams', '$window', 'App'];
-    ApplyJobController.$inject = ['$scope', '$state', '$stateParams', '$location', '$window', '$http', '$uibModal', 'App', 'ReferralDetails', 'CampaignDetails'];
-    AllCampaignsController.$inject = ['$http', '$window', '$q', 'App', 'CampaignDetails'];
+    ApplyJobController.$inject = ['$scope', '$state', '$stateParams', '$location', '$window', '$http', '$uibModal', 'App', 'ReferralDetails', 'CampaignDetails', 'campaignJobDetails'];
+    AllCampaignsController.$inject = ['$http', '$window', '$q', 'App', 'CampaignDetails', 'campaignJobDetails'];
 
 
     function modalController($scope, $state, $stateParams, $uibModalInstance, App) {
@@ -371,7 +371,7 @@
 
     }
 
-    function ApplyJobController($scope, $state, $stateParams, $location, $window, $http, $uibModal, App, ReferralDetails, CampaignDetails) {
+    function ApplyJobController($scope, $state, $stateParams, $location, $window, $http, $uibModal, App, ReferralDetails, CampaignDetails, campaignJobDetails) {
 
         var vm = this;
 
@@ -386,7 +386,7 @@
         if ($stateParams.jc == 0 || $stateParams.jc == 2) {
             vm.jobDetails = ReferralDetails;
         }else{
-            vm.jobDetails = CampaignDetails;
+            vm.jobDetails = campaignJobDetails;
         }
 
 
@@ -625,7 +625,7 @@
 
     }
 
-    function AllCampaignsController($http, $window, $q, App, CampaignDetails) {
+    function AllCampaignsController($http, $window, $q, App, CampaignDetails, campaignJobDetails) {
 
         var vm = this,
                 canceler;
@@ -797,9 +797,9 @@
         }
 
         vm.updateCampaignDetails = function(job) {
-            CampaignDetails.job_title = job.job_name;
-            CampaignDetails.experience = job.experience;
-            CampaignDetails.location = job.location;
+            campaignJobDetails.job_title = job.job_name;
+            campaignJobDetails.experience = job.experience;
+            campaignJobDetails.location = job.location;
         }
     }
 
