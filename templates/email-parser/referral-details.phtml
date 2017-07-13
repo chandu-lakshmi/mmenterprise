@@ -81,8 +81,8 @@
 			            <span class="message" ng-class="{'success' : ApplyJobCtrl.backendMsg}" ng-bind="ApplyJobCtrl.backendMsg || ApplyJobCtrl.backendError"></span>
 			        </span>
 			    </div>
-			    <div class="pull-right disabled" ng-init="sh_cd = $stateParams.share_status">
-			        <span class="cancel"><a ui-sref="{{$stateParams.jc == 1 ? 'allCampaigns({ref: $root.camp_ref,share_status:sh_cd})' : 'allJobs({ref: $root.ref,share_status:sh_cd})'}}">Cancel</a></span>
+			    <div class="pull-right disabled" ng-init="sh_cd = $stateParams.share_status;jc = $stateParams.jc">
+			        <span class="cancel"><a ui-sref="{{$stateParams.jc == 1 ? 'allCampaigns({ref: $root.camp_ref,share_status:sh_cd})' : 'allJobs({ref: $root.ref,share_status:sh_cd,jc:jc})'}}">Cancel</a></span>
 				<span class="submit" ng-click="ApplyJobCtrl.postFormData(refer_form.$invalid, 'refer')">SUBMIT</span>
 			    </div>
 			</div>

@@ -108,7 +108,7 @@ $app->get('/email/candidate-details/{status}', function ($request, $response, $a
     $args['camp_ref'] = $_POST['camp_ref'];
     $args['ref'] = $_GET['ref'];
     
-    if($_GET['jc'] == 2){
+    if($_GET['jc'] == 2 && isset($_GET['refrel'])){
         $args['refrel']     = $_GET['refrel'];
         $_POST['ref']       = $args['ref'];
         $_POST['refrel']    = $args['refrel'];

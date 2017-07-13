@@ -126,6 +126,11 @@
 
         vm.infiniteScroll.loadApi = function (pageNo, searchVal, callBack) {
 
+            var share = $stateParams.share_status == 'web' ? 0 : 1;
+            if ($stateParams.jc == 2) {
+                share = 1;
+            }
+
             if (canceler) {
                 canceler.resolve();
             }
@@ -142,7 +147,7 @@
                     reference_id: App.ref,
                     page_no: pageNo,
                     search: searchVal,
-                    share: $stateParams.share_status == 'web' ? 0 : 1
+                    share: share
                 }),
                 timeout: canceler.promise
             })
@@ -378,7 +383,7 @@
 
 
         /*Job Details in header like title, location, exp*/
-        if ($stateParams.jc == 0) {
+        if ($stateParams.jc == 0 || $stateParams.jc == 2) {
             vm.jobDetails = ReferralDetails;
         }else{
             vm.jobDetails = CampaignDetails;
@@ -437,7 +442,7 @@
 
         var ref = $stateParams.ref;
         var apiCall = App.base_url + 'apply_job';
-        if($stateParams.jc == 2){
+        if($stateParams.refrel != 0){
             apiCall = App.base_url + 'apply_job_ref';
         }
 
@@ -535,7 +540,7 @@
                                 }
                                 else if($stateParams.jc == 2){
                                     setTimeout(function () {
-                                        $state.go('allJobs', {ref: vm.referralDetails.ref, share_status: $stateParams.share_status})
+                                        $state.go('allJobs', {ref: vm.referralDetails.ref, share_status: $stateParams.share_status, jc : 2})
                                     }, 1000);
                                 }
                                 else {

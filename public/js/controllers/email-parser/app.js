@@ -14,7 +14,7 @@
 
     		$stateProvider
     			.state('allJobs', {
-			        url: '/all-jobs/:share_status?ref',
+			        url: '/all-jobs/:share_status?ref&jc',
 			        templateUrl: App.base_url + 'templates/email-parser/all-jobs.phtml',
 			        controller: 'AllJobsController',
 			        controllerAs:'AllJobsCtrl',
@@ -22,12 +22,12 @@
 			        params : {share_status : 'web'}
 			    })
 			    .state('candidateDetails', {
-			        url: '/candidate-details/:share_status?ref&flag&jc',
+			        url: '/candidate-details/:share_status?ref&flag&jc&refrel',
 			        templateUrl: App.base_url + 'templates/email-parser/candidate-details.phtml',
 			        controller: 'ApplyJobController',
 			        controllerAs:'ApplyJobCtrl',
 			        data : { pageTitle: '' },
-			        params : {status : '',share_status : 'web'}
+			        params : {status : '',share_status : 'web', refrel : 0}
 			    })
 			    .state('referralDetails', {
 			        url: '/referral-details/:share_status?ref&flag&jc',
