@@ -486,7 +486,7 @@
         vm.postFormData = postFormData;
 
         /*Remove file upload mandatory for referal details and flag=0 */
-        if($state.current.name == 'referralDetails'){
+        if($state.current.name == 'referralDetails' && ($stateParams.flag != 1 || $stateParams.jc == 1)){
             vm.chkFile = false;
         }else{
             vm.chkFile = true;
