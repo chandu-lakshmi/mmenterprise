@@ -486,10 +486,10 @@
         vm.postFormData = postFormData;
 
         /*Remove file upload mandatory for referal details and flag=0 */
-        if($state.current.name == 'candidateDetails' || $stateParams.flag == 1 || $stateParams.jc == 1){
-            vm.chkFile = true;
-        }else{
+        if($state.current.name == 'referralDetails'){
             vm.chkFile = false;
+        }else{
+            vm.chkFile = true;
         }
         vm.hasResumeUpload = vm.chkFile;
 
