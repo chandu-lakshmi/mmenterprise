@@ -126,6 +126,13 @@ $app->get('/email/candidate-details/{status}', function ($request, $response, $a
             'postData'      => $_POST
         ));
         $args['campaignDetails'] = checkJsonResult( $Details->loadCurl() );
+        $_POST['ref'] = $args['ref'];
+        $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_ref');
+        $Details     = new Curl(array(
+            'url'           => $apiEndpoint,
+            'postData'      => $_POST
+        ));
+        $args['campaignJobDetails'] = checkJsonResult( $Details->loadCurl());
     } else {
         $_POST['ref'] = $args['ref'];
         $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_ref');
