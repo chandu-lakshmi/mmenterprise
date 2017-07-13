@@ -388,7 +388,6 @@
             vm.jobFunctions = response.data.job_functions;
         })
 
-        console.log($stateParams.flag)
         // pagetitle
         if ($stateParams.flag == 1) {
             vm.viewReferralDetails = false;
