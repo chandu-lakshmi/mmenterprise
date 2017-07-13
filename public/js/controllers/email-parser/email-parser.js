@@ -442,7 +442,7 @@
 
         var ref = $stateParams.ref;
         var apiCall = App.base_url + 'apply_job';
-        if($stateParams.refrel != 0){
+        if($stateParams.refrel != 0 && $state.current.name == 'candidateDetails'){
             apiCall = App.base_url + 'apply_job_ref';
         }
 
