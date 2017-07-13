@@ -27,7 +27,7 @@
 			        controller: 'ApplyJobController',
 			        controllerAs:'ApplyJobCtrl',
 			        data : { pageTitle: '' },
-			        params : {status : '',share_status : 'web', refrel : 0}
+			        params : {status : '',share_status : 'web', refrel : '0'}
 			    })
 			    .state('referralDetails', {
 			        url: '/referral-details/:share_status?ref&flag&jc',
