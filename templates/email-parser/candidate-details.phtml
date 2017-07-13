@@ -7,7 +7,7 @@
 			</h1>
 			<!-- <div class="title-underline"></div> -->
 			<div class="referral-details" ng-if="ApplyJobCtrl.viewReferralDetails">
-                <h3 ng-bind="ReferralDetails.title"></h3>
+                <h3 ng-bind="ReferralDetails.job_title"></h3>
                 <h5>
                 	<span>Experience: </span>
                 	<span class="exp" ng-bind="ReferralDetails.experience"></span>
@@ -45,7 +45,7 @@
 					</div>
 					<div class="col-sm-6 form-style">
 					    <div class="file">
-						    <label for="can-upload">Upload CV<sup>*</sup></label>
+						    <label for="can-upload">Upload CV<sup ng-if="ApplyJobCtrl.hasResumeUpload">*</sup></label>
 						    <span class="file-name" ng-bind="ApplyJobCtrl.fileName" title="{{ApplyJobCtrl.fileName}}"></span>
 						    <div id="upload-resume">
 						  	</div>

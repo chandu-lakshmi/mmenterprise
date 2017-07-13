@@ -253,7 +253,7 @@
         }
 
         vm.updateReferralDetails = function(job) {
-            ReferralDetails.title = job.job_name;
+            ReferralDetails.job_title = job.job_name;
             ReferralDetails.experience = job.experience;
             ReferralDetails.location = job.location;
         }
@@ -476,7 +476,8 @@
         }else{
             vm.chkFile = false;
         }
-        
+        vm.hasResumeUpload = vm.chkFile;
+
         function postFormData(formValid, flag) {
 
             vm.backendError = '';
