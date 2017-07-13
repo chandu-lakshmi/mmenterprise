@@ -6,14 +6,14 @@
 				<span class="company-name" ng-if="ApplyJobCtrl.referralDetails.company_logo == ''">{{ApplyJobCtrl.referralDetails.company_name | uppercase}}</span>
 			</h1>
 			<div class="referral-details" ng-if="ApplyJobCtrl.viewReferralDetails">
-                <h3 ng-bind="ReferralDetails.job_title"></h3>
+                <h3 ng-bind="ApplyJobCtrl.jobDetails.job_title"></h3>
                 <h5>
                 	<span>Experience: </span>
-                	<span class="exp" ng-bind="ReferralDetails.experience"></span>
+                	<span class="exp" ng-bind="ApplyJobCtrl.jobDetails.experience"></span>
                 </h5>
                 <h5>
                 	<span>Location:</span> 
-                	<span class="loc" ng-bind="ReferralDetails.location"></span>
+                	<span class="loc" ng-bind="ApplyJobCtrl.jobDetails.location"></span>
                 </h5>
                 <hr>
             </div>

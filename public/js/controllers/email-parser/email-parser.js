@@ -373,8 +373,17 @@
         vm.status = $location.search().flag;
         vm.backendError = '';
         vm.loader = false;
-        vm.viewReferralDetails = true;
+        vm.viewReferralDetails = true; /*hide the job details for Drop cv */
         vm.backendMsg = '';
+
+
+        /*Job Details in header like title, location, exp*/
+        if ($stateParams.jc == 0) {
+            vm.jobDetails = ReferralDetails;
+        }else{
+            vm.jobDetails = CampaignDetails;
+        }
+
 
         // Job Functions Dropdown
         var get_job_functions = $http({
@@ -471,7 +480,8 @@
 
         vm.postFormData = postFormData;
 
-        if($state.current.name == 'candidateDetails' || $stateParams.flag == 1){
+        /*Remove file upload mandatory for referal details and flag=0 */
+        if($state.current.name == 'candidateDetails' || $stateParams.flag == 1 || $stateParams.jc == 1){
             vm.chkFile = true;
         }else{
             vm.chkFile = false;
@@ -779,6 +789,12 @@
                             vm.infiniteScroll.onError();
                         }
                     })
+        }
+
+        vm.updateCampaignDetails = function(job) {
+            CampaignDetails.job_title = job.job_name;
+            CampaignDetails.experience = job.experience;
+            CampaignDetails.location = job.location;
         }
     }
 
