@@ -109,10 +109,19 @@ $app->get('/email/candidate-details/{status}', function ($request, $response, $a
     $args['ref'] = $_GET['ref'];
     
     if($_GET['jc'] == 2 && isset($_GET['refrel'])){
+        #get candidate Details here
         $args['refrel']     = $_GET['refrel'];
         $_POST['ref']       = $args['ref'];
         $_POST['refrel']    = $args['refrel'];
         $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_mobile_ref');
+        $Details     = new Curl(array(
+            'url'           => $apiEndpoint,
+            'postData'      => $_POST
+        ));
+        $args['candidateDetails'] = checkJsonResult( $Details->loadCurl() );
+        #get referral details here
+        $_POST['ref'] = $args['ref'];
+        $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_ref');
         $Details     = new Curl(array(
             'url'           => $apiEndpoint,
             'postData'      => $_POST
