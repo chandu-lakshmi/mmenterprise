@@ -1090,8 +1090,8 @@
             }
         }
 
-        this.goImportContacts = function(){
-            $state.go('importContactsList');
+        this.gotoDashbaord = function(){
+            $window.location = App.base_url + 'dashboard';
         }
 
         // on state change modal close

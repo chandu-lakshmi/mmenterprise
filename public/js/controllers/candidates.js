@@ -92,7 +92,7 @@
             enableSorting: true,
             enableColumnMenus: false,
             enableRowSelection: true,
-            enableRowHeaderSelection: true,
+            enableRowHeaderSelection: false,
             enableFullRowSelection: true,
             data: 'data',
             appScopeProvider: vm // bindin scope to grid
