@@ -127,6 +127,7 @@ $app->get('/email/candidate-details/{status}', function ($request, $response, $a
             'postData'      => $_POST
         ));
         $args['referralDetails'] = checkJsonResult( $Details->loadCurl() );
+        
     } else if($_GET['jc'] == 1){
         $_POST['ref'] = $args['camp_ref'];
         $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_campaign_ref');
