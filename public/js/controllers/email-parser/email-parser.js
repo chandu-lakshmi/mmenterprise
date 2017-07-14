@@ -436,6 +436,10 @@
         }
 
         // console.log(vm.referralDetails)
+        if($stateParams.jc == 2){
+            vm.refParam = $stateParams.ref;
+        }
+        
 
         $('h1.logo img').on('load', function () {
             $(this).attr('height', App.Components.aspectRatio({domTarget: $(this)[0]}) + 'px');
