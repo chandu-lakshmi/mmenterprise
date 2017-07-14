@@ -539,7 +539,7 @@
                                 vm.backendMsg = response.data.message.msg[0];
                                 if ($stateParams.jc == 0) {
                                     setTimeout(function () {
-                                        $state.go('allJobs', {ref: ref, share_status: $stateParams.share_status})
+                                        $state.go('allJobs', {ref: ref, share_status: $stateParams.share_status, jc: $stateParams.jc})
                                     }, 1000);
                                 }
                                 else if($stateParams.jc == 2){
