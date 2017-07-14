@@ -12,7 +12,7 @@
     modalController.$injext = ['$scope', '$state', '$stateParams', '$uibModalInstance', 'App'];
     AllJobsController.$inject = ['$http', '$stateParams', '$q', 'ReferralDetails', 'App'];
     JobDetailsController.$inject = ['$http', '$stateParams', '$window', 'App'];
-    ApplyJobController.$inject = ['$scope', '$state', '$stateParams', '$location', '$window', '$http', '$uibModal', 'App', 'ReferralDetails', 'CampaignDetails', 'campaignJobDetails'];
+    ApplyJobController.$inject = ['$scope', '$state', '$stateParams', '$location', '$window', '$http', '$uibModal', 'App', 'ReferralDetails', 'CampaignDetails', 'campaignJobDetails', 'candidateDetails'];
     AllCampaignsController.$inject = ['$http', '$window', '$q', 'App', 'CampaignDetails', 'campaignJobDetails'];
 
 
@@ -371,13 +371,14 @@
 
     }
 
-    function ApplyJobController($scope, $state, $stateParams, $location, $window, $http, $uibModal, App, ReferralDetails, CampaignDetails, campaignJobDetails) {
+    function ApplyJobController($scope, $state, $stateParams, $location, $window, $http, $uibModal, App, ReferralDetails, CampaignDetails, campaignJobDetails, candidateDetails) {
 
         var vm = this;
 
         vm.status = $location.search().flag;
         vm.backendError = '';
         vm.loader = false;
+        vm.readOnlyEmail = false; 
         vm.viewReferralDetails = true; /*hide the job details for Drop cv */
         vm.backendMsg = '';
 
@@ -443,6 +444,8 @@
         var ref = $stateParams.ref;
         var apiCall = App.base_url + 'apply_job';
         if($stateParams.refrel != 0 && $state.current.name == 'candidateDetails'){
+            vm.referralDetails.emailid = candidateDetails.emailid;
+            vm.readOnlyEmail = true; 
             apiCall = App.base_url + 'apply_job_ref';
         }
 

@@ -85,6 +85,8 @@
                             url_spinner_small: '<?php echo $data['APP_DOMAIN']; ?>public/images/spinner_small.gif',
                         })
                         .constant('ReferralDetails',<?php echo isset($data["referralDetails"]) ? $data['referralDetails'] : "{}"; ?>)
+                        .constant('candidateDetails',<?php echo isset($data["candidateDetails"]) ? $data['candidateDetails'] : "{}"; ?>)
+
                         .value('CampaignDetails', <?php echo isset($data["campaignDetails"]) ? $data['campaignDetails'] : "{}"; ?>)
                         .value('campaignJobDetails', <?php echo isset($data["campaignJobDetails"]) ? $data['campaignJobDetails'] : "{}"; ?>)
             }());
