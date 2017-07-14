@@ -516,11 +516,12 @@
                 var backEndParams = {
                     ref: ref,
                     flag: vm.status,
+                    post_status : $state.current.name == 'referralDetails' ? 0 : 1,
                     timeZone: new Date().getTimezoneOffset()
                 };
 
                 if($stateParams.jc == 2){
-                    angular.extend(backEndParams, {post_id : vm.referralDetails.post_id, refrel : vm.referralDetails.refrel});
+                    angular.extend(backEndParams, {post_id : vm.referralDetails.post_id, refrel : $stateParams.refrel});
                 }
 
                 $http({
@@ -622,7 +623,11 @@
             $upload_resume.find('.qq-upload-list').css('z-index', '-1');
             $upload_resume.find('.qq-upload-drop-area').css('display', 'none');
             $upload_resume.find('.qq-upload-button').show();
-            vm.chkFile = true;
+            if($state.current.name == 'referralDetails' && ($stateParams.flag != 1 || $stateParams.jc == 1)){
+                vm.chkFile = false;
+            }else{
+                vm.chkFile = true;
+            }
             $scope.$apply();
         }
 
