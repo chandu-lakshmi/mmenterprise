@@ -1,6 +1,6 @@
 <?php
 
-// API settings
+//API settings
 return [
            'login' => [
                 'VERSION'  => 'v1',
