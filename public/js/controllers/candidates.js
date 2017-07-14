@@ -93,7 +93,7 @@
             enableColumnMenus: false,
             enableRowSelection: true,
             enableRowHeaderSelection: false,
-            enableFullRowSelection: true,
+            enableFullRowSelection: false,
             data: 'data',
             appScopeProvider: vm // bindin scope to grid
         };
