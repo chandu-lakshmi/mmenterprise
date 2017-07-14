@@ -1,8 +1,8 @@
-<h4  class="text-center" ng-if="!!AllCampaignsCtrl.noLongerAvailable" style="color:#dc4e41" ng-bind="AllCampaignsCtrl.noLongerAvailable"></h4>
+    <h4  class="text-center" ng-if="!!AllCampaignsCtrl.noLongerAvailable" style="color:#dc4e41" ng-bind="AllCampaignsCtrl.noLongerAvailable"></h4>
 <div class="all-campaigns" ng-if="!AllCampaignsCtrl.noLongerAvailable">
     <header class="logo">
         <div id="logo" ng-hide="AllCampaignsCtrl.infiniteScroll.headerDetails.company_logo == ''">
-            <img src="{{$root.url_spinner_small}}" class="spinner small img-thumbnail">
+            <img ng-src="{{$root.url_spinner_small}}" class="spinner small img-thumbnail">
         </div>
         <span ng-bind="AllCampaignsCtrl.infiniteScroll.headerDetails.company_name" class="company-name" ng-if="AllCampaignsCtrl.infiniteScroll.headerDetails.company_logo == ''"></span>			
     </header>
@@ -45,7 +45,7 @@
                     </div>
                 </div>
                 <div class="list" infinite-scroll='AllCampaignsCtrl.infiniteScroll.nextPage()' infinite-scroll-disabled='AllCampaignsCtrl.infiniteScroll.busy' infinite-scroll-distance='0' style="position:relative;min-height:350px;" class="list">
-                    <div class="row" ng-repeat="list in AllCampaignsCtrl.infiniteScroll.list">
+                    <div class="row" ng-repeat="list in AllCampaignsCtrl.infiniteScroll.list" ng-click="AllCampaignsCtrl.updateCampaignDetails(list)">
                         <a ui-sref="jobDetails({ref: list.ref_code})" title="" class="detail">
                             <div class="col-sm-8">
                                 <span ng-bind="AllCampaignsCtrl.infiniteScroll.headerDetails.company_name"></span>

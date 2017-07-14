@@ -24,6 +24,15 @@ body.email-parser .modal .modal-body {
       font-size: 30px;
       color: #478e76;
       text-transform: uppercase; }
+  .drop-box .container section .referral-details h3 {
+    color: #00002e; }
+  .drop-box .container section .referral-details h5 {
+    color: #939393;
+    font-size: 16px; }
+    .drop-box .container section .referral-details h5 .exp {
+      padding-left: 7px; }
+    .drop-box .container section .referral-details h5 .loc {
+      padding-left: 26px; }
   .drop-box .container section .title-underline {
     border-bottom: 1px solid #e8e8e8;
     width: 304px;

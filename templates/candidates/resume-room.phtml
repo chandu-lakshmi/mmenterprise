@@ -98,11 +98,16 @@
 </script>
 
 <script type="text/ng-template" id="download-resume.html">
-	<div class="ui-grid-cell-contents ui-grid-download" title="{{ COL_FIELD }}" ng-click="$event.stopPropagation()">
+	<div class="ui-grid-cell-contents ui-grid-download" title="{{ COL_FIELD }}" ng-if="row.entity.document_id" ng-click="$event.stopPropagation()">
 		<a href="{{grid.appScope.downloadResume(row, 'down')}}" download>
 			<div class="download"></div>
 		</a>
-		<span ng-if="!row.entity.document_id">{{COL_FIELD}}</span>
-		<a ng-if="row.entity.document_id" href="{{$root.base_url+'viewer?url='+grid.appScope.downloadResume(row)}}" title="" target="_blank">{{ COL_FIELD }}</a>
+		<a href="{{$root.base_url+'viewer?url='+grid.appScope.downloadResume(row)}}" title="" target="_blank">{{ COL_FIELD }}</a>
+	</div>
+	<div class="ui-grid-cell-contents ui-grid-download" style="cursor:text" title="{{ COL_FIELD }}" ng-if="!row.entity.document_id" ng-click="$event.stopPropagation()">
+		<a  href="javascript:void(0)" style="cursor:default">
+			<div class="download"></div>
+		</a>
+		<span>{{COL_FIELD}}</span>
 	</div>
 </script>

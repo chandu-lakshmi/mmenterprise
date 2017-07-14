@@ -10,10 +10,10 @@
             .controller('AllCampaignsController', AllCampaignsController)
 
     modalController.$injext = ['$scope', '$state', '$stateParams', '$uibModalInstance', 'App'];
-    AllJobsController.$inject = ['$http', '$stateParams', '$q', 'App'];
+    AllJobsController.$inject = ['$http', '$stateParams', '$q', 'ReferralDetails', 'App'];
     JobDetailsController.$inject = ['$http', '$stateParams', '$window', 'App'];
-    ApplyJobController.$inject = ['$scope', '$state', '$stateParams', '$location', '$window', '$http', '$uibModal', 'App', 'ReferralDetails', 'CampaignDetails'];
-    AllCampaignsController.$inject = ['$http', '$window', '$q', 'App', 'CampaignDetails'];
+    ApplyJobController.$inject = ['$scope', '$state', '$stateParams', '$location', '$window', '$http', '$uibModal', 'App', 'ReferralDetails', 'CampaignDetails', 'campaignJobDetails'];
+    AllCampaignsController.$inject = ['$http', '$window', '$q', 'App', 'CampaignDetails', 'campaignJobDetails'];
 
 
     function modalController($scope, $state, $stateParams, $uibModalInstance, App) {
@@ -39,7 +39,7 @@
         })
     }
 
-    function AllJobsController($http, $stateParams, $q, App) {
+    function AllJobsController($http, $stateParams, $q, ReferralDetails, App) {
 
         var vm = this,
                 canceler;
@@ -126,6 +126,11 @@
 
         vm.infiniteScroll.loadApi = function (pageNo, searchVal, callBack) {
 
+            var share = $stateParams.share_status == 'web' ? 0 : 1;
+            if ($stateParams.jc == 2) {
+                share = 1;
+            }
+
             if (canceler) {
                 canceler.resolve();
             }
@@ -142,7 +147,7 @@
                     reference_id: App.ref,
                     page_no: pageNo,
                     search: searchVal,
-                    share: $stateParams.share_status == 'web' ? 0 : 1
+                    share: share
                 }),
                 timeout: canceler.promise
             })
@@ -250,6 +255,12 @@
                     url: vm.shareUrl
                 }
             }
+        }
+
+        vm.updateReferralDetails = function(job) {
+            ReferralDetails.job_title = job.job_name;
+            ReferralDetails.experience = job.experience;
+            ReferralDetails.location = job.location;
         }
 
     }
@@ -360,14 +371,24 @@
 
     }
 
-    function ApplyJobController($scope, $state, $stateParams, $location, $window, $http, $uibModal, App, ReferralDetails, CampaignDetails) {
+    function ApplyJobController($scope, $state, $stateParams, $location, $window, $http, $uibModal, App, ReferralDetails, CampaignDetails, campaignJobDetails) {
 
         var vm = this;
 
         vm.status = $location.search().flag;
         vm.backendError = '';
         vm.loader = false;
+        vm.viewReferralDetails = true; /*hide the job details for Drop cv */
         vm.backendMsg = '';
+
+
+        /*Job Details in header like title, location, exp*/
+        if ($stateParams.jc == 0 || $stateParams.jc == 2) {
+            vm.jobDetails = ReferralDetails;
+        }else{
+            vm.jobDetails = campaignJobDetails;
+        }
+
 
         // Job Functions Dropdown
         var get_job_functions = $http({
@@ -383,6 +404,7 @@
 
         // pagetitle
         if ($stateParams.flag == 1) {
+            vm.viewReferralDetails = false;
             $state.current.data.pageTitle = 'MintMesh ( Drop CV )';
         }
         else if ($state.current.name == 'candidateDetails') {
@@ -420,7 +442,7 @@
 
         var ref = $stateParams.ref;
         var apiCall = App.base_url + 'apply_job';
-        if($stateParams.jc == 2){
+        if($stateParams.refrel != 0 && $state.current.name == 'candidateDetails'){
             apiCall = App.base_url + 'apply_job_ref';
         }
 
@@ -463,10 +485,23 @@
 
         vm.postFormData = postFormData;
 
-        vm.chkFile = true;
+        /*Remove file upload mandatory for referal details and flag=0 */
+        if($state.current.name == 'referralDetails' && ($stateParams.flag != 1 || $stateParams.jc == 1)){
+            vm.chkFile = false;
+        }else{
+            vm.chkFile = true;
+        }
+        vm.hasResumeUpload = vm.chkFile;
+
         function postFormData(formValid, flag) {
 
             vm.backendError = '';
+
+            /*if (formValid || vm.chkFile) {
+                vm.errorRequired = true;
+                return;
+            }*/
+
             if (formValid || vm.chkFile) {
                 vm.errorRequired = true;
                 return;
@@ -505,7 +540,7 @@
                                 }
                                 else if($stateParams.jc == 2){
                                     setTimeout(function () {
-                                        $state.go('allJobs', {ref: vm.referralDetails.ref, share_status: $stateParams.share_status})
+                                        $state.go('allJobs', {ref: vm.referralDetails.ref, share_status: $stateParams.share_status, jc : 2})
                                     }, 1000);
                                 }
                                 else {
@@ -590,7 +625,7 @@
 
     }
 
-    function AllCampaignsController($http, $window, $q, App, CampaignDetails) {
+    function AllCampaignsController($http, $window, $q, App, CampaignDetails, campaignJobDetails) {
 
         var vm = this,
                 canceler;
@@ -759,6 +794,12 @@
                             vm.infiniteScroll.onError();
                         }
                     })
+        }
+
+        vm.updateCampaignDetails = function(job) {
+            campaignJobDetails.job_title = job.job_name;
+            campaignJobDetails.experience = job.experience;
+            campaignJobDetails.location = job.location;
         }
     }
 

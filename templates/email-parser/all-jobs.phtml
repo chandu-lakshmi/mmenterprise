@@ -3,7 +3,7 @@
     <div class="container">
         <header>
             <div id="logo" ng-hide="AllJobsCtrl.infiniteScroll.company_logo == ''">
-                <img src="{{$root.url_spinner_small}}" class="spinner small img-thumbnail">
+                <img ng-src="{{$root.url_spinner_small}}" class="spinner small img-thumbnail">
             </div>
             <span ng-bind="AllJobsCtrl.infiniteScroll.companyName" class="company-name" ng-if="AllJobsCtrl.infiniteScroll.company_logo == ''"></span>			
         </header>
@@ -17,8 +17,8 @@
                 </div>
             </div>
             <div infinite-scroll='AllJobsCtrl.infiniteScroll.nextPage()' infinite-scroll-disabled='AllJobsCtrl.infiniteScroll.busy' infinite-scroll-distance='0' class="list">
-                <div class="row" ng-repeat="list in AllJobsCtrl.infiniteScroll.list">
-                    <a ui-sref="jobDetails({ref: list.ref_code, share_status: sh_cd})" title="" class="details">
+                <div class="row" ng-repeat="list in AllJobsCtrl.infiniteScroll.list" ng-click="AllJobsCtrl.updateReferralDetails(list)">
+                    <a ui-sref="jobDetails({ref: list.ref_code, share_status: sh_cd, jc : jc })" title="" class="details">
                         <div class="col-sm-8">
                             <span ng-bind="AllJobsCtrl.infiniteScroll.companyName"></span>
                             <p ng-bind="list.job_name"></p>
@@ -30,9 +30,9 @@
                             </div>
                         </div>
                     </a>
-                    <div class="col-sm-4 buttons" ng-init="sh_cd = $stateParams.share_status">
-                        <a class="apply" ui-sref="referralDetails({ref: list.ref_code,flag: 0, status:list.status, jc:0, share_status: sh_cd})" ng-if="list.post_type == 'external'">REFER</a>
-                        <a class="apply" ui-sref="candidateDetails({ref: list.ref_code, flag: 0, status:list.status, jc:0, share_status: sh_cd})" ng-if="list.post_type == 'internal' || sh_cd == 'share'">APPLY</a>
+                    <div class="col-sm-4 buttons" ng-init="sh_cd = $stateParams.share_status;jc = $stateParams.jc">
+                        <a class="apply" ui-sref="referralDetails({ref: list.ref_code,flag: 0, status:list.status, jc:jc, share_status: sh_cd})" ng-if="list.post_type == 'external'">REFER</a>
+                        <a class="apply" ui-sref="candidateDetails({ref: list.ref_code, flag: 0, status:list.status, jc:jc, share_status: sh_cd})" ng-if="list.post_type == 'internal' || sh_cd == 'share' || $stateParams.jc == 2">APPLY</a>
                     </div>
                 </div>
                 <div class="overlay" ng-if="AllJobsCtrl.loader">
@@ -59,7 +59,7 @@
                     <copy-url url="{{AllJobsCtrl.copyUrl}}" btn-text="{{AllJobsCtrl.copyText}}"></copy-url>
                 </div>
                 <div class="drop-cv">
-                    Refer friend for future openings here <span><a ui-sref="referralDetails({ref: $root.ref,flag: 1,share_status: $stateParams.share_status})">Upload CV</a></span>
+                    Refer friend for future openings here <span><a ui-sref="referralDetails({ref: $root.ref,flag: 1,share_status: $stateParams.share_status, jc:$stateParams.jc})">Upload CV</a></span>
                 </div>
             </div>
         </footer>

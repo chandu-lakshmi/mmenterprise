@@ -9,8 +9,7 @@
 
     editCompanyProfileController.$inject = ['$scope', 'httpService', 'pendingRequests', '$window', 'CompanyDetails', 'App'];
 
-    function editCompanyProfileController($scope, httpService, pendingRequests, $window, CompanyDetails, App) {
-
+    function editCompanyProfileController($scope, httpService, pendingRequests,  $window, CompanyDetails, App) {
         var vm = this, dublicateData, canceller;
         var image_path = '', mul_image_path = [], bonus_file_path = '';
         
