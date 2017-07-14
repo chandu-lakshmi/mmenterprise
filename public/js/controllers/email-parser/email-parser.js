@@ -12,7 +12,7 @@
     modalController.$injext = ['$scope', '$state', '$stateParams', '$uibModalInstance', 'App'];
     AllJobsController.$inject = ['$http', '$stateParams', '$q', 'ReferralDetails', 'App'];
     JobDetailsController.$inject = ['$http', '$stateParams', '$window', 'App'];
-    ApplyJobController.$inject = ['$scope', '$state', '$stateParams', '$location', '$window', '$http', '$uibModal', 'App', 'ReferralDetails', 'CampaignDetails', 'campaignJobDetails'];
+    ApplyJobController.$inject = ['$scope', '$state', '$stateParams', '$location', '$window', '$http', '$uibModal', 'App', 'ReferralDetails', 'CampaignDetails', 'campaignJobDetails', 'candidateDetails'];
     AllCampaignsController.$inject = ['$http', '$window', '$q', 'App', 'CampaignDetails', 'campaignJobDetails'];
 
 
@@ -371,13 +371,14 @@
 
     }
 
-    function ApplyJobController($scope, $state, $stateParams, $location, $window, $http, $uibModal, App, ReferralDetails, CampaignDetails, campaignJobDetails) {
+    function ApplyJobController($scope, $state, $stateParams, $location, $window, $http, $uibModal, App, ReferralDetails, CampaignDetails, campaignJobDetails, candidateDetails) {
 
         var vm = this;
 
         vm.status = $location.search().flag;
         vm.backendError = '';
         vm.loader = false;
+        vm.readOnlyEmail = false; 
         vm.viewReferralDetails = true; /*hide the job details for Drop cv */
         vm.backendMsg = '';
 
@@ -435,6 +436,10 @@
         }
 
         // console.log(vm.referralDetails)
+        if($stateParams.jc == 2){
+            vm.refParam = $stateParams.ref;
+        }
+        
 
         $('h1.logo img').on('load', function () {
             $(this).attr('height', App.Components.aspectRatio({domTarget: $(this)[0]}) + 'px');
@@ -443,6 +448,8 @@
         var ref = $stateParams.ref;
         var apiCall = App.base_url + 'apply_job';
         if($stateParams.refrel != 0 && $state.current.name == 'candidateDetails'){
+            vm.referralDetails.emailid = candidateDetails.emailid;
+            vm.readOnlyEmail = true; 
             apiCall = App.base_url + 'apply_job_ref';
         }
 
@@ -513,11 +520,12 @@
                 var backEndParams = {
                     ref: ref,
                     flag: vm.status,
+                    post_status : $state.current.name == 'referralDetails' ? 0 : 1,
                     timeZone: new Date().getTimezoneOffset()
                 };
 
                 if($stateParams.jc == 2){
-                    angular.extend(backEndParams, {post_id : vm.referralDetails.post_id, refrel : vm.referralDetails.refrel});
+                    angular.extend(backEndParams, {post_id : vm.referralDetails.post_id, refrel : $stateParams.refrel});
                 }
 
                 $http({
@@ -535,12 +543,12 @@
                                 vm.backendMsg = response.data.message.msg[0];
                                 if ($stateParams.jc == 0) {
                                     setTimeout(function () {
-                                        $state.go('allJobs', {ref: ref, share_status: $stateParams.share_status})
+                                        $state.go('allJobs', {ref: ref, share_status: $stateParams.share_status, jc: $stateParams.jc})
                                     }, 1000);
                                 }
                                 else if($stateParams.jc == 2){
                                     setTimeout(function () {
-                                        $state.go('allJobs', {ref: vm.referralDetails.ref, share_status: $stateParams.share_status, jc : 2})
+                                        $state.go('allJobs', {ref: ref, share_status: $stateParams.share_status, jc : 2})
                                     }, 1000);
                                 }
                                 else {
@@ -619,7 +627,11 @@
             $upload_resume.find('.qq-upload-list').css('z-index', '-1');
             $upload_resume.find('.qq-upload-drop-area').css('display', 'none');
             $upload_resume.find('.qq-upload-button').show();
-            vm.chkFile = true;
+            if($state.current.name == 'referralDetails' && ($stateParams.flag != 1 || $stateParams.jc == 1)){
+                vm.chkFile = false;
+            }else{
+                vm.chkFile = true;
+            }
             $scope.$apply();
         }
 

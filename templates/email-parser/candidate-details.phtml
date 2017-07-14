@@ -31,7 +31,11 @@
 					<div class="col-sm-6 form-style" ng-init="readOnly = $state.params.share_status == 'share' ? 'false' : 'true'">
 						<div class="form-group">
 						    <label for="email">Email Address<sup>*</sup></label>
-						    <input name="emailid" class="form-control input-lg" id="email" type="text" required maxlength="50" ng-pattern='/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/' ng-model="ApplyJobCtrl.referralDetails.emailid" ng-readonly="{{readOnly}}">
+
+						    <input name="emailid" ng-if="!ApplyJobCtrl.readOnlyEmail" class="form-control input-lg" id="email" type="text" required maxlength="50" ng-pattern='/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/' ng-model="ApplyJobCtrl.referralDetails.emailid" ng-readonly="{{readOnly}}">
+
+						    <input name="emailid" ng-if="ApplyJobCtrl.readOnlyEmail" class="form-control input-lg" id="email" type="text" required maxlength="50" ng-pattern='/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/' ng-model="ApplyJobCtrl.referralDetails.emailid" readonly>
+
 						    <input type="hidden" name="emp_email" value="{{ApplyJobCtrl.shareReferral}}" ng-if="ApplyJobCtrl.shareReferral">
 						    <span ng-show="apply_form.emailid.$error.required && ApplyJobCtrl.errorRequired" class="has-error-msg">Please Enter Email Id.</span>
 						    <span ng-show="apply_form.emailid.$error.pattern && ApplyJobCtrl.errorRequired" class="has-error-msg">Please Enter Valid Email Id.</span>
@@ -64,8 +68,8 @@
 			        </span>
 			    </div>
 			    <div class="pull-right disabled" ng-init="sh_cd = $stateParams.share_status">
-			        <span class="cancel" ng-if="$stateParams.jc != 2"><a ui-sref="{{$stateParams.jc == 1 ? 'allCampaigns({ref: $root.camp_ref,share_status:sh_cd})' : 'allJobs({ref: $root.ref,share_status:sh_cd})'}}">Cancel</a></span>
-			        <span class="cancel" ng-if="$stateParams.jc == 2"><a ui-sref="allJobs({ref: ApplyJobCtrl.referralDetails.ref,share_status:sh_cd, jc : 2})">Cancel</a></span>
+			        <span class="cancel" ng-if="$stateParams.jc != 2"><a ui-sref="{{$stateParams.jc == 1 ? 'allCampaigns({ref: $root.camp_ref,share_status:sh_cd, jc : $stateParams.jc})' : 'allJobs({ref: $root.ref,share_status:sh_cd, jc : $stateParams.jc})'}}">Cancel</a></span>
+			        <span class="cancel" ng-if="$stateParams.jc == 2"><a ui-sref="allJobs({ref: ApplyJobCtrl.refParam,share_status:sh_cd, jc : 2})">Cancel</a></span>
 					<span class="submit" ng-click="ApplyJobCtrl.postFormData(apply_form.$invalid, 'apply')">SUBMIT</span>
 			    </div>
 			</div>
