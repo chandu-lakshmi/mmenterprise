@@ -187,25 +187,33 @@
                                             <span class="skill">SKILLS</span>
                                         </div>
                                         <div layout="row">
-                                            <span dotdotdot="resume.skills" class="dotdotdot" ng-bind="resume.skills != '.' ? resume.skills : '--'">
+                                            <span dotdotdot="resume.skills" class="dotdotdot" ng-bind="resume.skills != '' ? resume.skills : '--'">
                                                 <md-tooltip style="width: 326px;padding: 6px;" class="find-resume-name animated fadeIn" md-delay="demo.delayTooltip" ng-bind="resume.skills"></md-tooltip>
                                             </span>
                                         </div>
                                     </div>
                                     <md-card-actions layout="row" layout-align="end center">
-                                        <div flex="65" class="ellipsis">
+                                        <div flex="55" class="ellipsis">
                                             <md-tooltip class="find-resume-name animated fadeIn" md-delay="demo.delayTooltip" ng-bind="resume.location"></md-tooltip>
                                             <i flex="10" class="material-icons loc">location_on</i>
                                             <span ng-bind="!resume.location ? '--' : resume.location"></span>
                                         </div>
-                                        <div flex="35" ng-click="$event.stopPropagation()">
+                                        <div flex="45" class="text-right" ng-click="$event.stopPropagation()">
                                             <i flex></i>
-                                            <a href="{{resume.downloadResume}}" download target="_self"><i class="material-icons down">file_download</i></a>
-                                            <a href="{{resume.viewResume}}" target="_blank"><i class="material-icons down" style="margin: 0 4px">remove_red_eye</i></a>
-                                            <i class="material-icons down is-truncated">
+                                            <i class="material-icons down is-truncated rm-pointer" ng-if="resume.email">
+                                                <md-tooltip class="find-resume-name animated fadeIn" md-delay="demo.delayTooltip" ng-bind="resume.email"></md-tooltip>
+                                                mail_outline 
+                                            </i>
+                                            <i class="material-icons down is-truncated rm-pointer" ng-if="resume.phone != 0">
                                                 <md-tooltip class="find-resume-name animated fadeIn" md-delay="demo.delayTooltip" ng-bind="resume.phone"></md-tooltip>
                                                 phone
                                             </i>
+                                            <a href="{{resume.downloadResume}}" download target="_self">
+                                                <i class="material-icons down">file_download</i>
+                                            </a>
+                                            <a href="{{resume.viewResume}}" target="_blank">
+                                                <i class="material-icons down" style="margin: 0 4px">remove_red_eye</i>
+                                            </a>
                                         </div>
                                     </md-card-actions>
                                 </md-card>

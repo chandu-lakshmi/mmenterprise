@@ -248,7 +248,7 @@ $background : #eeeff1;
                             i.select{position: absolute;z-index: -1;-webkit-transform: rotate(180deg);transform: rotate(180deg);font-size: 60px;left: -6px;top: -13px;color: #1d8e6f;transition: all 0.3s linear;opacity: 0;
                                 &:before{box-sizing: border-box;-webkit-transform: rotate(45deg);transform: rotate(217deg);position: absolute;left: 34.66667px;top: 26.22222px;color: #fff;display: table;width: 10.66667px;height: 17.33333px;border-width: 3px;border-style: solid;border-top: 0;border-left: 0;content: "";};
                             }
-                            .resume{padding: 20px;color: #212121;
+                            .resume{padding: 20px;color: #212121;min-height: 198px;
                                 .role,.skill{font-weight: 800;color: #8e8e8e;}
                                 .name{margin: 0;}
                                 .cir-progress{position: relative;
@@ -265,6 +265,7 @@ $background : #eeeff1;
                                 i{vertical-align: middle;color:#8e8e8e;padding: 4px;
                                     &.down{background: #ebebeb;border-radius: 50%;font-size: 20px}
                                     &.loc{padding:0;font-size: 22px}
+                                    &.rm-pointer{cursor: default;}
                                 }
                                 
                             }

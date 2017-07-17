@@ -464,7 +464,8 @@
               content: ""; }
           .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card .resume {
             padding: 20px;
-            color: #212121; }
+            color: #212121;
+            min-height: 198px; }
             .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card .resume .role, .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card .resume .skill {
               font-weight: 800;
               color: #8e8e8e; }
@@ -506,6 +507,8 @@
               .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card md-card-actions i.loc {
                 padding: 0;
                 font-size: 22px; }
+              .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card md-card-actions i.rm-pointer {
+                cursor: default; }
         .candidates .find-resume .container div[layout="column"] .container-resume md-content .loading-text {
           color: #8e8e8e;
           font-weight: 700;

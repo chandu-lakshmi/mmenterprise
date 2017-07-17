@@ -669,7 +669,7 @@
                             angular.forEach(response.data.resumes, function (resume) {
                                 resume.viewResume = App.base_url + "viewer?url=" + App.s3_path + CompanyDetails.company_code + "/" + resume.filename;
                                 resume.downloadResume = App.API_DOMAIN + "getResumeDownload?company_id=" + CompanyDetails.company_code + "&doc_id=" + resume.doc_id;
-                                resume.skills = resume.skills.toString().slice(1, -1).concat('.').split(',').join(', ');
+                                //resume.skills = resume.skills.toString().slice(1, -1).concat('.').split(',').join(', ');
                             });
 
                             vm.responseResumes = angular.copy(response.data.resumes) || [];
