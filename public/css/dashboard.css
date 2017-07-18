@@ -2,6 +2,10 @@
         background: white url("../images/loader/ui-anim_basic_16x16.gif") right center no-repeat;
 }*/
 /* loader */
+*::selection{
+    background: #0ba082;
+    color: #fff;
+}
 #borderLoader{
     position: absolute;
     top: 60px;
@@ -151,7 +155,7 @@
     line-height: 62px;
 }
 .dashboard header img[alt="brand-logo"]{
-    height: 40px;
+    height: 46px;
 }
 .dashboard header .menu ul{
     margin: 0;
@@ -670,7 +674,7 @@ select:-moz-focusring {
 
 /*Footer Styles*/
 .dashboard footer{
-    background: #283e4b;
+    background: #0e2d3f;
 }
 .dashboard footer div.container{
     border: 0;
@@ -1064,12 +1068,14 @@ ul.new-tabs > li.active > a{
 }
 .sub-header .sub-right ul li{
     width: 20%;
-    border: 1px solid #0c2c3b;
+    border: 1px solid #002134;
     border-top: 0;
     border-bottom: 0;
+    background: #11415c;
     float: left;
-    margin-right: -1px;
+    margin-right: 0px;
     padding: 25px 0;
+    border-radius: 4px;
 }
 .sub-header .sub-right ul li h3{
     margin-top: 0px;

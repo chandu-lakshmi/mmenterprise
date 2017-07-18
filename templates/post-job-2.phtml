@@ -253,6 +253,7 @@
                 <h4 ng-show="post2Ctrl.userSelOnebkt && bkts.$invalid">Please Select Atleast One Community.</h4>
                 <h4 ng-show="post2Ctrl.userSelRewards">Please Select Rewards.</h4>
                 <span ng-if="post2Ctrl.loader"><img src="public/images/loader/upload_file.gif" alt="loader" style="margin:5px;">Creating Job Requisition</span>
+                <span ng-if="post2Ctrl.serverMsg" ng-bind="post2Ctrl.serverMsg" style="color: #c2433d"></span>
             </div>
             <div class="col-sm-6 text-right">
                 <span class="btn-cancel">

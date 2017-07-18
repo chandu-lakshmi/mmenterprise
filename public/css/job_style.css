@@ -8,7 +8,7 @@
 }
 .job-search .header .total-count{
 	font-size: 18px;
-    color: #666;
+    color: #555;
     padding: 15px;
 }
 .job-search .header .action-create-job{
@@ -75,8 +75,8 @@
 	border-radius: 2px;
 	padding: 1px 3px;
 	margin: 2px 0 0 10px;
-	border: 1px solid #fba237;
-	color: #fba237;
+	border: 1px solid #fa8116;
+	color: #fa8116;
 }
 .job-type .internal{
     border: 1px solid #26a182;
@@ -211,7 +211,7 @@
 .job-info_d ~ div span{
 	display: inline-block;
     padding-bottom: 25px;
-    font-weight: 900;
+    font-weight: 700;
 }
 .job-info  .job-info_d ~ div{
 	position: relative;

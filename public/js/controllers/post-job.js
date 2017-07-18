@@ -215,6 +215,7 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
   
     gettingData.bol = true;
     this.buckLoader = true;
+    this.serverMsg = false;
 
     this.post_job_result = gettingData.getObj();
 
@@ -406,6 +407,9 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
             });
           }
           else if(response.status_code == 406){
+            scope.success_cond = false;
+            scope.loader = false;
+            scope.serverMsg = "Please check for the required fields.";
             if(response.message.hasOwnProperty('bucket_id')){
               scope.success_cond = false;
               scope.loader = false;
