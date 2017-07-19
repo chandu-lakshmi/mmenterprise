@@ -24,8 +24,8 @@
                     <md-input-container class="md-block" style="margin:0">
                         <label>Enter Community Name</label>
                         <input type="text" name="bucketName" ng-model="UploadContCtrl.new_bucket.bucketName" required ng-class="{'has-error-border':new_bucket_form.bucketName.$invalid && UploadContCtrl.new_bucket.errorFromData}" check-bucket array-bucket="{{UploadContCtrl.bucketsList}}" bucket-name="{{UploadContCtrl.new_bucket.bucketName}}" autocomplete="off">
-                        <div ng-if="new_bucket_form.bucketName.$error.required && UploadContCtrl.new_bucket.errorFromData" class="has-error-msg">Please Enter Community Name.</div>
-                        <div ng-if="new_bucket_form.bucketName.$error.bucketmatch && UploadContCtrl.new_bucket.errorFromData && !new_bucket_form.bucketName.$error.required" class="has-error-msg">Community Name Already Exists.</div>
+                        <div ng-if="new_bucket_form.bucketName.$error.required && UploadContCtrl.new_bucket.errorFromData" class="has-error-msg">Please enter Community Name.</div>
+                        <div ng-if="new_bucket_form.bucketName.$error.bucketmatch && UploadContCtrl.new_bucket.errorFromData && !new_bucket_form.bucketName.$error.required" class="has-error-msg">Community name already exists.</div>
                     </md-input-container>
                     <div id="new-bucket"></div>
                     <div style="clear:both;margin-top:15px;">
