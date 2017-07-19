@@ -27,7 +27,7 @@
                      input-name="emailid"
                      ng-class="{'has-error-border': (new_user_form.emailid.$invalid && UserGroupCtrl.errCond) || UserGroupCtrl.backendError}">
                 </div>
-                <div ng-if="new_user_form.emailid.$error.hasOwnProperty('autocomplete-required') && UserGroupCtrl.errCond" class="has-error-msg">Please enter Email Address.</div>
+                <div ng-if="new_user_form.emailid.$error.hasOwnProperty('autocomplete-required') && UserGroupCtrl.errCond" class="has-error-msg">Please enter Email.</div>
                 <div ng-if="UserGroupCtrl.backendError" class="has-error-msg" ng-bind="UserGroupCtrl.backendError" style="text-transform: capitalize;"></div>
             </md-input-container>
             <md-input-container class="md-block">

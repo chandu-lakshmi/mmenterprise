@@ -9,13 +9,13 @@
 						<md-input-container class="md-block">
 		                    <label>USER NAME</label>
 		                    <input type="text" name="name" ng-model="MyProfileCtrl.myProfile.user_name" required ng-class="{'has-error-border':my_profile_form.name.$invalid && MyProfileCtrl.errCond}" autofocus>
-		                    <div ng-if="my_profile_form.name.$error.required && MyProfileCtrl.errCond" class="has-error-msg">Please enter Name.</div>
+		                    <div ng-if="my_profile_form.name.$error.required && MyProfileCtrl.errCond" class="has-error-msg">Please enter User Name.</div>
 		                </md-input-container>
 		                <md-input-container class="md-block" style="margin-bottom:0;pointer-events:none;">
 		                    <label>EMAIL</label>
 		                    <input type="text" name="emailid" ng-model="MyProfileCtrl.myProfile.user_email" required ng-pattern="/^[a-z0-9A-Z._%+-]+@[a-zA-Z]+\.[a-z]{2,3}$/" ng-class="{'has-error-border':my_profile_form.emailid.$invalid && MyProfileCtrl.errCond}" tabindex="-1">
-		                    <div ng-if="my_profile_form.emailid.$error.required && MyProfileCtrl.errCond" class="has-error-msg">Please enter Email Address.</div>
-		                    <div ng-if="my_profile_form.emailid.$error.pattern && MyProfileCtrl.errCond" class="has-error-msg">Please Enter valid Email Address.</div>
+		                    <div ng-if="my_profile_form.emailid.$error.required && MyProfileCtrl.errCond" class="has-error-msg">Please enter Email.</div>
+		                    <div ng-if="my_profile_form.emailid.$error.pattern && MyProfileCtrl.errCond" class="has-error-msg">Please Enter valid Email.</div>
 		                </md-input-container>
 		                <span ng-click="MyProfileCtrl.setPassword();" class="change">Change Password</span>
 		            </div>
