@@ -22,14 +22,14 @@
                                         <md-input-container class="md-block">
                                             <label for="l_email">EMAIL*</label>
                                             <input type="email" id="l_email" name="l_email" ng-model="homeCtrl.signin_form.l_email" required ng-pattern='/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/' ng-class="{'has-error-border':signin_form.l_email.$invalid && homeCtrl.login_show_error}">
-                                            <div ng-if="signin_form.l_email.$error.required && homeCtrl.login_show_error" class="has-error-msg">Please Enter Email Address.</div>
-                                            <div ng-if="signin_form.l_email.$error.pattern && homeCtrl.login_show_error" class="has-error-msg">Please Enter Valid Email Address.</div>
+                                            <div ng-if="signin_form.l_email.$error.required && homeCtrl.login_show_error" class="has-error-msg">Please enter Email Address.</div>
+                                            <div ng-if="signin_form.l_email.$error.pattern && homeCtrl.login_show_error" class="has-error-msg">Please enter Valid Email Address.</div>
                                         </md-input-container>
                                         <md-input-container class="md-block" style="margin-bottom:0">
                                             <label for="l_pass">PASSWORD*</label>
                                             <input type="password" id="l_pass" name="l_pass" ng-model="homeCtrl.signin_form.l_pass" required ng-pattern="/^(?=.*[a-zA-Z0-9]).{6,}$/"  ng-class="{'has-error-border':signin_form.l_pass.$invalid && homeCtrl.login_show_error}">
-                                            <div ng-if="signin_form.l_pass.$error.required && homeCtrl.login_show_error" class="has-error-msg">Please Enter Password.</div>
-                                            <div ng-if="signin_form.l_pass.$error.pattern && homeCtrl.login_show_error" class="has-error-msg">Please Enter Atleast 6 characters.</div>
+                                            <div ng-if="signin_form.l_pass.$error.required && homeCtrl.login_show_error" class="has-error-msg">Please enter Password.</div>
+                                            <div ng-if="signin_form.l_pass.$error.pattern && homeCtrl.login_show_error" class="has-error-msg">Please enter atleast 6 characters.</div>
                                         </md-input-container>
                                         <a href="" class="forgot-link" ng-click="homeCtrl.forgot_show()"><strong>Forgot Password?</strong></a>
                                         <button class="btn btn-lg btn-style btn-block btn-loader" ng-disabled="homeCtrl.load_cond_signin">SIGN IN&nbsp;&nbsp;<img src="public/images/arrow-buttons.svg" style="margin-top: -2px;" ng-if="homeCtrl.default_signin"><img src="public/images/loader/butt_loader.gif" ng-if="homeCtrl.load_cond_signin" width="30px" style="margin-top: -2px;" alt="loader"></button>
@@ -48,8 +48,8 @@
                                         <md-input-container class="md-block">
                                             <label for="forgot_email">Enter Email Address*</label>
                                             <input type="email" id="forgot_email" name="forgot_email" ng-model="homeCtrl.forgotObj.forgot_email" required ng-pattern='/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/' ng-class="{'has-error-border':forgot_password.forgot_email.$invalid && homeCtrl.email_show_error || homeCtrl.backend_error}">
-                                            <div ng-if="forgot_password.forgot_email.$error.required && homeCtrl.email_show_error && !homeCtrl.backend_error" class="has-error-msg">Please Enter Email Address.</div>
-                                            <div ng-if="forgot_password.forgot_email.$error.pattern && homeCtrl.email_show_error && !homeCtrl.backend_error" class="has-error-msg">Please Enter Valid Email Address.</div>
+                                            <div ng-if="forgot_password.forgot_email.$error.required && homeCtrl.email_show_error && !homeCtrl.backend_error" class="has-error-msg">Please enter Email Address.</div>
+                                            <div ng-if="forgot_password.forgot_email.$error.pattern && homeCtrl.email_show_error && !homeCtrl.backend_error" class="has-error-msg">Please enter valid Email Address.</div>
                                             <div ng-if="homeCtrl.backend_error" class="has-error-msg">{{homeCtrl.invalid_error}}</div>
                                         </md-input-container>
                                         <button class="btn btn-lg btn-style btn-block btn-loader" ng-disabled="homeCtrl.load_cond_forgot">RESET NOW<img src="public/images/loader/butt_loader.gif" width="30px" style="margin-top: -2px;" alt="loader" ng-if="homeCtrl.load_cond_forgot"></button>
@@ -79,30 +79,30 @@
                                         <md-input-container class="md-block">
                                             <label for="s_fname">FULL NAME*</label>
                                             <input type="text" id="s_fname" name="s_fname" ng-model="homeCtrl.signup_form.s_fname" required ng-class="{'has-error-border':signup_form.s_fname.$invalid && homeCtrl.signup_show_error}">
-                                            <div ng-if="signup_form.s_fname.$error.required && homeCtrl.signup_show_error" class="has-error-msg">Please Enter Full Name.</div>
+                                            <div ng-if="signup_form.s_fname.$error.required && homeCtrl.signup_show_error" class="has-error-msg">Please enter Full Name.</div>
                                         </md-input-container>
                                         <md-input-container class="md-block">
                                             <label for="s_cname">COMPANY*</label>
                                             <input type="text" id="s_cname" ng-model="homeCtrl.signup_form.s_cname" name="s_cname" required ng-class="{'has-error-border':signup_form.s_cname.$invalid && homeCtrl.signup_show_error}">
-                                            <div ng-if="signup_form.s_cname.$error.required && homeCtrl.signup_show_error" class="has-error-msg">Please Enter Company Name.</div>
+                                            <div ng-if="signup_form.s_cname.$error.required && homeCtrl.signup_show_error" class="has-error-msg">Please enter Company Name.</div>
                                         </md-input-container>
                                         <md-input-container class="md-block">
                                             <label for="lic_no">LICENSE KEY*</label>
                                             <input type="text" id="lic_no" ng-model="homeCtrl.signup_form.lic_no" name="lic_no" required ng-class="{'has-error-border':signup_form.lic_no.$invalid && homeCtrl.signup_show_error || homeCtrl.licence_error}">
-                                            <div ng-if="signup_form.lic_no.$error.required && homeCtrl.signup_show_error && !homeCtrl.licence_error" class="has-error-msg">Please Enter License Key.</div>
+                                            <div ng-if="signup_form.lic_no.$error.required && homeCtrl.signup_show_error && !homeCtrl.licence_error" class="has-error-msg">Please enter License Key.</div>
                                             <div ng-if="homeCtrl.licence_error" ng-bind="homeCtrl.licence_error" class="has-error-msg"></div>
                                         </md-input-container>
                                         <md-input-container class="md-block">
                                             <label for="s_email">EMAIL*</label>
                                             <input type="email" id="s_email" ng-model="homeCtrl.signup_form.s_email" name="s_email" ng-pattern='/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/' required ng-class="{'has-error-border':signup_form.s_email.$invalid && homeCtrl.signup_show_error}">
-                                            <div ng-if="signup_form.s_email.$error.required && homeCtrl.signup_show_error" class="has-error-msg">Please Enter Email Address.</div>
-                                            <div ng-if="signup_form.s_email.$error.pattern && homeCtrl.signup_show_error" class="has-error-msg">Please Enter Valid Email Address.</div>
+                                            <div ng-if="signup_form.s_email.$error.required && homeCtrl.signup_show_error" class="has-error-msg">Please enter Email Address.</div>
+                                            <div ng-if="signup_form.s_email.$error.pattern && homeCtrl.signup_show_error" class="has-error-msg">Please enter valid Email Address.</div>
                                         </md-input-container>
                                         <md-input-container class="md-block">
                                             <label for="s_pass">PASSWORD*</label>
                                             <input type="password" id="s_pass" ng-model="homeCtrl.signup_form.s_pass" name="s_pass" required ng-pattern="/^(?=.*[a-zA-Z0-9]).{6,16}$/" ng-class="{'has-error-border':signup_form.s_pass.$invalid && homeCtrl.signup_show_error}">
-                                            <div ng-if="signup_form.s_pass.$error.required && homeCtrl.signup_show_error" class="has-error-msg">Please Enter Password.</div>
-                                            <div ng-if="signup_form.s_pass.$error.pattern && homeCtrl.signup_show_error" class="has-error-msg">Please Enter Atleast 6 characters.</div>
+                                            <div ng-if="signup_form.s_pass.$error.required && homeCtrl.signup_show_error" class="has-error-msg">Please enter Password.</div>
+                                            <div ng-if="signup_form.s_pass.$error.pattern && homeCtrl.signup_show_error" class="has-error-msg">Please enter atleast 6 characters.</div>
                                         </md-input-container>
                                         <button class="btn btn-lg btn-style btn-block btn-loader" ng-disabled="homeCtrl.load_cond_signup">SIGN UP&nbsp;&nbsp;<img src="public/images/arrow-buttons.svg" style="margin-top: -2px;" ng-if="homeCtrl.default_signup"><img src="public/images/loader/butt_loader.gif" style="margin-top: -2px;" ng-if="homeCtrl.load_cond_signup" width="30px" alt="loader"></button>
                                         <p class="text-center" style="margin-top: 15px">Already have an account? <strong><a href="" ng-click="homeCtrl.signin()">SIGN IN</a></strong></p>
