@@ -311,10 +311,10 @@
         .candidates .find-resume .container div[layout="column"] .search-resume md-card .loader {
           position: absolute;
           text-align: center;
-          left: calc(50% - 25px);
-          top: 161px; }
+          left: calc(50% - 34px);
+          top: 143px; }
           .candidates .find-resume .container div[layout="column"] .search-resume md-card .loader img {
-            width: 50px;
+            width: 68px;
             margin: 0 auto; }
         .candidates .find-resume .container div[layout="column"] .search-resume md-card md-card-title {
           padding: 16px 24px 16px; }

@@ -85,7 +85,7 @@
 .job-type img{
 	width: 24px;
     height: 25px;
-    margin-top: -6px;
+    margin-top: -7px;
     margin-right: 6px;
 }
 .job-type .status{
@@ -107,6 +107,7 @@
 .job-type h3 span{
 	color: #219070;
 	overflow: hidden;
+	font-size: 21px;
     white-space: nowrap;
     max-width: 400px;
     display: inline-block;
@@ -447,6 +448,7 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 	padding-bottom: 7px;
 	display: block;
 	color: gray;
+	font-weight: 700;
 } 
 .confirm-message .modal{
 	top: calc(50% - 128px);
