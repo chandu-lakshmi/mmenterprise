@@ -7,7 +7,7 @@
                 <md-input-container class="md-block md-no-float">
                     <label>GROUP NAME</label>
                     <input ng-disabled='UserGroupCtrl.readable' type="text" name="name" ng-model="UserGroupCtrl.groupData.name" placeholder="Enter Group Name" required ng-class="{'has-error-border':(new_group_form.name.$invalid && UserGroupCtrl.errCond) || UserGroupCtrl.backendError}" style="text-transform:uppercase">
-                    <div ng-if="new_group_form.name.$error.required && UserGroupCtrl.errCond" class="has-error-msg">Please Enter Group Name</div>
+                    <div ng-if="new_group_form.name.$error.required && UserGroupCtrl.errCond" class="has-error-msg">Please enter Group Name.</div>
                     <div ng-if="UserGroupCtrl.backendError" class="has-error-msg" ng-bind="UserGroupCtrl.backendError" style="text-transform: capitalize;"></div>
                 </md-input-container>
                 <md-input-container class="md-block select-box">
@@ -16,7 +16,7 @@
                         <md-option ng-repeat="status in UserGroupCtrl.statusText" ng-value="status">{{status}}</md-option>
                     </md-select>
                     <div class="error-spacer"></div>
-                    <div ng-if="new_group_form.status.$error.required && UserGroupCtrl.errCond" class="has-error-msg">Please Select Status</div>
+                    <div ng-if="new_group_form.status.$error.required && UserGroupCtrl.errCond" class="has-error-msg">Please select Status.</div>
                 </md-input-container>
             </div>
             <div class="user-permissions">

@@ -27,7 +27,7 @@
                      input-name="emailid"
                      ng-class="{'has-error-border': (new_user_form.emailid.$invalid && UserGroupCtrl.errCond) || UserGroupCtrl.backendError}">
                 </div>
-                <div ng-if="new_user_form.emailid.$error.hasOwnProperty('autocomplete-required') && UserGroupCtrl.errCond" class="has-error-msg">Please Enter Email Address</div>
+                <div ng-if="new_user_form.emailid.$error.hasOwnProperty('autocomplete-required') && UserGroupCtrl.errCond" class="has-error-msg">Please enter Email Address.</div>
                 <div ng-if="UserGroupCtrl.backendError" class="has-error-msg" ng-bind="UserGroupCtrl.backendError" style="text-transform: capitalize;"></div>
             </md-input-container>
             <md-input-container class="md-block">
@@ -55,7 +55,7 @@
                     <md-option ng-repeat="status in UserGroupCtrl.statusText" ng-value="status">{{status}}</md-option>
                 </md-select>
                 <div class="error-spacer"></div>
-                <div ng-if="new_user_form.status.$error.required && UserGroupCtrl.errCond"  class="has-error-msg">Please Select Status</div>
+                <div ng-if="new_user_form.status.$error.required && UserGroupCtrl.errCond"  class="has-error-msg">Please select Status.</div>
             </md-input-container>
             <md-input-container class="md-block select-box">
                 <label style="display:none">USER GROUP</label>
@@ -63,7 +63,7 @@
                     <md-option ng-repeat="group in UserGroupCtrl.groupNames" ng-value="group.group_id">{{group.name| uppercase}}</md-option>
                 </md-select>
                 <div class="error-spacer"></div>
-                <div ng-if="new_user_form.group_id.$error.required && UserGroupCtrl.errCond"  class="has-error-msg">Please Select Group</div>
+                <div ng-if="new_user_form.group_id.$error.required && UserGroupCtrl.errCond"  class="has-error-msg">Please select Group.</div>
             </md-input-container>
         </div>
         <div class="clearfix" ng-show="userPermissions.is_primary == 1 && UserGroupCtrl.personDetails.expired == 1">

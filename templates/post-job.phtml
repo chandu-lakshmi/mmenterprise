@@ -33,7 +33,7 @@
                                 <label for="job_title">Job Title*</label>
                                 <input type="text" class="form-control" id="job_title" name="job_title" ng-model="PtJobCtrl.postJob1.job_title" value="" required ng-keyup="PtJobCtrl.job_title_suggestion(PtJobCtrl.postJob1.job_title)" autocomplete="off">
                                 <div class="error-spacer"></div>
-                                <div ng-if="post_job.job_title.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Job Title Field is Required.</div>
+                                <div ng-if="post_job.job_title.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Please enter Job Title.</div>
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -44,7 +44,7 @@
                                     <option selected disabled value="">Please Select</option>
                                 </select>
                                 <div class="error-spacer"></div>
-                                <div ng-if="post_job.job_func.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Job Function Field is Required.</div>
+                                <div ng-if="post_job.job_func.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Please select Job Function.</div>
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -52,7 +52,7 @@
                                 <label for="location">Location*</label>
                                 <input id="location" class="form-control" ng-model="PtJobCtrl.postJob1.location" name="location" ng-autocomplete="PtJobCtrl.geo_location" details="PtJobCtrl.geo_details" options="PtJobCtrl.geo_options" required class="has-error-border" apiplaceholder="Please Choose Location">
                                 <div class="error-spacer"></div>
-                                <div ng-if="post_job.location.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Location Field is Required.</div>
+                                <div ng-if="post_job.location.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Please enter Location.</div>
                             </div>
                         </div>
                     </div>
@@ -65,7 +65,7 @@
                                     <option  selected disabled value="">Please Select</option>
                                 </select>
                                 <div class="error-spacer"></div>
-                                <div ng-if="post_job.industry.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Industry Field is Required.</div>
+                                <div ng-if="post_job.industry.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Please select Industry.</div>
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -76,7 +76,7 @@
                                     <option selected disabled value="">Please Select</option>
                                 </select>
                                 <div class="error-spacer"></div>
-                                <div ng-if="post_job.emp_type.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Employment Type Field is Required.</div>
+                                <div ng-if="post_job.emp_type.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Please select Employment Type.</div>
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -87,7 +87,7 @@
                                     <option selected disabled value="">Please Select</option>
                                 </select>
                                 <div class="error-spacer"></div>
-                                <div ng-if="post_job.experience.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Experience Field is Required.</div>
+                                <div ng-if="post_job.experience.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Please select Experience.</div>
                             </div>
                         </div>
                     </div>
@@ -98,7 +98,7 @@
                                 <input type="text" class="form-control" id="vacancy" name="vacancy" value="" ng-model="PtJobCtrl.postJob1.no_of_vacancies" ng-pattern="/(^[^0]$)|(^[1-9]\d{0,}$)/" maxlength="10" check-char-zero required>
                                 <div class="error-spacer"></div>
                                 <div ng-if="post_job.vacancy.$error.pattern" class="has-error-msg">Number of Vacancies should not be zero.</div>
-                                <div ng-if="post_job.vacancy.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Number of Vacancies Field is Required.</div>
+                                <div ng-if="post_job.vacancy.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Please enter Number of Vacancies.</div>
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -125,7 +125,7 @@
                                     <option value="external">External</option>
                                 </select>
                                 <div class="error-spacer"></div>
-                                <div  ng-if="post_job.post_type.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Job Type Field is Required.</div>
+                                <div  ng-if="post_job.post_type.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Please select Job Type.</div>
                             </div>
                         </div>
                     </div>
@@ -139,7 +139,7 @@
                                 <div class="error-spacer"></div>
                                 <div>
                                     <div ng-if="post_job.job_desc.$error.taMaxText" class="has-error-msg">Job Description must be no longer than 5000 characters.</div>
-                                    <div ng-if="post_job.job_desc.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Job Description Field is Required.</div>
+                                    <div ng-if="post_job.job_desc.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Please enter Job Description.</div>
                                     <!-- <span class="max_length">Remaining {{5000 - PtJobCtrl.jdCharCount}} / 5000 left</span> -->
                                 </div>
                             </div>

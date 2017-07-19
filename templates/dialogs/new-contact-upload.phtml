@@ -10,19 +10,19 @@
         <div class="content">
             <form name="upload_contact_form" novalidate autocomplete="off">
                 <md-input-container class="md-block select-box" style="width:45%;margin-bottom: 25px;">
-                    <label style="display:none">SELECT COMMUNITY</label>
+                    <label style="display:none">SELECT COMMUNITY*</label>
                     <md-select name="bucket_id" ng-model="SingleContCtrl.newContact.bucket" required ng-class="{'has-error-border':upload_contact_form.bucket_id.$invalid && SingleContCtrl.errCond}">
                         <md-option ng-repeat="bucket in SingleContCtrl.bucketList" ng-value="bucket.bucket_id">
                             {{bucket.bucket_name | uppercase}}
                         </md-option>
                     </md-select>
-                    <div ng-if="upload_contact_form.bucket_id.$error.required && SingleContCtrl.errCond" style="position:absolute" class="has-error-msg">Please Select Community.</div>
+                    <div ng-if="upload_contact_form.bucket_id.$error.required && SingleContCtrl.errCond" style="position:absolute" class="has-error-msg">Please select Community.</div>
                 </md-input-container>
                 <div class="clearfix">
                     <md-input-container class="md-block pull-left">
-                        <label>FIRST NAME</label>
+                        <label>FIRST NAME*</label>
                         <input type="text" name="firstname" ng-model="SingleContCtrl.newContact.firstname" required ng-class="{'has-error-border':upload_contact_form.firstname.$invalid && SingleContCtrl.errCond}">
-                        <div ng-if="upload_contact_form.firstname.$error.required && SingleContCtrl.errCond" class="has-error-msg">Please Enter First Name.</div>
+                        <div ng-if="upload_contact_form.firstname.$error.required && SingleContCtrl.errCond" class="has-error-msg">Please enter First Name.</div>
                     </md-input-container>
                     <md-input-container class="md-block pull-right">
                         <label>LAST NAME</label>
@@ -41,10 +41,10 @@
                 </div>
                 <div class="clearfix">
                     <md-input-container class="md-block pull-left">
-                        <label>EMAIL</label>
+                        <label>EMAIL*</label>
                         <input type="text" name="emailid" ng-model="SingleContCtrl.newContact.email" required ng-pattern='/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/' ng-class="{'has-error-border':upload_contact_form.emailid.$invalid && SingleContCtrl.errCond}">
-                        <div ng-if="upload_contact_form.emailid.$error.required && SingleContCtrl.errCond" class="has-error-msg">Please Enter Email Address.</div>
-                        <div ng-if="upload_contact_form.emailid.$error.pattern && SingleContCtrl.errCond" class="has-error-msg">Please Enter Valid Email Address.</div>
+                        <div ng-if="upload_contact_form.emailid.$error.required && SingleContCtrl.errCond" class="has-error-msg">Please enter Email Address.</div>
+                        <div ng-if="upload_contact_form.emailid.$error.pattern && SingleContCtrl.errCond" class="has-error-msg">Please enter valid Email Address.</div>
                     </md-input-container>
                     <md-input-container class="md-block pull-right select-box">
                         <label style="display:none">STATUS</label>
