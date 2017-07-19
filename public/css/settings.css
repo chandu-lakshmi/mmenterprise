@@ -791,11 +791,11 @@ body.set-password {
           z-index: 99; }
           .settings .manager-tab .saml .rt md-card .im-spinner div, .settings .manager-tab .hcms .rt md-card .im-spinner div {
             position: absolute;
-            left: calc(50% - 32px);
-            top: calc(50% - 32px); }
+            left: calc(50% - 35px);
+            top: calc(50% - 35px); }
             .settings .manager-tab .saml .rt md-card .im-spinner div img, .settings .manager-tab .hcms .rt md-card .im-spinner div img {
-              width: 64px;
-              height: 64px; }
+              width: 70px;
+              height: 70px; }
         .settings .manager-tab .saml .rt md-card .loader, .settings .manager-tab .hcms .rt md-card .loader {
           position: absolute;
           top: 35%;
