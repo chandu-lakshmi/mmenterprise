@@ -127,11 +127,6 @@ $app->post('/signin', function ($request, $response, $args) use ($app) {
     $jsonResult = $curl->loadCurl();
     //Load Session
     setSession($jsonResult);
-//     $arrayList["sign"] = array(
-//        "sign_in" => '1',
-//    );
-//    //Update Session
-//    updateSession($arrayList);
     return checkJsonResult($jsonResult);
 });
 
