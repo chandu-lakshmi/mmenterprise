@@ -63,7 +63,7 @@
                     <md-option ng-repeat="group in UserGroupCtrl.groupNames" ng-value="group.group_id">{{group.name| uppercase}}</md-option>
                 </md-select>
                 <div class="error-spacer"></div>
-                <div ng-if="new_user_form.group_id.$error.required && UserGroupCtrl.errCond"  class="has-error-msg">Please select Group.</div>
+                <div ng-if="new_user_form.group_id.$error.required && UserGroupCtrl.errCond"  class="has-error-msg">Please select User Group.</div>
             </md-input-container>
         </div>
         <div class="clearfix" ng-show="userPermissions.is_primary == 1 && UserGroupCtrl.personDetails.expired == 1">

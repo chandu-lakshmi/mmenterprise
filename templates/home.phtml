@@ -23,7 +23,7 @@
                                             <label for="l_email">EMAIL*</label>
                                             <input type="email" id="l_email" name="l_email" ng-model="homeCtrl.signin_form.l_email" required ng-pattern='/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/' ng-class="{'has-error-border':signin_form.l_email.$invalid && homeCtrl.login_show_error}">
                                             <div ng-if="signin_form.l_email.$error.required && homeCtrl.login_show_error" class="has-error-msg">Please enter Email.</div>
-                                            <div ng-if="signin_form.l_email.$error.pattern && homeCtrl.login_show_error" class="has-error-msg">Please enter Valid Email.</div>
+                                            <div ng-if="signin_form.l_email.$error.pattern && homeCtrl.login_show_error" class="has-error-msg">Please enter valid Email.</div>
                                         </md-input-container>
                                         <md-input-container class="md-block" style="margin-bottom:0">
                                             <label for="l_pass">PASSWORD*</label>
