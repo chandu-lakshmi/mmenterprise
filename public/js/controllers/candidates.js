@@ -647,7 +647,7 @@
                 exp: vm.slider_opts.exp.model,
                 skills: vm.slider_opts.skills.model
             };
-            params.tenant_id = CompanyDetails.company_code;
+            params.tenant_id = CompanyDetails.company_id;
 
             cancelerSearchResume = $q.defer();
             vm.inProgressSearchResumes = true;
@@ -667,7 +667,7 @@
                             vm.selectedResues = [];
 
                             angular.forEach(response.data.resumes, function (resume) {
-                                resume.viewResume = App.base_url + "viewer?url=" + App.s3_path + CompanyDetails.company_code + "/" + resume.filename;
+                                resume.viewResume = App.base_url + "viewer?url=" + App.s3_path + CompanyDetails.company_id + "/" + resume.filename;
                                 resume.downloadResume = App.API_DOMAIN + "getResumeDownload?company_id=" + CompanyDetails.company_code + "&doc_id=" + resume.doc_id;
                                 //resume.skills = resume.skills.toString().slice(1, -1).concat('.').split(',').join(', ');
                             });
