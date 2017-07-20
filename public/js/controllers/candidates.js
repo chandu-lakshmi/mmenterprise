@@ -355,7 +355,7 @@
                 uploadButtonText: id == 'upload' ? "Choose file" : 'Change',
                 minSizeLimit: (1 * 1024),
                 size: (5 * 1024 * 1024),
-                allowedExtensions: ['pdf', 'doc', 'docx', 'jpg', 'png', 'jpeg', 'txt'],
+                allowedExtensions: ['doc', 'docx'],
                 action: App.base_url + "resume_file_upload",
                 showFileInfo: false,
                 shortMessages: true,

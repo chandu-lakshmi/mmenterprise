@@ -44,7 +44,7 @@
                  <md-option ng-repeat="type in employmentTypes" ng-value="type.employment_type_id">{{type.employment_type_name}}</md-option>
               </md-select>
               <div class="error-spacer"></div>
-              <div ng-if="create_job.employment_type.$error.required && errCond"  class="has-error-msg">Please select Employment.</div>
+              <div ng-if="create_job.employment_type.$error.required && errCond"  class="has-error-msg">Please select Employment Type.</div>
             </md-input-container>
             <md-input-container class="md-block select-box">
               <label style="display:none">EXPERIENCE <sup> *</sup></label>

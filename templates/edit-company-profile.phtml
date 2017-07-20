@@ -48,8 +48,8 @@
 		 					<md-input-container class="md-block">
 								<label>WEBSITE<span style="color: #999">(URL)</span></label>
 								<input  type="text" name="website" ng-model="editCompCtrl.company_details.website" required ng-pattern="/^(http:\/\/www\.|https:\/\/www\.|www\.|https:\/\/|http:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i" ng-class="{'has-error-border':edit_company_form.website.$invalid && editCompCtrl.errCond}">
-								<div ng-if="edit_company_form.website.$error.required && editCompCtrl.errCond"  class="has-error-msg">Please enter URL.</div>
-								<div ng-if="edit_company_form.website.$error.pattern && editCompCtrl.errCond"  class="has-error-msg">Please enter valid URL.</div>
+								<div ng-if="edit_company_form.website.$error.required && editCompCtrl.errCond"  class="has-error-msg">Please enter Website URL.</div>
+								<div ng-if="edit_company_form.website.$error.pattern && editCompCtrl.errCond"  class="has-error-msg">Please enter valid Website URL.</div>
 							</md-input-container>
 							<md-input-container class="md-block">
       							<label>DESCRIPTION</label>
