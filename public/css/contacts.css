@@ -377,6 +377,7 @@
 }
 .grid-contacts .container .container-rt .grid-footer .pages{
     line-height: normal;
+    padding: 0;
 }
 .grid-contacts .container .container-rt .grid-footer .pages .pagination{
     margin:18px 0 0 0;

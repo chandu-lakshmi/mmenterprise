@@ -727,6 +727,12 @@
                                 vm.gridOptions.data = response.data.data.campaigns;
                                 vm.totalRecords = response.data.data.total_count;
                             }
+                            try {
+                               document.getElementsByClassName("ui-grid-viewport")[0].scrollTop = 0;
+                            }
+                            catch(err) {
+                                console.log("error in scroll");
+                            }
                         }
                         else if (response.data.status_code == 403) {
                             vm.noCampaigns = true;
