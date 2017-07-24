@@ -204,13 +204,13 @@ $background : #eeeff1;
                             .md-headline{font-size: 18px;font-weight: bold;color: #636363;}
                         }
                         md-card-content{padding: 0 24px 24px;
-                            textarea{min-height: 392px;resize: vertical; width: 100%;background: #fafafa;font-size: 14px;line-height: 24px;word-spacing: 2px;outline:none;border-radius: 4px;outline:none;border: 1px solid #ddd;animation: 1s ease-out 0s 1 slideInFromLeft;}
+                            textarea{min-height: 392px;resize: vertical; width: 100%;background: #fafafa;font-size: 14px;line-height: 24px;word-spacing: 2px;outline:none;border-radius: 4px;outline:none;border: 1px solid #ddd;}
                             .key{text-transform: capitalize;font-weight: 700;color:#565656;}
                         }
                     }
                     .criteria{
                         md-card-title{padding:16px 0 28px 20px}
-                        md-card-content{padding-left: 18px;animation: 1s ease-out 0s 1 slideInFromLeft;
+                        md-card-content{padding-left: 18px;
                             .list{padding: 12px 0 14px;}
                             .slide{
                                 div[layout="column"]{padding:2px 16px 16px;}

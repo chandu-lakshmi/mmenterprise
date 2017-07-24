@@ -337,8 +337,7 @@
             outline: none;
             border-radius: 4px;
             outline: none;
-            border: 1px solid #ddd;
-            animation: 1s ease-out 0s 1 slideInFromLeft; }
+            border: 1px solid #ddd; }
           .candidates .find-resume .container div[layout="column"] .search-resume md-card md-card-content .key {
             text-transform: capitalize;
             font-weight: 700;
@@ -346,8 +345,7 @@
       .candidates .find-resume .container div[layout="column"] .search-resume .criteria md-card-title {
         padding: 16px 0 28px 20px; }
       .candidates .find-resume .container div[layout="column"] .search-resume .criteria md-card-content {
-        padding-left: 18px;
-        animation: 1s ease-out 0s 1 slideInFromLeft; }
+        padding-left: 18px; }
         .candidates .find-resume .container div[layout="column"] .search-resume .criteria md-card-content .list {
           padding: 12px 0 14px; }
         .candidates .find-resume .container div[layout="column"] .search-resume .criteria md-card-content .slide div[layout="column"] {
