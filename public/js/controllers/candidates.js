@@ -10,15 +10,14 @@
             .controller('UploadResumeController', UploadResumeController)
             .controller('FindResumeController', FindResumeController)
 
-    CandidateController.$inject = [];
+    CandidateController.$inject = ['App'];
     ResumeRoomController.$inject = ['$state', '$window', '$uibModal', '$http', '$q', '$timeout', 'ajaxService', 'CompanyDetails', 'App'];
     UploadResumeController.$inject = ['$rootScope', '$scope', '$http', '$timeout', '$window', '$uibModal', 'App'];
     FindResumeController.$inject = ['$scope', '$http', '$q', '$timeout', '$filter', 'orderByFilter', '$window', 'CompanyDetails', 'App'];
 
 
-    function CandidateController() {
-
-        this.enableAIModule = true;
+    function CandidateController(App) {
+        this.enableAIModule = App.ENABLE_AI_TAB;
     }
 
 

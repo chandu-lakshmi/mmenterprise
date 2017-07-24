@@ -1147,13 +1147,17 @@
             }, function (response) {
 
             })*/
-            vm.mintmeshPartnes = [{hcm_name : 'SuccessFactors', hcm_id : 1}, {hcm_name : 'Zenefits', hcm_id : 2}, {hcm_name : 'iCIMS', hcm_id : 3}];
-            //vm.mintmeshPartnes = [{hcm_name : 'SuccessFactors', hcm_id : 1}];
-           if($state.params.tab == 'zenefits'){
+            if (App.ENABLE_HCM_TAB) {
+                vm.mintmeshPartnes = [{hcm_name : 'SuccessFactors', hcm_id : 1}, {hcm_name : 'Zenefits', hcm_id : 2}, {hcm_name : 'iCIMS', hcm_id : 3}];
+            } else {
+                vm.mintmeshPartnes = [{hcm_name : 'SuccessFactors', hcm_id : 1}];
+            }
+
+            if($state.params.tab == 'zenefits') {
                 getPartnersData(1);
-           }else{
+            } else {
                 getPartnersData(0);
-           }    
+            }    
         }
 
         function getPartnersData(i) {
