@@ -38,22 +38,24 @@ function commonData($settings = array()) {
         'company_name' => $_SESSION['company']['company_name'],
         'company_logo' => $_SESSION['company']['company_logo']);
     $userDetails = array(
-        'user_name' => $_SESSION['user']->firstname,
-        'user_id' => $_SESSION['user']->id,
-        'user_email' => $_SESSION['user']->emailid,
-        'user_dp' => $_SESSION['user']->user_dp);
+        'user_name'     => $_SESSION['user']->firstname,
+        'user_id'       => $_SESSION['user']->id,
+        'user_email'    => $_SESSION['user']->emailid,
+        'user_dp'       => $_SESSION['user']->user_dp);
     $userPermissions = $_SESSION['userPermissions'];
     return array(
-        'API_DOMAIN' => $settings['APP']['API_DOMAIN'],
-        'APP_DOMAIN' => $settings['APP']['APP_DOMAIN'],
-        'PATH' => $settings['APP']['PATH'],
-        'PREVIEW_PATH' => $settings['APP']['PREVIEW_PATH'],
-        'APP_VERSION' => $settings['APP']['APP_VERSION'],
+        'API_DOMAIN'    => $settings['APP']['API_DOMAIN'],
+        'APP_DOMAIN'    => $settings['APP']['APP_DOMAIN'],
+        'PATH'          => $settings['APP']['PATH'],
+        'PREVIEW_PATH'  => $settings['APP']['PREVIEW_PATH'],
+        'APP_VERSION'   => $settings['APP']['APP_VERSION'],
         'EMAIL_PARSER_DOMAIN' => $settings['EMAIL_PARSER']['EMAIL_PARSER_DOMAIN'],
-        'user_details' => isset($userDetails) ? json_encode($userDetails) : array(),
-        'company_details' => isset($companyDetails) ? json_encode($companyDetails) : array(),
-        'userPermissions' => isset($userPermissions) ? json_encode($userPermissions) : array(),
-        'S3_BASE_URL' => $settings['S3_BASE_URL']
+        'user_details'      => isset($userDetails) ? json_encode($userDetails) : array(),
+        'company_details'   => isset($companyDetails) ? json_encode($companyDetails) : array(),
+        'userPermissions'   => isset($userPermissions) ? json_encode($userPermissions) : array(),
+        'S3_BASE_URL'       => $settings['S3_BASE_URL'],
+        'ENABLE_HCM_TAB'    => $settings['ENABLE_HCM_TAB'],
+        'ENABLE_AI_TAB'     => $settings['ENABLE_AI_TAB']
     );
 }
 
