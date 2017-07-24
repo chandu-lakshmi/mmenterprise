@@ -9,7 +9,7 @@
 				<div class="side-list">
 					<div class="head clearfix">
 						<span class="pull-left">USER GROUPS</span>
-						<md-button class="md-icon-button pull-right" ng-click="::userPermissions.is_primary == 1 ? UserGroupCtrl.addNew('group') : ''">
+						<md-button class="md-icon-button pull-right" style="margin-right: 2px" ng-click="::userPermissions.is_primary == 1 ? UserGroupCtrl.addNew('group') : ''" ng-class="{ 'disable-cursor' : userPermissions.is_primary != 1}">
           					<md-icon md-svg-src="public/images/material_icons/add.svg" aria-label="Close dialog"></md-icon>
         				</md-button>
 					</div>

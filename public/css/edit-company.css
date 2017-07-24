@@ -5,6 +5,10 @@
   white-space: nowrap;
   text-transform: capitalize; }
 
+.disable-cursor {
+  opacity: 0.5;
+  cursor: not-allowed; }
+
 /* mintmesh buttons */
 /*.mm-btn{
     background: #229A77;color: #fff;outline: none;cursor: pointer;text-decoration: none;font-size: 18px;display: inline-block;border-radius: 3px;
