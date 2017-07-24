@@ -979,7 +979,6 @@
                 url: App.base_url + 'get_configuration'
             })
                     .then(function (response) {
-                        vm.loader = false;
                         if (response.data.status_code == 200) {
                             success(response.data.data)
                         }
@@ -989,6 +988,7 @@
                         else {
                             $window.location = App.base_url + 'logout';
                         }
+                        $timeout(function(){vm.loader = false;}, 300);
                     }, function (response) {
 
                     })
@@ -1188,7 +1188,7 @@
                     .then(function (response) {
                         var status = response.data.status_code;
                         vm.showSynWithZenefits = false;
-                        vm.loader = false;
+                        $timeout(function(){vm.loader = false;}, 300);
                         if (status == 200) {
                             vm.partnerDetails = response.data.data[0];
                             vm.checkbox = vm.partnerDetails.hcm_status == 'enable' ? true : false;

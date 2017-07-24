@@ -27,7 +27,7 @@
                             <img src="public/images/loader/spin.gif" alt="loading">
                         </div>
                     </div>
-                    <md-card-content>
+                    <md-card-content ng-class="{'mm-slide-left' : !IntMngCtrl.loader}">
                         <form name="suc_fac_form" novalidate autocomplete="off">
                             <input name="hcm_id" value="{{IntMngCtrl.partnerDetails.hcm_id}}" type="hidden">
                             
