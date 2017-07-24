@@ -12,7 +12,9 @@ function commonArgs($settings = array()) {
         'PASSWORD_GRANT' => $settings['APP']['PASSWORD_GRANT'],
         'APP_VERSION' => $settings['APP']['APP_VERSION'],
         'PREVIEW_PATH' => $settings['APP']['PREVIEW_PATH'],
-        'S3_BASE_URL' => $settings['S3_BASE_URL']
+        'S3_BASE_URL' => $settings['S3_BASE_URL'],
+        'ENABLE_HCM_TAB'    => $settings['ENABLE_HCM_TAB'],
+        'ENABLE_AI_TAB'     => $settings['ENABLE_AI_TAB']
     );
 }
 
