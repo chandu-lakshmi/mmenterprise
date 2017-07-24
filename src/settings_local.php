@@ -35,10 +35,10 @@ return [
             'PREFIX' => '/enterprise',
 
             // Angular Application domain
-            'APP_DOMAIN' => 'http://192.168.33.10/sprint12Community/Enterprise/',
+            'APP_DOMAIN' => 'http://192.168.33.10/mmenterprise/',
 
             // Application API domain
-            'API_DOMAIN' => 'http://192.168.33.10/sprint12Community/api/',
+            'API_DOMAIN' => 'http://192.168.33.10/mintmesh/',
 
             //Client keys
             'CLIENT_ID'         => 'G7iLdQoeZy0Ef06C',
@@ -48,8 +48,8 @@ return [
             'PASSWORD_GRANT'    => 'password',
 
             //qquploader path
-            'PATH'    => '/var/www/public/mintmesh_11/',
-            'PREVIEW_PATH'  => 'http://192.168.33.10/sprint12Community/api/',
+            'PATH'    => '/var/www/public/mintmesh/',
+            'PREVIEW_PATH'  => 'http://192.168.33.10/mintmesh/',
             //Version
             'APP_VERSION' => '1.6' 
             
@@ -58,7 +58,7 @@ return [
        // email parser
        'EMAIL_PARSER' => [
            // Angular Application domain
-           'EMAIL_PARSER_DOMAIN' => 'http://192.168.33.10/sprint12Community/Enterprise/email-parser/',
+           'EMAIL_PARSER_DOMAIN' => 'http://192.168.33.10/mmenterprise/email-parser/',
        ],
         'MAX_RESUME_FILE_UPLOAD_SIZE' => 5 * 1024 * 1024,
         'AI_PARSER' => [
@@ -68,7 +68,8 @@ return [
             'FIND_RESUMES' => 'find_resumes',
             'PARSE_JD'  => 'parse_jd'
         ],
-        'S3_BASE_URL' => 'https://s3-us-west-2.amazonaws.com/mintmeshresumedev/'
-    
+        'S3_BASE_URL' => 'https://s3-us-west-2.amazonaws.com/mintmeshresumedev/',
+        'ENABLE_HCM_TAB' => TRUE,
+        'ENABLE_AI_TAB' => TRUE
     ],
 ];

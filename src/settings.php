@@ -83,7 +83,9 @@ return [
             'FIND_RESUMES' => 'find_resumes',
             'PARSE_JD'  => 'parse_jd'
         ],
-        'S3_BASE_URL' => 'https://s3-us-west-2.amazonaws.com/mintmeshresumeprod/'
+        'S3_BASE_URL' => 'https://s3-us-west-2.amazonaws.com/mintmeshresumeprod/',
+        'ENABLE_HCM_TAB' => FALSE,
+        'ENABLE_AI_TAB' => FALSE
         
     ],
 ];
