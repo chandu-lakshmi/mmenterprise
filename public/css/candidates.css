@@ -159,56 +159,58 @@
     min-height: 500px;
     padding: 30px 0;
     overflow: auto; }
-    .candidates .upload-resume #upload.error-drop-area .qq-upload-drop-area {
-      border-color: #ff847b !important;
-      background: rgba(255, 202, 202, 0.23) !important; }
-    .candidates .upload-resume #upload .qq-uploader {
-      width: 95%;
-      margin: 0 auto;
-      height: 166px; }
-      .candidates .upload-resume #upload .qq-uploader .qq-upload-drop-area-active {
-        border-color: #219070 !important;
-        transform: scale(0.98);
-        -webkit-transform: scale(0.98);
-        background: #f2fff7 !important; }
-        .candidates .upload-resume #upload .qq-uploader .qq-upload-drop-area-active + .qq-upload-button {
+    .candidates .upload-resume #upload {
+      animation: 1s ease-out 0s 1 slideInFromLeft; }
+      .candidates .upload-resume #upload.error-drop-area .qq-upload-drop-area {
+        border-color: #ff847b !important;
+        background: rgba(255, 202, 202, 0.23) !important; }
+      .candidates .upload-resume #upload .qq-uploader {
+        width: 95%;
+        margin: 0 auto;
+        height: 166px; }
+        .candidates .upload-resume #upload .qq-uploader .qq-upload-drop-area-active {
+          border-color: #219070 !important;
           transform: scale(0.98);
-          -webkit-transform: scale(0.98); }
-      .candidates .upload-resume #upload .qq-uploader .qq-upload-drop-area {
-        display: block !important;
-        background: #f5f5f5;
-        border: 2px dashed #a6b3bd;
-        transition: all 0.2s linear;
-        -webkit-transition: all 0.2s linear; }
-        .candidates .upload-resume #upload .qq-uploader .qq-upload-drop-area .drag_img {
-          background: transparent; }
-        .candidates .upload-resume #upload .qq-uploader .qq-upload-drop-area .drag_txt {
-          color: #9ea9a9;
+          -webkit-transform: scale(0.98);
+          background: #f2fff7 !important; }
+          .candidates .upload-resume #upload .qq-uploader .qq-upload-drop-area-active + .qq-upload-button {
+            transform: scale(0.98);
+            -webkit-transform: scale(0.98); }
+        .candidates .upload-resume #upload .qq-uploader .qq-upload-drop-area {
+          display: block !important;
+          background: #f5f5f5;
+          border: 2px dashed #a6b3bd;
+          transition: all 0.2s linear;
+          -webkit-transition: all 0.2s linear; }
+          .candidates .upload-resume #upload .qq-uploader .qq-upload-drop-area .drag_img {
+            background: transparent; }
+          .candidates .upload-resume #upload .qq-uploader .qq-upload-drop-area .drag_txt {
+            color: #9ea9a9;
+            position: absolute;
+            top: 72px;
+            text-align: right;
+            width: 53%;
+            font-size: 16px;
+            font-weight: 700; }
+        .candidates .upload-resume #upload .qq-uploader .qq-upload-button {
           position: absolute;
-          top: 72px;
-          text-align: right;
-          width: 53%;
-          font-size: 16px;
-          font-weight: 700; }
-      .candidates .upload-resume #upload .qq-uploader .qq-upload-button {
-        position: absolute;
-        color: #0ba082;
-        width: 98px;
-        z-index: 9;
-        height: 33px !important;
-        top: 73px;
-        left: 53%;
-        text-align: left;
-        text-indent: 4px;
-        background: transparent;
-        overflow: hidden;
-        font-weight: 700;
-        font-size: 17px;
-        padding: 0;
-        transition: all 0.2s linear;
-        -webkit-transition: all 0.2s linear; }
-        .candidates .upload-resume #upload .qq-uploader .qq-upload-button:hover {
-          transform: scale(0.92); }
+          color: #0ba082;
+          width: 98px;
+          z-index: 9;
+          height: 33px !important;
+          top: 73px;
+          left: 53%;
+          text-align: left;
+          text-indent: 4px;
+          background: transparent;
+          overflow: hidden;
+          font-weight: 700;
+          font-size: 17px;
+          padding: 0;
+          transition: all 0.2s linear;
+          -webkit-transition: all 0.2s linear; }
+          .candidates .upload-resume #upload .qq-uploader .qq-upload-button:hover {
+            transform: scale(0.92); }
     .candidates .upload-resume .instructions ul {
       list-style: none;
       color: #a6b3bd;
@@ -335,7 +337,8 @@
             outline: none;
             border-radius: 4px;
             outline: none;
-            border: 1px solid #ddd; }
+            border: 1px solid #ddd;
+            animation: 1s ease-out 0s 1 slideInFromLeft; }
           .candidates .find-resume .container div[layout="column"] .search-resume md-card md-card-content .key {
             text-transform: capitalize;
             font-weight: 700;
@@ -343,7 +346,8 @@
       .candidates .find-resume .container div[layout="column"] .search-resume .criteria md-card-title {
         padding: 16px 0 28px 20px; }
       .candidates .find-resume .container div[layout="column"] .search-resume .criteria md-card-content {
-        padding-left: 18px; }
+        padding-left: 18px;
+        animation: 1s ease-out 0s 1 slideInFromLeft; }
         .candidates .find-resume .container div[layout="column"] .search-resume .criteria md-card-content .list {
           padding: 12px 0 14px; }
         .candidates .find-resume .container div[layout="column"] .search-resume .criteria md-card-content .slide div[layout="column"] {
@@ -619,5 +623,12 @@
     min-height: 116px;
     max-height: 220px;
     margin-bottom: 40px; }
+
+/* resume drop(upload resume) tab*/
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(3%); }
+  100% {
+    transform: translateX(0); } }
 
 /*# sourceMappingURL=candidates.css.map */
