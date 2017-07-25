@@ -1242,7 +1242,7 @@
                 url: vm.copyUrl
             }
         }
-
+        vm.details.schedule[0].start_on_date = new Date(vm.details.schedule[0].start_on_date);
         // closing modal
         function close() {
             if ($state.current.name == 'app.campaigns.allCampaigns' || $state.current.name == 'app.campaigns.myCampaigns') {

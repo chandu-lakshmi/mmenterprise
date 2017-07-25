@@ -8,7 +8,7 @@
 		<div class="content col-sm-6">
 			<big ng-bind="SocialShareCtrl.details.campaign_name | uppercase" class="ellipsis" title="{{SocialShareCtrl.details.campaign_name}}"></big>
 			<p ng-bind="SocialShareCtrl.details.campaign_type"></p>
-			<span style="font-weight:bold;">Starts On : </span><span ng-bind="SocialShareCtrl.details.schedule[0].start_on_date + ' - ' + SocialShareCtrl.details.schedule[0].start_on_time"></span>
+			<span style="font-weight:bold;">Starts On : </span><span></span><span ng-bind="(SocialShareCtrl.details.schedule[0].start_on_date | date : 'MMM d, y') + ' - ' + SocialShareCtrl.details.schedule[0].start_on_time"></span>
 		</div>
 		<div class="location col-sm-3">
 			<a ng-if="SocialShareCtrl.geoLocationUrl != '#'" class="google-map fancybox.iframe" href="{{SocialShareCtrl.geoLocationUrl}}"><img src="public/images/material_icons/location.svg" alt=""></a>
