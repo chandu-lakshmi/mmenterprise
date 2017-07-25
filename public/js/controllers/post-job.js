@@ -260,7 +260,7 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
             //scope.code = "1";
             scope.discoveryRewardsType = 'points';
         }
-        scope.bolFormValid = false; 
+        //scope.bolFormValid = false; 
     }
 
     this.code1 = '1';
@@ -279,7 +279,7 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
             //scope.code1 = "1";
             scope.referralRewardsType = 'points';
         }
-        scope.bolForm2Valid = false;
+        //scope.bolForm2Valid = false;
     }
 
     this.toggleDiscoveryReward = function(bolChk){
@@ -314,14 +314,18 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
     this.userSelRewards = false;
 	this.requestSuccess =function (bolForm, bolForm2) {
       
-        if (!bolForm || !bolForm2) {
+        scope.userSelOnebkt = true;
+        scope.bolFormValid = true;
+        scope.bolForm2Valid = true;
+
+        /*if (!bolForm || !bolForm2) {
             !bolForm ? scope.bolFormValid = true : '';
             !bolForm2 ? scope.bolForm2Valid = true : '';
             return false;     
-        }
+        }*/
 
         var buckets = $('input[name="selectedBuckets"]').val();
-        if (!buckets) {
+        /*if (!buckets) {
             scope.userSelRewards = false;
             scope.userSelOnebkt = true;
             return false;    
@@ -330,6 +334,9 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
             scope.userSelOnebkt = false;
             scope.userSelRewards = true;
             return false;
+        }*/
+        if (!buckets || $(".select-rewards input[type='checkbox']").serializeArray().length == 0 || !bolForm || !bolForm2) {
+            return;
         }
 
         var rewardsObj = [];
