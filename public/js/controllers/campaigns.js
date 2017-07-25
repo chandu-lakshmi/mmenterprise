@@ -134,6 +134,8 @@
             },
             templateUrl: 'templates/campaigns/template-create-job.phtml',
             link: function (scope) {
+
+                scope.jobCreated = false;
                 //google api location
                 scope.geo_location = '';
                 scope.geo_options = '';
@@ -144,7 +146,7 @@
                 });
 
                 scope.postJob = function (invalid) {
-                    if (invalid || scope.jobData.jobDescription.trim().length == 0) {
+                    if (invalid || scope.jobData.jobDescription.trim().length == 0 || scope.jobCreated) {
                         scope.errCond = true;
                         return;
                     }
@@ -163,6 +165,7 @@
                     }).success(function (response) {
                         if (response.status_code == 200) {
                             scope.apiCallStart = false;
+                            scope.jobCreated = true;
                             scope.apiSuccessMsg = response.message.msg[0];
                             response.data['editCampagin'] = scope.editCampagin.bol
                             $timeout(function () {
@@ -606,7 +609,7 @@
             delay: 500,
             progress: false,
             complete: false,
-            placeholder: 'Search By Campaign Name',
+            placeholder: 'Search by Campaign Name',
             onSearch: function (val) {
                 vm.search_val = val;
                 if (vm.search_opts.progress) {

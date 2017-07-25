@@ -48,7 +48,7 @@
             delay: 500,
             progress: false,
             complete: false,
-            placeholder: 'Search By Job or Status',
+            placeholder: 'Search by Job or Status',
             onSearch: function (val) {
                 vm.search_val = val;
                 if (vm.search_opts.progress) {
