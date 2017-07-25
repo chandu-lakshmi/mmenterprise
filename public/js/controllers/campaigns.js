@@ -890,7 +890,7 @@
 
         function radioButton() {
             vm.radioButtons = {
-                address: vm.campaignDetails.location_type || 'Online'
+                address: vm.campaignDetails.location_type || 'online'
             }
         }
         radioButton();
@@ -1210,7 +1210,7 @@
         vm.geoLocationUrl = vm.details.location_type == 'onsite' ? ("https://maps.google.com/?output=embed&f=q&source=s_q&hl=en&q=" + vm.details.location.address + ' ,' + vm.details.location.city + ' ,' + vm.details.location.state) : "#";
 
         var desc = '';
-        if (vm.details.location_type != 'Online')
+        if (vm.details.location_type != 'online')
             desc = 'Starts on: ' + vm.details.schedule[0].start_on_date + ' and Ends on: ' + vm.details.schedule[0].end_on_date +
                     '. Location: ' + vm.details.location.city + ', ' +
                     vm.details.location.state + ', ' + vm.details.location.country;
