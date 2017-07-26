@@ -14,7 +14,7 @@
     SettingsController.$inject = [];
     SettingsCompanyProfileController.$inject = ['$window', 'CompanyDetails', '$http', 'CONFIG'];
     MyProfileController.$inject = ['$http', '$scope', '$window', '$uibModal', 'UserDetails', 'CONFIG', 'App'];
-    UserGroupController.$inject = ['$scope', '$window', '$element', 'CONFIG', '$http', '$q', 'permissionsService', 'userPermissions', 'App'];
+    UserGroupController.$inject = ['$timeout', '$scope', '$window', '$element', 'CONFIG', '$http', '$q', 'permissionsService', 'userPermissions', 'App'];
     ConfigManagerController.$inject = ['$window', '$scope', '$timeout', '$http', 'App'];
     IntManagerController.$inject = ['$scope', '$window', '$state','$timeout', '$http', 'App'];
 
@@ -348,9 +348,10 @@
     }
 
 
-    function UserGroupController($scope, $window, $element, CONFIG, $http, $q, permissionsService, userPermissions, App) {
+    function UserGroupController($timeout, $scope, $window, $element, CONFIG, $http, $q, permissionsService, userPermissions, App) {
 
         var vm = this,
+                isNewForm = true,
                 APP_URL = CONFIG.APP_DOMAIN,
                 image_path = '', org_name;
 
@@ -380,6 +381,7 @@
         vm.createGroup = createGroup;
         vm.addPerson = addPerson;
         vm.resendActivation = resendActivation;
+        vm.resetForm = resetForm;
         vm.permission_template = "templates/settings/permissions_template.phtml";
         vm.group_template = "templates/settings/group-template.phtml";
         vm.person_template = "templates/settings/person-template.phtml";
@@ -402,7 +404,6 @@
         }, function () {
             $(this).removeClass('active');
         })
-
 
         vm.permission_switches = {
             2: [
@@ -523,6 +524,7 @@
         // get group details
         function getGroupData(id) {
             resetErrors();
+            isNewForm = true;
             vm.tab = id;
             vm.subTab = -1;
             vm.newUser = false;
@@ -573,6 +575,7 @@
         // get user details
         function getPersonData(index) {
             resetErrors();
+            isNewForm = true;
             vm.subTab = index;
             vm.group = false;
             vm.newPerson = false;
@@ -596,6 +599,7 @@
         // add New group or person
         function addNew(cond) {
             resetErrors();
+            isNewForm = true;
             vm.readable = false;
             if (cond == 'group') {
                 vm.group = true;
@@ -906,6 +910,15 @@
                     }
                 });
             }
+        }
+
+        function resetForm(frm) {
+            if(isNewForm) {
+                $timeout(function() {
+                    frm.$setPristine();
+                });
+            }
+            isNewForm = false;
         }
 
     }

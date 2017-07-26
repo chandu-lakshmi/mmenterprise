@@ -3,6 +3,7 @@
     <span class="title" ng-if="UserGroupCtrl.newUser">ADD USER GROUP</span>
     <div class="form-data">
         <form name="new_group_form" novalidate>
+            {{UserGroupCtrl.resetForm(new_group_form)}}
             <div class="user-inputs">
                 <md-input-container class="md-block md-no-float">
                     <label>GROUP NAME</label>

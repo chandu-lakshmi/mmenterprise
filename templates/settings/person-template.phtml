@@ -1,5 +1,6 @@
 <div class="content">
     <form name="new_user_form" novalidate>
+        {{UserGroupCtrl.resetForm(new_user_form)}}
         <div class="display-pic" ng-style="{'pointer-events' : UserGroupCtrl.readable ? 'none' : 'auto'}" onkeypress="return event.keyCode == 9">
             <div id="display_pic" class="change"></div>
             <p class='add-text' ng-bind="UserGroupCtrl.textCondition ? 'USER PHOTO' : 'ADD PHOTO'">ADD PHOTO</p>
