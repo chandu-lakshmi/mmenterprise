@@ -24,7 +24,7 @@ angular.module('app.forgotPassword', [])
 .controller('ForgotPassword',['$state', '$window', 'tokens', '$http', '$uibModal', 'CONFIG', function($state, $window, tokens, $http, $uibModal, CONFIG){
 	
 	var scope = this;
-
+        scope.createPwd = !tokens.reset_token;
 	this.forgot_submit = function(isValid){
 		
 		scope.forgot_show_error = false;
