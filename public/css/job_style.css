@@ -413,14 +413,8 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 	padding:2% 0;
 	border-bottom: 1px solid silver;
 }
-.job_des_bo pre{
-	border: 0;
-    background: transparent;
-    font-size: 16px;
-    padding: 0;
-    margin: 0;
-    font-family: 'Roboto';
-    white-space: pre-line;
+.job_des_bo	span[ng-bind-html]{
+	word-break: break-word;
 }
 .job_des_info{
 	width: 100%;
