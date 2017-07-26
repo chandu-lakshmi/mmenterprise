@@ -916,9 +916,10 @@
             if(isNewForm) {
                 $timeout(function() {
                     frm.$setPristine();
+                    isNewForm = false;
                 });
             }
-            isNewForm = false;
+            
         }
     }
 
