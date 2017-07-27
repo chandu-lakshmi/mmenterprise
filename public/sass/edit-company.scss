@@ -194,10 +194,10 @@ md-dialog md-toolbar:not(.md-menu-toolbar){
 
 /* scrollup */ 
 scroll-top{
-    div{z-index: 999999;position: fixed;cursor: pointer;bottom: 50px;width: 56px;height: 56px;-webkit-transition: all .4s;transition: all .4s;border-radius: 50%;text-align: center;border: 2px solid #248d6f;
-        &.left{left: -56px;}
+    div{z-index: 999999;position: fixed;cursor: pointer;bottom: 50px;width: 48px;height: 48px;-webkit-transition: all .4s;transition: all .4s;border-radius: 50%;text-align: center;border: 2px solid #248d6f;
+        &.left{left: -56px;} 
         &.right{right: -56px;}
-        img{width: 20px;height: 26px;margin-top: 13px;}
+        img{width: 20px;height: 21px;margin-top: 12px;}
         &.move-left{left: 28px;display: block;}
         &.move-right{right: 28px;display: block;}
     }
