@@ -221,8 +221,10 @@
                         </div>
                     </div>
                 </div>
-                <h4 ng-if="!post2Ctrl.discoveryRewards && !post2Ctrl.referralRewardsType" class="has-error-msg" style="margin: 2px;">
-                    <span ng-if="(post2Ctrl.userSelRewards && myForm2.$invalid) || (post2Ctrl.userSelRewards && myForm.$invalid)">Please select Rewards.</span>
+                <h4 style="margin: 2px" class="has-error-msg">   
+                    <span ng-if="!post2Ctrl.discoveryRewards && !post2Ctrl.referralRewardsType">
+                        <span ng-if="(post2Ctrl.userSelRewards && myForm2.$invalid) || (post2Ctrl.userSelRewards && myForm.$invalid)">Please select Rewards.</span>
+                    </span>
                 </h4>
             </div>
         </div>
