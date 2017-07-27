@@ -285,6 +285,7 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
             scope.discoveryRewardsType = '';
             //scope.code = '1';
             scope.discoveryCurrency = '';
+            scope.discoveryPoints = '';
         }
         //scope.userSelRewards = false; 
     }
@@ -297,6 +298,7 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
             scope.referralRewardsType = '';
             //scope.code1 = '1';
             scope.referralCurrency = '';
+            scope.referralPoints = '';
         }
         //scope.userSelRewards = false; 
     }
