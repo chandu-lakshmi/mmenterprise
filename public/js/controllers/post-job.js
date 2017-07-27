@@ -18,56 +18,56 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
 
 .controller('PostJobController', ['$state', '$timeout', '$window', '$http', '$scope', '$uibModal', 'gettingData', 'CompanyDetails', 'CONFIG', function($state, $timeout, $window,$http,$scope,$uibModal,gettingData,CompanyDetails,CONFIG){
 
-  $window.scrollTo(0,0);
-
-  this.geo_location = '';
-  this.geo_options = null;
-  this.geo_details = '';
-
-	var scope = this;
-  this.company_name = CompanyDetails.company_name;
-  this.postJob1 = gettingData.getObj();
+    var scope = this;
+    
+    $window.scrollTo(0, 0);
+    this.geo_location = '';
+    this.geo_options  = null;
+    this.geo_details  = '';
+    this.company_name = CompanyDetails.company_name;
+    this.postJob1     = gettingData.getObj();
+    this.postType     = [{label : 'Internal', value : 'internal'}, {label : 'External', value : 'external'}];
 
   // job title autocomplete
-  this.getServices = function(userInputString, timeoutPromise){
-    var services = [];
-    //.post(CONFIG.APP_DOMAIN + 'get_services', {search : userInputString}, {timeout: timeoutPromise})
-    return $http({
-      headers: {
-           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-        },
-        method: 'POST',
-        data: $.param({search: userInputString}),
-        url: CONFIG.APP_DOMAIN + 'get_services',
-        timeout: timeoutPromise
-    })
-    .then(function(response){
-      services = response.data.data.services;
-      return  {"data": services}
-    })
+    this.getServices = function(userInputString, timeoutPromise){
+        var services = [];
+        //.post(CONFIG.APP_DOMAIN + 'get_services', {search : userInputString}, {timeout: timeoutPromise})
+        return $http({
+            headers : {
+               'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
+            method  : 'POST',
+            data    : $.param({search: userInputString}),
+            url     : CONFIG.APP_DOMAIN + 'get_services',
+            timeout : timeoutPromise
+        })
+        .then(function(response){
+          services = response.data.data.services;
+          return  {"data": services}
+        })
 
-      // $http({
-      //   headers: {
-      //      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-      //   },
-      //   method: 'POST',
-      //   data: $.param({search: userInputString}),
-      //   url: CONFIG.APP_DOMAIN + 'get_services'
-      // })
-      // .then(function(response){
-      //   console.log(response)
-      //   services = response.data.data.services;
-      //   setTimeout(function(){return  {"data": services}},1000);
-      //   /*angular.element('.disabled').css('pointer-events','auto');
-      //   if(response.data.status_code == 200){
-      //     scope.updateLoader = false;
-      //     scope.message = true;
-      //     setTimeout(function(){scope.message = false;$scope.$apply()},3000);
-      //   }*/
-      // },function(response){
-      //   console.log(response)
-      // })
-  }
+        // $http({
+        //     headers: {
+        //        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        //     },
+        //     method: 'POST',
+        //     data: $.param({search: userInputString}),
+        //     url: CONFIG.APP_DOMAIN + 'get_services'
+        // })
+        // .then(function(response){
+        //     console.log(response)
+        //     services = response.data.data.services;
+        //     setTimeout(function(){return  {"data": services}},1000);
+        //     /*angular.element('.disabled').css('pointer-events','auto');
+        //     if(response.data.status_code == 200){
+        //       scope.updateLoader = false;
+        //       scope.message = true;
+        //       setTimeout(function(){scope.message = false;$scope.$apply()},3000);
+        //     }*/
+        // },function(response){
+        //     console.log(response)
+        // })
+    }
 
 
 
@@ -102,102 +102,98 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
     $('#job_title').autocomplete({});
   }*/
 
-  this.postJob1.country_code = '';
-  this.postJob1.country_code = '';
-  $scope.$watch(function() {
-    return scope.geo_details;
-  }, function(location) {
-    if (location) {
-      scope.postJob1.location = scope.geo_location;
-      if(location.hasOwnProperty('address_components')){
-        var obj = location.address_components;
-        for(var i = 0;i < obj.length; i++){
-          if(obj[i].types[0] == 'country'){
-            scope.postJob1.country_code = obj[i].short_name;
-          }
+    this.postJob1.country_code = '';
+    this.postJob1.country_code = '';
+    $scope.$watch(function() {
+        return scope.geo_details;
+    }, function(location) {
+        if(location) {
+            scope.postJob1.location = scope.geo_location;
+            if(location.hasOwnProperty('address_components')) {
+                var obj = location.address_components;
+                for(var i = 0;i < obj.length; i++) {
+                    if(obj[i].types[0] == 'country') {
+                        scope.postJob1.country_code = obj[i].short_name;
+                    }
+                }
+            }
         }
-      }
-    }
-  });
+    });
 
-	// Job Functions Dropdown
-	var get_job_functions = $http({
-		headers: {
+ 
+
+    // Job Functions Dropdown
+    $http({
+        headers : {
           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         },
-        method: 'GET',
-        url: CONFIG.APP_DOMAIN+'get_job_functions'
-	})
-	get_job_functions.success(function(response){
-		scope.job_function = response.data.job_functions;
-    if(gettingData.bol){
-      scope.postJob1.job_func = scope.job_function[scope.postJob1.job_func.job_function_id - 1];
-    }
-	})
-  
-
-	// Industries Dropdown
-	var get_industries = $http({
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-        },
-        method: 'GET',
-        url: CONFIG.APP_DOMAIN+'get_industries'
+        method  : 'GET',
+        url     : CONFIG.APP_DOMAIN + 'get_job_functions'
     })
-    get_industries.success(function(response){
+    .success(function(response) {
+        scope.job_function = response.data.job_functions;
+    });
+
+    // Industries Dropdown
+    $http({
+        headers : {
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        },
+        method  : 'GET',
+        url     : CONFIG.APP_DOMAIN + 'get_industries'
+    })
+    .success(function(response) {
        scope.industry_list = response.data.industries;
-        if(gettingData.bol){
-          scope.postJob1.industry = scope.industry_list[scope.postJob1.industry.industry_id - 1];
-        }
-    })
+    });
 
     // Employement Type Dropdown
-    var get_employment_types = $http({
-        headers: {
+    $http({
+        headers  : {
           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         },
-        method: 'GET',
-        url: CONFIG.APP_DOMAIN+'get_employment_types'
+        method   : 'GET',
+        url      : CONFIG.APP_DOMAIN + 'get_employment_types'
     })
-    get_employment_types.success(function(response){
-       scope.employment_type = response.data.employmentTypes;
-       if(gettingData.bol){
-          scope.postJob1.emp_type = scope.employment_type[scope.postJob1.emp_type.employment_type_id - 1];
-        }    
-    })
+    .success(function(response) {
+        scope.employment_type = response.data.employmentTypes;  
+    });
 
     // Experience Dropdown
-    var get_experiences = $http({
+    $http({
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         },
         method: 'GET',
-        url: CONFIG.APP_DOMAIN+'get_experiences'
+        url: CONFIG.APP_DOMAIN + 'get_experiences'
     })
-    get_experiences.success(function(response){
-       scope.experience = response.data.experiences;
-       if(gettingData.bol){
-          scope.postJob1.experience = scope.experience[scope.postJob1.experience.experience_id - 1];
-        }
-    })
-
+    .success(function(response) {
+        scope.experience = response.data.experiences;
+    });
+        
+	
+    this.setSelectedValue = function(selectedList, value) {
+        angular.forEach(scope[selectedList], function(list) {
+            if(list[selectedList + '_id'] == value) {
+               scope.postJob1[selectedList + '_name'] = list[selectedList + '_name'] 
+            }
+        })
+    }   
 
     this.job_post_error = false;
-    this.postJob = function(isValid){
-      if(!isValid){
-        this.job_post_error = true;
-      }
-      else{
-        if (!scope.postJob1.hasOwnProperty("requistion_id")) {
-            scope.postJob1.requistion_id = '';
+    this.postJob = function(isValid) {
+        if(!isValid) {
+            this.job_post_error = true;
+        } else {
+            if(!scope.postJob1.hasOwnProperty("requistion_id")) {
+                scope.postJob1.requistion_id = '';
+            }
+            if(!scope.postJob1.hasOwnProperty("position_id")) {
+                scope.postJob1.position_id = '';   
+            }
+            gettingData.setData(scope.postJob1);
+            $window.scrollTo(0,0);
+            $state.go('^.postJob2');
         }
-        if(!scope.postJob1.hasOwnProperty("position_id")){
-            scope.postJob1.position_id = '';   
-        }
-        gettingData.setData(scope.postJob1)
-        $window.scrollTo(0,0);
-        $state.go('^.postJob2');
-      }
     }
     
     /*$scope.$watch('PtJobCtrl.postJob1.job_desc', function(){
@@ -209,7 +205,6 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
 
 
 .controller('PostJobTwoController', ['$window', '$uibModal', 'gettingData', 'CompanyDetails', '$http', 'CONFIG', function($window, $uibModal, gettingData, CompanyDetails, $http, CONFIG){
-
     $window.scrollTo(0,0);
     this.company_name = CompanyDetails.company_name;
   
@@ -375,11 +370,11 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
             country_code : scope.post_job_result.country_code,
             job_title : scope.post_job_result.job_title,
             location : scope.post_job_result.location,
-            industry : scope.post_job_result.industry.industry_id,
-            employment_type : scope.post_job_result.emp_type.employment_type_id,
+            industry : scope.post_job_result.industry,
+            employment_type : scope.post_job_result.emp_type,
             job_description : scope.post_job_result.job_desc,
-            experience_range : scope.post_job_result.experience.experience_id,
-            job_function : scope.post_job_result.job_func.job_function_id,
+            experience_range : scope.post_job_result.experience,
+            job_function : scope.post_job_result.job_func,
             post_type : scope.post_job_result.post_type,
             free_job : freeJob ,
             no_of_vacancies : scope.post_job_result.no_of_vacancies,

@@ -2,6 +2,23 @@
         background: white url("../images/loader/ui-anim_basic_16x16.gif") right center no-repeat;
 }*/
 /* loader */
+ *::-webkit-scrollbar{
+    width: 6px;
+    height: 8px;
+    padding-top: 40px;
+}
+       
+*::-webkit-scrollbar-track{
+    border-radius: 4px;
+   
+}
+*::-webkit-scrollbar-thumb{
+    border-radius:4px;
+    height: 30px;
+    width: 6px;
+    background-color:#c1c1c1;
+} 
+
 *::selection{
     background: #0ba082;
     color: #fff;
@@ -1161,6 +1178,49 @@ ul.new-tabs > li.active > a{
 .post-job input,select,textarea{
     color: black
 }
+.post-job md-input-container{
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height: 42px;
+    padding: 0;
+    margin: 0;
+}
+.post-job md-input-container.md-input-focused{
+    border-color: #208d6e;
+    outline: 0;
+    transition: 0.2s all linear;
+    -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(32, 141, 110, 0.6);
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(32, 141, 110, 0.6);
+}
+.post-job md-input-container label{
+    display: none;
+}
+.post-job md-input-container input,.post-job md-input-container md-select{
+    height: 100%;
+}
+.post-job md-input-container input,.post-job md-input-container md-select .md-select-value{
+    height: 100%;
+    padding: 0px !important;
+    border: 0 !important;
+    padding-left: 10px !important;
+    color: #555;
+}
+.post-job md-input-container md-select .md-select-value span{
+    margin-top: -5px;
+    font-size: 16px;
+}
+.post-job md-input-container md-select .md-select-value span .md-text{
+    color: #555;
+}
+.post-job md-input-container md-select .md-select-value .md-select-icon::after{
+    right: 10px;
+}
+.md-select-menu-container.post-job-container{
+    margin: -3px 0 0 -2px !important
+}
+.post-job md-input-container:not(.md-input-invalid).md-input-focused .md-input{
+    border-color: #ccc;border-width:1px;
+}        
 .post-job .form-control:focus {
     border-color: #208d6e;
     outline: 0;
