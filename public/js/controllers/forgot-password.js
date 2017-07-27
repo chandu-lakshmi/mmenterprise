@@ -21,7 +21,7 @@ angular.module('app.forgotPassword', [])
 	}
 })
 
-.controller('ForgotPassword',['$scope', '$state', '$window', 'tokens', '$http', '$uibModal', 'CONFIG', function($state, $window, tokens, $http, $uibModal, CONFIG){
+.controller('ForgotPassword',['$scope', '$state', '$window', 'tokens', '$http', '$uibModal', 'CONFIG', function($scope, $state, $window, tokens, $http, $uibModal, CONFIG){
 	
 	var scope = this;
         scope.createPwd = !tokens.reset_token;
@@ -45,6 +45,7 @@ angular.module('app.forgotPassword', [])
             }
         }
     }
+    
 
     function resetPassword(code, url){
         var reset_params = $.param({
@@ -70,7 +71,7 @@ angular.module('app.forgotPassword', [])
                     backdrop: 'static',
                     templateUrl: 'templates/dialogs/reset-success.phtml',
                     openedClass: "reset-pwd",
-                    scope: $scope
+                    scope:$scope
                 });
             }
             else if(response.status_code == 403){
