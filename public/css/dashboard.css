@@ -1204,13 +1204,15 @@ ul.new-tabs > li.active > a{
     border: 0 !important;
     padding-left: 10px !important;
     color: #555;
+    font-size: 16px;
 }
 .post-job md-input-container md-select .md-select-value span{
-    margin-top: -5px;
+    margin-top: -4px;
     font-size: 16px;
 }
 .post-job md-input-container md-select .md-select-value span .md-text{
     color: #555;
+    font-size: 16px;
 }
 .post-job md-input-container md-select .md-select-value .md-select-icon::after{
     right: 10px;
@@ -1252,6 +1254,7 @@ ul.new-tabs > li.active > a{
     padding: 6px 12px;           
     border: 1px solid #ccc !important;
     border-radius: 4px;
+    font-size: 16px;
 }
 .post-job .mm-text-editor .ta-toolbar{
     padding:6px;
