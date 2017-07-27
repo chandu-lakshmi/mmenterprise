@@ -87,7 +87,7 @@
                         <form name="myForm">
                             <div class="radio">
                                 <div>
-                                    <input type="radio" name="discoveryRewardsType" id="free" value="free" 
+                                    <input type="radio" ng-required="!post2Ctrl.referralRewardsType" name="discoveryRewardsType" id="free" value="free" 
                                            ng-model="post2Ctrl.discoveryRewardsType" ng-disabled="!post2Ctrl.discoveryRewards" ng-click="post2Ctrl.reset('')">
                                     <label for="free">
                                         Free - Just A Thank You
@@ -160,7 +160,7 @@
                         </div>
                         <div class="radio" ng-form="myForm2">
                             <div>
-                                <input type="radio" name="referralRewardsType" id="frees" value="free" 
+                                <input type="radio" name="referralRewardsType" ng-required="!post2Ctrl.discoveryRewardsType" id="frees" value="free" 
                                        ng-model="post2Ctrl.referralRewardsType" ng-disabled="!post2Ctrl.referralRewards" ng-click="post2Ctrl.reset1('')">
                                 <label for="frees">
                                     Free - Just A Thank You
@@ -221,7 +221,9 @@
                         </div>
                     </div>
                 </div>
-
+                <h4 ng-if="!post2Ctrl.discoveryRewards && !post2Ctrl.referralRewardsType" class="has-error-msg" style="margin: 2px;">
+                    <span ng-if="(post2Ctrl.userSelRewards && myForm2.$invalid) || (post2Ctrl.userSelRewards && myForm.$invalid)">Please select Rewards.</span>
+                </h4>
             </div>
         </div>
     </div>
@@ -251,7 +253,6 @@
         <div class="container">
             <div class="col-sm-6" style="min-height: 75px;">
                 <h4 ng-show="post2Ctrl.userSelOnebkt && bkts.$invalid">Please select atleast one Community.</h4>
-                <h4 ng-show="post2Ctrl.userSelRewards">Please enter Rewards.</h4>
                 <span ng-if="post2Ctrl.loader"><img src="public/images/loader/upload_file.gif" alt="loader" style="margin:5px;">Creating Job Requisition</span>
                 <span ng-if="post2Ctrl.serverMsg" ng-bind="post2Ctrl.serverMsg" style="color: #c2433d"></span>
             </div>

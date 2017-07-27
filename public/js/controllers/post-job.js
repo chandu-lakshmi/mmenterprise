@@ -286,7 +286,7 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
             //scope.code = '1';
             scope.discoveryCurrency = '';
         }
-        scope.userSelRewards = false; 
+        //scope.userSelRewards = false; 
     }
 
     this.toggleReferralReward = function(bolChk){
@@ -298,7 +298,7 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
             //scope.code1 = '1';
             scope.referralCurrency = '';
         }
-        scope.userSelRewards = false; 
+        //scope.userSelRewards = false; 
     }
 
     this.loader = 
@@ -331,9 +331,9 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
             return false;
         }*/
         if (!buckets || $(".select-rewards input[type='checkbox']").serializeArray().length == 0 || !bolForm || !bolForm2) {
+            scope.userSelRewards = true;
             return;
         }
-
         var rewardsObj = [];
         function rewards(type, rewards_value){
             var obj =  {
