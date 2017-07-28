@@ -844,7 +844,7 @@ body.set-password {
                 overflow: visible; }
                 .settings .manager-tab .saml .rt md-card md-card-content .file-upload #upload .qq-uploader .qq-upload-list, .settings .manager-tab .hcms .rt md-card md-card-content .file-upload #upload .qq-uploader .qq-upload-list {
                   left: 0;
-                  width: 50%; }
+                  width: 58%; }
                 .settings .manager-tab .saml .rt md-card md-card-content .file-upload #upload .qq-uploader .qq-upload-button, .settings .manager-tab .hcms .rt md-card md-card-content .file-upload #upload .qq-uploader .qq-upload-button {
                   color: #565656;
                   background: #e6e6e6;
