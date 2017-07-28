@@ -1118,6 +1118,7 @@
 //                $scope.$apply();
                 },
                 onRemoveComplete: function () {
+                    trash();
                     $upload.find('.qq-upload-list').css('z-index', '-1');
                 }
             })
