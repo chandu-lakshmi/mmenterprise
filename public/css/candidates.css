@@ -159,56 +159,58 @@
     min-height: 500px;
     padding: 30px 0;
     overflow: auto; }
-    .candidates .upload-resume #upload.error-drop-area .qq-upload-drop-area {
-      border-color: #ff847b !important;
-      background: rgba(255, 202, 202, 0.23) !important; }
-    .candidates .upload-resume #upload .qq-uploader {
-      width: 95%;
-      margin: 0 auto;
-      height: 166px; }
-      .candidates .upload-resume #upload .qq-uploader .qq-upload-drop-area-active {
-        border-color: #219070 !important;
-        transform: scale(0.98);
-        -webkit-transform: scale(0.98);
-        background: #f2fff7 !important; }
-        .candidates .upload-resume #upload .qq-uploader .qq-upload-drop-area-active + .qq-upload-button {
+    .candidates .upload-resume #upload {
+      animation: 1s ease-out 0s 1 slideInFromLeft; }
+      .candidates .upload-resume #upload.error-drop-area .qq-upload-drop-area {
+        border-color: #ff847b !important;
+        background: rgba(255, 202, 202, 0.23) !important; }
+      .candidates .upload-resume #upload .qq-uploader {
+        width: 95%;
+        margin: 0 auto;
+        height: 166px; }
+        .candidates .upload-resume #upload .qq-uploader .qq-upload-drop-area-active {
+          border-color: #219070 !important;
           transform: scale(0.98);
-          -webkit-transform: scale(0.98); }
-      .candidates .upload-resume #upload .qq-uploader .qq-upload-drop-area {
-        display: block !important;
-        background: #f5f5f5;
-        border: 2px dashed #a6b3bd;
-        transition: all 0.2s linear;
-        -webkit-transition: all 0.2s linear; }
-        .candidates .upload-resume #upload .qq-uploader .qq-upload-drop-area .drag_img {
-          background: transparent; }
-        .candidates .upload-resume #upload .qq-uploader .qq-upload-drop-area .drag_txt {
-          color: #9ea9a9;
+          -webkit-transform: scale(0.98);
+          background: #f2fff7 !important; }
+          .candidates .upload-resume #upload .qq-uploader .qq-upload-drop-area-active + .qq-upload-button {
+            transform: scale(0.98);
+            -webkit-transform: scale(0.98); }
+        .candidates .upload-resume #upload .qq-uploader .qq-upload-drop-area {
+          display: block !important;
+          background: #f5f5f5;
+          border: 2px dashed #a6b3bd;
+          transition: all 0.2s linear;
+          -webkit-transition: all 0.2s linear; }
+          .candidates .upload-resume #upload .qq-uploader .qq-upload-drop-area .drag_img {
+            background: transparent; }
+          .candidates .upload-resume #upload .qq-uploader .qq-upload-drop-area .drag_txt {
+            color: #9ea9a9;
+            position: absolute;
+            top: 72px;
+            text-align: right;
+            width: 53%;
+            font-size: 16px;
+            font-weight: 700; }
+        .candidates .upload-resume #upload .qq-uploader .qq-upload-button {
           position: absolute;
-          top: 72px;
-          text-align: right;
-          width: 53%;
-          font-size: 16px;
-          font-weight: 700; }
-      .candidates .upload-resume #upload .qq-uploader .qq-upload-button {
-        position: absolute;
-        color: #0ba082;
-        width: 98px;
-        z-index: 9;
-        height: 33px !important;
-        top: 73px;
-        left: 53%;
-        text-align: left;
-        text-indent: 4px;
-        background: transparent;
-        overflow: hidden;
-        font-weight: 700;
-        font-size: 17px;
-        padding: 0;
-        transition: all 0.2s linear;
-        -webkit-transition: all 0.2s linear; }
-        .candidates .upload-resume #upload .qq-uploader .qq-upload-button:hover {
-          transform: scale(0.92); }
+          color: #0ba082;
+          width: 98px;
+          z-index: 9;
+          height: 33px !important;
+          top: 73px;
+          left: 53%;
+          text-align: left;
+          text-indent: 4px;
+          background: transparent;
+          overflow: hidden;
+          font-weight: 700;
+          font-size: 17px;
+          padding: 0;
+          transition: all 0.2s linear;
+          -webkit-transition: all 0.2s linear; }
+          .candidates .upload-resume #upload .qq-uploader .qq-upload-button:hover {
+            transform: scale(0.92); }
     .candidates .upload-resume .instructions ul {
       list-style: none;
       color: #a6b3bd;
@@ -311,10 +313,10 @@
         .candidates .find-resume .container div[layout="column"] .search-resume md-card .loader {
           position: absolute;
           text-align: center;
-          left: calc(50% - 25px);
-          top: 161px; }
+          left: calc(50% - 34px);
+          top: 143px; }
           .candidates .find-resume .container div[layout="column"] .search-resume md-card .loader img {
-            width: 50px;
+            width: 68px;
             margin: 0 auto; }
         .candidates .find-resume .container div[layout="column"] .search-resume md-card md-card-title {
           padding: 16px 24px 16px; }
@@ -464,7 +466,8 @@
               content: ""; }
           .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card .resume {
             padding: 20px;
-            color: #212121; }
+            color: #212121;
+            min-height: 198px; }
             .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card .resume .role, .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card .resume .skill {
               font-weight: 800;
               color: #8e8e8e; }
@@ -506,6 +509,8 @@
               .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card md-card-actions i.loc {
                 padding: 0;
                 font-size: 22px; }
+              .candidates .find-resume .container div[layout="column"] .container-resume md-content md-card md-card-actions i.rm-pointer {
+                cursor: default; }
         .candidates .find-resume .container div[layout="column"] .container-resume md-content .loading-text {
           color: #8e8e8e;
           font-weight: 700;
@@ -544,77 +549,5 @@
 
 .find-resume-name.md-show {
   transition: all 0.5s linear !important; }
-
-/* Model for network error */
-#network-error {
-  z-index: 999999; }
-  #network-error.modal {
-    text-align: center;
-    padding: 0 !important; }
-  #network-error.modal:before {
-    content: '';
-    display: inline-block;
-    height: 100%;
-    vertical-align: middle;
-    margin-right: -4px; }
-  #network-error .modal-dialog {
-    display: inline-block;
-    text-align: left;
-    vertical-align: middle; }
-    #network-error .modal-dialog .modal-header {
-      width: 500px;
-      text-align: center;
-      min-height: 370px;
-      padding: 36px;
-      background: #fff;
-      margin: 0 auto; }
-      #network-error .modal-dialog .modal-header .header-pic {
-        height: 80px; }
-        #network-error .modal-dialog .modal-header .header-pic img {
-          width: 80px; }
-      #network-error .modal-dialog .modal-header h2 {
-        color: #5d5757; }
-      #network-error .modal-dialog .modal-header p {
-        color: #b2b2b2; }
-      #network-error .modal-dialog .modal-header button {
-        padding: 5px 20px;
-        border-radius: 0;
-        margin-top: 28px;
-        cursor: pointer; }
-
-/* text-editor for textarea */
-.mm-text-editor {
-  position: relative;
-  overflow: hidden;
-  border-bottom: 1px solid #ccc; }
-  .mm-text-editor.focussed .ta-toolbar {
-    bottom: 0; }
-  .mm-text-editor .ta-toolbar {
-    position: absolute;
-    bottom: -56px;
-    left: 0;
-    z-index: 1;
-    padding: 6px 6px 6px 0;
-    -webkit-transition: 0.4s bottom linear;
-    transition: 0.4s bottom linear; }
-    .mm-text-editor .ta-toolbar button, .mm-text-editor .ta-toolbar #toolbarCC {
-      background: #f5f5f5;
-      color: #6f6f6f;
-      opacity: 1; }
-      .mm-text-editor .ta-toolbar button.active, .mm-text-editor .ta-toolbar #toolbarCC.active {
-        color: #181818;
-        box-shadow: none; }
-  .mm-text-editor .btn {
-    padding: 4px 10px; }
-  .mm-text-editor .ta-scroll-window > .ta-bind {
-    outline: none;
-    padding-left: 0;
-    min-height: inherit; }
-  .mm-text-editor .ta-scroll-window.form-control {
-    border-color: transparent !important;
-    box-shadow: none !important;
-    min-height: 116px;
-    max-height: 220px;
-    margin-bottom: 40px; }
 
 /*# sourceMappingURL=candidates.css.map */

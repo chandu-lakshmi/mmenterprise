@@ -32,14 +32,14 @@
                                     <md-input-container>
                                         <label>Sign-In Page(URL)</label>
                                         <input id="ft" name="signin_url" ng-model="ConfigMngCtrl.ssoDetails.signin_url" required ng-class="{'has-error-border': single_signin.signin_url.$invalid && ConfigMngCtrl.show_error}">
-                                        <div ng-if="single_signin.signin_url.$error.required && ConfigMngCtrl.show_error"  class="has-error-msg">Please Enter Sign-In Page URL.</div>
+                                        <div ng-if="single_signin.signin_url.$error.required && ConfigMngCtrl.show_error"  class="has-error-msg">Please enter Sign-In Page URL.</div>
                                     </md-input-container>
                                 </div>
                                 <div flex="50">
                                     <md-input-container>
                                         <label>Sign-Out Page(URL)</label>
                                         <input name="signout_url" ng-model="ConfigMngCtrl.ssoDetails.signout_url" required ng-class="{'has-error-border': single_signin.signout_url.$invalid && ConfigMngCtrl.show_error}">
-                                        <div ng-if="single_signin.signout_url.$error.required && ConfigMngCtrl.show_error"  class="has-error-msg">Please Enter Sign-Out Page URL.</div>
+                                        <div ng-if="single_signin.signout_url.$error.required && ConfigMngCtrl.show_error"  class="has-error-msg">Please enter Sign-Out Page URL.</div>
                                     </md-input-container>
                                 </div>
                             </div>
@@ -50,14 +50,14 @@
                                             <md-input-container>
                                                 <label>Identity Provider Issuer(URL)</label>
                                                 <input name="idp_issuer" ng-model="ConfigMngCtrl.ssoDetails.idp_issuer" required ng-class="{'has-error-border': single_signin.idp_issuer.$invalid && ConfigMngCtrl.show_error}">
-                                                <div ng-if="single_signin.idp_issuer.$error.required && ConfigMngCtrl.show_error"  class="has-error-msg">Please Enter Identity Provider Issuer URL.</div>
+                                                <div ng-if="single_signin.idp_issuer.$error.required && ConfigMngCtrl.show_error"  class="has-error-msg">Please enter Identity Provider Issuer URL.</div>
                                             </md-input-container>
                                         </div>
                                         <div flex>
                                             <div class="file-upload">
-                                                <span>Upload Identity Provider Certificate</span>
+                                                <span class="heading-label">Upload Identity Provider Certificate</span>
                                                 <div id="upload"></div>
-                                                <p class="has-error-msg" style="margin-top: -4px;" ng-if="!ConfigMngCtrl.uploadSuccess && ConfigMngCtrl.show_error">Please Upload a File</p>
+                                                <p class="has-error-msg" style="margin-top: -4px;" ng-if="!ConfigMngCtrl.uploadSuccess && ConfigMngCtrl.show_error">Please upload a File</p>
                                                 <!--<div class="up-tmp" ng-if="ConfigMngCtrl.successUpload">
                                                     <div class="box" layout="row">
                                                         <img src="public/images/pdf.png" class="avatar">
@@ -77,6 +77,10 @@
                                                     </div>
                                                 </div>-->
                                             </div>
+                                            <ul class="file-support">
+                                                <li>Supported file format: "csv", "pdf", "doc", "docx", "cer".</li>
+                                                <li>Max file size (10MB)</li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
@@ -88,10 +92,6 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
-                            
-                            <div class="loader" ng-if="ConfigMngCtrl.loader">
-                                <img src="public/images/loader/spin.gif" alt="loader" width="25%">
                             </div>
                         </form>
                     </md-card-content>
@@ -105,6 +105,11 @@
                             <md-button class="mm-btn" ng-disabled="ConfigMngCtrl.spinner" ng-click="ConfigMngCtrl.save(single_signin.$valid)">{{ConfigMngCtrl.hasRecord ? 'Update' : 'Save'}}</md-button>
                         </div>
                     </md-card-actions>
+                    <div class="im-spinner" ng-if="ConfigMngCtrl.loader">
+                        <div>
+                            <img src="public/images/loader/spin.gif" alt="loading">
+                        </div>
+                    </div>
                 </md-card>
             </div>
         </div>

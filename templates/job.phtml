@@ -133,11 +133,11 @@
 		<div class="post_err_msg" ng-if="jobSearchCtrl.no_posts_found">No Jobs Found</div>
 
 		<div class="text-center" ng-if="jobSearchCtrl.infiniteScroll.busy" style="opacity:0.5">
-			<img src="public/images/loader/spin.gif" alt="spinner" style="width:10%">
+			<img src="public/images/loader/spin.gif" alt="spinner" style="width:6%">
 		</div>
-		<div ng-if="jobSearchCtrl.overLoader" style="position:absolute;top:70px;left:40%">
-			<img src="public/images/loader/spin.gif" alt="spinner" style="display: block;margin: 0 auto;width: 60%;">
+		<div ng-if="jobSearchCtrl.overLoader" style="position: absolute;top: 7%;width: 100%;height: 100%;text-align: center;">
+			<img src="public/images/loader/spin.gif" alt="spinner" style="width: 72px;height: 72px;">
 		</div>
 	</div>
 </div>
-<scroll-top view-left-right="left"></scroll-top>
+<scroll-top view-left-right="right"></scroll-top>

@@ -40,7 +40,7 @@
     // string constants
     var REQUIRED_CLASS = 'autocomplete-required';
     var TEXT_SEARCHING = 'Searching...';
-    var TEXT_NORESULTS = 'Email Doesn\'t Exists';
+    var TEXT_NORESULTS = 'Email doesn\'t exists';
     var TEMPLATE_URL = '/angucomplete-alt/index.html';
 
     // Set the default template for this directive

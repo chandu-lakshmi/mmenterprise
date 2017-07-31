@@ -21,7 +21,7 @@
 	 						<md-input-container class="md-block read-only">
 								<label>COMPANY NAME</label>
 								<input type="text" name="company" ng-model="editCompCtrl.company_details.name" required ng-class="{'has-error-border':edit_company_form.company.$invalid && editCompCtrl.errCond}" style="pointer-events:none">
-								<div ng-if="edit_company_form.company.$error.required && editCompCtrl.errCond" class="has-error-msg">Please Enter Company Name</div>
+								<div ng-if="edit_company_form.company.$error.required && editCompCtrl.errCond" class="has-error-msg">Please enter Company Name.</div>
 							</md-input-container>
 							<md-input-container class="md-block select-box">
 					            <label style="display:none;">INDUSTRY</label>
@@ -31,7 +31,7 @@
 					              	</md-option>
 					            </md-select>
 					            <div class="md-errors-spacer"></div>
-					            <div ng-if="(editCompCtrl.company_details.industry == null || editCompCtrl.company_details.industry == '') && editCompCtrl.errCond" class="has-error-msg">Please Select Industry</div>
+					            <div ng-if="(editCompCtrl.company_details.industry == null || editCompCtrl.company_details.industry == '') && editCompCtrl.errCond" class="has-error-msg">Please select Industry.</div>
 					        </md-input-container>
 					        <md-input-container class="md-block select-box">
 					            <label style="display:none;">NUMBER OF EMPLOYEES</label>
@@ -48,8 +48,8 @@
 		 					<md-input-container class="md-block">
 								<label>WEBSITE<span style="color: #999">(URL)</span></label>
 								<input  type="text" name="website" ng-model="editCompCtrl.company_details.website" required ng-pattern="/^(http:\/\/www\.|https:\/\/www\.|www\.|https:\/\/|http:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i" ng-class="{'has-error-border':edit_company_form.website.$invalid && editCompCtrl.errCond}">
-								<div ng-if="edit_company_form.website.$error.required && editCompCtrl.errCond"  class="has-error-msg">Please Enter URL</div>
-								<div ng-if="edit_company_form.website.$error.pattern && editCompCtrl.errCond"  class="has-error-msg">Please Enter Valid URL</div>
+								<div ng-if="edit_company_form.website.$error.required && editCompCtrl.errCond"  class="has-error-msg">Please enter Website URL.</div>
+								<div ng-if="edit_company_form.website.$error.pattern && editCompCtrl.errCond"  class="has-error-msg">Please enter valid Website URL.</div>
 							</md-input-container>
 							<md-input-container class="md-block">
       							<label>DESCRIPTION</label>
@@ -65,7 +65,7 @@
 					        	<span style="color: #999">LOGO <small>(Add your company logo)</small></span>
 					        	<div id="company-logo" style="position:relative"></div>
 					        	<ul style="color: #999;font-size:13px;padding-left:19px;">
-					        		<li>Supported file format: ".jpeg", ".jpg", ".png"</li>
+					        		<li>Supported file format: "jpeg", "jpg", "png"</li>
 					        		<li>Max file size (1.0MB)</li>
 					        	</ul>
 					        </div>
@@ -73,7 +73,7 @@
 					        	<span style="color: #999">REFERRAL BONUS POLICY</span>
 					        	<div id="referral-bonus" style="position:relative"></div>
 					        	<ul style="color: #999;font-size:13px;padding-left:19px;">
-					        		<li>Supported file format: ".doc", ".pdf", ".csv", ".docx"</li>
+					        		<li>Supported file format: "doc", "pdf", "csv", "docx"</li>
 					        		<li>Max file size (10.0MB)</li>
 					        	</ul>
 					        </div>
@@ -91,7 +91,7 @@
 									<div class="multiple-images" id="multiple-images-3" style="padding-top:8px;"></div>
 								</div>
 								<ul style="color: #999;font-size:13px;padding-left:19px;margin-top:25px;">
-					        		<li>Supported file format: ".jpeg", ".jpg", ".png"</li>
+					        		<li>Supported file format: "jpeg", "jpg", "png"</li>
 					        		<li>Max file size (1.0MB)</li>
 					        	</ul>
 							</div>

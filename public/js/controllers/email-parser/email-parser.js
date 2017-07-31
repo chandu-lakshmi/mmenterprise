@@ -621,7 +621,7 @@
 
 
         this.trash = function () {
-            $('.file-check').text('Please Select File');
+            $('.file-check').text('Please select File');
             $upload_resume.find('.drag_img').html('');
             $upload_resume.find('.qq-upload-list').html('');
             $upload_resume.find('.qq-upload-list').css('z-index', '-1');

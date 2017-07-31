@@ -10,15 +10,14 @@
             .controller('UploadResumeController', UploadResumeController)
             .controller('FindResumeController', FindResumeController)
 
-    CandidateController.$inject = [];
+    CandidateController.$inject = ['App'];
     ResumeRoomController.$inject = ['$state', '$window', '$uibModal', '$http', '$q', '$timeout', 'ajaxService', 'CompanyDetails', 'App'];
     UploadResumeController.$inject = ['$rootScope', '$scope', '$http', '$timeout', '$window', '$uibModal', 'App'];
     FindResumeController.$inject = ['$scope', '$http', '$q', '$timeout', '$filter', 'orderByFilter', '$window', 'CompanyDetails', 'App'];
 
 
-    function CandidateController() {
-
-        this.enableAIModule = true;
+    function CandidateController(App) {
+        this.enableAIModule = App.ENABLE_AI_TAB;
     }
 
 
@@ -49,7 +48,7 @@
             delay: 500,
             progress: false,
             complete: false,
-            placeholder: 'Search By Job or Status',
+            placeholder: 'Search by Job or Status',
             onSearch: function (val) {
                 vm.search_val = val;
                 if (vm.search_opts.progress) {
@@ -201,6 +200,13 @@
                                     vm.totalRecords = response.data.data.total_records;
                                 }
                             }
+                            try {
+                               document.getElementsByClassName("ui-grid-viewport")[0].scrollTop = 0;
+                            }
+                            catch(err) {
+                                console.log("error in scroll");
+                            }
+                            
                         }
                         else if (response.data.status_code == 403) {
                             vm.noCandidates = true;
@@ -355,7 +361,7 @@
                 uploadButtonText: id == 'upload' ? "Choose file" : 'Change',
                 minSizeLimit: (1 * 1024),
                 size: (5 * 1024 * 1024),
-                allowedExtensions: ['pdf', 'doc', 'docx', 'jpg', 'png', 'jpeg', 'txt'],
+                allowedExtensions: ['doc', 'docx'],
                 action: App.base_url + "resume_file_upload",
                 showFileInfo: false,
                 shortMessages: true,
@@ -647,7 +653,7 @@
                 exp: vm.slider_opts.exp.model,
                 skills: vm.slider_opts.skills.model
             };
-            params.tenant_id = CompanyDetails.company_code;
+            params.tenant_id = CompanyDetails.company_id;
 
             cancelerSearchResume = $q.defer();
             vm.inProgressSearchResumes = true;
@@ -667,9 +673,8 @@
                             vm.selectedResues = [];
 
                             angular.forEach(response.data.resumes, function (resume) {
-                                resume.viewResume = App.base_url + "viewer?url=" + App.s3_path + CompanyDetails.company_code + "/" + resume.filename;
+                                resume.viewResume = App.base_url + "viewer?url=" + App.s3_path + CompanyDetails.company_id + "/" + resume.filename;
                                 resume.downloadResume = App.API_DOMAIN + "getResumeDownload?company_id=" + CompanyDetails.company_code + "&doc_id=" + resume.doc_id;
-                                resume.skills = resume.skills.toString().slice(1, -1).concat('.').split(',').join(', ');
                             });
 
                             vm.responseResumes = angular.copy(response.data.resumes) || [];

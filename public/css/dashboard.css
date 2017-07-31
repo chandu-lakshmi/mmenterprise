@@ -2,6 +2,27 @@
         background: white url("../images/loader/ui-anim_basic_16x16.gif") right center no-repeat;
 }*/
 /* loader */
+ *::-webkit-scrollbar{
+    width: 6px;
+    height: 8px;
+    padding-top: 40px;
+}
+       
+*::-webkit-scrollbar-track{
+    border-radius: 4px;
+   
+}
+*::-webkit-scrollbar-thumb{
+    border-radius:4px;
+    height: 30px;
+    width: 6px;
+    background-color:#c1c1c1;
+} 
+
+*::selection{
+    background: #0ba082;
+    color: #fff;
+}
 #borderLoader{
     position: absolute;
     top: 60px;
@@ -92,8 +113,8 @@
     width: 100%;
     height: 100%;
     z-index: 9999;
-    background: url('../images/loader/spin.gif') 50% 25% no-repeat rgb(255,255,255);
-    background-size: 6%;
+    background: url('../images/loader/spin.gif') 50% 46% no-repeat rgb(255,255,255);
+    background-size: 5%;
     opacity: 0.7;
 }
 
@@ -151,7 +172,7 @@
     line-height: 62px;
 }
 .dashboard header img[alt="brand-logo"]{
-    height: 40px;
+    height: 46px;
 }
 .dashboard header .menu ul{
     margin: 0;
@@ -670,7 +691,7 @@ select:-moz-focusring {
 
 /*Footer Styles*/
 .dashboard footer{
-    background: #283e4b;
+    background: #0e2d3f;
 }
 .dashboard footer div.container{
     border: 0;
@@ -835,7 +856,7 @@ ul.new-tabs > li.active > a{
 }
 
 .engage-contact{
-    padding: 70px 0 100px 0;
+    padding: 40px 0 54px 0;
     background:#eeeff1;
 }
 .engage-contact .box{
@@ -1064,12 +1085,14 @@ ul.new-tabs > li.active > a{
 }
 .sub-header .sub-right ul li{
     width: 20%;
-    border: 1px solid #0c2c3b;
+    border: 1px solid #002134;
     border-top: 0;
     border-bottom: 0;
+    background: #11415c;
     float: left;
-    margin-right: -1px;
+    margin-right: 0px;
     padding: 25px 0;
+    border-radius: 4px;
 }
 .sub-header .sub-right ul li h3{
     margin-top: 0px;
@@ -1155,6 +1178,51 @@ ul.new-tabs > li.active > a{
 .post-job input,select,textarea{
     color: black
 }
+.post-job md-input-container{
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height: 42px;
+    padding: 0;
+    margin: 0;
+}
+.post-job md-input-container.md-input-focused{
+    border-color: #208d6e;
+    outline: 0;
+    transition: 0.2s all linear;
+    -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(32, 141, 110, 0.6);
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(32, 141, 110, 0.6);
+}
+.post-job md-input-container label{
+    display: none;
+}
+.post-job md-input-container input,.post-job md-input-container md-select{
+    height: 100%;
+}
+.post-job md-input-container input,.post-job md-input-container md-select .md-select-value{
+    height: 100%;
+    padding: 0px !important;
+    border: 0 !important;
+    padding-left: 10px !important;
+    color: #555;
+    font-size: 16px;
+}
+.post-job md-input-container md-select .md-select-value span{
+    margin-top: -4px;
+    font-size: 16px;
+}
+.post-job md-input-container md-select .md-select-value span .md-text{
+    color: #555;
+    font-size: 16px;
+}
+.post-job md-input-container md-select .md-select-value .md-select-icon::after{
+    right: 10px;
+}
+.md-select-menu-container.post-job-container{
+    margin: -3px 0 0 -2px !important
+}
+.post-job md-input-container:not(.md-input-invalid).md-input-focused .md-input{
+    border-color: #ccc;border-width:1px;
+}        
 .post-job .form-control:focus {
     border-color: #208d6e;
     outline: 0;
@@ -1186,6 +1254,7 @@ ul.new-tabs > li.active > a{
     padding: 6px 12px;           
     border: 1px solid #ccc !important;
     border-radius: 4px;
+    font-size: 16px;
 }
 .post-job .mm-text-editor .ta-toolbar{
     padding:6px;
@@ -1515,7 +1584,7 @@ ul.new-tabs > li.active > a{
 
 /*Rewards Styles*/
 .rewards{
-    padding: 70px 0 100px 0;
+    padding: 14px 0 100px 0;
     color: #7F7F7F;
     min-height: 873px;
 }

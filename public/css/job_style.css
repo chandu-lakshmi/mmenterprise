@@ -8,7 +8,7 @@
 }
 .job-search .header .total-count{
 	font-size: 18px;
-    color: #666;
+    color: #555;
     padding: 15px;
 }
 .job-search .header .action-create-job{
@@ -75,8 +75,8 @@
 	border-radius: 2px;
 	padding: 1px 3px;
 	margin: 2px 0 0 10px;
-	border: 1px solid #fba237;
-	color: #fba237;
+	border: 1px solid #fa8116;
+	color: #fa8116;
 }
 .job-type .internal{
     border: 1px solid #26a182;
@@ -85,7 +85,7 @@
 .job-type img{
 	width: 24px;
     height: 25px;
-    margin-top: -6px;
+    margin-top: -7px;
     margin-right: 6px;
 }
 .job-type .status{
@@ -107,6 +107,7 @@
 .job-type h3 span{
 	color: #219070;
 	overflow: hidden;
+	font-size: 21px;
     white-space: nowrap;
     max-width: 400px;
     display: inline-block;
@@ -211,7 +212,7 @@
 .job-info_d ~ div span{
 	display: inline-block;
     padding-bottom: 25px;
-    font-weight: 900;
+    font-weight: 700;
 }
 .job-info  .job-info_d ~ div{
 	position: relative;
@@ -412,14 +413,8 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 	padding:2% 0;
 	border-bottom: 1px solid silver;
 }
-.job_des_bo pre{
-	border: 0;
-    background: transparent;
-    font-size: 16px;
-    padding: 0;
-    margin: 0;
-    font-family: 'Roboto';
-    white-space: pre-line;
+.job_des_bo	span[ng-bind-html]{
+	word-break: break-word;
 }
 .job_des_info{
 	width: 100%;
@@ -447,6 +442,7 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 	padding-bottom: 7px;
 	display: block;
 	color: gray;
+	font-weight: 700;
 } 
 .confirm-message .modal{
 	top: calc(50% - 128px);

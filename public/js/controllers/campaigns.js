@@ -134,6 +134,8 @@
             },
             templateUrl: 'templates/campaigns/template-create-job.phtml',
             link: function (scope) {
+
+                scope.jobCreated = false;
                 //google api location
                 scope.geo_location = '';
                 scope.geo_options = '';
@@ -144,7 +146,7 @@
                 });
 
                 scope.postJob = function (invalid) {
-                    if (invalid || scope.jobData.jobDescription.trim().length == 0) {
+                    if (invalid || scope.jobData.jobDescription.trim().length == 0 || scope.jobCreated) {
                         scope.errCond = true;
                         return;
                     }
@@ -163,6 +165,7 @@
                     }).success(function (response) {
                         if (response.status_code == 200) {
                             scope.apiCallStart = false;
+                            scope.jobCreated = true;
                             scope.apiSuccessMsg = response.message.msg[0];
                             response.data['editCampagin'] = scope.editCampagin.bol
                             $timeout(function () {
@@ -606,7 +609,7 @@
             delay: 500,
             progress: false,
             complete: false,
-            placeholder: 'Search By Campaign Name',
+            placeholder: 'Search by Campaign Name',
             onSearch: function (val) {
                 vm.search_val = val;
                 if (vm.search_opts.progress) {
@@ -726,6 +729,12 @@
                             else {
                                 vm.gridOptions.data = response.data.data.campaigns;
                                 vm.totalRecords = response.data.data.total_count;
+                            }
+                            try {
+                               document.getElementsByClassName("ui-grid-viewport")[0].scrollTop = 0;
+                            }
+                            catch(err) {
+                                console.log("error in scroll");
                             }
                         }
                         else if (response.data.status_code == 403) {
@@ -1236,7 +1245,7 @@
                 url: vm.copyUrl
             }
         }
-
+        vm.details.schedule[0].start_on_date = new Date(vm.details.schedule[0].start_on_date);
         // closing modal
         function close() {
             if ($state.current.name == 'app.campaigns.allCampaigns' || $state.current.name == 'app.campaigns.myCampaigns') {

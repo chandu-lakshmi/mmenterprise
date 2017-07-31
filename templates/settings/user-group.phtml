@@ -1,6 +1,6 @@
 <!-- <md-progress-linear md-mode="determinate" id="borderLoader" value="{{UserGroupCtrl.borderInc}}" style="top:120px !important"></md-progress-linear> -->
 <div class="container loading" ng-if="!UserGroupCtrl.pageLoader" style="height:calc(100vh - 160px)"> 
-	<h5>L<img src="public/images/spinner_search.gif" alt="loading">ading ...</h5>	
+	<h5>Loading ...</h5>	
 </div>
 <div class="user-group" ng-show="UserGroupCtrl.pageLoader">
 	<div class="container">
@@ -9,7 +9,7 @@
 				<div class="side-list">
 					<div class="head clearfix">
 						<span class="pull-left">USER GROUPS</span>
-						<md-button class="md-icon-button pull-right" ng-click="::userPermissions.is_primary == 1 ? UserGroupCtrl.addNew('group') : ''">
+						<md-button class="md-icon-button pull-right" style="margin-right: 2px" ng-click="::userPermissions.is_primary == 1 ? UserGroupCtrl.addNew('group') : ''" ng-class="{ 'disable-cursor' : userPermissions.is_primary != 1}">
           					<md-icon md-svg-src="public/images/material_icons/add.svg" aria-label="Close dialog"></md-icon>
         				</md-button>
 					</div>

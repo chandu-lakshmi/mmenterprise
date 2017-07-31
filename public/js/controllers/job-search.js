@@ -55,7 +55,7 @@
             delay: 500,
             progress: false,
             complete: false,
-            placeholder:'Search By Job or Location',
+            placeholder:'Search by Job or Location',
             onSearch: function (val) {
                 vm.search_val = val;
                 vm.overLoader = true;

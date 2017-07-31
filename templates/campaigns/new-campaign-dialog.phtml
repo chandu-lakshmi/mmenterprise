@@ -31,12 +31,12 @@
                          <md-option ng-repeat="type in NewCampaignCtrl.campaign" ng-value="type">{{type | uppercase}}</md-option>
                       </md-select>
                       <div class="error-spacer"></div>
-                      <div ng-if="frm1.campaign_type.$error.required && NewCampaignCtrl.errCondfrm1"  class="has-error-msg">Please Select Campaign Type.</div>
+                      <div ng-if="frm1.campaign_type.$error.required && NewCampaignCtrl.errCondfrm1"  class="has-error-msg">Please select Campaign Type.</div>
                    </md-input-container>
                    <md-input-container class="md-block">
                       <label>CAMPAIGN NAME</label>
                       <input type="text" name="campaign_name" ng-model="NewCampaignCtrl.frm1.campaign_name" required ng-class="{'has-error-border':frm1.campaign_name.$invalid && NewCampaignCtrl.errCondfrm1}">
-                      <div ng-if="frm1.campaign_name.$error.required && NewCampaignCtrl.errCondfrm1" class="has-error-msg">Please Enter Campaign Name.</div>
+                      <div ng-if="frm1.campaign_name.$error.required && NewCampaignCtrl.errCondfrm1" class="has-error-msg">Please enter Campaign Name.</div>
                    </md-input-container>
                 </div>
 
@@ -54,31 +54,31 @@
                       <md-input-container class="md-block">
                             <label>ADDRESS</label>
                             <input type="text" name="address" ng-model="NewCampaignCtrl.frm1.location.address" required ng-class="{'has-error-border':frm1.address.$invalid && NewCampaignCtrl.errCondfrm1}">
-                            <div ng-if="frm1.address.$error.required && NewCampaignCtrl.errCondfrm1" class="has-error-msg">Please Enter Address.</div>
+                            <div ng-if="frm1.address.$error.required && NewCampaignCtrl.errCondfrm1" class="has-error-msg">Please enter Address.</div>
                         </md-input-container>
                         <md-input-container class="md-block">
                             <label>CITY</label>
                             <input type="text" name="city" ng-model="NewCampaignCtrl.frm1.location.city" ng-keyup="NewCampaignCtrl.resetLocation(NewCampaignCtrl.frm1.location.city)" required ng-class="{'has-error-border':frm1.city.$invalid && NewCampaignCtrl.errCondfrm1}" id="location" ng-autocomplete="NewCampaignCtrl.geo_location" details="NewCampaignCtrl.geo_details" options="NewCampaignCtrl.geo_options" apiplaceholder="">
-                            <div ng-if="frm1.city.$error.required && NewCampaignCtrl.errCondfrm1" class="has-error-msg">Please Select City.</div>
+                            <div ng-if="frm1.city.$error.required && NewCampaignCtrl.errCondfrm1" class="has-error-msg">Please enter City.</div>
                         </md-input-container>
                    </div>
                    <div class="clearfix">
                         <md-input-container class="md-block">
                             <label>ZIP CODE</label>
                             <input type="text" name="zip_code" ng-model="NewCampaignCtrl.frm1.location.zip_code" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 0' ng-class="{'has-error-border':frm1.zip_code.$invalid && NewCampaignCtrl.errCondfrm1}" ng-pattern="/^[0-9]{5,6}$/">
-                             <div ng-if="frm1.zip_code.$error.pattern && NewCampaignCtrl.errCondfrm1" class="has-error-msg">Please Enter Valid Zip Code.</div>
+                             <div ng-if="frm1.zip_code.$error.pattern && NewCampaignCtrl.errCondfrm1" class="has-error-msg">Please enter valid Zip Code.</div>
                         </md-input-container>
                         <md-input-container class="md-block">
                             <label>STATE</label>
                             <input type="text" name="state" ng-model="NewCampaignCtrl.frm1.location.state" required ng-class="{'has-error-border':frm1.state.$invalid && NewCampaignCtrl.errCondfrm1}">
-                            <div ng-if="frm1.state.$error.required && NewCampaignCtrl.errCondfrm1" class="has-error-msg">Please Enter State.</div>
+                            <div ng-if="frm1.state.$error.required && NewCampaignCtrl.errCondfrm1" class="has-error-msg">Please enter State.</div>
                         </md-input-container>
                    </div>
                    <div class="clearfix">
                      <md-input-container class="md-block pull-left">
                          <label>COUNTRY</label>
                          <input type="text" name="country" ng-model="NewCampaignCtrl.frm1.location.country" required ng-class="{'has-error-border':frm1.country.$invalid && NewCampaignCtrl.errCondfrm1}">
-                         <div ng-if="frm1.country.$error.required && NewCampaignCtrl.errCondfrm1" class="has-error-msg">Please Enter Country.</div>
+                         <div ng-if="frm1.country.$error.required && NewCampaignCtrl.errCondfrm1" class="has-error-msg">Please enter Country.</div>
                      </md-input-container>
                      <input type="hidden" name="latitude" value="{{NewCampaignCtrl.lat}}">
                      <input type="hidden" name="longitude" value="{{NewCampaignCtrl.lng}}">
@@ -98,7 +98,7 @@
                    <div class="start">
                       <!--<p>STARTS ON</p>-->
                       <mdp-date-picker mdp-placeholder="STARTS ON" mdp-open-on-click name="startDate{{group}}" mdp-min-date="NewCampaignCtrl.currentDate | date:'yyyy-MM-dd'" mdp-max-date="NewCampaignCtrl.frm2.date[group].endOnDate" required  ng-model="NewCampaignCtrl.frm2.date[group].startOnDate" required ng-class="{'has-error-border':frm2['startDate'+group].$invalid && NewCampaignCtrl.errCondfrm2}" mdp-format="MMM DD, YYYY">
-                         <div ng-if="frm2['startDate'+group].$error.required && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Please Enter Start Date.</div>
+                         <div ng-if="frm2['startDate'+group].$error.required && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Please select Start Date.</div>
                          <div ng-if="frm2['startDate'+group].$error.format && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Invalid Date Format</div>
                          <div ng-if="!frm2['startDate'+group].$error.format && NewCampaignCtrl.errCondfrm2">
                            <div ng-if="frm2['startDate'+group].$error.maxDate || frm2['startDate'+group].$error.minDate" class="has-error-msg">Invalid Date</div>
@@ -106,15 +106,15 @@
                       </mdp-date-picker>
                       <input type="hidden" name="schedule[{{$index}}][start_on_date]" currentDate value="{{NewCampaignCtrl.frm2.date[group].startOnDate | date :'dd-MM-yyyy'}}">
                       <mdp-time-picker mdp-no-float="true" mdp-open-on-click mdp-placeholder="HH:MM" name="startTime{{group}}" required ng-model="NewCampaignCtrl.frm2.date[group].startOnTime" ng-class="{'has-error-border':frm2['startTime'+group].$invalid && NewCampaignCtrl.errCondfrm2}" mdp-format="HH:mm">
-                          <div ng-if="frm2['startTime'+group].$error.required && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Please Enter Start Time.</div>
-                          <div ng-if="frm2['startTime'+group].$error.format && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Please Enter Valid Time.</div>
+                          <div ng-if="frm2['startTime'+group].$error.required && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Please select Start Time.</div>
+                          <div ng-if="frm2['startTime'+group].$error.format && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Please select valid Time.</div>
                       </mdp-time-picker>
                       <input type="hidden" name="schedule[{{$index}}][start_on_time]" value="{{NewCampaignCtrl.frm2.date[group].startOnTime | date :'HH:mm' }}">
                    </div>
                    <div class="ends">
                       <!--<p>ENDS ON</p>-->
                       <mdp-date-picker name="endDate{{group}}" mdp-open-on-click mdp-placeholder="ENDS ON" required mdp-min-date="NewCampaignCtrl.frm2.date[group].startOnDate || NewCampaignCtrl.currentDate | date:'yyyy-MM-dd'" ng-model="NewCampaignCtrl.frm2.date[group].endOnDate" ng-class="{'has-error-border':frm2['endDate'+group].$invalid && NewCampaignCtrl.errCondfrm2}" mdp-format="MMM DD, YYYY">
-                         <div ng-if="frm2['endDate'+group].$error.required && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Please Enter End Date.</div>
+                         <div ng-if="frm2['endDate'+group].$error.required && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Please select End Date.</div>
                          <div ng-if="frm2['endDate'+group].$error.format && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Invalid Date Format</div>
                          <div ng-if="!frm2['endDate'+group].$error.format && NewCampaignCtrl.errCondfrm2">
                            <div ng-if="frm2['endDate'+group].$error.maxDate || frm2['endDate'+group].$error.minDate" class="has-error-msg">Invalid Date.</div>
@@ -122,8 +122,8 @@
                       </mdp-date-picker>
                       <input type="hidden" name="schedule[{{$index}}][end_on_date]" value="{{NewCampaignCtrl.frm2.date[group].endOnDate | date :'dd-MM-yyyy'}}">
                       <mdp-time-picker mdp-no-float="true" mdp-open-on-click name="endTime{{group}}" mdp-placeholder="HH:MM" required ng-model="NewCampaignCtrl.frm2.date[group].endOnTime" ng-class="{'has-error-border':frm2['endTime'+group].$invalid && NewCampaignCtrl.errCondfrm2}" mdp-format="HH:mm">
-                         <div ng-if="frm2['endTime'+group].$error.required && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Please Enter End Time.</div>
-                         <div ng-if="frm2['endTime'+group].$error.format && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Please Enter Valid Time.</div>
+                         <div ng-if="frm2['endTime'+group].$error.required && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Please select End Time.</div>
+                         <div ng-if="frm2['endTime'+group].$error.format && NewCampaignCtrl.errCondfrm2" class="has-error-msg">Please select valid Time.</div>
                       </mdp-time-picker>
                       <input type="hidden" name="schedule[{{$index}}][end_on_time]" value="{{NewCampaignCtrl.frm2.date[group].endOnTime | date :'HH:mm' }}">
                       
@@ -150,7 +150,7 @@
                          </select>
                       </div>
                       <div style="min-height:25px">
-                       <div ng-show="NewCampaignCtrl.errCondfrm2 && NewCampaignCtrl.frm2.job_ids.length == 0" class="has-error-msg">Please Create Atleast One Job.</div>
+                       <div ng-show="NewCampaignCtrl.errCondfrm2 && NewCampaignCtrl.frm2.job_ids.length == 0" class="has-error-msg">Please create atleast one Job.</div>
                        <!-- <div ng-show="!frm2['job_ids[]'].$valid && NewCampaignCtrl.errCondfrm2 && NewCampaignCtrl.jobLists.length == 0" class="has-error-msg">No jobs found. (Please post atleast one job from JOBS tab.)</div> -->
                       </div>
                    </div>
@@ -167,7 +167,7 @@
                 <buckets-view buckets="NewCampaignCtrl.bucketsName" check-ids="NewCampaignCtrl.checkBuckets" set-fn="NewCampaignCtrl.setDirectiveFn(dirFn)">
                 </buckets-view>
                 <div style="min-height:25px">
-                   <div ng-show="!frm3.selectedBuckets.$valid && NewCampaignCtrl.errCondfrm3" class="has-error-msg">Please Select Atleast One Community to Publish Campaign.</div>
+                   <div ng-show="!frm3.selectedBuckets.$valid && NewCampaignCtrl.errCondfrm3" class="has-error-msg">Please select atleast one Community to publish Campaign.</div>
                 </div>
                 <div class="clearfix upload-files">
                    <div>
@@ -178,7 +178,7 @@
                    </div>
                    <div>
                       <md-checkbox ng-model="NewCampaignCtrl.frm3.employeePitch" aria-label="Checkbox 2" class="md-primary">
-                         Upload Employees's Pitch
+                         Upload Employee's Pitch
                       </md-checkbox>
                       <div ng-style="{'pointer-events': NewCampaignCtrl.frm3.employeePitch ? 'auto' : 'none'}" class="upload-pitch">BROWSE FILE</div>
                    </div>
@@ -315,7 +315,7 @@
              </span>
           </div>
           <div class="btns pull-right" style="overflow:hidden">
-             <span class="mm-btn ripplelink" ng-style="{'pointer-events': !NewCampaignCtrl.postPointer ? 'auto' : 'none'}" ng-click="NewCampaignCtrl.switchSteps('next')" style="padding: 12px 25px;overflow:initial" ng-bind="NewCampaignCtrl.currentStep == 3 ? 'PUBLISH CAMPAIGN' : 'NEXT'">
+             <span class="mm-btn" ng-style="{'pointer-events': !NewCampaignCtrl.postPointer ? 'auto' : 'none'}" ng-click="NewCampaignCtrl.switchSteps('next')" style="padding: 12px 25px;overflow:initial" ng-bind="NewCampaignCtrl.currentStep == 3 ? 'PUBLISH CAMPAIGN' : 'NEXT'">
              </span>
           </div>
        </div>

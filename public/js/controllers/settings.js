@@ -14,7 +14,7 @@
     SettingsController.$inject = [];
     SettingsCompanyProfileController.$inject = ['$window', 'CompanyDetails', '$http', 'CONFIG'];
     MyProfileController.$inject = ['$http', '$scope', '$window', '$uibModal', 'UserDetails', 'CONFIG', 'App'];
-    UserGroupController.$inject = ['$scope', '$window', '$element', 'CONFIG', '$http', '$q', 'permissionsService', 'userPermissions', 'App'];
+    UserGroupController.$inject = ['$timeout', '$scope', '$window', '$element', 'CONFIG', '$http', '$q', 'permissionsService', 'userPermissions', 'App'];
     ConfigManagerController.$inject = ['$window', '$scope', '$timeout', '$http', 'App'];
     IntManagerController.$inject = ['$scope', '$window', '$state','$timeout', '$http', 'App'];
 
@@ -348,9 +348,10 @@
     }
 
 
-    function UserGroupController($scope, $window, $element, CONFIG, $http, $q, permissionsService, userPermissions, App) {
+    function UserGroupController($timeout, $scope, $window, $element, CONFIG, $http, $q, permissionsService, userPermissions, App) {
 
         var vm = this,
+                isNewForm = true,
                 APP_URL = CONFIG.APP_DOMAIN,
                 image_path = '', org_name;
 
@@ -380,6 +381,7 @@
         vm.createGroup = createGroup;
         vm.addPerson = addPerson;
         vm.resendActivation = resendActivation;
+        vm.resetForm = resetForm;
         vm.permission_template = "templates/settings/permissions_template.phtml";
         vm.group_template = "templates/settings/group-template.phtml";
         vm.person_template = "templates/settings/person-template.phtml";
@@ -402,7 +404,6 @@
         }, function () {
             $(this).removeClass('active');
         })
-
 
         vm.permission_switches = {
             2: [
@@ -523,6 +524,7 @@
         // get group details
         function getGroupData(id) {
             resetErrors();
+            isNewForm = true;
             vm.tab = id;
             vm.subTab = -1;
             vm.newUser = false;
@@ -573,6 +575,7 @@
         // get user details
         function getPersonData(index) {
             resetErrors();
+            isNewForm = true;
             vm.subTab = index;
             vm.group = false;
             vm.newPerson = false;
@@ -596,6 +599,7 @@
         // add New group or person
         function addNew(cond) {
             resetErrors();
+            isNewForm = true;
             vm.readable = false;
             if (cond == 'group') {
                 vm.group = true;
@@ -908,6 +912,15 @@
             }
         }
 
+        function resetForm(frm) {
+            if(isNewForm) {
+                $timeout(function() {
+                    frm.$setPristine();
+                    isNewForm = false;
+                });
+            }
+            
+        }
     }
 
 
@@ -979,7 +992,6 @@
                 url: App.base_url + 'get_configuration'
             })
                     .then(function (response) {
-                        vm.loader = false;
                         if (response.data.status_code == 200) {
                             success(response.data.data)
                         }
@@ -989,6 +1001,7 @@
                         else {
                             $window.location = App.base_url + 'logout';
                         }
+                        $timeout(function(){vm.loader = false;}, 300);
                     }, function (response) {
 
                     })
@@ -1054,7 +1067,7 @@
                     '  <div class="action clearfix">' +
                     '      <var style="padding-right: 10px;" id="change">Change</var>' +
                     '      <var style="padding-left: 10px;"><a href="' + App.base_url + 'viewer?url=' + url + '" class="view" target="_blank">View Details</a></var>' +
-                    '      <var class="pull-right">(Maximum size is 10MB)</var>' +
+                    // '      <var class="pull-right">(Maximum size is 10MB)</var>' +
                     '  </div>' +
                     '</div>'
         }
@@ -1105,6 +1118,7 @@
 //                $scope.$apply();
                 },
                 onRemoveComplete: function () {
+                    trash();
                     $upload.find('.qq-upload-list').css('z-index', '-1');
                 }
             })
@@ -1147,13 +1161,17 @@
             }, function (response) {
 
             })*/
-            vm.mintmeshPartnes = [{hcm_name : 'SuccessFactors', hcm_id : 1}, {hcm_name : 'Zenefits', hcm_id : 2}, {hcm_name : 'iCIMS', hcm_id : 3}];
-            //vm.mintmeshPartnes = [{hcm_name : 'SuccessFactors', hcm_id : 1}];
-           if($state.params.tab == 'zenefits'){
+            if (App.ENABLE_HCM_TAB) {
+                vm.mintmeshPartnes = [{hcm_name : 'SuccessFactors', hcm_id : 1}, {hcm_name : 'Zenefits', hcm_id : 2}, {hcm_name : 'iCIMS', hcm_id : 3}];
+            } else {
+                vm.mintmeshPartnes = [{hcm_name : 'SuccessFactors', hcm_id : 1}];
+            }
+
+            if($state.params.tab == 'zenefits') {
                 getPartnersData(1);
-           }else{
+            } else {
                 getPartnersData(0);
-           }    
+            }    
         }
 
         function getPartnersData(i) {
@@ -1184,7 +1202,7 @@
                     .then(function (response) {
                         var status = response.data.status_code;
                         vm.showSynWithZenefits = false;
-                        vm.loader = false;
+                        $timeout(function(){vm.loader = false;}, 300);
                         if (status == 200) {
                             vm.partnerDetails = response.data.data[0];
                             vm.checkbox = vm.partnerDetails.hcm_status == 'enable' ? true : false;

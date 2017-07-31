@@ -1,5 +1,6 @@
 <div class="content">
     <form name="new_user_form" novalidate>
+        {{UserGroupCtrl.resetForm(new_user_form)}}
         <div class="display-pic" ng-style="{'pointer-events' : UserGroupCtrl.readable ? 'none' : 'auto'}" onkeypress="return event.keyCode == 9">
             <div id="display_pic" class="change"></div>
             <p class='add-text' ng-bind="UserGroupCtrl.textCondition ? 'USER PHOTO' : 'ADD PHOTO'">ADD PHOTO</p>
@@ -27,7 +28,7 @@
                      input-name="emailid"
                      ng-class="{'has-error-border': (new_user_form.emailid.$invalid && UserGroupCtrl.errCond) || UserGroupCtrl.backendError}">
                 </div>
-                <div ng-if="new_user_form.emailid.$error.hasOwnProperty('autocomplete-required') && UserGroupCtrl.errCond" class="has-error-msg">Please Enter Email Address</div>
+                <div ng-if="new_user_form.emailid.$error.hasOwnProperty('autocomplete-required') && UserGroupCtrl.errCond" class="has-error-msg">Please enter Email.</div>
                 <div ng-if="UserGroupCtrl.backendError" class="has-error-msg" ng-bind="UserGroupCtrl.backendError" style="text-transform: capitalize;"></div>
             </md-input-container>
             <md-input-container class="md-block">
@@ -55,7 +56,7 @@
                     <md-option ng-repeat="status in UserGroupCtrl.statusText" ng-value="status">{{status}}</md-option>
                 </md-select>
                 <div class="error-spacer"></div>
-                <div ng-if="new_user_form.status.$error.required && UserGroupCtrl.errCond"  class="has-error-msg">Please Select Status</div>
+                <div ng-if="new_user_form.status.$error.required && UserGroupCtrl.errCond"  class="has-error-msg">Please select Status.</div>
             </md-input-container>
             <md-input-container class="md-block select-box">
                 <label style="display:none">USER GROUP</label>
@@ -63,7 +64,7 @@
                     <md-option ng-repeat="group in UserGroupCtrl.groupNames" ng-value="group.group_id">{{group.name| uppercase}}</md-option>
                 </md-select>
                 <div class="error-spacer"></div>
-                <div ng-if="new_user_form.group_id.$error.required && UserGroupCtrl.errCond"  class="has-error-msg">Please Select Group</div>
+                <div ng-if="new_user_form.group_id.$error.required && UserGroupCtrl.errCond"  class="has-error-msg">Please select User Group.</div>
             </md-input-container>
         </div>
         <div class="clearfix" ng-show="userPermissions.is_primary == 1 && UserGroupCtrl.personDetails.expired == 1">

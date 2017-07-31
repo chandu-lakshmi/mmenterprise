@@ -5,6 +5,10 @@
   white-space: nowrap;
   text-transform: capitalize; }
 
+.disable-cursor {
+  opacity: 0.5;
+  cursor: not-allowed; }
+
 /* mintmesh buttons */
 /*.mm-btn{
     background: #229A77;color: #fff;outline: none;cursor: pointer;text-decoration: none;font-size: 18px;display: inline-block;border-radius: 3px;
@@ -247,8 +251,8 @@ scroll-top div {
   position: fixed;
   cursor: pointer;
   bottom: 50px;
-  width: 56px;
-  height: 56px;
+  width: 48px;
+  height: 48px;
   -webkit-transition: all .4s;
   transition: all .4s;
   border-radius: 50%;
@@ -260,8 +264,8 @@ scroll-top div {
     right: -56px; }
   scroll-top div img {
     width: 20px;
-    height: 26px;
-    margin-top: 13px; }
+    height: 21px;
+    margin-top: 12px; }
   scroll-top div.move-left {
     left: 28px;
     display: block; }

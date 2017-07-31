@@ -155,7 +155,7 @@
 
         if (edit_feature) {
             this.gridOptions.columnDefs.push(
-                    {name: 'download_status', displayName: 'Download', enableCellEdit: false, cellClass: 'grid-no-hover', width: '10%',
+                    {name: 'download_status', displayName: 'Download', enableCellEdit: false, headerTooltip: 'Download' , cellClass: 'grid-no-hover', width: '10%',
                         cellTemplate: '<div class="ui-grid-cell-contents">{{ COL_FIELD == 1 ? "Yes" : "No"}}</div>',
                         //sortDirectionCycle: ['asc', 'desc', '']
                     }
@@ -312,6 +312,7 @@
             bucketId = bktID || bucketId;
             scope.activeBucket = bktName || scope.activeBucket;
             scope.currentPage = pageNo || 1;
+            scope.pageNumber = scope.currentPage; 
 
             if (searchVal == '') {
                 scope.srcSearch = 'search.svg';
@@ -363,7 +364,13 @@
 
                     scope.searchLoader = false;
                     scope.loaderImg = false;
-
+                    /* scroll to reset */
+                    try {
+                       document.getElementsByClassName("ui-grid-viewport")[0].scrollTop = 0;
+                    }
+                    catch(err) {
+                        console.log("error in scroll");
+                    }
                 }
                 // Session Destroy
                 else if (response.status_code == 400) {

@@ -11,7 +11,7 @@
             <md-input-container class="md-block">
                 <label>JOB TITLE <sup> *</sup></label>
                 <input type="text" name="job_title" ng-model="jobData.jobTitle" required ng-class="{'has-error-border':create_job.job_title.$invalid && errCond}">
-                <div ng-if="create_job.job_title.$error.required && errCond" class="has-error-msg">Job Title Field is Required.</div>
+                <div ng-if="create_job.job_title.$error.required && errCond" class="has-error-msg">Please enter Job Title.</div>
             </md-input-container>
             <md-input-container class="md-block select-box">
               <label style="display:none">JOB FUNCTION <sup> *</sup></label>
@@ -19,14 +19,14 @@
                  <md-option ng-repeat="type in job_functions" ng-value="type.job_function_id">{{type.job_function_name}}</md-option>
               </md-select>
               <div class="error-spacer"></div>
-              <div ng-if="create_job.job_function.$error.required && errCond"  class="has-error-msg">Job Function Field is Required.</div>
+              <div ng-if="create_job.job_function.$error.required && errCond"  class="has-error-msg">Please select Job Function.</div>
             </md-input-container>
         </div>
         <div class="clearfix">
             <md-input-container class="md-block">
                 <label>LOCATION <sup> *</sup></label>
                 <input type="text" name="location" ng-model="jobData.jobLocation" required ng-class="{'has-error-border':create_job.location.$invalid && errCond}" ng-autocomplete="geo_location" details="geo_details" options="geo_options" apiplaceholder="">
-                <div ng-if="create_job.location.$error.required && errCond" class="has-error-msg">Location Field is Required.</div>
+                <div ng-if="create_job.location.$error.required && errCond" class="has-error-msg">Please enter Location.</div>
             </md-input-container>
             <md-input-container class="md-block select-box">
               <label style="display:none">INDUSTRY <sup> *</sup></label>
@@ -34,7 +34,7 @@
                  <md-option ng-repeat="type in industries" ng-value="type.industry_id">{{type.industry_name}}</md-option>
               </md-select>
               <div class="error-spacer"></div>
-              <div ng-if="create_job.industry.$error.required && errCond"  class="has-error-msg">Industry Field is Required.</div>
+              <div ng-if="create_job.industry.$error.required && errCond"  class="has-error-msg">Please select Industry.</div>
             </md-input-container>
         </div>
         <div class="clearfix">
@@ -44,7 +44,7 @@
                  <md-option ng-repeat="type in employmentTypes" ng-value="type.employment_type_id">{{type.employment_type_name}}</md-option>
               </md-select>
               <div class="error-spacer"></div>
-              <div ng-if="create_job.employment_type.$error.required && errCond"  class="has-error-msg">Employment Type Field is Required.</div>
+              <div ng-if="create_job.employment_type.$error.required && errCond"  class="has-error-msg">Please select Employment Type.</div>
             </md-input-container>
             <md-input-container class="md-block select-box">
               <label style="display:none">EXPERIENCE <sup> *</sup></label>
@@ -52,7 +52,7 @@
                  <md-option ng-repeat="type in experiences" ng-value="type.experience_id">{{type.experience_name}}</md-option>
               </md-select>
               <div class="error-spacer"></div>
-              <div ng-if="create_job.experience_range.$error.required && errCond"  class="has-error-msg">Experience Field is Required.</div>
+              <div ng-if="create_job.experience_range.$error.required && errCond"  class="has-error-msg">Please select Experience.</div>
             </md-input-container>
         </div>
         <div class="clearfix">
@@ -61,13 +61,13 @@
                 <input type="text" name="vacancy" ng-model="jobData.jobVacancies" ng-maxlength="10" ng-pattern="/(^[^0]$)|(^[1-9]\d{0,}$)/" required check-char-zero ng-class="{'has-error-border':create_job.vacancy.$error.required && errCond}"> 
                 <div class="error-spacer"></div> 
                 <div ng-if="create_job.vacancy.$error.pattern" class="has-error-msg">Number of Vacancies should not be zero.</div>
-                <div class="has-error-msg" ng-show="create_job.vacancy.$error.required && errCond">Number of Vacancies Field is Required.</div>
+                <div class="has-error-msg" ng-show="create_job.vacancy.$error.required && errCond">Please enter Number of Vacancies.</div>
             </md-input-container>
         </div>
         <md-input-container class="md-block job-desc">
             <label>JOB DESCRIPTION <sup> *</sup></label>
             <textarea name="job_description" required ng-model="jobData.jobDescription" md-maxlength="5000" maxlength="5000" ng-maxlength="5000" style="max-height:106px" ng-class="{'has-error-border':((create_job.job_description.$error.required && errCond) || (jobData.jobDescription.trim().length==0 && errCond))}"></textarea>
-            <div ng-if="((create_job.job_description.$error.required && errCond) || (jobData.jobDescription.trim().length==0 && errCond))"  class="has-error-msg">Job Description Field is Required.</div >
+            <div ng-if="((create_job.job_description.$error.required && errCond) || (jobData.jobDescription.trim().length==0 && errCond))"  class="has-error-msg">Please enter Job Description.</div >
         </md-input-container> 
     </form>
     </div>
@@ -82,7 +82,7 @@
         </span>
     </div>
     <div class="btns pull-right">
-        <span  class="mm-btn ripplelink" ng-click="!apiCallStart ? postJob(create_job.$invalid) : ''" style="padding:12px 18px;">
+        <span  class="mm-btn" ng-click="!apiCallStart ? postJob(create_job.$invalid) : ''" style="padding:12px 18px;">
             ADD JOB
         </span>
     </div>

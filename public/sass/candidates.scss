@@ -125,7 +125,7 @@ $background : #eeeff1;
     }
 
     .upload-resume{background: #fff;height: calc(100vh - 160px);min-height: 500px;padding: 30px 0;overflow: auto;
-        #upload{
+        #upload{animation: 1s ease-out 0s 1 slideInFromLeft;
             &.error-drop-area{
                 .qq-upload-drop-area{border-color: #ff847b !important;background: rgba(255, 202, 202, 0.23) !important}
             }
@@ -197,8 +197,8 @@ $background : #eeeff1;
                         }
                     }
                     md-card{margin: 0;box-shadow: none;position: relative;
-                        .loader{position: absolute;text-align: center;left: calc(50% - 25px);top: 161px;
-                            img{width: 50px;margin: 0 auto;}
+                        .loader{position: absolute;text-align: center;left: calc(50% - 34px);top: 143px;
+                            img{width: 68px;margin: 0 auto;}
                         }
                         md-card-title{padding: 16px 24px 16px;
                             .md-headline{font-size: 18px;font-weight: bold;color: #636363;}
@@ -248,7 +248,7 @@ $background : #eeeff1;
                             i.select{position: absolute;z-index: -1;-webkit-transform: rotate(180deg);transform: rotate(180deg);font-size: 60px;left: -6px;top: -13px;color: #1d8e6f;transition: all 0.3s linear;opacity: 0;
                                 &:before{box-sizing: border-box;-webkit-transform: rotate(45deg);transform: rotate(217deg);position: absolute;left: 34.66667px;top: 26.22222px;color: #fff;display: table;width: 10.66667px;height: 17.33333px;border-width: 3px;border-style: solid;border-top: 0;border-left: 0;content: "";};
                             }
-                            .resume{padding: 20px;color: #212121;
+                            .resume{padding: 20px;color: #212121;min-height: 198px;
                                 .role,.skill{font-weight: 800;color: #8e8e8e;}
                                 .name{margin: 0;}
                                 .cir-progress{position: relative;
@@ -265,6 +265,7 @@ $background : #eeeff1;
                                 i{vertical-align: middle;color:#8e8e8e;padding: 4px;
                                     &.down{background: #ebebeb;border-radius: 50%;font-size: 20px}
                                     &.loc{padding:0;font-size: 22px}
+                                    &.rm-pointer{cursor: default;}
                                 }
                                 
                             }
@@ -286,36 +287,3 @@ $background : #eeeff1;
 /* tooltip in resume room */
 .find-resume-name{background: rgba(0, 0, 0, 0.7); padding: 0 6px;}
 .find-resume-name.md-show{transition: all 0.5s linear !important;} 
-
-/* Model for network error */
-#network-error{z-index: 999999;
-    &.modal {text-align: center;padding: 0!important;}
-    &.modal:before {content: ''; display: inline-block;height: 100%;vertical-align: middle;margin-right: -4px;}
-    .modal-dialog {display: inline-block;text-align: left;vertical-align: middle;
-        .modal-header{width: 500px;text-align:center;min-height: 370px;padding: 36px;background: #fff;margin: 0 auto;
-            .header-pic{height: 80px;
-                img{width: 80px}
-            }
-            h2{color: #5d5757}
-            p{color: #b2b2b2}
-            button{padding: 5px 20px;border-radius: 0;margin-top: 28px;cursor: pointer;}
-        }
-    }
-}
-   
-/* text-editor for textarea */
-.mm-text-editor{position: relative;overflow:hidden;border-bottom: 1px solid #ccc;
-    &.focussed{
-        .ta-toolbar{ bottom: 0};
-    }
-    .ta-toolbar{position: absolute; bottom:-56px;left: 0;z-index: 1;padding: 6px 6px 6px 0;-webkit-transition: 0.4s bottom linear;transition: 0.4s bottom linear;
-        button, #toolbarCC{background: #f5f5f5; color: #6f6f6f;opacity: 1;
-            &.active{color : #181818;box-shadow: none;}
-        }
-    }
-    .btn{padding: 4px 10px}
-    .ta-scroll-window{
-        & > .ta-bind{outline: none;padding-left: 0;min-height: inherit;}
-        &.form-control{border-color: transparent !important; box-shadow: none !important;min-height: 116px;max-height: 220px;margin-bottom: 40px;}
-    }
-}

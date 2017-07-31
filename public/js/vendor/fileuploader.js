@@ -302,8 +302,8 @@ qq.FileUploaderBasic = function(o, cb){
         // messages                
         messages: {
             // typeError: "You have selected an invalid file type. Only {extensions} files are allowed.",
-            typeError: "Only {extensions} files are allowed.",
-            sizeError: "The specified file {file} could not be uploaded. The file is exceeding the maximum file size of {sizeLimit}.",
+            typeError: "Please upload {extensions} files only.",
+            sizeError: "The {file} is exceeding the maximum file size of {sizeLimit}.",
             minSizeError: "{file} is too small, min {minSizeLimit} is allowed.",
             emptyError: "{file} is empty.",
             onLeave: "The files are being uploaded, if you leave now the upload will be cancelled."            

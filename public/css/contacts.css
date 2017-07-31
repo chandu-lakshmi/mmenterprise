@@ -92,7 +92,7 @@
         color: #fff !important;
 }*/
 .grid-contacts .container .container-lt .activeBucketCls{
-    background-color: #969c9c;
+    background-color: #517589;
     color: #fff !important;
 }
 .grid-contacts .container .container-rt{
@@ -345,8 +345,8 @@
     top: 35.5%;
 }
 .grid-contacts .grid-msg-overlay img{
-    width: 86px;
-    height: 86px;
+    width: 72px;
+    height: 72px;
 }
 /*footer bg color */
 .grid-contacts .container .container-rt .grid-footer{
@@ -377,6 +377,7 @@
 }
 .grid-contacts .container .container-rt .grid-footer .pages{
     line-height: normal;
+    padding: 0;
 }
 .grid-contacts .container .container-rt .grid-footer .pages .pagination{
     margin:18px 0 0 0;
@@ -386,13 +387,13 @@
     box-shadow: none;
 }
 .container .container-rt .separated-s{
-    color: #c46968;
+    color: #b73231;
 }
 .container .container-rt .active-s{
-    color: #0d8e68;
+    color: #1d8e4a;
 }
 .container .container-rt .inactive-s{
-    color: #888888;
+    color: #73726d;
 }
 .grid-contacts .ui-grid-row{
     border-bottom: 1px solid #e6e8e8 !important;
@@ -922,7 +923,7 @@
 
 /* new bucket modal */
 .bucket-modal .modal-body .new-bucket .content{
-    width: 27%;
+    width: 28%;
     margin: 0 auto;
     margin-top: 60px;
 }
