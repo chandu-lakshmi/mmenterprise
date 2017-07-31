@@ -45,28 +45,6 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
           services = response.data.data.services;
           return  {"data": services}
         })
-
-        // $http({
-        //     headers: {
-        //        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-        //     },
-        //     method: 'POST',
-        //     data: $.param({search: userInputString}),
-        //     url: CONFIG.APP_DOMAIN + 'get_services'
-        // })
-        // .then(function(response){
-        //     console.log(response)
-        //     services = response.data.data.services;
-        //     setTimeout(function(){return  {"data": services}},1000);
-        //     /*angular.element('.disabled').css('pointer-events','auto');
-        //     if(response.data.status_code == 200){
-        //       scope.updateLoader = false;
-        //       scope.message = true;
-        //       setTimeout(function(){scope.message = false;$scope.$apply()},3000);
-        //     }*/
-        // },function(response){
-        //     console.log(response)
-        // })
     }
 
 
