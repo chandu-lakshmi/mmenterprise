@@ -2,7 +2,7 @@
 "use strict";
 
 	angular
-		.module('emailParser', ['ui.router', 'ui.bootstrap', 'ngSanitize',
+		.module('emailParser', ['ui.router', 'ui.bootstrap', 'ngSanitize', 'ngMaterial',
 			'app.constants', 'app.components','app.helpers',
 			'app.email.parser'
 		])
@@ -26,7 +26,7 @@
 			        templateUrl: App.base_url + 'templates/email-parser/candidate-details.phtml',
 			        controller: 'ApplyJobController',
 			        controllerAs:'ApplyJobCtrl',
-			        data : { pageTitle: '' },
+			        data : { pageTitle: 'MintMesh ( Apply )' },
 			        params : {status : '',share_status : 'web', refrel : '0'}
 			    })
 			    .state('referralDetails', {
@@ -34,7 +34,7 @@
 			        templateUrl: App.base_url + 'templates/email-parser/referral-details.phtml',
 			        controller: 'ApplyJobController',
 			        controllerAs:'ApplyJobCtrl',
-			        data : { pageTitle: '' },
+			        data: {pageTitle: 'MintMesh ( Refer )'},
 			        params : {status : '', share_status : 'web', jc : '0'}
 			    })
 			    .state('jobDetails', {
@@ -45,13 +45,36 @@
 			        data : { pageTitle: 'MintMesh' },
 			        params : {share_status : 'web', jc : '0'}
 			    })
+			    
+			    /*-----------Campaigns---------------*/
 			    .state('allCampaigns', {
+			        abstract: true,
+			        url: '',
+			        templateUrl: App.base_url + 'templates/email-parser/all-campaigns.phtml'
+			    })
+			    .state('allCampaigns.all', {
 			        url: '/all-campaigns/:share_status?ref',
-			        templateUrl: App.base_url + 'templates/email-parser/all-campaigns.phtml',
+			        templateUrl: App.base_url + 'templates/email-parser/all-campaigns-list.phtml',
 			        controller: 'AllCampaignsController',
-			        controllerAs:'AllCampaignsCtrl',
-			        data : { pageTitle: 'MintMesh ( Campaigns )' },
-			        params : {share_status : 'web'}
+			        controllerAs: 'AllCampaignsCtrl',
+			        data: {pageTitle: 'MintMesh ( Campaigns )'},
+			        params: {share_status: 'web'}
+			    })
+			    .state('allCampaigns.referralDetails', {
+			        url: '/campaign/referral-details/:share_status?ref&flag&jc',
+			        templateUrl: App.base_url + 'templates/email-parser/referral-details.phtml',
+			        controller: 'ApplyJobController',
+			        controllerAs: 'ApplyJobCtrl',
+			        data: {pageTitle: 'MintMesh ( Refer )'},
+			        params: {status: '', share_status: 'web', jc: '0'}
+			    })
+			    .state('allCampaigns.candidateDetails', {
+			    	url: '/campaign/candidate-details/:share_status?ref&flag&jc&refrel',
+			    	templateUrl: App.base_url + 'templates/email-parser/candidate-details.phtml',
+			    	controller: 'ApplyJobController',
+			    	controllerAs:'ApplyJobCtrl',
+			    	data : { pageTitle: 'MintMesh ( Apply )' },
+			    	params : {status : '',share_status : 'web', refrel : '0'}
 			    })
 
     		$urlRouterProvider.otherwise('/all-jobs');
@@ -59,13 +82,14 @@
 		})
 
 
-		.run([ '$rootScope', '$state', '$stateParams', 'App', 'ReferralDetails',
-		    function ($rootScope, $state, $stateParams, App, ReferralDetails) {
-		    	$rootScope.$root = App;
-		        $rootScope.$state = $state;
+		.run([ '$rootScope', '$state', '$stateParams', 'App', 'ReferralDetails', 'CampaignDetails',
+		    function ($rootScope, $state, $stateParams, App, ReferralDetails, CampaignDetails) {
+		    	$rootScope.$root 		= App;
+		        $rootScope.$state 		= $state;
+		        $rootScope.SocialShare 	= {};
+		        $rootScope.$stateParams    = $stateParams;
 		        $rootScope.ReferralDetails = ReferralDetails;
-		        $rootScope.SocialShare = {};
-		        $rootScope.$stateParams = $stateParams;
+		        $rootScope.CampaignDetails = CampaignDetails;
 		    }
 		])
 

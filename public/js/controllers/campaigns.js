@@ -2,17 +2,29 @@
     "use strict";
 
     angular
-            .module('app.campaigns', ['app.components', 'ui.grid', 'ui.grid.selection', 'mdPickers', 'ngMessages', 'ngAutocomplete'])
+            .module('app.campaigns', ['app.components', 'ui.grid', 'ui.grid.selection', 'mdPickers', 'ngMessages', 'ngAutocomplete', 'mwFormBuilder', 'mwFormViewer', 'pascalprecht.translate'])
+            
             .controller('CampaignsController', CampaignsController)
             .controller('NewCampaignController', NewCampaignController)
             .controller('AllCampaignsController', AllCampaignsController)
             .controller('MyCampaignsController', MyCampaignsController)
             .controller('EditCampaignsController', EditCampaignsController)
             .controller('SocialShareController', SocialShareController)
+            .controller('FormBuilderController', FormBuilderController)
+
             .service('CampaignsData', CampaignsData)
             .service('contactBuckets', contactBuckets)
             .service('createJobData', createJobData)
+
             .directive('createJob', createJob)
+
+            .config(function ($translateProvider) {
+                $translateProvider.useStaticFilesLoader({
+                    prefix: 'public/angular-survey/i18n/',
+                    suffix: '/angular-surveys.json'
+                });
+                $translateProvider.preferredLanguage('en');
+            })
 
 
     CampaignsController.$inject = ['$rootScope', '$http', '$window', 'contactBuckets', '$uibModal', 'App'];
@@ -23,6 +35,8 @@
     createJobData.$inject = ['$rootScope'];
     createJob.$inject = ['App', '$http', '$window', '$timeout', 'createJobData'];
     SocialShareController.$inject = ['$state', '$rootScope', 'CampaignsData', 'CompanyDetails', 'App']
+
+    FormBuilderController.$inject = ['$scope', '$http', '$q', '$uibModal'];
 
     function contactBuckets() {
 
@@ -1179,6 +1193,56 @@
 
     }
 
+    function FormBuilderController($scope, $http, $q, $uibModal) {
+        var vm = this;
+
+        vm.builderReadOnly = false;
+        vm.showResponseData = false;
+        vm.formBuilder = {};
+        vm.optionsBuilder = {};
+
+        vm.formData = null;
+        $http.get('form-data.json')
+                .then(function (res) {
+                    vm.formData = res.data;
+                });
+
+        vm.formStatus = {};
+
+        vm.onImageSelection = function () {
+
+            var d = $q.defer();
+            var src = prompt("Please enter image src");
+            if (src != null) {
+                d.resolve(src);
+            } else {
+                d.reject();
+            }
+
+            return d.promise;
+        };
+
+        // reset form builder
+        vm.resetBuilder = function () {
+            if (vm.formBuilder.reset) {
+                vm.formBuilder.reset();
+            }
+        };
+
+        vm.showResponseModal = showResponseModal;
+        function showResponseModal(flag) {
+            if (flag) {
+                vm.modalInstance = $uibModal.open({
+                    animation: false,
+                    keyboard: false,
+                    backdrop: 'static',
+                    templateUrl: 'form_build_json.phtml',
+                    openedClass: "form-build",
+                    scope: $scope
+                });
+            }
+        }
+    }
 
     function SocialShareController($state, $rootScope, CampaignsData, CompanyDetails, App) {
 

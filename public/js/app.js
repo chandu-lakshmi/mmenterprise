@@ -203,6 +203,12 @@
                     controller: 'EditCampaignsController',
                     controllerAs: 'EditCampaignsCtrl'
                 })
+                $stateProvider.state('app.campaigns.formBuilder', {
+                    url: '^/campaigns/form-builder',
+                    templateUrl: App.base_url + 'templates/campaigns/form-builder.phtml',
+                    controller: 'FormBuilderController',
+                    controllerAs: 'FormBuilderCtrl'
+                })
                 $stateProvider.state('app.settings', {
                     url: '^/settings',
                     templateUrl: App.base_url + 'templates/settings/settings.phtml',

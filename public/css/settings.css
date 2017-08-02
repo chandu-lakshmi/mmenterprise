@@ -844,14 +844,14 @@ body.set-password {
                 overflow: visible; }
                 .settings .manager-tab .saml .rt md-card md-card-content .file-upload #upload .qq-uploader .qq-upload-list, .settings .manager-tab .hcms .rt md-card md-card-content .file-upload #upload .qq-uploader .qq-upload-list {
                   left: 0;
-                  width: 58%; }
+                  width: 64%; }
                 .settings .manager-tab .saml .rt md-card md-card-content .file-upload #upload .qq-uploader .qq-upload-button, .settings .manager-tab .hcms .rt md-card md-card-content .file-upload #upload .qq-uploader .qq-upload-button {
                   color: #565656;
                   background: #e6e6e6;
                   border: 1px solid #ccc;
                   line-height: 30px;
                   font-size: 16px;
-                  width: 58%; }
+                  width: 64%; }
                   .settings .manager-tab .saml .rt md-card md-card-content .file-upload #upload .qq-uploader .qq-upload-button input[type="file"], .settings .manager-tab .hcms .rt md-card md-card-content .file-upload #upload .qq-uploader .qq-upload-button input[type="file"] {
                     width: 127%; }
             .settings .manager-tab .saml .rt md-card md-card-content .file-upload #change, .settings .manager-tab .hcms .rt md-card md-card-content .file-upload #change {

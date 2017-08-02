@@ -1,0 +1,16 @@
+{
+  "pages": [
+    {
+      "id": "8260913cb519c3625b619eb68c911c18",
+      "number": 1,
+      "name": null,
+      "description": null,
+      "pageFlow": {
+        "nextPage": true,
+        "label": "mwForm.pageFlow.goToNextPage"
+      },
+      "elements": [],
+      "namedPage": false
+    }
+  ]
+}

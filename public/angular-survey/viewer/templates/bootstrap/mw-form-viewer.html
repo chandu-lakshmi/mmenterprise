@@ -1,0 +1,4 @@
+<div class="mw-form-viewer">
+    <form ng-if="!ctrl.options.nestedForm"  name="ctrl.form" role="form" novalidate ng-include="$root.base_url + 'public/angular-survey/viewer/templates/bootstrap/mw-form-viewer-content.html'"></form>
+    <div ng-if="ctrl.options.nestedForm"  ng-form="ctrl.form" ng-include="$root.base_url + 'public/angular-survey/viewer/templates/bootstrap/mw-form-viewer-content.html'"></div>
+</div>

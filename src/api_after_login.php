@@ -830,6 +830,22 @@ $app->get('/campaigns/edit-campaigns',function ($request, $response, $args) use 
     return $response->withRedirect($args['APP_DOMAIN']."campaigns/all-campaigns");
 });
 
+//form builder
+$app->get('/campaigns/form-builder',function ($request, $response, $args) use ($app) {
+    //Arguments
+    $this->mintmeshAccessToken;
+    $args       = commonData($this->settings);
+    
+    //Check Logged in or not
+    if(!empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']);
+    }
+
+    $args['comp_data'] = companyProfile($this->settings);
+    // Render dashboard view
+    return $this->renderer->render($response, 'index.phtml', $args);
+});
+
 //Logout
 $app->get("/logout", function ($request, $response, $args) { 
     sessionDestroy();

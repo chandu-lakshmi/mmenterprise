@@ -204,6 +204,48 @@ $app->get('/email/referral-details/{status}', function ($request, $response, $ar
         
 });
 
+$app->get('/email/campaign/referral-details/{status}', function ($request, $response, $args) {
+    // campaign details
+    // campaign details
+        $this->CampaignDetails;
+        $args = parserData($this->settings);
+        $args['camp_ref'] = $_POST['camp_ref'];
+        $args['ref'] = $_GET['ref'];
+        if($_GET['jc'] == 1){
+            $_POST['ref'] = $args['camp_ref'];
+            $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_campaign_ref');
+            $Details     = new Curl(array(
+                'url'           => $apiEndpoint,
+                'postData'      => $_POST
+            ));
+            $args['campaignDetails'] = checkJsonResult( $Details->loadCurl() );
+            $_POST['ref'] = $args['ref'];
+            $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_ref');
+            $Details     = new Curl(array(
+                'url'           => $apiEndpoint,
+                'postData'      => $_POST
+            ));
+            $args['campaignJobDetails'] = checkJsonResult( $Details->loadCurl());
+        }else{
+            $_POST['ref'] = $args['ref'];
+            $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_ref');
+            $Details     = new Curl(array(
+                'url'           => $apiEndpoint,
+                'postData'      => $_POST
+            ));
+            $args['referralDetails'] = checkJsonResult( $Details->loadCurl());
+        }
+        $checkResult['refDetails'] = json_decode(checkJsonResult( $Details->loadCurl()));  
+        // Render index view
+        if(!empty($checkResult['refDetails'])){
+            return $this->email_renderer->render($response, 'index.phtml', $args);
+        }
+        else{
+           return $response->withRedirect($args['APP_DOMAIN'].'404');
+        }  
+});
+
+
 $app->post('/apply_job',function ($request, $response, $args) use ($app) {
     $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_ref');
     $Details     = new Curl(array(

@@ -1,0 +1,18 @@
+@mixin viewHeight($width){
+    min-height: calc(100vh - #{$width});
+    font-size: 16px;
+}
+
+// modal
+.form-build{
+    .modal-dialog{margin: 0 auto;}
+    .modal-content{max-height: 500px;
+                   .modal-body{height: 375px; overflow-y: auto;}
+    }
+}
+.angular-survey-template{@include viewHeight(160px);
+    .head{padding: 15px 0;
+        md-checkbox{margin: 0;line-height: 40px;margin-right: 15px;}
+    }
+}
+

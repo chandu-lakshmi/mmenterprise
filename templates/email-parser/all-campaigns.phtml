@@ -1,78 +1,110 @@
-    <h4  class="text-center" ng-if="!!AllCampaignsCtrl.noLongerAvailable" style="color:#dc4e41" ng-bind="AllCampaignsCtrl.noLongerAvailable"></h4>
+<h4  class="text-center" ng-if="!!AllCampaignsCtrl.noLongerAvailable" style="color:#dc4e41" ng-bind="AllCampaignsCtrl.noLongerAvailable"></h4>
 <div class="all-campaigns" ng-if="!AllCampaignsCtrl.noLongerAvailable">
-    <header class="logo">
-        <div id="logo" ng-hide="AllCampaignsCtrl.infiniteScroll.headerDetails.company_logo == ''">
-            <img ng-src="{{$root.url_spinner_small}}" class="spinner small img-thumbnail">
+    <header class="logo container">
+        <div layout="column">
+            <div layout="row" flex>
+                <div id="logo" flex="20" ng-hide="CampaignDetails.company_logo == ''">
+                    <img ng-src="{{$root.url_spinner_small}}" class="spinner small img-thumbnail">
+                </div>
+                <span flex="20" ng-bind="CampaignDetails.company_name" class="company-name" ng-if="CampaignDetails.company_logo == ''"></span>         
+                <i flex></i>
+                <div class="menu">
+                    <span class="tab"><a href="#">Home</a></span>
+                    <span class="tab"><a href="#">About {{CampaignDetails.company_name}}</a></span>
+                    <span class="tab"><a href="#"  ng-click="AllCampaignsCtrl.createCampaign()">Join our Talent Community</a></span>
+                </div>
+            </div>
         </div>
-        <span ng-bind="AllCampaignsCtrl.infiniteScroll.headerDetails.company_name" class="company-name" ng-if="AllCampaignsCtrl.infiniteScroll.headerDetails.company_logo == ''"></span>			
     </header>
+    <div class="filters">
+        <div class="container" ng-style="{'margin-top' : $state.current.name === 'allCampaigns.all' ? '0' : '54px'}">
+            <div class="des">
+                <h3>
+                    <span ng-bind="CampaignDetails.campaign_heading"></span> 
+                </h3>
+                <h4 class="date">
+                    <img src="../public/images/email-parser/calender.svg" alt="calander"/>
+                    <span ng-bind="CampaignDetails.start_date"></span>
+                    <span ng-bind="CampaignDetails .start_time"></span>
+                    &nbsp; to&nbsp;
+                    <span ng-bind="CampaignDetails.end_date"></span>
+                    <span ng-bind="CampaignDetails.end_time"></span>
+                </h4>
+                <h4>
+                    <img src="../public/images/email-parser/location.svg" alt="location"/>
+                    <span ng-bind="CampaignDetails .campaign_location"></span>
+                </h4>
+            </div>
+            <div class="user-inputs" ng-if="$state.current.name === 'allCampaigns.all'">
+                <div layout="column">
+                    <div layout="row">
+                        <div class="form-group search">
+                            <i class="material-icons">search</i>
+                            <input type="text" class="form-control" placeholder="I am looking for a job..">
+                        </div>
+                        <div class="btn-group loc" uib-dropdown>
+                            <button id="btn-append-to-single-button" type="button" class="btn btn-primary" uib-dropdown-toggle>
+                                Location <i class="material-icons">keyboard_arrow_down</i>
+                            </button>
+                            <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-single-button">
+                                <li role="menuitem"><a href="#">Hyderabad</a></li>
+                                <li role="menuitem"><a href="#">Bangalore</a></li>
+                                <li role="menuitem"><a href="#">Chennai</a></li>
+                            </ul>
+                        </div>
+                        <div class="btn-group exp" uib-dropdown>
+                            <button id="btn-append-to-single-button" type="button" class="btn btn-primary" uib-dropdown-toggle>
+                                Experience <i class="material-icons">keyboard_arrow_down</i>
+                            </button>
+                            <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-single-button">
+                                <li role="menuitem"><a href="#">0 - 1 Years</a></li>
+                                <li role="menuitem"><a href="#">2 - 3 Years</a></li>
+                                <li role="menuitem"><a href="#">3 - 5 Years</a></li>
+                                <li role="menuitem"><a href="#">5+ Years</a></li>
+                            </ul>
+                        </div>
+                        <div class="action">
+                            <md-button class="md-raised">FIND JOBS</md-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="content">
-        <div class="container">
-            <div class="campaign-details">
-                <div class="details" ng-if="!AllCampaignsCtrl.bol">
-                    <div class="header">
-                        <p ng-bind="AllCampaignsCtrl.infiniteScroll.headerDetails.company_name"></p>
-                        <span ng-bind="AllCampaignsCtrl.infiniteScroll.headerDetails.campaign_name"></span>
-                        <h4	ng-bind="AllCampaignsCtrl.infiniteScroll.headerDetails.campaign_type"></h4>
+        <div class="container" >
+            <div layout="column" class="campaign-details">
+                <div layout="row" flex>
+                    <div flex="70"class="left">
+                        <ui-view></ui-view>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-6 time">
-                            <div class="title">
-                                <img src="../public/images/email-parser/calender.svg" />
-                                <span>Time</span>
+                    <div flex="30" class="right">
+                        <div class="about-comp">
+                            <div class="box">
+                                <h4>About <span ng-bind="CampaignDetails.company_name"></span></h4>
+                                <span>
+                                    {{CampaignDetails.company_name}} is a leading IT solutions provider, offering Applications. Business Process Outsourcing (BPO) and Infrastructure services globally through a combination of technology know how, domain and process expertise. The accolades we have been garnering can be attributed to our undeterred focus in delivering quality solutions across verticals that meet the challenging requirements of our esteemed customers. We have been recently felicitated by the economic times as the most distinguished digital company 2015...  
+                                </span>
+                                <h5>More..</h5>
                             </div>
-                            <div class="article clearfix">
-                                <div class="pull-left">
-                                    <span ng-bind="AllCampaignsCtrl.infiniteScroll.headerDetails.campaign_start_date"></span>
-                                    <big ng-bind="AllCampaignsCtrl.infiniteScroll.headerDetails.campaign_start_time"></big>
-                                </div>
-                                <div class="pull-left" style="width:10%;line-height:66px;">to</div>
-                                <div class="pull-left">
-                                    <span ng-bind="AllCampaignsCtrl.infiniteScroll.headerDetails.campaign_end_date"></span>
-                                    <big ng-bind="AllCampaignsCtrl.infiniteScroll.headerDetails.campaign_end_time"></big>
+                            <md-divider></md-divider>
+                            <div class="suscribe">
+                                <div class="row">
+                                    <div class="col-sm-8">Wish to submit your profile for future opportunities?</div>
+                                    <div class="col-sm-4 action"><button class="camp-btn">SUBSCRIBE</button></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6 location">
-                            <div class="title">
-                                <img src="../public/images/email-parser/location.svg" />
-                                <span>Location</span>
-                            </div>
-                            <div class="article">
-                                <big ng-bind="AllCampaignsCtrl.infiniteScroll.headerDetails.campaign_location"></big>
-                            </div>
+                        <div class="create-camp" ng-click="AllCampaignsCtrl.createCampaign()">
+                            <div class="join-team">JOIN OUR TALENT COMMUNITY<img src="../public/images/email-parser/arrows.png" alt="next"></div>
                         </div>
-                    </div>
-                </div>
-                <div class="list" infinite-scroll='AllCampaignsCtrl.infiniteScroll.nextPage()' infinite-scroll-disabled='AllCampaignsCtrl.infiniteScroll.busy' infinite-scroll-distance='0' style="position:relative;min-height:350px;" class="list">
-                    <div class="row" ng-repeat="list in AllCampaignsCtrl.infiniteScroll.list" ng-click="AllCampaignsCtrl.updateCampaignDetails(list)">
-                        <a ui-sref="jobDetails({ref: list.ref_code})" title="" class="detail">
-                            <div class="col-sm-8">
-                                <span ng-bind="AllCampaignsCtrl.infiniteScroll.headerDetails.company_name"></span>
-                                <p ng-bind="list.job_name"></p>
-                                <div class="fields">
-                                    <span class="label">Experience:</span>
-                                    <span class="value" ng-bind="list.experience"></span><br>
-                                    <span class="label">Location:</span>
-                                    <span class="value" ng-bind="list.location"></span>
-                                </div>
-                            </div>
-                        </a>
-                        <div class="col-sm-4 buttons" ng-init="sh_cd = $stateParams.share_status">
-                            <a class="apply" ui-sref="candidateDetails({ref: list.ref_code,flag: 0, status:list.status, jc: 1, share_status: sh_cd})">APPLY</a>
-                            <a class="apply" ui-sref="referralDetails({ref: list.ref_code,flag: 0, status:list.status, jc: 1, share_status: sh_cd})">REFER</a>
+                        <div class="social-share">
+                            <b>Share Campaign</b>
+                            <!-- social media share directive -->
+                            <social-sharing data-opts="sapShareDemo" data-path="../templates/components" style="margin-top:10px;"></social-sharing>
                         </div>
-                    </div>
-                    <div class="text-center" ng-if="AllCampaignsCtrl.infiniteScroll.busy" style="opacity:0.5">
-                        <img src="../public/images/loader/spin.gif" alt="spinner" style="width:10%">
-                    </div>
-                </div>
-                <div class="footer">
-                    <div class="social-share">
-                        <span>Share Campaign</span>
-                        <!-- social media share directive -->
-                        <social-sharing data-opts="AllCampaignsCtrl.socialMedia" data-path="../templates/components" style="margin-top:10px;"></social-sharing>
-                        <copy-url url="{{AllCampaignsCtrl.copyUrl}}" btn-text="{{AllCampaignsCtrl.copyText}}"></copy-url>
+                        <b>Copy Campaign Link</b>
+                        <copy-url url="{{CampaignDetails.bittly_url}}" btn-text="COPY"></copy-url>
                     </div>
                 </div>
             </div>
