@@ -733,6 +733,7 @@
                 canceler;
 
 
+                
 
         /*if (screen.width <= 480)
             vm.copyText = 'Copy'

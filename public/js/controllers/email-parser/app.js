@@ -45,12 +45,14 @@
 			        data : { pageTitle: 'MintMesh' },
 			        params : {share_status : 'web', jc : '0'}
 			    })
-			    
+
 			    /*-----------Campaigns---------------*/
 			    .state('allCampaigns', {
 			        abstract: true,
 			        url: '',
-			        templateUrl: App.base_url + 'templates/email-parser/all-campaigns.phtml'
+			        templateUrl: App.base_url + 'templates/email-parser/all-campaigns.phtml',
+			        controller: 'AllCampaignsController',
+			        controllerAs: 'AllCampaignsCtrl'
 			    })
 			    .state('allCampaigns.all', {
 			        url: '/all-campaigns/:share_status?ref',
