@@ -426,7 +426,7 @@
 
 
         if ($stateParams.share_status == 'share') {
-            if ($state.current.name == 'candidateDetails') {
+            if ($state.current.name == 'candidateDetails' || $state.current.name == 'allCampaigns.candidateDetails') {
                 vm.shareReferral = angular.copy(ReferralDetails.emailid);
                 vm.referralDetails.emailid = '';
             }
@@ -439,7 +439,7 @@
 
         var ref = $stateParams.ref;
         var apiCall = App.base_url + 'apply_job';
-        if($stateParams.refrel != 0 && $state.current.name == 'candidateDetails'){
+        if($stateParams.refrel != 0 && ($state.current.name == 'candidateDetails' || $state.current.name == 'allCampaigns.candidateDetails')) {
             vm.referralDetails.emailid = candidateDetails.emailid;
             vm.readOnlyEmail = true; 
             apiCall = App.base_url + 'apply_job_ref';
@@ -496,7 +496,7 @@
                         }
                         else {
                             setTimeout(function () {
-                                $state.go('allCampaigns', {ref: App.camp_ref, share_status: $stateParams.share_status})
+                                $state.go('allCampaigns.all', {ref: App.camp_ref, share_status: $stateParams.share_status})
                             }, 1000);
                         }
                     }
@@ -733,7 +733,7 @@
                 canceler;
 
 
-                
+
 
         /*if (screen.width <= 480)
             vm.copyText = 'Copy'
