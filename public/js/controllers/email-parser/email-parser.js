@@ -7,6 +7,7 @@
             .controller('AllJobsController', AllJobsController)
             .controller('JobDetailsController', JobDetailsController)
             .controller('ApplyJobController', ApplyJobController)
+            .controller('CampaignsController', CampaignsController)
             .controller('AllCampaignsController', AllCampaignsController)
 
             .config(function ($translateProvider) {
@@ -21,7 +22,8 @@
     AllJobsController.$inject = ['$http', '$stateParams', '$q', 'ReferralDetails', 'App'];
     JobDetailsController.$inject = ['$http', '$stateParams', '$window', 'campaignJobDetails', 'App'];
     ApplyJobController.$inject = ['$rootScope', '$scope', '$state', '$stateParams', '$location', '$window', '$http', '$uibModal', '$mdDialog', 'App', 'ReferralDetails', 'CampaignDetails', 'campaignJobDetails', 'candidateDetails'];
-    AllCampaignsController.$inject = ['$scope', '$http', '$window', '$q', '$mdDialog', 'App', 'CampaignDetails', 'campaignJobDetails'];
+    CampaignsController.$inject = ['$scope', '$http', '$mdDialog', 'App'];
+    AllCampaignsController.$inject = ['$rootScope', '$scope', '$http', '$window', '$q', '$mdDialog', 'App', 'CampaignDetails', 'campaignJobDetails'];
 
 
     function modalController($scope, $state, $stateParams, $uibModalInstance, App) {
@@ -733,40 +735,163 @@
 
     }
 
-    function AllCampaignsController($scope, $http, $window, $q, $mdDialog ,App, CampaignDetails, campaignJobDetails) {
-
-        $window.scrollTo(0, 0);
+    function CampaignsController($scope, $http, $mdDialog, App) {
         
         var vm = this,
-                canceler;
+                copySearchOptions;
 
         this.geo_location = '';
-        this.geo_options = '';
-        this.geo_details = '';
+        this.geo_options  = '';
+        this.geo_details  = '';
+        this.experienceLabel = 'Experience';
+        this.searchOptions   = {
+            search_name       : null,
+            search_location   : null,
+            search_experience : null
+        };
+        copySearchOptions = angular.copy(this.searchOptions);
+        
+
+        function init() {
+            $http({
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method  : 'GET',
+                url     : App.base_url + 'get_experiences'
+            })
+            .success(function (response) {
+                vm.experiences = response.data.experiences;
+            })
+        }
+
+        function CreateCampaginController($scope, $http, $timeout, $mdDialog, App) {
+            
+            var vm = this;
+            
+            this.geo_location = '';
+            this.geo_options = '';
+            this.geo_details = '';
+            $scope.$watch(function () {
+                return vm.geo_details;
+                }, function (location) {
+            });
+            
+            this.closeDialog = function () {
+                $mdDialog.hide();
+            }
+
+            this.communitys = [
+                {
+                    name: "SAP SuccessFactors(1524)",
+                    status: 1,
+                    colorCode: '#17916c'
+                },
+                {
+                    name: "Advanced Analytics(456)",
+                    status: 0,
+                    colorCode: '#ee8f3b'
+                },
+                {
+                    name: "Cloud Computing(975)",
+                    status: 0,
+                    colorCode: '#23a3ac'
+                },
+                {
+                    name: "Data science(642)",
+                    status: 0,
+                    colorCode: 'gray'
+                }
+            ];
+            
+            this.selectedCommunitys = [0];
+            this.addOrDeleteCommunity = function (index) {
+                var pos = this.selectedCommunitys.indexOf(index);
+                $timeout(function(){
+                    if (pos === -1) {
+                        vm.selectedCommunitys.push(index);
+                    } else {
+                        vm.selectedCommunitys.splice(pos, 1);
+                    }  
+                }, 200)
+            }
+            
+            // Job Functions Dropdown
+            var get_job_functions = $http({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'GET',
+                url: App.base_url + 'get_job_functions'
+            })
+            get_job_functions.success(function (response) {
+                vm.careers = response.data.job_functions;
+            })
+        }
+
+
+        vm.selectExperienc = function(exp) {
+            this.experienceLabel    = exp.experience_name;
+            this.searchOptions.search_experience = exp.experience_name;
+        }
+
+        vm.findJobs = function() {
+            $scope.$broadcast('findJob' , {opts : vm.searchOptions});
+        }
+
+        vm.createCampaign = function (ev) {
+            $mdDialog.show({
+                controller: CreateCampaginController,
+                controllerAs: 'createCampCtrl',
+                templateUrl: '../templates/email-parser/dialog-create-camp.phtml',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: false,
+                fullscreen: false
+            })
+            .then(function (answer) {
+                vm.status = 'You said the information was "' + answer + '".';
+            }, function () {
+                vm.status = 'You cancelled the dialog.';
+            });
+        }
+
+
         $scope.$watch(function () {
             return vm.geo_details;
             }, function (location) {
+            vm.searchOptions.search_location = vm.geo_location;
         });
-        this.searchOptions = {
-            experienceLabel : 'Experience',
-            experienceId :null
-        };
 
-        $http({
-            headers : {
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-            },
-            method  : 'GET',
-            url     : App.base_url + 'get_experiences'
-        })
-        .success(function (response) {
-            vm.experiences = response.data.experiences;
-        })
+        $scope.$on('resetFindJob', function(){
+            vm.searchOptions = angular.copy(copySearchOptions);
+        });
 
-        vm.selectExperienc = function(exp) {
-            this.searchOptions.experienceId    = exp.experience_id;
-            this.searchOptions.experienceLabel = exp.experience_name;
-        }
+
+        init();
+    }
+
+
+    function AllCampaignsController($rootScope, $scope, $http, $window, $q, $mdDialog ,App, CampaignDetails, campaignJobDetails) {
+
+        $window.scrollTo(0, 0);
+        
+
+        var vm = this,
+            canceler,
+            page_no = 1, 
+            total_pages = 1,
+            campaignFilterParams = {
+                time_zone : new Date().getTimezoneOffset()
+            };
+
+
+        vm.bol = true;
+        vm.noLongerAvailable = false;
+        vm.inProgressInfinite = false;
+        // vm.copyUrl = $location.$$absUrl;
+        vm.shareUrl = App.base_url + 'email/all-campaigns/share?ref=' + App.camp_ref;
+
 
         /*if (screen.width <= 480)
             vm.copyText = 'Copy'
@@ -780,16 +905,9 @@
             });
         }
 
-        vm.bol = true;
-        vm.noLongerAvailable = false;
-        // vm.copyUrl = $location.$$absUrl;
-        vm.shareUrl = App.base_url + 'email/all-campaigns/share?ref=' + App.camp_ref;
-
-        var page_no = 1, total_pages = 1;
-
         // social sharing directive
         function sharing(bitly) {
-            vm.socialMedia = {
+            $rootScope.socialMedia = {
                 socialIcons: ['facebook', 'twitter', 'linkedin', 'googlePlus'],
                 url: vm.shareUrl,
                 facebook: {
@@ -844,6 +962,7 @@
             });
         }
 
+
         vm.infiniteScroll = {
             busy: false,
             list: [],
@@ -876,62 +995,65 @@
                 if (vm.infiniteScroll.busy) {
                     return;
                 }
-
                 vm.infiniteScroll.busy = true;
-
                 vm.infiniteScroll.loadApi(page_no, vm.search_val);
             }
         }
 
         vm.infiniteScroll.loadApi = function (pageNo, searchVal, callBack) {
-
-            if (canceler) {
-                canceler.resolve();
-            }
-
+            
+            campaignFilterParams.page_no = page_no;
             canceler = $q.defer();
+            if(page_no > 1){
+                vm.inProgressInfinite = true;
+            }
 
             $http({
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                 },
-                method: 'POST',
-                url: vm.infiniteScroll.url,
-                data: $.param({
-                    time_zone: new Date().getTimezoneOffset()
-                }),
+                method : 'POST',
+                url    : vm.infiniteScroll.url,
+                data   : $.param(campaignFilterParams),
                 timeout: canceler.promise
             })
-                    .then(function (response) {
-                        if (response.data.status_code == 200) {
-                            if (callBack != undefined) {
-                                callBack();
-                                vm.infiniteScroll.list = [];
-                            }
-                            if (page_no == 1) {
-                                vm.infiniteScroll.total_count = response.data.data.count;
-                                total_pages = Math.ceil(vm.infiniteScroll.total_count / 10);
-                            }
-                            page_no++;
-                            vm.infiniteScroll.onComplete(response.data.data)
-                        }
-                        else if (response.data.status_code == 403) {
-                            vm.noLongerAvailable = response.data.message.msg[0];
-                            vm.infiniteScroll.headerDetails.company_logo = '';
-                            vm.infiniteScroll.busy = false;
-                            page_no++;
-                            /*vm.infiniteScroll.list = [];
-                            vm.noJobs = true;
-                            vm.infiniteScroll.total_count = 0;
-                            total_pages = 0;
-                            if (callBack != undefined) {
-                                callBack();
-                            }*/
-                        }
-                        else if (response.data.status_code == 400) {
-                            vm.infiniteScroll.onError();
-                        }
-                    })
+            .then(function (response) {
+                if (response.data.status_code == 200) {
+                    if (callBack != undefined) {
+                        callBack();
+                        vm.infiniteScroll.list = [];
+                    }
+                    if (page_no == 1) {
+                        vm.infiniteScroll.list = [];
+                        vm.infiniteScroll.total_count = response.data.data.count;
+                        total_pages = Math.ceil(vm.infiniteScroll.total_count / 10);
+                    }
+                    page_no++;
+                    vm.infiniteScroll.onComplete(response.data.data)
+                }
+                else if (response.data.status_code == 403) {
+                    vm.infiniteScroll.list = [];
+                    vm.infiniteScroll.busy = false;
+                    vm.noLongerAvailable   = response.data.message.msg[0];
+                    vm.infiniteScroll.headerDetails.company_logo = '';
+                    page_no++;
+                    /*vm.infiniteScroll.list = [];
+                    vm.noJobs = true;
+                    vm.infiniteScroll.total_count = 0;
+                    total_pages = 0;
+                    if (callBack != undefined) {
+                        callBack();
+                    }*/
+                }
+                else if (response.data.status_code == 400) {
+                    vm.infiniteScroll.onError();
+                }
+                vm.inProgressInfinite = false;
+            })
+        }
+
+        vm.findJobs = function() {
+            
         }
 
         vm.updateCampaignDetails = function(job) {
@@ -940,86 +1062,24 @@
             campaignJobDetails.location = job.location;
         }
 
-        vm.createCampaign = function (ev) {
-            $mdDialog.show({
-                controller: CreateCampaginController,
-                controllerAs: 'createCampCtrl',
-                templateUrl: '../templates/email-parser/dialog-create-camp.phtml',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                clickOutsideToClose: false,
-                fullscreen: false
-            })
-                .then(function (answer) {
-                    vm.status = 'You said the information was "' + answer + '".';
-                }, function () {
-                    vm.status = 'You cancelled the dialog.';
-                });
-        }
 
-        function CreateCampaginController($scope, $http, $timeout, $mdDialog, App) {
-            
-            var vm = this;
-            
-            this.geo_location = '';
-            this.geo_options = '';
-            this.geo_details = '';
-            $scope.$watch(function () {
-                return vm.geo_details;
-                }, function (location) {
-            });
-            
-            this.closeDialog = function () {
-                $mdDialog.hide();
-            }
+        $scope.$emit('resetFindJob');
 
-            this.communitys = [{
-                    name: "SAP SuccessFactors(1524)",
-                    status: 1,
-                    colorCode: '#17916c'
-                },
-                {
-                    name: "Advanced Analytics(456)",
-                    status: 0,
-                    colorCode: '#ee8f3b'
-                },
-                {
-                    name: "Cloud Computing(975)",
-                    status: 0,
-                    colorCode: '#23a3ac'
-                },
-                {
-                    name: "Data science(642)",
-                    status: 0,
-                    colorCode: 'gray'
-                }
-            ];
+        $scope.$on('findJob', function(event, data){
             
-            this.selectedCommunitys = [0];
-            this.addOrDeleteCommunity = function (index) {
-                var pos = this.selectedCommunitys.indexOf(index);
-                $timeout(function(){
-                    if (pos === -1) {
-                        vm.selectedCommunitys.push(index);
-                    } else {
-                        vm.selectedCommunitys.splice(pos, 1);
-                    }  
-                }, 200)
+            page_no = 1;
+            vm.noLongerAvailable   = '';
+            vm.infiniteScroll.busy = false;
+
+            if (canceler) {
+                canceler.resolve();
             }
-            
-            // Job Functions Dropdown
-            var get_job_functions = $http({
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                },
-                method: 'GET',
-                url: App.base_url + 'get_job_functions'
-            })
-            get_job_functions.success(function (response) {
-                vm.careers = response.data.job_functions;
-            })
-        }
+            angular.extend(campaignFilterParams, data.opts);
+            vm.infiniteScroll.nextPage();
+        });
+
         
     }
 
+    
 }());

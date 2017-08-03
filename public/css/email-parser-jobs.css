@@ -229,6 +229,20 @@
       .all-campaigns .filters .user-inputs .exp-active {
         background: #518b7f;
         color: #fff; }
+  .all-campaigns .camp-list {
+    height: 524px;
+    overflow: auto; }
+  .all-campaigns .loading-infinite {
+    color: #8e8e8e;
+    font-weight: 700;
+    float: none;
+    margin: 12px auto;
+    text-align: center;
+    border: 1px solid #e8e8e8;
+    width: 45%;
+    padding: 6px;
+    border-radius: 2px;
+    font-size: 20px; }
   .all-campaigns .content {
     background: -webkit-linear-gradient(bottom, #f2f1ef, white 20%);
     background: -o-linear-gradient(bottom, #f2f1ef, white 20%);
@@ -265,7 +279,7 @@
           border-bottom: 2px solid #f0f0f0;
           padding: 18px 0; }
           .all-campaigns .content .campaign-details .left .list .row .buttons {
-            padding-right: 0;
+            padding-right: 12px;
             bottom: 42px; }
           .all-campaigns .content .campaign-details .left .list .row a .col-sm-7 {
             padding: 0; }

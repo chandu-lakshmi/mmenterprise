@@ -51,8 +51,8 @@
 			        abstract: true,
 			        url: '',
 			        templateUrl: App.base_url + 'templates/email-parser/all-campaigns.phtml',
-			        controller: 'AllCampaignsController',
-			        controllerAs: 'AllCampaignsCtrl'
+			        controller: 'CampaignsController',
+			        controllerAs: 'CampaignsCtrl'
 			    })
 			    .state('allCampaigns.all', {
 			        url: '/all-campaigns/:share_status?ref',

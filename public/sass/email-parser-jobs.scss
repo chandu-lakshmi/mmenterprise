@@ -120,6 +120,8 @@
             .exp-active{background: #518b7f;color: #fff;}
         }
     }
+    .camp-list{height: 524px;overflow:auto;}
+    .loading-infinite{color: #8e8e8e;font-weight: 700;float: none;margin: 12px auto;text-align: center;border: 1px solid #e8e8e8;width: 45%;padding: 6px;border-radius: 2px;font-size: 20px;}
     .content{@include gradient(bottom, rgba(242, 241, 239, 1), rgba(255, 255, 255, 1)); @include viewHeight(150px);
         .campaign-details{padding: 16px 0;
             .camp-btn{background: #24a678;color: #fff;border: 0;padding: 11px 28px;margin-left: 7px;font-weight: 600;border-radius: 3px;text-decoration: none}
@@ -136,7 +138,7 @@
                 }
                 .list {
                     .row{border: 0;border-bottom: 2px solid #f0f0f0;padding: 18px 0;
-                        .buttons{padding-right: 0;bottom: 42px;}
+                        .buttons{padding-right: 12px;bottom: 42px;}
                         a{
                             .col-sm-7{padding:0}
                         }
