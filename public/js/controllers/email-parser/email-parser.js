@@ -8,7 +8,6 @@
             .controller('JobDetailsController', JobDetailsController)
             .controller('ApplyJobController', ApplyJobController)
             .controller('AllCampaignsController', AllCampaignsController)
-            .controller('AllCampaignsController', AllCampaignsController)
 
             .config(function ($translateProvider) {
                 $translateProvider.useStaticFilesLoader({
@@ -20,9 +19,9 @@
 
     modalController.$injext = ['$scope', '$state', '$stateParams', '$uibModalInstance', 'App'];
     AllJobsController.$inject = ['$http', '$stateParams', '$q', 'ReferralDetails', 'App'];
-    JobDetailsController.$inject = ['$http', '$stateParams', '$window', 'App'];
+    JobDetailsController.$inject = ['$http', '$stateParams', '$window', 'campaignJobDetails', 'App'];
     ApplyJobController.$inject = ['$rootScope', '$scope', '$state', '$stateParams', '$location', '$window', '$http', '$uibModal', '$mdDialog', 'App', 'ReferralDetails', 'CampaignDetails', 'campaignJobDetails', 'candidateDetails'];
-    AllCampaignsController.$inject = ['$http', '$window', '$q', '$mdDialog', 'App', 'CampaignDetails', 'campaignJobDetails'];
+    AllCampaignsController.$inject = ['$scope', '$http', '$window', '$q', '$mdDialog', 'App', 'CampaignDetails', 'campaignJobDetails'];
 
 
     function modalController($scope, $state, $stateParams, $uibModalInstance, App) {
@@ -274,7 +273,7 @@
 
     }
 
-    function JobDetailsController($http, $stateParams, $window, App) {
+    function JobDetailsController($http, $stateParams, $window, campaignJobDetails, App) {
 
         var vm = this;
 
@@ -332,18 +331,18 @@
                     reference_id: ref
                 })
             })
-                    .then(function (response) {
-                        vm.job_details.loader = false;
-                        if (response.data.status_code == 200) {
-                            vm.job_details.onComplete(response.data.data)
-                        }
-                        else if(response.data.status_code == 403) {
-                            vm.noLongerAvailable = response.data.message.msg[0];
-                        }
-                        else if (response.data.status_code == 400) {
-                            vm.job_details.onError();
-                        }
-                    })
+            .then(function (response) {
+                vm.job_details.loader = false;
+                if (response.data.status_code == 200) {
+                    vm.job_details.onComplete(response.data.data)
+                }
+                else if(response.data.status_code == 403) {
+                    vm.noLongerAvailable = response.data.message.msg[0];
+                }
+                else if (response.data.status_code == 400) {
+                    vm.job_details.onError();
+                }
+            })
         }
 
         vm.job_details.onload();
@@ -378,6 +377,13 @@
             }
         }
 
+        vm.updateJobDetails = function(job) {
+            if($stateParams.jc == '1') {
+                campaignJobDetails.job_title = job.job_name;
+                campaignJobDetails.experience = job.experience;
+                campaignJobDetails.location = job.location;    
+            }
+        }
     }
 
     function ApplyJobController($rootScope, $scope, $state, $stateParams, $location, $window, $http, $uibModal, $mdDialog ,App, ReferralDetails, CampaignDetails, campaignJobDetails, candidateDetails) {
@@ -463,7 +469,7 @@
                 var backEndParams = {
                     ref: ref,
                     flag: vm.status,
-                    post_status : $state.current.name == 'referralDetails' ? 0 : 1,
+                    post_status : ($state.current.name == 'referralDetails' || $state.current.name == 'allCampaigns.referralDetails' ) ? 0 : 1,
                     timeZone: new Date().getTimezoneOffset()
                 };
 
@@ -727,18 +733,45 @@
 
     }
 
-    function AllCampaignsController($http, $window, $q, $mdDialog ,App, CampaignDetails, campaignJobDetails) {
+    function AllCampaignsController($scope, $http, $window, $q, $mdDialog ,App, CampaignDetails, campaignJobDetails) {
 
+        $window.scrollTo(0, 0);
+        
         var vm = this,
                 canceler;
 
+        this.geo_location = '';
+        this.geo_options = '';
+        this.geo_details = '';
+        $scope.$watch(function () {
+            return vm.geo_details;
+            }, function (location) {
+        });
+        this.searchOptions = {
+            experienceLabel : 'Experience',
+            experienceId :null
+        };
 
+        $http({
+            headers : {
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
+            method  : 'GET',
+            url     : App.base_url + 'get_experiences'
+        })
+        .success(function (response) {
+            vm.experiences = response.data.experiences;
+        })
 
+        vm.selectExperienc = function(exp) {
+            this.searchOptions.experienceId    = exp.experience_id;
+            this.searchOptions.experienceLabel = exp.experience_name;
+        }
 
         /*if (screen.width <= 480)
             vm.copyText = 'Copy'
         else
-            vm.copyText = 'COPY CAMPAIGN LINK'*/
+            vm.copyText = 'COPY CAMPAIGN LINK'*/    
 
         // capitalize string in javascript
         function toTitleCase(str) {
@@ -986,8 +1019,7 @@
                 vm.careers = response.data.job_functions;
             })
         }
-
-        $window.scrollTo(0, 0);
+        
     }
 
 }());

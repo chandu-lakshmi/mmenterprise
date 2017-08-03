@@ -33,17 +33,20 @@
         background: transparent;
         font-size: 25px; }
   .all-jobs .container section.job-details {
-    margin-top: 30px;
     position: relative;
-    min-height: 300px; }
+    min-height: 465px; }
     .all-jobs .container section.job-details .loader {
       position: absolute;
       left: 50%;
       top: 50%; }
     .all-jobs .container section.job-details .row {
-      margin-right: 0px; }
+      margin-right: 0px;
+      padding: 6px 0; }
       .all-jobs .container section.job-details .row .header {
         padding-top: 8px; }
+        .all-jobs .container section.job-details .row .header .job-title {
+          margin: 28px 0 0px;
+          color: #323232; }
         .all-jobs .container section.job-details .row .header p {
           margin: 0;
           color: #3871cd;
@@ -63,48 +66,26 @@
         .all-jobs .container section.job-details .row .rewards p {
           color: #939393; }
     .all-jobs .container section.job-details .job-params {
-      padding: 10px 0; }
+      padding: 10px 0 30px 0;
+      font-size: 16px; }
       .all-jobs .container section.job-details .job-params .row .labels {
-        color: #939393; }
+        color: #939393;
+        padding-right: 0; }
       .all-jobs .container section.job-details .job-params .row .value {
         color: #252525; }
-    .all-jobs .container section.job-details .job-desc p {
-      margin: 0;
-      color: #939393; }
-    .all-jobs .container section.job-details .job-desc pre {
-      border: 0;
-      background: transparent;
-      font-size: 16px;
-      padding: 0;
-      margin: 0;
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-      white-space: pre-line;
-      color: #262626;
-      padding: 5px 0 0 25px; }
-    .all-jobs .container section.job-details .action {
-      padding-top: 22px; }
-      .all-jobs .container section.job-details .action a {
-        outline: none;
-        margin-right: 25px;
-        cursor: pointer;
-        text-decoration: none;
-        padding: 6px 14px;
-        display: inline-block;
-        border-radius: 3px;
-        background: #238260;
-        border: 1px solid #238260;
-        color: #fff; }
-      .all-jobs .container section.job-details .action .refer {
+    .all-jobs .container section.job-details .job-desc {
+      font-size: 16px; }
+      .all-jobs .container section.job-details .job-desc pre {
+        border: 0;
         background: transparent;
-        color: #238260;
-        border-color: #238260; }
-      .all-jobs .container section.job-details .action .all-jobs {
+        font-size: 16px;
+        padding: 0;
         margin: 0;
-        float: right;
-        background: transparent;
-        color: #252525;
-        border-color: #252525;
-        padding: 6px 14px; }
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        white-space: pre-line;
+        color: #262626; }
+    .all-jobs .container section.job-details .action .camp-btn {
+      margin: 0 8px 0 0; }
   .all-jobs .container footer .social-media {
     padding: 25px 0;
     border-top: 1px solid #ebebeb;
@@ -158,7 +139,7 @@
         color: #818785; }
   .all-campaigns .filters {
     padding: 72px 0;
-    background: url("../images/email-parser/banner_img.jpg") no-repeat;
+    background: url("../images/email-parser/banner_img.jpg") no-repeat #472d50;
     background-size: cover;
     background-position: 50% 50%;
     min-height: 366px; }
@@ -194,11 +175,16 @@
           border-radius: 0;
           padding-left: 46px;
           font-size: 16px; }
+          .all-campaigns .filters .user-inputs .search input:focus {
+            box-shadow: none;
+            border-color: #ccc; }
       .all-campaigns .filters .user-inputs .loc, .all-campaigns .filters .user-inputs .exp {
         width: 22%;
         position: relative;
         border-right: 1px solid #cccccc;
         height: 60px; }
+        .all-campaigns .filters .user-inputs .loc.open i, .all-campaigns .filters .user-inputs .exp.open i {
+          display: none; }
         .all-campaigns .filters .user-inputs .loc button, .all-campaigns .filters .user-inputs .loc button:focus, .all-campaigns .filters .user-inputs .exp button, .all-campaigns .filters .user-inputs .exp button:focus {
           width: 100%;
           text-align: left;
@@ -214,11 +200,20 @@
             right: 16px;
             font-size: 40px;
             font-weight: 100;
-            top: 12px; }
+            top: 10px; }
         .all-campaigns .filters .user-inputs .loc .dropdown-menu, .all-campaigns .filters .user-inputs .exp .dropdown-menu {
           width: 100.5%;
           margin: -1px;
-          border-radius: 0; }
+          border-radius: 0;
+          padding: 0; }
+        .all-campaigns .filters .user-inputs .loc input, .all-campaigns .filters .user-inputs .exp input {
+          width: 100%;
+          height: 100%;
+          padding: 0 14px;
+          outline: none;
+          border: 0;
+          font-size: 16px;
+          color: #555; }
       .all-campaigns .filters .user-inputs .action {
         width: 18%;
         height: 60px; }
@@ -231,6 +226,9 @@
           color: #fff;
           box-shadow: none;
           font-weight: 700; }
+      .all-campaigns .filters .user-inputs .exp-active {
+        background: #518b7f;
+        color: #fff; }
   .all-campaigns .content {
     background: -webkit-linear-gradient(bottom, #f2f1ef, white 20%);
     background: -o-linear-gradient(bottom, #f2f1ef, white 20%);
@@ -245,7 +243,9 @@
         border: 0;
         padding: 11px 28px;
         margin-left: 7px;
-        font-weight: 600; }
+        font-weight: 600;
+        border-radius: 3px;
+        text-decoration: none; }
       .all-campaigns .content .campaign-details .left {
         padding-right: 35px; }
         .all-campaigns .content .campaign-details .left .drop-box .container {
@@ -254,6 +254,12 @@
             display: none; }
         .all-campaigns .content .campaign-details .left .job-count {
           color: #24aa78; }
+        .all-campaigns .content .campaign-details .left .back img {
+          width: 26px;
+          height: 20px;
+          margin: -5px 0 0 -6px; }
+        .all-campaigns .content .campaign-details .left .back h4 {
+          display: inline-block; }
         .all-campaigns .content .campaign-details .left .list .row {
           border: 0;
           border-bottom: 2px solid #f0f0f0;
@@ -535,5 +541,9 @@ md-input-container md-select .md-select-value {
   md-input-container md-select .md-select-value .md-select-icon:after {
     content: url("../images/arrow-dropdown.svg") !important;
     display: inline !important; }
+
+.pac-container:after {
+  background-image: none !important;
+  height: 0px; }
 
 /*# sourceMappingURL=email-parser-jobs.css.map */

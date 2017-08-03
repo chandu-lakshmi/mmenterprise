@@ -1,8 +1,8 @@
 <h4 class="job-count">{{AllCampaignsCtrl.infiniteScroll.headerDetails.count}} Job(s) found</h4>
 <md-divider></md-divider>
-<div class="list" infinite-scroll='AllCampaignsCtrl.infiniteScroll.nextPage()' infinite-scroll-disabled='AllCampaignsCtrl.infiniteScroll.busy' infinite-scroll-distance='1' style="position:relative;min-height:350px;" class="list">
-    <div class="row" ng-repeat="list in AllCampaignsCtrl.infiniteScroll.list">
-        <a ui-sref="jobDetails({ref: list.ref_code})" title="" class="detail">
+<div class="list" ng-init="sh_cd = $stateParams.share_status" infinite-scroll='AllCampaignsCtrl.infiniteScroll.nextPage()' infinite-scroll-disabled='AllCampaignsCtrl.infiniteScroll.busy' infinite-scroll-distance='1' style="position:relative;min-height:350px;" class="list">
+    <div class="row" ng-repeat="list in AllCampaignsCtrl.infiniteScroll.list" ng-click="AllCampaignsCtrl.updateCampaignDetails(list)">
+        <a ui-sref="allCampaigns.jobDetails({ref: list.ref_code, flag: 0, status:list.status, jc: 1, share_status: sh_cd})" title="" class="detail">
             <div class="col-sm-7">
                 <p ng-bind="list.job_name"></p>
                 <div class="fields">
@@ -13,12 +13,12 @@
                 </div>
             </div>
         </a>
-        <div class="col-sm-5 buttons" ng-init="sh_cd = $stateParams.share_status">
-            <a class="camp-btn" ui-sref="allCampaigns.candidateDetails({ref: list.ref_code,flag: 0, status:list.status, jc: 1, share_status: sh_cd})" ng-click="AllCampaignsCtrl.updateCampaignDetails(list)">APPLY</a>
+        <div class="col-sm-5 buttons">
+            <a class="camp-btn" ui-sref="allCampaigns.candidateDetails({ref: list.ref_code,flag: 0, status:list.status, jc: 1, share_status: sh_cd})">APPLY</a>
             <a class="camp-btn" ui-sref="allCampaigns.referralDetails({ref: list.ref_code,flag: 0, status:list.status, jc: 1, share_status: sh_cd})">REFER</a>
         </div>
     </div>
-    <div class="text-center" ng-if="AllCampaignsCtrl.infiniteScroll.busy" style="opacity:0.5">
-        <img src="../public/images/loader/spin.gif" alt="spinner" style="width:10%">
+    <div class="email-parser-loader" ng-if="AllCampaignsCtrl.infiniteScroll.busy">
+        <img src="../public/images/loader/spin.gif" alt="spinner">
     </div>
 </div>

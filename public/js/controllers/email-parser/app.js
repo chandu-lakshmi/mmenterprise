@@ -62,6 +62,14 @@
 			        data: {pageTitle: 'MintMesh ( Campaigns )'},
 			        params: {share_status: 'web'}
 			    })
+			    .state('allCampaigns.jobDetails', {
+			    	url: '/campaign/job-details/:share_status?ref?jc',
+			        templateUrl: App.base_url + 'templates/email-parser/job-details.phtml',
+			        controller: 'JobDetailsController',
+			        controllerAs:'JobDetailsCtrl',
+			        data : { pageTitle: 'MintMesh' },
+			        params : {share_status : 'web', jc : '0'}
+			    })
 			    .state('allCampaigns.referralDetails', {
 			        url: '/campaign/referral-details/:share_status?ref&flag&jc',
 			        templateUrl: App.base_url + 'templates/email-parser/referral-details.phtml',

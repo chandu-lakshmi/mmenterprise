@@ -35,36 +35,30 @@
                     <span ng-bind="CampaignDetails .campaign_location"></span>
                 </h4>
             </div>
-            <div class="user-inputs" ng-if="$state.current.name === 'allCampaigns.all'">
+            <div class="user-inputs" ng-if="$state.current.name == 'allCampaigns.all'">
                 <div layout="column">
                     <div layout="row">
                         <div class="form-group search">
                             <i class="material-icons">search</i>
-                            <input type="text" class="form-control" placeholder="I am looking for a job..">
+                            <input type="text" class="form-control"  tabindex="1" placeholder="I am looking for a job..">
                         </div>
                         <div class="btn-group loc" uib-dropdown>
-                            <button id="btn-append-to-single-button" type="button" class="btn btn-primary" uib-dropdown-toggle>
-                                Location <i class="material-icons">keyboard_arrow_down</i>
-                            </button>
-                            <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-single-button">
-                                <li role="menuitem"><a href="#">Hyderabad</a></li>
-                                <li role="menuitem"><a href="#">Bangalore</a></li>
-                                <li role="menuitem"><a href="#">Chennai</a></li>
-                            </ul>
+                            <input id="location" ng-model="AllCampaignsCtrl.searchOptions.location" name="location" ng-autocomplete="AllCampaignsCtrl.geo_location" details="AllCampaignsCtrl.geo_details" options="AllCampaignsCtrl.geo_options"  tabindex="2" apiplaceholder="Location">
                         </div>
                         <div class="btn-group exp" uib-dropdown>
-                            <button id="btn-append-to-single-button" type="button" class="btn btn-primary" uib-dropdown-toggle>
-                                Experience <i class="material-icons">keyboard_arrow_down</i>
+                            <button id="btn-append-to-single-button"  tabindex="3" type="button" class="btn btn-primary" uib-dropdown-toggle ng-style="{'color' : AllCampaignsCtrl.searchOptions.experienceId ? '#555' : ''}">
+                                {{AllCampaignsCtrl.searchOptions.experienceLabel}} <i class="material-icons animated fadeIn">keyboard_arrow_down</i>
                             </button>
-                            <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-single-button">
-                                <li role="menuitem"><a href="#">0 - 1 Years</a></li>
-                                <li role="menuitem"><a href="#">2 - 3 Years</a></li>
-                                <li role="menuitem"><a href="#">3 - 5 Years</a></li>
-                                <li role="menuitem"><a href="#">5+ Years</a></li>
+                            <ul class="dropdown-menu animated slideInUp" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-single-button" >
+                                <li role="menuitem" ng-repeat="exp in AllCampaignsCtrl.experiences">
+                                    <a href="#" ng-click="AllCampaignsCtrl.selectExperienc(exp)" 
+                                        ng-class="{'exp-active' : exp.experience_id == AllCampaignsCtrl.searchOptions.experienceId}">{{exp.experience_name}}
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                         <div class="action">
-                            <md-button class="md-raised">FIND JOBS</md-button>
+                            <md-button class="md-raised"  tabindex="4">FIND JOBS</md-button>
                         </div>
                     </div>
                 </div>

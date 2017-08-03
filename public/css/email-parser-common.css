@@ -200,5 +200,15 @@ copy-url .copied::after {
     transform: translateX(0); }
   100% {
     opacity: 0; } }
+/* loader */
+.email-parser-loader {
+  text-align: center;
+  opacity: 0.5;
+  position: absolute;
+  left: calc(50% - 36px);
+  top: calc(50% - 36px); }
+  .email-parser-loader img {
+    width: 72px;
+    height: 72px; }
 
 /*# sourceMappingURL=email-parser-common.css.map */

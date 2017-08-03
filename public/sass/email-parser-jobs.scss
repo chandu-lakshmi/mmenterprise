@@ -18,37 +18,35 @@
                             &.text{background: transparent;font-size: 25px;}
                    }
        }
-       section.job-details{margin-top: 30px;position: relative;min-height: 300px;
-                           .loader{position: absolute;left: 50%;top: 50%;}
-                           .row{margin-right: 0px;
-                                .header{padding-top: 8px;
-                                        p{margin: 0;color: #3871cd;font-size: 16px;text-transform: capitalize;}
-                                        h4{color: #252525;margin-top: 5px;}
-                                }
-                                .rewards{text-align: center;
-                                         &:first-child{border-left:1px solid #dedede;border-right:1px solid #dedede;}
-                                         h4{margin: 0;color:#ed871a;}
-                                         p{color:#939393;}
-                                }
-                           }
-                           .job-params{padding: 10px 0;
-                                       .row{
-                                           .labels{color: #939393;}
-                                           .value{color: #252525;}
-                                       }
-                           }
-                           .job-desc{
-                               p{margin:0;color: #939393;}
-                               pre{border: 0;background: transparent;font-size: 16px;padding: 0;margin: 0;
-                                   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-                                   white-space: pre-line;color: #262626;padding: 5px 0 0 25px;
-                               }
-                           }
-                           .action{padding-top: 22px;
-                                   a{outline: none;margin-right:25px;cursor: pointer;text-decoration: none;padding: 6px 14px;display: inline-block;border-radius: 3px;background: #238260;border:1px solid #238260;color:#fff;}
-                                   .refer{background: transparent;color: #238260;border-color: #238260;}
-                                   .all-jobs{margin:0;float: right;background: transparent;color: #252525;border-color: #252525;padding: 6px 14px}
-                           }
+       section.job-details{position: relative;min-height: 465px;
+           .loader{position: absolute;left: 50%;top: 50%;}
+           .row{margin-right: 0px;padding: 6px 0;
+                .header{padding-top: 8px;
+                    .job-title{margin: 28px 0 0px;color: #323232;}
+                    p{margin: 0;color: #3871cd;font-size: 16px;text-transform: capitalize;}
+                    h4{color: #252525;margin-top: 5px;}
+                }
+                .rewards{text-align: center;
+                     &:first-child{border-left:1px solid #dedede;border-right:1px solid #dedede;}
+                     h4{margin: 0;color:#ed871a;}
+                     p{color:#939393;}
+                }
+           }
+           .job-params{padding: 10px 0 30px 0;font-size: 16px;
+               .row{
+                   .labels{color: #939393;padding-right: 0;}
+                   .value{color: #252525;}
+               }
+           }
+           .job-desc{font-size: 16px;
+               pre{border: 0;background: transparent;font-size: 16px;padding: 0;margin: 0;
+                   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                   white-space: pre-line;color: #262626;
+               }
+           }
+           .action{
+                .camp-btn{margin: 0 8px 0 0}
+            }
        }
        footer{
            .social-media{padding: 25px 0;border-top: 1px solid #ebebeb;margin-top: 32px;border-right:0;border-left:0;background: #fff;}
@@ -74,6 +72,7 @@
 
 
 /* ALL CAMPAIGNS */
+
 .all-campaigns{color: #939393;
     header.logo{padding: 16px 15px;min-height: 74px;
          #logo{
@@ -89,7 +88,7 @@
             }
          }
     }
-    .filters{padding: 72px 0;background: url("../images/email-parser/banner_img.jpg") no-repeat;background-size: cover;background-position: 50% 50%;min-height:366px;
+    .filters{padding: 72px 0;background: url("../images/email-parser/banner_img.jpg") no-repeat #472d50;background-size: cover;background-position: 50% 50%;min-height:366px;
         .des{text-align: center;color: #fff;
             img{width: 26px;}
             h3{font-weight: 700;margin: 0}
@@ -101,29 +100,40 @@
         .user-inputs{padding-top:48px;
             .search{width:38%;margin: 0;position: relative;
                 i{position: absolute;font-size: 36px;padding: 12px 10px;color: #b2b2b2;left: 0}
-                input{height: 60px;border-radius: 0;padding-left: 46px;font-size: 16px;}
+                input{height: 60px;border-radius: 0;padding-left: 46px;font-size: 16px;
+                    &:focus{box-shadow: none; border-color: #ccc}
+                }
             }
             .loc,.exp{width: 22%;position: relative;border-right: 1px solid #cccccc;height:60px;
-                button,button:focus{width: 100%;text-align: left;height: 100%;border-radius: 0;background: #fff;border-color: #fff;color: #999999;box-shadow: none;font-size: 16px;
-                    i{position: absolute;right: 16px;font-size: 40px;font-weight: 100;top: 12px;}
+                &.open{
+                    i{display: none}
                 }
-                .dropdown-menu{width: 100.5%;margin: -1px;border-radius: 0;}
+                button,button:focus{width: 100%;text-align: left;height: 100%;border-radius: 0;background: #fff;border-color: #fff;color: #999999;box-shadow: none;font-size: 16px;
+                    i{position: absolute;right: 16px;font-size: 40px;font-weight: 100;top: 10px;}
+                }
+                .dropdown-menu{width: 100.5%;margin: -1px;border-radius: 0;padding: 0}
+                input{width: 100%;height: 100%;padding: 0 14px;outline: none;border: 0;font-size: 16px;color: #555};
             }
             .action{width: 18%;height:60px;
                 button{margin: 0;width: 100%;height: 100%;border-radius: 0;background: #02b892;color: #fff;box-shadow: none;font-weight: 700;}
             }
+            .exp-active{background: #518b7f;color: #fff;}
         }
     }
     .content{@include gradient(bottom, rgba(242, 241, 239, 1), rgba(255, 255, 255, 1)); @include viewHeight(150px);
         .campaign-details{padding: 16px 0;
-            .camp-btn{background: #24a678;color: #fff;border: 0;padding: 11px 28px;margin-left: 7px;font-weight: 600;}
+            .camp-btn{background: #24a678;color: #fff;border: 0;padding: 11px 28px;margin-left: 7px;font-weight: 600;border-radius: 3px;text-decoration: none}
             .left{padding-right: 35px;
                 .drop-box{
                     .container{width: inherit;
                        .logo{display:none}
                     }
                 }
-                .job-count{color: #24aa78}
+                .job-count{color: #24aa78;}
+                .back{    
+                    img{width: 26px;height: 20px;margin: -5px 0 0 -6px}
+                    h4{display: inline-block;}
+                }
                 .list {
                     .row{border: 0;border-bottom: 2px solid #f0f0f0;padding: 18px 0;
                         .buttons{padding-right: 0;bottom: 42px;}
@@ -312,4 +322,9 @@ md-input-container{
                          .md-select-icon:after{content: url('../images/arrow-dropdown.svg') !important;display: inline !important;}
         }
     }
+}
+
+.pac-container:after {
+    background-image: none !important;
+    height: 0px;
 }
