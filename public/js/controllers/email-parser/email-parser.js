@@ -24,7 +24,7 @@
     AllJobsController.$inject = ['$scope', '$rootScope', '$http', '$stateParams', '$q', '$window', 'ReferralDetails', 'App'];
     JobDetailsController.$inject = ['$http', '$stateParams', '$window', 'campaignJobDetails', 'App'];
     ApplyJobController.$inject = ['$rootScope', '$scope', '$state', '$stateParams', '$location', '$window', '$http', '$uibModal', '$mdDialog', 'App', 'ReferralDetails', 'CampaignDetails', 'campaignJobDetails', 'candidateDetails'];
-    CampaignsController.$inject = ['$scope', '$http', '$mdDialog', 'App'];
+    CampaignsController.$inject = ['$scope', '$http', '$mdDialog', 'CampaignDetails', 'App'];
     AllCampaignsController.$inject = ['$rootScope', '$scope', '$http', '$window', '$q', '$mdDialog', 'App', 'CampaignDetails', 'campaignJobDetails'];
 
 
@@ -932,7 +932,7 @@
 
     }
 
-    function CampaignsController($scope, $http, $mdDialog, ReferralDetails, App) {
+    function CampaignsController($scope, $http, $mdDialog, CampaignDetails, App) {
         
         var vm = this,
                 copySearchOptions;
@@ -965,7 +965,7 @@
                 target: $('#logo'),
                 css: '',
                 url_prefix: false,
-                url: ReferralDetails.company_logo,
+                url: CampaignDetails.company_logo,
                 onComplete: function () {
                     
                 },
