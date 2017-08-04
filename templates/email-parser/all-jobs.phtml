@@ -3,7 +3,7 @@
         <div layout="column">
             <div layout="row" flex>
                 <div id="logo" flex="20" ng-hide="ReferralDetails.company_logo == ''">
-                    <img ng-src="{{$root.url_spinner_small}}" class="spinner small img-thumbnail">
+                    <img ng-src="ReferralDetails.company_logo" class="spinner small img-thumbnail">
                 </div>
                 <span flex="20" ng-bind="ReferralDetails.company_name" class="company-name" ng-if="ReferralDetails.company_logo == ''"></span>         
                 <i flex></i>

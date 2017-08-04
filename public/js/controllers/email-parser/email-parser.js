@@ -316,11 +316,11 @@
         vm.infiniteScroll.loadApi = function (pageNo, searchVal, callBack) {
 
             var share = $stateParams.share_status == 'web' ? 0 : 1,
-                        filters = {
-                            share   : share,
-                            page_no : pageNo,
-                            reference_id: App.ref,
-                        };
+                filters = {
+                    share   : share,
+                    page_no : pageNo,
+                    reference_id: App.ref,
+                };
 
             if ($stateParams.jc == 2) {
                 share = 1;
