@@ -21,7 +21,7 @@
 
     modalController.$injext = ['$scope', '$state', '$stateParams', '$uibModalInstance', 'App'];
     JobsController.$inject = ['$scope', '$http', '$mdDialog', 'App'];
-    AllJobsController.$inject = ['$rootScope', '$http', '$stateParams', '$q', '$window', 'ReferralDetails', 'App'];
+    AllJobsController.$inject = ['$scope', '$rootScope', '$http', '$stateParams', '$q', '$window', 'ReferralDetails', 'App'];
     JobDetailsController.$inject = ['$http', '$stateParams', '$window', 'campaignJobDetails', 'App'];
     ApplyJobController.$inject = ['$rootScope', '$scope', '$state', '$stateParams', '$location', '$window', '$http', '$uibModal', '$mdDialog', 'App', 'ReferralDetails', 'CampaignDetails', 'campaignJobDetails', 'candidateDetails'];
     CampaignsController.$inject = ['$scope', '$http', '$mdDialog', 'App'];
@@ -187,12 +187,24 @@
         init();
     }
 
-    function AllJobsController($rootScope, $http, $stateParams, $q, $window, ReferralDetails, App) {
+    function AllJobsController($scope, $rootScope, $http, $stateParams, $q, $window, ReferralDetails, App) {
 
         $window.scrollTo(0, 0);
 
         var vm = this,
-                canceler;
+                canceler,
+                page_no     = 1,
+                total_pages = 1,
+                jobFilterParams;
+
+        vm.job_name    = [];
+        vm.bol         = true;
+        vm.search_val  = '';
+        vm.loader      = false;
+        vm.noJobs      = false;
+        vm.noLongerAvailable = false;
+        vm.shareUrl = App.base_url + 'email/all-jobs/share?ref=' + App.ref;
+        // vm.copyUrl = $location.$$absUrl;
 
        /* if (screen.width <= 480)
             vm.copyText = 'Copy'
@@ -200,6 +212,7 @@
             vm.copyText = 'COPY JOBS LINK'*/
 
         // capitalize string in javascript
+
         function toTitleCase(str) {
             return str.replace(/\w\S*/g, function (txt) {
                 return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
@@ -219,154 +232,6 @@
                     
                 }
             });
-        }
-
-        vm.bol = true;
-        vm.noLongerAvailable = false;
-        vm.shareUrl = App.base_url + 'email/all-jobs/share?ref=' + App.ref;
-        // vm.copyUrl = $location.$$absUrl;
-        vm.job_name = [];
-
-        var page_no = 1, total_pages = 1;
-
-        vm.search_val = '';
-        vm.loader = false;
-        vm.noJobs = false;
-
-        vm.infiniteScroll = {
-            busy: false,
-            list: [],
-            url: App.base_url + 'apply_jobs_list',
-            nextPage: function () {
-            },
-            loadApi: function () {
-            },
-            onComplete: function (obj) {
-                vm.infiniteScroll.busy = false;
-                for (var i = 0; i < obj.jobs_list.length; i++) {
-                    vm.infiniteScroll.list.push(obj.jobs_list[i]);
-                    if (i <= 3) {
-                        vm.job_name[i] = obj.jobs_list[i].job_name;
-                    }
-                }
-                vm.infiniteScroll.companyName = obj.company_name;
-                vm.infiniteScroll.company_logo = obj.company_logo || '';
-                vm.copyUrl = obj.bittly_url;
-                sharing(vm.copyUrl);
-                if (vm.infiniteScroll.company_logo != '') {
-                    load(vm.infiniteScroll.company_logo)
-                }
-            },
-            onError: function () {
-                $window.location = App.base_url + 'logout';
-            }
-        }
-
-        vm.infiniteScroll.nextPage = function () {
-            if (total_pages >= page_no && total_pages != 0) {
-                if (vm.infiniteScroll.busy) {
-                    return;
-                }
-
-                vm.infiniteScroll.busy = true;
-
-                vm.infiniteScroll.loadApi(page_no, vm.search_val);
-            }
-        }
-
-        vm.infiniteScroll.loadApi = function (pageNo, searchVal, callBack) {
-
-            var share = $stateParams.share_status == 'web' ? 0 : 1;
-            if ($stateParams.jc == 2) {
-                share = 1;
-            }
-
-            if (canceler) {
-                canceler.resolve();
-            }
-
-            canceler = $q.defer();
-
-            $http({
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                },
-                method: 'POST',
-                url: vm.infiniteScroll.url,
-                data: $.param({
-                    reference_id: App.ref,
-                    page_no: pageNo,
-                    search: searchVal,
-                    share: share
-                }),
-                timeout: canceler.promise
-            })
-                    .then(function (response) {
-                        vm.loader = false;
-                        if (response.data.status_code == 200) {
-                            if (callBack != undefined) {
-                                callBack();
-                                vm.infiniteScroll.list = [];
-                            }
-                            if (page_no == 1) {
-                                vm.infiniteScroll.total_count = response.data.data.count;
-                                total_pages = Math.ceil(vm.infiniteScroll.total_count / 10);
-                            }
-                            page_no++;
-                            vm.infiniteScroll.onComplete(response.data.data)
-                        }
-                        else if (response.data.status_code == 403) {
-
-                            vm.noLongerAvailable = response.data.message.msg[0];
-                            vm.infiniteScroll.company_logo = '';
-                            vm.infiniteScroll.busy = false;
-                            pageNo++;
-                            /*vm.infiniteScroll.list = [];
-                            vm.noJobs = true;
-                            vm.infiniteScroll.total_count = 0;
-                            total_pages = 0;
-                            if (callBack != undefined) {
-                                callBack();
-                            }*/
-                        }
-                        else if (response.data.status_code == 400) {
-                            vm.infiniteScroll.onError();
-                        }
-                    })
-        }
-
-        // epi search directive
-        vm.search_opts = {
-            delay: 500,
-            progress: false,
-            complete: false,
-            placeholder: 'Search Job Title/Location',
-            onSearch: function (val) {
-                vm.search_val = val;
-                page_no = 1;
-                total_pages = 0;
-                vm.noJobs = false;
-                vm.loader = true;
-                if (vm.search_opts.progress) {
-                    if (vm.search_opts.value) {
-                        vm.infiniteScroll.loadApi(page_no, vm.search_val, function () {
-                            vm.infiniteScroll.list = [];
-                            vm.search_opts.progress = false;
-                            vm.search_opts.complete = true;
-                        });
-                    }
-                }
-            },
-            onClear: function () {
-                vm.search_val = "";
-                page_no = 1;
-                total_pages = 0;
-                vm.noJobs = false;
-                vm.loader = true;
-                vm.infiniteScroll.loadApi(page_no, vm.search_val, function () {
-                    vm.infiniteScroll.list = [];
-                });
-            }
         }
 
         // social sharing directive
@@ -407,11 +272,170 @@
             }
         }
 
-        vm.updateReferralDetails = function(job) {
-            ReferralDetails.job_title = job.job_name;
-            ReferralDetails.experience = job.experience;
-            ReferralDetails.location = job.location;
+
+        vm.infiniteScroll = {
+            busy: false,
+            list: [],
+            url: App.base_url + 'apply_jobs_list',
+            nextPage: function () {
+            },
+            loadApi: function () {
+            },
+            onComplete: function (obj) {
+                vm.infiniteScroll.busy = false;
+                for (var i = 0; i < obj.jobs_list.length; i++) {
+                    vm.infiniteScroll.list.push(obj.jobs_list[i]);
+                    if (i <= 3) {
+                        vm.job_name[i] = obj.jobs_list[i].job_name;
+                    }
+                }
+                vm.infiniteScroll.companyName = obj.company_name;
+                vm.infiniteScroll.company_logo = obj.company_logo || '';
+                vm.copyUrl = obj.bittly_url;
+                sharing(vm.copyUrl);
+                if (vm.infiniteScroll.company_logo != '') {
+                    load(vm.infiniteScroll.company_logo)
+                }
+            },
+            onError: function () {
+                $window.location = App.base_url + 'logout';
+            }
         }
+
+        vm.infiniteScroll.nextPage = function () {
+            if (total_pages >= page_no && total_pages != 0) {
+                if (vm.infiniteScroll.busy) {
+                    return;
+                }
+
+                vm.infiniteScroll.busy = true;
+                vm.infiniteScroll.loadApi(page_no, vm.search_val);
+            }
+        }
+
+        vm.infiniteScroll.loadApi = function (pageNo, searchVal, callBack) {
+
+            var share = $stateParams.share_status == 'web' ? 0 : 1,
+                        filters = {
+                            share   : share,
+                            page_no : pageNo,
+                            reference_id: App.ref,
+                        };
+
+            if ($stateParams.jc == 2) {
+                share = 1;
+            }
+
+            if (canceler) {
+                canceler.resolve();
+            }
+            
+            if (pageNo > 1) {
+                vm.loader = true;
+            }
+            canceler = $q.defer();
+
+            $http({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'POST',
+                url: vm.infiniteScroll.url,
+                data: $.param(angular.extend(filters, jobFilterParams)),
+                timeout: canceler.promise
+            })
+                    .then(function (response) {
+                        vm.loader = false;
+                        if (response.data.status_code == 200) {
+                            if (callBack != undefined) {
+                                callBack();
+                                vm.infiniteScroll.list = [];
+                            }
+                            if (page_no == 1) {
+                                vm.infiniteScroll.list = [];
+                                vm.infiniteScroll.total_count = response.data.data.count;
+                                total_pages = Math.ceil(vm.infiniteScroll.total_count / 10);
+                            }
+                            page_no++;
+                            vm.infiniteScroll.onComplete(response.data.data)
+                        }
+                        else if (response.data.status_code == 403) {
+                            vm.infiniteScroll.list  = [];
+                            vm.infiniteScroll.total_count = '';
+                            vm.noLongerAvailable = response.data.message.msg[0];
+                            vm.infiniteScroll.company_logo = '';
+                            vm.infiniteScroll.busy = false;
+                            pageNo++;
+                            /*vm.infiniteScroll.list = [];
+                            vm.noJobs = true;
+                            vm.infiniteScroll.total_count = 0;
+                            total_pages = 0;
+                            if (callBack != undefined) {
+                                callBack();
+                            }*/
+                        }
+                        else if (response.data.status_code == 400) {
+                            vm.infiniteScroll.onError();
+                        }
+                    })
+        }
+
+        // epi search directive
+        /*vm.search_opts = {
+            delay: 500,
+            progress: false,
+            complete: false,
+            placeholder: 'Search Job Title/Location',
+            onSearch: function (val) {
+                vm.search_val = val;
+                page_no = 1;
+                total_pages = 0;
+                vm.noJobs = false;
+                vm.loader = true;
+                if (vm.search_opts.progress) {
+                    if (vm.search_opts.value) {
+                        vm.infiniteScroll.loadApi(page_no, vm.search_val, function () {
+                            vm.infiniteScroll.list = [];
+                            vm.search_opts.progress = false;
+                            vm.search_opts.complete = true;
+                        });
+                    }
+                }
+            },
+            onClear: function () {
+                vm.search_val = "";
+                page_no = 1;
+                total_pages = 0;
+                vm.noJobs = false;
+                vm.loader = true;
+                vm.infiniteScroll.loadApi(page_no, vm.search_val, function () {
+                    vm.infiniteScroll.list = [];
+                });
+            }
+        }*/
+
+        vm.updateReferralDetails = function(job) {
+            ReferralDetails.location   = job.location;
+            ReferralDetails.job_title  = job.job_name;
+            ReferralDetails.experience = job.experience;
+        }
+
+        $scope.$emit('resetFindJob');
+
+        $scope.$on('findJob', function(event, data){
+            
+            page_no = 1;
+            jobFilterParams = data.opts;
+            
+            vm.noLongerAvailable   = '';
+            vm.infiniteScroll.busy = false;
+
+            if (canceler) {
+                canceler.resolve();
+            }
+            
+            vm.infiniteScroll.nextPage();
+        });
 
     }
 
@@ -1171,6 +1195,7 @@
                     vm.infiniteScroll.onComplete(response.data.data)
                 }
                 else if (response.data.status_code == 403) {
+                    vm.infiniteScroll.total_count = '';
                     vm.infiniteScroll.list = [];
                     vm.infiniteScroll.busy = false;
                     vm.noLongerAvailable   = response.data.message.msg[0];

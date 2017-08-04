@@ -1,5 +1,5 @@
 .all-jobs{
-    .container{width: 800px;
+    .container{width: 100%;
        header{padding:43px 0;text-align: center;border-bottom: 1px solid #dedede;
               #logo{
                   .spinner{
@@ -21,8 +21,9 @@
        section.job-details{position: relative;min-height: 410px;
            .loader{position: absolute;left: 50%;top: 50%;}
            .row{margin-right: 0px;padding: 6px 0;
+                &:first-child{margin-top: 14px;}
                 .header{padding-top: 8px;
-                    .job-title{margin: 28px 0 0px;color: #323232;}
+                    .job-title{margin: 0;color: #323232;}
                     p{margin: 0;color: #3871cd;font-size: 16px;text-transform: capitalize;}
                     h4{color: #252525;margin-top: 5px;}
                 }
@@ -32,7 +33,7 @@
                      p{color:#939393;}
                 }
            }
-           .job-params{padding: 10px 0 30px 0;font-size: 16px;
+           .job-params{padding-bottom: 30px;font-size: 16px;
                .row{
                    .labels{color: #939393;padding-right: 0;}
                    .value{color: #252525;}

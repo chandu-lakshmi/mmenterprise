@@ -1,5 +1,5 @@
 .all-jobs .container {
-  width: 800px; }
+  width: 100%; }
   .all-jobs .container header {
     padding: 43px 0;
     text-align: center;
@@ -42,10 +42,12 @@
     .all-jobs .container section.job-details .row {
       margin-right: 0px;
       padding: 6px 0; }
+      .all-jobs .container section.job-details .row:first-child {
+        margin-top: 14px; }
       .all-jobs .container section.job-details .row .header {
         padding-top: 8px; }
         .all-jobs .container section.job-details .row .header .job-title {
-          margin: 28px 0 0px;
+          margin: 0;
           color: #323232; }
         .all-jobs .container section.job-details .row .header p {
           margin: 0;
@@ -66,7 +68,7 @@
         .all-jobs .container section.job-details .row .rewards p {
           color: #939393; }
     .all-jobs .container section.job-details .job-params {
-      padding: 10px 0 30px 0;
+      padding-bottom: 30px;
       font-size: 16px; }
       .all-jobs .container section.job-details .job-params .row .labels {
         color: #939393;

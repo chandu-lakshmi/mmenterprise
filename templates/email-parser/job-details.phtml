@@ -16,12 +16,12 @@
 			</div>
 			<div ng-repeat="list in JobDetailsCtrl.job_details.list">
 				<div class="row">
-					<div class="col-sm-8 header">
+					<div class="col-sm-6 header">
 						<!-- <p ng-bind="JobDetailsCtrl.job_details.companyName"></p> -->
-						<h3 class="job-title" ng-bind="list.job_name"></h3>
+						<h3 class="job-title ellipsis" ng-bind="list.job_name"></h3>
 					</div>
-					<div class="col-xs-12">
-						<div class="col-sm-2 col-xs-6 rewards pull-right" ng-repeat="rewards in list.rewards">
+					<div class="col-sm-6 col-xs-12" style="padding-right:0">
+						<div class="col-sm-6 col-xs-6 rewards pull-right" ng-repeat="rewards in list.rewards">
 							<div ng-if="rewards.rewards_type != 'free'">
 								<h4>{{(rewards.rewards_type == 'paid' ? rewards.currency_type == 1 ? '&#x24;' : '&#8377;' : 'Points ') + rewards.rewards_value}}</h4>
 								<p ng-bind="rewards.rewards_name + ' Rewards'"></p>
@@ -79,7 +79,9 @@
 				<!-- <copy-url url="{{JobDetailsCtrl.copyUrl}}" btn-text="{{JobDetailsCtrl.copyText}}"></copy-url> -->
 			</div>
 			<div class="drop-cv" ng-if="JobDetailsCtrl.job_details.list[0].post_type == 'external'">
-				Refer friend for future openings here <a class="camp-btn" ui-sref="allJobs.referralDetails({ref: $root.ref,flag: 1,share_status:sh_cd})">Upload CV</a>
+				Refer friend for future openings here 
+				<a class="camp-btn" ng-if="$stateParams.jc != 1" ui-sref="allJobs.referralDetails({ref: $root.ref,flag: 1,share_status:sh_cd})">Upload CV</a>
+				<a class="camp-btn" ng-if="$stateParams.jc == 1" ui-sref="allCampaigns.referralDetails({ref: $root.ref,flag: 1,share_status:sh_cd})">Upload CV</a>
 			</div>
 		</footer>
 	</div>
