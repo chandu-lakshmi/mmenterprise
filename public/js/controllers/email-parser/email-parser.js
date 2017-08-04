@@ -322,7 +322,7 @@
                             reference_id: App.ref,
                         };
 
-            if ($stateParams.refrel != 0) {
+            if ($stateParams.jc == 2) {
                 share = 1;
             }
 
