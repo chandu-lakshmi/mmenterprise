@@ -933,7 +933,7 @@
     }
 
     function CampaignsController($scope, $http, $mdDialog, CampaignDetails, App) {
-        
+
         var vm = this,
                 copySearchOptions;
 
@@ -1241,7 +1241,7 @@
                     vm.infiniteScroll.onComplete(response.data.data)
                 }
                 else if (response.data.status_code == 403) {
-                    vm.infiniteScroll.total_count = '';
+                    vm.infiniteScroll.headerDetails.count = '';
                     vm.infiniteScroll.list = [];
                     vm.infiniteScroll.busy = false;
                     vm.noLongerAvailable   = response.data.message.msg[0];
