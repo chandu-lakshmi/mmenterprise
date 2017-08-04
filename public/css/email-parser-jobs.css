@@ -34,7 +34,7 @@
         font-size: 25px; }
   .all-jobs .container section.job-details {
     position: relative;
-    min-height: 465px; }
+    min-height: 410px; }
     .all-jobs .container section.job-details .loader {
       position: absolute;
       left: 50%;
@@ -232,6 +232,11 @@
   .all-campaigns .camp-list {
     height: 524px;
     overflow: auto; }
+  .all-campaigns .drop-cv {
+    text-align: center;
+    padding: 26px;
+    background: #fff;
+    border-top: 1px solid #ebebeb; }
   .all-campaigns .loading-infinite {
     color: #8e8e8e;
     font-weight: 700;

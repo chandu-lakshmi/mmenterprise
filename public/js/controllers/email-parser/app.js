@@ -14,14 +14,21 @@
 
     		$stateProvider
     			.state('allJobs', {
-			        url: '/all-jobs/:share_status?ref&jc',
+    				abstract : true,
+			        url: '',
 			        templateUrl: App.base_url + 'templates/email-parser/all-jobs.phtml',
+			        controller: 'JobsController',
+			        controllerAs:'JobsCtrl'
+			    })
+			    .state('allJobs.all', {
+			        url: '/all-jobs/:share_status?ref&jc',
+			        templateUrl: App.base_url + 'templates/email-parser/all-jobs-list.phtml',
 			        controller: 'AllJobsController',
 			        controllerAs:'AllJobsCtrl',
 			        data : { pageTitle: 'MintMesh ( Jobs )' },
 			        params : {share_status : 'web'}
 			    })
-			    .state('candidateDetails', {
+			    .state('allJobs.candidateDetails', {
 			        url: '/candidate-details/:share_status?ref&flag&jc&refrel',
 			        templateUrl: App.base_url + 'templates/email-parser/candidate-details.phtml',
 			        controller: 'ApplyJobController',
@@ -29,7 +36,7 @@
 			        data : { pageTitle: 'MintMesh ( Apply )' },
 			        params : {status : '',share_status : 'web', refrel : '0'}
 			    })
-			    .state('referralDetails', {
+			    .state('allJobs.referralDetails', {
 			        url: '/referral-details/:share_status?ref&flag&jc',
 			        templateUrl: App.base_url + 'templates/email-parser/referral-details.phtml',
 			        controller: 'ApplyJobController',
@@ -37,7 +44,7 @@
 			        data: {pageTitle: 'MintMesh ( Refer )'},
 			        params : {status : '', share_status : 'web', jc : '0'}
 			    })
-			    .state('jobDetails', {
+			    .state('allJobs.jobDetails', {
 			        url: '/job-details/:share_status?ref?jc',
 			        templateUrl: App.base_url + 'templates/email-parser/job-details.phtml',
 			        controller: 'JobDetailsController',
@@ -68,7 +75,7 @@
 			        controller: 'JobDetailsController',
 			        controllerAs:'JobDetailsCtrl',
 			        data : { pageTitle: 'MintMesh' },
-			        params : {share_status : 'web', jc : '0'}
+			        params : {share_status : 'web', jc : '1'}
 			    })
 			    .state('allCampaigns.referralDetails', {
 			        url: '/campaign/referral-details/:share_status?ref&flag&jc',
@@ -76,7 +83,7 @@
 			        controller: 'ApplyJobController',
 			        controllerAs: 'ApplyJobCtrl',
 			        data: {pageTitle: 'MintMesh ( Refer )'},
-			        params: {status: '', share_status: 'web', jc: '0'}
+			        params: {status: '', share_status: 'web', jc: '1'}
 			    })
 			    .state('allCampaigns.candidateDetails', {
 			    	url: '/campaign/candidate-details/:share_status?ref&flag&jc&refrel',

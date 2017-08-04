@@ -4,6 +4,7 @@
     angular
             .module('app.email.parser', ['infinite-scroll', 'ngAutocomplete', 'mwFormBuilder', 'mwFormViewer', 'pascalprecht.translate'])
             .controller('modalController', modalController)
+            .controller('JobsController', JobsController)
             .controller('AllJobsController', AllJobsController)
             .controller('JobDetailsController', JobDetailsController)
             .controller('ApplyJobController', ApplyJobController)
@@ -19,7 +20,8 @@
             })
 
     modalController.$injext = ['$scope', '$state', '$stateParams', '$uibModalInstance', 'App'];
-    AllJobsController.$inject = ['$http', '$stateParams', '$q', 'ReferralDetails', 'App'];
+    JobsController.$inject = ['$scope', '$http', '$mdDialog', 'App'];
+    AllJobsController.$inject = ['$rootScope', '$http', '$stateParams', '$q', '$window', 'ReferralDetails', 'App'];
     JobDetailsController.$inject = ['$http', '$stateParams', '$window', 'campaignJobDetails', 'App'];
     ApplyJobController.$inject = ['$rootScope', '$scope', '$state', '$stateParams', '$location', '$window', '$http', '$uibModal', '$mdDialog', 'App', 'ReferralDetails', 'CampaignDetails', 'campaignJobDetails', 'candidateDetails'];
     CampaignsController.$inject = ['$scope', '$http', '$mdDialog', 'App'];
@@ -49,15 +51,153 @@
         })
     }
 
-    function AllJobsController($http, $stateParams, $q, ReferralDetails, App) {
+    function JobsController($scope, $http, $mdDialog, App) {
+        
+        var vm = this,
+                copySearchOptions;
+
+        this.geo_location = '';
+        this.geo_options  = '';
+        this.geo_details  = '';
+        this.experienceLabel = 'Experience';
+        this.searchOptions   = {
+            search_name       : null,
+            search_location   : null,
+            search_experience : null
+        };
+        copySearchOptions = angular.copy(this.searchOptions);
+        
+
+        function init() {
+            $http({
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method  : 'GET',
+                url     : App.base_url + 'get_experiences'
+            })
+            .success(function (response) {
+                vm.experiences = response.data.experiences;
+            })
+        }
+
+        function CreateCampaginController($scope, $http, $timeout, $mdDialog, App) {
+            
+            var vm = this;
+            
+            this.geo_location = '';
+            this.geo_options = '';
+            this.geo_details = '';
+            $scope.$watch(function () {
+                return vm.geo_details;
+                }, function (location) {
+            });
+            
+            this.closeDialog = function () {
+                $mdDialog.hide();
+            }
+
+            this.communitys = [
+                {
+                    name: "SAP SuccessFactors(1524)",
+                    status: 1,
+                    colorCode: '#17916c'
+                },
+                {
+                    name: "Advanced Analytics(456)",
+                    status: 0,
+                    colorCode: '#ee8f3b'
+                },
+                {
+                    name: "Cloud Computing(975)",
+                    status: 0,
+                    colorCode: '#23a3ac'
+                },
+                {
+                    name: "Data science(642)",
+                    status: 0,
+                    colorCode: 'gray'
+                }
+            ];
+            
+            this.selectedCommunitys = [0];
+            this.addOrDeleteCommunity = function (index) {
+                var pos = this.selectedCommunitys.indexOf(index);
+                $timeout(function(){
+                    if (pos === -1) {
+                        vm.selectedCommunitys.push(index);
+                    } else {
+                        vm.selectedCommunitys.splice(pos, 1);
+                    }  
+                }, 200)
+            }
+            
+            // Job Functions Dropdown
+            var get_job_functions = $http({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'GET',
+                url: App.base_url + 'get_job_functions'
+            })
+            get_job_functions.success(function (response) {
+                vm.careers = response.data.job_functions;
+            })
+        }
+
+
+        vm.selectExperienc = function(exp) {
+            this.experienceLabel    = exp.experience_name;
+            this.searchOptions.search_experience = exp.experience_id;
+        }
+
+        vm.findJobs = function() {
+            $scope.$broadcast('findJob' , {opts : vm.searchOptions});
+        }
+
+        vm.createCampaign = function (ev) {
+            $mdDialog.show({
+                controller: CreateCampaginController,
+                controllerAs: 'createCampCtrl',
+                templateUrl: '../templates/email-parser/dialog-create-camp.phtml',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: false,
+                fullscreen: false
+            })
+            .then(function (answer) {
+                vm.status = 'You said the information was "' + answer + '".';
+            }, function () {
+                vm.status = 'You cancelled the dialog.';
+            });
+        }
+
+
+        $scope.$watch(function () {
+            return vm.geo_details;
+            }, function (location) {
+            vm.searchOptions.search_location = vm.geo_location;
+        });
+
+        $scope.$on('resetFindJob', function(){
+            vm.searchOptions = angular.copy(copySearchOptions);
+        });
+
+
+        init();
+    }
+
+    function AllJobsController($rootScope, $http, $stateParams, $q, $window, ReferralDetails, App) {
+
+        $window.scrollTo(0, 0);
 
         var vm = this,
                 canceler;
 
-        if (screen.width <= 480)
+       /* if (screen.width <= 480)
             vm.copyText = 'Copy'
         else
-            vm.copyText = 'COPY JOBS LINK'
+            vm.copyText = 'COPY JOBS LINK'*/
 
         // capitalize string in javascript
         function toTitleCase(str) {
@@ -239,7 +379,7 @@
             else
                 desc = toTitleCase(vm.job_name[0]);
 
-            vm.socialMedia = {
+            $rootScope.socialMedia = {
                 socialIcons: ['facebook', 'twitter', 'linkedin', 'googlePlus'],
                 url: vm.shareUrl,
                 facebook: {
@@ -418,7 +558,7 @@
             vm.showJobDetails = false;
             $state.current.data.pageTitle = 'MintMesh ( Drop CV )';
         } else {
-            if($state.current.name == 'referralDetails' || $state.current.name == 'allCampaigns.referralDetails') {
+            if($state.current.name == 'allJobs.referralDetails' || $state.current.name == 'allCampaigns.referralDetails') {
                 vm.hasUploadResume = false;
             }
         }
@@ -434,7 +574,7 @@
 
 
         if ($stateParams.share_status == 'share') {
-            if ($state.current.name == 'candidateDetails' || $state.current.name == 'allCampaigns.candidateDetails') {
+            if ($state.current.name == 'allJobs.candidateDetails' || $state.current.name == 'allCampaigns.candidateDetails') {
                 vm.shareReferral = angular.copy(ReferralDetails.emailid);
                 vm.referralDetails.emailid = '';
             }
@@ -447,7 +587,7 @@
 
         var ref = $stateParams.ref;
         var apiCall = App.base_url + 'apply_job';
-        if($stateParams.refrel != 0 && ($state.current.name == 'candidateDetails' || $state.current.name == 'allCampaigns.candidateDetails')) {
+        if($stateParams.refrel != 0 && ($state.current.name == 'allJobs.candidateDetails' || $state.current.name == 'allCampaigns.candidateDetails')) {
             vm.referralDetails.emailid = candidateDetails.emailid;
             vm.readOnlyEmail = true; 
             apiCall = App.base_url + 'apply_job_ref';
@@ -471,7 +611,7 @@
                 var backEndParams = {
                     ref: ref,
                     flag: vm.status,
-                    post_status : ($state.current.name == 'referralDetails' || $state.current.name == 'allCampaigns.referralDetails' ) ? 0 : 1,
+                    post_status : ($state.current.name == 'allJobs.referralDetails' || $state.current.name == 'allCampaigns.referralDetails' ) ? 0 : 1,
                     timeZone: new Date().getTimezoneOffset()
                 };
 
@@ -504,7 +644,7 @@
                         }
                         else {
                             setTimeout(function () {
-                                $state.go('allCampaigns.all', {ref: App.camp_ref, share_status: $stateParams.share_status})
+                                $state.go('allCampaigns', {ref: App.camp_ref, share_status: $stateParams.share_status})
                             }, 1000);
                         }
                     }
@@ -832,7 +972,7 @@
 
         vm.selectExperienc = function(exp) {
             this.experienceLabel    = exp.experience_name;
-            this.searchOptions.search_experience = exp.experience_name;
+            this.searchOptions.search_experience = exp.experience_id;
         }
 
         vm.findJobs = function() {
@@ -875,7 +1015,6 @@
     function AllCampaignsController($rootScope, $scope, $http, $window, $q, $mdDialog ,App, CampaignDetails, campaignJobDetails) {
 
         $window.scrollTo(0, 0);
-        
 
         var vm = this,
             canceler,
