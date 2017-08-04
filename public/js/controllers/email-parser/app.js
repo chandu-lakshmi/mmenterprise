@@ -42,7 +42,7 @@
 			        controller: 'ApplyJobController',
 			        controllerAs:'ApplyJobCtrl',
 			        data: {pageTitle: 'MintMesh ( Refer )'},
-			        params : {status : '', share_status : 'web', jc : '0'}
+			        params : {status : '', share_status : 'web', jc : '0', refrel : '0'}
 			    })
 			    .state('allJobs.jobDetails', {
 			        url: '/job-details/:share_status?ref?jc',
@@ -83,7 +83,7 @@
 			        controller: 'ApplyJobController',
 			        controllerAs: 'ApplyJobCtrl',
 			        data: {pageTitle: 'MintMesh ( Refer )'},
-			        params: {status: '', share_status: 'web', jc: '1'}
+			        params: {status: '', share_status: 'web', jc: '1', refrel : '0'}
 			    })
 			    .state('allCampaigns.candidateDetails', {
 			    	url: '/campaign/candidate-details/:share_status?ref&flag&jc&refrel',
@@ -91,7 +91,7 @@
 			    	controller: 'ApplyJobController',
 			    	controllerAs:'ApplyJobCtrl',
 			    	data : { pageTitle: 'MintMesh ( Apply )' },
-			    	params : {status : '',share_status : 'web', refrel : '0'}
+			    	params : {status : '',share_status : 'web', jc : '1', refrel : '0'}
 			    })
 
     		$urlRouterProvider.otherwise('/all-jobs');

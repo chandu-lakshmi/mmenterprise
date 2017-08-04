@@ -225,7 +225,7 @@
                 css: '',
                 url_prefix: false,
                 url: url,
-                onComplete: function () {console.log('shiva')
+                onComplete: function () {
                     
                 },
                 onError: function () {
@@ -322,7 +322,7 @@
                             reference_id: App.ref,
                         };
 
-            if ($stateParams.jc == 2) {
+            if ($stateParams.refrel != 0) {
                 share = 1;
             }
 
@@ -604,7 +604,7 @@
             }
         }
 
-        if($stateParams.jc == 2){
+        if($stateParams.refrel != 0){
             vm.refParam = $stateParams.ref;
         }
         
@@ -639,7 +639,7 @@
                     timeZone: new Date().getTimezoneOffset()
                 };
 
-                if($stateParams.jc == 2){
+                if($stateParams.refrel != 0){
                     angular.extend(backEndParams, {post_id : vm.referralDetails.post_id, refrel : $stateParams.refrel});
                 }
 
@@ -661,7 +661,7 @@
                                 $state.go('allJobs.all', {ref: ref, share_status: $stateParams.share_status, jc: $stateParams.jc})
                             }, 1000);
                         }
-                        else if($stateParams.jc == 2){
+                        else if($stateParams.refrel != 0){
                             setTimeout(function () {
                                 $state.go('allJobs.all', {ref: ref, share_status: $stateParams.share_status, jc : 2})
                             }, 1000);
