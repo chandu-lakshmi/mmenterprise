@@ -20,7 +20,7 @@
             })
 
     modalController.$injext = ['$scope', '$state', '$stateParams', '$uibModalInstance', 'App'];
-    JobsController.$inject = ['$scope', '$http', '$mdDialog', 'App'];
+    JobsController.$inject = ['$scope', '$http', '$mdDialog', 'ReferralDetails', 'App'];
     AllJobsController.$inject = ['$scope', '$rootScope', '$http', '$stateParams', '$q', '$window', 'ReferralDetails', 'App'];
     JobDetailsController.$inject = ['$http', '$stateParams', '$window', 'campaignJobDetails', 'App'];
     ApplyJobController.$inject = ['$rootScope', '$scope', '$state', '$stateParams', '$location', '$window', '$http', '$uibModal', '$mdDialog', 'App', 'ReferralDetails', 'CampaignDetails', 'campaignJobDetails', 'candidateDetails'];
@@ -51,7 +51,7 @@
         })
     }
 
-    function JobsController($scope, $http, $mdDialog, App) {
+    function JobsController($scope, $http, $mdDialog, ReferralDetails, App) {
         
         var vm = this,
                 copySearchOptions;
@@ -69,6 +69,7 @@
         
 
         function init() {
+
             $http({
                 headers : {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -79,6 +80,20 @@
             .success(function (response) {
                 vm.experiences = response.data.experiences;
             })
+
+
+            App.Helpers.loadImage({
+                target: $('#logo'),
+                css: '',
+                url_prefix: false,
+                url: ReferralDetails.company_logo,
+                onComplete: function () {
+                    
+                },
+                onError: function () {
+                    
+                }
+            });
         }
 
         function CreateCampaginController($scope, $http, $timeout, $mdDialog, App) {
@@ -219,7 +234,7 @@
             });
         }
         
-        function load(url){
+        /*function load(url){
             App.Helpers.loadImage({
                 target: $('#logo'),
                 css: '',
@@ -232,7 +247,7 @@
                     
                 }
             });
-        }
+        }*/
 
         // social sharing directive
         function sharing(bitly) {
@@ -293,9 +308,9 @@
                 vm.infiniteScroll.company_logo = obj.company_logo || '';
                 vm.copyUrl = obj.bittly_url;
                 sharing(vm.copyUrl);
-                if (vm.infiniteScroll.company_logo != '') {
+                /*if (vm.infiniteScroll.company_logo != '') {
                     load(vm.infiniteScroll.company_logo)
-                }
+                }*/
             },
             onError: function () {
                 $window.location = App.base_url + 'logout';
@@ -921,7 +936,7 @@
 
     }
 
-    function CampaignsController($scope, $http, $mdDialog, App) {
+    function CampaignsController($scope, $http, $mdDialog, ReferralDetails, App) {
         
         var vm = this,
                 copySearchOptions;
@@ -949,6 +964,19 @@
             .success(function (response) {
                 vm.experiences = response.data.experiences;
             })
+
+            App.Helpers.loadImage({
+                target: $('#logo'),
+                css: '',
+                url_prefix: false,
+                url: ReferralDetails.company_logo,
+                onComplete: function () {
+                    
+                },
+                onError: function () {
+                    
+                }
+            });
         }
 
         function CreateCampaginController($scope, $http, $timeout, $mdDialog, App) {
@@ -1132,7 +1160,7 @@
             }
         }
         
-        function load(url){
+        /*function load(url){
             App.Helpers.loadImage({
                 target: $('#logo'),
                 css: '',
@@ -1145,7 +1173,7 @@
                     
                 }
             });
-        }
+        }*/
 
 
         vm.infiniteScroll = {
@@ -1166,9 +1194,9 @@
                 vm.copyUrl = obj.bittly_url;
                 sharing(vm.copyUrl);
                 vm.bol = false;
-                if (vm.infiniteScroll.headerDetails.company_logo != '') {
+                /*if (vm.infiniteScroll.headerDetails.company_logo != '') {
                     load(vm.infiniteScroll.headerDetails.company_logo)
-                }
+                }*/
             },
             onError: function () {
                 $window.location = App.base_url + 'logout';
