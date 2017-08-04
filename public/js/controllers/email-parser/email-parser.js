@@ -337,10 +337,6 @@
                     reference_id: App.ref,
                 };
 
-            if ($stateParams.jc == 2) {
-                share = 1;
-            }
-
             if (canceler) {
                 canceler.resolve();
             }
