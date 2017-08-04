@@ -79,7 +79,8 @@ $app->get('/email/candidate-details/{status}', function ($request, $response, $a
     $args['camp_ref'] = $_POST['camp_ref'];
     $args['ref'] = $_GET['ref'];
     
-    if($_GET['jc'] == 2 && isset($_GET['refrel'])){
+    //if($_GET['jc'] == 2 && isset($_GET['refrel'])){
+    if(!empty($_GET['refrel'])){
         #get candidate Details here
         $args['refrel']     = $_GET['refrel'];
         $_POST['ref']       = $args['ref'];
@@ -100,20 +101,20 @@ $app->get('/email/candidate-details/{status}', function ($request, $response, $a
         $args['referralDetails'] = checkJsonResult( $Details->loadCurl() );
         
     } else if($_GET['jc'] == 1){
-        $_POST['ref'] = $args['camp_ref'];
-        $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_campaign_ref');
-        $Details     = new Curl(array(
-            'url'           => $apiEndpoint,
-            'postData'      => $_POST
-        ));
-        $args['campaignDetails'] = checkJsonResult( $Details->loadCurl() );
-        $_POST['ref'] = $args['ref'];
-        $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_ref');
-        $Details     = new Curl(array(
-            'url'           => $apiEndpoint,
-            'postData'      => $_POST
-        ));
-        $args['campaignJobDetails'] = checkJsonResult( $Details->loadCurl());
+//        $_POST['ref'] = $args['camp_ref'];
+//        $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_campaign_ref');
+//        $Details     = new Curl(array(
+//            'url'           => $apiEndpoint,
+//            'postData'      => $_POST
+//        ));
+//        $args['campaignDetails'] = checkJsonResult( $Details->loadCurl() );
+//        $_POST['ref'] = $args['ref'];
+//        $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_ref');
+//        $Details     = new Curl(array(
+//            'url'           => $apiEndpoint,
+//            'postData'      => $_POST
+//        ));
+//        $args['campaignJobDetails'] = checkJsonResult( $Details->loadCurl());
     } else {
         $_POST['ref'] = $args['ref'];
         $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_ref');
@@ -141,20 +142,20 @@ $app->get('/email/referral-details/{status}', function ($request, $response, $ar
     $args['camp_ref'] = $_POST['camp_ref'];
     $args['ref'] = $_GET['ref'];
     if($_GET['jc'] == 1){
-        $_POST['ref'] = $args['camp_ref'];
-        $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_campaign_ref');
-        $Details     = new Curl(array(
-            'url'           => $apiEndpoint,
-            'postData'      => $_POST
-        ));
-        $args['campaignDetails'] = checkJsonResult( $Details->loadCurl() );
-        $_POST['ref'] = $args['ref'];
-        $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_ref');
-        $Details     = new Curl(array(
-            'url'           => $apiEndpoint,
-            'postData'      => $_POST
-        ));
-        $args['campaignJobDetails'] = checkJsonResult( $Details->loadCurl());
+//        $_POST['ref'] = $args['camp_ref'];
+//        $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_campaign_ref');
+//        $Details     = new Curl(array(
+//            'url'           => $apiEndpoint,
+//            'postData'      => $_POST
+//        ));
+//        $args['campaignDetails'] = checkJsonResult( $Details->loadCurl() );
+//        $_POST['ref'] = $args['ref'];
+//        $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_ref');
+//        $Details     = new Curl(array(
+//            'url'           => $apiEndpoint,
+//            'postData'      => $_POST
+//        ));
+//        $args['campaignJobDetails'] = checkJsonResult( $Details->loadCurl());
     }else{
         $_POST['ref'] = $args['ref'];
         $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_ref');
@@ -213,7 +214,8 @@ $app->get('/email/campaign/candidate-details/{status}', function ($request, $res
     $args['camp_ref'] = $_POST['camp_ref'];
     $args['ref'] = $_GET['ref'];
     
-    if($_GET['jc'] == 2 && isset($_GET['refrel'])){
+    //if($_GET['jc'] == 2 && isset($_GET['refrel'])){
+    if(!empty($_GET['refrel'])){
         #get candidate Details here
         $args['refrel']     = $_GET['refrel'];
         $_POST['ref']       = $args['ref'];
@@ -248,15 +250,16 @@ $app->get('/email/campaign/candidate-details/{status}', function ($request, $res
             'postData'      => $_POST
         ));
         $args['campaignJobDetails'] = checkJsonResult( $Details->loadCurl());
-    } else {
-        $_POST['ref'] = $args['ref'];
-        $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_ref');
-        $Details     = new Curl(array(
-            'url'           => $apiEndpoint,
-            'postData'      => $_POST
-        ));
-        $args['referralDetails'] = checkJsonResult( $Details->loadCurl());
-    }
+    } 
+//    else {
+//        $_POST['ref'] = $args['ref'];
+//        $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_ref');
+//        $Details     = new Curl(array(
+//            'url'           => $apiEndpoint,
+//            'postData'      => $_POST
+//        ));
+//        $args['referralDetails'] = checkJsonResult( $Details->loadCurl());
+//    }
     $checkResult['refDetails'] = json_decode(checkJsonResult( $Details->loadCurl()));
     // Render index view
     if(!empty($checkResult['refDetails'])){
@@ -289,15 +292,16 @@ $app->get('/email/campaign/referral-details/{status}', function ($request, $resp
                 'postData'      => $_POST
             ));
             $args['campaignJobDetails'] = checkJsonResult( $Details->loadCurl());
-        }else{
-            $_POST['ref'] = $args['ref'];
-            $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_ref');
-            $Details     = new Curl(array(
-                'url'           => $apiEndpoint,
-                'postData'      => $_POST
-            ));
-            $args['referralDetails'] = checkJsonResult( $Details->loadCurl());
         }
+//        else{
+//            $_POST['ref'] = $args['ref'];
+//            $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_ref');
+//            $Details     = new Curl(array(
+//                'url'           => $apiEndpoint,
+//                'postData'      => $_POST
+//            ));
+//            $args['referralDetails'] = checkJsonResult( $Details->loadCurl());
+//        }
         $checkResult['refDetails'] = json_decode(checkJsonResult( $Details->loadCurl()));  
         // Render index view
         if(!empty($checkResult['refDetails'])){
