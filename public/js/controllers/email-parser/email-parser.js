@@ -657,7 +657,7 @@
                     if (response.data.status_code == 200) {
                         var redirectTo;
                         vm.backendMsg = response.data.message.msg[0];
-                        
+
                         if ($stateParams.refrel != 0 && $stateParams.jc == 0) {
                             redirectTo = $state.go('allJobs.all', {ref: ref, share_status: $stateParams.share_status, jc : 2});
                         } 
@@ -673,7 +673,7 @@
 
                         setTimeout(function () {
                             redirectTo;
-                        }, 1000);
+                        }, 5000);
                         
                         // if ($stateParams.jc == 0) {
                         //     setTimeout(function () {
