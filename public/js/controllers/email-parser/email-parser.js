@@ -655,25 +655,28 @@
                     vm.loader = false;
                     angular.element('.footer .disabled').css('pointer-events', 'auto');
                     if (response.data.status_code == 200) {
-                        var redirectTo;
                         vm.backendMsg = response.data.message.msg[0];
 
                         if ($stateParams.refrel != 0 && $stateParams.jc == 0) {
-                            redirectTo = $state.go('allJobs.all', {ref: ref, share_status: $stateParams.share_status, jc : 2});
+                            setTimeout(function () {
+                                $state.go('allJobs.all', {ref: ref, share_status: $stateParams.share_status, jc : 2});
+                            }, 1000);
                         } 
                         else if($stateParams.refrel != 0 && $stateParams.jc == 1) {
-                            redirectTo = $state.go('allCampaigns.all', {ref: App.camp_ref, share_status: $stateParams.share_status});
+                            setTimeout(function () {
+                                $state.go('allCampaigns.all', {ref: App.camp_ref, share_status: $stateParams.share_status});
+                            }, 1000);
                         } 
                         else if($stateParams.jc == 0){
-                            redirectTo = $state.go('allJobs.all', {ref: ref, share_status: $stateParams.share_status, jc: $stateParams.jc});
+                            setTimeout(function () {
+                                $state.go('allJobs.all', {ref: ref, share_status: $stateParams.share_status, jc: $stateParams.jc});
+                            }, 5000);
                         } 
                         else {
-                            redirectTo = $state.go('allCampaigns.all', {ref: App.camp_ref, share_status: $stateParams.share_status});
+                            setTimeout(function () {
+                                $state.go('allCampaigns.all', {ref: App.camp_ref, share_status: $stateParams.share_status});
+                            }, 5000);
                         }
-
-                        setTimeout(function () {
-                            redirectTo;
-                        }, 5000);
                         
                         // if ($stateParams.jc == 0) {
                         //     setTimeout(function () {
