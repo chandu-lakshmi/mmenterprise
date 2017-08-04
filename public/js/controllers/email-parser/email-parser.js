@@ -658,17 +658,17 @@
                         vm.backendMsg = response.data.message.msg[0];
                         if ($stateParams.jc == 0) {
                             setTimeout(function () {
-                                $state.go('allJobs', {ref: ref, share_status: $stateParams.share_status, jc: $stateParams.jc})
+                                $state.go('allJobs.all', {ref: ref, share_status: $stateParams.share_status, jc: $stateParams.jc})
                             }, 1000);
                         }
                         else if($stateParams.jc == 2){
                             setTimeout(function () {
-                                $state.go('allJobs', {ref: ref, share_status: $stateParams.share_status, jc : 2})
+                                $state.go('allJobs.all', {ref: ref, share_status: $stateParams.share_status, jc : 2})
                             }, 1000);
                         }
                         else {
                             setTimeout(function () {
-                                $state.go('allCampaigns', {ref: App.camp_ref, share_status: $stateParams.share_status})
+                                $state.go('allCampaigns.all', {ref: App.camp_ref, share_status: $stateParams.share_status})
                             }, 1000);
                         }
                     }
