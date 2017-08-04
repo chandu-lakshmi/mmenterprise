@@ -681,12 +681,12 @@
                         else if($stateParams.jc == 0){
                             setTimeout(function () {
                                 $state.go('allJobs.all', {ref: ref, share_status: $stateParams.share_status, jc: $stateParams.jc});
-                            }, 5000);
+                            }, 1000);
                         } 
                         else {
                             setTimeout(function () {
                                 $state.go('allCampaigns.all', {ref: App.camp_ref, share_status: $stateParams.share_status});
-                            }, 5000);
+                            }, 1000);
                         }
                         
                         // if ($stateParams.jc == 0) {
