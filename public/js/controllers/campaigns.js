@@ -149,7 +149,7 @@
             templateUrl: 'templates/campaigns/template-create-job.phtml',
             link: function (scope) {
 
-                scope.jobCreated = false;
+
                 //google api location
                 scope.geo_location = '';
                 scope.geo_options = '';
@@ -160,7 +160,7 @@
                 });
 
                 scope.postJob = function (invalid) {
-                    if (invalid || scope.jobData.jobDescription.trim().length == 0 || scope.jobCreated) {
+                    if (invalid || scope.jobData.jobDescription.trim().length == 0) {
                         scope.errCond = true;
                         return;
                     }
@@ -178,8 +178,6 @@
                         url: App.base_url + 'job_post_from_campaigns'
                     }).success(function (response) {
                         if (response.status_code == 200) {
-                            scope.apiCallStart = false;
-                            scope.jobCreated = true;
                             scope.apiSuccessMsg = response.message.msg[0];
                             response.data['editCampagin'] = scope.editCampagin.bol
                             $timeout(function () {
@@ -187,7 +185,8 @@
                             }, 800);
                             createJobData.UpdateDataInCtrl(response.data);
                             $timeout(function () {
-                                scope.apiSuccessMsg = ""
+                                scope.apiSuccessMsg = "",
+                                scope.apiCallStart = false;
                             }, 900);
                         }
                         else if (response.status_code == 400) {
