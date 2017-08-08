@@ -245,6 +245,12 @@
                     controller: 'IntManagerController',
                     controllerAs: 'IntMngCtrl'
                 })
+                $stateProvider.state('app.settings.careersPage', {
+                    url: '^/settings/careers-page',
+                    templateUrl: App.base_url + 'templates/settings/careers-page.phtml',
+                    controller: 'CareersPageController',
+                    controllerAs: 'CareersPageCtrl'
+                })
                 $stateProvider.state('app.editCompanyProfile', {
                     url: '^/edit-company-profile',
                     templateUrl: App.base_url + 'templates/edit-company-profile.phtml',

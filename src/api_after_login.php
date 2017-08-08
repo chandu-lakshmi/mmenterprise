@@ -788,6 +788,23 @@ $app->get('/settings/integration-manager/{tab}',function ($request, $response, $
     //return $response->withRedirect($args['APP_DOMAIN']."settings/company-profile");
 });
 
+// integration manager
+$app->get('/settings/careers-page',function ($request, $response, $args) use ($app) {
+     
+    //Arguments
+    $this->mintmeshAccessToken;
+    $args  = commonData($this->settings);
+    
+    //Check Logged in or not
+    if(!empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']);
+    }
+    $args['comp_data'] = companyProfile($this->settings);
+    // Render dashboard view
+    return $this->renderer->render($response, 'index.phtml', $args);
+    //return $response->withRedirect($args['APP_DOMAIN']."settings/company-profile");
+});
+
 // campaigns
 $app->get('/campaigns/all-campaigns',function ($request, $response, $args) use ($app) {
     //Arguments
