@@ -50,7 +50,7 @@
 								<input type="text" class="rm" name="label{{$index}}" ng-required="link.url" ng-model="link.label" ng-class="{'has-error-border':edit_careers_page_form['label'+$index].$error.required && CareersPageCtrl.errCond}">
 								<div ng-if="edit_careers_page_form['label'+$index].$error.required && CareersPageCtrl.errCond"  class="has-error-msg">Please enter Label Name.</div>
 							</md-input-container>
-							<input type="hidden" ng-if="link.label" name="career_links[{{$index}}].label" value="{{link.label}}"> 
+							<input type="hidden" ng-if="link.label" name="career_links[{{$index}}][label]" value="{{link.label}}"> 
 
 		 					<md-input-container class="md-block">
 								<label>WEBSITE<span style="color: #999">(URL)</span></label>
@@ -58,7 +58,7 @@
 								<div ng-if="edit_careers_page_form['url'+$index].$error.required && CareersPageCtrl.errCond"  class="has-error-msg">Please enter Website URL.</div>
 								<div ng-if="edit_careers_page_form['url'+$index].$error.pattern && CareersPageCtrl.errCond"  class="has-error-msg">Please enter valid Website URL.</div>
 							</md-input-container>
-							<input type="hidden" ng-if="link.url" name="career_links[{{$index}}].url" value="{{link.url}}"> 
+							<input type="hidden" ng-if="link.url" name="career_links[{{$index}}][url]" value="{{link.url}}"> 
 	 					</div>
 	 					<div>
 	 						<md-button ng-click="CareersPageCtrl.addHyperlink()">Add Link</md-button>
