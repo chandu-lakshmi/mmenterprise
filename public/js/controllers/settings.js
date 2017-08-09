@@ -1297,6 +1297,8 @@
             dublicateData, 
             canceller,
             image_path = '';
+
+        vm.inProgress = true;
         
         // restricting spaces intially
         $("input, textarea").on("keypress", function (e) {
@@ -1347,7 +1349,6 @@
                     vm.errCond = false;
                     if (response.status_code == 200) {
                         vm.carrerPage = response.data;
-                        vm.carrerPage.links = [{label:'HOME', url:'www.google.com'}, {label:'JOIN US', url:'www.joinus.com',}]
                         dublicateData = angular.copy(vm.carrerPage);
                         if (response.data.career_logo) {
                             companyLogo();
@@ -1369,6 +1370,7 @@
                     else if (response.status_code == 400) {
                         $window.location = App.base_url + 'logout';
                     }
+                    vm.inProgress = !vm.inProgress;
                 })
             /*.error(function(response){
              console.log(response)
@@ -1577,7 +1579,7 @@
         // on cancel qq uploader
         function reset() {
             vm.carrerPage = angular.copy(dublicateData);
-            if (response.data.career_logo) {
+            if (vm.carrerPage.career_logo) {
                 companyLogo();
             }
             else {
@@ -1585,7 +1587,7 @@
                     obj: $company_logo
                 })
             }
-            if (response.data.career_heroshot_image) {
+            if (vm.carrerPage.career_heroshot_image) {
                 heroShortImage();
             }
             else{
@@ -1606,7 +1608,7 @@
         }
 
         function addHyperlink() {
-            vm.carrerPage.links.push({cls:'mm-slide-left'});
+            vm.carrerPage.career_links.push({cls:'mm-slide-left'});
         }
 
         // destroy

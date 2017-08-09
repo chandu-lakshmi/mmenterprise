@@ -1,4 +1,4 @@
-<div class="edit-company">
+<div class="edit-company careers-page">
 	<div class="container">
 		<div class="head">
 			<div ng-if="edit_careers_page_form.$dirty || CareersPageCtrl.update" class="animated fadeIn" style="margin-top:10px;">
@@ -11,14 +11,19 @@
 			<span>Successfully Updated</span>
 		</div>
 		<div class="edit-box clearfix">
-			<form name="edit_careers_page_form" class="careers-form" novalidate>
-				<div class="row" style="font-size:13px;">
+			<div class="carrers-parser-loader" ng-if="CareersPageCtrl.inProgress">
+			    <div>
+			        <img src="public/images/loader/spin.gif" alt="loading">
+			    </div>
+			</div>
+			<form name="edit_careers_page_form" class="careers-form" novalidate ng-show="!CareersPageCtrl.inProgress">
+				<div class="row logo-heroshort" style="font-size:13px;">
 					<div class="col-sm-6">
 						<div style="width:85%;">
 							<div class="company-logo">
-					        	<span style="color: #999">LOGO <small>(Add your careers page company logo)</small></span>
+					        	<span class="header-info">LOGO <small>(Add your careers page company logo)</small></span>
 					        	<div id="company-logo" style="position:relative"></div>
-					        	<ul style="color: #999;font-size:13px;padding-left:19px;">
+					        	<ul class="file-info">
 					        		<li>Supported file format: "jpeg", "jpg", "png"</li>
 					        		<li>Max file size (1.0MB)</li>
 					        	</ul>
@@ -28,11 +33,11 @@
 					<div class="col-sm-6">
 						<div style="width:85%;">
 							<div>
-								<span style="color: #999">HEROSHOT IMAGE<small>(Add your careers page heroshot image)</small></span>
+								<span class="header-info">HEROSHOT IMAGE<small>(Add your careers page heroshot image)</small></span>
 								<div class="image-group">
 									<div class="multiple-images" id="hero-short-image"></div>
 								</div>
-								<ul style="color: #999;font-size:13px;padding-left:19px;margin-top:10px;">
+								<ul style="margin-top:10px;" class="file-info">
 					        		<li>Supported file format: "jpeg", "jpg", "png"</li>
 					        		<li>Max file size (10.0MB)</li>
 					        	</ul>
@@ -42,9 +47,9 @@
 				</div>
 				<div class="row">
 	 				<div class="col-sm-6" style="margin-top: 30px">
-    					<span style="color: #999">HYPERLINKS<small>(Add your careers page hyperlinks like HOME, ABOUT, JOIN US)</small></span>
-	 					<div class="alert {{link.cls}}" style="width:85%;margin:0;padding-left:0" ng-repeat="link in CareersPageCtrl.carrerPage.links">
-		 					<a href="#" class="close" ng-if="!$first" ng-click="CareersPageCtrl.carrerPage.links.splice($index, 1);" data-dismiss="alert" aria-label="close">×</a>
+    					<span class="header-info">HYPERLINKS<small>(Add your careers page hyperlinks like HOME, ABOUT, JOIN US)</small></span>
+	 					<div class="alert {{link.cls}}" style="width:85%;margin:0;padding-left:0" ng-repeat="link in CareersPageCtrl.carrerPage.career_links">
+		 					<a href="#" class="close" ng-if="!$first" ng-click="CareersPageCtrl.carrerPage.career_links.splice($index, 1);" data-dismiss="alert" aria-label="close">×</a>
 		 					<md-input-container class="md-block">
 								<label>LABEL NAME<span style="color: #999"></span></label>
 								<input type="text" class="rm" name="label{{$index}}" ng-required="link.url" ng-model="link.label" ng-class="{'has-error-border':edit_careers_page_form['label'+$index].$error.required && CareersPageCtrl.errCond}">
@@ -61,20 +66,20 @@
 							<input type="hidden" ng-if="link.url" name="career_links[{{$index}}][url]" value="{{link.url}}"> 
 	 					</div>
 	 					<div>
-	 						<md-button ng-click="CareersPageCtrl.addHyperlink()">Add Link</md-button>
+	 						<md-button ng-click="CareersPageCtrl.addHyperlink()" ng-class="{ 'disable-cursor' : CareersPageCtrl.carrerPage.career_links.length > 3 }" ng-disabled="CareersPageCtrl.carrerPage.career_links.length > 3" class="hyper-link">Add Link</md-button>
 	 					</div>
 	 				</div>
 	 				<div class="col-sm-6">
 	 					<div style="width:85%;margin-top: 32px;color: #999;">
 	 						<div class="clearfix">
-	 						   <p>SHOW TALENT COMMUNITY</p>
+	 						   <p class="header-info">SHOW TALENT COMMUNITY</p>
 	 						   <md-radio-group layout="row" ng-model="CareersPageCtrl.carrerPage.career_talent_network">
 	 						         <md-radio-button flex="20" value="1" class="md-primary">Yes</md-radio-button>
 	 						         <md-radio-button flex="20" value="0" class="md-primary">No</md-radio-button>
 	 						   </md-radio-group>
 	 						   <input type="hidden" name="career_talent_network" value={{CareersPageCtrl.carrerPage.career_talent_network}}>
 	 						</div>
-							<md-input-container class="md-block">
+							<md-input-container class="md-block" style="margin-top: 50px;">
       							<label>DESCRIPTION</label>
           						<textarea name="description" ng-model="CareersPageCtrl.carrerPage.career_description" md-maxlength="5000" maxlength="5000" ng-maxlength="5000" style="max-height:106px"></textarea>
     						</md-input-container>
