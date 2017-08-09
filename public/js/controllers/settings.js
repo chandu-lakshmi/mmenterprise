@@ -1390,7 +1390,7 @@
                 view: true,
                 url: vm.carrerPage.career_logo,
                 onComplete: function () {
-                    $company_logo.find('.qq-upload-list').append("<li><input type='hidden' name='request_logo' value='" + vm.carrerPage.career_logo.split('/').pop() + "' /><input type='hidden' value='" + vm.carrerPage.career_logo + "' name='career_logo'/></li>").show();
+                    $company_logo.find('.qq-upload-list').append("<li><input type='hidden' value='" + vm.carrerPage.career_logo + "' name='career_logo'/></li>").show();
                 },
                 onError: function () {
                     $company_logo.find('.qq-upload-drop-area').hide();
@@ -1411,7 +1411,7 @@
                 view: true,
                 url: vm.carrerPage.career_heroshot_image,
                 onComplete: function () {
-                    $heroshort_image.find('.qq-upload-list').append("<li><input type='hidden' name='request_heroshot' value='" + vm.carrerPage.career_heroshot_image.split('/').pop() + "' /><input type='hidden' value='" + vm.carrerPage.career_heroshot_image + "' name='career_heroshot_image'/></li>").show();
+                    $heroshort_image.find('.qq-upload-list').append("<li><input type='hidden' value='" + vm.carrerPage.career_heroshot_image + "' name='career_heroshot_image'/></li>").show();
                 },
                 onError: function () {
                     $heroshort_image.find('.qq-upload-drop-area').hide();
@@ -1486,8 +1486,8 @@
             showFileInfo: false,
             shortMessages: true,
             remove: true,
-            file_name: 'logo_org_name',
-            path_name: 'logo_image',
+            file_name: 'request_heroshot',
+            path_name: 'career_heroshot_image',
             onSubmit: function (id, name) {
                 $company_logo.find('.qq-upload-list').css('z-index', '0');
             },
@@ -1537,7 +1537,7 @@
             showFileInfo: false,
             shortMessages: true,
             remove: true,
-            file_name: 'logo_org_name',
+            file_name: 'request_heroshot',
             path_name: 'logo_image',
             onSubmit: function (id, name) {
                 $heroshort_image.find('.qq-upload-list').css('z-index', '0');
