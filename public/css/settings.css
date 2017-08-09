@@ -1062,8 +1062,7 @@ body.set-password {
       color: #999;
       font-size: 14px; }
     .careers-page .edit-box .hyper-link {
-      margin: 0;
-      margin-top: 24px;
+      margin: 12px 0 0;
       color: #0ba082; }
     .careers-page .edit-box .file-info {
       padding-left: 18px; }

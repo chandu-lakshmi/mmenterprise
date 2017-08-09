@@ -1370,7 +1370,7 @@
                     else if (response.status_code == 400) {
                         $window.location = App.base_url + 'logout';
                     }
-                    vm.inProgress = !vm.inProgress;
+                    vm.inProgress = false;
                 })
             /*.error(function(response){
              console.log(response)
