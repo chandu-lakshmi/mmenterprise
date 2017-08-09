@@ -1486,8 +1486,8 @@
             showFileInfo: false,
             shortMessages: true,
             remove: true,
-            file_name: 'request_heroshot',
-            path_name: 'career_heroshot_image',
+            file_name: 'request_logo',
+            path_name: 'career_logo',
             onSubmit: function (id, name) {
                 $company_logo.find('.qq-upload-list').css('z-index', '0');
             },
@@ -1538,7 +1538,7 @@
             shortMessages: true,
             remove: true,
             file_name: 'request_heroshot',
-            path_name: 'logo_image',
+            path_name: 'career_heroshot_image',
             onSubmit: function (id, name) {
                 $heroshort_image.find('.qq-upload-list').css('z-index', '0');
             },
