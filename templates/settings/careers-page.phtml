@@ -57,7 +57,7 @@
 							</md-input-container>
 							<input type="hidden" ng-if="link.label" name="career_links[{{$index}}][label]" value="{{link.label}}"> 
 
-		 					<md-input-container class="md-block">
+		 					<md-input-container class="md-block" style="margin-bottom:0">
 								<label>WEBSITE<span style="color: #999">(URL)</span></label>
 								<input  type="text" class="rm" name="url{{$index}}" ng-required="link.label" ng-model="link.url" ng-pattern="/^(http:\/\/www\.|https:\/\/www\.|www\.|https:\/\/|http:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i" ng-class="{'has-error-border':edit_careers_page_form['url'+$index].$invalid && CareersPageCtrl.errCond}">
 								<div ng-if="edit_careers_page_form['url'+$index].$error.required && CareersPageCtrl.errCond"  class="has-error-msg">Please enter Website URL.</div>
