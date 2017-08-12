@@ -75,8 +75,8 @@ md-dialog{
                                span.text{vertical-align: text-bottom;}
                              }
                              &:last-child{float: right;padding: 0;margin: 0;padding-top: 5px;
-                                span{
-                                  button{margin: 0;padding: 12px 10px;line-height: normal;}
+                                a{margin: 0;padding: 12px 10px;line-height: normal;
+                                    &:hover:before{border:0;};
                                 }
                              };
                           }

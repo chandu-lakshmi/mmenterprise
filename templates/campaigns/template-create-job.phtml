@@ -1,7 +1,6 @@
 <div class="modal-header text-center">
-  <img src="public/images/back-arrow-grey.svg" alt="back" ng-click="close()" class="pull-left" ng-hide="editCampagin.bol">
   <h3>Create New Job</h3>
-  <img src="public/images/cross-grey.svg" alt="close" class="pull-right" ng-click="editCampagin.bol ?  closeDismiss() : close()" class="pull-right">
+  <img src="public/images/cross-grey.svg" alt="close" class="pull-right" ng-click="$dismiss()" class="pull-right">
 </div>   
 
 <div class="modal-body" >
@@ -10,64 +9,64 @@
         <div class="clearfix">
             <md-input-container class="md-block">
                 <label>JOB TITLE <sup> *</sup></label>
-                <input type="text" name="job_title" ng-model="jobData.jobTitle" required ng-class="{'has-error-border':create_job.job_title.$invalid && errCond}">
-                <div ng-if="create_job.job_title.$error.required && errCond" class="has-error-msg">Please enter Job Title.</div>
+                <input type="text" name="job_title" ng-model="jobData.jobTitle" required ng-class="{'has-error-border':create_job.job_title.$invalid && CreateJobCtrl.errCond}">
+                <div ng-if="create_job.job_title.$error.required && CreateJobCtrl.errCond" class="has-error-msg">Please enter Job Title.</div>
             </md-input-container>
             <md-input-container class="md-block select-box">
               <label style="display:none">JOB FUNCTION <sup> *</sup></label>
-              <md-select name="job_function" ng-model="jobData.jobFunction" required ng-class="{'error-border':create_job.job_function.$invalid && errCond}">
-                 <md-option ng-repeat="type in job_functions" ng-value="type.job_function_id">{{type.job_function_name}}</md-option>
+              <md-select name="job_function" ng-model="jobData.jobFunction" required ng-class="{'error-border':create_job.job_function.$invalid && CreateJobCtrl.errCond}">
+                 <md-option ng-repeat="type in CreateJobCtrl.job_functions" ng-value="type.job_function_id">{{type.job_function_name}}</md-option>
               </md-select>
               <div class="error-spacer"></div>
-              <div ng-if="create_job.job_function.$error.required && errCond"  class="has-error-msg">Please select Job Function.</div>
+              <div ng-if="create_job.job_function.$error.required && CreateJobCtrl.errCond"  class="has-error-msg">Please select Job Function.</div>
             </md-input-container>
         </div>
         <div class="clearfix">
             <md-input-container class="md-block">
                 <label>LOCATION <sup> *</sup></label>
-                <input type="text" name="location" ng-model="jobData.jobLocation" required ng-class="{'has-error-border':create_job.location.$invalid && errCond}" ng-autocomplete="geo_location" details="geo_details" options="geo_options" apiplaceholder="">
-                <div ng-if="create_job.location.$error.required && errCond" class="has-error-msg">Please enter Location.</div>
+                <input type="text" name="location" ng-model="jobData.jobLocation" required ng-class="{'has-error-border':create_job.location.$invalid && CreateJobCtrl.errCond}" ng-autocomplete="geo_location" details="geo_details" options="geo_options" apiplaceholder="">
+                <div ng-if="create_job.location.$error.required && CreateJobCtrl.errCond" class="has-error-msg">Please enter Location.</div>
             </md-input-container>
             <md-input-container class="md-block select-box">
               <label style="display:none">INDUSTRY <sup> *</sup></label>
-              <md-select name="industry" ng-model="jobData.jobIndustry" required ng-class="{'error-border':create_job.industry.$invalid && errCond}">
-                 <md-option ng-repeat="type in industries" ng-value="type.industry_id">{{type.industry_name}}</md-option>
+              <md-select name="industry" ng-model="jobData.jobIndustry" required ng-class="{'error-border':create_job.industry.$invalid && CreateJobCtrl.errCond}">
+                 <md-option ng-repeat="type in CreateJobCtrl.industries" ng-value="type.industry_id">{{type.industry_name}}</md-option>
               </md-select>
               <div class="error-spacer"></div>
-              <div ng-if="create_job.industry.$error.required && errCond"  class="has-error-msg">Please select Industry.</div>
+              <div ng-if="create_job.industry.$error.required && CreateJobCtrl.errCond"  class="has-error-msg">Please select Industry.</div>
             </md-input-container>
         </div>
         <div class="clearfix">
             <md-input-container class="md-block select-box">
               <label style="display:none">EMPLOYMENT TYPE <sup> *</sup></label>
-              <md-select name="employment_type" ng-model="jobData.jobEmploymentType" required ng-class="{'error-border':create_job.employment_type.$invalid && errCond}">
-                 <md-option ng-repeat="type in employmentTypes" ng-value="type.employment_type_id">{{type.employment_type_name}}</md-option>
+              <md-select name="employment_type" ng-model="jobData.jobEmploymentType" required ng-class="{'error-border':create_job.employment_type.$invalid && CreateJobCtrl.errCond}">
+                 <md-option ng-repeat="type in CreateJobCtrl.employmentTypes" ng-value="type.employment_type_id">{{type.employment_type_name}}</md-option>
               </md-select>
               <div class="error-spacer"></div>
-              <div ng-if="create_job.employment_type.$error.required && errCond"  class="has-error-msg">Please select Employment Type.</div>
+              <div ng-if="create_job.employment_type.$error.required && CreateJobCtrl.errCond"  class="has-error-msg">Please select Employment Type.</div>
             </md-input-container>
             <md-input-container class="md-block select-box">
               <label style="display:none">EXPERIENCE <sup> *</sup></label>
-              <md-select name="experience_range" ng-model="jobData.jobExperience" required ng-class="{'error-border':create_job.experience_range.$invalid && errCond}">
-                 <md-option ng-repeat="type in experiences" ng-value="type.experience_id">{{type.experience_name}}</md-option>
+              <md-select name="experience_range" ng-model="jobData.jobExperience" required ng-class="{'error-border':create_job.experience_range.$invalid && CreateJobCtrl.errCond}">
+                 <md-option ng-repeat="type in CreateJobCtrl.experiences" ng-value="type.experience_id">{{type.experience_name}}</md-option>
               </md-select>
               <div class="error-spacer"></div>
-              <div ng-if="create_job.experience_range.$error.required && errCond"  class="has-error-msg">Please select Experience.</div>
+              <div ng-if="create_job.experience_range.$error.required && CreateJobCtrl.errCond"  class="has-error-msg">Please select Experience.</div>
             </md-input-container>
         </div>
         <div class="clearfix">
             <md-input-container class="md-block pull-left">
                 <label>NUMBER OF VACANCIES <sup> *</sup></label>
-                <input type="text" name="vacancy" ng-model="jobData.jobVacancies" ng-maxlength="10" ng-pattern="/(^[^0]$)|(^[1-9]\d{0,}$)/" required check-char-zero ng-class="{'has-error-border':create_job.vacancy.$error.required && errCond}"> 
+                <input type="text" name="vacancy" ng-model="jobData.jobVacancies" ng-maxlength="10" ng-pattern="/(^[^0]$)|(^[1-9]\d{0,}$)/" required check-char-zero ng-class="{'has-error-border':create_job.vacancy.$error.required && CreateJobCtrl.errCond}"> 
                 <div class="error-spacer"></div> 
                 <div ng-if="create_job.vacancy.$error.pattern" class="has-error-msg">Number of Vacancies should not be zero.</div>
-                <div class="has-error-msg" ng-show="create_job.vacancy.$error.required && errCond">Please enter Number of Vacancies.</div>
+                <div class="has-error-msg" ng-show="create_job.vacancy.$error.required && CreateJobCtrl.errCond">Please enter Number of Vacancies.</div>
             </md-input-container>
         </div>
         <md-input-container class="md-block job-desc">
             <label>JOB DESCRIPTION <sup> *</sup></label>
-            <textarea name="job_description" required ng-model="jobData.jobDescription" md-maxlength="5000" maxlength="5000" ng-maxlength="5000" style="max-height:106px" ng-class="{'has-error-border':((create_job.job_description.$error.required && errCond) || (jobData.jobDescription.trim().length==0 && errCond))}"></textarea>
-            <div ng-if="((create_job.job_description.$error.required && errCond) || (jobData.jobDescription.trim().length==0 && errCond))"  class="has-error-msg">Please enter Job Description.</div >
+            <textarea name="job_description" required ng-model="CreateJobCtrl.jobData.jobDescription" md-maxlength="5000" maxlength="5000" ng-maxlength="5000" style="max-height:106px" ng-class="{'has-error-border':((create_job.job_description.$error.required && CreateJobCtrl.errCond) || (CreateJobCtrl.jobData.jobDescription.trim().length==0 && CreateJobCtrl.errCond))}"></textarea>
+            <div ng-if="((create_job.job_description.$error.required && CreateJobCtrl.errCond) || (CreateJobCtrl.jobData.jobDescription.trim().length==0 && CreateJobCtrl.errCond))"  class="has-error-msg">Please enter Job Description.</div >
         </md-input-container> 
     </form>
     </div>
@@ -77,12 +76,12 @@
 <div class="modal-footer">
     <div class="msgs pull-left">
         <span style="line-height:50px;" class="pull-left">
-            <span ng-if="!!apiCallStart"><img src="public/images/loader/upload_file.gif" alt="loader" style="margin:5px;">Creating Job</span>
-            <span class="message fade" ng-bind="apiSuccessMsg"></span>
+            <span ng-if="CreateJobCtrl.createJobInProgress"><img src="public/images/loader/upload_file.gif" alt="loader" style="margin:5px;">Creating Job</span>
+            <span class="message fade" ng-bind="CreateJobCtrl.createJobResponse"></span>
         </span>
     </div>
     <div class="btns pull-right">
-        <span  class="mm-btn" ng-click="!apiCallStart ? postJob(create_job.$invalid) : ''" style="padding:12px 18px;">
+        <span  class="mm-btn" ng-click="!CreateJobCtrl.disableCreateJobButton ? CreateJobCtrl.postJob(create_job) : ''" style="padding:12px 18px;">
             ADD JOB
         </span>
     </div>

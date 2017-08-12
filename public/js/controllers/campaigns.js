@@ -11,12 +11,17 @@
             .controller('EditCampaignsController', EditCampaignsController)
             .controller('SocialShareController', SocialShareController)
             .controller('FormBuilderController', FormBuilderController)
+            .controller('CreateJobController', CreateJobController)
 
             .service('CampaignsData', CampaignsData)
             .service('contactBuckets', contactBuckets)
-            .service('createJobData', createJobData)
+            
+            //.service('createJobData', createJobData)
+            //.directive('createJob', createJob)
 
-            .directive('createJob', createJob)
+            .directive('scheduleStart' , scheduleStart)
+            .directive('scheduleEnd' , scheduleEnd)
+            .directive('mmUploader', mmUploader)
 
             .config(function ($translateProvider) {
                 $translateProvider.useStaticFilesLoader({
@@ -26,17 +31,182 @@
                 $translateProvider.preferredLanguage('en');
             })
 
+            function scheduleStart() {
+                return {
+                    restrict: 'AC',
+                    require: '?ngModel',
+                    link: function (scope, element, attr, ngModel) {
+                        
+                        if (!ngModel) return;
+                        
+                        ngModel.$render = function() {
+                          element.val(ngModel.$viewValue || '');
+                        };
+
+                        element.on("dp.change", function (e) {
+                            scope.$apply(function() {
+                               ngModel.$setViewValue( !e.date ? '' : e.date);
+                            });    
+                            element.closest('.sib').next().find('input').data("DateTimePicker").minDate(e.date);
+                        });  
+
+                        element.datetimepicker({
+                            minDate : new Date(),
+                            ignoreReadonly: true,
+                            format: 'MMM DD, YYYY  hh:mm A',
+                            sideBySide : true,
+                            useCurrent:true
+                        });
+                    }
+                }
+            }
+            function scheduleEnd() {
+                return {
+                    restrict: 'AC',
+                    require: '?ngModel',
+                    link: function (scope, element, attr, ngModel) {
+                        
+                        if (!ngModel) return;
+                        
+                        ngModel.$render = function() {
+                          element.val(ngModel.$viewValue || '');
+                        };
+
+                        element.on("dp.change", function (e) {
+                            scope.$apply(function() {
+                               ngModel.$setViewValue( !e.date ? '' : e.date);
+                            }); 
+                           element.closest('.sib').prev().find('input').data("DateTimePicker").maxDate(e.date);
+                        }); 
+
+                        element.datetimepicker({
+                            minDate : new Date(),
+                            ignoreReadonly: true,
+                            format: 'MMM DD, YYYY  hh:mm A',
+                            sideBySide : true,
+                            useCurrent : false
+                        });
+                    }
+                }
+            }
 
     CampaignsController.$inject = ['$rootScope', '$http', '$window', 'contactBuckets', '$uibModal', 'App'];
-    NewCampaignController.$inject = ['$scope', '$uibModal', '$timeout', 'contactBuckets', 'CampaignsData', '$uibModalInstance', '$http', 'CompanyDetails', 'createCampaign', 'createJobData', 'App'];
+    NewCampaignController.$inject = ['$scope', '$filter', '$uibModal', '$timeout', 'contactBuckets', 'CampaignsData', '$uibModalInstance', '$http', 'CompanyDetails', 'createCampaign', 'App'];
     AllCampaignsController.$inject = ['$scope', '$state', '$http', '$rootScope', '$q', '$timeout', '$window', 'uiGridConstants', 'CampaignsData', 'userPermissions', '$stateParams', 'App'];
     MyCampaignsController.$inject = [];
     EditCampaignsController.$inject = ['$scope', '$rootScope', '$state', '$uibModal', 'CompanyDetails', 'CampaignsData', 'contactBuckets', '$window', '$http', 'App'];
-    createJobData.$inject = ['$rootScope'];
-    createJob.$inject = ['App', '$http', '$window', '$timeout', 'createJobData'];
+    CreateJobController.$inject = ['$http', '$timeout', '$window', '$uibModalInstance', 'App'];
+    //createJobData.$inject = ['$rootScope'];
+    //createJob.$inject = ['App', '$http', '$window', '$timeout', 'createJobData'];
     SocialShareController.$inject = ['$state', '$rootScope', 'CampaignsData', 'CompanyDetails', 'App']
-
     FormBuilderController.$inject = ['$scope', '$http', '$q', '$uibModal'];
+
+    mmUploader.$inject = [];
+
+    function mmUploader() {
+        return{
+            restrict: 'EA', 
+            scope: {
+              datasource : '='
+            },
+            template : '<div id="{{mmUploaderCtrl.opts.id}}"></div>' ,
+            controller: function($scope, $timeout, App){
+                var vm = this;
+                    vm.opts = vm.datasource;
+
+                function init() {
+                    var $company_logo = $('#' + vm.opts.id);
+                    App.Helpers.initUploader({
+                        id: vm.opts.id,
+                        dragText: "",
+                        uploadButtonText: vm.opts.uploadButtonText,
+                        size: vm.opts.size,
+                        allowedExtensions: vm.opts.allowedExtensions,
+                        action: App.base_url + vm.opts.action,
+                        showFileInfo: false,
+                        shortMessages: true,
+                        remove: true,
+                        file_name: vm.opts.file_name,
+                        path_name: vm.opts.path_name,
+                        onSubmit: function (id, name) {
+                            $company_logo.find('.qq-upload-list').css('z-index', '0');
+                        },
+                        onComplete: function (id, name, response) {
+                            if (response.success) {
+                                $company_logo.find('.qq-upload-list').css('z-index', '-1');
+                                $company_logo.find('.qq-upload-drop-area').css('display', 'block');
+                                vm.update = true;
+                                $scope.$apply();
+                                App.Helpers.loadImage({
+                                    target: $company_logo.find('.drag_img'),
+                                    css: 'img-thumbnail',
+                                    remove: true,
+                                    view: true,
+                                    fileName : response.org_name,
+                                    url_prefix: App.pre_path,
+                                    url: response.filename.split('/').slice(-2).join('/'),
+                                    onComplete: App.Helpers.setImagePosition,
+                                    onError: function () {
+                                        $company_logo.find('.qq-upload-button').show();
+                                    }
+                                });
+                            }
+                        },
+                        showMessage: function (msg, obj) {
+                            $company_logo.closest('.form-group').find('div.error').hide();
+                            $company_logo.find('.qq-upload-list').css('z-index', '0');
+                            $(obj._listElement).fadeIn();
+                        },
+                        onRemove: function () {
+                            vm.update = true;
+                            $scope.$apply();
+                        },
+                        onRemoveComplete: function () {
+                            $company_logo.find('.qq-upload-list').css('z-index', '-1');
+                        }
+                    });
+                }
+                
+                // initial company logo qq-uploader
+                function previewImg(url, name) {
+                    var logo = $('#' + vm.opts.id);
+                    if(url){
+                        logo.find('.qq-upload-drop-area').show();
+                        logo.find('.qq-upload-list').html('');
+                        App.Helpers.loadImage({
+                            target: logo.find('.drag_img'),
+                            css: 'img-thumbnail',
+                            remove: true,
+                            url_prefix: false,
+                            view: true,
+                            url: url,
+                            onComplete: function () {
+                                logo.find('.qq-upload-list').append("<li><input type='hidden' value='" + url + "' name='" + name + "'/></li>").show();
+                            },
+                            onError: function () {
+                                logo.find('.qq-upload-drop-area').hide();
+                                logo.find('.qq-upload-button').show();
+                            }
+                        });
+                    }else{
+                        App.Helpers.removeUploadedFiles({
+                            obj: logo
+                        })
+                    }
+                }
+
+                
+                $timeout(function(){
+                    init();
+                    vm.opts.previewImg(previewImg);
+                })
+
+            },
+            controllerAs: 'mmUploaderCtrl',
+            bindToController: true
+        }
+
+    }
 
     function contactBuckets() {
 
@@ -116,7 +286,7 @@
         }
         bucketsList();
 
-        this.createNewCampaign = createNewCampaign;
+        /*this.createNewCampaign = createNewCampaign;
 
         function createNewCampaign(boolCreatNewCamp) {
             $uibModal.open({
@@ -133,8 +303,7 @@
                 controller: 'NewCampaignController',
                 controllerAs: 'NewCampaignCtrl'
             });
-        }
-        ;
+        };*/
     }
 
     function createJob(App, $http, $window, $timeout, createJobData) {
@@ -235,9 +404,202 @@
         }
     }
 
-    function NewCampaignController($scope, $uibModal, $timeout, contactBuckets, CampaignsData, $uibModalInstance, $http, CompanyDetails, createCampaign, createJobData, App) {
+    function NewCampaignController($scope, $filter, $uibModal, $timeout, contactBuckets, CampaignsData, $uibModalInstance, $http, CompanyDetails, createCampaign, App) {
 
-        var vm = this;
+        var vm = this,
+            currentTab = 'campaignDetails';
+
+        vm.campaign        = ['Mass Recruitment', 'Military Veterans', 'Campus Hires'];
+        vm.campaignDetails = true;
+        vm.schedule        = false; 
+        vm.careersPage     = false;
+        vm.manageContacts  = false;
+
+        vm.campDetails     = {};
+        vm.jobLists        = [];
+        vm.scheduleDetails = {
+            job_ids : []
+        };
+        vm.careersDetails  = {};
+        vm.manageContactsDetails = {};
+
+
+        vm.nextStep = function(viewTab) {
+
+            if(vm.scheduleDetails.job_ids.length == 0 && currentTab == 'schedule'){
+                vm['errCond' + currentTab] = true;
+                return;
+            }
+
+            if($scope[currentTab].$valid) {
+                vm[currentTab] = false;
+                vm[viewTab]    = true;
+                currentTab     = viewTab; 
+            }
+
+            vm['errCond' + currentTab] = true; 
+
+        }
+
+        vm.getScheduleDate = function(id) {
+            return $filter('date')(new Date($(id).val()), 'dd-MM-yyyy');
+        }
+
+        vm.getScheduleTime = function(id) {
+            return $filter('date')(new Date($(id).val()), 'HH:mm');
+        }
+
+        vm.createJob = function() {
+            var modalInstance = $uibModal.open({
+                animation: false,
+                backdrop: 'static',
+                keyboard: false,
+                templateUrl: 'templates/campaigns/template-create-job.phtml',
+                openedClass: "new-campaign",
+                controller: 'CreateJobController',
+                controllerAs: 'CreateJobCtrl'
+            })
+
+            modalInstance.result.then(function (response) {
+                var data = response.data,
+                    obj = {
+                        no_of_vacancies: data.no_of_vacancies,
+                        id: data.post_id,
+                        job_title: data.name
+                    };
+
+                vm.jobLists.push(obj);
+                var id = data.post_id.toString();
+                vm.scheduleDetails.job_ids.push(id);
+                $timeout(function () {
+                    $('#selectJob').trigger('chosen:updated')
+                }, 100);
+
+            }, function () {});
+        };
+
+        vm.companyLogoOpts = {
+            id     : 'logo',
+            size   : (1 * 1024 * 1024),
+            action : "file_upload",
+            file_name : 'logo_org_name',
+            path_name : 'logo_image',
+            allowedExtensions : ["jpg", "jpeg", "png"],
+            uploadButtonText  : "<span class='head'>Logo</span><span class='desc'>Add your careers page company logo</span>",
+            previewImg : function(dirFun) {
+                vm.updateLogo = dirFun;
+            }
+        }
+
+        vm.heroShortImageOpts = {
+            id     : 'heroshort-logo',
+            size   : (1 * 1024 * 1024),
+            action : "file_upload",
+            file_name : 'logo_org_name',
+            path_name : 'logo_image',
+            allowedExtensions : ["jpg", "jpeg", "png"],
+            uploadButtonText  : "<span class='head'>Heroshot Image</span><span class='desc'>Add your careers page heroshot image</span>",
+            previewImg : function(dirFun) {
+                vm.updateHeroShortImage = dirFun;
+            }
+        }
+
+        vm.addHyperlink = function() {
+            if(vm.careersDetails.career_links.length < 4){
+                vm.careersDetails.career_links.push({cls:'mm-slide-left'});
+            }
+        }
+
+        //location
+        this.geo_location = '';
+        this.geo_options = {types: '(cities)'};
+        this.geo_details = '';
+        
+        var componentForm = {
+            locality: 'long_name',
+            administrative_area_level_1: 'long_name',
+            country: 'long_name',
+            postal_code: 'short_name'
+        };
+
+        var locationModalName = {
+            locality: 'city',
+            administrative_area_level_1: 'state',
+            country: 'country',
+            postal_code: 'zip_code'
+        }
+
+        $scope.$watch(function () {
+            return vm.geo_details;
+        }, function (location) {
+            if (location) {
+                if (location.hasOwnProperty('address_components')) {
+                    vm.campDetails.location.zip_code = '';
+                    for (var i = 0; i < location.address_components.length; i++) {
+                        var addressType = location.address_components[i].types[0];
+                        if (componentForm[addressType]) {
+                            var val = location.address_components[i][componentForm[addressType]];
+                            vm.campDetails.location[locationModalName[addressType]] = val;
+                        }
+                    }
+                    vm.lat = location.geometry.location.lat();
+                    vm.lng = location.geometry.location.lng();
+                }
+            }
+        });
+
+        this.resetLocation = function (city) {
+            if (city == undefined) {
+                vm.campDetails.location.zip_code = "";
+                vm.campDetails.location.state = "";
+                vm.campDetails.location.country = "";
+            }
+        }
+
+        
+
+        function init() {
+            $http({
+                headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+                method  : 'POST',
+                data    : $.param({company_code: CompanyDetails.company_code}),
+                url     : App.base_url + 'get_career_settings'
+            })
+            .then(function (response) {
+                if (response.data.status_code == 200) {
+                    vm.careersDetails = response.data.data;
+                    vm.updateLogo(response.data.data.career_logo, 'career_logo');
+                    vm.updateHeroShortImage(response.data.data.career_heroshot_image, 'career_heroshot_image');
+                }
+                else if (response.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+            }, function (response) {
+                console.log(response)
+            });
+
+            var get_buckets = $http({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'POST',
+                url: App.base_url + 'buckets_list'
+            })
+            get_buckets.success(function (response) {
+                if (response.status_code == 200) {
+                    vm.bucketsName = response.data.buckets_list;
+                }
+                else if (response.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+            })
+            get_buckets.error(function (response) {
+                console.log(response);
+            });
+        }
+
+        init();
+
 
         $('.videoFiles').fancybox({
             minWidth: 500,
@@ -257,93 +619,20 @@
             }
         });
 
-
         this.company_name = CompanyDetails.name;
-        this.jobLists = [];
-        this.frm2 = {};
-        this.frm2.job_ids = [];
-        $scope.$watch(contactBuckets.getBucket, function (newValue, oldValue) {
-            vm.bucketsName = angular.copy(contactBuckets.getBucket());
-        })
-        setTimeout(function () {
-            $('#selectJob').chosen()
-        }, 0);
-        $('html').addClass('remove-scroll');
-        this.currentDate = new Date();
-
-        this.geo_location = '';
-        this.geo_options = {types: '(cities)'};
-        this.geo_details = '';
-
-
-        this.switchSteps = switchSteps;
         this.addTimeSheet = addTimeSheet;
         this.closeTimeSheet = closeTimeSheet;
         this.postNewCampaign = postNewCampaign;
-        this.closeModal = closeModal;
         this.trash = trash;
         this.showJobTemplate = false;
-        this.jobTemplate = jobTemplate;
         this.createJobData = createJobData;
 
-        // NewCampaign or Create Job based on Boolean
-        this.createJobEditCampagin = !createCampaign;
-        this.campState = {
-            bol: vm.createJobEditCampagin
-        }
-        if (vm.createJobEditCampagin) {
-            jobTemplate();
-        }
-
-        var formName = 'frm1';
-        this.currentStep = 1;
-        this.step1 = true;
-
-        function switchSteps(step) {
-
-            if (step == "next") {
-                if (vm.currentStep == 2) {
-                    if ($scope[formName].$invalid || vm.frm2.job_ids.length == 0) {
-                        vm['errCond' + formName] = true;
-                        return;
-                    }
-                } else {
-                    if ($scope[formName].$invalid) {
-                        vm['errCond' + formName] = true;
-                        return;
-                    }
-                }
-                vm['errCond' + formName] = false;
-                if (vm.currentStep == 3) {
-                    vm.postNewCampaign();
-                }
-                else {
-                    vm["step" + vm.currentStep] = false;
-                    vm.currentStep++;
-                    vm.listSteps[vm.currentStep - 1].status = true;
-                }
-            }
-            else {
-                vm["step" + vm.currentStep] = false;
-                vm.currentStep--;
-                vm['errCond' + formName] = false;
-                vm.listSteps[vm.currentStep].status = false;
-            }
-            formName = 'frm' + vm.currentStep;
-            vm["step" + vm.currentStep] = true;
-        }
-
-
-        this.setDirectiveFn = function (dirFn) {
-            vm.resetBuckets = dirFn;
-        };
-
+        
         this.timeSheetGroups = [1];
         this.currentTimeSheet = 1;
 
         function addTimeSheet() {
             if (vm.timeSheetGroups.length == 5) {
-                vm.frm2.checkbox = false;
                 return;
             }
             vm.currentTimeSheet++
@@ -355,12 +644,39 @@
             vm.timeSheetGroups.splice(index, 1);
         }
 
+        function validStep(viewTab){
+            vm[currentTab] = false;
+            vm[viewTab]    = true;
+            currentTab     = viewTab;
+            vm['errCond' + viewTab] = true; 
+        }
 
-        function postNewCampaign() {
-            vm.postPointer = true;
-            vm.postLoader = true;
-            var frmData = $('#frm1, #frm2, #frm3').serialize();
+        function postNewCampaign() {         
+            
+            if($scope.manageContacts.$invalid){
+                return validStep('manageContacts');
+            }
+            else if($scope.campaignDetails.$invalid) {
+                return validStep('campaignDetails');
+            } 
+            else if($scope.schedule.$invalid) {
+                return validStep('schedule');
+            } 
+            else if($scope.careersPage.$invalid) {
+                return validStep('careersPage');
+            } 
 
+            // vm.postPointer = true;
+            // vm.postLoader = true;
+
+
+            console.log('ok');
+            return;
+
+            
+            var frmData = $("form[name='campaignDetails'], form[name='schedule'] :not('.form-control'), form[name='careersPage'] :not('.rm'), form[name='manageContacts']").serialize();
+            
+            
             var newCampaign = $http({
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -405,11 +721,7 @@
                 controllerAs: 'SocialShareCtrl'
             });
         }
-
-        setTimeout(function () {
-            uploader()
-        }, 1000);
-        ;
+        
         function uploader() {
             for (var i = 0; i < 2; i++) {
                 window["$upload_pitch" + i] = $('.upload-pitch').eq(i);
@@ -486,6 +798,78 @@
             eval("$upload_pitch" + index).next('.upload-box').remove();
             eval("$upload_pitch" + index).find('.qq-upload-fail').remove();
         }
+        
+        setTimeout(function () {
+            uploader()
+        }, 1000);
+
+        setTimeout(function () {
+            $('#selectJob').chosen()
+        }, 0);
+
+        
+        /*
+        
+        var formName = 'campaignDetails';
+        this.currentStep = 1;
+        this.step1 = true;
+        this.switchSteps = switchSteps;
+        function switchSteps(step) {
+
+            if (step == "next") {
+                if (vm.currentStep == 2) {
+                    if ($scope[formName].$invalid || vm.frm2.job_ids.length == 0) {
+                        vm['errCond' + formName] = true;
+                        return;
+                    }
+                } else {
+                    if ($scope[formName].$invalid) {
+                        vm['errCond' + formName] = true;
+                        return;
+                    }
+                }
+                vm['errCond' + formName] = false;
+                if (vm.currentStep == 3) {
+                    vm.postNewCampaign();
+                }
+                else {
+                    vm["step" + vm.currentStep] = false;
+                    vm.currentStep++;
+                    vm.listSteps[vm.currentStep - 1].status = true;
+                }
+            }
+            else {
+                vm["step" + vm.currentStep] = false;
+                vm.currentStep--;
+                vm['errCond' + formName] = false;
+                vm.listSteps[vm.currentStep].status = false;
+            }
+            formName = 'frm' + vm.currentStep;
+            vm["step" + vm.currentStep] = true;
+        }
+
+         vm.openCalander = function(id){
+            $('#' + id).datetimepicker('show');
+        }
+
+        //this.closeModal = closeModal;
+        //this.jobTemplate = jobTemplate;
+
+        this.setDirectiveFn = function (dirFn) {
+            vm.resetBuckets = dirFn;
+        };
+
+
+
+        // NewCampaign or Create Job based on Boolean
+        this.createJobEditCampagin = !createCampaign;
+        this.campState = {
+            bol: vm.createJobEditCampagin
+        }
+        
+        if (vm.createJobEditCampagin) {
+            jobTemplate();
+        }
 
         function closeModal() {
             $('html').removeClass('remove-scroll');
@@ -506,56 +890,12 @@
             }
         }
 
-        var componentForm = {
-            locality: 'long_name',
-            administrative_area_level_1: 'long_name',
-            country: 'long_name',
-            postal_code: 'short_name'
-        };
-
-        var locationModalName = {
-            locality: 'city',
-            administrative_area_level_1: 'state',
-            country: 'country',
-            postal_code: 'zip_code'
-        }
-
-        $scope.$watch(function () {
-            return vm.geo_details;
-        }, function (location) {
-            if (location) {
-                if (location.hasOwnProperty('address_components')) {
-                    vm.frm1.location.zip_code = '';
-                    for (var i = 0; i < location.address_components.length; i++) {
-                        var addressType = location.address_components[i].types[0];
-                        if (componentForm[addressType]) {
-                            var val = location.address_components[i][componentForm[addressType]];
-                            vm.frm1.location[locationModalName[addressType]] = val;
-                        }
-                    }
-                    vm.lat = location.geometry.location.lat();
-                    vm.lng = location.geometry.location.lng();
-                }
-            }
-        });
-
-
-        this.resetLocation = function (city) {
-            if (city == undefined) {
-                vm.frm1.location.zip_code = "";
-                vm.frm1.location.state = "";
-                vm.frm1.location.country = "";
-            }
-        }
-
         this.listSteps = [
             {label: 'CAMPAIGN DETAILS', status: true},
             {label: 'SCHEDULE CAMPAIGN', status: false},
             {label: 'PREPARE CONTACTS', status: false},
             // { label:'PUBLISH CAMPAIGN', status: false}
         ];
-
-        this.campaign = ['Mass Recruitment', 'Military Veterans', 'Campus Hires'];
 
         this.closeDropdown = function () {
             $('body').find('.md-select-menu-container').removeClass('md-leave');
@@ -564,6 +904,9 @@
                 $('body').find('.md-select-menu-container').addClass('md-leave');
             }
         }
+
+        //$('html').addClass('remove-scroll');
+        this.currentDate = new Date();
 
         $scope.$on('newJobData', function (event, data) {
 
@@ -578,11 +921,11 @@
             $timeout(function () {
                 $('#selectJob').trigger('chosen:updated')
             }, 100);
-        })
+        })*/
 
-        $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+        /*$scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             $uibModalInstance.dismiss('cancel');
-        });
+        });*/
     }
 
 
@@ -1322,5 +1665,68 @@
 
     }
 
+    function CreateJobController($http, $timeout, $window, $uibModalInstance, App){
+        
+        var vm      = this,
+            apiCall = ['get_job_functions', 'get_industries', 'get_employment_types', 'get_experiences'];
+
+        vm.createJobResponse      = '';
+        vm.disableCreateJobButton = false;
+        vm.createJobInProgress = false;
+
+        function init(){
+            for (var i = 0; i < apiCall.length; i++) {
+                $http({
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                    },
+                    method: 'GET',
+                    url: App.base_url + apiCall[i]
+                }).success(function (response) {
+                    if (response.status_code == 200) {
+                        var label = Object.keys(response.data)[0];
+                        vm[label] = response.data[label];
+
+                    }
+                    else if (response.status_code == 400) {
+                        $window.location = App.base_url + 'logout';
+                    }
+                });
+            }
+        }
+        
+        vm.postJob = function (createJobForm) {
+            vm.errCond = true;
+            if(createJobForm.$valid && vm.jobData.jobDescription.trim().length != 0){
+                vm.createJobInProgress = true;
+                vm.disableCreateJobButton = true;
+                var postJobData = $('form[name="create_job"]').serialize();
+                $http({
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                    },
+                    method: 'post',
+                    data: postJobData + '&' + $.param({
+                        job_period: 'immediate',
+                        job_type: 'global'
+                    }),
+                    url: App.base_url + 'job_post_from_campaigns'
+                }).success(function (response) {
+                    if (response.status_code == 200) {
+                        vm.createJobInProgress = false;
+                        vm.createJobResponse   = response.message.msg[0];
+                        $timeout(function(){
+                            $uibModalInstance.close(response);
+                        }, 1000)
+                    }
+                    else if (response.status_code == 400) {
+                        $window.location = App.base_url + 'logout';
+                    }
+                });
+            }
+        }
+
+        init();
+    }
 
 }());

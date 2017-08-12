@@ -821,6 +821,21 @@ $app->get('/campaigns/all-campaigns',function ($request, $response, $args) use (
     return $this->renderer->render($response, 'index.phtml', $args);
 });
 
+$app->get('/campaigns/create-campaign',function ($request, $response, $args) use ($app) {
+    //Arguments
+    $this->mintmeshAccessToken;
+    $args       = commonData($this->settings);
+   
+    //Check Logged in or not
+    if(!empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']);
+    }
+
+    $args['comp_data'] = companyProfile($this->settings);
+    // Render dashboard view
+    return $this->renderer->render($response, 'index.phtml', $args);
+});
+
 $app->get('/campaigns/my-campaigns',function ($request, $response, $args) use ($app) {
      
     //Arguments

@@ -171,6 +171,20 @@
                     controller: 'FindResumeController',
                     controllerAs: 'FindResumeCtrl'
                 })
+                $stateProvider.state('app.createCampaign', {
+                    url: '^/campaigns/create-campaign',
+                    templateUrl: App.base_url + 'templates/campaigns/create-campaign.phtml',
+                    resolve: {
+                        createCampaign: function () {
+                        },
+                        getBuckets: function () {
+                        },
+                        $uibModalInstance: function () {
+                        }
+                    },
+                    controller: 'NewCampaignController',
+                    controllerAs: 'NewCampaignCtrl'
+                })
                 $stateProvider.state('app.campaigns', {
                     url: '^/campaigns',
                     templateUrl: App.base_url + 'templates/campaigns/campaigns.phtml',

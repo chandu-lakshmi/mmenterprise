@@ -176,6 +176,7 @@
 					    var config = {
 					        css: false,
 					        domTarget: false,
+					        fileName : false,
 					        remove: false,
 					        view: false,
 					        target: false,        
@@ -201,6 +202,9 @@
 					                config.target.html(image);
 					                if(config.remove){
 					                    config.target.append("<div class='overlay'></div><i class='fa fa-trash-o icon-trash'></i>");
+					                }
+					                if(config.fileName){
+					                	config.target.append("<p class='ellipsis'>"+ config.fileName +"</p>");
 					                }
 					                /*if(config.view){
 					                	if(config.url_prefix){
