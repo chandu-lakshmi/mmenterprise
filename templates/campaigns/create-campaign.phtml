@@ -113,7 +113,7 @@
 									<!--IMP NOTE don't rearrange the below div for this check in directive(chedule-start, chedule-end)-->
 									<!--ng-click="NewCampaignCtrl.openCalander('dtPickerStart'+$index)" ng-click="NewCampaignCtrl.openCalander('dtPickerEnd'+$index)"-->
 									<div layout="row" class="sib">
-										<img ng-hide="$first" ng-click="NewCampaignCtrl.closeTimeSheet(group)" class="closed" src="public/images/close-popup red.svg" alt="close">
+										<img ng-hide="$first" ng-click="NewCampaignCtrl.closeTimeSheet(group)" class="closed" src="public/images/close-popup-red.svg" alt="close">
 										<md-input-container flex="30" class="md-block date-time">
 										    <label>CAMPAIGN START DATE</label>
 		    	                            <input type='text' name="start{{$index}}" class="form-control" schedule-start ng-model="scheduleStart" id='dtPickerStart{{$index}}' required ng-class="{'has-error-border':NewCampaignCtrl.errCondschedule && schedule['start'+$index].$error.required}"/>
