@@ -151,6 +151,7 @@
 	        						      	<!-- <option ng-if="NewCampaignCtrl.jobLists.length == 0" value="" disabled>No jobs found.</option> -->
 	        						 		</select>
 								  	    </div>
+								  	    <input type="hidden" name="job_ids[]" value="{{NewCampaignCtrl.scheduleDetails.job_ids}}">
 								  	    <span class="btn-action" style="position: absolute;top: 9px;right: 0;" ng-click="NewCampaignCtrl.createJob()">CREATE JOB</span>
 								  	</div>
 								</div>
@@ -245,7 +246,6 @@
 							<div class="head-logo cts"></div> MANAGE CONTACTS
 						</div>
 						<div layout="row" class="section">
-							{{NewCampaignCtrl.checkBuckets}}
 							<div layout="column" flex class="manage-contacts">
 								<div layout="row"> 
 									<buckets-view buckets="NewCampaignCtrl.bucketsName" check-ids="NewCampaignCtrl.checkBuckets" set-fn="NewCampaignCtrl.setDirectiveFn(dirFn)">

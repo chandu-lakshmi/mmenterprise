@@ -425,7 +425,6 @@
 
 
         vm.nextStep = function(viewTab) {
-
             if(vm.scheduleDetails.job_ids.length == 0 && currentTab == 'schedule'){
                 vm['errCond' + currentTab] = true;
                 return;
