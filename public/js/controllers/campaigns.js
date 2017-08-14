@@ -91,7 +91,7 @@
             }
 
     CampaignsController.$inject = ['$rootScope', '$http', '$window', 'contactBuckets', '$uibModal', 'App'];
-    NewCampaignController.$inject = ['$scope', '$filter', '$uibModal', '$timeout', 'contactBuckets', 'CampaignsData', '$uibModalInstance', '$http', 'CompanyDetails', 'createCampaign', 'App'];
+    NewCampaignController.$inject = ['$scope', '$filter', '$state', '$uibModal', '$timeout', 'contactBuckets', 'CampaignsData', '$uibModalInstance', '$http', 'CompanyDetails', 'createCampaign', 'App'];
     AllCampaignsController.$inject = ['$scope', '$state', '$http', '$rootScope', '$q', '$timeout', '$window', 'uiGridConstants', 'CampaignsData', 'userPermissions', '$stateParams', 'App'];
     MyCampaignsController.$inject = [];
     EditCampaignsController.$inject = ['$scope','$timeout', '$filter', '$rootScope', '$state', '$uibModal', 'CompanyDetails', 'CampaignsData', 'contactBuckets', '$window', '$http', 'App'];
@@ -404,7 +404,7 @@
         }
     }
 
-    function NewCampaignController($scope, $filter, $uibModal, $timeout, contactBuckets, CampaignsData, $uibModalInstance, $http, CompanyDetails, createCampaign, App) {
+    function NewCampaignController($scope, $filter, $state, $uibModal, $timeout, contactBuckets, CampaignsData, $uibModalInstance, $http, CompanyDetails, createCampaign, App) {
 
         var vm = this,
             currentTab = 'campaignDetails';
@@ -425,6 +425,7 @@
 
 
         vm.nextStep = function(viewTab) {
+
             if(vm.scheduleDetails.job_ids.length == 0 && currentTab == 'schedule'){
                 vm['errCond' + currentTab] = true;
                 return;
@@ -689,7 +690,7 @@
                     vm.successMsg = response.message.msg[0];
                     CampaignsData.bol = true;
                     CampaignsData.setCampaigns(response.data);
-                    //closeModal();
+                    $state.go('app.campaigns.allCampaigns');
                     setTimeout(function () {
                         share()
                     }, 500);
