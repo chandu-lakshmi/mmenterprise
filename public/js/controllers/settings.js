@@ -1486,6 +1486,7 @@
             showFileInfo: false,
             shortMessages: true,
             remove: true,
+            file_name : 'logo_name',
             path_name: 'request_logo',
             onSubmit: function (id, name) {
                 $company_logo.find('.qq-upload-list').css('z-index', '0');
@@ -1536,6 +1537,7 @@
             showFileInfo: false,
             shortMessages: true,
             remove: true,
+            file_name : 'heroshot_image_name',
             path_name: 'request_heroshot',
             onSubmit: function (id, name) {
                 $heroshort_image.find('.qq-upload-list').css('z-index', '0');

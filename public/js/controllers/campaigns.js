@@ -16,13 +16,6 @@
             .service('CampaignsData', CampaignsData)
             .service('contactBuckets', contactBuckets)
             
-            //.service('createJobData', createJobData)
-            //.directive('createJob', createJob)
-
-            .directive('scheduleStart' , scheduleStart)
-            .directive('scheduleEnd' , scheduleEnd)
-            .directive('mmUploader', mmUploader)
-
             .config(function ($translateProvider) {
                 $translateProvider.useStaticFilesLoader({
                     prefix: 'public/angular-survey/i18n/',
@@ -31,64 +24,7 @@
                 $translateProvider.preferredLanguage('en');
             })
 
-            function scheduleStart() {
-                return {
-                    restrict: 'AC',
-                    require: '?ngModel',
-                    link: function (scope, element, attr, ngModel) {
-                        
-                        if (!ngModel) return;
-                        
-                        ngModel.$render = function() {
-                          element.val(ngModel.$viewValue || '');
-                        };
-
-                        element.on("dp.change", function (e) {
-                            scope.$apply(function() {
-                               ngModel.$setViewValue( !e.date ? '' : e.date);
-                            });    
-                            element.closest('.sib').next().find('input').data("DateTimePicker").minDate(e.date);
-                        });  
-
-                        element.datetimepicker({
-                            minDate : new Date(),
-                            ignoreReadonly: true,
-                            format: 'MMM DD, YYYY  hh:mm A',
-                            sideBySide : true,
-                            useCurrent:true
-                        });
-                    }
-                }
-            }
-            function scheduleEnd() {
-                return {
-                    restrict: 'AC',
-                    require: '?ngModel',
-                    link: function (scope, element, attr, ngModel) {
-                        
-                        if (!ngModel) return;
-                        
-                        ngModel.$render = function() {
-                          element.val(ngModel.$viewValue || '');
-                        };
-
-                        element.on("dp.change", function (e) {
-                            scope.$apply(function() {
-                               ngModel.$setViewValue( !e.date ? '' : e.date);
-                            }); 
-                           element.closest('.sib').prev().find('input').data("DateTimePicker").maxDate(e.date);
-                        }); 
-
-                        element.datetimepicker({
-                            minDate : new Date(),
-                            ignoreReadonly: true,
-                            format: 'MMM DD, YYYY  hh:mm A',
-                            sideBySide : true,
-                            useCurrent : false
-                        });
-                    }
-                }
-            }
+            
 
     CampaignsController.$inject = ['$rootScope', '$http', '$window', 'contactBuckets', '$uibModal', 'App'];
     NewCampaignController.$inject = ['$scope', '$filter', '$state', '$uibModal', '$timeout', 'contactBuckets', 'CampaignsData', '$uibModalInstance', '$http', 'CompanyDetails', 'createCampaign', 'App'];
@@ -96,117 +32,10 @@
     MyCampaignsController.$inject = [];
     EditCampaignsController.$inject = ['$scope','$timeout', '$filter', '$rootScope', '$state', '$uibModal', 'CompanyDetails', 'CampaignsData', 'contactBuckets', '$window', '$http', 'App'];
     CreateJobController.$inject = ['$scope', '$http', '$timeout', '$window', '$uibModalInstance', 'App'];
-    //createJobData.$inject = ['$rootScope'];
-    //createJob.$inject = ['App', '$http', '$window', '$timeout', 'createJobData'];
     SocialShareController.$inject = ['$state', '$rootScope', 'CampaignsData', 'CompanyDetails', 'App']
     FormBuilderController.$inject = ['$scope', '$http', '$q', '$uibModal'];
 
-    mmUploader.$inject = [];
-
-    function mmUploader() {
-        return{
-            restrict: 'EA', 
-            scope: {
-              datasource : '='
-            },
-            template : '<div id="{{mmUploaderCtrl.opts.id}}"></div>' ,
-            controller: function($scope, $timeout, App){
-                var vm = this;
-                    vm.opts = vm.datasource;
-
-                function init() {
-                    var $company_logo = $('#' + vm.opts.id);
-                    App.Helpers.initUploader({
-                        id: vm.opts.id,
-                        dragText: "",
-                        uploadButtonText: vm.opts.uploadButtonText,
-                        size: vm.opts.size,
-                        allowedExtensions: vm.opts.allowedExtensions,
-                        action: App.base_url + vm.opts.action,
-                        showFileInfo: false,
-                        shortMessages: true,
-                        remove: true,
-                        file_name: vm.opts.file_name,
-                        path_name: vm.opts.path_name,
-                        onSubmit: function (id, name) {
-                            $company_logo.find('.qq-upload-list').css('z-index', '0');
-                        },
-                        onComplete: function (id, name, response) {
-                            if (response.success) {
-                                $company_logo.find('.qq-upload-list').css('z-index', '-1');
-                                $company_logo.find('.qq-upload-drop-area').css('display', 'block');
-                                vm.update = true;
-                                $scope.$apply();
-                                App.Helpers.loadImage({
-                                    target: $company_logo.find('.drag_img'),
-                                    css: 'img-thumbnail',
-                                    remove: true,
-                                    view: true,
-                                    fileName : response.org_name,
-                                    url_prefix: App.pre_path,
-                                    url: response.filename.split('/').slice(-2).join('/'),
-                                    onComplete: App.Helpers.setImagePosition,
-                                    onError: function () {
-                                        $company_logo.find('.qq-upload-button').show();
-                                    }
-                                });
-                            }
-                        },
-                        showMessage: function (msg, obj) {
-                            $company_logo.closest('.form-group').find('div.error').hide();
-                            $company_logo.find('.qq-upload-list').css('z-index', '0');
-                            $(obj._listElement).fadeIn();
-                        },
-                        onRemove: function () {
-                            vm.update = true;
-                            $scope.$apply();
-                        },
-                        onRemoveComplete: function () {
-                            $company_logo.find('.qq-upload-list').css('z-index', '-1');
-                        }
-                    });
-                }
-                
-                // initial company logo qq-uploader
-                function previewImg(url, name) {
-                    var logo = $('#' + vm.opts.id);
-                    if(url){
-                        logo.find('.qq-upload-drop-area').show();
-                        logo.find('.qq-upload-list').html('');
-                        App.Helpers.loadImage({
-                            target: logo.find('.drag_img'),
-                            css: 'img-thumbnail',
-                            remove: true,
-                            url_prefix: false,
-                            view: true,
-                            url: url,
-                            onComplete: function () {
-                                logo.find('.qq-upload-list').append("<li><input type='hidden' value='" + url + "' name='" + name + "'/></li>").show();
-                            },
-                            onError: function () {
-                                logo.find('.qq-upload-drop-area').hide();
-                                logo.find('.qq-upload-button').show();
-                            }
-                        });
-                    }else{
-                        App.Helpers.removeUploadedFiles({
-                            obj: logo
-                        })
-                    }
-                }
-
-                
-                $timeout(function(){
-                    init();
-                    vm.opts.previewImg(previewImg);
-                })
-
-            },
-            controllerAs: 'mmUploaderCtrl',
-            bindToController: true
-        }
-
-    }
+    
 
     function contactBuckets() {
 
@@ -240,17 +69,6 @@
 
         this.addCampaigns = function (prop, val) {
             campaigns[prop] = val;
-        }
-    }
-
-    function createJobData($rootScope) {
-        this.UpdateDataInCtrl = function (data) {
-            if (data.editCampagin) {
-                $rootScope.$broadcast('newJobDataEditCmp', data);
-            }
-            else {
-                $rootScope.$broadcast('newJobData', data);
-            }
         }
     }
 
@@ -304,104 +122,6 @@
                 controllerAs: 'NewCampaignCtrl'
             });
         };*/
-    }
-
-    function createJob(App, $http, $window, $timeout, createJobData) {
-        return{
-            restrict: 'AE',
-            scope: {
-                setFn: '&',
-                closeTemplate: '&',
-                closeModals: '&',
-                editCampagin: '='
-            },
-            templateUrl: 'templates/campaigns/template-create-job.phtml',
-            link: function (scope) {
-
-
-                //google api location
-                scope.geo_location = '';
-                scope.geo_options = '';
-                scope.geo_details = '';
-                scope.$watch(function () {
-                    return scope.geo_details;
-                }, function (location) {
-                });
-
-                scope.postJob = function (invalid) {
-                    if (invalid || scope.jobData.jobDescription.trim().length == 0) {
-                        scope.errCond = true;
-                        return;
-                    }
-                    scope.apiCallStart = true;
-                    var postJobData = $('form[name="create_job"]').serialize();
-                    $http({
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                        },
-                        method: 'post',
-                        data: postJobData + '&' + $.param({
-                            job_period: 'immediate',
-                            job_type: 'global'
-                        }),
-                        url: App.base_url + 'job_post_from_campaigns'
-                    }).success(function (response) {
-                        if (response.status_code == 200) {
-                            scope.apiSuccessMsg = response.message.msg[0];
-                            response.data['editCampagin'] = scope.editCampagin.bol
-                            $timeout(function () {
-                                scope.editCampagin.bol ? scope.closeDismiss() : scope.close()
-                            }, 800);
-                            createJobData.UpdateDataInCtrl(response.data);
-                            $timeout(function () {
-                                scope.apiSuccessMsg = "",
-                                scope.apiCallStart = false;
-                            }, 900);
-                        }
-                        else if (response.status_code == 400) {
-                            $window.location = App.base_url + 'logout';
-                        }
-                    });
-                }
-
-                scope.close = function () {
-                    scope.closeTemplate();
-                    scope.errCond = false;
-                    scope.jobData = {};
-                }
-
-                function getData() {
-                    var apiCall = ['get_job_functions', 'get_industries', 'get_employment_types', 'get_experiences'];
-
-                    for (var i = 0; i < apiCall.length; i++) {
-                        $http({
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                            },
-                            method: 'GET',
-                            url: App.base_url + apiCall[i]
-                        }).success(function (response) {
-                            if (response.status_code == 200) {
-                                var label = Object.keys(response.data)[0];
-                                scope[label] = response.data[label];
-
-                            }
-                            else if (response.status_code == 400) {
-                                $window.location = App.base_url + 'logout';
-                            }
-                        });
-                    }
-                }
-
-                if (scope.editCampagin.bol) {
-                    getData();
-                }
-                scope.setFn({dirFn: getData});
-                scope.closeDismiss = function () {
-                    scope.closeModals();
-                }
-            }
-        }
     }
 
     function NewCampaignController($scope, $filter, $state, $uibModal, $timeout, contactBuckets, CampaignsData, $uibModalInstance, $http, CompanyDetails, createCampaign, App) {
@@ -482,8 +202,8 @@
             id     : 'logo',
             size   : (1 * 1024 * 1024),
             action : "file_upload",
-            file_name : 'logo_org_name',
-            path_name : 'logo_image',
+            file_name : 'logo_name',
+            path_name : 'request_logo',
             allowedExtensions : ["jpg", "jpeg", "png"],
             uploadButtonText  : "<span class='head'>Logo</span><span class='desc'>Add your careers page company logo</span>",
             previewImg : function(dirFun) {
@@ -495,8 +215,8 @@
             id     : 'heroshort-logo',
             size   : (1 * 1024 * 1024),
             action : "file_upload",
-            file_name : 'logo_org_name',
-            path_name : 'logo_image',
+            file_name : 'heroshot_image_name',
+            path_name : 'request_heroshot',
             allowedExtensions : ["jpg", "jpeg", "png"],
             uploadButtonText  : "<span class='head'>Heroshot Image</span><span class='desc'>Add your careers page heroshot image</span>",
             previewImg : function(dirFun) {
@@ -556,7 +276,23 @@
             }
         }
 
-        
+        vm.bucktesViewInternalOpts = {
+            type  : 1, //internal set to 1, external set to 2 
+            list  : [],
+            selectedOne: [],
+            required  : true,
+            param     : 'selectedBuckets',
+            headerTxt : 'SELECT CONTACTS COMMUNITY TO PUBLISH CAMPAIGN'
+        }
+
+        vm.bucktesViewExternalOpts = {
+            type  : 2, //internal set to 1, external set to 2 
+            list  : [],
+            selectedOne : [],
+            required  : false,
+            param     : 'selectedBucketsTalent',
+            headerTxt : 'SELECT TALENT COMMUNITY TO PUBLISH CAMPAIGN'
+        }
 
         function init() {
             $http({
@@ -587,7 +323,8 @@
             })
             get_buckets.success(function (response) {
                 if (response.status_code == 200) {
-                    vm.bucketsName = response.data.buckets_list;
+                    vm.bucktesViewInternalOpts.list = response.data.buckets_list;
+                    vm.bucktesViewExternalOpts.list = response.data.buckets_list;
                 }
                 else if (response.status_code == 400) {
                     $window.location = App.base_url + 'logout';
@@ -625,7 +362,6 @@
         this.postNewCampaign = postNewCampaign;
         this.trash = trash;
         this.showJobTemplate = false;
-        this.createJobData = createJobData;
 
         
         this.timeSheetGroups = [1];
@@ -652,7 +388,6 @@
         }
 
         function postNewCampaign() {         
-            
             if($scope.manageContacts.$invalid){
                 return validStep('manageContacts');
             }
@@ -801,122 +536,7 @@
         setTimeout(function () {
             $('#selectJob').chosen()
         }, 0);
-
         
-        /*
-        
-        var formName = 'campaignDetails';
-        this.currentStep = 1;
-        this.step1 = true;
-        this.switchSteps = switchSteps;
-        function switchSteps(step) {
-
-            if (step == "next") {
-                if (vm.currentStep == 2) {
-                    if ($scope[formName].$invalid || vm.frm2.job_ids.length == 0) {
-                        vm['errCond' + formName] = true;
-                        return;
-                    }
-                } else {
-                    if ($scope[formName].$invalid) {
-                        vm['errCond' + formName] = true;
-                        return;
-                    }
-                }
-                vm['errCond' + formName] = false;
-                if (vm.currentStep == 3) {
-                    vm.postNewCampaign();
-                }
-                else {
-                    vm["step" + vm.currentStep] = false;
-                    vm.currentStep++;
-                    vm.listSteps[vm.currentStep - 1].status = true;
-                }
-            }
-            else {
-                vm["step" + vm.currentStep] = false;
-                vm.currentStep--;
-                vm['errCond' + formName] = false;
-                vm.listSteps[vm.currentStep].status = false;
-            }
-            formName = 'frm' + vm.currentStep;
-            vm["step" + vm.currentStep] = true;
-        }
-
-         vm.openCalander = function(id){
-            $('#' + id).datetimepicker('show');
-        }
-
-        //this.closeModal = closeModal;
-        //this.jobTemplate = jobTemplate;
-
-        this.setDirectiveFn = function (dirFn) {
-            vm.resetBuckets = dirFn;
-        };
-
-
-
-        // NewCampaign or Create Job based on Boolean
-        this.createJobEditCampagin = !createCampaign;
-        this.campState = {
-            bol: vm.createJobEditCampagin
-        }
-        
-        if (vm.createJobEditCampagin) {
-            jobTemplate();
-        }
-
-        function closeModal() {
-            $('html').removeClass('remove-scroll');
-            $uibModalInstance.dismiss('cancel');
-        }
-
-        function createJobData(dirFn) {
-            vm.createJobApi = dirFn;
-        }
-
-        var triggerCreateJobCalls = true;
-
-        function jobTemplate() {
-            vm.showJobTemplate = !vm.showJobTemplate;
-            if (triggerCreateJobCalls) {
-                vm.createJobApi();
-                triggerCreateJobCalls = false;
-            }
-        }
-
-        this.listSteps = [
-            {label: 'CAMPAIGN DETAILS', status: true},
-            {label: 'SCHEDULE CAMPAIGN', status: false},
-            {label: 'PREPARE CONTACTS', status: false},
-            // { label:'PUBLISH CAMPAIGN', status: false}
-        ];
-
-        this.closeDropdown = function () {
-            $('body').find('.md-select-menu-container').removeClass('md-leave');
-            if ($('body').find('.md-select-menu-container').hasClass('md-active')) {
-                $('body').find('.md-select-menu-container').removeClass('md-active md-clickable');
-                $('body').find('.md-select-menu-container').addClass('md-leave');
-            }
-        }
-
-        //$('html').addClass('remove-scroll');
-        this.currentDate = new Date();
-
-        $scope.$on('newJobData', function (event, data) {
-
-            var obj = {
-                no_of_vacancies: data.no_of_vacancies,
-                id: data.post_id,
-                job_title: data.name
-            }
-            vm.jobLists.push(obj);
-            var id = data.post_id.toString();
-            vm.frm2.job_ids.push(id);
-            $timeout(function () {
-                $('#selectJob').trigger('chosen:updated')
-            }, 100);
-        })*/
     }
 
 
@@ -1393,6 +1013,12 @@
             uploadButtonText  : "<span class='head'>Heroshot Image</span><span class='desc'>Add your careers page heroshot image</span>",
             previewImg : function(dirFun) {
                 vm.updateHeroShortImage = dirFun;
+            }
+        }   
+
+        vm.addHyperlink = function() {
+            if(vm.careersDetails.career_links.length < 4){
+                vm.careersDetails.career_links.push({cls:'mm-slide-left'});
             }
         }
 
