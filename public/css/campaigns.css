@@ -370,6 +370,10 @@ md-dialog md-dialog-actions button.md-primary {
               margin-left: 63px; }
         .campaigns .edit-campaigns .box .content .location md-input-container {
           margin: 10px 0; }
+        .campaigns .edit-campaigns .box .content .btn-action {
+          color: #3d80b8;
+          font-weight: 600;
+          font-size: 14px; }
         .campaigns .edit-campaigns .box .content .schedule {
           color: #333; }
           .campaigns .edit-campaigns .box .content .schedule md-input-container {
@@ -377,9 +381,6 @@ md-dialog md-dialog-actions button.md-primary {
             .campaigns .edit-campaigns .box .content .schedule md-input-container input[aria-disabled="true"] {
               background: transparent;
               cursor: not-allowed !important; }
-          .campaigns .edit-campaigns .box .content .schedule .btn-action {
-            color: #3d80b8;
-            font-weight: 600; }
           .campaigns .edit-campaigns .box .content .schedule span.status {
             position: absolute;
             top: 28%;
@@ -411,53 +412,55 @@ md-dialog md-dialog-actions button.md-primary {
                 position: absolute;
                 bottom: 20px;
                 left: 4px; }
-          .campaigns .edit-campaigns .box .content .schedule .create-job {
-            position: relative;
-            margin-top: 40px; }
-            .campaigns .edit-campaigns .box .content .schedule .create-job .btn-schedule {
-              position: absolute;
-              bottom: 7px;
-              right: 0;
-              z-index: 9; }
-            .campaigns .edit-campaigns .box .content .schedule .create-job .modern-select label {
-              position: absolute;
-              padding-left: 3px;
-              -webkit-transform: translate3d(0, 8px, 0) scale(1);
-              transform: translate3d(0, 8px, 0) scale(1);
-              font-size: 16px;
-              color: #767877;
-              display: block !important;
-              font-weight: normal;
-              transition: -webkit-transform cubic-bezier(0.25, 0.8, 0.25, 1) 0.25s;
-              transition: transform cubic-bezier(0.25, 0.8, 0.25, 1) 0.25s;
-              -webkit-transform-origin: left top;
-              transform-origin: left top; }
-            .campaigns .edit-campaigns .box .content .schedule .create-job .modern-select .chosen-container {
-              width: 100% !important;
-              min-height: 34px; }
-              .campaigns .edit-campaigns .box .content .schedule .create-job .modern-select .chosen-container .chosen-choices {
-                border: 0;
-                box-shadow: none;
-                background: none;
-                border-bottom: 1px solid #d8d8d8; }
-              .campaigns .edit-campaigns .box .content .schedule .create-job .modern-select .chosen-container .search-choice {
-                margin: 4px 0 4px 5px;
-                padding: 8px 20px 8px 5px; }
-                .campaigns .edit-campaigns .box .content .schedule .create-job .modern-select .chosen-container .search-choice .search-choice-close {
-                  top: 8px; }
-              .campaigns .edit-campaigns .box .content .schedule .create-job .modern-select .chosen-container .search-field input {
-                height: 34px; }
-              .campaigns .edit-campaigns .box .content .schedule .create-job .modern-select .chosen-container .chosen-drop {
-                border-top: 1px solid #aaa;
-                top: 110%; }
-            .campaigns .edit-campaigns .box .content .schedule .create-job .modern-select .has-error-border + .chosen-container .chosen-choices {
-              border-color: red; }
-            .campaigns .edit-campaigns .box .content .schedule .create-job .modern-select .chosen-container-active label, .campaigns .edit-campaigns .box .content .schedule .create-job .modern-select .chosen-container-has-value label {
+        .campaigns .edit-campaigns .box .content .create-job {
+          position: relative;
+          width: 70%; }
+          .campaigns .edit-campaigns .box .content .create-job .btn-schedule {
+            position: absolute;
+            bottom: 7px;
+            right: 0;
+            z-index: 9; }
+          .campaigns .edit-campaigns .box .content .create-job .modern-select label {
+            position: absolute;
+            padding-left: 3px;
+            -webkit-transform: translate3d(0, 8px, 0) scale(1);
+            transform: translate3d(0, 8px, 0) scale(1);
+            font-size: 16px;
+            color: #767877;
+            display: block !important;
+            font-weight: normal;
+            transition: -webkit-transform cubic-bezier(0.25, 0.8, 0.25, 1) 0.25s;
+            transition: transform cubic-bezier(0.25, 0.8, 0.25, 1) 0.25s;
+            -webkit-transform-origin: left top;
+            transform-origin: left top; }
+          .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container {
+            width: 100% !important;
+            min-height: 34px; }
+            .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container .chosen-choices {
+              border: 0;
+              box-shadow: none;
+              background: none;
+              border-bottom: 1px solid #d8d8d8; }
+            .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container .search-choice {
+              margin: 4px 0 4px 5px;
+              padding: 8px 20px 8px 5px; }
+              .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container .search-choice .search-choice-close {
+                top: 8px; }
+            .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container .search-field input {
+              height: 34px; }
+            .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container .chosen-drop {
+              border-top: 1px solid #aaa;
+              top: 110%; }
+          .campaigns .edit-campaigns .box .content .create-job .modern-select .has-error-border + .chosen-container {
+            border-bottom: 1px solid red; }
+          .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container-active, .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container-has-value {
+            border-bottom: 1px solid #208d6e; }
+            .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container-active label, .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container-has-value label {
               -webkit-transform: translate3d(0, -21px, 0) scale(0.85);
               transform: translate3d(0, -21px, 0) scale(0.85); }
-            .campaigns .edit-campaigns .box .content .schedule .create-job .modern-select .chosen-container-active .chosen-choices, .campaigns .edit-campaigns .box .content .schedule .create-job .modern-select .chosen-container-has-value .chosen-choices {
+            .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container-active .chosen-choices, .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container-has-value .chosen-choices {
               border: 0;
-              border-bottom: 1px solid #208d6e; }
+              width: 75%; }
         .campaigns .edit-campaigns .box .content .careers h5.sub-head {
           font-weight: 600; }
         .campaigns .edit-campaigns .box .content .careers .upload {

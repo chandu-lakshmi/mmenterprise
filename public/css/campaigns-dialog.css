@@ -564,14 +564,16 @@ html.remove-scroll {
           .create-camp .steps-view .section .schedule .create-job .modern-select .chosen-container .chosen-drop {
             border-top: 1px solid #aaa;
             top: 110%; }
-        .create-camp .steps-view .section .schedule .create-job .modern-select .has-error-border + .chosen-container .chosen-choices {
-          border-color: red; }
-        .create-camp .steps-view .section .schedule .create-job .modern-select .chosen-container-active label, .create-camp .steps-view .section .schedule .create-job .modern-select .chosen-container-has-value label {
-          -webkit-transform: translate3d(0, -21px, 0) scale(0.85);
-          transform: translate3d(0, -21px, 0) scale(0.85); }
-        .create-camp .steps-view .section .schedule .create-job .modern-select .chosen-container-active .chosen-choices, .create-camp .steps-view .section .schedule .create-job .modern-select .chosen-container-has-value .chosen-choices {
-          border: 0;
+        .create-camp .steps-view .section .schedule .create-job .modern-select .has-error-border + .chosen-container {
+          border-bottom: 1px solid red; }
+        .create-camp .steps-view .section .schedule .create-job .modern-select .chosen-container-active, .create-camp .steps-view .section .schedule .create-job .modern-select .chosen-container-has-value {
           border-bottom: 1px solid #208d6e; }
+          .create-camp .steps-view .section .schedule .create-job .modern-select .chosen-container-active label, .create-camp .steps-view .section .schedule .create-job .modern-select .chosen-container-has-value label {
+            -webkit-transform: translate3d(0, -21px, 0) scale(0.85);
+            transform: translate3d(0, -21px, 0) scale(0.85); }
+          .create-camp .steps-view .section .schedule .create-job .modern-select .chosen-container-active .chosen-choices, .create-camp .steps-view .section .schedule .create-job .modern-select .chosen-container-has-value .chosen-choices {
+            border: 0;
+            width: 75%; }
       .create-camp .steps-view .section .careers .link {
         margin-top: 50px; }
       .create-camp .steps-view .section .careers .link-box {

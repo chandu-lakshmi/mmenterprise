@@ -81,7 +81,7 @@
                                             <div flex="40" class="sib">
                                                 <md-input-container class="md-block date-time">
                                                     <label>CAMPAIGN START DATE</label>
-                                                    <input type='text' ng-disabled="group.status == 'CLOSED'" name="start{{$index}}" class="form-control" schedule-start ng-model="scheduleStart" id='dtPickerStart{{$index}}' required ng-class="{'has-error-border':EditCampaignsCtrl.errCond && edit_campaigns_form['start'+$index].$error.required}"/>
+                                                    <input type='text' ng-disabled="group.status == 'CLOSED'" name="start{{$index}}" class="form-controls" schedule-start ng-model="scheduleStart" id='dtPickerStart{{$index}}' required ng-class="{'has-error-border':EditCampaignsCtrl.errCond && edit_campaigns_form['start'+$index].$error.required}"/>
                                                     <span class="input-group-addon">
                                                         <span class="glyphicon glyphicon-calendar"></span>
                                                     </span>
@@ -95,7 +95,7 @@
                                             <div flex="40" class="sib">
                                                 <md-input-container class="md-block date-time">
                                                     <label>CAMPAIGN END DATE</label>
-                                                    <input type='text' class="form-control" name="end{{$index}}" required ng-model="scheduleEnd" schedule-end ng-disabled="group.status == 'CLOSED'" id='dtPickerEnd{{$index}}' ng-class="{'has-error-border':EditCampaignsCtrl.errCond && edit_campaigns_form['end'+$index].$error.required}"/>
+                                                    <input type='text' class="form-controls" name="end{{$index}}" required ng-model="scheduleEnd" schedule-end ng-disabled="group.status == 'CLOSED'" id='dtPickerEnd{{$index}}' ng-class="{'has-error-border':EditCampaignsCtrl.errCond && edit_campaigns_form['end'+$index].$error.required}"/>
                                                     <span class="input-group-addon">
                                                         <span class="glyphicon glyphicon-calendar"></span>
                                                     </span>
@@ -114,17 +114,14 @@
 
                                 <div class="clearfix tag-jobs">
                                     <div class="drop">
-                                        <p>
-                                            <span>SELECT JOBS</span>
-                                            <span class="pull-right" ng-click="EditCampaignsCtrl.createJob()">CREATE JOB</span>
-                                        </p>
-                                        <div class="form-group modern-select">
-                                            <div class="controls">
+                                        <div class="create-job">
+                                            <div class="modern-select">
                                                 <select data-rel="chosen" id="mul_select" name="job_ids[]"  ng-model="EditCampaignsCtrl.campaignDetails.job_ids" data-placeholder="Select Your Options" class="form-control" multiple required ng-class="{'has-error-border': edit_campaigns_form['jobs[]'].$invalid && EditCampaignsCtrl.errCond}">
                                                     <option value=""></option>
                                                     <option ng-repeat="list in EditCampaignsCtrl.jobsList" ng-bind="list.name + ' ( ' + list.no_of_vacancies + ' )'" ng-value="list.post_id"></option>
                                                 </select>
                                             </div>
+                                            <span class="btn-action" style="position: absolute;top: 9px;right: 0;" ng-click="EditCampaignsCtrl.createJob()">CREATE JOB</span>
                                         </div>
                                     </div>
                                 </div>

@@ -1535,7 +1535,7 @@
                 vm.errCond = false;
                 vm.loader = true;
                 angular.element('.box-footer .disabled').css('pointer-events', 'none');
-                var data = $("form[name='edit_campaigns_form'] :not('.form-control')").serialize();
+                var data = $("form[name='edit_campaigns_form'] :not('.form-controls')").serialize();
                 return $http({
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'

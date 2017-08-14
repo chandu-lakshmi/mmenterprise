@@ -290,11 +290,11 @@ html.remove-scroll{overflow: hidden !important;}
                             .chosen-drop{border-top: 1px solid #aaa;top: 110%;}
                         }
                         .has-error-border{
-                           + .chosen-container .chosen-choices{border-color: red}
+                           + .chosen-container{border-bottom: 1px solid red}
                         }
-                        .chosen-container-active, .chosen-container-has-value{
+                        .chosen-container-active, .chosen-container-has-value{border-bottom: 1px solid #208d6e;
                            label{-webkit-transform: translate3d(0, -21px, 0) scale(0.85);transform: translate3d(0, -21px, 0) scale(0.85);}
-                           .chosen-choices{border: 0;border-bottom: 1px solid #208d6e}
+                           .chosen-choices{border: 0;width: 75%;}
                         }
                    }
                 }
