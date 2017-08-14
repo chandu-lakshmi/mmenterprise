@@ -1,16 +1,17 @@
 <div class="edit-campaigns">
     <div class="container">
         <div class="head">
-            <a ng-click="EditCampaignsCtrl.back()" title=""><img src="public/images/back-arrow-black.svg" alt="back"><span>Back to all Campaigns</span></a>
+            <a ng-click="EditCampaignsCtrl.back()" title=""><img src="public/images/back-arrow-black.svg" alt="back"><span>BACK TO ALL CAMPAIGNS</span></a>
             <span class="pull-right" ng-click="EditCampaignsCtrl.share()"><img src="public/images/material_icons/share.svg" alt=""></span>
         </div>
         <div class="box">
             <div class="box-content">
                 <div class="row">
-                    <div class="col-sm-10">
+                    <div class="col-sm-12">
                         <form name="edit_campaigns_form" novalidate autocomplete="off">
                             <input type="hidden" name="campaign_id" value="{{EditCampaignsCtrl.campaignDetails.id}}">
                             <div class="content">
+                                <div class="head-title">CAMPAIGN DETAILS</div>
                                 <div class="clearfix">
                                     <md-input-container class="md-block select-box">
                                         <label style="display:none">CAMPAIGN TYPE</label>
@@ -70,55 +71,52 @@
                                     </div>
                                 </div>
                                 <div class="clearfix date" ng-style="{'margin-top': EditCampaignsCtrl.address == 'online' ? '40px' : '30px'}">
-                                    <div class="clearfix" ng-repeat="length in EditCampaignsCtrl.scheduleTime">
-                                        <a href="#" class="close" data-dismiss="alert" aria-label="close" ng-click="EditCampaignsCtrl.closeSchedule(length)" ng-hide="EditCampaignsCtrl.disableSchedule[$index] == $index">&times;</a>
-                                        <div class="start">
-                                            <!--<p>STARTS ON</p>-->
-                                            <mdp-date-picker mdp-disabled="EditCampaignsCtrl.campaignDetails.schedule[$index].status == 'CLOSED'" mdp-open-on-click mdp-placeholder="STARTS ON" name="startDate{{length}}" mdp-min-date="EditCampaignsCtrl.campaignDetails.date[length].start_on_date ? (EditCampaignsCtrl.campaignDetails.date[length].start_on_date | date:'yyyy-MM-dd') : (EditCampaignsCtrl.currentDate  | date:'yyyy-MM-dd')" mdp-max-date="EditCampaignsCtrl.campaignDetails.date[length].end_on_date" ng-model="EditCampaignsCtrl.campaignDetails.date[length].start_on_date" required ng-class="{'has-error-border':edit_campaigns_form['startDate' + length].$invalid && EditCampaignsCtrl.errCond}" mdp-format="MMM DD, YYYY">
-                                                <div ng-if="edit_campaigns_form['startDate' + length].$error.required && EditCampaignsCtrl.errCond" class="has-error-msg">Please select Start Date.</div>
-                                                <div ng-if="edit_campaigns_form['startDate' + length].$error.format && EditCampaignsCtrl.errCond" class="has-error-msg">Invalid Date Format.</div>
-                                                <div ng-if="!edit_campaigns_form['startDate' + length].$error.format && EditCampaignsCtrl.errCond">
-                                                    <div ng-if="edit_campaigns_form['startDate' + length].$error.maxDate || edit_campaigns_form['startDate' + length].$error.minDate" class="has-error-msg">Invalid Date.</div>
-                                                </div>
-                                            </mdp-date-picker>
-                                            <input type="hidden" name="schedule[{{$index}}][start_on_date]" value="{{EditCampaignsCtrl.campaignDetails.date[length].start_on_date| date: 'dd-MM-yyyy'}}">
-                                            <input type="hidden" name="schedule[{{$index}}][schedule_id]" value="{{EditCampaignsCtrl.campaignDetails.date[length].schedule_id}}">
-                                            <mdp-time-picker mdp-no-float="true" mdp-disabled="EditCampaignsCtrl.campaignDetails.schedule[$index].status == 'CLOSED'" mdp-open-on-click mdp-placeholder="HH:MM" name="startTime{{length}}" ng-model="EditCampaignsCtrl.campaignDetails.date[length].start_on_time" required ng-class="{'has-error-border':edit_campaigns_form['startTime' + length].$invalid && EditCampaignsCtrl.errCond}" mdp-format="HH:mm">
-                                                <div ng-if="edit_campaigns_form['startTime' + length].$error.required && EditCampaignsCtrl.errCond" class="has-error-msg">Please select Start Time.</div>
-                                                <div ng-if="edit_campaigns_form['startTime' + length].$error.format && EditCampaignsCtrl.errCond" class="has-error-msg">Please select valid Time.</div>
-                                            </mdp-time-picker>
-                                            <input type="hidden" name="schedule[{{$index}}][start_on_time]" value="{{EditCampaignsCtrl.campaignDetails.date[length].start_on_time| date: 'HH:mm'}}"> 
+                                <div class="head-title">SCHEDULE & JOBS</div>
+                                    
+                                <div flex class="schedule">
+                                    <div layout="column" class="timesheet" ng-repeat="group in EditCampaignsCtrl.campaignDetails.schedule">
+                                        <!--IMP NOTE don't rearrange the below div for this check in directive(schedule-start, schedule-end)-->
+                                        <div layout="row">
+                                            <img ng-if="group.hasCloseIcon" ng-click="EditCampaignsCtrl.closeSchedule($index)" class="closed" src="public/images/close-popup-red.svg" alt="close">
+                                            <div flex="40" class="sib">
+                                                <md-input-container class="md-block date-time">
+                                                    <label>CAMPAIGN START DATE</label>
+                                                    <input type='text' ng-disabled="group.status == 'CLOSED'" name="start{{$index}}" class="form-control" schedule-start ng-model="scheduleStart" id='dtPickerStart{{$index}}' required ng-class="{'has-error-border':EditCampaignsCtrl.errCond && edit_campaigns_form['start'+$index].$error.required}"/>
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </span>
+
+                                                    <input type="hidden" name="schedule[{{$index}}][start_on_date]" value="{{EditCampaignsCtrl.getScheduleDate('#dtPickerStart'+ $index)}}">
+                                                    <input type="hidden" name="schedule[{{$index}}][start_on_time]" value="{{EditCampaignsCtrl.getScheduleTime('#dtPickerStart'+ $index)}}">
+
+                                                </md-input-container>
+                                                <div ng-show="EditCampaignsCtrl.errCond && edit_campaigns_form['start'+$index].$error.required" class="has-error-msg msg">Please select Start Date.</div>
+                                            </div>
+                                            <div flex="40" class="sib">
+                                                <md-input-container class="md-block date-time">
+                                                    <label>CAMPAIGN END DATE</label>
+                                                    <input type='text' class="form-control" name="end{{$index}}" required ng-model="scheduleEnd" schedule-end ng-disabled="group.status == 'CLOSED'" id='dtPickerEnd{{$index}}' ng-class="{'has-error-border':EditCampaignsCtrl.errCond && edit_campaigns_form['end'+$index].$error.required}"/>
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </span>
+
+                                                    <input type="hidden" name="schedule[{{$index}}][end_on_date]" value="{{EditCampaignsCtrl.getScheduleDate('#dtPickerEnd'+ $index)}}">
+                                                    <input type="hidden" name="schedule[{{$index}}][end_on_time]" value="{{EditCampaignsCtrl.getScheduleTime('#dtPickerEnd'+ $index)}}">
+
+                                                </md-input-container>
+                                                <div ng-show="EditCampaignsCtrl.errCond && edit_campaigns_form['end'+$index].$error.required" class="has-error-msg msg">Please select End Date.</div>
+                                            </div>
+                                            <span ng-if="group.status == 'CLOSED'" class="status">CLOSED</span>
                                         </div>
-                                        <div class="ends">
-                                            <!--<p>ENDS ON</p>-->
-                                            <mdp-date-picker mdp-disabled="EditCampaignsCtrl.campaignDetails.schedule[$index].status == 'CLOSED'" mdp-open-on-click mdp-placeholder="ENDS ON" name="endDate{{length}}" mdp-min-date="EditCampaignsCtrl.campaignDetails.date[length].start_on_date || EditCampaignsCtrl.currentDate | date:'yyyy-MM-dd'" ng-model="EditCampaignsCtrl.campaignDetails.date[length].end_on_date" required ng-class="{'has-error-border':edit_campaigns_form['endDate' + length].$invalid && EditCampaignsCtrl.errCond}" mdp-format="MMM DD, YYYY">
-                                                <div ng-if="edit_campaigns_form['endDate' + length].$error.required && EditCampaignsCtrl.errCond" class="has-error-msg">Please select End Date.</div>
-                                                <div ng-if="edit_campaigns_form['endDate' + length].$error.format && EditCampaignsCtrl.errCond" class="has-error-msg">Invalid Date Format.</div>
-                                                <div ng-if="!edit_campaigns_form['endDate' + length].$error.format && EditCampaignsCtrl.errCond">
-                                                    <div ng-if="edit_campaigns_form['endDate' + length].$error.maxDate || edit_campaigns_form['endDate' + length].$error.minDate" class="has-error-msg">Invalid Date.</div>
-                                                </div>
-                                            </mdp-date-picker>
-                                            <input type="hidden" name="schedule[{{$index}}][end_on_date]" value="{{EditCampaignsCtrl.campaignDetails.date[length].end_on_date| date: 'dd-MM-yyyy'}}">
-                                            <mdp-time-picker mdp-no-float="true" mdp-disabled="EditCampaignsCtrl.campaignDetails.schedule[$index].status == 'CLOSED'" mdp-open-on-click mdp-placeholder="HH:MM" name="endTime{{length}}" ng-model="EditCampaignsCtrl.campaignDetails.date[length].end_on_time" required ng-class="{'has-error-border':edit_campaigns_form['endTime' + length].$invalid && EditCampaignsCtrl.errCond}" mdp-format="HH:mm">
-                                                <div ng-if="edit_campaigns_form['endTime' + length].$error.required && EditCampaignsCtrl.errCond" class="has-error-msg">Please select End Time.</div>
-                                                <div ng-if="edit_campaigns_form['endTime' + length].$error.format && EditCampaignsCtrl.errCond" class="has-error-msg">Please select valid Time.</div>
-                                            </mdp-time-picker>
-                                            <input type="hidden" name="schedule[{{$index}}][end_on_time]" value="{{EditCampaignsCtrl.campaignDetails.date[length].end_on_time| date: 'HH:mm'}}">
-                                        </div>
-                                        <span ng-if="EditCampaignsCtrl.campaignDetails.schedule[$index].status == 'CLOSED'" ng-bind="EditCampaignsCtrl.campaignDetails.schedule[$index].status" class="status"></span>
                                     </div>
+                                    <span class="btn-action" ng-class="{ 'disable-cursor' : EditCampaignsCtrl.campaignDetails.schedule.length == 5}" ng-click="EditCampaignsCtrl.addSchedule()">ADD MULTIPLE SCHEDULE</span>
                                 </div>
-                                <div class="clearfix add-schedule">
-                                    <md-checkbox ng-model="EditCampaignsCtrl.checkbox.schedule"  ng-disabled="EditCampaignsCtrl.scheduleTime.length == 5" aria-label="Checkbox 1" class="md-primary">
-                                        Schedule Multiple Times
-                                    </md-checkbox>
-                                    <a href="" title="" ng-style="{'pointer-events': EditCampaignsCtrl.checkbox.schedule ? 'auto' : 'none'}" ng-click="EditCampaignsCtrl.addSchedule()">ADD SCHEDULE</a>
-                                </div>
+
                                 <div class="clearfix tag-jobs">
                                     <div class="drop">
                                         <p>
                                             <span>SELECT JOBS</span>
-                                            <span class="pull-right" ng-click="CampaignsCtrl.createNewCampaign(false)">CREATE JOB</span>
+                                            <span class="pull-right" ng-click="EditCampaignsCtrl.createJob()">CREATE JOB</span>
                                         </p>
                                         <div class="form-group modern-select">
                                             <div class="controls">
@@ -130,6 +128,63 @@
                                         </div>
                                     </div>
                                 </div>
+
+
+                                <div class="head-title">CAREERS PAGE</div>
+                                <div layout="column">
+                                    <div layout="row" class="section">
+                                        <div layout="column" flex class="careers">
+                                            <div layout="row">
+                                                <div flex="65">
+                                                    <div layout="column">
+                                                        <h5 class="sub-head">UPLOADS</h5>
+                                                        <div layout="row">
+                                                            <div mm-uploader flex="50" class="upload" datasource="EditCampaignsCtrl.companyLogoOpts"></div>
+                                                            <i flex="5"></i>
+                                                            <div mm-uploader flex="50" class="upload" datasource="EditCampaignsCtrl.heroShortImageOpts"></div>
+                                                        </div>
+                                                        <h5 class="sub-head link">SHOW TALENT COMMUNITY</h5>
+                                                        <md-radio-group layout="row" style="color: #9f9f9f" ng-model="EditCampaignsCtrl.careersDetails.career_talent_network">
+                                                              <md-radio-button flex="20" value="enable" class="md-primary">Yes</md-radio-button>
+                                                              <md-radio-button flex="20" value="disable" class="md-primary">No</md-radio-button>
+                                                        </md-radio-group>
+                                                        <input type="hidden" name="career_talent_network" value={{EditCampaignsCtrl.careersDetails.career_talent_network}}>
+                                                        <h5 class="sub-head link" style="padding-bottom: 27px">LINKS</h5>
+                                                        <div layout="row" class="link-box" ng-repeat="link in EditCampaignsCtrl.careersDetails.career_links">
+                                                            <img ng-click="EditCampaignsCtrl.careersDetails.career_links.splice($index, 1);" class="closed" src="public/images/close-popup-red.svg" alt="close">
+                                                            <md-input-container flex="50" class="md-block">
+                                                                <label>LABEL {{$index + 1}}</label>
+                                                                <input type="text" class="rm" name="label{{$index}}" ng-required="link.url" ng-model="link.label" ng-class="{'has-error-border':careersPage['label'+$index].$error.required && EditCampaignsCtrl.errCondcareersPage}">
+                                                                <div ng-if="careersPage['label'+$index].$error.required && EditCampaignsCtrl.errCondcareersPage"  class="has-error-msg">Please enter Label Name.</div>
+                                                            </md-input-container>
+                                                            <i flex="5"></i>
+                                                            <input type="hidden" ng-if="link.label" name="career_links[{{$index}}][label]" value="{{link.label}}">  
+                                                            <md-input-container flex="50" class="md-block" style="margin-bottom:0">
+                                                                <label>LINK</label>
+                                                                <input  type="text" class="rm" name="url{{$index}}" ng-required="link.label" ng-model="link.url" ng-pattern="/^(http:\/\/www\.|https:\/\/www\.|www\.|https:\/\/|http:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i" ng-class="{'has-error-border':careersPage['url'+$index].$invalid && EditCampaignsCtrl.errCondcareersPage}">
+                                                                <div ng-if="careersPage['url'+$index].$error.required && EditCampaignsCtrl.errCondcareersPage"  class="has-error-msg">Please enter Website URL.</div>
+                                                                <div ng-if="careersPage['url'+$index].$error.pattern && EditCampaignsCtrl.errCondcareersPage"  class="has-error-msg">Please enter valid Website URL.</div>
+                                                            </md-input-container>
+                                                            <input type="hidden" ng-if="link.url" name="career_links[{{$index}}][url]" value="{{link.url}}">
+                                                        </div>
+                                                        <div>
+                                                            <span class="btn-action" ng-click="EditCampaignsCtrl.addHyperlink()" ng-class="{ 'disable-cursor' : EditCampaignsCtrl.careersDetails.career_links.length > 3 }" ng-disabled="EditCampaignsCtrl.careersDetails.career_links.length > 3" class="hyper-link">ADD LINK</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <i flex="5"></i>
+                                                <div flex="30">
+                                                    <h5 class="sub-head">COMPANY DESCRIPTION</h5>
+                                                    <md-input-container class="md-block" flex=100>
+                                                        <textarea name="career_description" class="description" ng-model="EditCampaignsCtrl.careersDetails.career_description" aria-label="des" md-maxlength="5000" maxlength="5000" ng-maxlength="5000"></textarea>
+                                                    </md-input-container>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="head-title">MANAGE CONTACTS</div>
                                 <div class="clearfix upload-contacts">
                                     <buckets-view buckets="EditCampaignsCtrl.bucketsName" check-ids="EditCampaignsCtrl.checkedBuckets" set-fn="EditCampaignsCtrl.directiveCall(dirFn)"></buckets-view>
                                     <div style="min-height:30px">

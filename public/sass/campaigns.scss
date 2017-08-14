@@ -211,114 +211,194 @@ md-dialog{
            }
 
            .edit-campaigns{@include viewHeight(160px);
-                           .head{margin: 32px 0;
-                                 a{font-size: 16px;font-weight: bold;color: #555;
-                                   img{width: 20px;height: 20px;}
-                                   span{vertical-align: middle;margin-left: 15px}
-                                 }
-                                 .pull-right{outline: none;
-                                             img{width: 25px;height: 25px;}
-                                 }
-                           }
-                           .box{@include box();background: #fff;padding: 40px;
-                                .content{color: #767877;
-                                         .clearfix{
-                                             md-input-container{width: 45%;float: left;
-                                                                &:first-child{margin-right: 68px;};
-                                                                md-select{
-                                                                    md-select-value{
-                                                                        .md-text{color: #000;font-weight: bold;}
-                                                                    }
-                                                                }
-                                             }
-                                             md-radio-group{font-size: 18px;
-                                                            md-radio-button{float: left;margin: 0;color: #767877;
-                                                                            &.md-checked{color: #000}
-                                                                            .md-label{margin-left: 27px;}
-                                                                            &:not(:first-child){margin-left: 63px}
-                                                            }
-                                             }
-                                         }
-                                         .location{
-                                             md-input-container{margin: 10px 0}
-                                         }
-                                         .date{
-                                             p{margin: 0;}
-                                             md-input-container{
-                                                 label{left: 25px;}
-                                                 &.md-input-focused, &.md-input-has-value{
-                                                     label:not(.md-no-float){
-                                                         -webkit-transform: translate3d(0, 10px, 0) scale(0.87);
-                                                         transform: translate3d(0, 10px, 0) scale(0.87);
-                                                         color: #767877;
-                                                         margin-left: -25px;
-                                                         font-size: 18px;
-                                                     }
-                                                     //label{display: none !important;}
-                                                 }
-                                             }
-                                             div.clearfix{position: relative;}
-                                             div.start{width: 45%;float: left;margin-right: 68px;}
-                                             div.ends{@extend div.start; margin: 0}
-                                             mdp-date-picker,mdp-time-picker{
-                                                 &.has-error-border{
-                                                     .md-input{border-color: red;}
-                                                 }
-                                             }
-                                             span.status{position: absolute;top: 36%;left: 101%;color: #d85c5e;}
-                                         }
-                                         .add-schedule{font-size: 18px;font-weight: bold;margin-bottom: 30px;
-                                                       a{font-weight: bold;font-size: 13px;margin-left: 5px;letter-spacing: 0.6px;
-                                                         &:hover, &:focus, &:active{color: #38a48a;text-decoration: none;};
-                                                       }
-                                                       md-checkbox.md-checked .md-icon:after{left: 6.67px;top: 2.22px;}
-                                         }
-                                         .tag-jobs{margin-bottom: 30px;font-size: 14px;font-weight: bold;
-                                                   .drop{width: 45%;float: left;margin-right: 68px;
-                                                         p{
-                                                             span.pull-right{cursor: pointer;outline: none;color: #1d8e70;text-decoration: underline;}
-                                                         }
-                                                         .modern-select{
-                                                             .chosen-container{width: 100% !important;min-height: 34px;
-                                                                               .search-choice{margin: 4px 0 4px 5px;padding: 8px 20px 8px 5px;
-                                                                                              .search-choice-close{top: 8px;}
-                                                                               }
-                                                                               .search-field input{height: 34px;}
-                                                                               .chosen-drop{border-top: 1px solid #aaa;top: 110%;}
-                                                             }
-                                                             .has-error-border{
-                                                                 + .chosen-container .chosen-choices{border-color: red}
-                                                             }
-                                                         }
-                                                         .has-error-msg{font-size: 16px;font-weight: normal;}
-                                                   }
-                                         }
-                                         .upload-contacts{margin-bottom: 45px;}
-                                         .upload-files{@extend .add-schedule;
-                                                       .upload-pitch{display: inline-block;vertical-align: middle;position: relative;width: 115px;
-                                                                     .qq-uploader{
-                                                                         .qq-upload-button{padding: 0;font-weight: bold;font-size: 13px;
-                                                                                           letter-spacing: 0.6px;color: #219070}
-                                                                     }
-                                                                     .qq-upload-fail{top: 0;left: 123%;}
-                                                                     + .upload-box{border: 1px solid #ccc;margin-bottom: 20px;min-height: 50px;
-                                                                                   .file{position: relative;padding: 15px;
-                                                                                         .progress-bar{width: 300px;position: absolute;height: 25px;}
-                                                                                         .filename{
-                                                                                             div.logo{background: url('../images/Applied.svg')}
-                                                                                             .name{color: #000;width: 50%;display: inline-block;vertical-align: middle;margin: 0 12px;}
-                                                                                             img{width: 20px;height: 20px;}
-                                                                                         }
-                                                                                   }
-                                                                     }
-                                                       }
-                                         }
+               .head{margin: 32px 0;
+                    a{font-size: 16px;font-weight: bold;color: #555;
+                       img{width: 20px;height: 20px;}
+                       span{vertical-align: middle;margin-left: 15px}
+                    }
+                    .pull-right{outline: none;
+                        img{width: 25px;height: 25px;}
+                    }
+               }
+               .box{@include box();background: #fff;padding: 40px;
+                    .content{color: #767877;
+                        md-input-container input, md-input-container textarea, md-input-container .md-select-value .md-text{font-size: 17px}
+                        .head-title{font-weight: 600;font-size: 17px;color: #545454;border-bottom: 1px solid #d8d8d8;padding-bottom: 10px;margin-bottom: 44px;}
+                        .clearfix{
+                            md-input-container{width: 32%;float: left;
+                                &:first-child{margin-right: 68px;};
+                                md-select{
+                                    md-select-value{
+                                        .md-text{color: #000;font-weight: bold;}
+                                    }
                                 }
-                                .box-footer{border-top: 1px solid #ccc;padding: 20px 0;
-                                            .pull-right{
-                                                .btn-update{@include btnStyle(215px, 60px)}
-                                            }
+                            }
+                            md-radio-group{font-size: 18px;
+                                md-radio-button{float: left;margin: 0;color: #767877;
+                                    &.md-checked{color: #000}
+                                    .md-label{margin-left: 27px;}
+                                    &:not(:first-child){margin-left: 63px}
                                 }
+                            }
+                        }
+                        .location{
+                            md-input-container{margin: 10px 0}
+                        }
+
+                        .schedule{color: #333;
+                            md-input-container{width: 79%;
+                                input[aria-disabled="true"]{background: transparent;cursor: not-allowed !important;}
+                            }
+                            .btn-action{color: #3d80b8;font-weight: 600;}
+                            span.status{position: absolute;top: 28%;right: 18%;color: #d85c5e;}
+                            .timesheet{position: relative;
+                                .closed{position: absolute;right: 19.8%;top: 28px;width: 20px;z-index: 1}
+                                .sib{position: relative;
+                                    .date-time{
+                                        input{border-radius: 0;box-shadow: none;cursor: pointer;}
+                                        .input-group-addon{position: absolute;right: 16px;top: 10px;padding: 0;pointer-events: none;
+                                            .glyphicon{font-size: 16px;}
+                                        }
+                                    }
+                                    .has-error-msg.msg{position: absolute;bottom: 20px;left: 4px;}
+                                }
+                            }
+                            .create-job{position: relative;margin-top: 40px;
+                                .btn-schedule{position: absolute;bottom: 7px;right: 0;z-index: 9}
+                                .modern-select{
+                                    label{position: absolute;padding-left: 3px;-webkit-transform: translate3d(0, 8px, 0) scale(1);transform: translate3d(0, 8px, 0) scale(1);font-size: 16px;color: #767877;display: block !important;font-weight: normal;transition: -webkit-transform cubic-bezier(.25,.8,.25,1) .25s;transition: transform cubic-bezier(.25,.8,.25,1) .25s;-webkit-transform-origin: left top;transform-origin: left top;}
+                                    .chosen-container{width: 100% !important;min-height: 34px;
+                                        .chosen-choices{border: 0;box-shadow: none;background: none;border-bottom: 1px solid #d8d8d8;}
+                                        .search-choice{margin: 4px 0 4px 5px;padding: 8px 20px 8px 5px;
+                                            .search-choice-close{top: 8px;}
+                                        }
+                                        .search-field input{height: 34px;}
+                                        .chosen-drop{border-top: 1px solid #aaa;top: 110%;}
+                                    }
+                                    .has-error-border{
+                                       + .chosen-container .chosen-choices{border-color: red}
+                                    }
+                                    .chosen-container-active, .chosen-container-has-value{
+                                       label{-webkit-transform: translate3d(0, -21px, 0) scale(0.85);transform: translate3d(0, -21px, 0) scale(0.85);}
+                                       .chosen-choices{border: 0;border-bottom: 1px solid #208d6e}
+                                    }
+                               }
+                            }
+                        }
+                        .careers{
+                            h5.sub-head{font-weight: 600;}
+                            .upload{height: 70px;background: #f9f9f9;border: 1px solid #dcdcdc;
+                                &.video{
+                                    .qq-uploader{background: url("../images/add_video.png") no-repeat 12px 12px}
+                                }
+                                .qq-uploader{padding: 0;background: url("../images/add_photo.png") no-repeat 18px 18px;height: 68px;
+                                    .qq-upload-button{background: transparent;text-align: left;
+                                        input{width: 100%;}
+                                        span{padding: 1px 0 0 30px;display: inline-block;color: gray;
+                                            &.head{padding-top: 5px;color: #56aadf}
+                                            &.desc{display: block;color: #bcbfc5}
+                                        }
+                                    }
+                                    .qq-upload-drop-area{
+                                        .drag_img{background: #f9f9f9;
+                                            .img-thumbnail{width: 20%;float: left;padding: 6px;border: 0;background: transparent;margin-right: 14px;}
+                                            p{color: #56b8ee;text-align: left;padding-top: 25px;font-weight: 600;max-width: 230px;}
+                                        } 
+                                    }
+                                }
+                            }
+                            .link{margin-top: 28px}
+                            .link-box{position: relative;
+                                .close{position: absolute;right: 0;background: #eb6f6b;border-radius: 50%;width: 16px;height: 16px;opacity: 1;text-align: center;font-size: 16px; color: #fff;
+                                    i{font-size: 12px;margin: 1px 2px;}
+                                }
+                            }
+                            .closed{position: absolute;right: -36px;top: 4px;width: 20px}
+                            md-input-container{width: 100%;margin-top: 0;
+                                .description{min-height: 430px;max-height: 430px; overflow: auto;border: 1px solid #d8d8d8;height: 450px;padding: 10px 16px !important;font-size: 16px;}
+                            }
+                        }
+
+                        /* .date{
+                             p{margin: 0;}
+                             md-input-container{
+                                 label{left: 25px;}
+                                 &.md-input-focused, &.md-input-has-value{
+                                    label:not(.md-no-float){
+                                         -webkit-transform: translate3d(0, 10px, 0) scale(0.87);
+                                         transform: translate3d(0, 10px, 0) scale(0.87);
+                                         color: #767877;
+                                         margin-left: -25px;
+                                         font-size: 18px;
+                                    }
+                                    //label{display: none !important;}
+                                }
+                            }
+                            div.clearfix{position: relative;}
+                            div.start{width: 45%;float: left;margin-right: 68px;}
+                            div.ends{@extend div.start; margin: 0}
+                            mdp-date-picker,mdp-time-picker{
+                                &.has-error-border{
+                                    .md-input{border-color: red;}
+                                }
+                            }
+                            span.status{position: absolute;top: 36%;left: 101%;color: #d85c5e;}
+                        } */
+                         .add-schedule{font-size: 18px;font-weight: bold;margin-bottom: 30px;
+                           a{font-weight: bold;font-size: 13px;margin-left: 5px;letter-spacing: 0.6px;
+                             &:hover, &:focus, &:active{color: #38a48a;text-decoration: none;};
                            }
+                           md-checkbox.md-checked .md-icon:after{left: 6.67px;top: 2.22px;}
+                        } 
+                        .tag-jobs{margin: 30px 0;font-size: 14px;font-weight: bold;
+                           .drop{width: 45%;float: left;margin-right: 68px;
+                                 p{
+                                     span.pull-right{cursor: pointer;outline: none;color: #3d80b8;text-decoration: underline;font-weight: 600}
+                                 }
+                                 .modern-select{
+                                     .chosen-container{width: 100% !important;min-height: 34px;
+                                       .search-choice{margin: 4px 0 4px 5px;padding: 8px 20px 8px 5px;
+                                                      .search-choice-close{top: 8px;}
+                                       }
+                                       .search-field input{height: 34px;}
+                                       .chosen-drop{border-top: 1px solid #aaa;top: 110%;}
+                                     }
+                                     .has-error-border{
+                                         + .chosen-container .chosen-choices{border-color: red}
+                                     }
+                                 }
+                                 .has-error-msg{font-size: 16px;font-weight: normal;}
+                           }
+                        }
+                         .upload-contacts{margin-bottom: 45px;}
+                         .upload-files{@extend .add-schedule;
+                           .upload-pitch{display: inline-block;vertical-align: middle;position: relative;width: 115px;
+                             .qq-uploader{
+                                 .qq-upload-button{padding: 0;font-weight: bold;font-size: 13px;
+                                                   letter-spacing: 0.6px;color: #219070}
+                             }
+                             .qq-upload-fail{top: 0;left: 123%;}
+                             + .upload-box{border: 1px solid #ccc;margin-bottom: 20px;min-height: 50px;
+                               .file{position: relative;padding: 15px;
+                                     .progress-bar{width: 300px;position: absolute;height: 25px;}
+                                     .filename{
+                                         div.logo{background: url('../images/Applied.svg')}
+                                         .name{color: #000;width: 50%;display: inline-block;vertical-align: middle;margin: 0 12px;}
+                                         img{width: 20px;height: 20px;}
+                                     }
+                               }
+                             }
+                           }
+                         }
+                    }
+                    .box-footer{border-top: 1px solid #ccc;padding: 20px 0;
+                        .pull-right{
+                            .btn-update{@include btnStyle(215px, 60px)}
+                        }
+                    }
+               }
+                .bucket-container{
+                     .bucket-each{width: 13.5%;}
+                }
            }
 }

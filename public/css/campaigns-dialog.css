@@ -619,6 +619,11 @@ html.remove-scroll {
           margin-top: -2px; }
       .create-camp .steps-view .footer .btn-publish span {
         margin: 0; }
+      .create-camp .steps-view .footer .message {
+        margin-top: 8px;
+        display: block;
+        font-size: 16px;
+        color: #0ba082; }
 
 .upload-pitch {
   display: inline-block;

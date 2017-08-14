@@ -313,9 +313,43 @@ md-dialog md-dialog-actions button.md-primary {
       background: #fff;
       padding: 40px; }
       .campaigns .edit-campaigns .box .content {
-        color: #767877; }
+        color: #767877;
+        /* .date{
+             p{margin: 0;}
+             md-input-container{
+                 label{left: 25px;}
+                 &.md-input-focused, &.md-input-has-value{
+                    label:not(.md-no-float){
+                         -webkit-transform: translate3d(0, 10px, 0) scale(0.87);
+                         transform: translate3d(0, 10px, 0) scale(0.87);
+                         color: #767877;
+                         margin-left: -25px;
+                         font-size: 18px;
+                    }
+                    //label{display: none !important;}
+                }
+            }
+            div.clearfix{position: relative;}
+            div.start{width: 45%;float: left;margin-right: 68px;}
+            div.ends{@extend div.start; margin: 0}
+            mdp-date-picker,mdp-time-picker{
+                &.has-error-border{
+                    .md-input{border-color: red;}
+                }
+            }
+            span.status{position: absolute;top: 36%;left: 101%;color: #d85c5e;}
+        } */ }
+        .campaigns .edit-campaigns .box .content md-input-container input, .campaigns .edit-campaigns .box .content md-input-container textarea, .campaigns .edit-campaigns .box .content md-input-container .md-select-value .md-text {
+          font-size: 17px; }
+        .campaigns .edit-campaigns .box .content .head-title {
+          font-weight: 600;
+          font-size: 17px;
+          color: #545454;
+          border-bottom: 1px solid #d8d8d8;
+          padding-bottom: 10px;
+          margin-bottom: 44px; }
         .campaigns .edit-campaigns .box .content .clearfix md-input-container {
-          width: 45%;
+          width: 32%;
           float: left; }
           .campaigns .edit-campaigns .box .content .clearfix md-input-container:first-child {
             margin-right: 68px; }
@@ -336,31 +370,170 @@ md-dialog md-dialog-actions button.md-primary {
               margin-left: 63px; }
         .campaigns .edit-campaigns .box .content .location md-input-container {
           margin: 10px 0; }
-        .campaigns .edit-campaigns .box .content .date p {
-          margin: 0; }
-        .campaigns .edit-campaigns .box .content .date md-input-container label {
-          left: 25px; }
-        .campaigns .edit-campaigns .box .content .date md-input-container.md-input-focused label:not(.md-no-float), .campaigns .edit-campaigns .box .content .date md-input-container.md-input-has-value label:not(.md-no-float) {
-          -webkit-transform: translate3d(0, 10px, 0) scale(0.87);
-          transform: translate3d(0, 10px, 0) scale(0.87);
-          color: #767877;
-          margin-left: -25px;
-          font-size: 18px; }
-        .campaigns .edit-campaigns .box .content .date div.clearfix {
+        .campaigns .edit-campaigns .box .content .schedule {
+          color: #333; }
+          .campaigns .edit-campaigns .box .content .schedule md-input-container {
+            width: 79%; }
+            .campaigns .edit-campaigns .box .content .schedule md-input-container input[aria-disabled="true"] {
+              background: transparent;
+              cursor: not-allowed !important; }
+          .campaigns .edit-campaigns .box .content .schedule .btn-action {
+            color: #3d80b8;
+            font-weight: 600; }
+          .campaigns .edit-campaigns .box .content .schedule span.status {
+            position: absolute;
+            top: 28%;
+            right: 18%;
+            color: #d85c5e; }
+          .campaigns .edit-campaigns .box .content .schedule .timesheet {
+            position: relative; }
+            .campaigns .edit-campaigns .box .content .schedule .timesheet .closed {
+              position: absolute;
+              right: 19.8%;
+              top: 28px;
+              width: 20px;
+              z-index: 1; }
+            .campaigns .edit-campaigns .box .content .schedule .timesheet .sib {
+              position: relative; }
+              .campaigns .edit-campaigns .box .content .schedule .timesheet .sib .date-time input {
+                border-radius: 0;
+                box-shadow: none;
+                cursor: pointer; }
+              .campaigns .edit-campaigns .box .content .schedule .timesheet .sib .date-time .input-group-addon {
+                position: absolute;
+                right: 16px;
+                top: 10px;
+                padding: 0;
+                pointer-events: none; }
+                .campaigns .edit-campaigns .box .content .schedule .timesheet .sib .date-time .input-group-addon .glyphicon {
+                  font-size: 16px; }
+              .campaigns .edit-campaigns .box .content .schedule .timesheet .sib .has-error-msg.msg {
+                position: absolute;
+                bottom: 20px;
+                left: 4px; }
+          .campaigns .edit-campaigns .box .content .schedule .create-job {
+            position: relative;
+            margin-top: 40px; }
+            .campaigns .edit-campaigns .box .content .schedule .create-job .btn-schedule {
+              position: absolute;
+              bottom: 7px;
+              right: 0;
+              z-index: 9; }
+            .campaigns .edit-campaigns .box .content .schedule .create-job .modern-select label {
+              position: absolute;
+              padding-left: 3px;
+              -webkit-transform: translate3d(0, 8px, 0) scale(1);
+              transform: translate3d(0, 8px, 0) scale(1);
+              font-size: 16px;
+              color: #767877;
+              display: block !important;
+              font-weight: normal;
+              transition: -webkit-transform cubic-bezier(0.25, 0.8, 0.25, 1) 0.25s;
+              transition: transform cubic-bezier(0.25, 0.8, 0.25, 1) 0.25s;
+              -webkit-transform-origin: left top;
+              transform-origin: left top; }
+            .campaigns .edit-campaigns .box .content .schedule .create-job .modern-select .chosen-container {
+              width: 100% !important;
+              min-height: 34px; }
+              .campaigns .edit-campaigns .box .content .schedule .create-job .modern-select .chosen-container .chosen-choices {
+                border: 0;
+                box-shadow: none;
+                background: none;
+                border-bottom: 1px solid #d8d8d8; }
+              .campaigns .edit-campaigns .box .content .schedule .create-job .modern-select .chosen-container .search-choice {
+                margin: 4px 0 4px 5px;
+                padding: 8px 20px 8px 5px; }
+                .campaigns .edit-campaigns .box .content .schedule .create-job .modern-select .chosen-container .search-choice .search-choice-close {
+                  top: 8px; }
+              .campaigns .edit-campaigns .box .content .schedule .create-job .modern-select .chosen-container .search-field input {
+                height: 34px; }
+              .campaigns .edit-campaigns .box .content .schedule .create-job .modern-select .chosen-container .chosen-drop {
+                border-top: 1px solid #aaa;
+                top: 110%; }
+            .campaigns .edit-campaigns .box .content .schedule .create-job .modern-select .has-error-border + .chosen-container .chosen-choices {
+              border-color: red; }
+            .campaigns .edit-campaigns .box .content .schedule .create-job .modern-select .chosen-container-active label, .campaigns .edit-campaigns .box .content .schedule .create-job .modern-select .chosen-container-has-value label {
+              -webkit-transform: translate3d(0, -21px, 0) scale(0.85);
+              transform: translate3d(0, -21px, 0) scale(0.85); }
+            .campaigns .edit-campaigns .box .content .schedule .create-job .modern-select .chosen-container-active .chosen-choices, .campaigns .edit-campaigns .box .content .schedule .create-job .modern-select .chosen-container-has-value .chosen-choices {
+              border: 0;
+              border-bottom: 1px solid #208d6e; }
+        .campaigns .edit-campaigns .box .content .careers h5.sub-head {
+          font-weight: 600; }
+        .campaigns .edit-campaigns .box .content .careers .upload {
+          height: 70px;
+          background: #f9f9f9;
+          border: 1px solid #dcdcdc; }
+          .campaigns .edit-campaigns .box .content .careers .upload.video .qq-uploader {
+            background: url("../images/add_video.png") no-repeat 12px 12px; }
+          .campaigns .edit-campaigns .box .content .careers .upload .qq-uploader {
+            padding: 0;
+            background: url("../images/add_photo.png") no-repeat 18px 18px;
+            height: 68px; }
+            .campaigns .edit-campaigns .box .content .careers .upload .qq-uploader .qq-upload-button {
+              background: transparent;
+              text-align: left; }
+              .campaigns .edit-campaigns .box .content .careers .upload .qq-uploader .qq-upload-button input {
+                width: 100%; }
+              .campaigns .edit-campaigns .box .content .careers .upload .qq-uploader .qq-upload-button span {
+                padding: 1px 0 0 30px;
+                display: inline-block;
+                color: gray; }
+                .campaigns .edit-campaigns .box .content .careers .upload .qq-uploader .qq-upload-button span.head {
+                  padding-top: 5px;
+                  color: #56aadf; }
+                .campaigns .edit-campaigns .box .content .careers .upload .qq-uploader .qq-upload-button span.desc {
+                  display: block;
+                  color: #bcbfc5; }
+            .campaigns .edit-campaigns .box .content .careers .upload .qq-uploader .qq-upload-drop-area .drag_img {
+              background: #f9f9f9; }
+              .campaigns .edit-campaigns .box .content .careers .upload .qq-uploader .qq-upload-drop-area .drag_img .img-thumbnail {
+                width: 20%;
+                float: left;
+                padding: 6px;
+                border: 0;
+                background: transparent;
+                margin-right: 14px; }
+              .campaigns .edit-campaigns .box .content .careers .upload .qq-uploader .qq-upload-drop-area .drag_img p {
+                color: #56b8ee;
+                text-align: left;
+                padding-top: 25px;
+                font-weight: 600;
+                max-width: 230px; }
+        .campaigns .edit-campaigns .box .content .careers .link {
+          margin-top: 28px; }
+        .campaigns .edit-campaigns .box .content .careers .link-box {
           position: relative; }
-        .campaigns .edit-campaigns .box .content .date div.start, .campaigns .edit-campaigns .box .content .date div.ends {
-          width: 45%;
-          float: left;
-          margin-right: 68px; }
-        .campaigns .edit-campaigns .box .content .date div.ends {
-          margin: 0; }
-        .campaigns .edit-campaigns .box .content .date mdp-date-picker.has-error-border .md-input, .campaigns .edit-campaigns .box .content .date mdp-time-picker.has-error-border .md-input {
-          border-color: red; }
-        .campaigns .edit-campaigns .box .content .date span.status {
+          .campaigns .edit-campaigns .box .content .careers .link-box .close {
+            position: absolute;
+            right: 0;
+            background: #eb6f6b;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            opacity: 1;
+            text-align: center;
+            font-size: 16px;
+            color: #fff; }
+            .campaigns .edit-campaigns .box .content .careers .link-box .close i {
+              font-size: 12px;
+              margin: 1px 2px; }
+        .campaigns .edit-campaigns .box .content .careers .closed {
           position: absolute;
-          top: 36%;
-          left: 101%;
-          color: #d85c5e; }
+          right: -36px;
+          top: 4px;
+          width: 20px; }
+        .campaigns .edit-campaigns .box .content .careers md-input-container {
+          width: 100%;
+          margin-top: 0; }
+          .campaigns .edit-campaigns .box .content .careers md-input-container .description {
+            min-height: 430px;
+            max-height: 430px;
+            overflow: auto;
+            border: 1px solid #d8d8d8;
+            height: 450px;
+            padding: 10px 16px !important;
+            font-size: 16px; }
         .campaigns .edit-campaigns .box .content .add-schedule, .campaigns .edit-campaigns .box .content .upload-files {
           font-size: 18px;
           font-weight: bold;
@@ -377,7 +550,7 @@ md-dialog md-dialog-actions button.md-primary {
             left: 6.67px;
             top: 2.22px; }
         .campaigns .edit-campaigns .box .content .tag-jobs {
-          margin-bottom: 30px;
+          margin: 30px 0;
           font-size: 14px;
           font-weight: bold; }
           .campaigns .edit-campaigns .box .content .tag-jobs .drop {
@@ -387,8 +560,9 @@ md-dialog md-dialog-actions button.md-primary {
             .campaigns .edit-campaigns .box .content .tag-jobs .drop p span.pull-right {
               cursor: pointer;
               outline: none;
-              color: #1d8e70;
-              text-decoration: underline; }
+              color: #3d80b8;
+              text-decoration: underline;
+              font-weight: 600; }
             .campaigns .edit-campaigns .box .content .tag-jobs .drop .modern-select .chosen-container {
               width: 100% !important;
               min-height: 34px; }
@@ -462,5 +636,7 @@ md-dialog md-dialog-actions button.md-primary {
           display: inline-block;
           text-align: center;
           text-transform: uppercase; }
+    .campaigns .edit-campaigns .bucket-container .bucket-each {
+      width: 13.5%; }
 
 /*# sourceMappingURL=campaigns.css.map */
