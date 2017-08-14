@@ -180,7 +180,7 @@
 						<div layout="row" class="section">
 							<div layout="column" flex class="careers">
 								<div layout="row">
-									<div flex="65">
+									<div flex="70" style="padding-right:30px;">
 										<div layout="column">
 											<h5 class="head-title">UPLOADS</h5>
 											<div layout="row">
@@ -217,7 +217,6 @@
 						 					</div>
 										</div>
 									</div>
-									<i flex="5"></i>
 									<div flex="30">
 										<h5 class="head-title">COMPANY DESCRIPTION</h5>
 										<md-input-container class="md-block" flex>
@@ -247,11 +246,13 @@
 						<div layout="row" class="section">
 							<div layout="column" flex class="manage-contacts">
 								<div layout="row"> 
-									<buckets-view buckets="NewCampaignCtrl.bucketsName" check-ids="NewCampaignCtrl.checkBuckets" set-fn="NewCampaignCtrl.setDirectiveFn(dirFn)">
-									   </buckets-view>
+									<buckets-view flex datasource="NewCampaignCtrl.bucktesViewInternalOpts"></buckets-view>
 								</div>
 								<div style="min-height:25px">
 								   <div ng-show="!manageContacts.selectedBuckets.$valid && NewCampaignCtrl.errCondmanageContacts" class="has-error-msg">Please select atleast one Community to publish Campaign.</div>
+								</div>
+								<div layout="row" ng-if="NewCampaignCtrl.careersDetails.career_talent_network == 'enable'"> 
+									<buckets-view datasource="NewCampaignCtrl.bucktesViewExternalOpts"></buckets-view>
 								</div>
 								<h5 class="head-title">UPLOADS</h5>
 								<div class="clearfix upload-files">

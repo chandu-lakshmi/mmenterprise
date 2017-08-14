@@ -238,7 +238,9 @@
                 <div class="buckets">
                     <div class="row">
                         <div class="animated fadeIn" ng-if="!post2Ctrl.buckLoader">
-                            <buckets-view buckets="post2Ctrl.bucket_names" check-ids="" set-fn="">
+                            <buckets-view datasource="post2Ctrl.bucktesViewInternalOpts">
+                            </buckets-view>
+                            <buckets-view ng-if="post2Ctrl.post_job_result.post_type == 'external'" datasource="post2Ctrl.bucktesViewExternalOpts">
                             </buckets-view>
                         </div>
                         <div class="loading" ng-if="post2Ctrl.buckLoader">

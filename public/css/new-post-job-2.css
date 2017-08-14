@@ -239,7 +239,8 @@ button::-moz-focus-inner {
     padding:50px 0 0 78px;
 } 
 .post-request .buckets-container .bucket-container h5{
-    display: none;
+    font-size: 16px;
+    font-weight: 600;
 }
 .post-request .buckets-container .container .bucket{
     position: relative;

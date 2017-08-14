@@ -287,33 +287,35 @@ md-dialog{
                         }
                         .careers{
                             h5.sub-head{font-weight: 600;}
-                            .upload{height: 70px;background: #f9f9f9;border: 1px solid #dcdcdc;
-                                &.video{
-                                    .qq-uploader{background: url("../images/add_video.png") no-repeat 12px 12px}
-                                }
-                                .qq-uploader{padding: 0;background: url("../images/add_photo.png") no-repeat 18px 18px;height: 68px;
-                                    .qq-upload-button{background: transparent;text-align: left;
-                                        input{width: 100%;}
-                                        span{padding: 1px 0 0 30px;display: inline-block;color: gray;
-                                            &.head{padding-top: 5px;color: #56aadf}
-                                            &.desc{display: block;color: #bcbfc5}
+                            .left{padding-right: 20px;
+                                .uploads{height: 70px;background: #f9f9f9;border: 1px solid #dcdcdc;
+                                    &.video{
+                                        .qq-uploader{background: url("../images/add_video.png") no-repeat 12px 12px}
+                                    }
+                                    .qq-uploader{padding: 0;background: url("../images/add_photo.png") no-repeat 18px 18px;height: 68px;
+                                        .qq-upload-button{background: transparent;text-align: left;
+                                            input{width: 100%;}
+                                            span{padding: 2px 0 0 30px;display: inline-block;color: gray;text-transform: none;font-size: 14px;
+                                                &.head{padding-top: 5px;color: #56aadf;margin: initial;}
+                                                &.desc{display: block;color: #bcbfc5}
+                                            }
+                                        }
+                                        .qq-upload-drop-area{
+                                            .drag_img{background: #f9f9f9;
+                                                .img-thumbnail{width: 20%;float: left;padding: 6px;border: 0;background: transparent;margin-right: 14px;}
+                                                p{color: #56b8ee;text-align: left;padding-top: 25px;font-weight: 600;max-width: 230px;}
+                                            } 
                                         }
                                     }
-                                    .qq-upload-drop-area{
-                                        .drag_img{background: #f9f9f9;
-                                            .img-thumbnail{width: 20%;float: left;padding: 6px;border: 0;background: transparent;margin-right: 14px;}
-                                            p{color: #56b8ee;text-align: left;padding-top: 25px;font-weight: 600;max-width: 230px;}
-                                        } 
+                                }
+                                .link{margin-top: 28px}
+                                .link-box{position: relative;
+                                    .close{position: absolute;right: 0;background: #eb6f6b;border-radius: 50%;width: 16px;height: 16px;opacity: 1;text-align: center;font-size: 16px; color: #fff;
+                                        i{font-size: 12px;margin: 1px 2px;}
                                     }
                                 }
+                                .closed{position: absolute;right: 0;top: -24px;width: 20px}
                             }
-                            .link{margin-top: 28px}
-                            .link-box{position: relative;
-                                .close{position: absolute;right: 0;background: #eb6f6b;border-radius: 50%;width: 16px;height: 16px;opacity: 1;text-align: center;font-size: 16px; color: #fff;
-                                    i{font-size: 12px;margin: 1px 2px;}
-                                }
-                            }
-                            .closed{position: absolute;right: -36px;top: 4px;width: 20px}
                             md-input-container{width: 100%;margin-top: 0;
                                 .description{min-height: 430px;max-height: 430px; overflow: auto;border: 1px solid #d8d8d8;height: 450px;padding: 10px 16px !important;font-size: 16px;}
                             }

@@ -189,10 +189,27 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
     gettingData.bol = true;
     this.buckLoader = true;
     this.serverMsg = false;
-
     this.post_job_result = gettingData.getObj();
 
     var scope = this;
+
+    scope.bucktesViewInternalOpts = {
+        type  : 1, //internal set to 1, external set to 2 
+        list  : [],
+        selectedOne: [],
+        required  : true,
+        param     : 'selectedBuckets',
+        headerTxt : 'SELECT CONTACTS COMMUNITY TO PUBLISH CAMPAIGN'
+    }
+
+    scope.bucktesViewExternalOpts = {
+        type  : 2, //internal set to 1, external set to 2 
+        list  : [],
+        selectedOne : [],
+        required  : false,
+        param     : 'selectedBucketsTalent',
+        headerTxt : 'SELECT TALENT COMMUNITY TO PUBLISH CAMPAIGN'
+    }
 
       // getting bucket names dynamically
     var get_buckets = $http({
@@ -203,7 +220,8 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
         url: CONFIG.APP_DOMAIN+'buckets_list'
     })
     get_buckets.success(function(response){
-        scope.bucket_names = response.data.buckets_list;
+        scope.bucktesViewInternalOpts.list = response.data.buckets_list;
+        scope.bucktesViewExternalOpts.list = response.data.buckets_list;
         scope.buckLoader = false;
     });
     get_buckets.error(function(response){

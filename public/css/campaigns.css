@@ -463,69 +463,74 @@ md-dialog md-dialog-actions button.md-primary {
               width: 75%; }
         .campaigns .edit-campaigns .box .content .careers h5.sub-head {
           font-weight: 600; }
-        .campaigns .edit-campaigns .box .content .careers .upload {
-          height: 70px;
-          background: #f9f9f9;
-          border: 1px solid #dcdcdc; }
-          .campaigns .edit-campaigns .box .content .careers .upload.video .qq-uploader {
-            background: url("../images/add_video.png") no-repeat 12px 12px; }
-          .campaigns .edit-campaigns .box .content .careers .upload .qq-uploader {
-            padding: 0;
-            background: url("../images/add_photo.png") no-repeat 18px 18px;
-            height: 68px; }
-            .campaigns .edit-campaigns .box .content .careers .upload .qq-uploader .qq-upload-button {
-              background: transparent;
-              text-align: left; }
-              .campaigns .edit-campaigns .box .content .careers .upload .qq-uploader .qq-upload-button input {
-                width: 100%; }
-              .campaigns .edit-campaigns .box .content .careers .upload .qq-uploader .qq-upload-button span {
-                padding: 1px 0 0 30px;
-                display: inline-block;
-                color: gray; }
-                .campaigns .edit-campaigns .box .content .careers .upload .qq-uploader .qq-upload-button span.head {
-                  padding-top: 5px;
-                  color: #56aadf; }
-                .campaigns .edit-campaigns .box .content .careers .upload .qq-uploader .qq-upload-button span.desc {
-                  display: block;
-                  color: #bcbfc5; }
-            .campaigns .edit-campaigns .box .content .careers .upload .qq-uploader .qq-upload-drop-area .drag_img {
-              background: #f9f9f9; }
-              .campaigns .edit-campaigns .box .content .careers .upload .qq-uploader .qq-upload-drop-area .drag_img .img-thumbnail {
-                width: 20%;
-                float: left;
-                padding: 6px;
-                border: 0;
+        .campaigns .edit-campaigns .box .content .careers .left {
+          padding-right: 20px; }
+          .campaigns .edit-campaigns .box .content .careers .left .uploads {
+            height: 70px;
+            background: #f9f9f9;
+            border: 1px solid #dcdcdc; }
+            .campaigns .edit-campaigns .box .content .careers .left .uploads.video .qq-uploader {
+              background: url("../images/add_video.png") no-repeat 12px 12px; }
+            .campaigns .edit-campaigns .box .content .careers .left .uploads .qq-uploader {
+              padding: 0;
+              background: url("../images/add_photo.png") no-repeat 18px 18px;
+              height: 68px; }
+              .campaigns .edit-campaigns .box .content .careers .left .uploads .qq-uploader .qq-upload-button {
                 background: transparent;
-                margin-right: 14px; }
-              .campaigns .edit-campaigns .box .content .careers .upload .qq-uploader .qq-upload-drop-area .drag_img p {
-                color: #56b8ee;
-                text-align: left;
-                padding-top: 25px;
-                font-weight: 600;
-                max-width: 230px; }
-        .campaigns .edit-campaigns .box .content .careers .link {
-          margin-top: 28px; }
-        .campaigns .edit-campaigns .box .content .careers .link-box {
-          position: relative; }
-          .campaigns .edit-campaigns .box .content .careers .link-box .close {
+                text-align: left; }
+                .campaigns .edit-campaigns .box .content .careers .left .uploads .qq-uploader .qq-upload-button input {
+                  width: 100%; }
+                .campaigns .edit-campaigns .box .content .careers .left .uploads .qq-uploader .qq-upload-button span {
+                  padding: 2px 0 0 30px;
+                  display: inline-block;
+                  color: gray;
+                  text-transform: none;
+                  font-size: 14px; }
+                  .campaigns .edit-campaigns .box .content .careers .left .uploads .qq-uploader .qq-upload-button span.head {
+                    padding-top: 5px;
+                    color: #56aadf;
+                    margin: initial; }
+                  .campaigns .edit-campaigns .box .content .careers .left .uploads .qq-uploader .qq-upload-button span.desc {
+                    display: block;
+                    color: #bcbfc5; }
+              .campaigns .edit-campaigns .box .content .careers .left .uploads .qq-uploader .qq-upload-drop-area .drag_img {
+                background: #f9f9f9; }
+                .campaigns .edit-campaigns .box .content .careers .left .uploads .qq-uploader .qq-upload-drop-area .drag_img .img-thumbnail {
+                  width: 20%;
+                  float: left;
+                  padding: 6px;
+                  border: 0;
+                  background: transparent;
+                  margin-right: 14px; }
+                .campaigns .edit-campaigns .box .content .careers .left .uploads .qq-uploader .qq-upload-drop-area .drag_img p {
+                  color: #56b8ee;
+                  text-align: left;
+                  padding-top: 25px;
+                  font-weight: 600;
+                  max-width: 230px; }
+          .campaigns .edit-campaigns .box .content .careers .left .link {
+            margin-top: 28px; }
+          .campaigns .edit-campaigns .box .content .careers .left .link-box {
+            position: relative; }
+            .campaigns .edit-campaigns .box .content .careers .left .link-box .close {
+              position: absolute;
+              right: 0;
+              background: #eb6f6b;
+              border-radius: 50%;
+              width: 16px;
+              height: 16px;
+              opacity: 1;
+              text-align: center;
+              font-size: 16px;
+              color: #fff; }
+              .campaigns .edit-campaigns .box .content .careers .left .link-box .close i {
+                font-size: 12px;
+                margin: 1px 2px; }
+          .campaigns .edit-campaigns .box .content .careers .left .closed {
             position: absolute;
             right: 0;
-            background: #eb6f6b;
-            border-radius: 50%;
-            width: 16px;
-            height: 16px;
-            opacity: 1;
-            text-align: center;
-            font-size: 16px;
-            color: #fff; }
-            .campaigns .edit-campaigns .box .content .careers .link-box .close i {
-              font-size: 12px;
-              margin: 1px 2px; }
-        .campaigns .edit-campaigns .box .content .careers .closed {
-          position: absolute;
-          right: -36px;
-          top: 4px;
-          width: 20px; }
+            top: -24px;
+            width: 20px; }
         .campaigns .edit-campaigns .box .content .careers md-input-container {
           width: 100%;
           margin-top: 0; }

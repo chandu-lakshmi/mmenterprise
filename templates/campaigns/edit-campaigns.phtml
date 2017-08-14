@@ -132,13 +132,13 @@
                                     <div layout="row" class="section">
                                         <div layout="column" flex class="careers">
                                             <div layout="row">
-                                                <div flex="65">
+                                                <div flex="70" class="left">
                                                     <div layout="column">
                                                         <h5 class="sub-head">UPLOADS</h5>
                                                         <div layout="row">
-                                                            <div mm-uploader flex="50" class="upload" datasource="EditCampaignsCtrl.companyLogoOpts"></div>
+                                                            <div mm-uploader flex="50" class="uploads" datasource="EditCampaignsCtrl.companyLogoOpts"></div>
                                                             <i flex="5"></i>
-                                                            <div mm-uploader flex="50" class="upload" datasource="EditCampaignsCtrl.heroShortImageOpts"></div>
+                                                            <div mm-uploader flex="50" class="uploads" datasource="EditCampaignsCtrl.heroShortImageOpts"></div>
                                                         </div>
                                                         <h5 class="sub-head link">SHOW TALENT COMMUNITY</h5>
                                                         <md-radio-group layout="row" style="color: #9f9f9f" ng-model="EditCampaignsCtrl.careersDetails.career_talent_network">
@@ -164,12 +164,11 @@
                                                             </md-input-container>
                                                             <input type="hidden" ng-if="link.url" name="career_links[{{$index}}][url]" value="{{link.url}}">
                                                         </div>
-                                                        <div>
+                                                        <div style="margin-bottom: 36px;">
                                                             <span class="btn-action" ng-click="EditCampaignsCtrl.addHyperlink()" ng-class="{ 'disable-cursor' : EditCampaignsCtrl.careersDetails.career_links.length > 3 }" ng-disabled="EditCampaignsCtrl.careersDetails.career_links.length > 3" class="hyper-link">ADD LINK</span>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <i flex="5"></i>
                                                 <div flex="30">
                                                     <h5 class="sub-head">COMPANY DESCRIPTION</h5>
                                                     <md-input-container class="md-block" flex=100>

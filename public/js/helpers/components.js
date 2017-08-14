@@ -17,6 +17,9 @@
             .directive('ripplelink', ripplelink)
             .directive('dotdotdot' , dotdotdot)
             .directive('myslider', myslider)
+            .directive('scheduleStart' , scheduleStart)
+            .directive('scheduleEnd' , scheduleEnd)
+            .directive('mmUploader', mmUploader)
 
             .filter('unique', unique)
 
@@ -88,47 +91,58 @@
         return{
             restrict: 'AE',
             scope: {
-                buckets: '=',
-                checkIds: '=',
-                setFn: '&'
+                datasource : '='
             },
             templateUrl: 'templates/components/template-bucket.phtml',
-            link: function (scope, element, attr) {
+            controller : function ($scope, $timeout) {
+                
+                var vm = this,
+                        colorPicker;
 
-
-                var bucketColor = ["#229A77", "#21A4AC", "#EE8F3B", "#2A99E0", "#154c50", "#103954", "#342158", "#5B5B29", "#004D40", "#6f2b25"];
-                scope.getColor = function (ind) {
-                    return bucketColor[String(ind).slice(-1)];
+                this.selectedBktsString;
+                this.selectedBkts = [];
+                
+                if(this.datasource.type == 1) {
+                    colorPicker = ["#229A77", "#21A4AC", "#EE8F3B", "#2A99E0", "#154c50", "#103954", "#342158", "#5B5B29", "#004D40", "#6f2b25"];
+                }
+                else {
+                    colorPicker = ["#5d80cd", "#e8655c", "#81a757", "#8b5eb2", "#e2a746", "#947956", "#a8a53d", "#607D8B", "#484848", "#3c8576"];
+                }
+                
+                this.getColor = function (ind) {
+                    return colorPicker[String(ind).slice(-1)];
                 }
 
-                scope.selectedBktsString;
-                scope.selectedBkts = [];
-                var copy = angular.copy(scope.buckets);
-                scope.addBucketContact = function (src, ind, bucketId) {
-                    if (src == "public/images/add.svg") {
-                        scope.selectedBkts.push(bucketId);
-                        scope.buckets[ind].src = "public/images/select.svg";
+                this.addBucketContact = function (bucketId) {
+                    var index = vm.selectedBkts.indexOf(bucketId);
+                    if (index == -1) {
+                        vm.selectedBkts.push(bucketId);
+                        changePic(bucketId, "public/images/select.svg");
                     }
                     else {
-                        var index = scope.selectedBkts.indexOf(bucketId);
-                        scope.selectedBkts.splice(index, 1);
-                        scope.buckets[ind].src = "public/images/add.svg";
+                        vm.selectedBkts.splice(index, 1);
+                        changePic(bucketId, "public/images/add.svg");
                     }
-                    scope.selectedBktsString = scope.selectedBkts.toString();
+                    vm.selectedBktsString = vm.selectedBkts.toString();
                 }
-                scope.initFn = function (src, bktId) {
+
+                this.init = function (src, bktId) {
                     if (src == 'public/images/select.svg') {
-                        scope.selectedBkts.push(bktId);
-                        scope.selectedBktsString = scope.selectedBkts.toString();
+                        vm.selectedBkts.push(bktId);
+                        vm.selectedBktsString = vm.selectedBkts.toString();
                     }
                 }
-                scope.reset = function () {
-                    scope.buckets = angular.copy(copy);
-                    scope.selectedBkts = [];
-                    scope.selectedBktsString = scope.selectedBkts.toString();
+
+                function changePic(bucketId, src){
+                    angular.forEach(vm.datasource.list, function(bucket, index){
+                        if(bucket.bucket_id == bucketId){
+                            bucket.src = src;
+                        }
+                    });
                 }
-                scope.setFn({dirFn: scope.reset});
-            }
+            },
+            controllerAs : 'bucketsViewCtrl',
+            bindToController: true
         }
     }
 
@@ -476,6 +490,173 @@
             return false;
         }
     }
+
+    function scheduleStart() {
+        return {
+            restrict: 'AC',
+            require: '?ngModel',
+            link: function (scope, element, attr, ngModel) {
+                
+                if (!ngModel) return;
+                
+                ngModel.$render = function() {
+                  element.val(ngModel.$viewValue || '');
+                };
+
+                element.on("dp.change", function (e) {
+                    scope.$apply(function() {
+                       ngModel.$setViewValue( !e.date ? '' : e.date);
+                    });    
+                    element.closest('.sib').next().find('input').data("DateTimePicker").minDate(e.date);
+                });  
+
+                element.datetimepicker({
+                    minDate : new Date(),
+                    ignoreReadonly: true,
+                    format: 'MMM DD, YYYY  hh:mm A',
+                    sideBySide : true,
+                    useCurrent:true
+                });
+            }
+        }
+    }
+
+    function scheduleEnd() {
+        return {
+            restrict: 'AC',
+            require: '?ngModel',
+            link: function (scope, element, attr, ngModel) {
+                
+                if (!ngModel) return;
+                
+                ngModel.$render = function() {
+                  element.val(ngModel.$viewValue || '');
+                };
+
+                element.on("dp.change", function (e) {
+                    scope.$apply(function() {
+                       ngModel.$setViewValue( !e.date ? '' : e.date);
+                    }); 
+                   element.closest('.sib').prev().find('input').data("DateTimePicker").maxDate(e.date);
+                }); 
+
+                element.datetimepicker({
+                    minDate : new Date(),
+                    ignoreReadonly: true,
+                    format: 'MMM DD, YYYY  hh:mm A',
+                    sideBySide : true,
+                    useCurrent : false
+                });
+            }
+        }
+    }
+
+    function mmUploader() {
+        return{
+            restrict: 'EA', 
+            scope: {
+              datasource : '='
+            },
+            template : '<div id="{{mmUploaderCtrl.opts.id}}"></div>' ,
+            controller: function($scope, $timeout, App){
+                var vm = this;
+                    vm.opts = vm.datasource;
+
+                function init() {
+                    var $company_logo = $('#' + vm.opts.id);
+                    App.Helpers.initUploader({
+                        id: vm.opts.id,
+                        dragText: "",
+                        uploadButtonText: vm.opts.uploadButtonText,
+                        size: vm.opts.size,
+                        allowedExtensions: vm.opts.allowedExtensions,
+                        action: App.base_url + vm.opts.action,
+                        showFileInfo: false,
+                        shortMessages: true,
+                        remove: true,
+                        file_name: vm.opts.file_name,
+                        path_name: vm.opts.path_name,
+                        onSubmit: function (id, name) {
+                            $company_logo.find('.qq-upload-list').css('z-index', '0');
+                        },
+                        onComplete: function (id, name, response) {
+                            if (response.success) {
+                                $company_logo.find('.qq-upload-list').css('z-index', '-1');
+                                $company_logo.find('.qq-upload-drop-area').css('display', 'block');
+                                vm.update = true;
+                                $scope.$apply();
+                                App.Helpers.loadImage({
+                                    target: $company_logo.find('.drag_img'),
+                                    css: 'img-thumbnail',
+                                    remove: true,
+                                    view: true,
+                                    fileName : response.org_name,
+                                    url_prefix: App.pre_path,
+                                    url: response.filename.split('/').slice(-2).join('/'),
+                                    onComplete: App.Helpers.setImagePosition,
+                                    onError: function () {
+                                        $company_logo.find('.qq-upload-button').show();
+                                    }
+                                });
+                            }
+                        },
+                        showMessage: function (msg, obj) {
+                            $company_logo.closest('.form-group').find('div.error').hide();
+                            $company_logo.find('.qq-upload-list').css('z-index', '0');
+                            $(obj._listElement).fadeIn();
+                        },
+                        onRemove: function () {
+                            vm.update = true;
+                            $scope.$apply();
+                        },
+                        onRemoveComplete: function () {
+                            $company_logo.find('.qq-upload-list').css('z-index', '-1');
+                        }
+                    });
+                }
+                
+                // initial company logo qq-uploader
+                function previewImg(url, name) {
+                    var logo = $('#' + vm.opts.id);
+                    if(url){
+                        logo.find('.qq-upload-drop-area').show();
+                        logo.find('.qq-upload-list').html('');
+                        App.Helpers.loadImage({
+                            target: logo.find('.drag_img'),
+                            css: 'img-thumbnail',
+                            remove: true,
+                            url_prefix: false,
+                            view: true,
+                            url: url,
+                            onComplete: function () {
+                                logo.find('.qq-upload-list').append("<li><input type='hidden' value='" + url + "' name='" + name + "'/></li>").show();
+                            },
+                            onError: function () {
+                                logo.find('.qq-upload-drop-area').hide();
+                                logo.find('.qq-upload-button').show();
+                            }
+                        });
+                    }else{
+                        App.Helpers.removeUploadedFiles({
+                            obj: logo
+                        })
+                    }
+                }
+
+                
+                $timeout(function(){
+                    init();
+                    vm.opts.previewImg(previewImg);
+                })
+
+            },
+            controllerAs: 'mmUploaderCtrl',
+            bindToController: true
+        }
+
+    }
+
+
     /*function toolTip(){
      return {
      restrict : 'AC',
