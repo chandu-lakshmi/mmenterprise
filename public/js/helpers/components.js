@@ -99,8 +99,7 @@
                 var vm = this,
                         colorPicker;
 
-                this.selectedBktsString;
-                this.selectedBkts = [];
+                //this.selectedBktsString;
                 
                 if(this.datasource.type == 1) {
                     colorPicker = ["#229A77", "#21A4AC", "#EE8F3B", "#2A99E0", "#154c50", "#103954", "#342158", "#5B5B29", "#004D40", "#6f2b25"];
@@ -114,22 +113,22 @@
                 }
 
                 this.addBucketContact = function (bucketId) {
-                    var index = vm.selectedBkts.indexOf(bucketId);
+                    var index = vm.datasource.list.selectedBkts.indexOf(bucketId);
                     if (index == -1) {
-                        vm.selectedBkts.push(bucketId);
+                        vm.datasource.list.selectedBkts.push(bucketId);
                         changePic(bucketId, "public/images/select.svg");
                     }
                     else {
-                        vm.selectedBkts.splice(index, 1);
+                        vm.datasource.list.selectedBkts.splice(index, 1);
                         changePic(bucketId, "public/images/add.svg");
                     }
-                    vm.selectedBktsString = vm.selectedBkts.toString();
+                    //vm.selectedBktsString = vm.datasource.list.selectedBkts.toString();
                 }
 
                 this.init = function (src, bktId) {
                     if (src == 'public/images/select.svg') {
-                        vm.selectedBkts.push(bktId);
-                        vm.selectedBktsString = vm.selectedBkts.toString();
+                        vm.datasource.list.selectedBkts.push(bktId);
+                        //vm.selectedBktsString = vm.datasource.list.selectedBkts.toString();
                     }
                 }
 

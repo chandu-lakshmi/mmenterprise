@@ -242,6 +242,7 @@
                             </buckets-view>
                             <buckets-view ng-if="post2Ctrl.post_job_result.post_type == 'external'" datasource="post2Ctrl.bucktesViewExternalOpts">
                             </buckets-view>
+                            <input type="hidden" name="selectedBuckets" value="{{post2Ctrl.buckets_list.selectedBkts.toString()}}">
                         </div>
                         <div class="loading" ng-if="post2Ctrl.buckLoader">
                             <img src="public/images/loader/preloader.gif"  alt="loader">

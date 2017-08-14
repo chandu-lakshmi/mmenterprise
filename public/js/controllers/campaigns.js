@@ -27,7 +27,7 @@
             
 
     CampaignsController.$inject = ['$rootScope', '$http', '$window', 'contactBuckets', '$uibModal', 'App'];
-    NewCampaignController.$inject = ['$scope', '$filter', '$state', '$uibModal', '$timeout', 'contactBuckets', 'CampaignsData', '$uibModalInstance', '$http', 'CompanyDetails', 'createCampaign', 'App'];
+    NewCampaignController.$inject = ['$scope', '$state', '$filter', '$uibModal', '$timeout', 'contactBuckets', 'CampaignsData', '$uibModalInstance', '$http', 'CompanyDetails', 'createCampaign', 'App'];
     AllCampaignsController.$inject = ['$scope', '$state', '$http', '$rootScope', '$q', '$timeout', '$window', 'uiGridConstants', 'CampaignsData', 'userPermissions', '$stateParams', 'App'];
     MyCampaignsController.$inject = [];
     EditCampaignsController.$inject = ['$scope','$timeout', '$filter', '$rootScope', '$state', '$uibModal', 'CompanyDetails', 'CampaignsData', 'contactBuckets', '$window', '$http', 'App'];
@@ -124,7 +124,7 @@
         };*/
     }
 
-    function NewCampaignController($scope, $filter, $state, $uibModal, $timeout, contactBuckets, CampaignsData, $uibModalInstance, $http, CompanyDetails, createCampaign, App) {
+    function NewCampaignController($scope, $state, $filter, $uibModal, $timeout, contactBuckets, CampaignsData, $uibModalInstance, $http, CompanyDetails, createCampaign, App) {
 
         var vm = this,
             currentTab = 'campaignDetails';
@@ -280,8 +280,6 @@
             type  : 1, //internal set to 1, external set to 2 
             list  : [],
             selectedOne: [],
-            required  : true,
-            param     : 'selectedBuckets',
             headerTxt : 'SELECT CONTACTS COMMUNITY TO PUBLISH CAMPAIGN'
         }
 
@@ -289,8 +287,6 @@
             type  : 2, //internal set to 1, external set to 2 
             list  : [],
             selectedOne : [],
-            required  : false,
-            param     : 'selectedBucketsTalent',
             headerTxt : 'SELECT TALENT COMMUNITY TO PUBLISH CAMPAIGN'
         }
 
@@ -323,8 +319,10 @@
             })
             get_buckets.success(function (response) {
                 if (response.status_code == 200) {
-                    vm.bucktesViewInternalOpts.list = response.data.buckets_list;
-                    vm.bucktesViewExternalOpts.list = response.data.buckets_list;
+                    vm.buckets_list = response.data.buckets_list;
+                    vm.buckets_list.selectedBkts = [];
+                    vm.bucktesViewInternalOpts.list = vm.buckets_list;
+                    vm.bucktesViewExternalOpts.list = vm.buckets_list;
                 }
                 else if (response.status_code == 400) {
                     $window.location = App.base_url + 'logout';
@@ -425,8 +423,8 @@
                     vm.successMsg = response.message.msg[0];
                     CampaignsData.bol = true;
                     CampaignsData.setCampaigns(response.data);
-                    $state.go('app.campaigns.allCampaigns');
                     setTimeout(function () {
+                        $state.go('app.campaigns.allCampaigns');
                         share()
                     }, 500);
                 }
@@ -832,7 +830,26 @@
         vm.prevSelectedJobIds = [];
         vm.cacheData = angular.copy(vm.campaignDetails);
 
+
         vm.bucketsName = angular.copy(contactBuckets.getBucket());
+        vm.bucketsName.selectedBkts = [];
+        vm.bucktesViewInternalOpts = {
+            type  : 1, //internal set to 1, external set to 2 
+            list  : [],
+            selectedOne: [],
+            headerTxt : 'SELECT CONTACTS COMMUNITY TO PUBLISH CAMPAIGN'
+        }
+
+        vm.bucktesViewExternalOpts = {
+            type  : 2, //internal set to 1, external set to 2 
+            list  : [],
+            selectedOne : [],
+            headerTxt : 'SELECT TALENT COMMUNITY TO PUBLISH CAMPAIGN'
+        }
+        
+        vm.bucktesViewInternalOpts.list = vm.bucketsName;
+        vm.bucktesViewExternalOpts.list = vm.bucketsName;
+        
         vm.checkedBuckets = vm.campaignDetails.bucket_ids || [];
 
         vm.jobsList = vm.campaignDetails.job_details;
@@ -994,8 +1011,8 @@
             id     : 'logo',
             size   : (1 * 1024 * 1024),
             action : "file_upload",
-            file_name : 'logo_org_name',
-            path_name : 'logo_image',
+            file_name : 'logo_name',
+            path_name : 'request_logo',
             allowedExtensions : ["jpg", "jpeg", "png"],
             uploadButtonText  : "<span class='head'>Logo</span><span class='desc'>Add your careers page company logo</span>",
             previewImg : function(dirFun) {
@@ -1007,14 +1024,14 @@
             id     : 'heroshort-logo',
             size   : (1 * 1024 * 1024),
             action : "file_upload",
-            file_name : 'logo_org_name',
-            path_name : 'logo_image',
+            file_name : 'heroshot_image_name',
+            path_name : 'request_heroshot',
             allowedExtensions : ["jpg", "jpeg", "png"],
             uploadButtonText  : "<span class='head'>Heroshot Image</span><span class='desc'>Add your careers page heroshot image</span>",
             previewImg : function(dirFun) {
                 vm.updateHeroShortImage = dirFun;
             }
-        }   
+        } 
 
         vm.addHyperlink = function() {
             if(vm.careersDetails.career_links.length < 4){

@@ -197,8 +197,6 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
         type  : 1, //internal set to 1, external set to 2 
         list  : [],
         selectedOne: [],
-        required  : true,
-        param     : 'selectedBuckets',
         headerTxt : 'SELECT CONTACTS COMMUNITY TO PUBLISH CAMPAIGN'
     }
 
@@ -206,8 +204,6 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
         type  : 2, //internal set to 1, external set to 2 
         list  : [],
         selectedOne : [],
-        required  : false,
-        param     : 'selectedBucketsTalent',
         headerTxt : 'SELECT TALENT COMMUNITY TO PUBLISH CAMPAIGN'
     }
 
@@ -220,8 +216,10 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
         url: CONFIG.APP_DOMAIN+'buckets_list'
     })
     get_buckets.success(function(response){
-        scope.bucktesViewInternalOpts.list = response.data.buckets_list;
-        scope.bucktesViewExternalOpts.list = response.data.buckets_list;
+        scope.buckets_list = response.data.buckets_list;
+        scope.buckets_list.selectedBkts = [];
+        scope.bucktesViewInternalOpts.list = scope.buckets_list;
+        scope.bucktesViewExternalOpts.list = scope.buckets_list;
         scope.buckLoader = false;
     });
     get_buckets.error(function(response){

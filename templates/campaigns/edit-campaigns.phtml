@@ -182,10 +182,14 @@
 
                                 <div class="head-title">MANAGE CONTACTS</div>
                                 <div class="clearfix upload-contacts">
-                                    <buckets-view buckets="EditCampaignsCtrl.bucketsName" check-ids="EditCampaignsCtrl.checkedBuckets" set-fn="EditCampaignsCtrl.directiveCall(dirFn)"></buckets-view>
-                                    <div style="min-height:30px">
+                                    <buckets-view datasource="EditCampaignsCtrl.bucktesViewInternalOpts"></buckets-view>
+                                    <!-- <div style="min-height:30px">
                                         <div ng-show="edit_campaigns_form.selectedBuckets.$invalid && EditCampaignsCtrl.errCond" class="has-error-msg">Please select atleast one Community to Publish Campaign.</div>
+                                    </div> -->
+                                    <div ng-if="EditCampaignsCtrl.careersDetails.career_talent_network == 'enable'"> 
+                                        <buckets-view datasource="EditCampaignsCtrl.bucktesViewExternalOpts"></buckets-view>
                                     </div>
+                                    <input type="hidden" name="selectedBuckets" value="{{EditCampaignsCtrl.buckets_list.selectedBkts.toString()}}">
                                 </div>
                                 <div class="clearfix upload-files">
                                     <div>
