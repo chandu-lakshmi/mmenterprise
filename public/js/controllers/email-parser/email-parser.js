@@ -481,15 +481,6 @@
                 vm.job_details.company_logo = obj.company_logo || '';
                 vm.copyUrl = obj.bittly_url;
                 sharing(vm.copyUrl);
-                if (vm.job_details.company_logo != '') {
-                    $('header img').on('load', function () {
-                        this.className = '';
-                        $(this).attr('height', App.Components.aspectRatio({domTarget: $(this)[0]}) + 'px');
-                    })
-                }
-                else {
-                    $('header img').remove();
-                }
             },
             onError: function () {
                 $window.location = App.base_url + 'logout';
@@ -575,10 +566,6 @@
         vm.readOnlyEmail   = false; 
         vm.showJobDetails  = true; 
         vm.status = $location.search().flag;
-
-        $('h1.logo img').on('load', function () {
-            $(this).attr('height', App.Components.aspectRatio({domTarget: $(this)[0]}) + 'px');
-        });
 
         $("#can-mobile").intlTelInput({
             preferredCountries : ['us', 'in', 'gb'],
@@ -967,12 +954,14 @@
                 url_prefix: false,
                 url: CampaignDetails.company_logo,
                 onComplete: function () {
-                    
+                    $('#logo img').attr('width', App.Components.aspectRatio({domTarget: $('#logo img')[0]}) + 'px');
                 },
                 onError: function () {
                     
                 }
             });
+
+            
         }
 
         function CreateCampaginController($scope, $http, $timeout, $mdDialog, App) {

@@ -2,20 +2,20 @@
     <header class="logo container">
         <div layout="column">
             <div layout="row" flex>
-                <div id="logo" flex="20" ng-hide="CampaignDetails.company_logo == ''">
+                <div id="logo" flex="20" ng-hide="CampaignDetails.career_logo == ''">
                     <img ng-src="{{$root.url_spinner_small}}" class="spinner small img-thumbnail">
                 </div>
-                <span flex="20" ng-bind="CampaignDetails.company_name" class="company-name" ng-if="CampaignDetails.company_logo == ''"></span>         
+                <span flex="20" ng-bind="CampaignDetails.company_name" class="company-name" ng-if="CampaignDetails.career_logo == ''"></span>         
                 <i flex></i>
                 <div class="menu">
-                    <span class="tab"><a href="#">Home</a></span>
-                    <span class="tab"><a href="#">About {{CampaignDetails.company_name}}</a></span>
-                    <span class="tab"><a href="#" ng-click="CampaignsCtrl.createCampaign()">Join our Talent Community</a></span>
+                    <span class="tab" ng-repeat="link in CampaignDetails.career_links">
+                        <a href="{{link.url}}" ng-bind="link.label"></a>
+                    </span>
                 </div>
             </div>
         </div>
     </header>
-    <div class="filters">
+    <div class="filters" style="background-image:url({{!CampaignDetails.career_heroshot_image ? '../public/images/email-parser/banner_img.jpg' : CampaignDetails.career_heroshot_image}})">
         <div class="container" ng-style="{'margin-top' : $state.current.name === 'allCampaigns.all' ? '0' : '54px'}">
             <div class="des">
                 <h3>
@@ -75,8 +75,7 @@
                         <div class="about-comp">
                             <div class="box">
                                 <h4>About <span ng-bind="CampaignDetails.company_name"></span></h4>
-                                <span>
-                                    {{CampaignDetails.company_name}} is a leading IT solutions provider, offering Applications. Business Process Outsourcing (BPO) and Infrastructure services globally through a combination of technology know how, domain and process expertise. The accolades we have been garnering can be attributed to our undeterred focus in delivering quality solutions across verticals that meet the challenging requirements of our esteemed customers. We have been recently felicitated by the economic times as the most distinguished digital company 2015...  
+                                <span ng-bind="CampaignDetails.career_description">  
                                 </span>
                                 <h5>More..</h5>
                             </div>
@@ -88,7 +87,7 @@
                                 </div>
                             </div> -->
                         </div>
-                        <div class="create-camp" ng-click="CampaignsCtrl.createCampaign()">
+                        <div class="create-camp" ng-if="CampaignDetails.career_talent_network" ng-click="CampaignsCtrl.createCampaign()">
                             <div class="join-team">JOIN OUR TALENT COMMUNITY<img src="../public/images/email-parser/arrows.png" alt="next"></div>
                         </div>
                         <div class="social-share">

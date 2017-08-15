@@ -27,7 +27,7 @@
 				    	if (opts)
 							$.extend(config, opts);
 
-						return (opts.domTarget.naturalHeight / opts.domTarget.naturalWidth) * 160;				    		
+						return ( opts.domTarget.naturalWidth / opts.domTarget.naturalHeight ) * 60;				    		
 				    }
         		})
 

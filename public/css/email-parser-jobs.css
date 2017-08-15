@@ -125,7 +125,7 @@
       width: 25px;
       height: 25px; }
     .all-campaigns header.logo #logo img:not(.spinner) {
-      width: 160px; }
+      height: 60px; }
     .all-campaigns header.logo .company-name {
       font-size: 30px;
       color: #478e76;
