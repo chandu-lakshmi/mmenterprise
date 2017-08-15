@@ -613,7 +613,7 @@
                 }
                 
                 // initial company logo qq-uploader
-                function previewImg(url, name) {
+                function previewImg(url, name, filename) {
                     var logo = $('#' + vm.opts.id);
                     if(url){
                         logo.find('.qq-upload-drop-area').show();
@@ -623,6 +623,7 @@
                             css: 'img-thumbnail',
                             remove: true,
                             url_prefix: false,
+                            fileName : filename,
                             view: true,
                             url: url,
                             onComplete: function () {

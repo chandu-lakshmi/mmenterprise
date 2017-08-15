@@ -152,16 +152,16 @@
                                                             <img ng-click="EditCampaignsCtrl.campaignDetails.career_links.splice($index, 1);" class="closed" src="public/images/close-popup-red.svg" alt="close">
                                                             <md-input-container flex="50" class="md-block">
                                                                 <label>LABEL {{$index + 1}}</label>
-                                                                <input type="text" class="form-controls" name="label{{$index}}" ng-required="link.url" ng-model="link.label" ng-class="{'has-error-border':careersPage['label'+$index].$error.required && EditCampaignsCtrl.errCondcareersPage}">
-                                                                <div ng-if="careersPage['label'+$index].$error.required && EditCampaignsCtrl.errCondcareersPage"  class="has-error-msg">Please enter Label Name.</div>
+                                                                <input type="text" class="form-controls" name="label{{$index}}" ng-required="link.url" ng-model="link.label" ng-class="{'has-error-border':edit_campaigns_form['label'+$index].$error.required && EditCampaignsCtrl.errCond}">
+                                                                <div ng-if="edit_campaigns_form['label'+$index].$error.required && EditCampaignsCtrl.errCond"  class="has-error-msg">Please enter Label Name.</div>
                                                             </md-input-container>
                                                             <i flex="5"></i>
                                                             <input type="hidden" ng-if="link.label" name="career_links[{{$index}}][label]" value="{{link.label}}">  
                                                             <md-input-container flex="50" class="md-block" style="margin-bottom:0">
                                                                 <label>LINK</label>
-                                                                <input  type="text" class="form-controls" name="url{{$index}}" ng-required="link.label" ng-model="link.url" ng-pattern="/^(http:\/\/www\.|https:\/\/www\.|www\.|https:\/\/|http:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i" ng-class="{'has-error-border':careersPage['url'+$index].$invalid && EditCampaignsCtrl.errCondcareersPage}">
-                                                                <div ng-if="careersPage['url'+$index].$error.required && EditCampaignsCtrl.errCondcareersPage"  class="has-error-msg">Please enter Website URL.</div>
-                                                                <div ng-if="careersPage['url'+$index].$error.pattern && EditCampaignsCtrl.errCondcareersPage"  class="has-error-msg">Please enter valid Website URL.</div>
+                                                                <input  type="text" class="form-controls" name="url{{$index}}" ng-required="link.label" ng-model="link.url" ng-pattern="/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/" ng-class="{'has-error-border':edit_campaigns_form['url'+$index].$invalid && EditCampaignsCtrl.errCond}">
+                                                                <div ng-if="edit_campaigns_form['url'+$index].$error.required && EditCampaignsCtrl.errCond"  class="has-error-msg">Please enter Website URL.</div>
+                                                                <div ng-if="edit_campaigns_form['url'+$index].$error.pattern && EditCampaignsCtrl.errCond"  class="has-error-msg">Please enter valid Website URL.</div>
                                                             </md-input-container>
                                                             <input type="hidden" ng-if="link.url" name="career_links[{{$index}}][url]" value="{{link.url}}">
                                                         </div>

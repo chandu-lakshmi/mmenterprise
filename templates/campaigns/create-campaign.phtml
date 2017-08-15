@@ -206,7 +206,7 @@
 												<input type="hidden" ng-if="link.label" name="career_links[{{$index}}][label]" value="{{link.label}}"> 	
 							 					<md-input-container flex="50" class="md-block" style="margin-bottom:0">
 													<label>LINK</label>
-													<input  type="text" class="rm" name="url{{$index}}" ng-required="link.label" ng-model="link.url" ng-pattern="/^(http:\/\/www\.|https:\/\/www\.|www\.|https:\/\/|http:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i" ng-class="{'has-error-border':careersPage['url'+$index].$invalid && NewCampaignCtrl.errCondcareersPage}">
+													<input  type="text" class="rm" name="url{{$index}}" ng-required="link.label" ng-model="link.url" ng-pattern="/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/" ng-class="{'has-error-border':careersPage['url'+$index].$invalid && NewCampaignCtrl.errCondcareersPage}">
 													<div ng-if="careersPage['url'+$index].$error.required && NewCampaignCtrl.errCondcareersPage"  class="has-error-msg">Please enter Website URL.</div>
 													<div ng-if="careersPage['url'+$index].$error.pattern && NewCampaignCtrl.errCondcareersPage"  class="has-error-msg">Please enter valid Website URL.</div>
 												</md-input-container>

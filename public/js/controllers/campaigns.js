@@ -310,8 +310,8 @@
                 if (response.data.status_code == 200) {
                     vm.careersDetails = response.data.data;
                     $timeout(function(){
-                        vm.updateLogo(response.data.data.career_logo, 'career_logo');
-                        vm.updateHeroShortImage(response.data.data.career_heroshot_image, 'career_heroshot_image');    
+                        vm.updateLogo(vm.careersDetails.career_logo, 'career_logo', vm.careersDetails.logo_name);
+                        vm.updateHeroShortImage(vm.careersDetails.career_heroshot_image, 'career_heroshot_image', vm.careersDetails.heroshot_image_name);    
                     });
                 }
                 else if (response.status_code == 400) {
@@ -817,8 +817,8 @@
         }
 
         $timeout(function(){
-            vm.updateLogo(vm.campaignDetails.career_logo, 'career_logo');
-            vm.updateHeroShortImage(vm.campaignDetails.career_heroshot_image, 'career_heroshot_image');    
+            vm.updateLogo(vm.campaignDetails.career_logo, 'career_logo', vm.campaignDetails.logo_name);
+            vm.updateHeroShortImage(vm.campaignDetails.career_heroshot_image, 'career_heroshot_image', vm.campaignDetails.heroshot_image_name);    
         }, 1000);
         //carrer page end
 
