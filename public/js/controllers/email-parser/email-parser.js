@@ -81,7 +81,6 @@
                 vm.experiences = response.data.experiences;
             })
 
-
             App.Helpers.loadImage({
                 target: $('#logo'),
                 css: '',
