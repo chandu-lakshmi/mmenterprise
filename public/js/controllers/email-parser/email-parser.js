@@ -86,9 +86,9 @@
                 target: $('#logo'),
                 css: '',
                 url_prefix: false,
-                url: ReferralDetails.company_logo,
+                url: ReferralDetails.career_logo,
                 onComplete: function () {
-                    
+                    $('#logo img').attr('width', App.Components.aspectRatio({domTarget: $('#logo img')[0]}) + 'px');
                 },
                 onError: function () {
                     
