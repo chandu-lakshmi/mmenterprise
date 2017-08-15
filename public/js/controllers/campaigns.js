@@ -280,6 +280,7 @@
             type  : 1, //internal set to 1, external set to 2 
             list  : [],
             selectedOne: [],
+            newlySelectedBkts : [],
             headerTxt : 'SELECT CONTACTS COMMUNITY TO PUBLISH CAMPAIGN'
         }
 
@@ -287,7 +288,15 @@
             type  : 2, //internal set to 1, external set to 2 
             list  : [],
             selectedOne : [],
+            newlySelectedBkts : [],
             headerTxt : 'SELECT TALENT COMMUNITY TO PUBLISH CAMPAIGN'
+        }
+
+        vm.selectedBkts = '';
+        vm.getSelectedBkt = function(){
+            var selected = vm.bucktesViewInternalOpts.newlySelectedBkts.concat(vm.bucktesViewExternalOpts.newlySelectedBkts).toString();
+            vm.selectedBkts = selected;
+            return selected;
         }
 
         function init() {
@@ -319,10 +328,8 @@
             })
             get_buckets.success(function (response) {
                 if (response.status_code == 200) {
-                    vm.buckets_list = response.data.buckets_list;
-                    vm.buckets_list.selectedBkts = [];
-                    vm.bucktesViewInternalOpts.list = vm.buckets_list;
-                    vm.bucktesViewExternalOpts.list = vm.buckets_list;
+                    vm.bucktesViewInternalOpts.list = response.data.buckets_list;
+                    vm.bucktesViewExternalOpts.list = response.data.buckets_list;
                 }
                 else if (response.status_code == 400) {
                     $window.location = App.base_url + 'logout';
@@ -758,24 +765,6 @@
 
         vm.company_name = CompanyDetails.name;
 
-        $('.videoFiles').fancybox({
-            minWidth: 500,
-            maxWidth: 500,
-            minHeight: 300,
-            maxHeight: 300,
-            scrollOutside: false,
-            afterLoad: function (x, y) {
-                var url = x.element[0].attributes.videoplay.value;
-                var tpl = '<video controls width="100%" autoplay>' +
-                        '<source src="' + url + '" type="video/mp4">' +
-                        '<source src="' + url + '" type="video/webm">' +
-                        '<source src="' + url + '" type="video/ogg">' +
-                        '<source src="' + url + '" type="video/ogv">' +
-                        '</video>'
-                x.content = tpl
-            }
-        });
-
         vm.errCond = false;
         vm.loader = false;
         vm.bktView = true;
@@ -784,6 +773,53 @@
         vm.radioButtons = {};
         vm.checkBox = {};
         vm.campaign = ['Mass Recruitment', 'Military Veterans', 'Campus Hires'];
+        vm.updateCampaign = updateCampaign;
+        vm.trash = trash;
+        vm.resetLocation = resetLocation;
+        vm.campaignDetails = CampaignsData.getCampaigns();
+        vm.prevSelectedJobIds = [];
+        vm.cacheData = angular.copy(vm.campaignDetails);
+
+
+        //career page
+        vm.companyLogoOpts = {
+            id     : 'logo',
+            size   : (1 * 1024 * 1024),
+            action : "file_upload",
+            file_name : 'logo_name',
+            path_name : 'request_logo',
+            allowedExtensions : ["jpg", "jpeg", "png"],
+            uploadButtonText  : "<span class='head'>Logo</span><span class='desc'>Add your careers page company logo</span>",
+            previewImg : function(dirFun) {
+                vm.updateLogo = dirFun;
+            }
+        }
+
+        vm.heroShortImageOpts = {
+            id     : 'heroshort-logo',
+            size   : (1 * 1024 * 1024),
+            action : "file_upload",
+            file_name : 'heroshot_image_name',
+            path_name : 'request_heroshot',
+            allowedExtensions : ["jpg", "jpeg", "png"],
+            uploadButtonText  : "<span class='head'>Heroshot Image</span><span class='desc'>Add your careers page heroshot image</span>",
+            previewImg : function(dirFun) {
+                vm.updateHeroShortImage = dirFun;
+            }
+        } 
+
+        vm.addHyperlink = function() {
+            if(vm.campaignDetails.career_links.length < 4){
+                vm.campaignDetails.career_links.push({cls:'mm-slide-left'});
+            }
+        }
+
+        $timeout(function(){
+            vm.updateLogo(vm.campaignDetails.career_logo, 'career_logo');
+            vm.updateHeroShortImage(vm.campaignDetails.career_heroshot_image, 'career_heroshot_image');    
+        }, 1000);
+        //carrer page end
+
 
         //location
         vm.geo_location = '';
@@ -823,33 +859,48 @@
             }
         });
 
-        vm.updateCampaign = updateCampaign;
-        vm.trash = trash;
-        vm.resetLocation = resetLocation;
-        vm.campaignDetails = CampaignsData.getCampaigns();
-        vm.prevSelectedJobIds = [];
-        vm.cacheData = angular.copy(vm.campaignDetails);
+        function resetLocation(city) {
+            if (city == undefined) {
+                vm.campaignDetails.location.zip_code = "";
+                vm.campaignDetails.location.state = "";
+                vm.campaignDetails.location.country = "";
+            }
+        }
+        //Location end
+        
 
-
-        vm.bucketsName = angular.copy(contactBuckets.getBucket());
-        vm.bucketsName.selectedBkts = [];
+        //Buckets
+        vm.selectedBkts = '';
+        vm.bucketsName  = angular.copy(contactBuckets.getBucket());
+        
         vm.bucktesViewInternalOpts = {
             type  : 1, //internal set to 1, external set to 2 
             list  : [],
-            selectedOne: [],
+            selectedOne: vm.campaignDetails.bucket_ids,
+            newlySelectedBkts : [],
             headerTxt : 'SELECT CONTACTS COMMUNITY TO PUBLISH CAMPAIGN'
         }
 
         vm.bucktesViewExternalOpts = {
             type  : 2, //internal set to 1, external set to 2 
             list  : [],
-            selectedOne : [],
+            selectedOne : vm.campaignDetails.bucket_ids,
+            newlySelectedBkts : [],
             headerTxt : 'SELECT TALENT COMMUNITY TO PUBLISH CAMPAIGN'
         }
-        
+     
+        vm.getSelectedBkt = function(){
+            var selected = vm.bucktesViewInternalOpts.newlySelectedBkts.concat(vm.bucktesViewExternalOpts.newlySelectedBkts).toString();
+            vm.selectedBkts = selected;
+            return selected;
+        }
+
         vm.bucktesViewInternalOpts.list = vm.bucketsName;
         vm.bucktesViewExternalOpts.list = vm.bucketsName;
         
+        //Buckets end
+
+
         vm.checkedBuckets = vm.campaignDetails.bucket_ids || [];
 
         vm.jobsList = vm.campaignDetails.job_details;
@@ -874,6 +925,41 @@
             $('#mul_select').chosen()
         }, 1);
 
+        vm.createJob = function() {
+            var modalInstance = $uibModal.open({
+                animation: false,
+                backdrop: 'static',
+                keyboard: false,
+                templateUrl: 'templates/campaigns/template-create-job.phtml',
+                openedClass: "new-campaign",
+                controller: 'CreateJobController',
+                controllerAs: 'CreateJobCtrl'
+            })
+
+            modalInstance.result.then(function (response) {
+                
+                var data = response.data;
+                vm.jobsList.push(data);
+                var id = data.post_id.toString();
+                vm.campaignDetails.job_ids.push(id)
+                vm.campaignDetails.job_ids = angular.copy(vm.campaignDetails.job_ids);
+                setTimeout(function () {
+                    $('#mul_select').trigger('chosen:updated')
+                }, 100);
+                setTimeout(function () {
+                    for (var j = 0; j < vm.prevSelectedJobIds.length; j++) {
+                        for (var i = 0; i < $('.chosen-choices li.search-choice').length - 1; i++) {
+                            if ($('.chosen-choices li a').eq(i).attr('data-option-array-index') == vm.prevSelectedJobIds[j]) {
+                                $('.chosen-choices li a').eq(i).remove();
+                                break;
+                            }
+                        }
+                    }
+
+                }, 200);
+            });
+        };
+
 
         function radioButton() {
             vm.radioButtons = {
@@ -890,21 +976,6 @@
             employeePitch: 'false'
         }
 
-        // uploader
-        for (var i = 0; i < 2; i++) {
-            window["$upload_pitch" + i] = $('.upload-pitch').eq(i);
-            pitchUpload(i);
-        }
-
-        function resetErrors() {
-            vm.errCond = false;
-            for (var i = 0; i < 2; i++) {
-                eval("$upload_pitch" + i).find('.qq-upload-fail').remove();
-            }
-        }
-
-
-        vm.currentDate = new Date();
 
         function schedule() {
             
@@ -983,19 +1054,9 @@
             if(vm.campaignDetails.schedule.length < 5){
                 vm.campaignDetails.schedule.push({hasCloseIcon : true });
             }
-
-            /*vm.campaignDetails.schedule
-            if (vm.scheduleTime.length == 5) {
-                vm.checkbox.schedule = false;
-                return;
-            }
-            vm.currentTimeLength++;
-            vm.scheduleTime.push(vm.currentTimeLength);*/
         }
         vm.closeSchedule = function (index) {
             vm.campaignDetails.schedule.splice(index, 1);
-            /*var indx = vm.scheduleTime.indexOf(val);
-            vm.scheduleTime.splice(indx, 1)*/
         }
 
         vm.getScheduleDate = function(id) {
@@ -1007,57 +1068,36 @@
         }
 
 
-        vm.companyLogoOpts = {
-            id     : 'logo',
-            size   : (1 * 1024 * 1024),
-            action : "file_upload",
-            file_name : 'logo_name',
-            path_name : 'request_logo',
-            allowedExtensions : ["jpg", "jpeg", "png"],
-            uploadButtonText  : "<span class='head'>Logo</span><span class='desc'>Add your careers page company logo</span>",
-            previewImg : function(dirFun) {
-                vm.updateLogo = dirFun;
+        // uploader
+        $('.videoFiles').fancybox({
+            minWidth: 500,
+            maxWidth: 500,
+            minHeight: 300,
+            maxHeight: 300,
+            scrollOutside: false,
+            afterLoad: function (x, y) {
+                var url = x.element[0].attributes.videoplay.value;
+                var tpl = '<video controls width="100%" autoplay>' +
+                        '<source src="' + url + '" type="video/mp4">' +
+                        '<source src="' + url + '" type="video/webm">' +
+                        '<source src="' + url + '" type="video/ogg">' +
+                        '<source src="' + url + '" type="video/ogv">' +
+                        '</video>'
+                x.content = tpl
             }
-        }
-
-        vm.heroShortImageOpts = {
-            id     : 'heroshort-logo',
-            size   : (1 * 1024 * 1024),
-            action : "file_upload",
-            file_name : 'heroshot_image_name',
-            path_name : 'request_heroshot',
-            allowedExtensions : ["jpg", "jpeg", "png"],
-            uploadButtonText  : "<span class='head'>Heroshot Image</span><span class='desc'>Add your careers page heroshot image</span>",
-            previewImg : function(dirFun) {
-                vm.updateHeroShortImage = dirFun;
-            }
-        } 
-
-        vm.addHyperlink = function() {
-            if(vm.careersDetails.career_links.length < 4){
-                vm.careersDetails.career_links.push({cls:'mm-slide-left'});
-            }
-        }
-
-        $http({
-            headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
-            method  : 'POST',
-            data    : $.param({company_code: CompanyDetails.company_code}),
-            url     : App.base_url + 'get_career_settings'
-        })
-        .then(function (response) {
-            if (response.data.status_code == 200) {
-                vm.careersDetails = response.data.data;
-                vm.updateLogo(response.data.data.career_logo, 'career_logo');
-                vm.updateHeroShortImage(response.data.data.career_heroshot_image, 'career_heroshot_image');
-            }
-            else if (response.status_code == 400) {
-                $window.location = App.base_url + 'logout';
-            }
-        }, function (response) {
-            console.log(response)
         });
 
+        for (var i = 0; i < 2; i++) {
+            window["$upload_pitch" + i] = $('.upload-pitch').eq(i);
+            pitchUpload(i);
+        }
+
+        function resetErrors() {
+            vm.errCond = false;
+            for (var i = 0; i < 2; i++) {
+                eval("$upload_pitch" + i).find('.qq-upload-fail').remove();
+            }
+        }
 
         if (vm.campaignDetails.hasOwnProperty('files')) {
             for (var i = 0; i < vm.campaignDetails.files.length; i++) {
@@ -1078,9 +1118,6 @@
             }
         }
 
-        vm.directiveCall = function (dirFn) {
-            vm.resetBuckects = dirFn;
-        };
 
         var uploadTemplate = '<div class="upload-box">' +
                 '<div class="file">' +
@@ -1169,6 +1206,7 @@
                 }, 100)
             }
         }
+        //uploader end
 
         function updateCampaign(isValid) {
             if (!isValid) {
@@ -1202,70 +1240,6 @@
                         })
             }
         }
-
-        function resetLocation(city) {
-            if (city == undefined) {
-                vm.campaignDetails.location.zip_code = "";
-                vm.campaignDetails.location.state = "";
-                vm.campaignDetails.location.country = "";
-            }
-        }
-
-        vm.createJob = function() {
-            var modalInstance = $uibModal.open({
-                animation: false,
-                backdrop: 'static',
-                keyboard: false,
-                templateUrl: 'templates/campaigns/template-create-job.phtml',
-                openedClass: "new-campaign",
-                controller: 'CreateJobController',
-                controllerAs: 'CreateJobCtrl'
-            })
-
-            modalInstance.result.then(function (response) {
-                
-                var data = response.data;
-                vm.jobsList.push(data);
-                var id = data.post_id.toString();
-                vm.campaignDetails.job_ids.push(id)
-                vm.campaignDetails.job_ids = angular.copy(vm.campaignDetails.job_ids);
-                setTimeout(function () {
-                    $('#mul_select').trigger('chosen:updated')
-                }, 100);
-                setTimeout(function () {
-                    for (var j = 0; j < vm.prevSelectedJobIds.length; j++) {
-                        for (var i = 0; i < $('.chosen-choices li.search-choice').length - 1; i++) {
-                            if ($('.chosen-choices li a').eq(i).attr('data-option-array-index') == vm.prevSelectedJobIds[j]) {
-                                $('.chosen-choices li a').eq(i).remove();
-                                break;
-                            }
-                        }
-                    }
-
-                }, 200);
-            });
-        };
-
-        /*$scope.$on('newJobDataEditCmp', function (event, data) {
-            vm.jobsList.push(data);
-            var id = data.post_id.toString();
-            vm.campaignDetails.job_ids.push(id)
-            vm.campaignDetails.job_ids = angular.copy(vm.campaignDetails.job_ids);
-            setTimeout(function () {
-                $('#mul_select').trigger('chosen:updated')
-            }, 100);
-            setTimeout(function () {
-                for (var j = 0; j < vm.prevSelectedJobIds.length; j++) {
-                    for (var i = 0; i < $('.chosen-choices li.search-choice').length - 1; i++) {
-                        if ($('.chosen-choices li a').eq(i).attr('data-option-array-index') == vm.prevSelectedJobIds[j]) {
-                            $('.chosen-choices li a').eq(i).remove();
-                            break;
-                        }
-                    }
-                }
-
-            }, 200);
-        });*/
 
         vm.back = back;
         function back() {

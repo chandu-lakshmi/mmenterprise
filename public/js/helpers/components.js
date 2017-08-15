@@ -113,22 +113,20 @@
                 }
 
                 this.addBucketContact = function (bucketId) {
-                    var index = vm.datasource.list.selectedBkts.indexOf(bucketId);
+                    var index = vm.datasource.newlySelectedBkts.indexOf(bucketId);
                     if (index == -1) {
-                        vm.datasource.list.selectedBkts.push(bucketId);
+                        vm.datasource.newlySelectedBkts.push(bucketId);
                         changePic(bucketId, "public/images/select.svg");
                     }
                     else {
-                        vm.datasource.list.selectedBkts.splice(index, 1);
+                        vm.datasource.newlySelectedBkts.splice(index, 1);
                         changePic(bucketId, "public/images/add.svg");
                     }
-                    //vm.selectedBktsString = vm.datasource.list.selectedBkts.toString();
                 }
 
                 this.init = function (src, bktId) {
                     if (src == 'public/images/select.svg') {
-                        vm.datasource.list.selectedBkts.push(bktId);
-                        //vm.selectedBktsString = vm.datasource.list.selectedBkts.toString();
+                        vm.datasource.newlySelectedBkts.push(bktId);
                     }
                 }
 
@@ -654,7 +652,6 @@
         }
 
     }
-
 
     /*function toolTip(){
      return {

@@ -254,7 +254,7 @@
 								<div layout="row" ng-if="NewCampaignCtrl.careersDetails.career_talent_network == 'enable'"> 
 									<buckets-view datasource="NewCampaignCtrl.bucktesViewExternalOpts"></buckets-view>
 								</div>
-								<input type="hidden" name="selectedBuckets" value="{{NewCampaignCtrl.buckets_list.selectedBkts.toString()}}">
+								<input type="hidden" name="selectedBuckets" required value="{{NewCampaignCtrl.getSelectedBkt()}}" ng-model="NewCampaignCtrl.selectedBkts">
 								<h5 class="head-title">UPLOADS</h5>
 								<div class="clearfix upload-files">
 								   <div>

@@ -102,6 +102,7 @@
 
                                                     <input type="hidden" name="schedule[{{$index}}][end_on_date]" value="{{EditCampaignsCtrl.getScheduleDate('#dtPickerEnd'+ $index)}}">
                                                     <input type="hidden" name="schedule[{{$index}}][end_on_time]" value="{{EditCampaignsCtrl.getScheduleTime('#dtPickerEnd'+ $index)}}">
+                                                    <input type="hidden" name="schedule[{{$index}}][schedule_id]" value="{{group.schedule_id}}">
 
                                                 </md-input-container>
                                                 <div ng-show="EditCampaignsCtrl.errCond && edit_campaigns_form['end'+$index].$error.required" class="has-error-msg msg">Please select End Date.</div>
@@ -141,38 +142,38 @@
                                                             <div mm-uploader flex="50" class="uploads" datasource="EditCampaignsCtrl.heroShortImageOpts"></div>
                                                         </div>
                                                         <h5 class="sub-head link">SHOW TALENT COMMUNITY</h5>
-                                                        <md-radio-group layout="row" style="color: #9f9f9f" ng-model="EditCampaignsCtrl.careersDetails.career_talent_network">
+                                                        <md-radio-group layout="row" style="color: #9f9f9f" ng-model="EditCampaignsCtrl.campaignDetails.career_talent_network">
                                                               <md-radio-button flex="20" value="enable" class="md-primary">Yes</md-radio-button>
                                                               <md-radio-button flex="20" value="disable" class="md-primary">No</md-radio-button>
                                                         </md-radio-group>
-                                                        <input type="hidden" name="career_talent_network" value={{EditCampaignsCtrl.careersDetails.career_talent_network}}>
+                                                        <input type="hidden" name="career_talent_network" value={{EditCampaignsCtrl.campaignDetails.career_talent_network}}>
                                                         <h5 class="sub-head link" style="padding-bottom: 27px">LINKS</h5>
-                                                        <div layout="row" class="link-box" ng-repeat="link in EditCampaignsCtrl.careersDetails.career_links">
-                                                            <img ng-click="EditCampaignsCtrl.careersDetails.career_links.splice($index, 1);" class="closed" src="public/images/close-popup-red.svg" alt="close">
+                                                        <div layout="row" class="link-box" ng-repeat="link in EditCampaignsCtrl.campaignDetails.career_links">
+                                                            <img ng-click="EditCampaignsCtrl.campaignDetails.career_links.splice($index, 1);" class="closed" src="public/images/close-popup-red.svg" alt="close">
                                                             <md-input-container flex="50" class="md-block">
                                                                 <label>LABEL {{$index + 1}}</label>
-                                                                <input type="text" class="rm" name="label{{$index}}" ng-required="link.url" ng-model="link.label" ng-class="{'has-error-border':careersPage['label'+$index].$error.required && EditCampaignsCtrl.errCondcareersPage}">
+                                                                <input type="text" class="form-controls" name="label{{$index}}" ng-required="link.url" ng-model="link.label" ng-class="{'has-error-border':careersPage['label'+$index].$error.required && EditCampaignsCtrl.errCondcareersPage}">
                                                                 <div ng-if="careersPage['label'+$index].$error.required && EditCampaignsCtrl.errCondcareersPage"  class="has-error-msg">Please enter Label Name.</div>
                                                             </md-input-container>
                                                             <i flex="5"></i>
                                                             <input type="hidden" ng-if="link.label" name="career_links[{{$index}}][label]" value="{{link.label}}">  
                                                             <md-input-container flex="50" class="md-block" style="margin-bottom:0">
                                                                 <label>LINK</label>
-                                                                <input  type="text" class="rm" name="url{{$index}}" ng-required="link.label" ng-model="link.url" ng-pattern="/^(http:\/\/www\.|https:\/\/www\.|www\.|https:\/\/|http:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i" ng-class="{'has-error-border':careersPage['url'+$index].$invalid && EditCampaignsCtrl.errCondcareersPage}">
+                                                                <input  type="text" class="form-controls" name="url{{$index}}" ng-required="link.label" ng-model="link.url" ng-pattern="/^(http:\/\/www\.|https:\/\/www\.|www\.|https:\/\/|http:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i" ng-class="{'has-error-border':careersPage['url'+$index].$invalid && EditCampaignsCtrl.errCondcareersPage}">
                                                                 <div ng-if="careersPage['url'+$index].$error.required && EditCampaignsCtrl.errCondcareersPage"  class="has-error-msg">Please enter Website URL.</div>
                                                                 <div ng-if="careersPage['url'+$index].$error.pattern && EditCampaignsCtrl.errCondcareersPage"  class="has-error-msg">Please enter valid Website URL.</div>
                                                             </md-input-container>
                                                             <input type="hidden" ng-if="link.url" name="career_links[{{$index}}][url]" value="{{link.url}}">
                                                         </div>
                                                         <div style="margin-bottom: 36px;">
-                                                            <span class="btn-action" ng-click="EditCampaignsCtrl.addHyperlink()" ng-class="{ 'disable-cursor' : EditCampaignsCtrl.careersDetails.career_links.length > 3 }" ng-disabled="EditCampaignsCtrl.careersDetails.career_links.length > 3" class="hyper-link">ADD LINK</span>
+                                                            <span class="btn-action" ng-click="EditCampaignsCtrl.addHyperlink()" ng-class="{ 'disable-cursor' : EditCampaignsCtrl.campaignDetails.career_links.length > 3 }" ng-disabled="EditCampaignsCtrl.campaignDetails.career_links.length > 3" class="hyper-link">ADD LINK</span>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div flex="30">
                                                     <h5 class="sub-head">COMPANY DESCRIPTION</h5>
                                                     <md-input-container class="md-block" flex=100>
-                                                        <textarea name="career_description" class="description" ng-model="EditCampaignsCtrl.careersDetails.career_description" aria-label="des" md-maxlength="5000" maxlength="5000" ng-maxlength="5000"></textarea>
+                                                        <textarea name="career_description" class="description" ng-model="EditCampaignsCtrl.campaignDetails.career_description" aria-label="des" md-maxlength="5000" maxlength="5000" ng-maxlength="5000"></textarea>
                                                     </md-input-container>
                                                 </div>
                                             </div>
@@ -186,10 +187,10 @@
                                     <!-- <div style="min-height:30px">
                                         <div ng-show="edit_campaigns_form.selectedBuckets.$invalid && EditCampaignsCtrl.errCond" class="has-error-msg">Please select atleast one Community to Publish Campaign.</div>
                                     </div> -->
-                                    <div ng-if="EditCampaignsCtrl.careersDetails.career_talent_network == 'enable'"> 
+                                    <div ng-if="EditCampaignsCtrl.campaignDetails.career_talent_network == 'enable'"> 
                                         <buckets-view datasource="EditCampaignsCtrl.bucktesViewExternalOpts"></buckets-view>
                                     </div>
-                                    <input type="hidden" name="selectedBuckets" value="{{EditCampaignsCtrl.buckets_list.selectedBkts.toString()}}">
+                                    <input type="hidden" name="selectedBuckets" required value="{{EditCampaignsCtrl.getSelectedBkt()}}" ng-model="EditCampaignsCtrl.selectedBkts">
                                 </div>
                                 <div class="clearfix upload-files">
                                     <div>
