@@ -141,7 +141,7 @@
         color: #818785; }
   .all-campaigns .filters {
     padding: 72px 0;
-    background: url("../images/email-parser/banner_img.jpg") no-repeat #472d50;
+    background-repeat: no-repeat;
     background-size: cover;
     background-position: 50% 50%;
     min-height: 366px; }
