@@ -208,7 +208,6 @@
             uploadButtonText  : "<span class='head'>Logo</span><span class='desc'>Add your careers page company logo</span>",
             previewImg : function(dirFun) {
                 vm.updateLogo = dirFun;
-                console.log( dirFun)
             }
         }
 
@@ -310,9 +309,10 @@
             .then(function (response) {
                 if (response.data.status_code == 200) {
                     vm.careersDetails = response.data.data;
-                    console.log(vm.updateLogo)
-                    vm.updateLogo(response.data.data.career_logo, 'career_logo');
-                    vm.updateHeroShortImage(response.data.data.career_heroshot_image, 'career_heroshot_image');
+                    $timeout(function(){
+                        vm.updateLogo(response.data.data.career_logo, 'career_logo');
+                        vm.updateHeroShortImage(response.data.data.career_heroshot_image, 'career_heroshot_image');    
+                    });
                 }
                 else if (response.status_code == 400) {
                     $window.location = App.base_url + 'logout';
