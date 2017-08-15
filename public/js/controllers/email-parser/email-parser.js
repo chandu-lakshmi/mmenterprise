@@ -952,7 +952,7 @@
                 target: $('#logo'),
                 css: '',
                 url_prefix: false,
-                url: CampaignDetails.company_logo,
+                url: CampaignDetails.career_logo,
                 onComplete: function () {
                     $('#logo img').attr('width', App.Components.aspectRatio({domTarget: $('#logo img')[0]}) + 'px');
                 },
