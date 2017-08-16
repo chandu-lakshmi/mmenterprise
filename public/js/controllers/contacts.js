@@ -1173,11 +1173,13 @@
 
     function UploadSingleContactController($scope, $window, defaultFunction, getBuckets, $http, $uibModalInstance, buckets, App) {
 
-        var scope = this;
+        var scope = this,
+            bucketType;
 
         scope.bucketList = buckets.getData();
-
         scope.statusText = ["Active", "Inactive", "Separated"];
+        
+        bucketType       = scope.bucketList[0].bucket_type;
 
         // closing angular material select box when blur
         scope.closeDropdown = function () {
@@ -1209,7 +1211,7 @@
                         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                     },
                     method: 'POST',
-                    data: data,
+                    data: data + '&' + $.param({ bucket_type : bucketType}),
                     url: App.base_url + 'add_contact'
                 })
                 add_contact.success(function (response) {
