@@ -452,3 +452,23 @@ $app->POST('/resumes_upload',function ($request, $response, $args) {
         }
   
 });
+
+$app->post('/get_talentcommunity_buckets',function ($request, $response, $args) use ($app) {
+    
+    $apiEndpoint = getapiEndpoint($this->settings, 'get_talentcommunity_buckets');
+    $allJobs     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+     return checkJsonResult( $allJobs->loadCurl() );
+});
+
+$app->post('/add_to_talentcommunity',function ($request, $response, $args) use ($app) {
+    
+    $apiEndpoint = getapiEndpoint($this->settings, 'add_to_talentcommunity');
+    $allJobs     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+     return checkJsonResult( $allJobs->loadCurl() );
+});
