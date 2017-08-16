@@ -1,0 +1,97 @@
+<md-dialog class="create-campaign" flex>
+    <div class="main">
+        <header>
+            <img src="../public/images/cross_icon.png" alt="close" ng-click="TalentCommunityCtrl.closeDialog($event)">
+            <h3>Join Our Talent Community</h3>
+            <p class="desc">Joining our Talent Community will enhance your job search and application process,</p>
+            <p>Whether you choose to apply or just leave your information, we look forward to staying connected with you.</p> 
+        </header>
+        <section>
+            <form name="add_contact">
+                <div layout="column">
+                    <div layout="row">
+                        <div flex="45">
+                            <md-input-container class="md-block">
+                                <label>FIRST NAME<big>*</big></label>
+                                <input type="text" name="firstname" ng-model="TalentCommunityCtrl.contact.firstname"  required ng-class="{'has-error-border':add_contact.firstname.$error.required && TalentCommunityCtrl.submitted}">
+                                <div ng-if="add_contact.firstname.$error.required && TalentCommunityCtrl.submitted" class="has-error-msg">Please enter First Name.</div>
+                            </md-input-container>
+                        </div>
+                        <i flex="10"></i>
+                        <div flex="45">
+                            <md-input-container class="md-block">
+                                <label>LAST NAME</label>
+                                <input type="text" name="lastname" ng-model="TalentCommunityCtrl.contact.lname">
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <div layout="row">
+                        <div flex="45">
+                            <md-input-container class="md-block">
+                                <label>MOBILE</label>
+                                <input type="text" name="phone" check-char-zero ng-model="TalentCommunityCtrl.contact.mobile">
+                            </md-input-container>
+                        </div>
+                        <i flex="10"></i>
+                        <div flex="45">
+                            <md-input-container class="md-block">
+                                <label>EMAIL<big>*</big></label>
+                                <input type="text" name="emailid" required ng-model="TalentCommunityCtrl.contact.email" ng-pattern='/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/' ng-class="{'has-error-border':add_contact.emailid.$invalid && TalentCommunityCtrl.submitted}">
+                                <div ng-if="add_contact.emailid.$error.required && TalentCommunityCtrl.submitted" class="has-error-msg">Please enter Email.</div>
+                                <div ng-if="add_contact.emailid.$error.pattern && TalentCommunityCtrl.submitted" class="has-error-msg">Please enter valid Email.</div>
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <div layout="row">
+                        <div flex="45" style="position: relative">
+                            <md-input-container class="md-block">
+                                <label>LOCATION</label>
+                                <input type="text" name="location" ng-model="TalentCommunityCtrl.contact.location" ng-autocomplete="TalentCommunityCtrl.geo_location" details="TalentCommunityCtrl.geo_details" options="TalentCommunityCtrl.geo_options" apiplaceholder="">
+                            </md-input-container>
+                        </div>
+                        <i flex="10"></i>
+                        <div flex="45">
+                            <md-input-container class="md-block select-box">
+                                <label style="display:none">WHICH CAREER  AREA ARE YOU INTERESTED IN?</label>
+                                <md-select name="industry" ng-model="TalentCommunityCtrl.contact.career" >
+                                    <md-option ng-repeat="career in TalentCommunityCtrl.careers" ng-value="career.job_function_id">{{career.job_function_name}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <div layout="row">
+                        <div flex="45">
+                            <md-input-container class="md-block select-box">
+                                <label style="display:none">WOULD YOU LIKE TO RECEIVE JOB ALERTS?</label>
+                                <md-select name="industry" ng-model="TalentCommunityCtrl.contact.status" >
+                                    <md-option ng-repeat="type in ['Yes', 'No']" ng-value="type">{{type}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div>
+                    </div>
+                </div>
+                <div class="community">
+                    <p>SELECT AND JOIN OUR TALENT COMMUNITY</p>
+                    <span ng-repeat="cmt in TalentCommunityCtrl.communitys"
+                          ng-click="TalentCommunityCtrl.addOrDeleteCommunity(cmt.bucket_id)"
+                          ng-style="{'background' : TalentCommunityCtrl.getColor($index)}"
+                          >
+                        <img src="../public/images/select.svg" alt="add" ng-class="{'active' : TalentCommunityCtrl.selectedCommunities.indexOf(cmt.bucket_id) > - 1}">
+                        {{cmt.bucket_name | uppercase}}
+                    </span>
+                    <div style="clear:both"></div>
+                </div>
+                <div style="bottom: -21px;" ng-if="!TalentCommunityCtrl.selectedCommunities.length && TalentCommunityCtrl.submitted" class="has-error-msg">Please select atleast one Community.</div>
+            </form>
+        </section>
+    </div>
+    <footer>
+        <span ng-if="TalentCommunityCtrl.inProgress" class="loading pull-left">
+            <img src="../public/images/loader/upload_file.gif" class="pull-left" alt="loader" style="margin-top: 8px"> 
+            <span class="pull-right" style="margin: 14px 8px;">creating</span>
+        </span>
+        <span class="msg pull-left" ng-bind="TalentCommunityCtrl.responseMsg"></span>
+        <md-button class="submit" ng-disabled="TalentCommunityCtrl.inProgress" ng-click="TalentCommunityCtrl.postAddContact(add_contact)">SUBMIT</md-button>
+        <span class="cancel" ng-click="TalentCommunityCtrl.closeDialog($event)">Cancel</span>
+    </footer>
+</md-dialog>

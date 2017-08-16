@@ -453,6 +453,7 @@
       .create-campaign .main header p {
         color: #a1a1a1; }
     .create-campaign .main section form {
+      position: relative;
       padding-top: 48px; }
       .create-campaign .main section form .community p {
         padding: 16px 0 20px;
@@ -475,9 +476,18 @@
           transform: scale(0); }
           .create-campaign .main section form .community span img.active {
             transform: scale(1); }
+      .create-campaign .main section form .has-error-msg {
+        left: 0;
+        bottom: 0;
+        top: initial; }
   .create-campaign footer {
     background: #eee;
     padding: 8px; }
+    .create-campaign footer .loading {
+      margin-top: 8px; }
+    .create-campaign footer .msg {
+      margin: 22px 8px;
+      color: #1d8e70; }
     .create-campaign footer * {
       float: right;
       font-weight: 600; }

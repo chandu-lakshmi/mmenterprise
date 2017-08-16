@@ -10,6 +10,7 @@
             .controller('ApplyJobController', ApplyJobController)
             .controller('CampaignsController', CampaignsController)
             .controller('AllCampaignsController', AllCampaignsController)
+            .controller('TalentCommunityController', TalentCommunityController)
 
             .config(function ($translateProvider) {
                 $translateProvider.useStaticFilesLoader({
@@ -26,6 +27,7 @@
     ApplyJobController.$inject = ['$rootScope', '$scope', '$state', '$stateParams', '$location', '$window', '$http', '$uibModal', '$mdDialog', 'App', 'ReferralDetails', 'CampaignDetails', 'campaignJobDetails', 'candidateDetails'];
     CampaignsController.$inject = ['$scope', '$http', '$mdDialog', 'CampaignDetails', 'App'];
     AllCampaignsController.$inject = ['$rootScope', '$scope', '$http', '$window', '$q', '$mdDialog', 'App', 'CampaignDetails', 'campaignJobDetails'];
+    TalentCommunityController.$inject = ['$scope', '$http', '$timeout', '$mdDialog', 'ReferralDetails', 'CampaignDetails', 'formJobOrCampagin', 'App'];
 
 
     function modalController($scope, $state, $stateParams, $uibModalInstance, App) {
@@ -95,71 +97,6 @@
             });
         }
 
-        function CreateCampaginController($scope, $http, $timeout, $mdDialog, App) {
-            
-            var vm = this;
-            
-            this.geo_location = '';
-            this.geo_options = '';
-            this.geo_details = '';
-            $scope.$watch(function () {
-                return vm.geo_details;
-                }, function (location) {
-            });
-            
-            this.closeDialog = function () {
-                $mdDialog.hide();
-            }
-
-            this.communitys = [
-                {
-                    name: "SAP SuccessFactors(1524)",
-                    status: 1,
-                    colorCode: '#17916c'
-                },
-                {
-                    name: "Advanced Analytics(456)",
-                    status: 0,
-                    colorCode: '#ee8f3b'
-                },
-                {
-                    name: "Cloud Computing(975)",
-                    status: 0,
-                    colorCode: '#23a3ac'
-                },
-                {
-                    name: "Data science(642)",
-                    status: 0,
-                    colorCode: 'gray'
-                }
-            ];
-            
-            this.selectedCommunitys = [0];
-            this.addOrDeleteCommunity = function (index) {
-                var pos = this.selectedCommunitys.indexOf(index);
-                $timeout(function(){
-                    if (pos === -1) {
-                        vm.selectedCommunitys.push(index);
-                    } else {
-                        vm.selectedCommunitys.splice(pos, 1);
-                    }  
-                }, 200)
-            }
-            
-            // Job Functions Dropdown
-            var get_job_functions = $http({
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                },
-                method: 'GET',
-                url: App.base_url + 'get_job_functions'
-            })
-            get_job_functions.success(function (response) {
-                vm.careers = response.data.job_functions;
-            })
-        }
-
-
         vm.selectExperienc = function(exp) {
             this.experienceLabel    = exp.experience_name;
             this.searchOptions.search_experience = exp.experience_id;
@@ -171,11 +108,14 @@
 
         vm.createCampaign = function (ev) {
             $mdDialog.show({
-                controller: CreateCampaginController,
-                controllerAs: 'createCampCtrl',
-                templateUrl: '../templates/email-parser/dialog-create-camp.phtml',
+                controller: TalentCommunityController,
+                controllerAs: 'TalentCommunityCtrl',
+                templateUrl: '../templates/email-parser/dialog-talent-community.phtml',
                 parent: angular.element(document.body),
                 targetEvent: ev,
+                locals: {
+                    formJobOrCampagin : 'job'
+                },
                 clickOutsideToClose: false,
                 fullscreen: false
             })
@@ -674,22 +614,6 @@
                                 $state.go('allCampaigns.all', {ref: App.camp_ref, share_status: $stateParams.share_status});
                             }, 1000);
                         }
-                        
-                        // if ($stateParams.jc == 0) {
-                        //     setTimeout(function () {
-                        //         $state.go('allJobs.all', {ref: ref, share_status: $stateParams.share_status, jc: $stateParams.jc})
-                        //     }, 1000);
-                        // }
-                        // else if($stateParams.refrel != 0){
-                        //     setTimeout(function () {
-                        //         $state.go('allJobs.all', {ref: ref, share_status: $stateParams.share_status, jc : 2})
-                        //     }, 1000);
-                        // }
-                        // else {
-                        //     setTimeout(function () {
-                        //         $state.go('allCampaigns.all', {ref: App.camp_ref, share_status: $stateParams.share_status})
-                        //     }, 1000);
-                        // }
                     }
                     else if (response.data.status_code == 403) {
                         vm.backendError = response.data.message.msg[0];
@@ -752,6 +676,7 @@
                 $upload_resume.find('.qq-upload-list').css('z-index', '-1');
             }
         });
+
         this.trash = function () {
             $('.file-check').text('Please select File');
             $upload_resume.find('.drag_img').html('');
@@ -963,71 +888,6 @@
             
         }
 
-        function CreateCampaginController($scope, $http, $timeout, $mdDialog, App) {
-            
-            var vm = this;
-            
-            this.geo_location = '';
-            this.geo_options = '';
-            this.geo_details = '';
-            $scope.$watch(function () {
-                return vm.geo_details;
-                }, function (location) {
-            });
-            
-            this.closeDialog = function () {
-                $mdDialog.hide();
-            }
-
-            this.communitys = [
-                {
-                    name: "SAP SuccessFactors(1524)",
-                    status: 1,
-                    colorCode: '#17916c'
-                },
-                {
-                    name: "Advanced Analytics(456)",
-                    status: 0,
-                    colorCode: '#ee8f3b'
-                },
-                {
-                    name: "Cloud Computing(975)",
-                    status: 0,
-                    colorCode: '#23a3ac'
-                },
-                {
-                    name: "Data science(642)",
-                    status: 0,
-                    colorCode: 'gray'
-                }
-            ];
-            
-            this.selectedCommunitys = [0];
-            this.addOrDeleteCommunity = function (index) {
-                var pos = this.selectedCommunitys.indexOf(index);
-                $timeout(function(){
-                    if (pos === -1) {
-                        vm.selectedCommunitys.push(index);
-                    } else {
-                        vm.selectedCommunitys.splice(pos, 1);
-                    }  
-                }, 200)
-            }
-            
-            // Job Functions Dropdown
-            var get_job_functions = $http({
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                },
-                method: 'GET',
-                url: App.base_url + 'get_job_functions'
-            })
-            get_job_functions.success(function (response) {
-                vm.careers = response.data.job_functions;
-            })
-        }
-
-
         vm.selectExperienc = function(exp) {
             this.experienceLabel    = exp.experience_name;
             this.searchOptions.search_experience = exp.experience_id;
@@ -1039,12 +899,15 @@
 
         vm.createCampaign = function (ev) {
             $mdDialog.show({
-                controller: CreateCampaginController,
-                controllerAs: 'createCampCtrl',
-                templateUrl: '../templates/email-parser/dialog-create-camp.phtml',
+                controller: TalentCommunityController,
+                controllerAs: 'TalentCommunityCtrl',
+                templateUrl: '../templates/email-parser/dialog-talent-community.phtml',
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 clickOutsideToClose: false,
+                locals: {
+                    formJobOrCampagin : 'campaign'
+                },
                 fullscreen: false
             })
             .then(function (answer) {
@@ -1277,6 +1140,118 @@
         });
 
         
+    }
+
+
+
+    function TalentCommunityController($scope, $http, $timeout, $mdDialog, ReferralDetails, CampaignDetails, formJobOrCampagin, App) {
+       
+        var vm = this,
+            details, 
+            colorPicker  = ["#5d80cd", "#e8655c", "#81a757", "#8b5eb2", "#e2a746", "#947956", "#a8a53d", "#607D8B", "#484848", "#3c8576"];
+        
+        if(formJobOrCampagin == 'job') {
+            details = ReferralDetails;
+        }
+        else{
+            details = CampaignDetails;
+        }
+
+        this.geo_location = '';
+        this.geo_options  = '';
+        this.geo_details  = '';
+        this.contact = {};
+        this.selectedCommunities = [];
+
+        function init(){
+
+            $http({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'GET',
+                url: App.base_url + 'get_job_functions'
+            })
+            .success(function (response) {
+                vm.careers = response.data.job_functions;
+            })
+
+            $http({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'POST',
+                data : $.param({ company_code : details.company_code}),
+                url: App.base_url + 'get_talentcommunity_buckets'
+            })
+            .success(function (response) {
+                vm.communitys = response.data.buckets_list;
+            })
+
+        }
+
+
+        this.closeDialog = function () {
+            $mdDialog.hide();
+        }
+
+        this.getColor = function (ind) {
+            return colorPicker[String(ind).slice(-1)];
+        }
+        
+        this.addOrDeleteCommunity = function(CommunityId) {
+            var pos = this.selectedCommunities.indexOf(CommunityId);
+            $timeout(function(){
+                if (pos === -1) {
+                    vm.selectedCommunities.push(CommunityId);
+                } else {
+                    vm.selectedCommunities.splice(pos, 1);
+                }  
+            }, 200)
+        }
+        
+        this.postAddContact = function(form) {
+            
+            vm.submitted = true;
+            if (form.$valid && vm.selectedCommunities.length) {
+
+                var data = $('form[name="add_contact"]').serialize(),
+                    params = $.param({
+                        company_code : details.company_code,
+                        reference_emailid : details.emailid,
+                        bucket_id : vm.selectedCommunities.toString()
+                    });
+
+                vm.inProgress = true;
+
+                $http({
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                    },
+                    method : 'POST',
+                    url    : App.base_url + 'add_to_talentcommunity',
+                    data   : data + '&' + params
+                })
+                .success(function (response) {
+                    vm.inProgress = false;
+                    if (response.status_code == 200) {
+                        vm.responseMsg = response.message.msg[0];
+                        $timeout(function(){
+                           vm.closeDialog();
+                        }, 2000)
+                    }
+                })
+            }
+        }
+
+        $scope.$watch(function () {
+            return vm.geo_details;
+            }, function (location) {
+        });
+
+
+        init();
+
     }
 
     
