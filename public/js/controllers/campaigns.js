@@ -27,7 +27,7 @@
             
 
     CampaignsController.$inject = ['$rootScope', '$http', '$window', 'contactBuckets', '$uibModal', 'App'];
-    NewCampaignController.$inject = ['$scope', '$state', '$filter', '$uibModal', '$timeout', 'contactBuckets', 'CampaignsData', '$uibModalInstance', '$http', 'CompanyDetails', 'createCampaign', 'App'];
+    NewCampaignController.$inject = ['$scope', '$state', '$filter', '$uibModal', '$timeout', 'CampaignsData', '$http', 'CompanyDetails', 'App'];
     AllCampaignsController.$inject = ['$scope', '$state', '$http', '$rootScope', '$q', '$timeout', '$window', 'uiGridConstants', 'CampaignsData', 'userPermissions', '$stateParams', 'App'];
     MyCampaignsController.$inject = [];
     EditCampaignsController.$inject = ['$scope','$timeout', '$filter', '$rootScope', '$state', '$uibModal', 'CompanyDetails', 'CampaignsData', 'contactBuckets', '$window', '$http', 'App'];
@@ -124,7 +124,7 @@
         };*/
     }
 
-    function NewCampaignController($scope, $state, $filter, $uibModal, $timeout, contactBuckets, CampaignsData, $uibModalInstance, $http, CompanyDetails, createCampaign, App) {
+    function NewCampaignController($scope, $state, $filter, $uibModal, $timeout, CampaignsData, $http, CompanyDetails, App) {
 
         var vm = this,
             currentTab = 'campaignDetails';

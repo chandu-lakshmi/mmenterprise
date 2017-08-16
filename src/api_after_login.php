@@ -564,7 +564,22 @@ $app->post('/awaiting_action',function ($request, $response, $args) use ($app) {
 });
 
 //Contacts Page
-$app->get('/contacts',function ($request, $response, $args) use ($app) {
+$app->get('/contacts/internal',function ($request, $response, $args) use ($app) {
+    //Arguments
+    $this->mintmeshAccessToken;
+    $args       = commonData($this->settings);
+   
+    //Check Logged in or not
+    if(!empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']);
+    }
+
+    $args['comp_data'] = companyProfile($this->settings);
+    // Render dashboard view
+    return $this->renderer->render($response, 'index.phtml', $args);
+});
+
+$app->get('/contacts/external',function ($request, $response, $args) use ($app) {
     //Arguments
     $this->mintmeshAccessToken;
     $args       = commonData($this->settings);

@@ -10,7 +10,7 @@
             .directive('checkBucket', checkBucket)
             .service('buckets', buckets)
 
-    ContactsController.$inject = ['$window', '$http', '$q', 'buckets', 'uiGridValidateService', '$uibModal', 'App', 'userPermissions', '$stateParams'];
+    ContactsController.$inject = ['$scope', '$window', '$http', '$q', 'buckets', 'uiGridValidateService', '$uibModal', 'App', 'userPermissions', '$stateParams'];
     contactsInviteController.$inject = ['$scope', '$uibModalInstance', 'listContacts', '$http', '$window', 'userPermissions', 'App'];
     UploadContactsController.$inject = ['$scope', '$window', 'defaultFunction', 'getBuckets', '$uibModalInstance', '$state', '$http', '$uibModal', 'buckets', '$timeout', 'App'];
     UploadSingleContactController.$inject = ['$scope', '$window', 'defaultFunction', 'getBuckets', '$http', '$uibModalInstance', 'buckets', 'App'];
@@ -41,7 +41,8 @@
 
     // bucket names service
     function buckets() {
-        var bucket_names = {}
+
+        var bucket_names = [];
 
         this.setData = function (obj) {
             bucket_names = obj;
@@ -54,16 +55,20 @@
         this.addProperty = function (obj) {
             bucket_names.push(obj)
         }
+
+        this.reset = function(){
+            bucket_names = {};
+        }
     }
 
 
-    function ContactsController($window, $http, $q, buckets, uiGridValidateService, $uibModal, App, userPermissions, $stateParams) {
+    function ContactsController($scope, $window, $http, $q, buckets, uiGridValidateService, $uibModal, App, userPermissions, $stateParams) {
 
         var scope = this;
         this.loaderImg = false;
         this.loaderNoContacts = false;
         this.totalRecordsCount = 0;
-        this.contactStatus = [{label: 'Active', color: '#0d8e68'}, {label: 'Inactive', color: '#888888'}, {label: 'Separated', color: '#c46968'}]
+        this.contactStatus = [{label: 'Active', color: '#0d8e68'}, {label: 'Inactive', color: '#888888'}, {label: 'Separated', color: '#c46968'}];
 
         //get bucketNames
         function bucketsCount() {
@@ -72,6 +77,7 @@
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                 },
                 method: 'POST',
+                data : $.param({ 'bucket_type' : $stateParams.bucketType}),
                 url: App.base_url + 'buckets_list'
             })
             get_buckets.success(function (response) {
@@ -330,7 +336,8 @@
                 page_no: scope.currentPage,
                 search: scope.searchVal,
                 sort: sort,
-                col_name: colDefName
+                col_name: colDefName,
+                bucket_type : $stateParams.bucketType
             });
 
             var get_buckets = $http({
@@ -408,7 +415,8 @@
                     lastname: rowEntity.lastname,
                     contact_number: rowEntity.phone,
                     emailid: rowEntity.emailid,
-                    status: rowEntity.status
+                    status: rowEntity.status,
+                    bucket_type : $stateParams.bucketType
                             //[colDef.name] : newValue
                 });
 
@@ -486,6 +494,7 @@
             var list = $.param({
                 action: state,
                 record_id: scope.selectedContacts.toString(),
+                bucket_type : $stateParams.bucketType,
                 status: status
             });
 
@@ -656,6 +665,58 @@
             });
         }
 
+        var externalBucketDialog;
+        this.createExternalBucket = function(){
+            externalBucketDialog = $uibModal.open({
+                animation: false,
+                backdrop: 'static',
+                keyboard: false,
+                templateUrl: 'templates/contacts/dialog-create-external-bucket.phtml',
+                openedClass: "external-bucket",
+                scope: $scope
+            });
+        }
+
+        this.postCreateExternalBucket = function (form) {
+
+            scope.submitted = true;
+            if (form.$valid) {
+                scope.inProgress = true;
+                var params = $.param({
+                    bucket_name: scope.externalBucket,
+                    bucket_type : 2,
+                })
+
+                var createBucket = $http({
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                    },
+                    method: 'POST',
+                    url: App.base_url + 'create_bucket',
+                    data: params
+                })
+                createBucket.success(function (response) {
+                    scope.inProgress = false;
+                    if (response.status_code == 200) {
+                        buckets.addProperty(response.data);
+                        scope.submitted = false;
+                        externalBucketDialog.close();
+                    }
+                    else if (response.status_code == 400) {
+                        $window.location = App.base_url + 'logout';
+                    }
+                })
+            }
+        }
+
+        $scope.$on('destory', function(){
+            buckets.reset();
+        });
+
+        $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+            if(externalBucketDialog)
+                externalBucketDialog.close();
+        })
     }
 
     function contactsInviteController($scope, $uibModalInstance, listContacts, $http, $window, userPermissions, App) {
@@ -725,7 +786,7 @@
     }
 
     function UploadContactsController($scope, $window, defaultFunction, getBuckets, $uibModalInstance, $state, $http, $uibModal, buckets, $timeout, App) {
-
+        
         var scope = this;
         this.currentState = $state.params.importContacts;
         this.bktExists = false;
@@ -737,6 +798,7 @@
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                 },
                 method: 'POST',
+                data : $.param({ 'bucket_type' : 1}),
                 url: App.base_url + 'buckets_list'
             })
             get_buckets.success(function (response) {

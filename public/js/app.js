@@ -76,7 +76,8 @@
                     url: '/import-contacts',
                     templateUrl: App.base_url + 'templates/import-contacts-list.phtml',
                     params: {
-                        rowEdit: 0
+                        rowEdit     : 0,
+                        bucketType : 1//internal contact 1 & external contact 2
                     },
                     controller: 'ContactsController',
                     controllerAs: 'ContactCtrl'
@@ -138,15 +139,32 @@
                     controller: 'RewardsController',
                     controllerAs: 'RewardCtrl'
                 })
+
                 $stateProvider.state('app.contact', {
                     url: '^/contacts',
-                    templateUrl: App.base_url + 'templates/contacts.phtml',
+                    templateUrl: App.base_url + 'templates/contacts/contacts-header.phtml',
+                })
+                $stateProvider.state('app.contact.Internal', {
+                    url: '^/contacts/internal',
+                    templateUrl: App.base_url + 'templates/contacts/contacts-internal.phtml',
                     params: {
-                        rowEdit: 1
+                        rowEdit     : 1,
+                        bucketType : 1 //internal contact 1 & external contact 2
                     },
                     controller: 'ContactsController',
                     controllerAs: 'ContactCtrl'
                 })
+                $stateProvider.state('app.contact.External', {
+                    url: '^/contacts/external',
+                    templateUrl: App.base_url + 'templates/contacts/contacts-external.phtml',
+                    params : {
+                        rowEdit     : 1,
+                        bucketType : 2 //internal contact 1 & external contact 2
+                    },
+                    controller: 'ContactsController',
+                    controllerAs: 'ContactCtrl'
+                })
+
                 $stateProvider.state('app.candidates', {
                     url: '^/candidates',
                     templateUrl: App.base_url + 'templates/candidates/candidates.phtml',
@@ -174,14 +192,6 @@
                 $stateProvider.state('app.createCampaign', {
                     url: '^/campaigns/create-campaign',
                     templateUrl: App.base_url + 'templates/campaigns/create-campaign.phtml',
-                    resolve: {
-                        createCampaign: function () {
-                        },
-                        getBuckets: function () {
-                        },
-                        $uibModalInstance: function () {
-                        }
-                    },
                     controller: 'NewCampaignController',
                     controllerAs: 'NewCampaignCtrl'
                 })
