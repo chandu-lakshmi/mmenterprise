@@ -23,7 +23,7 @@
     modalController.$injext = ['$scope', '$state', '$stateParams', '$uibModalInstance', 'App'];
     JobsController.$inject = ['$scope', '$http', '$uibModal', 'ReferralDetails', 'App'];
     AllJobsController.$inject = ['$scope', '$rootScope', '$http', '$stateParams', '$q', '$window', 'ReferralDetails', 'App'];
-    JobDetailsController.$inject = ['$http', '$stateParams', '$window', 'campaignJobDetails', 'App'];
+    JobDetailsController.$inject = ['$http', '$stateParams', '$window', 'campaignJobDetails', 'decryptDetails', 'App'];
     ApplyJobController.$inject = ['$rootScope', '$scope', '$state', '$stateParams', '$location', '$window', '$http', '$uibModal', '$mdDialog', 'App', 'ReferralDetails', 'CampaignDetails', 'campaignJobDetails', 'candidateDetails'];
     CampaignsController.$inject = ['$scope', '$http', '$uibModal', 'CampaignDetails', 'App'];
     AllCampaignsController.$inject = ['$rootScope', '$scope', '$http', '$window', '$q', '$mdDialog', 'App', 'CampaignDetails', 'campaignJobDetails'];
@@ -254,6 +254,7 @@
         }
 
         vm.infiniteScroll.nextPage = function () {
+            console.log('fie')
             if (total_pages >= page_no && total_pages != 0) {
                 if (vm.infiniteScroll.busy) {
                     return;
@@ -386,12 +387,14 @@
 
     }
 
-    function JobDetailsController($http, $stateParams, $window, campaignJobDetails, App) {
+    function JobDetailsController($http, $stateParams, $window, campaignJobDetails, decryptDetails, App) {
 
-        var vm = this;
-        
-        var ref = $stateParams.ref;
-        vm.shareUrl = App.base_url + 'email/job-details/share?ref=' + ref;
+        var vm = this,
+            ref = $stateParams.ref;
+
+        vm.isCampaignJob;
+        vm.shareUrl  = App.base_url + 'email/job-details/share?ref=' + ref;
+
         if (screen.width <= 480)
             vm.copyText = 'Copy'
         else
@@ -404,6 +407,14 @@
                 return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
             });
         }
+
+        if(decryptDetails.post_type == 'campaign') {
+            vm.isCampaignJob = true;
+        } 
+        else{
+            vm.isCampaignJob = false;
+        }
+
         vm.noLongerAvailable = false;
         vm.job_details = {
             list: [],
@@ -482,7 +493,7 @@
         }
 
         vm.updateJobDetails = function(job) {
-            if($stateParams.jc == '1') {
+            if(vm.isCampaignJob) {
                 campaignJobDetails.job_title = job.job_name;
                 campaignJobDetails.experience = job.experience;
                 campaignJobDetails.location = job.location;    

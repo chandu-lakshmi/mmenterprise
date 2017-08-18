@@ -7,7 +7,10 @@
 			<span ng-bind="JobDetailsCtrl.job_details.companyName" class="company-name" ng-if="JobDetailsCtrl.job_details.company_logo == ''"></span>
 		</header> -->
 		<section class="job-details">
-			<a class="back" ui-sref="{{$stateParams.jc == '1' ? 'allCampaigns.all({ref: $root.camp_ref, share_status:sh_cd})' : 'allJobs.all({ref: $root.ref, share_status: $stateParams.share_status,share_status:sh_cd, jc : $stateParams.jc})'}}">
+			<a class="back" ng-if="JobDetailsCtrl.isCampaignJob" ui-sref="allCampaigns.all({ref: $root.camp_ref, share_status:sh_cd})">
+				<img src="../public/images/email-parser/arrow-back.svg"><h4 class="job-count ng-binding">All JOBS</h4>
+			</a>
+			<a class="back" ng-if="!JobDetailsCtrl.isCampaignJob" ui-sref="allJobs.all({ref: $root.ref, share_status: $stateParams.share_status,share_status:sh_cd, jc : $stateParams.jc})">
 				<img src="../public/images/email-parser/arrow-back.svg"><h4 class="job-count ng-binding">All JOBS</h4>
 			</a>
 			<md-divider></md-divider>
@@ -54,15 +57,20 @@
 					</div>
 				</div>
 				<div class="action" ng-init="sh_cd = $stateParams.share_status" ng-click="JobDetailsCtrl.updateJobDetails(list)">
-					<div ng-if="$stateParams.jc == 1">
-						<md-button class="md-raised camp-btn" ui-sref="allCampaigns.candidateDetails({ref: list.ref_code,flag: 0, status: list.status, jc:1, share_status:sh_cd})" ng-if="list.post_type == 'internal' || list.post_type == 'campaign' || $stateParams.share_status == 'share' || $stateParams.jc == 2">APPLY</md-button>
-
-						<md-button class="md-raised camp-btn" ui-sref="allCampaigns.referralDetails({ref: list.ref_code,flag: 0, status: list.status, jc:1, share_status:sh_cd})" ng-if="list.post_type == 'external' || list.post_type == 'campaign'">REFER</md-button>
+					<div ng-if="JobDetailsCtrl.isCampaignJob">
+						<md-button class="md-raised camp-btn" 
+							ui-sref="allCampaigns.candidateDetails({ref: list.ref_code,flag: 0, status: list.status, jc:1, share_status:sh_cd})">APPLY</md-button>
+						<md-button class="md-raised camp-btn" 
+							ui-sref="allCampaigns.referralDetails({ref: list.ref_code,flag: 0, status: list.status, jc:1, share_status:sh_cd})">REFER</md-button>
 					</div>
-					<div ng-if="$stateParams.jc != 1">
-						<md-button class="md-raised camp-btn" ui-sref="allJobs.candidateDetails({ref: list.ref_code,flag: 0, status: list.status, jc:$stateParams.jc, share_status:sh_cd})" ng-if="list.post_type == 'internal' || list.post_type == 'campaign' || $stateParams.share_status == 'share' || $stateParams.jc == 2">APPLY</md-button>
+					<div ng-if="!JobDetailsCtrl.isCampaignJob">
+						<md-button class="md-raised camp-btn" 
+							ui-sref="allJobs.candidateDetails({ref: list.ref_code,flag: 0, status: list.status, jc:$stateParams.jc, share_status:sh_cd})" 
+							ng-if="list.post_type == 'internal'">APPLY</md-button>
 
-						<md-button class="md-raised camp-btn" ui-sref="allJobs.referralDetails({ref: list.ref_code,flag: 0, status: list.status, jc:$stateParams.jc, share_status:sh_cd})" ng-if="list.post_type == 'external' || list.post_type == 'campaign'">REFER</md-button>
+						<md-button class="md-raised camp-btn" 
+							ui-sref="allJobs.referralDetails({ref: list.ref_code,flag: 0, status: list.status, jc:$stateParams.jc, share_status:sh_cd})" 
+							ng-if="list.post_type == 'external'">REFER</md-button>
 					</div>
 
 					<!-- <a class="camp-btn" ui-sref="candidateDetails({ref: list.ref_code,flag: 0, status: list.status, jc: list.post_type == 'campaign' ? 1 : $stateParams.jc, share_status:sh_cd})" ng-if="list.post_type == 'internal' || list.post_type == 'campaign' || $stateParams.share_status == 'share' || $stateParams.jc == 2">APPLY</a>
@@ -71,7 +79,7 @@
 				</div>
 			</div>
 		</section>
-		<footer ng-if="JobDetailsCtrl.job_details.list[0].post_type == 'external' || JobDetailsCtrl.job_details.list[0].post_type == 'campaign'">
+		<footer ng-if="!(JobDetailsCtrl.job_details.list[0].post_type == 'internal')">
 			<div class="social-media">
 				<div>
 					Share Job
@@ -82,8 +90,8 @@
 			</div>
 			<div class="drop-cv">
 				Refer friend for future openings here 
-				<md-button class="md-raised camp-btn" ng-if="$stateParams.jc != 1" ui-sref="allJobs.referralDetails({ref: $root.ref,flag: 1,share_status:sh_cd})">Upload CV</md-button>
-				<md-button class="md-raised camp-btn" ng-if="$stateParams.jc == 1" ui-sref="allCampaigns.referralDetails({ref: $root.ref,flag: 1,share_status:sh_cd})">Upload CV</md-button>
+				<md-button class="md-raised camp-btn" ng-if="JobDetailsCtrl.isCampaignJob" ui-sref="allCampaigns.referralDetails({ref: $root.ref,flag: 1,share_status:sh_cd})">Upload CV</md-button>
+				<md-button class="md-raised camp-btn" ng-if="!JobDetailsCtrl.isCampaignJob" ui-sref="allJobs.referralDetails({ref: $root.ref,flag: 1,share_status:sh_cd})">Upload CV</md-button>
 			</div>
 		</footer>
 	</div>
