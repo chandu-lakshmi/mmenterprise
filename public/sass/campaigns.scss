@@ -127,33 +127,6 @@ md-dialog{
                }
            }
 
-           /* qq-uploader */
-           .qq-uploader{margin: 0;padding: 0;height: 100%;
-                        .qq-upload-button{background: transparent;height: 100%;width: 100%;text-shadow: none;font-weight: normal;text-transform: uppercase;
-                                          .align-title{position: absolute;top: 35%;width: 100%;left: 0;font-size: 18px;text-transform: capitalize;
-                                                       p{width: 80%;margin: 10px auto 0;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}
-                                          }
-                        }
-                        .qq-upload-drop-area{
-                            .file-name{width: 100%;height: 100%;
-                                       .name{position: absolute;width: 90%;bottom: 17px;font-size: 15px;left: 6%;
-                                             text-overflow: ellipsis;overflow: hidden;white-space: nowrap;color: #fff;}
-                                       .overlay{display: none;background: #000000;position: absolute;left: 0;right: 0;top: 0;bottom: 0;opacity: 0.1;}
-                                       i.fa{position: absolute;top: 5px;right: 10px;padding: 3px;border: 1px solid #ccc;background: #fff;border-radius: 4px;
-                                            display: none;cursor: pointer;}
-                                       &:hover{
-                                           .overlay,i.fa{display: block;};
-                                       }
-                            }
-                        }
-                        .qq-upload-list{z-index: -1;top: 65%;
-                                        li{height: 15px;
-                                           span:not(.qq-progress-bar){visibility: hidden;}
-                                        }
-                        }
-           }
-           .qq-upload-fail{position: absolute;font-size: 13px;color: #983a3a;white-space: nowrap;bottom: -25px;}
-
 
            .all-campaigns{@include viewHeight(160px);
                           md-input-container.search{margin: 0}
@@ -374,6 +347,33 @@ md-dialog{
                         }
                          .upload-contacts{margin-bottom: 45px;}
                          .upload-files{@extend .add-schedule;
+                            /* qq-uploader */
+                            .qq-uploader{margin: 0;padding: 0;height: 100%;
+                                         .qq-upload-button{background: transparent;height: 100%;width: 100%;text-shadow: none;font-weight: normal;text-transform: uppercase;
+                                                           .align-title{position: absolute;top: 35%;width: 100%;left: 0;font-size: 18px;text-transform: capitalize;
+                                                                        p{width: 80%;margin: 10px auto 0;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}
+                                                           }
+                                         }
+                                         .qq-upload-drop-area{
+                                             .file-name{width: 100%;height: 100%;
+                                                        .name{position: absolute;width: 90%;bottom: 17px;font-size: 15px;left: 6%;
+                                                              text-overflow: ellipsis;overflow: hidden;white-space: nowrap;color: #fff;}
+                                                        .overlay{display: none;background: #000000;position: absolute;left: 0;right: 0;top: 0;bottom: 0;opacity: 0.1;}
+                                                        i.fa{position: absolute;top: 5px;right: 10px;padding: 3px;border: 1px solid #ccc;background: #fff;border-radius: 4px;
+                                                             display: none;cursor: pointer;}
+                                                        &:hover{
+                                                            .overlay,i.fa{display: block;};
+                                                        }
+                                             }
+                                         }
+                                         .qq-upload-list{z-index: -1;top: 65%;
+                                                         li{height: 15px;
+                                                            span:not(.qq-progress-bar){visibility: hidden;}
+                                                         }
+                                         }
+                            }
+                            .qq-upload-fail{position: absolute;font-size: 13px;color: #983a3a;white-space: nowrap;bottom: -25px;}
+                            
                            .upload-pitch{display: inline-block;vertical-align: middle;position: relative;width: 115px;
                              .qq-uploader{
                                  .qq-upload-button{padding: 0;font-weight: bold;font-size: 13px;

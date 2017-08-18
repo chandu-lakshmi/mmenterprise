@@ -9,13 +9,15 @@
                 <i flex></i>
                 <div class="menu">
                     <span class="tab" ng-repeat="link in ReferralDetails.career_links">
-                        <a href="{{link.url}}" ng-bind="link.label"></a>
+                        <a href="{{link.url}}" target="_blank" ng-bind="link.label"></a>
                     </span>
                 </div>
             </div>
         </div>
     </header>
-    <div class="filters" style="background-image:url({{!ReferralDetails.career_heroshot_image ? '../public/images/email-parser/banner_img.jpg' : ReferralDetails.career_heroshot_image}})">
+    <div class="filters" 
+        style="background : transparent url({{ReferralDetails.career_heroshot_image}})"
+         ng-class="{'add-image' : !ReferralDetails.career_heroshot_image}">
         <div class="container" ng-style="{'margin-top' : $state.current.name === 'allJobs.all' ? '0' : '54px'}">
             <div class="des">
                 <!-- <h3>
@@ -36,7 +38,7 @@
             </div>
             <div class="user-inputs" ng-if="$state.current.name == 'allJobs.all'">
                 <div layout="column">
-                    <div layout="row">
+                    <div layout="row" class="search-container">
                         <div class="form-group search">
                             <i class="material-icons">search</i>
                             <input type="text" class="form-control" name="search-name" ng-model="JobsCtrl.searchOptions.search_name" tabindex="1" placeholder="I am looking for a job.." >
@@ -72,11 +74,11 @@
                         <ui-view></ui-view>
                     </div>
                     <div flex="30" class="right">
-                        <div class="about-comp">
+                        <div class="about-comp" ng-if="ReferralDetails.career_description.length">
                             <div class="box">
                                 <h4>About <span ng-bind="ReferralDetails.company_name"></span></h4>
-                                <span ng-bind="ReferralDetails.career_description"></span>
-                                <h5>More..</h5>
+                                <span ng-text-truncate="ReferralDetails.career_description" ng-tt-chars-threshold="900">  
+                                </span>
                             </div>
                             <!-- <md-divider></md-divider>
                             <div class="suscribe">
@@ -86,7 +88,7 @@
                                 </div>
                             </div> -->
                         </div>
-                        <div class="create-camp" ng-if="ReferralDetails.career_talent_network" ng-click="JobsCtrl.createCampaign()">
+                        <div class="create-camp" ng-if="ReferralDetails.career_talent_network=='enable'" ng-click="JobsCtrl.createCampaign()">
                             <div class="join-team">JOIN OUR TALENT COMMUNITY<img src="../public/images/email-parser/arrows.png" alt="next"></div>
                         </div>
                         <div class="social-share">

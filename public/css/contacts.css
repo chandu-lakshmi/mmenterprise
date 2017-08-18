@@ -61,7 +61,7 @@
 .grid-contacts .open > .dropdown-toggle.btn-primary:hover
 .grid-contacts .open > .dropdown-toggle.btn-primary:focus,
 .grid-contacts .open > .dropdown-toggle.btn-primary:active{
-    padding: 10px 43px;
+    padding: 10px 84.5px;
     background-color: #1d8e70;
     font-size: 16px;
     border-color: #1d8e70;
@@ -1064,3 +1064,10 @@
     font-weight: 600;
 }
 
+/*external buckets hide footer*/
+.grid-contacts .external-bucket .grid-container .inline-grid{
+    height: calc(100vh - 256px) !important;
+}
+.grid-contacts .external-bucket .grid-footer{
+    display: none;
+}

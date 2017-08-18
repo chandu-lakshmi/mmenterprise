@@ -2,7 +2,7 @@
     "use strict";
 
     angular
-            .module('app.email.parser', ['infinite-scroll', 'ngAutocomplete', 'mwFormBuilder', 'mwFormViewer', 'pascalprecht.translate'])
+            .module('app.email.parser', ['infinite-scroll', 'ngAutocomplete', 'mwFormBuilder', 'mwFormViewer', 'pascalprecht.translate', 'ngTextTruncate'])
             .controller('modalController', modalController)
             .controller('JobsController', JobsController)
             .controller('AllJobsController', AllJobsController)
@@ -392,7 +392,7 @@
     function JobDetailsController($http, $stateParams, $window, campaignJobDetails, App) {
 
         var vm = this;
-
+        
         var ref = $stateParams.ref;
         vm.shareUrl = App.base_url + 'email/job-details/share?ref=' + ref;
         if (screen.width <= 480)
@@ -858,8 +858,6 @@
             search_experience : null
         };
         copySearchOptions = angular.copy(this.searchOptions);
-        
-
         function init() {
             $http({
                 headers : {
@@ -887,7 +885,7 @@
 
             
         }
-
+        
         vm.selectExperienc = function(exp) {
             this.experienceLabel    = exp.experience_name;
             this.searchOptions.search_experience = exp.experience_id;

@@ -15,8 +15,7 @@ md-dialog md-dialog-actions button.md-primary {
   background: #eeeff1;
   /* sub header */
   /* md-input-container */
-  /* mdPicker Styles */
-  /* qq-uploader */ }
+  /* mdPicker Styles */ }
   .campaigns .sub-header {
     background: #0e2d3f;
     height: 60px; }
@@ -142,77 +141,6 @@ md-dialog md-dialog-actions button.md-primary {
       width: 100% !important; }
       .campaigns mdp-time-picker .layout-align-start-start md-input-container .md-input {
         padding: 0 0 0 25px !important; }
-  .campaigns .qq-uploader {
-    margin: 0;
-    padding: 0;
-    height: 100%; }
-    .campaigns .qq-uploader .qq-upload-button {
-      background: transparent;
-      height: 100%;
-      width: 100%;
-      text-shadow: none;
-      font-weight: normal;
-      text-transform: uppercase; }
-      .campaigns .qq-uploader .qq-upload-button .align-title {
-        position: absolute;
-        top: 35%;
-        width: 100%;
-        left: 0;
-        font-size: 18px;
-        text-transform: capitalize; }
-        .campaigns .qq-uploader .qq-upload-button .align-title p {
-          width: 80%;
-          margin: 10px auto 0;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          overflow: hidden; }
-    .campaigns .qq-uploader .qq-upload-drop-area .file-name {
-      width: 100%;
-      height: 100%; }
-      .campaigns .qq-uploader .qq-upload-drop-area .file-name .name {
-        position: absolute;
-        width: 90%;
-        bottom: 17px;
-        font-size: 15px;
-        left: 6%;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-        color: #fff; }
-      .campaigns .qq-uploader .qq-upload-drop-area .file-name .overlay {
-        display: none;
-        background: #000000;
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        opacity: 0.1; }
-      .campaigns .qq-uploader .qq-upload-drop-area .file-name i.fa {
-        position: absolute;
-        top: 5px;
-        right: 10px;
-        padding: 3px;
-        border: 1px solid #ccc;
-        background: #fff;
-        border-radius: 4px;
-        display: none;
-        cursor: pointer; }
-      .campaigns .qq-uploader .qq-upload-drop-area .file-name:hover .overlay, .campaigns .qq-uploader .qq-upload-drop-area .file-name:hover i.fa {
-        display: block; }
-    .campaigns .qq-uploader .qq-upload-list {
-      z-index: -1;
-      top: 65%; }
-      .campaigns .qq-uploader .qq-upload-list li {
-        height: 15px; }
-        .campaigns .qq-uploader .qq-upload-list li span:not(.qq-progress-bar) {
-          visibility: hidden; }
-  .campaigns .qq-upload-fail {
-    position: absolute;
-    font-size: 13px;
-    color: #983a3a;
-    white-space: nowrap;
-    bottom: -25px; }
   .campaigns .all-campaigns {
     min-height: calc(100vh - 160px);
     font-size: 16px;
@@ -591,42 +519,115 @@ md-dialog md-dialog-actions button.md-primary {
               font-weight: normal; }
         .campaigns .edit-campaigns .box .content .upload-contacts {
           margin-bottom: 45px; }
-        .campaigns .edit-campaigns .box .content .upload-files .upload-pitch {
-          display: inline-block;
-          vertical-align: middle;
-          position: relative;
-          width: 115px; }
-          .campaigns .edit-campaigns .box .content .upload-files .upload-pitch .qq-uploader .qq-upload-button {
+        .campaigns .edit-campaigns .box .content .upload-files {
+          /* qq-uploader */ }
+          .campaigns .edit-campaigns .box .content .upload-files .qq-uploader {
+            margin: 0;
             padding: 0;
-            font-weight: bold;
-            font-size: 13px;
-            letter-spacing: 0.6px;
-            color: #219070; }
-          .campaigns .edit-campaigns .box .content .upload-files .upload-pitch .qq-upload-fail {
-            top: 0;
-            left: 123%; }
-          .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box {
-            border: 1px solid #ccc;
-            margin-bottom: 20px;
-            min-height: 50px; }
-            .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file {
-              position: relative;
-              padding: 15px; }
-              .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file .progress-bar {
-                width: 300px;
+            height: 100%; }
+            .campaigns .edit-campaigns .box .content .upload-files .qq-uploader .qq-upload-button {
+              background: transparent;
+              height: 100%;
+              width: 100%;
+              text-shadow: none;
+              font-weight: normal;
+              text-transform: uppercase; }
+              .campaigns .edit-campaigns .box .content .upload-files .qq-uploader .qq-upload-button .align-title {
                 position: absolute;
-                height: 25px; }
-              .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file .filename div.logo {
-                background: url("../images/Applied.svg"); }
-              .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file .filename .name {
-                color: #000;
-                width: 50%;
-                display: inline-block;
-                vertical-align: middle;
-                margin: 0 12px; }
-              .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file .filename img {
-                width: 20px;
-                height: 20px; }
+                top: 35%;
+                width: 100%;
+                left: 0;
+                font-size: 18px;
+                text-transform: capitalize; }
+                .campaigns .edit-campaigns .box .content .upload-files .qq-uploader .qq-upload-button .align-title p {
+                  width: 80%;
+                  margin: 10px auto 0;
+                  white-space: nowrap;
+                  text-overflow: ellipsis;
+                  overflow: hidden; }
+            .campaigns .edit-campaigns .box .content .upload-files .qq-uploader .qq-upload-drop-area .file-name {
+              width: 100%;
+              height: 100%; }
+              .campaigns .edit-campaigns .box .content .upload-files .qq-uploader .qq-upload-drop-area .file-name .name {
+                position: absolute;
+                width: 90%;
+                bottom: 17px;
+                font-size: 15px;
+                left: 6%;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                color: #fff; }
+              .campaigns .edit-campaigns .box .content .upload-files .qq-uploader .qq-upload-drop-area .file-name .overlay {
+                display: none;
+                background: #000000;
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                opacity: 0.1; }
+              .campaigns .edit-campaigns .box .content .upload-files .qq-uploader .qq-upload-drop-area .file-name i.fa {
+                position: absolute;
+                top: 5px;
+                right: 10px;
+                padding: 3px;
+                border: 1px solid #ccc;
+                background: #fff;
+                border-radius: 4px;
+                display: none;
+                cursor: pointer; }
+              .campaigns .edit-campaigns .box .content .upload-files .qq-uploader .qq-upload-drop-area .file-name:hover .overlay, .campaigns .edit-campaigns .box .content .upload-files .qq-uploader .qq-upload-drop-area .file-name:hover i.fa {
+                display: block; }
+            .campaigns .edit-campaigns .box .content .upload-files .qq-uploader .qq-upload-list {
+              z-index: -1;
+              top: 65%; }
+              .campaigns .edit-campaigns .box .content .upload-files .qq-uploader .qq-upload-list li {
+                height: 15px; }
+                .campaigns .edit-campaigns .box .content .upload-files .qq-uploader .qq-upload-list li span:not(.qq-progress-bar) {
+                  visibility: hidden; }
+          .campaigns .edit-campaigns .box .content .upload-files .qq-upload-fail {
+            position: absolute;
+            font-size: 13px;
+            color: #983a3a;
+            white-space: nowrap;
+            bottom: -25px; }
+          .campaigns .edit-campaigns .box .content .upload-files .upload-pitch {
+            display: inline-block;
+            vertical-align: middle;
+            position: relative;
+            width: 115px; }
+            .campaigns .edit-campaigns .box .content .upload-files .upload-pitch .qq-uploader .qq-upload-button {
+              padding: 0;
+              font-weight: bold;
+              font-size: 13px;
+              letter-spacing: 0.6px;
+              color: #219070; }
+            .campaigns .edit-campaigns .box .content .upload-files .upload-pitch .qq-upload-fail {
+              top: 0;
+              left: 123%; }
+            .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box {
+              border: 1px solid #ccc;
+              margin-bottom: 20px;
+              min-height: 50px; }
+              .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file {
+                position: relative;
+                padding: 15px; }
+                .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file .progress-bar {
+                  width: 300px;
+                  position: absolute;
+                  height: 25px; }
+                .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file .filename div.logo {
+                  background: url("../images/Applied.svg"); }
+                .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file .filename .name {
+                  color: #000;
+                  width: 50%;
+                  display: inline-block;
+                  vertical-align: middle;
+                  margin: 0 12px; }
+                .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file .filename img {
+                  width: 20px;
+                  height: 20px; }
       .campaigns .edit-campaigns .box .box-footer {
         border-top: 1px solid #ccc;
         padding: 20px 0; }

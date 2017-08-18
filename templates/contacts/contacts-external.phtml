@@ -1,11 +1,11 @@
 <div class="grid-contacts">
-    <div class="container">
+    <div class="container external-bucket">
 
         <div class="container-lt">
             <div class="dropdown" ng-show="{{::userPermissions.add_contacts == 1}}">
-                <button class="btn btn-primary mm-btn ripplelink dropdown-toggle" type="button" data-toggle="dropdown">+ ADD CONTACTS</button>
+                <button class="btn btn-primary mm-btn ripplelink dropdown-toggle" type="button" data-toggle="dropdown">+ NEW</button>
                 <ul class="dropdown-menu">
-                    <li><a ng-click="ContactCtrl.contactModal()">ADD CONTACT</a></li>
+                    <li><a ng-click="ContactCtrl.contactModal()" ng-class="{ 'disable-cursor' : !ContactCtrl.bucketNames.length }">ADD CONTACT</a></li>
                     <li><a ng-click="ContactCtrl.createExternalBucket()" >CREATE COMMUNITY</a></li>
                 </ul>
             </div>
@@ -27,8 +27,6 @@
         <div class="container-rt">
             <div class="search">
                 <span ng-bind="(ContactCtrl.activeBucket | uppercase) + ' (' + (ContactCtrl.activeBucketCount || 0) + ')'" class="word-ellipsis"></span>
-                <span class="hr" ng-if="ContactCtrl.goDashboard"></span>    
-                <span ng-if="ContactCtrl.goDashboard" ng-bind="'DOWNLOADS (' + (ContactCtrl.activeBucketDownloadCount || 0) + ')'" class="word-ellipsis"></span>
                 <div>
                     <img ng-src="public/images/loader/spin.gif" alt="bufferSpin" ng-if="ContactCtrl.updateLoader">
                     <span class="updateSuccess" style="color:#1d8e70 !important">Successfully Updated.</span>

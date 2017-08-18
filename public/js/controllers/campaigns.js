@@ -146,7 +146,11 @@
 
         vm.nextStep = function(viewTab) {
 
-            if(vm.scheduleDetails.job_ids.length == 0 && currentTab == 'schedule'){
+            vm[currentTab] = false;
+            vm[viewTab]    = true;
+            currentTab     = viewTab; 
+
+            /*if(vm.scheduleDetails.job_ids.length == 0 && currentTab == 'schedule'){
                 vm['errCond' + currentTab] = true;
                 return;
             }
@@ -157,7 +161,7 @@
                 currentTab     = viewTab; 
             }else{
                 vm['errCond' + currentTab] = true; 
-            }
+            }*/
 
         }
 
@@ -395,17 +399,18 @@
         }
 
         function postNewCampaign() {         
-            if($scope.manageContacts.$invalid){
-                return validStep('manageContacts');
-            }
-            else if($scope.campaignDetails.$invalid) {
+            
+            if($scope.campaignDetails.$invalid) {
                 return validStep('campaignDetails');
             } 
-            else if($scope.schedule.$invalid) {
+            else if($scope.schedule.$invalid || vm.scheduleDetails.job_ids.length == 0) {
                 return validStep('schedule');
             } 
             else if($scope.careersPage.$invalid) {
                 return validStep('careersPage');
+            }
+            else if($scope.manageContacts.$invalid){
+                return validStep('manageContacts');
             } 
 
             vm.postPointer = true;
@@ -984,13 +989,17 @@
             var closedScheduleCount = 0;
             
             angular.forEach(vm.campaignDetails.schedule, function(schedule, index){
-                
-                var start = new Date(schedule.start_on_date + ' ' + schedule.start_on_time),
-                    end   = new Date(schedule.end_on_date + ' ' + schedule.end_on_time);
+                 
+                var start   = new Date(schedule.start_on_date + ' ' + schedule.start_on_time),
+                    end     = new Date(schedule.end_on_date + ' ' + schedule.end_on_time);
                 
                 schedule.hasCloseIcon = false;
-                
-                $('#dtPickerStart' + index ).data("DateTimePicker").minDate(new Date(schedule.start_on_date)); 
+
+                //set the minDate if selected date is less then current date or both date are equal
+                if(moment(new Date()).isAfter(new Date(start))) {
+                    $('#dtPickerStart' + index ).data("DateTimePicker").minDate(new Date(schedule.start_on_date));
+                }
+
                 $('#dtPickerStart' + index ).data("DateTimePicker").maxDate(new Date(schedule.end_on_date)); 
                 $('#dtPickerStart' + index ).data("DateTimePicker").date(start);   
                 $('#dtPickerEnd' + index ).data("DateTimePicker").date(end);
@@ -1460,7 +1469,15 @@
             }
         }
 
-        init();
+        // closing angular material select box when blur
+        vm.closeDropdown = function () {
+            $('body').find('.md-select-menu-container').removeClass('md-leave');
+            if ($('body').find('.md-select-menu-container').hasClass('md-active')) {
+                $('body').find('.md-select-menu-container').removeClass('md-active md-clickable');
+                $('body').find('.md-select-menu-container').addClass('md-leave');
+            }
+
+        }
 
         vm.removeClass = function(){
             $('html').removeClass('remove-scroll');
@@ -1470,6 +1487,10 @@
             vm.removeClass();
             $uibModalInstance.dismiss('cancel');
         });
+
+        
+        init();
+
     }
 
 }());

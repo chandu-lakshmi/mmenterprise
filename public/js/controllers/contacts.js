@@ -13,7 +13,7 @@
     ContactsController.$inject = ['$scope', '$window', '$http', '$q', 'buckets', 'uiGridValidateService', '$uibModal', 'App', 'userPermissions', '$stateParams'];
     contactsInviteController.$inject = ['$scope', '$uibModalInstance', 'listContacts', '$http', '$window', 'userPermissions', 'App'];
     UploadContactsController.$inject = ['$scope', '$window', 'defaultFunction', 'getBuckets', '$uibModalInstance', '$state', '$http', '$uibModal', 'buckets', '$timeout', 'App'];
-    UploadSingleContactController.$inject = ['$scope', '$window', 'defaultFunction', 'getBuckets', '$http', '$uibModalInstance', 'buckets', 'App'];
+    UploadSingleContactController.$inject = ['$scope', '$window', 'defaultFunction', 'getBuckets', '$http', '$uibModalInstance', 'buckets', 'bucketType', 'App'];
 
     // already existing bucket name
     function checkBucket() {
@@ -57,18 +57,31 @@
         }
 
         this.reset = function(){
-            bucket_names = {};
+            bucket_names = [];
         }
     }
 
 
     function ContactsController($scope, $window, $http, $q, buckets, uiGridValidateService, $uibModal, App, userPermissions, $stateParams) {
 
-        var scope = this;
-        this.loaderImg = false;
-        this.loaderNoContacts = false;
+        var scope = this,
+                    edit_feature;
+
+
+        this.goDashboard       = $stateParams.rowEdit;
+        this.loaderImg         = false;
+        this.loaderNoContacts  = false;
         this.totalRecordsCount = 0;
-        this.contactStatus = [{label: 'Active', color: '#0d8e68'}, {label: 'Inactive', color: '#888888'}, {label: 'Separated', color: '#c46968'}];
+        this.selectedContacts  = [];
+        this.contactStatus     = [{label: 'Active', color: '#0d8e68'}, {label: 'Inactive', color: '#888888'}, {label: 'Separated', color: '#c46968'}];
+
+
+        if (userPermissions.edit_contacts == 1 && $stateParams.rowEdit) {
+            edit_feature = true;
+        }
+        else {
+            edit_feature = false;
+        }
 
         //get bucketNames
         function bucketsCount() {
@@ -107,21 +120,14 @@
         }
         bucketsCount();
 
+
+
+
         this.getActiveBucketCount = function (index) {
             scope.activeBucketCount = (index == -1) ? scope.totalRecords : scope.bucketNames[index].count;
         }
 
-
-        var edit_feature;
-        this.goDashboard = $stateParams.rowEdit;
-        if (userPermissions.edit_contacts == 1 && $stateParams.rowEdit) {
-            edit_feature = true;
-        }
-        else {
-            edit_feature = false;
-        }
-
-        this.selectedContacts = [];
+    
         this.gridOptions = {
             rowHeight: 70,
             cellEditableCondition: edit_feature,
@@ -159,7 +165,12 @@
             ]
         };
 
-        if (edit_feature) {
+        /*removeing the id column for external */ 
+        if($stateParams.bucketType == 2) {  
+            this.gridOptions.columnDefs.splice(4, 1);
+        }
+
+        if (edit_feature && $stateParams.bucketType == 1) {
             this.gridOptions.columnDefs.push(
                     {name: 'download_status', displayName: 'Download', enableCellEdit: false, headerTooltip: 'Download' , cellClass: 'grid-no-hover', width: '10%',
                         cellTemplate: '<div class="ui-grid-cell-contents">{{ COL_FIELD == 1 ? "Yes" : "No"}}</div>',
@@ -197,8 +208,8 @@
                         return 'You can only insert names starting with: "' + argument + '"';
                     }
             );
-        }
-        ;
+        };
+
         gridValidtion('charValidation', '');
         gridValidtion('charValidationReq', /^[a-zA-Z0-9- ]{0,100}$/);
         gridValidtion('charOtherId', /^[a-zA-Z0-9-]{0,100}$/);
@@ -307,7 +318,12 @@
 
             if (bktName != "") {
                 colSortObj != "" ? colSortObj[0].sort.direction = '' : '';
-                scope.gridApi.grid.columns[6].sort.direction = 'asc';
+                
+                if($stateParams.bucketType == 2) {  
+                    scope.gridApi.grid.columns[5].sort.direction = 'asc';
+                }else{
+                    scope.gridApi.grid.columns[6].sort.direction = 'asc';
+                }
                 sort = "";
                 colDefName = 'status';
             }
@@ -645,24 +661,28 @@
 
         // new contact modal
         this.contactModal = function () {
-
-            $uibModal.open({
-                animation: false,
-                backdrop: 'static',
-                keyboard: false,
-                templateUrl: 'templates/dialogs/new-contact-upload.phtml',
-                openedClass: "contact-modal",
-                controller: 'UploadSingleContactController',
-                controllerAs: "SingleContCtrl",
-                resolve: {
-                    defaultFunction: function () {
-                        return scope.getGridData;
-                    },
-                    getBuckets: function () {
-                        return bucketsCount;
+            
+            if(scope.bucketNames){
+                $uibModal.open({
+                    animation: false,
+                    backdrop: 'static',
+                    keyboard: false,
+                    templateUrl: 'templates/dialogs/new-contact-upload.phtml',
+                    openedClass: "contact-modal",
+                    controller: 'UploadSingleContactController',
+                    controllerAs: "SingleContCtrl",
+                    resolve: {
+                        defaultFunction: function () {
+                            return scope.getGridData;
+                        },
+                        getBuckets: function () {
+                            return bucketsCount;
+                        },
+                        bucketType : $stateParams.bucketType
                     }
-                }
-            });
+                });
+            }
+
         }
 
         var externalBucketDialog;
@@ -700,6 +720,7 @@
                     if (response.status_code == 200) {
                         buckets.addProperty(response.data);
                         scope.submitted = false;
+                        scope.externalBucket = ""; //reset name to empty
                         externalBucketDialog.close();
                     }
                     else if (response.status_code == 400) {
@@ -709,7 +730,7 @@
             }
         }
 
-        $scope.$on('destory', function(){
+        $scope.$on('$destroy', function(){
             buckets.reset();
         });
 
@@ -1171,15 +1192,12 @@
         })
     }
 
-    function UploadSingleContactController($scope, $window, defaultFunction, getBuckets, $http, $uibModalInstance, buckets, App) {
+    function UploadSingleContactController($scope, $window, defaultFunction, getBuckets, $http, $uibModalInstance, buckets, bucketType, App) {
 
-        var scope = this,
-            bucketType;
+        var scope = this;
 
         scope.bucketList = buckets.getData();
         scope.statusText = ["Active", "Inactive", "Separated"];
-        
-        bucketType       = scope.bucketList[0].bucket_type;
 
         // closing angular material select box when blur
         scope.closeDropdown = function () {

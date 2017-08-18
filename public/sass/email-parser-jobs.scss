@@ -51,11 +51,7 @@
        }
        footer{
            .social-media{padding: 25px 0;border-top: 1px solid #ebebeb;margin-top: 32px;border-right:0;border-left:0;background: #fff;}
-           .drop-cv{text-align: center;padding: 26px;background: #fff;border-top: 1px solid #ebebeb;
-                span{font-size: 14px;color: #252525;
-                     a{outline: none;margin-right:25px;cursor: pointer;text-decoration: none;padding: 6px 14px;display: inline-block;border-radius: 3px;background: #238260;border:1px solid #238260;color:#fff;}
-                }
-           }
+           .drop-cv{text-align: center;padding: 26px;background: #fff;border-top: 1px solid #ebebeb;}
        }
     }
 }
@@ -85,11 +81,12 @@
          .company-name{font-size: 30px;color: #478e76;text-transform: uppercase;}
          .menu{
             .tab{position: relative;top: calc(50% - 10px);-webkit-transform: translateY(-50%);-ms-transform: translateY(-50%);transform: translateY(-50%);
-                a{margin-left: 30px;color: #818785;}
+                a{margin-left: 30px;color: #818785;text-decoration: none;}
             }
          }
     }
-    .filters{padding: 72px 0;background-repeat: no-repeat;background-size: cover;background-position: 50% 50%;min-height:366px;
+    .filters{padding: 72px 0;min-height:366px;background-size: cover !important;background-position : 50% 50% !important;background-repeat: no-repeat !important;
+        &.add-image{background-image : url('../images/email-parser/banner_img.jpg') !important}
         .des{text-align: center;color: #fff;
             img{width: 26px;}
             h3{font-weight: 700;margin: 0}
@@ -99,35 +96,38 @@
             }
         }
         .user-inputs{padding-top:48px;
-            .search{width:38%;margin: 0;position: relative;
-                i{position: absolute;font-size: 36px;padding: 12px 10px;color: #b2b2b2;left: 0}
-                input{height: 60px;border-radius: 0;padding-left: 46px;font-size: 16px;border-right: 0;
-                    &:focus{box-shadow: none; border-color: #ccc}
+            .search-container{margin: 0 auto;width: 90%;
+                .search{width:38%;margin: 0;position: relative;
+                    i{position: absolute;font-size: 36px;padding: 12px 10px;color: #b2b2b2;left: 0}
+                    input{height: 60px;border-radius: 0;padding-left: 46px;font-size: 16px;border-right: 0;
+                        &:focus{box-shadow: none; border-color: #ccc}
+                    }
                 }
-            }
-            .loc,.exp{width: 22%;position: relative;height:60px;
-                &.open{
-                    i{display: none}
+                .loc,.exp{width: 22%;position: relative;height:60px;
+                    &.open{
+                        i{display: none}
+                    }
+                    button,button:focus{width: 100%;text-align: left;height: 100%;border-radius: 0;background: #fff;border-color: #ccc;color: #999;box-shadow: none;font-size: 16px;border-left: 0;
+                        i{position: absolute;right: 16px;font-size: 40px;font-weight: 100;top: 10px;}
+                    }
+                    .dropdown-menu{width: 100.5%;margin: -1px;border-radius: 0;padding: 0}
+                    input{width: 100%;height: 100%;padding: 0 14px;outline: none;border: 1px solid #ccc;font-size: 16px;color: #555};
                 }
-                button,button:focus{width: 100%;text-align: left;height: 100%;border-radius: 0;background: #fff;border-color: #ccc;color: #999;box-shadow: none;font-size: 16px;border-left: 0;
-                    i{position: absolute;right: 16px;font-size: 40px;font-weight: 100;top: 10px;}
+                .action{width: 18%;height:60px;
+                    button{margin: 0;width: 100%;height: 100%;border-radius: 0;background: #02b892;color: #fff;box-shadow: none;font-weight: 700;}
                 }
-                .dropdown-menu{width: 100.5%;margin: -1px;border-radius: 0;padding: 0}
-                input{width: 100%;height: 100%;padding: 0 14px;outline: none;border: 1px solid #ccc;font-size: 16px;color: #555};
+                .exp-active{background: #518b7f;color: #fff;}
             }
-            .action{width: 18%;height:60px;
-                button{margin: 0;width: 100%;height: 100%;border-radius: 0;background: #02b892;color: #fff;box-shadow: none;font-weight: 700;}
-            }
-            .exp-active{background: #518b7f;color: #fff;}
         }
     }
-    .camp-list{height: 524px;overflow:auto;}
+    /* .camp-list{height: 524px;overflow:auto;} */
     .drop-cv{text-align: center;padding: 26px;background: #fff;border-top: 1px solid #ebebeb;
-           }
+        .md-button{vertical-align: middle;}
+    }
     .loading-infinite{color: #8e8e8e;font-weight: 700;float: none;margin: 12px auto;text-align: center;border: 1px solid #e8e8e8;width: 45%;padding: 6px;border-radius: 2px;font-size: 20px;}
     .content{@include gradient(bottom, rgba(242, 241, 239, 1), rgba(255, 255, 255, 1)); @include viewHeight(150px);
         .campaign-details{padding: 16px 0;
-            .camp-btn{background: #24a678;color: #fff;border: 0;padding: 11px 28px;margin-left: 7px;font-weight: 600;border-radius: 3px;text-decoration: none}
+            .camp-btn{background: #24a678;color: #fff;border: 0;padding: 2px 26px;margin-right: 0;font-weight: 600;border-radius: 3px;text-decoration: none}
             .left{padding-right: 35px;
                 .drop-box{
                     .container{width: inherit;
@@ -140,8 +140,8 @@
                     h4{display: inline-block;}
                 }
                 .list {
-                    .row{border: 0;border-bottom: 2px solid #f0f0f0;padding: 18px 0;
-                        .buttons{padding-right: 12px;bottom: 42px;}
+                    .row{border: 0;border-bottom: 1px solid #ddd;padding: 26px 0;margin: 0;
+                        .buttons{bottom: 34px;padding-right: 0}
                         a{
                             .col-sm-7{padding:0}
                         }
@@ -151,6 +151,7 @@
             .right{
                 .about-comp{border: 1px solid #e0e0e0;
                     .box{padding: 0 14px;
+                        .ngTruncateToggleText{color: #24be9a}
                         h4{font-weight: 600;color: #787777;margin: 18px 0;}
                         h5{color: #24be9a;}
                     }

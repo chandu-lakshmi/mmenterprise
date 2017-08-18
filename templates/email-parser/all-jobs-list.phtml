@@ -10,16 +10,16 @@
                         <div class="col-sm-7">
                             <p ng-bind="list.job_name"></p>
                             <div class="fields">
-                                <span class="label">Experience:</span>
+                                <span class="labels">Experience:</span>
                                 <span class="value" ng-bind="list.experience"></span><br>
-                                <span class="label">Location:</span>
+                                <span class="labels">Location:</span>
                                 <span class="value" ng-bind="list.location"></span>
                             </div>
                         </div>
                     </a>
                     <div class="col-sm-5 buttons" ng-init="sh_cd = $stateParams.share_status;jc = $stateParams.jc">
-                        <a class="camp-btn" ui-sref="allJobs.referralDetails({ref: list.ref_code,flag: 0, status:list.status, jc:jc, share_status: sh_cd})" ng-if="list.post_type == 'external'">REFER</a>
-                        <a class="camp-btn" ui-sref="allJobs.candidateDetails({ref: list.ref_code, flag: 0, status:list.status, jc:jc, share_status: sh_cd})" ng-if="list.post_type == 'internal' || sh_cd == 'share' || $stateParams.jc == 2">APPLY</a>
+                        <md-button class="md-raised camp-btn" ui-sref="allJobs.referralDetails({ref: list.ref_code,flag: 0, status:list.status, jc:jc, share_status: sh_cd})" ng-if="list.post_type == 'external'">REFER</md-button>
+                        <md-button class="md-raised camp-btn" ui-sref="allJobs.candidateDetails({ref: list.ref_code, flag: 0, status:list.status, jc:jc, share_status: sh_cd})" ng-if="list.post_type == 'internal' || sh_cd == 'share' || $stateParams.jc == 2">APPLY</md-button>
                     </div>
                 </div>
                 <div class="email-parser-loader" ng-if="AllJobsCtrl.infiniteScroll.busy && !AllJobsCtrl.loader">
@@ -32,7 +32,7 @@
             </div>
         </div>
         <div class="drop-cv">
-            Refer friend for future openings here<a class="camp-btn" ui-sref="allJobs.referralDetails({ref: $root.ref,flag: 1,share_status: $stateParams.share_status, jc:$stateParams.jc})">Upload CV</a>
+            Refer friend for future openings here<md-button class="md-raised camp-btn" ui-sref="allJobs.referralDetails({ref: $root.ref,flag: 1,share_status: $stateParams.share_status, jc:$stateParams.jc})">Upload CV</md-button>
         </div>
     </div>
 

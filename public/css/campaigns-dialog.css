@@ -518,7 +518,8 @@ html.remove-scroll {
           right: 16px;
           top: 10px;
           padding: 0;
-          pointer-events: none; }
+          pointer-events: none;
+          border: 0; }
           .create-camp .steps-view .section .schedule .timesheet .sib .date-time .input-group-addon .glyphicon {
             font-size: 16px; }
         .create-camp .steps-view .section .schedule .timesheet .sib .has-error-msg.msg {
@@ -597,7 +598,9 @@ html.remove-scroll {
         border: 1px solid #d8d8d8;
         height: 450px;
         padding: 10px 16px !important;
-        font-size: 16px; }
+        font-size: 16px;
+        max-height: 414px;
+        overflow: auto; }
       .create-camp .steps-view .section .manage-contacts .bucket-container h5 {
         margin-bottom: 18px;
         font-weight: 600;

@@ -1,13 +1,12 @@
 <div class="bucket-container">
    <h5 ng-if="(bucketsViewCtrl.datasource.list | filter: { bucket_type : bucketsViewCtrl.datasource.type }).length">{{bucketsViewCtrl.datasource.headerTxt}}</h5>
    <div class="bucket-each" 
-         ng-repeat="bucket in bucketsViewCtrl.datasource.list | filter: { bucket_type : bucketsViewCtrl.datasource.type }" 
-         ng-class="{'disable-cursor' : bucketsViewCtrl.datasource.selectedOne.indexOf(bucket.bucket_id) > -1}">
+         ng-repeat="bucket in bucketsViewCtrl.datasource.list | filter: { bucket_type : bucketsViewCtrl.datasource.type }" >
       <div class="bucket" 
          ng-style="{'background':bucketsViewCtrl.getColor($index)}" 
          ng-init="bucket.src = bucketsViewCtrl.datasource.selectedOne.indexOf(bucket.bucket_id) >= 0 ? 'public/images/select.svg' : 'public/images/add.svg'"
          ng-click="(bucket.count == 0 || bucketsViewCtrl.datasource.selectedOne.indexOf(bucket.bucket_id) >= 0 ) ? '' : bucketsViewCtrl.addBucketContact(bucket.bucket_id)">
-         <div class="" popover-enable='bucket.count == 0' uib-popover="No Contacts Found" popover-trigger="'mouseenter'">
+         <div class="" popover-enable='bucket.count == 0' ng-class="{'disable-cursor' : bucketsViewCtrl.datasource.selectedOne.indexOf(bucket.bucket_id) > -1}" uib-popover="No Contacts Found" popover-trigger="'mouseenter'">
             <img ng-src="{{bucket.src}}" alt="" ng-init="bucketsViewCtrl.init(bucket.src, bucket.bucket_id)">
             <h4>
                <p ng-bind="bucket.bucket_name">
