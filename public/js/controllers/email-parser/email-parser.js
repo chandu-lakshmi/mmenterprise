@@ -253,7 +253,6 @@
         }
 
         vm.infiniteScroll.nextPage = function () {
-            console.log('fie')
             if (total_pages >= page_no && total_pages != 0) {
                 if (vm.infiniteScroll.busy) {
                     return;
@@ -326,6 +325,8 @@
                         }
                     })
         }
+
+        vm.infiniteScroll.nextPage();
 
         // epi search directive
         /*vm.search_opts = {
@@ -1124,7 +1125,8 @@
                 vm.inProgressInfinite = false;
             })
         }
-
+        vm.infiniteScroll.nextPage();
+        
         vm.findJobs = function() {
             
         }
