@@ -500,7 +500,8 @@
         vm.hasUploadResume = true; 
         vm.loader          = false;
         vm.readOnlyEmail   = false; 
-        vm.showJobDetails  = true; 
+        vm.showJobDetails  = true;
+        vm.invalidFile     = false; 
         vm.status = $location.search().flag;
 
         $("#can-mobile").intlTelInput({
@@ -637,9 +638,11 @@
             file_name: 'resume_original_name',
             path_name: 'cv',
             onSubmit: function (id, name) {
+                vm.invalidFile = false;
                 $('.file-check').text('');
                 $upload_resume.find('.qq-upload-list').css('z-index', '0');
                 $upload_resume.find('.qq-upload-fail').remove();
+                $scope.$apply();
             },
             onComplete: function (id, name, response) {
                 if (response.success) {
@@ -654,17 +657,20 @@
                     $scope.$apply();
                 }
                 else {
+                    $upload_resume.find('.qq-upload-list').css('z-index', '-1');
                     $upload_resume.find('.qq-upload-button').show();
                     $upload_resume.find('.qq-upload-fail').remove();
                     $upload_resume.append("<div class='qq-upload-fail'><i class='fa fa-times'></i>&nbsp;<span>" + response.msg + "</span></div>");
                 }
             },
             showMessage: function (msg, obj) {
-                $('.file-check').text('');
+                vm.invalidFile = true;
+                $('.file-check').text(msg);
                 $upload_resume.find('.qq-uploader + .qq-upload-fail').remove();
                 $upload_resume.closest('.form-group').find('div.error').hide();
                 $upload_resume.find('.qq-upload-list').css('z-index', '-1');
                 $(obj._listElement).fadeIn();
+                $scope.$apply();
             },
             onRemove: function () {
 
