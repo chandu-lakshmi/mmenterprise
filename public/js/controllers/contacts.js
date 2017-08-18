@@ -731,10 +731,6 @@
             }
         }
 
-        $scope.$on('$destroy', function(){
-            buckets.reset();
-        });
-
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if(externalBucketDialog)
                 externalBucketDialog.close();
