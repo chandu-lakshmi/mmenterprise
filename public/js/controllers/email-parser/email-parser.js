@@ -25,7 +25,7 @@
     AllJobsController.$inject = ['$scope', '$rootScope', '$http', '$stateParams', '$q', '$window', 'ReferralDetails', 'App'];
     JobDetailsController.$inject = ['$http', '$stateParams', '$window', 'campaignJobDetails', 'App'];
     ApplyJobController.$inject = ['$rootScope', '$scope', '$state', '$stateParams', '$location', '$window', '$http', '$uibModal', '$mdDialog', 'App', 'ReferralDetails', 'CampaignDetails', 'campaignJobDetails', 'candidateDetails'];
-    CampaignsController.$inject = ['$scope', '$http', '$mdDialog', 'CampaignDetails', 'App'];
+    CampaignsController.$inject = ['$scope', '$http', '$mdDialog', '$uibModal', 'CampaignDetails', 'App'];
     AllCampaignsController.$inject = ['$rootScope', '$scope', '$http', '$window', '$q', '$mdDialog', 'App', 'CampaignDetails', 'campaignJobDetails'];
     TalentCommunityController.$inject = ['$scope', '$http', '$timeout', '$mdDialog', 'ReferralDetails', 'CampaignDetails', 'formJobOrCampagin', 'App'];
 
@@ -843,7 +843,7 @@
 
     }
 
-    function CampaignsController($scope, $http, $mdDialog, CampaignDetails, App) {
+    function CampaignsController($scope, $http, $mdDialog, $uibModal, CampaignDetails, App) {
 
         var vm = this,
                 copySearchOptions;
@@ -915,6 +915,14 @@
             });
         }
 
+        $uibModal.open({
+            animation: false,
+            backdrop: 'static',
+            keyboard: false,
+            templateUrl: '../templates/email-parser/dialog-talent-community.phtml',
+            openedClass: "external-bucket",
+            scope: $scope
+        });
 
         $scope.$watch(function () {
             return vm.geo_details;
@@ -1135,6 +1143,7 @@
             }
             angular.extend(campaignFilterParams, data.opts);
             vm.infiniteScroll.nextPage();
+
         });
 
         
