@@ -500,7 +500,10 @@
           margin-top: 8px; }
         .external-bucket .modal-dialog .create-campaign footer .msg {
           margin: 22px 8px;
-          color: #1d8e70; }
+          color: #1d8e70;
+          text-transform: capitalize; }
+          .external-bucket .modal-dialog .create-campaign footer .msg.err {
+            color: red; }
         .external-bucket .modal-dialog .create-campaign footer * {
           float: right;
           font-weight: 600; }

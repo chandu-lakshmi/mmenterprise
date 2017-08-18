@@ -565,6 +565,8 @@ html.remove-scroll {
           .create-camp .steps-view .section .schedule .create-job .modern-select .chosen-container .chosen-drop {
             border-top: 1px solid #aaa;
             top: 110%; }
+        .create-camp .steps-view .section .schedule .create-job .modern-select.no-drop-down .chosen-container .chosen-drop {
+          border: 0; }
         .create-camp .steps-view .section .schedule .create-job .modern-select .has-error-border + .chosen-container {
           border-bottom: 1px solid red; }
         .create-camp .steps-view .section .schedule .create-job .modern-select .chosen-container-active, .create-camp .steps-view .section .schedule .create-job .modern-select .chosen-container-has-value {

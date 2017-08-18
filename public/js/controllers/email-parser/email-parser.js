@@ -119,7 +119,7 @@
                     }
                 },
                 controller: TalentCommunityController,
-                controllerAs: 'TalentCommunityCtrl',
+                controllerAs: 'TalentCommunityCtrl'
             });
         }
 
@@ -906,6 +906,8 @@
         }
 
         vm.findJobs = function() {
+            if(!vm.searchOptions.search_name && !vm.searchOptions.search_location && !vm.searchOptions.search_experience)
+                return;
             $scope.$broadcast('findJob' , {opts : vm.searchOptions});
         }
 
@@ -922,7 +924,7 @@
                     }
                 },
                 controller: TalentCommunityController,
-                controllerAs: 'TalentCommunityCtrl',
+                controllerAs: 'TalentCommunityCtrl'
             });
         }
 
@@ -1233,6 +1235,8 @@
         this.postAddContact = function(form) {
             
             vm.submitted = true;
+            vm.responseMsg = '';
+            vm.errorMsg  = '';
             if (form.$valid && vm.selectedCommunities.length) {
 
                 var data = $('form[name="add_contact"]').serialize(),
@@ -1258,7 +1262,10 @@
                         vm.responseMsg = response.message.msg[0];
                         $timeout(function(){
                            vm.closeDialog();
-                        }, 2000)
+                        }, 2000);
+                    }
+                    else{
+                        vm.errorMsg = response.message.msg[0];
                     }
                 })
             }

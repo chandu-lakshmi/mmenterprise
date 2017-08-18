@@ -436,7 +436,8 @@ md-dialog md-dialog-actions button.md-primary {
                   text-align: left;
                   padding-top: 25px;
                   font-weight: 600;
-                  max-width: 230px; }
+                  max-width: 230px;
+                  width: auto; }
           .campaigns .edit-campaigns .box .content .careers .left .link {
             margin-top: 28px; }
           .campaigns .edit-campaigns .box .content .careers .left .link-box {

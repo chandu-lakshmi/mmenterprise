@@ -115,7 +115,7 @@ body.email-parser .modal .modal-body {
             position: absolute;
             right: 0;
             top: 2px;
-            width: 46%;
+            width: 40%;
             height: 43px;
             padding: 0;
             line-height: 43px;
@@ -197,7 +197,7 @@ body.email-parser .modal .modal-body {
         position: absolute;
         top: 40px;
         left: 18px;
-        max-width: 140px; }
+        max-width: 150px; }
   .drop-box .container section .footer {
     padding-top: 22px;
     font-size: 18px; }
