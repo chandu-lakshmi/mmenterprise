@@ -21,7 +21,7 @@
             })
 
     modalController.$injext = ['$scope', '$state', '$stateParams', '$uibModalInstance', 'App'];
-    JobsController.$inject = ['$scope', '$http', '$uibModal', 'ReferralDetails', 'decryptDetails', 'App'];
+    JobsController.$inject = ['$scope', '$state', '$http', '$uibModal', 'ReferralDetails', 'decryptDetails', 'App'];
     AllJobsController.$inject = ['$scope', '$rootScope', '$http', '$stateParams', '$q', '$window', 'ReferralDetails', 'App'];
     JobDetailsController.$inject = ['$http', '$stateParams', '$window', 'campaignJobDetails', 'decryptDetails', 'App'];
     ApplyJobController.$inject = ['$rootScope', '$scope', '$state', '$stateParams', '$location', '$window', '$http', '$uibModal', '$mdDialog', 'App', 'ReferralDetails', 'CampaignDetails', 'campaignJobDetails', 'candidateDetails'];
@@ -53,7 +53,7 @@
         })
     }
 
-    function JobsController($scope, $http, $uibModal, ReferralDetails, decryptDetails, App) {
+    function JobsController($scope, $state, $http, $uibModal, ReferralDetails, decryptDetails, App) {
         
         var vm = this,
                 copySearchOptions;
@@ -61,7 +61,7 @@
         this.geo_location = '';
         this.geo_options  = '';
         this.geo_details  = '';
-        this.isInternalJob = false;
+        this.enableSocialShare = true;
         this.experienceLabel = 'Experience';
         this.searchOptions   = {
             search_name       : null,
@@ -69,9 +69,11 @@
             search_experience : null
         };
         copySearchOptions = angular.copy(this.searchOptions);
-        
-        if(decryptDetails.post_type == 'internal') {
-            vm.isInternalJob = true;
+
+        if(decryptDetails.post_type == 'internal' && $state.current.name == 'allJobs.all') {
+            vm.enableSocialShare = true;
+        } else if (decryptDetails.post_type == 'internal') {
+            vm.enableSocialShare = false;
         }
 
         function init() {

@@ -997,10 +997,9 @@
 
                 //set the minDate if selected date is less then current date or both date are equal
                 if(moment(new Date()).isAfter(new Date(start))) {
-                    $('#dtPickerStart' + index ).data("DateTimePicker").minDate(new Date(schedule.start_on_date));
+                    $('#dtPickerStart' + index ).data("DateTimePicker").minDate(start);
                 }
-
-                $('#dtPickerStart' + index ).data("DateTimePicker").maxDate(new Date(schedule.end_on_date)); 
+                $('#dtPickerStart' + index ).data("DateTimePicker").maxDate(end); 
                 $('#dtPickerStart' + index ).data("DateTimePicker").date(start);   
                 $('#dtPickerEnd' + index ).data("DateTimePicker").date(end);
                 
