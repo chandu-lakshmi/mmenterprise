@@ -153,6 +153,7 @@
                     .box{padding: 0 14px 14px;
                         .ngTruncateToggleText{color: #24be9a}
                         h4{font-weight: 600;color: #787777;margin: 18px 0;}
+                        span[ng-text-truncate]{word-wrap: break-word;}
                         h5{color: #24be9a;}
                     }
                     .suscribe{background: #f7f9f8;color : #4b4d4c;padding:14px;

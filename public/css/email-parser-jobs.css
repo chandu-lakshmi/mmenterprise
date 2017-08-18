@@ -294,6 +294,8 @@
             font-weight: 600;
             color: #787777;
             margin: 18px 0; }
+          .all-campaigns .content .campaign-details .right .about-comp .box span[ng-text-truncate] {
+            word-wrap: break-word; }
           .all-campaigns .content .campaign-details .right .about-comp .box h5 {
             color: #24be9a; }
         .all-campaigns .content .campaign-details .right .about-comp .suscribe {
