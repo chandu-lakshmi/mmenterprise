@@ -15,7 +15,8 @@
             </div>
         </div>
     </header>
-    <div class="filters" style="background-image:url({{!CampaignDetails.career_heroshot_image ? '../public/images/email-parser/banner_img.jpg' : CampaignDetails.career_heroshot_image}})">
+    <div class="filters" style="background : transparent url({{CampaignDetails.career_heroshot_image}})"
+         ng-class="{'add-image' : !CampaignDetails.career_heroshot_image}">
         <div class="container" ng-style="{'margin-top' : $state.current.name === 'allCampaigns.all' ? '0' : '54px'}">
             <div class="des">
                 <h3>

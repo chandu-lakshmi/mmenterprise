@@ -333,7 +333,8 @@ md-dialog md-dialog-actions button.md-primary {
                 right: 16px;
                 top: 10px;
                 padding: 0;
-                pointer-events: none; }
+                pointer-events: none;
+                border: 0; }
                 .campaigns .edit-campaigns .box .content .schedule .timesheet .sib .date-time .input-group-addon .glyphicon {
                   font-size: 16px; }
               .campaigns .edit-campaigns .box .content .schedule .timesheet .sib .has-error-msg.msg {

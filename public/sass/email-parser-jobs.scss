@@ -150,7 +150,7 @@
             }
             .right{
                 .about-comp{border: 1px solid #e0e0e0;
-                    .box{padding: 0 14px;
+                    .box{padding: 0 14px 14px;
                         .ngTruncateToggleText{color: #24be9a}
                         h4{font-weight: 600;color: #787777;margin: 18px 0;}
                         h5{color: #24be9a;}
@@ -216,7 +216,7 @@
 /*dialog styles for create campaign*/
 *[ng-click]{outline: none;cursor:pointer}
 .has-error-msg{z-index: 1}
-.create-campaign{max-width: 68%;max-height: 100%;border-radius:0;
+.create-campaign{max-width: 880px;max-height: 100%;border-radius:0;
     .main{padding:38px 58px;
         header{text-align: center;color: #353535;
             img{position: absolute;right: 0;top: 0;padding: 24px;}

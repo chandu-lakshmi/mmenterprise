@@ -287,7 +287,7 @@
       .all-campaigns .content .campaign-details .right .about-comp {
         border: 1px solid #e0e0e0; }
         .all-campaigns .content .campaign-details .right .about-comp .box {
-          padding: 0 14px; }
+          padding: 0 14px 14px; }
           .all-campaigns .content .campaign-details .right .about-comp .box .ngTruncateToggleText {
             color: #24be9a; }
           .all-campaigns .content .campaign-details .right .about-comp .box h4 {
@@ -427,7 +427,7 @@
   z-index: 1; }
 
 .create-campaign {
-  max-width: 68%;
+  max-width: 880px;
   max-height: 100%;
   border-radius: 0; }
   .create-campaign .main {

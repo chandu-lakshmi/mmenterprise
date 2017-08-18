@@ -4,7 +4,7 @@
     <md-divider></md-divider>
     <div style="position:relative">
         <div class="camp-list">
-            <div class="list" ng-init="sh_cd = $stateParams.share_status" infinite-scroll='AllJobsCtrl.infiniteScroll.nextPage()' infinite-scroll-distance='0' infinite-scroll-container="'.camp-list'" style="min-height:350px;height:initial">
+            <div class="list" ng-init="sh_cd = $stateParams.share_status" infinite-scroll='AllJobsCtrl.infiniteScroll.nextPage()' infinite-scroll-distance='0'>
                 <div class="row" ng-repeat="list in AllJobsCtrl.infiniteScroll.list" ng-click="AllJobsCtrl.updateReferralDetails(list)">
                     <a ui-sref="allJobs.jobDetails({ref: list.ref_code, share_status: sh_cd, jc : jc })" title="" class="detail">
                         <div class="col-sm-7">
