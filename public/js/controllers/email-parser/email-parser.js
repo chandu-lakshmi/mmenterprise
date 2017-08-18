@@ -681,7 +681,7 @@
             $upload_resume.find('.qq-upload-list').css('z-index', '-1');
             $upload_resume.find('.qq-upload-drop-area').css('display', 'none');
             $upload_resume.find('.qq-upload-button').show();
-            if($state.current.name == 'referralDetails' && ($stateParams.flag != 1 || $stateParams.jc == 1)){
+            if(($state.current.name == 'allJobs.referralDetails' || $state.current.name == 'allCampaigns.referralDetails') && $stateParams.flag != 1){
                 vm.hasUploadResume = false;
             }else{
                 vm.hasUploadResume = true;
