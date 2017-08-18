@@ -73,6 +73,7 @@
         this.loaderNoContacts  = false;
         this.totalRecordsCount = 0;
         this.selectedContacts  = [];
+        this.bucketNames       = [];
         this.contactStatus     = [{label: 'Active', color: '#0d8e68'}, {label: 'Inactive', color: '#888888'}, {label: 'Separated', color: '#c46968'}];
 
 
@@ -662,7 +663,7 @@
         // new contact modal
         this.contactModal = function () {
             
-            if(scope.bucketNames){
+            if(scope.bucketNames.length){
                 $uibModal.open({
                     animation: false,
                     backdrop: 'static',

@@ -423,38 +423,49 @@
   outline: none;
   cursor: pointer; }
 
+.md-select-menu-container, .md-dialog-container {
+  z-index: 1200 !important; }
+
+.pac-container {
+  z-index: 1051 !important; }
+
 .has-error-msg {
   z-index: 1; }
 
-.create-campaign {
+.external-bucket .modal-dialog {
+  width: 850px;
+  top: 60px; }
+.external-bucket .create-campaign {
   max-width: 880px;
   max-height: 100%;
   border-radius: 0; }
-  .create-campaign .main {
+  .external-bucket .create-campaign .main {
     padding: 38px 58px; }
-    .create-campaign .main header {
+    .external-bucket .create-campaign .main header {
       text-align: center;
       color: #353535; }
-      .create-campaign .main header img {
+      .external-bucket .create-campaign .main header img {
         position: absolute;
         right: 0;
         top: 0;
         padding: 24px; }
-      .create-campaign .main header h3 {
+      .external-bucket .create-campaign .main header h3 {
         margin: 0; }
-      .create-campaign .main header p.desc {
+      .external-bucket .create-campaign .main header p.desc {
         padding: 10px 0 4px 0;
         margin: 0; }
-      .create-campaign .main header p {
+      .external-bucket .create-campaign .main header p {
         color: #a1a1a1; }
-    .create-campaign .main section form {
+    .external-bucket .create-campaign .main section form {
       position: relative;
       padding-top: 48px; }
-      .create-campaign .main section form .community p {
+      .external-bucket .create-campaign .main section form md-select-value span:not(.md-select-icon) {
+        max-width: 95%; }
+      .external-bucket .create-campaign .main section form .community p {
         padding: 16px 0 20px;
         margin: 0;
         color: #676767; }
-      .create-campaign .main section form .community span {
+      .external-bucket .create-campaign .main section form .community span {
         padding: 12px 24px;
         border: 1px solid;
         margin: 0 8px 8px 0;
@@ -462,38 +473,39 @@
         position: relative;
         float: left;
         border-radius: 4px; }
-        .create-campaign .main section form .community span img {
+        .external-bucket .create-campaign .main section form .community span img {
           position: absolute;
           left: 5px;
           width: 16px;
           top: 14px;
           transition: all linear 0.1s;
           transform: scale(0); }
-          .create-campaign .main section form .community span img.active {
+          .external-bucket .create-campaign .main section form .community span img.active {
             transform: scale(1); }
-      .create-campaign .main section form .has-error-msg {
+      .external-bucket .create-campaign .main section form .has-error-msg {
         left: 0;
         bottom: 0;
         top: initial; }
-  .create-campaign footer {
+  .external-bucket .create-campaign footer {
     background: #eee;
-    padding: 8px; }
-    .create-campaign footer .loading {
+    padding: 8px;
+    overflow: hidden; }
+    .external-bucket .create-campaign footer .loading {
       margin-top: 8px; }
-    .create-campaign footer .msg {
+    .external-bucket .create-campaign footer .msg {
       margin: 22px 8px;
       color: #1d8e70; }
-    .create-campaign footer * {
+    .external-bucket .create-campaign footer * {
       float: right;
       font-weight: 600; }
-    .create-campaign footer .md-button {
+    .external-bucket .create-campaign footer .md-button {
       font-size: 16px;
       border-radius: 5px;
       padding: 8px 48px; }
-      .create-campaign footer .md-button.submit {
+      .external-bucket .create-campaign footer .md-button.submit {
         background-color: #1d8e70;
         color: #fff; }
-    .create-campaign footer .cancel {
+    .external-bucket .create-campaign footer .cancel {
       line-height: 64px;
       font-size: 18px;
       color: #9b9b9b;

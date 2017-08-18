@@ -21,13 +21,13 @@
             })
 
     modalController.$injext = ['$scope', '$state', '$stateParams', '$uibModalInstance', 'App'];
-    JobsController.$inject = ['$scope', '$http', '$mdDialog', 'ReferralDetails', 'App'];
+    JobsController.$inject = ['$scope', '$http', '$uibModal', 'ReferralDetails', 'App'];
     AllJobsController.$inject = ['$scope', '$rootScope', '$http', '$stateParams', '$q', '$window', 'ReferralDetails', 'App'];
     JobDetailsController.$inject = ['$http', '$stateParams', '$window', 'campaignJobDetails', 'App'];
     ApplyJobController.$inject = ['$rootScope', '$scope', '$state', '$stateParams', '$location', '$window', '$http', '$uibModal', '$mdDialog', 'App', 'ReferralDetails', 'CampaignDetails', 'campaignJobDetails', 'candidateDetails'];
-    CampaignsController.$inject = ['$scope', '$http', '$mdDialog', 'CampaignDetails', 'App'];
+    CampaignsController.$inject = ['$scope', '$http', '$uibModal', 'CampaignDetails', 'App'];
     AllCampaignsController.$inject = ['$rootScope', '$scope', '$http', '$window', '$q', '$mdDialog', 'App', 'CampaignDetails', 'campaignJobDetails'];
-    TalentCommunityController.$inject = ['$scope', '$http', '$timeout', '$mdDialog', 'ReferralDetails', 'CampaignDetails', 'formJobOrCampagin', 'App'];
+    TalentCommunityController.$inject = ['$scope', '$http', '$timeout', '$uibModalInstance', 'ReferralDetails', 'CampaignDetails', 'formJobOrCampagin', 'App'];
 
 
     function modalController($scope, $state, $stateParams, $uibModalInstance, App) {
@@ -53,7 +53,7 @@
         })
     }
 
-    function JobsController($scope, $http, $mdDialog, ReferralDetails, App) {
+    function JobsController($scope, $http, $uibModal, ReferralDetails, App) {
         
         var vm = this,
                 copySearchOptions;
@@ -107,22 +107,19 @@
         }
 
         vm.createCampaign = function (ev) {
-            $mdDialog.show({
+            $uibModal.open({
+                animation: false,
+                backdrop: 'static',
+                keyboard: false,
+                templateUrl: '../templates/email-parser/dialog-talent-community.phtml',
+                openedClass: "external-bucket",
+                resolve :  {
+                    formJobOrCampagin : function(){
+                        return 'job';
+                    }
+                },
                 controller: TalentCommunityController,
                 controllerAs: 'TalentCommunityCtrl',
-                templateUrl: '../templates/email-parser/dialog-talent-community.phtml',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                locals: {
-                    formJobOrCampagin : 'job'
-                },
-                clickOutsideToClose: false,
-                fullscreen: false
-            })
-            .then(function (answer) {
-                vm.status = 'You said the information was "' + answer + '".';
-            }, function () {
-                vm.status = 'You cancelled the dialog.';
             });
         }
 
@@ -843,7 +840,7 @@
 
     }
 
-    function CampaignsController($scope, $http, $mdDialog, CampaignDetails, App) {
+    function CampaignsController($scope, $http, $uibModal, CampaignDetails, App) {
 
         var vm = this,
                 copySearchOptions;
@@ -896,24 +893,22 @@
         }
 
         vm.createCampaign = function (ev) {
-            $mdDialog.show({
+            $uibModal.open({
+                animation: false,
+                backdrop: 'static',
+                keyboard: false,
+                templateUrl: '../templates/email-parser/dialog-talent-community.phtml',
+                openedClass: "external-bucket",
+                resolve :  {
+                    formJobOrCampagin : function(){
+                        return 'campaign';
+                    }
+                },
                 controller: TalentCommunityController,
                 controllerAs: 'TalentCommunityCtrl',
-                templateUrl: '../templates/email-parser/dialog-talent-community.phtml',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                clickOutsideToClose: false,
-                locals: {
-                    formJobOrCampagin : 'campaign'
-                },
-                fullscreen: false
-            })
-            .then(function (answer) {
-                vm.status = 'You said the information was "' + answer + '".';
-            }, function () {
-                vm.status = 'You cancelled the dialog.';
             });
         }
+
 
 
         $scope.$watch(function () {
@@ -1135,7 +1130,7 @@
             }
             angular.extend(campaignFilterParams, data.opts);
             vm.infiniteScroll.nextPage();
-            
+
         });
 
         
@@ -1143,8 +1138,8 @@
 
 
 
-    function TalentCommunityController($scope, $http, $timeout, $mdDialog, ReferralDetails, CampaignDetails, formJobOrCampagin, App) {
-       
+    function TalentCommunityController($scope, $http, $timeout, $uibModalInstance, ReferralDetails, CampaignDetails, formJobOrCampagin, App) {
+
         var vm = this,
             details, 
             colorPicker  = ["#5d80cd", "#e8655c", "#81a757", "#8b5eb2", "#e2a746", "#947956", "#a8a53d", "#607D8B", "#484848", "#3c8576"];
@@ -1189,9 +1184,18 @@
 
         }
 
+        // closing angular material select box when blur
+        this.closeDropdown = function () {
+            $('body').find('.md-select-menu-container').removeClass('md-leave');
+            if ($('body').find('.md-select-menu-container').hasClass('md-active')) {
+                $('body').find('.md-select-menu-container').removeClass('md-active md-clickable');
+                $('body').find('.md-select-menu-container').addClass('md-leave');
+            }
+
+        }
 
         this.closeDialog = function () {
-            $mdDialog.hide();
+            $uibModalInstance.dismiss('cancel');
         }
 
         this.getColor = function (ind) {
@@ -1248,6 +1252,9 @@
             }, function (location) {
         });
 
+        $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+            vm.closeDialog();
+        })
 
         init();
 
