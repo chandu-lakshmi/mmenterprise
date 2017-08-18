@@ -1,9 +1,9 @@
 <div class="link">
 	<div class="form-group">
 		<div class="field">
-			<input type="text" class="form-control" id="copy" value="{{url}}">		
+			<input type="text" class="form-control" id="{{btnClass}}" value="{{url}}">		
 		</div>
-		<div class="btns" data-copytarget="#copy">
+		<div class="btns" data-copytarget="{{'#'+btnClass}}">
 			{{btnText}}
 		</div>
 	</div>

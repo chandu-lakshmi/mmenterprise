@@ -284,10 +284,11 @@
         return {
             scope: {
                 url: '@',
-                btnText: '@'
+                btnText: '@',
+                btnClass : '@'
             },
             templateUrl: '../templates/components/copy-url.phtml',
-            link: function () {
+            link: function (scope, ele, attr) {
                 document.getElementsByClassName('btns')[0].addEventListener('click', copy, true);
                 document.getElementsByClassName('btns')[0].addEventListener('touchstart', copy, true);
                 // event handler
