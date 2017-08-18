@@ -1075,7 +1075,9 @@
 
         vm.infiniteScroll.loadApi = function (pageNo, searchVal, callBack) {
             
-            campaignFilterParams.page_no = page_no;
+            campaignFilterParams.page_no     = page_no;
+            campaignFilterParams.campaign_id = CampaignDetails.campaign_id;
+            
             canceler = $q.defer();
             if(page_no > 1){
                 vm.inProgressInfinite = true;
@@ -1126,7 +1128,7 @@
             })
         }
         vm.infiniteScroll.nextPage();
-        
+
         vm.findJobs = function() {
             
         }
