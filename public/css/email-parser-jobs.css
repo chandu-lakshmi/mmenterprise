@@ -432,86 +432,88 @@
 .has-error-msg {
   z-index: 1; }
 
-.external-bucket .modal {
-  overflow-y: auto; }
-.external-bucket .modal-dialog {
-  width: 850px;
-  top: 60px; }
-  .external-bucket .modal-dialog .create-campaign {
-    max-width: 880px;
-    max-height: 100%;
-    border-radius: 0; }
-    .external-bucket .modal-dialog .create-campaign .main {
-      padding: 38px 58px; }
-      .external-bucket .modal-dialog .create-campaign .main header {
-        text-align: center;
-        color: #353535; }
-        .external-bucket .modal-dialog .create-campaign .main header img {
-          position: absolute;
-          right: 0;
-          top: 0;
-          padding: 24px; }
-        .external-bucket .modal-dialog .create-campaign .main header h3 {
-          margin: 0; }
-        .external-bucket .modal-dialog .create-campaign .main header p.desc {
-          padding: 10px 0 4px 0;
-          margin: 0; }
-        .external-bucket .modal-dialog .create-campaign .main header p {
-          color: #a1a1a1; }
-      .external-bucket .modal-dialog .create-campaign .main section form {
-        position: relative;
-        padding-top: 48px; }
-        .external-bucket .modal-dialog .create-campaign .main section form md-select-value span:not(.md-select-icon) {
-          max-width: 95%; }
-        .external-bucket .modal-dialog .create-campaign .main section form .community p {
-          padding: 16px 0 20px;
-          margin: 0;
-          color: #676767; }
-        .external-bucket .modal-dialog .create-campaign .main section form .community span {
-          padding: 12px 24px;
-          border: 1px solid;
-          margin: 0 8px 8px 0;
-          color: #fff;
-          position: relative;
-          float: left;
-          border-radius: 4px; }
-          .external-bucket .modal-dialog .create-campaign .main section form .community span img {
+.external-bucket {
+  overflow: hidden; }
+  .external-bucket .modal {
+    overflow-y: auto; }
+  .external-bucket .modal-dialog {
+    width: 850px;
+    top: 60px; }
+    .external-bucket .modal-dialog .create-campaign {
+      max-width: 880px;
+      max-height: 100%;
+      border-radius: 0; }
+      .external-bucket .modal-dialog .create-campaign .main {
+        padding: 38px 58px; }
+        .external-bucket .modal-dialog .create-campaign .main header {
+          text-align: center;
+          color: #353535; }
+          .external-bucket .modal-dialog .create-campaign .main header img {
             position: absolute;
-            left: 5px;
-            width: 16px;
-            top: 14px;
-            transition: all linear 0.1s;
-            transform: scale(0); }
-            .external-bucket .modal-dialog .create-campaign .main section form .community span img.active {
-              transform: scale(1); }
-        .external-bucket .modal-dialog .create-campaign .main section form .has-error-msg {
-          left: 0;
-          bottom: 0;
-          top: initial; }
-    .external-bucket .modal-dialog .create-campaign footer {
-      background: #eee;
-      padding: 8px;
-      overflow: hidden; }
-      .external-bucket .modal-dialog .create-campaign footer .loading {
-        margin-top: 8px; }
-      .external-bucket .modal-dialog .create-campaign footer .msg {
-        margin: 22px 8px;
-        color: #1d8e70; }
-      .external-bucket .modal-dialog .create-campaign footer * {
-        float: right;
-        font-weight: 600; }
-      .external-bucket .modal-dialog .create-campaign footer .md-button {
-        font-size: 16px;
-        border-radius: 5px;
-        padding: 8px 48px; }
-        .external-bucket .modal-dialog .create-campaign footer .md-button.submit {
-          background-color: #1d8e70;
-          color: #fff; }
-      .external-bucket .modal-dialog .create-campaign footer .cancel {
-        line-height: 64px;
-        font-size: 18px;
-        color: #9b9b9b;
-        margin-right: 22px; }
+            right: 0;
+            top: 0;
+            padding: 24px; }
+          .external-bucket .modal-dialog .create-campaign .main header h3 {
+            margin: 0; }
+          .external-bucket .modal-dialog .create-campaign .main header p.desc {
+            padding: 10px 0 4px 0;
+            margin: 0; }
+          .external-bucket .modal-dialog .create-campaign .main header p {
+            color: #a1a1a1; }
+        .external-bucket .modal-dialog .create-campaign .main section form {
+          position: relative;
+          padding-top: 48px; }
+          .external-bucket .modal-dialog .create-campaign .main section form md-select-value span:not(.md-select-icon) {
+            max-width: 95%; }
+          .external-bucket .modal-dialog .create-campaign .main section form .community p {
+            padding: 16px 0 20px;
+            margin: 0;
+            color: #676767; }
+          .external-bucket .modal-dialog .create-campaign .main section form .community span {
+            padding: 12px 24px;
+            border: 1px solid;
+            margin: 0 8px 8px 0;
+            color: #fff;
+            position: relative;
+            float: left;
+            border-radius: 4px; }
+            .external-bucket .modal-dialog .create-campaign .main section form .community span img {
+              position: absolute;
+              left: 5px;
+              width: 16px;
+              top: 14px;
+              transition: all linear 0.1s;
+              transform: scale(0); }
+              .external-bucket .modal-dialog .create-campaign .main section form .community span img.active {
+                transform: scale(1); }
+          .external-bucket .modal-dialog .create-campaign .main section form .has-error-msg {
+            left: 0;
+            bottom: 0;
+            top: initial; }
+      .external-bucket .modal-dialog .create-campaign footer {
+        background: #eee;
+        padding: 8px;
+        overflow: hidden; }
+        .external-bucket .modal-dialog .create-campaign footer .loading {
+          margin-top: 8px; }
+        .external-bucket .modal-dialog .create-campaign footer .msg {
+          margin: 22px 8px;
+          color: #1d8e70; }
+        .external-bucket .modal-dialog .create-campaign footer * {
+          float: right;
+          font-weight: 600; }
+        .external-bucket .modal-dialog .create-campaign footer .md-button {
+          font-size: 16px;
+          border-radius: 5px;
+          padding: 8px 48px; }
+          .external-bucket .modal-dialog .create-campaign footer .md-button.submit {
+            background-color: #1d8e70;
+            color: #fff; }
+        .external-bucket .modal-dialog .create-campaign footer .cancel {
+          line-height: 64px;
+          font-size: 18px;
+          color: #9b9b9b;
+          margin-right: 22px; }
 
 /* angular material */
 md-input-container input, md-input-container textarea, md-input-container .md-select-value .md-text {
