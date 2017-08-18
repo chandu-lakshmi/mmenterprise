@@ -38,7 +38,7 @@ return [
             'APP_DOMAIN' => 'http://192.168.33.10/mmenterprise/',
 
             // Application API domain
-            'API_DOMAIN' => 'http://192.168.33.10/api/',
+            'API_DOMAIN' => 'http://192.168.33.10/mintmesh/',
 
             //Client keys
             'CLIENT_ID'         => 'G7iLdQoeZy0Ef06C',
@@ -48,8 +48,8 @@ return [
             'PASSWORD_GRANT'    => 'password',
 
             //qquploader path
-            'PATH'    => '/var/www/public/api/uploads/',
-            'PREVIEW_PATH'  => 'http://192.168.33.10/api/uploads/',
+            'PATH'    => '/var/www/public/mintmesh/uploads/',
+            'PREVIEW_PATH'  => 'http://192.168.33.10/mintmesh/uploads/',
             //Version
             'APP_VERSION' => '1.6' 
             
