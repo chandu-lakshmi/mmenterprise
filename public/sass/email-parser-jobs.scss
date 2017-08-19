@@ -218,6 +218,7 @@
 *[ng-click]{outline: none;cursor:pointer}
 .md-select-menu-container,.md-dialog-container{z-index: 1200 !important}
 .pac-container { z-index: 1051 !important;}
+html.remove-scroll{overflow: hidden !important;}
 
 
 .has-error-msg{z-index: 1}

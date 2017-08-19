@@ -1174,6 +1174,8 @@
             details = CampaignDetails;
         }
 
+        $('html').addClass('remove-scroll');
+
         this.geo_location = '';
         this.geo_options  = '';
         this.geo_details  = '';
@@ -1218,6 +1220,7 @@
         }
 
         this.closeDialog = function () {
+            $('html').removeClass('remove-scroll');
             $uibModalInstance.dismiss('cancel');
         }
 

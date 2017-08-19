@@ -431,6 +431,9 @@
 .pac-container {
   z-index: 1051 !important; }
 
+html.remove-scroll {
+  overflow: hidden !important; }
+
 .has-error-msg {
   z-index: 1; }
 

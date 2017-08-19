@@ -75,7 +75,7 @@
         this.selectedContacts  = [];
         this.bucketNames       = [];
         this.contactStatus     = [{label: 'Active', color: '#0d8e68'}, {label: 'Inactive', color: '#888888'}, {label: 'Separated', color: '#c46968'}];
-
+        buckets.reset(); 
 
         if (userPermissions.edit_contacts == 1 && $stateParams.rowEdit) {
             edit_feature = true;
