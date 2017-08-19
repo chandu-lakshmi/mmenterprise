@@ -222,7 +222,7 @@ html.remove-scroll{overflow: hidden !important;}
 
 
 .has-error-msg{z-index: 1}
-.external-bucket{overflow: hidden;
+.external-bucket{
     .modal{overflow-y: auto;}
     .modal-dialog{width: 850px;top: 60px;
         .create-campaign{max-width: 880px;max-height: 100%;border-radius:0;

@@ -32,7 +32,7 @@
     MyCampaignsController.$inject = [];
     EditCampaignsController.$inject = ['$scope','$timeout', '$filter', '$rootScope', '$state', '$uibModal', 'CompanyDetails', 'CampaignsData', 'contactBuckets', '$window', '$http', 'App'];
     CreateJobController.$inject = ['$scope', '$http', '$timeout', '$window', '$uibModalInstance', 'App'];
-    SocialShareController.$inject = ['$uibModalInstance', '$state', '$rootScope', 'CampaignsData', 'CompanyDetails', 'App']
+    SocialShareController.$inject = ['$scope', '$uibModalInstance', '$state', '$rootScope', 'CampaignsData', 'CompanyDetails', 'App']
     FormBuilderController.$inject = ['$scope', '$http', '$q', '$uibModal'];
 
     
@@ -1326,7 +1326,7 @@
         }
     }
 
-    function SocialShareController($uibModalInstance, $state, $rootScope, CampaignsData, CompanyDetails, App) {
+    function SocialShareController($scope, $uibModalInstance, $state, $rootScope, CampaignsData, CompanyDetails, App) {
 
         $(".google-map").fancybox({
             maxWidth: 800,
