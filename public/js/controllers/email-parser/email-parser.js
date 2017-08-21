@@ -190,7 +190,7 @@
         });
 
         $scope.$on('socialMediaData', function(event, data){
-            vm.socialMedia = data;
+            vm.socialMedia = angular.copy(data);
         });
 
 
@@ -1069,7 +1069,7 @@
         });
 
         $scope.$on('socialMediaData', function(event, data){
-            vm.socialMedia = data;
+            vm.socialMedia = angular.copy(data);
         });
 
         init();
