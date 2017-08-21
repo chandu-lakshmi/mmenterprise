@@ -18,7 +18,7 @@
     UserGroupController.$inject = ['$timeout', '$scope', '$window', '$element', 'CONFIG', '$http', '$q', 'permissionsService', 'userPermissions', 'App'];
     ConfigManagerController.$inject = ['$window', '$scope', '$timeout', '$http', 'App'];
     IntManagerController.$inject = ['$scope', '$window', '$state','$timeout', '$http', 'App'];
-    CareersPageController.$inject = ['$scope', 'httpService', 'pendingRequests', '$window', 'CompanyDetails', 'App'];
+    CareersPageController.$inject = ['$scope', '$http', 'pendingRequests', '$window', 'CompanyDetails', 'App'];
 
     function permissionsService() {
         var permissionData = {};
@@ -1291,7 +1291,7 @@
 
     }
 
-    function CareersPageController($scope, httpService, pendingRequests, $window, CompanyDetails, App) {
+    function CareersPageController($scope, $http, pendingRequests, $window, CompanyDetails, App) {
 
         var vm = this, 
             dublicateData, 
@@ -1343,39 +1343,42 @@
                 company_code: CompanyDetails.company_code
             })
 
-            httpService
-                .apiCall('POST', 'get_career_settings', param)
-                .success(function (response) {
-                    vm.errCond = false;
-                    if (response.status_code == 200) {
-                        vm.carrerPage = response.data;
-                        dublicateData = angular.copy(vm.carrerPage);
-                        if (response.data.career_logo) {
-                            companyLogo();
-                        }
-                        else {
-                            App.Helpers.removeUploadedFiles({
-                                obj: $company_logo
-                            })
-                        }
-                        if (response.data.career_heroshot_image) {
-                            heroShortImage();
-                        }
-                        else{
-                            App.Helpers.removeUploadedFiles({
-                                obj: $heroshort_image
-                            })
-                        }
+            $http({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'POST',
+                data: param,
+                url: App.base_url + 'get_career_settings'
+            }).success(function (response) {
+                vm.errCond = false;
+                if (response.status_code == 200) {
+                    vm.carrerPage = response.data;
+                    dublicateData = angular.copy(vm.carrerPage);
+                    if (response.data.career_logo) {
+                        companyLogo();
                     }
-                    else if (response.status_code == 400) {
-                        $window.location = App.base_url + 'logout';
+                    else {
+                        App.Helpers.removeUploadedFiles({
+                            obj: $company_logo
+                        })
                     }
-                    vm.inProgress = false;
-                })
-            /*.error(function(response){
-             console.log(response)
-             })*/
+                    if (response.data.career_heroshot_image) {
+                        heroShortImage();
+                    }
+                    else{
+                        App.Helpers.removeUploadedFiles({
+                            obj: $heroshort_image
+                        })
+                    }
+                }
+                else if (response.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+                vm.inProgress = false;
+            });
         }
+
         getCompanyDetails();
 
         // initial company logo qq-uploader
@@ -1438,38 +1441,41 @@
                 vm.errCond = !vm.errCond;
                 vm.updateLoader = true;
                 var param = $('.careers-form :not(".rm")').serialize(); + '&' + $.param({timeZone: new Date().getTimezoneOffset()});
-                httpService
-                .apiCall('POST', 'edit_career_settings', param, true)
-                .success(function (response) {
+
+                $http({
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                    },
+                    method: 'POST',
+                    data: param,
+                    url: App.base_url + 'edit_career_settings'
+                }).success(function (response) {
                     if (response.status_code == 200) {
-                        vm.update = false;
-                        vm.updateLoader = false;
-                        $scope.edit_careers_page_form.$setPristine();
+                       vm.update = false;
+                       vm.updateLoader = false;
+                       $scope.edit_careers_page_form.$setPristine();
 
                         if (response.data.hasOwnProperty('company_logo')) {
-                            $('.user_dp img').attr({
-                                'src': response.data.company_logo
-                            });
-                            $('.user_dp img').css({
-                                'border': '1px solid #ccc !important',
-                                'border-radius': '50%'
-                            })
+                           $('.user_dp img').attr({
+                               'src': response.data.company_logo
+                           });
+                           $('.user_dp img').css({
+                               'border': '1px solid #ccc !important',
+                               'border-radius': '50%'
+                           })
                         }
                         else {
-                            $('.user_dp img').attr({
-                                'src': 'public/images/avatar.png'
-                            });
+                           $('.user_dp img').attr({
+                               'src': 'public/images/avatar.png'
+                           });
                         }
 
-                        getCompanyDetails('update');
+                       getCompanyDetails('update');
                     }
                     else if (response.status_code == 400) {
-                        $window.location = App.base_url + 'logout';
+                       $window.location = App.base_url + 'logout';
                     }
-                })
-                .error(function (response) {
-
-                })
+                });
             }
         }
 
@@ -1610,11 +1616,7 @@
         function addHyperlink() {
             vm.carrerPage.career_links.push({cls:'mm-slide-left'});
         }
-
-        // destroy
-        $scope.$on('$destroy', function () {
-            pendingRequests.cancelAll();
-        })
+        
     }
 
 }());

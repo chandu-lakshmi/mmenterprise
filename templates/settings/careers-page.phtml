@@ -59,7 +59,7 @@
 
 		 					<md-input-container class="md-block" style="margin-bottom:0">
 								<label>WEBSITE<span style="color: #999">(URL)</span></label>
-								<input  type="text" class="rm" name="url{{$index}}" ng-required="link.label" ng-model="link.url" ng-pattern="/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/" ng-class="{'has-error-border':edit_careers_page_form['url'+$index].$invalid && CareersPageCtrl.errCond}">
+								<input  type="text" class="rm" name="url{{$index}}" ng-required="link.label" ng-model="link.url" ng-pattern="/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/" ng-class="{'has-error-border':edit_careers_page_form['url'+$index].$invalid && CareersPageCtrl.errCond}">
 								<div ng-if="edit_careers_page_form['url'+$index].$error.required && CareersPageCtrl.errCond"  class="has-error-msg">Please enter Website URL.</div>
 								<div ng-if="edit_careers_page_form['url'+$index].$error.pattern && CareersPageCtrl.errCond"  class="has-error-msg">Please enter valid Website URL.</div>
 							</md-input-container>
