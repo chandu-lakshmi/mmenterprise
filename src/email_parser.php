@@ -85,7 +85,6 @@ $app->get('/email/candidate-details/{status}', function ($request, $response, $a
     $args = parserData($this->settings);
     $args['camp_ref']   = $_POST['camp_ref'];
     $args['ref']        = $_GET['ref'];
-    $_POST['all_jobs']  = 1;
     
     if(!empty($_GET['refrel'])){
         #get candidate Details here
@@ -136,7 +135,6 @@ $app->get('/email/referral-details/{status}', function ($request, $response, $ar
     $args = parserData($this->settings);
     $args['camp_ref']   = $_POST['camp_ref'];
     $args['ref']        = $_GET['ref'];
-    $_POST['all_jobs']  = 1;
     $_POST['ref']       = $args['ref'];
     
     $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_ref');
