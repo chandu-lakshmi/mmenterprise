@@ -53,7 +53,7 @@ $app->get('/email/job-details/{status}', function ($request, $response, $args) {
     $args['ref'] = $_GET['ref'];
     $args['camp_ref'] = $_POST['camp_ref'];
     $_POST['ref'] = $args['ref'];
-    $_POST['all_jobs'] = 0;
+    $_POST['all_jobs'] = 1;
     $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_ref');
     $Details     = new Curl(array(
         'url'           => $apiEndpoint,
