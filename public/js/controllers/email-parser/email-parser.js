@@ -118,13 +118,13 @@
                 },
                 twitter: {
                     text: 'These jobs are available in ' + toTitleCase(ReferralDetails.company_name) + '. ' + desc,
-                    url: bitly || ReferralDetails.bittly_url,
+                    url: ReferralDetails.bittly_url,
                     hashtags: '',
                     via: ReferralDetails.company_name,
                     related: ''
                 },
                 linkedin: {
-                    url: bitly || ReferralDetails.bittly_url,
+                    url: ReferralDetails.bittly_url,
                     title: 'These jobs are available in ' + toTitleCase(ReferralDetails.company_name),
                     summary: desc,
                     source: ReferralDetails.company_name
