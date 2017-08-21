@@ -102,6 +102,8 @@
         }
 
         vm.findJobs = function() {
+            if(!vm.searchOptions.search_name && !vm.searchOptions.search_location && !vm.searchOptions.search_experience)
+                return;
             $scope.$broadcast('findJob' , {opts : vm.searchOptions});
         }
 
@@ -144,7 +146,14 @@
     function AllJobsController($scope, $http, $stateParams, $q, $window, ReferralDetails, App) {
 
         $window.scrollTo(0, 0);
-
+        
+        var reg_exp = new RegExp("^(http|https)://", "i");
+        angular.forEach(ReferralDetails.career_links, function(link){
+            var test = reg_exp.test(link.url);
+            if(!test)
+                link.url = 'https://' + link.url;
+        });
+        
         var vm = this,
                 canceler,
                 page_no     = 1,
@@ -867,6 +876,13 @@
         
         var vm = this,
                 copySearchOptions;
+        
+        var reg_exp = new RegExp("^(http|https)://", "i");
+        angular.forEach(CampaignDetails.career_links, function(link){
+            var test = reg_exp.test(link.url);
+            if(!test)
+                link.url = 'https://' + link.url;
+        });
 
         this.geo_location = '';
         this.geo_options  = '';
