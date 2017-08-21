@@ -56,7 +56,10 @@
     function JobsController($scope, $state, $http, $uibModal, ReferralDetails, App) {
         
         var vm = this,
-                copySearchOptions;
+                copySearchOptions,
+                desc    = '',
+                reg_exp = new RegExp("^(http|https)://", "i"),
+                hasEmptyFields = true;
 
         this.geo_location = '';
         this.geo_options  = '';
@@ -69,6 +72,7 @@
         };
         copySearchOptions = angular.copy(this.searchOptions);
 
+ 
         function init() {
 
             $http({
@@ -94,7 +98,49 @@
                     
                 }
             });
+
+            angular.forEach(ReferralDetails.career_links, function(link){
+                var test = reg_exp.test(link.url);
+                if(!test)
+                    link.url = 'https://' + link.url;
+            });
+
+            vm.shareUrl = App.base_url + 'email/all-jobs/share?ref=' + App.ref;
+
+            vm.socialMedia = {
+                socialIcons: ['facebook', 'twitter', 'linkedin', 'googlePlus'],
+                url: vm.shareUrl,
+                facebook: {
+                    post_title: 'These jobs are available in ' + toTitleCase(ReferralDetails.company_name),
+                    post_url: vm.shareUrl,
+                    post_img: ReferralDetails.company_logo || '',
+                    post_msg: desc
+                },
+                twitter: {
+                    text: 'These jobs are available in ' + toTitleCase(ReferralDetails.company_name) + '. ' + desc,
+                    url: bitly || ReferralDetails.bittly_url,
+                    hashtags: '',
+                    via: ReferralDetails.company_name,
+                    related: ''
+                },
+                linkedin: {
+                    url: bitly || ReferralDetails.bittly_url,
+                    title: 'These jobs are available in ' + toTitleCase(ReferralDetails.company_name),
+                    summary: desc,
+                    source: ReferralDetails.company_name
+                },
+                googlePlus: {
+                    url: vm.shareUrl
+                }
+            }
         }
+
+        function toTitleCase(str) {
+            return str.replace(/\w\S*/g, function (txt) {
+                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            });
+        }
+
 
         vm.selectExperienc = function(exp) {
             this.experienceLabel    = exp.experience_name;
@@ -102,8 +148,16 @@
         }
 
         vm.findJobs = function() {
-            if(!vm.searchOptions.search_name && !vm.searchOptions.search_location && !vm.searchOptions.search_experience)
-                return;
+            if(!vm.searchOptions.search_name && !vm.searchOptions.search_location && !vm.searchOptions.search_experience){
+                if (hasEmptyFields) {
+                    return;
+                } else{
+                    hasEmptyFields = true;        
+                }
+            } else{
+                hasEmptyFields = false;        
+            }
+
             $scope.$broadcast('findJob' , {opts : vm.searchOptions});
         }
 
@@ -147,12 +201,7 @@
 
         $window.scrollTo(0, 0);
         
-        var reg_exp = new RegExp("^(http|https)://", "i");
-        angular.forEach(ReferralDetails.career_links, function(link){
-            var test = reg_exp.test(link.url);
-            if(!test)
-                link.url = 'https://' + link.url;
-        });
+        
         
         var vm = this,
                 canceler,
@@ -875,15 +924,10 @@
     function CampaignsController($scope, $http, $uibModal, CampaignDetails, App) {
         
         var vm = this,
-                copySearchOptions;
+                copySearchOptions,
+                reg_exp        = new RegExp("^(http|https)://", "i"),
+                hasEmptyFields = true;
         
-        var reg_exp = new RegExp("^(http|https)://", "i");
-        angular.forEach(CampaignDetails.career_links, function(link){
-            var test = reg_exp.test(link.url);
-            if(!test)
-                link.url = 'https://' + link.url;
-        });
-
         this.geo_location = '';
         this.geo_options  = '';
         this.geo_details  = '';
@@ -896,6 +940,7 @@
         copySearchOptions = angular.copy(this.searchOptions);
 
         function init() {
+
             $http({
                 headers : {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -920,8 +965,60 @@
                 }
             });
 
-            
+            angular.forEach(CampaignDetails.career_links, function(link){
+                var test = reg_exp.test(link.url);
+                if(!test)
+                    link.url = 'https://' + link.url;
+            });
+
+            vm.shareUrl = App.base_url + 'email/all-campaigns/share?ref=' + App.camp_ref;
+    
+            vm.socialMedia = {
+                socialIcons: ['facebook', 'twitter', 'linkedin', 'googlePlus'],
+                url: vm.shareUrl,
+                facebook: {
+                    post_title: 'Here is a campaign at ' + toTitleCase(CampaignDetails.company_name) +
+                            ' for ' + toTitleCase(CampaignDetails.campaign_type),
+                    post_url: vm.shareUrl,
+                    post_img: CampaignDetails.company_logo || '',
+                    post_msg: 'Starts on: ' + CampaignDetails.start_date +
+                            ' and Ends on: ' + CampaignDetails.end_date +
+                            '. Location: ' + CampaignDetails.campaign_location,
+                },
+                twitter: {
+                    text: 'Here is a campaign at ' + toTitleCase(CampaignDetails.company_name) +
+                            ' for ' + toTitleCase(CampaignDetails.campaign_type),
+                            /*'. Starts on: ' + CampaignDetails.start_date +
+                            ' and Ends on: ' + CampaignDetails.end_date +
+                            '. Location: ' + CampaignDetails.campaign_location,*/
+                    url: CampaignDetails.bittly_url || vm.shareUrl,
+                    hashtags: '',
+                    via: CampaignDetails.company_name,
+                    related: ''
+                },
+                linkedin: {
+                    url: CampaignDetails.bittly_url || vm.shareUrl,
+                    title: 'Here is a campaign at ' +
+                            toTitleCase(CampaignDetails.company_name) +
+                            ' for ' + toTitleCase(CampaignDetails.campaign_type),
+                    summary: 'Starts on: ' +
+                            CampaignDetails.start_date +
+                            ' and Ends on: ' + CampaignDetails.end_date +
+                            '. Location: ' + CampaignDetails.campaign_location,
+                    source: CampaignDetails.company_name
+                },
+                googlePlus: {
+                    url: vm.shareUrl
+                }
+            }
         }
+
+        function toTitleCase(str) {
+            return str.replace(/\w\S*/g, function (txt) {
+                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            });
+        }
+
         
         vm.selectExperienc = function(exp) {
             this.experienceLabel    = exp.experience_name;
@@ -929,8 +1026,16 @@
         }
 
         vm.findJobs = function() {
-            if(!vm.searchOptions.search_name && !vm.searchOptions.search_location && !vm.searchOptions.search_experience)
-                return;
+            if(!vm.searchOptions.search_name && !vm.searchOptions.search_location && !vm.searchOptions.search_experience) {
+                if (hasEmptyFields) {
+                    return;
+                } else{
+                    hasEmptyFields = true;        
+                }
+            } else{
+                hasEmptyFields = false;        
+            }
+
             $scope.$broadcast('findJob' , {opts : vm.searchOptions});
         }
 
@@ -1010,7 +1115,7 @@
                 url: vm.shareUrl,
                 facebook: {
                     post_title: 'Here is a campaign at ' + toTitleCase(CampaignDetails.company_name) +
-                            ' for' + toTitleCase(vm.infiniteScroll.headerDetails.campaign_name),
+                            ' for ' + toTitleCase(vm.infiniteScroll.headerDetails.campaign_name),
                     post_url: vm.shareUrl,
                     post_img: CampaignDetails.company_logo || '',
                     post_msg: 'Starts on: ' + vm.infiniteScroll.headerDetails.campaign_start_date +
@@ -1019,7 +1124,7 @@
                 },
                 twitter: {
                     text: 'Here is a campaign at ' + toTitleCase(CampaignDetails.company_name) +
-                            ' for' + toTitleCase(vm.infiniteScroll.headerDetails.campaign_name),
+                            ' for ' + toTitleCase(vm.infiniteScroll.headerDetails.campaign_name),
                             /*'. Starts on: ' + vm.infiniteScroll.headerDetails.campaign_start_date +
                             ' and Ends on: ' + vm.infiniteScroll.headerDetails.campaign_end_date +
                             '. Location: ' + vm.infiniteScroll.headerDetails.campaign_location,*/
@@ -1032,7 +1137,7 @@
                     url: bitly || vm.shareUrl,
                     title: 'Here is a campaign at ' +
                             toTitleCase(CampaignDetails.company_name) +
-                            ' for' + toTitleCase(vm.infiniteScroll.headerDetails.campaign_name),
+                            ' for ' + toTitleCase(vm.infiniteScroll.headerDetails.campaign_name),
                     summary: 'Starts on: ' +
                             vm.infiniteScroll.headerDetails.campaign_start_date +
                             ' and Ends on: ' + vm.infiniteScroll.headerDetails.campaign_end_date +

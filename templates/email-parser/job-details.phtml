@@ -52,7 +52,7 @@
 					<div class="row job-desc"">
 						<div class="col-sm-3 labels col-xs-5">Job Description:</div>
 						<div class="col-sm-9 value col-xs-7">
-							<pre ng-bind-html="list.job_description"></pre>
+							<p ng-text-truncate="list.job_description" ng-tt-words-threshold="100"></p>
 						</div>
 					</div>
 				</div>
