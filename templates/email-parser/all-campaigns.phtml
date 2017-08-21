@@ -15,8 +15,9 @@
             </div>
         </div>
     </header>
-    <div class="filters" style="background : transparent url({{CampaignDetails.career_heroshot_image}})"
-         ng-class="{'add-image' : !CampaignDetails.career_heroshot_image}">
+    <div class="filters" 
+        ng-style="{'background':'transparent url('+CampaignDetails.career_heroshot_image+')'}"
+        ng-class="{'add-image' : !CampaignDetails.career_heroshot_image}">
         <div class="container" ng-style="{'margin-top' : $state.current.name === 'allCampaigns.all' ? '0' : '54px'}">
             <div class="des">
                 <h3>
@@ -93,7 +94,7 @@
                         <div class="social-share">
                             <b>Share Campaign</b>
                             <!-- social media share directive -->
-                            <social-sharing data-opts="socialMedia" data-path="../templates/components" style="margin-top:10px;"></social-sharing>
+                            <social-sharing data-opts="CampaignsCtrl.socialMedia" data-path="../templates/components" style="margin-top:10px;"></social-sharing>
                         </div>
                         <b>Copy Campaign Link</b>
                         <copy-url url="{{CampaignDetails.bittly_url}}" btn-class="all-camp-copy" btn-text="COPY"></copy-url>

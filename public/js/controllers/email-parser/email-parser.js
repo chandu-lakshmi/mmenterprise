@@ -22,11 +22,11 @@
 
     modalController.$injext = ['$scope', '$state', '$stateParams', '$uibModalInstance', 'App'];
     JobsController.$inject = ['$scope', '$state', '$http', '$uibModal', 'ReferralDetails', 'App'];
-    AllJobsController.$inject = ['$scope', '$rootScope', '$http', '$stateParams', '$q', '$window', 'ReferralDetails', 'App'];
+    AllJobsController.$inject = ['$scope', '$http', '$stateParams', '$q', '$window', 'ReferralDetails', 'App'];
     JobDetailsController.$inject = ['$http', '$stateParams', '$window', 'campaignJobDetails', 'decryptDetails', 'App'];
     ApplyJobController.$inject = ['$rootScope', '$scope', '$state', '$stateParams', '$location', '$window', '$http', '$uibModal', '$mdDialog', 'App', 'ReferralDetails', 'CampaignDetails', 'campaignJobDetails', 'candidateDetails'];
     CampaignsController.$inject = ['$scope', '$http', '$uibModal', 'CampaignDetails', 'App'];
-    AllCampaignsController.$inject = ['$rootScope', '$scope', '$http', '$window', '$q', '$mdDialog', 'App', 'CampaignDetails', 'campaignJobDetails'];
+    AllCampaignsController.$inject = ['$scope', '$http', '$window', '$q', '$mdDialog', 'App', 'CampaignDetails', 'campaignJobDetails'];
     TalentCommunityController.$inject = ['$scope', '$http', '$timeout', '$uibModalInstance', 'ReferralDetails', 'CampaignDetails', 'formJobOrCampagin', 'App'];
 
 
@@ -133,11 +133,15 @@
             vm.searchOptions = angular.copy(copySearchOptions);
         });
 
+        $scope.$on('socialMediaData', function(event, data){
+            vm.socialMedia = data;
+        });
+
 
         init();
     }
 
-    function AllJobsController($scope, $rootScope, $http, $stateParams, $q, $window, ReferralDetails, App) {
+    function AllJobsController($scope, $http, $stateParams, $q, $window, ReferralDetails, App) {
 
         $window.scrollTo(0, 0);
 
@@ -194,7 +198,7 @@
             else
                 desc = toTitleCase(vm.job_name[0]);
 
-            $rootScope.socialMedia = {
+            var socialMedia = {
                 socialIcons: ['facebook', 'twitter', 'linkedin', 'googlePlus'],
                 url: vm.shareUrl,
                 facebook: {
@@ -220,8 +224,10 @@
                     url: vm.shareUrl
                 }
             }
-        }
 
+            $scope.$emit('socialMediaData', socialMedia);
+
+        }
 
         vm.infiniteScroll = {
             busy: false,
@@ -941,12 +947,15 @@
             vm.searchOptions = angular.copy(copySearchOptions);
         });
 
+        $scope.$on('socialMediaData', function(event, data){
+            vm.socialMedia = data;
+        });
 
         init();
     }
 
 
-    function AllCampaignsController($rootScope, $scope, $http, $window, $q, $mdDialog ,App, CampaignDetails, campaignJobDetails) {
+    function AllCampaignsController($scope, $http, $window, $q, $mdDialog ,App, CampaignDetails, campaignJobDetails) {
 
         $window.scrollTo(0, 0);
 
@@ -980,7 +989,7 @@
 
         // social sharing directive
         function sharing(bitly) {
-            $rootScope.socialMedia = {
+           var socialMedia = {
                 socialIcons: ['facebook', 'twitter', 'linkedin', 'googlePlus'],
                 url: vm.shareUrl,
                 facebook: {
@@ -1018,6 +1027,8 @@
                     url: vm.shareUrl
                 }
             }
+
+            $scope.$emit('socialMediaData', socialMedia);
         }
         
         /*function load(url){

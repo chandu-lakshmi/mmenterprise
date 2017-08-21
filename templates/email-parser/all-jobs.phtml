@@ -16,8 +16,8 @@
         </div>
     </header>
     <div class="filters" 
-        style="background : transparent url({{ReferralDetails.career_heroshot_image}})"
-         ng-class="{'add-image' : !ReferralDetails.career_heroshot_image}">
+        ng-style="{'background':'transparent url('+ReferralDetails.career_heroshot_image+')'}"
+        ng-class="{'add-image' : !ReferralDetails.career_heroshot_image}">
         <div class="container" ng-style="{'margin-top' : $state.current.name === 'allJobs.all' ? '0' : '54px'}">
             <div class="des">
                 <!-- <h3>
@@ -94,7 +94,7 @@
                         <div class="social-share">
                             <b>Share Jobs</b>
                             <!-- social media share directive -->
-                            <social-sharing data-opts="socialMedia" data-path="../templates/components" style="margin-top:10px;"></social-sharing>
+                            <social-sharing data-opts="JobsCtrl.socialMedia" data-path="../templates/components" style="margin-top:10px;"></social-sharing>
                         </div>
                         <b>Copy Jobs Link</b>
                         <copy-url url="{{ReferralDetails.bittly_url}}" btn-class="all-camp-copy" btn-text="COPY"></copy-url>
