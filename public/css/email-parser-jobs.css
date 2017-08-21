@@ -492,7 +492,7 @@ html.remove-scroll {
         .external-bucket .modal-dialog .create-campaign .main section form .has-error-msg {
           left: 0;
           bottom: 0;
-          top: initial; }
+          top: auto; }
     .external-bucket .modal-dialog .create-campaign footer {
       background: #eee;
       padding: 8px;
