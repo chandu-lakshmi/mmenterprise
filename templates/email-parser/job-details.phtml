@@ -7,10 +7,10 @@
 			<span ng-bind="JobDetailsCtrl.job_details.companyName" class="company-name" ng-if="JobDetailsCtrl.job_details.company_logo == ''"></span>
 		</header> -->
 		<section class="job-details">
-			<a class="back" ng-if="JobDetailsCtrl.isCampaignJob" ui-sref="allCampaigns.all({ref: $root.camp_ref, share_status:sh_cd})">
+			<a class="back" ng-if="JobDetailsCtrl.isCampaignJob" ui-sref="allCampaigns.all({ref: $root.camp_ref, share_status:$stateParams.share_status})">
 				<img src="../public/images/email-parser/arrow-back.svg"><h4 class="job-count ng-binding">All JOBS</h4>
 			</a>
-			<a class="back" ng-if="!JobDetailsCtrl.isCampaignJob" ui-sref="allJobs.all({ref: $root.ref, share_status: $stateParams.share_status,share_status:sh_cd, jc : $stateParams.jc})">
+			<a class="back" ng-if="!JobDetailsCtrl.isCampaignJob" ui-sref="allJobs.all({ref: $root.ref, share_status: $stateParams.share_status})">
 				<img src="../public/images/email-parser/arrow-back.svg"><h4 class="job-count ng-binding">All JOBS</h4>
 			</a>
 			<md-divider></md-divider>
