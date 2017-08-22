@@ -1,0 +1,11 @@
+.analytics{height: calc(100vh - 100px);background: #1d2b34;
+	.box{width: 100%;
+		.info{font-size: 48px;color: #fff;margin: 110px 0 62px;line-height: 64px;}
+		.search{
+			*{border-radius: 0}
+			input{height: 64px;}
+			.md-button{margin: 0;background: #02b892;color: #fff;font-size: 18px;}
+		}
+
+	}
+}

@@ -19,23 +19,6 @@
         ng-style="{'background':'transparent url('+ReferralDetails.career_heroshot_image+')'}"
         ng-class="{'add-image' : !ReferralDetails.career_heroshot_image}">
         <div class="container" ng-style="{'margin-top' : $state.current.name === 'allJobs.all' ? '0' : '54px'}">
-            <div class="des">
-                <!-- <h3>
-                    <span ng-bind="ReferralDetails.campaign_heading"></span> 
-                </h3>
-                <h4 class="date">
-                    <img src="../public/images/email-parser/calender.svg" alt="calander"/>
-                    <span ng-bind="ReferralDetails.start_date"></span>
-                    <span ng-bind="ReferralDetails .start_time"></span>
-                    &nbsp; to&nbsp;
-                    <span ng-bind="ReferralDetails.end_date"></span>
-                    <span ng-bind="ReferralDetails.end_time"></span>
-                </h4>
-                <h4>
-                    <img src="../public/images/email-parser/location.svg" alt="location"/>
-                    <span ng-bind="ReferralDetails .campaign_location"></span>
-                </h4> -->
-            </div>
             <div class="user-inputs" ng-if="$state.current.name == 'allJobs.all'" style="padding-top: 82px;">
                 <div layout="column">
                     <div layout="row" class="search-container">
@@ -80,13 +63,6 @@
                                 <span ng-text-truncate="ReferralDetails.career_description" ng-tt-chars-threshold="900">  
                                 </span>
                             </div>
-                            <!-- <md-divider></md-divider>
-                            <div class="suscribe">
-                                <div class="row">
-                                    <div class="col-sm-8">Wish to submit your profile for future opportunities?</div>
-                                    <div class="col-sm-4 action"><button class="camp-btn">SUBSCRIBE</button></div>
-                                </div>
-                            </div> -->
                         </div>
                         <div class="create-camp" ng-if="ReferralDetails.career_talent_network=='enable'" ng-click="JobsCtrl.createCampaign()">
                             <div class="join-team">JOIN OUR TALENT COMMUNITY<img src="../public/images/email-parser/arrows.png" alt="next"></div>

@@ -6,7 +6,7 @@
         'app.components', 'app.helpers', 'app.services', 'app.constantKeys',
         'app.home', 'app.forgotPassword', 'app.company.profile', 'app.import.contacts', 'app.emails', 'app.dashboard',
         'app.engagement.contacts', 'app.post.job', 'app.job.search', 'app.job.details', 'app.rewards', 'app.edit.company', 'app.contact',
-        'app.candidates', 'app.campaigns', 'app.settings', 'app.license.management'
+        'app.candidates', 'app.campaigns', 'app.settings', 'app.license.management', 'app.analytics'
     ])
 
             .constant('CONFIG', {
@@ -287,6 +287,13 @@
                     controller: 'licenseManagementController',
                     controllerAs: 'licMangCtrl'
                 })
+                $stateProvider.state('app.analytics', {
+                    url: '^/analytics',
+                    templateUrl: App.base_url + 'templates/analytics.phtml',
+                    controller: 'licenseManagementController',
+                    controllerAs: 'licMangCtrl'
+                })
+
                 $stateProvider.state('app.mintbot', {
                     url: '^/mintbot',
                     templateUrl: App.base_url + 'templates/mintbot.phtml',

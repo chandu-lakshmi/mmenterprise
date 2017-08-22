@@ -1,0 +1,21 @@
+.analytics {
+  height: calc(100vh - 100px);
+  background: #1d2b34; }
+  .analytics .box {
+    width: 100%; }
+    .analytics .box .info {
+      font-size: 48px;
+      color: #fff;
+      margin: 110px 0 62px;
+      line-height: 64px; }
+    .analytics .box .search * {
+      border-radius: 0; }
+    .analytics .box .search input {
+      height: 64px; }
+    .analytics .box .search .md-button {
+      margin: 0;
+      background: #02b892;
+      color: #fff;
+      font-size: 18px; }
+
+/*# sourceMappingURL=analytics.css.map */
