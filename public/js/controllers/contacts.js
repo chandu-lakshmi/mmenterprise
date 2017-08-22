@@ -10,10 +10,10 @@
             .directive('checkBucket', checkBucket)
             .service('buckets', buckets)
 
-    ContactsController.$inject = ['$window', '$http', '$q', 'buckets', 'uiGridValidateService', '$uibModal', 'App', 'userPermissions', '$stateParams'];
+    ContactsController.$inject = ['$scope', '$window', '$http', '$q', 'buckets', 'uiGridValidateService', '$uibModal', 'App', 'userPermissions', '$stateParams'];
     contactsInviteController.$inject = ['$scope', '$uibModalInstance', 'listContacts', '$http', '$window', 'userPermissions', 'App'];
     UploadContactsController.$inject = ['$scope', '$window', 'defaultFunction', 'getBuckets', '$uibModalInstance', '$state', '$http', '$uibModal', 'buckets', '$timeout', 'App'];
-    UploadSingleContactController.$inject = ['$scope', '$window', 'defaultFunction', 'getBuckets', '$http', '$uibModalInstance', 'buckets', 'App'];
+    UploadSingleContactController.$inject = ['$scope', '$window', 'defaultFunction', 'getBuckets', '$http', '$uibModalInstance', 'buckets', 'bucketType', 'App'];
 
     // already existing bucket name
     function checkBucket() {
@@ -41,7 +41,8 @@
 
     // bucket names service
     function buckets() {
-        var bucket_names = {}
+
+        var bucket_names = [];
 
         this.setData = function (obj) {
             bucket_names = obj;
@@ -54,16 +55,34 @@
         this.addProperty = function (obj) {
             bucket_names.push(obj)
         }
+
+        this.reset = function(){
+            bucket_names = [];
+        }
     }
 
 
-    function ContactsController($window, $http, $q, buckets, uiGridValidateService, $uibModal, App, userPermissions, $stateParams) {
+    function ContactsController($scope, $window, $http, $q, buckets, uiGridValidateService, $uibModal, App, userPermissions, $stateParams) {
 
-        var scope = this;
-        this.loaderImg = false;
-        this.loaderNoContacts = false;
+        var scope = this,
+                    edit_feature;
+
+
+        this.goDashboard       = $stateParams.rowEdit;
+        this.loaderImg         = false;
+        this.loaderNoContacts  = false;
         this.totalRecordsCount = 0;
-        this.contactStatus = [{label: 'Active', color: '#0d8e68'}, {label: 'Inactive', color: '#888888'}, {label: 'Separated', color: '#c46968'}]
+        this.selectedContacts  = [];
+        this.bucketNames       = [];
+        this.contactStatus     = [{label: 'Active', color: '#0d8e68'}, {label: 'Inactive', color: '#888888'}, {label: 'Separated', color: '#c46968'}];
+        buckets.reset(); 
+
+        if (userPermissions.edit_contacts == 1 && $stateParams.rowEdit) {
+            edit_feature = true;
+        }
+        else {
+            edit_feature = false;
+        }
 
         //get bucketNames
         function bucketsCount() {
@@ -72,6 +91,7 @@
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                 },
                 method: 'POST',
+                data : $.param({ 'bucket_type' : $stateParams.bucketType}),
                 url: App.base_url + 'buckets_list'
             })
             get_buckets.success(function (response) {
@@ -101,21 +121,14 @@
         }
         bucketsCount();
 
+
+
+
         this.getActiveBucketCount = function (index) {
             scope.activeBucketCount = (index == -1) ? scope.totalRecords : scope.bucketNames[index].count;
         }
 
-
-        var edit_feature;
-        this.goDashboard = $stateParams.rowEdit;
-        if (userPermissions.edit_contacts == 1 && $stateParams.rowEdit) {
-            edit_feature = true;
-        }
-        else {
-            edit_feature = false;
-        }
-
-        this.selectedContacts = [];
+    
         this.gridOptions = {
             rowHeight: 70,
             cellEditableCondition: edit_feature,
@@ -153,7 +166,12 @@
             ]
         };
 
-        if (edit_feature) {
+        /*removeing the id column for external */ 
+        if($stateParams.bucketType == 2) {  
+            this.gridOptions.columnDefs.splice(4, 1);
+        }
+
+        if (edit_feature && $stateParams.bucketType == 1) {
             this.gridOptions.columnDefs.push(
                     {name: 'download_status', displayName: 'Download', enableCellEdit: false, headerTooltip: 'Download' , cellClass: 'grid-no-hover', width: '10%',
                         cellTemplate: '<div class="ui-grid-cell-contents">{{ COL_FIELD == 1 ? "Yes" : "No"}}</div>',
@@ -191,8 +209,8 @@
                         return 'You can only insert names starting with: "' + argument + '"';
                     }
             );
-        }
-        ;
+        };
+
         gridValidtion('charValidation', '');
         gridValidtion('charValidationReq', /^[a-zA-Z0-9- ]{0,100}$/);
         gridValidtion('charOtherId', /^[a-zA-Z0-9-]{0,100}$/);
@@ -301,7 +319,12 @@
 
             if (bktName != "") {
                 colSortObj != "" ? colSortObj[0].sort.direction = '' : '';
-                scope.gridApi.grid.columns[6].sort.direction = 'asc';
+                
+                if($stateParams.bucketType == 2) {  
+                    scope.gridApi.grid.columns[5].sort.direction = 'asc';
+                }else{
+                    scope.gridApi.grid.columns[6].sort.direction = 'asc';
+                }
                 sort = "";
                 colDefName = 'status';
             }
@@ -330,7 +353,8 @@
                 page_no: scope.currentPage,
                 search: scope.searchVal,
                 sort: sort,
-                col_name: colDefName
+                col_name: colDefName,
+                bucket_type : $stateParams.bucketType
             });
 
             var get_buckets = $http({
@@ -408,7 +432,8 @@
                     lastname: rowEntity.lastname,
                     contact_number: rowEntity.phone,
                     emailid: rowEntity.emailid,
-                    status: rowEntity.status
+                    status: rowEntity.status,
+                    bucket_type : $stateParams.bucketType
                             //[colDef.name] : newValue
                 });
 
@@ -486,6 +511,7 @@
             var list = $.param({
                 action: state,
                 record_id: scope.selectedContacts.toString(),
+                bucket_type : $stateParams.bucketType,
                 status: status
             });
 
@@ -636,26 +662,79 @@
 
         // new contact modal
         this.contactModal = function () {
+            
+            if(scope.bucketNames.length){
+                $uibModal.open({
+                    animation: false,
+                    backdrop: 'static',
+                    keyboard: false,
+                    templateUrl: 'templates/dialogs/new-contact-upload.phtml',
+                    openedClass: "contact-modal",
+                    controller: 'UploadSingleContactController',
+                    controllerAs: "SingleContCtrl",
+                    resolve: {
+                        defaultFunction: function () {
+                            return scope.getGridData;
+                        },
+                        getBuckets: function () {
+                            return bucketsCount;
+                        },
+                        bucketType : $stateParams.bucketType
+                    }
+                });
+            }
 
-            $uibModal.open({
+        }
+
+        var externalBucketDialog;
+        this.createExternalBucket = function(){
+            externalBucketDialog = $uibModal.open({
                 animation: false,
                 backdrop: 'static',
                 keyboard: false,
-                templateUrl: 'templates/dialogs/new-contact-upload.phtml',
-                openedClass: "contact-modal",
-                controller: 'UploadSingleContactController',
-                controllerAs: "SingleContCtrl",
-                resolve: {
-                    defaultFunction: function () {
-                        return scope.getGridData;
-                    },
-                    getBuckets: function () {
-                        return bucketsCount;
-                    }
-                }
+                templateUrl: 'templates/contacts/dialog-create-external-bucket.phtml',
+                openedClass: "external-bucket",
+                scope: $scope
             });
         }
 
+        this.postCreateExternalBucket = function (form) {
+
+            scope.submitted = true;
+            if (form.$valid) {
+                scope.inProgress = true;
+                var params = $.param({
+                    bucket_name: scope.externalBucket,
+                    bucket_type : 2,
+                })
+
+                var createBucket = $http({
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                    },
+                    method: 'POST',
+                    url: App.base_url + 'create_bucket',
+                    data: params
+                })
+                createBucket.success(function (response) {
+                    scope.inProgress = false;
+                    if (response.status_code == 200) {
+                        buckets.addProperty(response.data);
+                        scope.submitted = false;
+                        scope.externalBucket = ""; //reset name to empty
+                        externalBucketDialog.close();
+                    }
+                    else if (response.status_code == 400) {
+                        $window.location = App.base_url + 'logout';
+                    }
+                })
+            }
+        }
+
+        $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+            if(externalBucketDialog)
+                externalBucketDialog.close();
+        })
     }
 
     function contactsInviteController($scope, $uibModalInstance, listContacts, $http, $window, userPermissions, App) {
@@ -725,7 +804,7 @@
     }
 
     function UploadContactsController($scope, $window, defaultFunction, getBuckets, $uibModalInstance, $state, $http, $uibModal, buckets, $timeout, App) {
-
+        
         var scope = this;
         this.currentState = $state.params.importContacts;
         this.bktExists = false;
@@ -737,6 +816,7 @@
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                 },
                 method: 'POST',
+                data : $.param({ 'bucket_type' : 1}),
                 url: App.base_url + 'buckets_list'
             })
             get_buckets.success(function (response) {
@@ -1109,12 +1189,11 @@
         })
     }
 
-    function UploadSingleContactController($scope, $window, defaultFunction, getBuckets, $http, $uibModalInstance, buckets, App) {
+    function UploadSingleContactController($scope, $window, defaultFunction, getBuckets, $http, $uibModalInstance, buckets, bucketType, App) {
 
         var scope = this;
 
         scope.bucketList = buckets.getData();
-
         scope.statusText = ["Active", "Inactive", "Separated"];
 
         // closing angular material select box when blur
@@ -1147,7 +1226,7 @@
                         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                     },
                     method: 'POST',
-                    data: data,
+                    data: data + '&' + $.param({ bucket_type : bucketType}),
                     url: App.base_url + 'add_contact'
                 })
                 add_contact.success(function (response) {

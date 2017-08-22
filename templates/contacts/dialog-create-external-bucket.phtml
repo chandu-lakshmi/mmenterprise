@@ -1,0 +1,24 @@
+<div layout="column">
+    <form name="new_bucket_form"> 
+        <div layout="row" class="head">
+            <span flex>Add Community</span>
+            <i class="material-icons" ng-click="$dismiss()">close</i>
+        </div>
+        <div layout="row" class="sec">
+            <md-input-container class="md-block">
+                <label>Enter Community Name</label>
+                <input type="text" name="bucketName" ng-model="ContactCtrl.externalBucket" required ng-class="{'has-error-border':new_bucket_form.bucketName.$invalid && ContactCtrl.submitted}" check-bucket array-bucket="{{ContactCtrl.bucketNames}}" bucket-name="{{ContactCtrl.externalBucket}}" autocomplete="off">
+                <div ng-if="new_bucket_form.bucketName.$error.required && ContactCtrl.submitted" class="has-error-msg">Please enter Community Name.</div>
+                <div ng-if="new_bucket_form.bucketName.$error.bucketmatch && ContactCtrl.submitted && !new_bucket_form.bucketName.$error.required" class="has-error-msg">Community name already exists.</div>
+            </md-input-container>     
+        </div>
+        <div layout="row" class="foot">
+            <span ng-if="ContactCtrl.inProgress" class="loading">
+                <img src="public/images/loader/upload_file.gif" alt="loader" style="margin-top: 8px"> 
+                <span class="pull-right" style="margin: 14px 8px;">Adding Community</span>
+            </span>
+            <i flex></i>
+            <md-button class="md-raised" ng-click="ContactCtrl.postCreateExternalBucket(new_bucket_form)">ADD</md-button>
+        </div>
+    </form>
+</div>

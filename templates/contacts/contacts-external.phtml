@@ -1,0 +1,96 @@
+<div class="grid-contacts">
+    <div class="container external-bucket">
+
+        <div class="container-lt">
+            <div class="dropdown" ng-show="{{::userPermissions.add_contacts == 1}}">
+                <button class="btn btn-primary mm-btn ripplelink dropdown-toggle" type="button" data-toggle="dropdown">+ NEW</button>
+                <ul class="dropdown-menu">
+                    <li><a ng-click="ContactCtrl.contactModal()" ng-class="{ 'disable-cursor' : !ContactCtrl.bucketNames.length }">ADD CONTACT</a></li>
+                    <li><a ng-click="ContactCtrl.createExternalBucket()" >CREATE COMMUNITY</a></li>
+                </ul>
+            </div>
+            <div class="bkt-container" ng-if="ContactCtrl.bucketNames">
+                <span ng-click="ContactCtrl.getGridData('ALL CONTACTS', '0', '', '');ContactCtrl.getActiveBucketCount( - 1)" class="ripplelink" 
+                      ng-class="{ activeBucketCls : ('ALL CONTACTS' == ContactCtrl.activeBucket) }">ALL CONTACTS{{' (' + ContactCtrl.totalRecords + ')'}}</span>
+                <div ng-repeat="bkt in ContactCtrl.bucketNames" >
+                    <div class="ripplelink bucket" ng-class="{ activeBucketCls : (bkt.bucket_name == ContactCtrl.activeBucket) }" ng-click="ContactCtrl.getGridData(bkt.bucket_name, bkt.bucket_id, '', ''); ContactCtrl.getActiveBucketCount($index)">
+                        <span class="word-ellipsis">{{bkt.bucket_name| uppercase}}
+                            <md-tooltip>{{bkt.bucket_name}}</md-tooltip>
+                        </span>
+                        <span> ({{bkt.count|| 0}})</span>
+                        <i class="material-icons del animated fadeIn" ng-click="ContactCtrl.trashBucket(bkt, $index);$event.stopPropagation();" ng-if="(bkt.bucket_name == ContactCtrl.activeBucket && bkt.company_id != 0)">delete</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-rt">
+            <div class="search">
+                <span ng-bind="(ContactCtrl.activeBucket | uppercase) + ' (' + (ContactCtrl.activeBucketCount || 0) + ')'" class="word-ellipsis"></span>
+                <div>
+                    <img ng-src="public/images/loader/spin.gif" alt="bufferSpin" ng-if="ContactCtrl.updateLoader">
+                    <span class="updateSuccess" style="color:#1d8e70 !important">Successfully Updated.</span>
+                    <span class="updatefailure">Not Updated</span>
+                    <span class="existRecords" style="margin-left:-122px;">{{ContactCtrl.rowIdExistsMsg + '.'}}</span>
+                    <span class="modalSuccess" style="color:#1d8e70 !important" ng-bind="ContactCtrl.modalSuccessMsg"></span>
+                </div>
+                <md-input-container md-no-float="" class="md-block">
+                    <img ng-src="public/images/loader/search_loader.gif" alt="buffer" ng-if="ContactCtrl.searchLoader">
+                    <input type="text" ng-model="ContactCtrl.searchVal" ng-keyup="ContactCtrl.searchRecords(ContactCtrl.searchVal, $event)" placeholder="Search" onkeypress="return ((!(event.which == 32)) || !this.selectionStart == 0)">
+                    <img ng-src="public/images/{{ContactCtrl.srcSearch}}" ng-click="ContactCtrl.srcSearch == 'cross.svg' ? ContactCtrl.searchRecords('', $event) : ''" alt="feedback_left">
+                </md-input-container>
+            </div>
+            <div class="grid-container">
+                <div ui-grid="ContactCtrl.gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-validate class="inline-grid" ng-class="{'hover-enable':userPermissions.edit_contacts == 1}">
+                    <div class="grid-msg-overlay" ng-if="ContactCtrl.loaderImg">
+                        <div class="msg">
+                            <span>
+                                <img src="public/images/loader/spin.gif" alt="loader" ng-hide="ContactCtrl.hideLoader">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="grid-msg-overlay" ng-if="ContactCtrl.loaderNoContacts">
+                        <div class="msg">
+                            <span>No Contacts Found</span>
+                        </div>
+                    </div>	
+                </div>
+                <div class="grid-footer">
+                    <div class="status col-sm-4" ng-if="ContactCtrl.goDashboard">
+                        <span ng-show="{{::userPermissions.edit_contacts == 1}}">
+                            Change Status to:
+                            <md-input-container>
+                                <label style="display:none !important">Default</label>
+                                <md-select  class="md-no-underline" name="job" ng-model="ContactCtrl.statusName" ng-change="ContactCtrl.statusUpdate('status', ContactCtrl.statusName)" ng-disabled="ContactCtrl.selectedContacts.length == 0">
+                                    <md-option ng-repeat="status in ContactCtrl.contactStatus" ng-value="status.label" ng-style="{'color':status.color}">
+                                        {{status.label}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+                        </span>
+                    </div>
+                    <div class="col-sm-4 pages text-center">
+                        <ul  ng-hide="ContactCtrl.totalRecordsCount < 50" uib-pagination items-per-page="50" total-items="ContactCtrl.totalRecordsCount" ng-model="ContactCtrl.pageNumber" max-size="3" direction-links="false" force-ellipses="true" ng-change="ContactCtrl.getGridData('', '', ContactCtrl.pageNumber, '')" boundary-link-numbers="true" rotate="false"></ul>
+                    </div>
+                    <div class="invite col-sm-4 text-right">
+                        <span ng-if="ContactCtrl.selectedContacts.length > 0" class="animated fadeIn">{{ContactCtrl.selectedContacts.length + " Contact(s)"}} Selected</span>
+                        <div class="btn-invite mm-btn ripplelink" ng-click="ContactCtrl.loaderImg ? '' : ContactCtrl.invite()">
+                            INVITE SELECTED
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="zeroRecords">Please select atleast one record.</div>
+            <div class="error-msgs updateError" ng-bind="ContactCtrl.hasLicenseKey"></div>
+        </div>
+        
+    </div>
+
+    <script type="text/ng-template" id="select-drop.html">
+        <select ui-grid-edit-dropdown class="form-control" ng-model="MODEL_COL_FIELD" append-to-body="true">
+        <option value="Active" style="color:#0d8e68">Active</option>
+        <option value="Inactive" style="color:#888888">Inactive</option>
+        <option value="Separated" style="color:#c46968">Separated</option>
+        </select>
+    </script>
+</div>

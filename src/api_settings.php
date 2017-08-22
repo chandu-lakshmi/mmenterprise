@@ -299,5 +299,21 @@ return [
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/apply_job_ref'
             ],
+            'edit_career_settings' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/edit_career_settings'
+            ],
+            'get_career_settings' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_career_settings'
+            ],
+            'get_talentcommunity_buckets' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_talentcommunity_buckets'
+            ],
+            'add_to_talentcommunity' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/add_to_talentcommunity'
+            ]
     ];
         

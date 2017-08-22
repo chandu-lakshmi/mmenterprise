@@ -5,7 +5,7 @@
 				<img ng-src="{{ApplyJobCtrl.referralDetails.company_logo}}" alt="company-logo" ng-if="ApplyJobCtrl.referralDetails.company_logo != ''"  draggable="false">
 				<span class="company-name" ng-if="ApplyJobCtrl.referralDetails.company_logo == ''">{{ApplyJobCtrl.referralDetails.company_name | uppercase}}</span>
 			</h1>
-			<div class="referral-details" ng-if="ApplyJobCtrl.viewReferralDetails">
+			<div class="referral-details" ng-if="ApplyJobCtrl.showJobDetails">
                 <h3 ng-bind="ApplyJobCtrl.jobDetails.job_title"></h3>
                 <h5>
                 	<span>Experience: </span>
@@ -66,7 +66,7 @@
 						    <span class="file-name" ng-bind="ApplyJobCtrl.fileName" title="{{ApplyJobCtrl.fileName}}"></span>
 						    <div id="upload-resume">
 						  	</div>
-						  	<span class="has-error-msg file-check" ng-show="ApplyJobCtrl.chkFile && ApplyJobCtrl.errorRequired" style="left:0">Please select File.</span>
+						  	<span class="has-error-msg file-check" ng-show="(ApplyJobCtrl.hasUploadResume && ApplyJobCtrl.errorRequired) || ApplyJobCtrl.invalidFile" style="left:0;white-space: normal">Please select File.</span>
 					    </div> 
 					</div>
 					<input type="hidden" name="post_id" value="{{ApplyJobCtrl.referralDetails.post_id}}">
@@ -82,7 +82,7 @@
 			        </span>
 			    </div>
 			    <div class="pull-right disabled" ng-init="sh_cd = $stateParams.share_status;jc = $stateParams.jc">
-			        <span class="cancel"><a ui-sref="{{$stateParams.jc == 1 ? 'allCampaigns({ref: $root.camp_ref,share_status:sh_cd})' : 'allJobs({ref: $root.ref,share_status:sh_cd,jc:jc})'}}">Cancel</a></span>
+			        <span class="cancel"><a ui-sref="{{$stateParams.jc == 1 ? 'allCampaigns.all({ref: $root.camp_ref,share_status:sh_cd})' : 'allJobs.all({ref: $root.ref,share_status:sh_cd,jc:jc})'}}">Cancel</a></span>
 				<span class="submit" ng-click="ApplyJobCtrl.postFormData(refer_form.$invalid, 'refer')">SUBMIT</span>
 			    </div>
 			</div>

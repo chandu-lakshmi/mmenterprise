@@ -844,14 +844,14 @@ body.set-password {
                 overflow: visible; }
                 .settings .manager-tab .saml .rt md-card md-card-content .file-upload #upload .qq-uploader .qq-upload-list, .settings .manager-tab .hcms .rt md-card md-card-content .file-upload #upload .qq-uploader .qq-upload-list {
                   left: 0;
-                  width: 58%; }
+                  width: 64%; }
                 .settings .manager-tab .saml .rt md-card md-card-content .file-upload #upload .qq-uploader .qq-upload-button, .settings .manager-tab .hcms .rt md-card md-card-content .file-upload #upload .qq-uploader .qq-upload-button {
                   color: #565656;
                   background: #e6e6e6;
                   border: 1px solid #ccc;
                   line-height: 30px;
                   font-size: 16px;
-                  width: 58%; }
+                  width: 64%; }
                   .settings .manager-tab .saml .rt md-card md-card-content .file-upload #upload .qq-uploader .qq-upload-button input[type="file"], .settings .manager-tab .hcms .rt md-card md-card-content .file-upload #upload .qq-uploader .qq-upload-button input[type="file"] {
                     width: 127%; }
             .settings .manager-tab .saml .rt md-card md-card-content .file-upload #change, .settings .manager-tab .hcms .rt md-card md-card-content .file-upload #change {
@@ -1047,6 +1047,43 @@ body.set-password {
       .licence-management .box .content .list .error {
         font-size: 25px;
         color: #5b5757; }
+
+/*carrers-page*/
+.careers-page {
+  min-height: calc(100vh - 160px);
+  padding-bottom: 50px; }
+  .careers-page .edit-box {
+    min-height: calc(100vh - 250px);
+    position: relative; }
+    .careers-page .edit-box .logo-heroshort {
+      color: #999;
+      font-size: 13px; }
+    .careers-page .edit-box .header-info {
+      color: #999;
+      font-size: 14px; }
+    .careers-page .edit-box .hyper-link {
+      margin: 12px 0 0;
+      color: #0ba082; }
+    .careers-page .edit-box .file-info {
+      padding-left: 18px; }
+    .careers-page .edit-box .alert {
+      background: transparent;
+      padding-bottom: 0; }
+  .careers-page .carrers-parser-loader {
+    text-align: center;
+    opacity: 0.5;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%; }
+    .careers-page .carrers-parser-loader div {
+      left: calc(50% - 36px);
+      top: calc(50% - 36px);
+      position: absolute; }
+      .careers-page .carrers-parser-loader div img {
+        width: 72px;
+        height: 72px; }
 
 .settings .manager-tab .saml .rt md-card md-card-content .file-upload #change .qq-uploader .qq-upload-button .button_txt {
   position: relative !important; }

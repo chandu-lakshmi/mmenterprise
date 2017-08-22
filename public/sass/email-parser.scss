@@ -50,7 +50,7 @@ body.email-parser{
 						label+span{position: absolute;top: 40px;left: 18px;max-width: 140px;text-overflow: ellipsis;display: inline-block;white-space: nowrap;overflow: hidden;}
 						#upload-resume{height: 50px;
 							.qq-uploader{margin: 0;padding: 0;height: 100%;
-								.qq-upload-button{border-right:1px solid #b9b9b9;position: absolute;right: 0;top: 2px;width: 46%;height: 43px;padding: 0;line-height: 43px;cursor: pointer;color:#248261;box-shadow:none;border-left:1px solid #b9b9b9;border-radius: 0;text-shadow: none;background-color: #F9F9F9; 
+								.qq-upload-button{border-right:1px solid #b9b9b9;position: absolute;right: 0;top: 2px;width: 40%;height: 43px;padding: 0;line-height: 43px;cursor: pointer;color:#248261;box-shadow:none;border-left:1px solid #b9b9b9;border-radius: 0;text-shadow: none;background-color: #F9F9F9; 
 									background-image: -webkit-linear-gradient(#F9F9F9, #cfcfcf);background-image: -o-linear-gradient(#F9F9F9, #cfcfcf);background-image: linear-gradient(#F9F9F9, #cfcfcf);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#F9F9F9, endColorstr=#cfcfcf);
 									input{height: 100%;}
 								}
@@ -84,7 +84,7 @@ body.email-parser{
 						label{position: relative;
 							&:after{content: '';position: absolute;border:1px solid #b9b9b9;height:45px;width:295px;left:1px;top:28px;}
 						}
-						.file-name{position: absolute;top: 40px;left:18px;max-width: 140px;}
+						.file-name{position: absolute;top: 40px;left:18px;max-width: 150px;}
 					}
 				}
 			}
@@ -98,7 +98,7 @@ body.email-parser{
 					.cancel{color:#878787;line-height: 50px;text-transform: uppercase;
 						a{text-decoration: none;color: inherit;}
 					}
-					.submit{color:#fff;background: #248261;float: right;padding: 12px 32px;color: #fff;margin-left: 20px;}
+					.submit{color:#fff;background: #24a678;float: right;padding: 12px 32px;color: #fff;margin-left: 20px;}
 				}
 			}
 		}

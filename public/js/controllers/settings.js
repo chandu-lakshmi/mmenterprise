@@ -8,6 +8,7 @@
             .controller('UserGroupController', UserGroupController)
             .controller('ConfigManagerController', ConfigManagerController)
             .controller('IntManagerController', IntManagerController)
+            .controller('CareersPageController', CareersPageController)
             .service('permissionsService', permissionsService)
             .directive('pwMatch', pwMatch)
 
@@ -17,6 +18,7 @@
     UserGroupController.$inject = ['$timeout', '$scope', '$window', '$element', 'CONFIG', '$http', '$q', 'permissionsService', 'userPermissions', 'App'];
     ConfigManagerController.$inject = ['$window', '$scope', '$timeout', '$http', 'App'];
     IntManagerController.$inject = ['$scope', '$window', '$state','$timeout', '$http', 'App'];
+    CareersPageController.$inject = ['$scope', '$http', 'pendingRequests', '$window', 'CompanyDetails', 'App'];
 
     function permissionsService() {
         var permissionData = {};
@@ -1289,6 +1291,332 @@
 
     }
 
+    function CareersPageController($scope, $http, pendingRequests, $window, CompanyDetails, App) {
 
+        var vm = this, 
+            dublicateData, 
+            canceller,
+            image_path = '';
+
+        vm.inProgress = true;
+        
+        // restricting spaces intially
+        $("input, textarea").on("keypress", function (e) {
+            if (e.which === 32 && !this.value.length)
+                e.preventDefault();
+        });
+
+        // fancy box lib call
+        $("#company-logo .fancybox").fancybox({
+            helpers: {
+                title: {
+                    type: 'inside'
+                }
+            },
+            maxWidth: 800
+        });
+        $(".image-group .fancybox").fancybox({
+            helpers: {
+                title: {
+                    type: 'inside'
+                }
+            },
+            prevEffect: 'none',
+            nextEffect: 'none',
+            maxWidth: 800
+        });
+
+        vm.update  = false;
+        vm.errCond = false;
+        vm.updateLoader = false;
+
+
+        vm.cancel = cancel;
+        vm.trash  = trash;
+        vm.addHyperlink   = addHyperlink;
+        vm.updateCareersPage = updateCareersPage;
+
+        // view company details API call
+        function getCompanyDetails(status) {
+
+            var param = $.param({
+                company_code: CompanyDetails.company_code
+            })
+
+            $http({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'POST',
+                data: param,
+                url: App.base_url + 'get_career_settings'
+            }).success(function (response) {
+                vm.errCond = false;
+                if (response.status_code == 200) {
+                    vm.carrerPage = response.data;
+                    dublicateData = angular.copy(vm.carrerPage);
+                    if (response.data.career_logo) {
+                        companyLogo();
+                    }
+                    else {
+                        App.Helpers.removeUploadedFiles({
+                            obj: $company_logo
+                        })
+                    }
+                    if (response.data.career_heroshot_image) {
+                        heroShortImage();
+                    }
+                    else{
+                        App.Helpers.removeUploadedFiles({
+                            obj: $heroshort_image
+                        })
+                    }
+                }
+                else if (response.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+                vm.inProgress = false;
+            });
+        }
+
+        getCompanyDetails();
+
+        // initial company logo qq-uploader
+        function companyLogo() {
+            $company_logo.find('.qq-upload-drop-area').show();
+            $company_logo.find('.qq-upload-list').html('');
+            App.Helpers.loadImage({
+                target: $company_logo.find('.drag_img'),
+                css: 'img-thumbnail',
+                remove: true,
+                url_prefix: false,
+                view: true,
+                url: vm.carrerPage.career_logo,
+                onComplete: function () {
+                    $company_logo.find('.qq-upload-list').append("<li><input type='hidden' value='" + vm.carrerPage.career_logo + "' name='career_logo'/></li>").show();
+                },
+                onError: function () {
+                    $company_logo.find('.qq-upload-drop-area').hide();
+                    $company_logo.find('.qq-upload-button').show();
+                }
+            });
+        }
+
+        // initial company logo qq-uploader
+        function heroShortImage() {
+            $heroshort_image.find('.qq-upload-drop-area').show();
+            $heroshort_image.find('.qq-upload-list').html('');
+            App.Helpers.loadImage({
+                target: $heroshort_image.find('.drag_img'),
+                css: 'img-thumbnail',
+                remove: true,
+                url_prefix: false,
+                view: true,
+                url: vm.carrerPage.career_heroshot_image,
+                onComplete: function () {
+                    $heroshort_image.find('.qq-upload-list').append("<li><input type='hidden' value='" + vm.carrerPage.career_heroshot_image + "' name='career_heroshot_image'/></li>").show();
+                },
+                onError: function () {
+                    $heroshort_image.find('.qq-upload-drop-area').hide();
+                    $heroshort_image.find('.qq-upload-button').show();
+                }
+            });
+        }
+
+        function trash(reset) {
+            if (reset) {
+                vm.update = true;
+                $scope.$apply();
+            }
+            $referral_bonus.find('.drag_img').html('');
+            $referral_bonus.find('.qq-upload-list').html('');
+            $referral_bonus.find('.qq-upload-list').css('z-index', '-1');
+            $referral_bonus.find('.qq-upload-drop-area').css('display', 'none');
+            $referral_bonus.find('.qq-upload-button').show();
+        }
+
+        function updateCareersPage(careersForm) {
+            vm.errCond = true;
+            if (careersForm.$valid) {
+                vm.errCond = !vm.errCond;
+                vm.updateLoader = true;
+                var param = $('.careers-form :not(".rm")').serialize(); + '&' + $.param({timeZone: new Date().getTimezoneOffset()});
+
+                $http({
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                    },
+                    method: 'POST',
+                    data: param,
+                    url: App.base_url + 'edit_career_settings'
+                }).success(function (response) {
+                    if (response.status_code == 200) {
+                       vm.update = false;
+                       vm.updateLoader = false;
+                       $scope.edit_careers_page_form.$setPristine();
+
+                        if (response.data.hasOwnProperty('company_logo')) {
+                           $('.user_dp img').attr({
+                               'src': response.data.company_logo
+                           });
+                           $('.user_dp img').css({
+                               'border': '1px solid #ccc !important',
+                               'border-radius': '50%'
+                           })
+                        }
+                        else {
+                           $('.user_dp img').attr({
+                               'src': 'public/images/avatar.png'
+                           });
+                        }
+
+                       getCompanyDetails('update');
+                    }
+                    else if (response.status_code == 400) {
+                       $window.location = App.base_url + 'logout';
+                    }
+                });
+            }
+        }
+
+
+        // Company logo qq-uploader
+        var $company_logo = $('#company-logo');
+        App.Helpers.initUploader({
+            id: "company-logo",
+            dragText: "",
+            uploadButtonText: "",
+            size: (1 * 1024 * 1024),
+            allowedExtensions: ["jpg", "jpeg", "png"],
+            action: App.base_url + "image_upload",
+            showFileInfo: false,
+            shortMessages: true,
+            remove: true,
+            file_name : 'logo_name',
+            path_name: 'request_logo',
+            onSubmit: function (id, name) {
+                $company_logo.find('.qq-upload-list').css('z-index', '0');
+            },
+            onComplete: function (id, name, response) {
+                if (response.success) {
+                    $company_logo.find('.qq-upload-list').css('z-index', '-1');
+                    $company_logo.find('.qq-upload-drop-area').css('display', 'block');
+                    vm.update = true;
+                    $scope.$apply();
+                    App.Helpers.loadImage({
+                        target: $company_logo.find('.drag_img'),
+                        css: 'img-thumbnail',
+                        remove: true,
+                        view: true,
+                        url_prefix: App.pre_path,
+                        url: response.filename.split('/').slice(-2).join('/'),
+                        onComplete: App.Helpers.setImagePosition,
+                        onError: function () {
+                            $company_logo.find('.qq-upload-button').show();
+                        }
+                    });
+                }
+            },
+            showMessage: function (msg, obj) {
+                $company_logo.closest('.form-group').find('div.error').hide();
+                $company_logo.find('.qq-upload-list').css('z-index', '0');
+                $(obj._listElement).fadeIn();
+            },
+            onRemove: function () {
+                vm.update = true;
+                $scope.$apply();
+            },
+            onRemoveComplete: function () {
+                $company_logo.find('.qq-upload-list').css('z-index', '-1');
+            }
+        });
+
+        // Heroshort image qq-uploader
+        var $heroshort_image = $('#hero-short-image');
+        App.Helpers.initUploader({
+            id: "hero-short-image",
+            dragText: "",
+            uploadButtonText: "",
+            size: (1 * 1024 * 1024),
+            allowedExtensions: ["jpg", "jpeg", "png"],
+            action: App.base_url + "image_upload",
+            showFileInfo: false,
+            shortMessages: true,
+            remove: true,
+            file_name : 'heroshot_image_name',
+            path_name: 'request_heroshot',
+            onSubmit: function (id, name) {
+                $heroshort_image.find('.qq-upload-list').css('z-index', '0');
+            },
+            onComplete: function (id, name, response) {
+                if (response.success) {
+                    $heroshort_image.find('.qq-upload-list').css('z-index', '-1');
+                    $heroshort_image.find('.qq-upload-drop-area').css('display', 'block');
+                    vm.update = true;
+                    $scope.$apply();
+                    App.Helpers.loadImage({
+                        target: $heroshort_image.find('.drag_img'),
+                        css: 'img-thumbnail',
+                        remove: true,
+                        view: true,
+                        url_prefix: App.pre_path,
+                        url: response.filename.split('/').slice(-2).join('/'),
+                        onComplete: App.Helpers.setImagePosition,
+                        onError: function () {
+                            $heroshort_image.find('.qq-upload-button').show();
+                        }
+                    });
+                }
+            },
+            showMessage: function (msg, obj) {
+                $heroshort_image.closest('.form-group').find('div.error').hide();
+                $heroshort_image.find('.qq-upload-list').css('z-index', '0');
+                $(obj._listElement).fadeIn();
+            },
+            onRemove: function () {
+                vm.update = true;
+                $scope.$apply();
+            },
+            onRemoveComplete: function () {
+                $heroshort_image.find('.qq-upload-list').css('z-index', '-1');
+            }
+        });
+
+        // on cancel qq uploader
+        function reset() {
+            vm.carrerPage = angular.copy(dublicateData);
+            if (vm.carrerPage.career_logo) {
+                companyLogo();
+            }
+            else {
+                App.Helpers.removeUploadedFiles({
+                    obj: $company_logo
+                })
+            }
+            if (vm.carrerPage.career_heroshot_image) {
+                heroShortImage();
+            }
+            else{
+                App.Helpers.removeUploadedFiles({
+                    obj: $heroshort_image
+                })
+            }
+        }
+
+        // cancel button
+        function cancel() {
+            reset();
+            if (canceller) {
+                canceller.resolve();
+            }
+            vm.update = false;
+            vm.errCond = false;
+        }
+
+        function addHyperlink() {
+            vm.carrerPage.career_links.push({cls:'mm-slide-left'});
+        }
+        
+    }
 
 }());

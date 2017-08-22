@@ -1,0 +1,36 @@
+<h3 class="text-center animated slideInDown" ng-if="!!AllCampaignsCtrl.noLongerAvailable" style="color: rgba(0,0,0,.87); margin-top: 20%;" ng-bind="AllCampaignsCtrl.noLongerAvailable"></h3>
+<div class="all-campaigns" ng-if="!AllCampaignsCtrl.noLongerAvailable">
+    <h4 class="job-count">{{AllCampaignsCtrl.infiniteScroll.headerDetails.count}} Job(s) found</h4>
+    <md-divider></md-divider>
+    <div style="position:relative">
+        <div class="camp-list">
+            <div class="list" ng-init="sh_cd = $stateParams.share_status" infinite-scroll='AllCampaignsCtrl.infiniteScroll.nextPage()'  infinite-scroll-distance='0'>
+                <div class="row" ng-repeat="list in AllCampaignsCtrl.infiniteScroll.list" ng-click="AllCampaignsCtrl.updateCampaignDetails(list)">
+                    <a ui-sref="allCampaigns.jobDetails({ref: list.ref_code, flag: 0, status:list.status, jc: 1, share_status: sh_cd})" title="" class="detail">
+                        <div class="col-sm-7">
+                            <p ng-bind="list.job_name"></p>
+                            <div class="fields">
+                                <div>
+                                    <span class="labels">Experience:</span>
+                                    <span class="value" ng-bind="list.experience"></span>    
+                                </div>
+                                <div>
+                                    <span class="labels">Location:</span>
+                                    <span class="value" ng-bind="list.location"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="col-sm-5 buttons">
+                        <md-button class="md-raised camp-btn" ui-sref="allCampaigns.candidateDetails({ref: list.ref_code,flag: 0, status:list.status, jc: 1, share_status: sh_cd})">APPLY</md-button>
+                        <md-button class="md-raised camp-btn" ui-sref="allCampaigns.referralDetails({ref: list.ref_code,flag: 0, status:list.status, jc: 1, share_status: sh_cd})">REFER</md-button>
+                    </div>
+                </div>
+                <div class="email-parser-loader" style="top: 12%" ng-if="AllCampaignsCtrl.infiniteScroll.busy && !AllCampaignsCtrl.inProgressInfinite">
+                    <img src="../public/images/loader/spin.gif" alt="spinner">
+                </div>
+                <h4 ng-if="AllCampaignsCtrl.inProgressInfinite" class="loading-infinite">Loading...</h4>
+            </div>
+        </div>
+    </div>
+</div>

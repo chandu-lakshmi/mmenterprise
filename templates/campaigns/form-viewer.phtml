@@ -1,0 +1,46 @@
+<md-dialog class="angular-survey-template">
+    <div class="container">
+        <h2 style="text-align: center;color: #24a678;text-transform: uppercase;margin: 0;padding: 24px 10px;background: #eeeeee;" ng-bind="FormViewerCtrl.companyName"></h2>
+        <img src="../public/images/cross_icon.png" alt="close" class="close" ng-click="FormViewerCtrl.closeDialog($event)">
+        <div layout="row" class="head">
+            <span flex></span>
+            <md-checkbox ng-model="FormViewerCtrl.viewerReadOnly" aria-label="Checkbox 1">Read only</md-checkbox>
+            <md-checkbox ng-model="FormViewerCtrl.formOptions.autoStart" aria-label="Checkbox 1">Autostart</md-checkbox>
+            <button class="btn mm-btn" type="button" ng-click="FormViewerCtrl.resetViewer()">Reset</button>
+        </div>
+        <mw-form-viewer ng-if="FormViewerCtrl.formData"
+                        form-data="FormViewerCtrl.formData"
+                        template-data="FormViewerCtrl.templateData" 
+                        form-status="FormViewerCtrl.formStatus"
+                        options="FormViewerCtrl.formOptions"
+                        api="FormViewerCtrl.formViewer"
+                        response-data="FormViewerCtrl.responseData"
+                        read-only="FormViewerCtrl.viewerReadOnly"
+                        on-submit="FormViewerCtrl.saveResponse()">
+        </mw-form-viewer>
+        <hr>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="FormViewerCtrl.showResponseData" ng-click="FormViewerCtrl.showResponseModal(FormViewerCtrl.showResponseData)"> Show response data
+            </label>
+        </div>
+    </div>
+</md-dialog>
+
+<!-- Form Build Json -->
+<script type="text/ng-template" id="form_view_json.phtml">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="$dismiss()">&times;</button>
+                <h4 class="modal-title">Form Build Json</h4>
+            </div>
+            <div class="modal-body">
+                <pre>{{FormViewerCtrl.responseData|json}}</pre>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="$dismiss()">OKAY</button>
+            </div>
+        </div>
+    </div>
+</script>

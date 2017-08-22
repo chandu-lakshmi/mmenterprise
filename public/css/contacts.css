@@ -26,7 +26,7 @@
     border:0;
 }
 .grid-contacts .container .container-lt .bkt-container{
-    height: calc(100vh - 220px);
+    height: calc(100vh - 277px);
     overflow-y: auto;
     min-height: 458px;
 }
@@ -61,7 +61,7 @@
 .grid-contacts .open > .dropdown-toggle.btn-primary:hover
 .grid-contacts .open > .dropdown-toggle.btn-primary:focus,
 .grid-contacts .open > .dropdown-toggle.btn-primary:active{
-    padding: 10px 43px;
+    padding: 10px 84.5px;
     background-color: #1d8e70;
     font-size: 16px;
     border-color: #1d8e70;
@@ -178,7 +178,7 @@
     border-left:0;
     border-right: 0;
     overflow: hidden;
-    height: calc(100vh - 268px);
+    height: calc(100vh - 326px);
     min-height: 400px;
 }
 .grid-contacts .grid-container .inline-grid .ui-grid-viewport {
@@ -1029,4 +1029,45 @@
 .contact-modal .modal-body .new-contact .content md-input-container:not(.md-input-invalid).md-input-focused label,
 .contact-modal .modal-body .new-contact .content md-input-container.md-input-has-value label:not(.md-no-float){
     color: #656565;
+}
+
+
+/* dialog create external bucket*/
+.external-bucket .modal{
+    top: calc(50% - 145px);
+    left: calc(50% - 180px);
+}
+.external-bucket .modal .modal-dialog{
+    width: 360px;
+    margin: 0px;
+} 
+.external-bucket .modal .modal-dialog .head{
+    height: 60px;
+    background: #0e2d3f;
+    font-size: 18px;
+    line-height: 31px;
+    color: #fff;
+    padding: 16px;
+    font-weight: 600;
+}
+.external-bucket .modal .modal-dialog .sec{
+    padding: 16px;
+    min-height: 170px;
+}
+.external-bucket .modal .modal-dialog .foot{
+    background: #eee;
+    padding: 6px 12px;
+}
+.external-bucket .modal .modal-dialog .foot .md-button{
+    background: #229a78;
+    color: #fff;
+    font-weight: 600;
+}
+
+/*external buckets hide footer*/
+.grid-contacts .external-bucket .grid-container .inline-grid{
+    height: calc(100vh - 256px) !important;
+}
+.grid-contacts .external-bucket .grid-footer{
+    display: none;
 }

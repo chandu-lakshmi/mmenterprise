@@ -1,22 +1,24 @@
 <h4  class="text-center" ng-if="!!JobDetailsCtrl.noLongerAvailable" style="color:#dc4e41" ng-bind="JobDetailsCtrl.noLongerAvailable"></h4>
 <div class="all-jobs" ng-if="!JobDetailsCtrl.noLongerAvailable">
 	<div class="container">
-		<header>
-			<img ng-src="{{JobDetailsCtrl.job_details.company_logo}}" src="{{$root.url_spinner}}" class="loading" alt="company-logo">
-			<span ng-bind="JobDetailsCtrl.job_details.companyName" class="company-name" ng-if="JobDetailsCtrl.job_details.company_logo == ''"></span>
-		</header>
 		<section class="job-details">
-			<div  class="loader" ng-if="JobDetailsCtrl.job_details.loader">
-				<img src="../public/images/loader/spin.gif" alt="spinner" width="50px" height="50px"> 
+			<a class="back" ng-if="JobDetailsCtrl.isCampaignJob" ui-sref="allCampaigns.all({ref: $root.camp_ref, share_status:$stateParams.share_status})">
+				<img src="../public/images/email-parser/arrow-back.svg"><h4 class="job-count ng-binding">All JOBS</h4>
+			</a>
+			<a class="back" ng-if="!JobDetailsCtrl.isCampaignJob" ui-sref="allJobs.all({ref: $root.ref, share_status: $stateParams.share_status})">
+				<img src="../public/images/email-parser/arrow-back.svg"><h4 class="job-count ng-binding">All JOBS</h4>
+			</a>
+			<md-divider></md-divider>
+			<div class="email-parser-loader" ng-if="JobDetailsCtrl.job_details.loader">
+			    <img src="../public/images/loader/spin.gif" alt="spinner">
 			</div>
 			<div ng-repeat="list in JobDetailsCtrl.job_details.list">
 				<div class="row">
-					<div class="col-sm-8 header">
-						<p ng-bind="JobDetailsCtrl.job_details.companyName"></p>
-						<h3 class="job-title" ng-bind="list.job_name"></h3>
+					<div class="col-sm-6 header">
+						<h3 class="job-title ellipsis" ng-bind="list.job_name"></h3>
 					</div>
-					<div class="col-xs-12">
-						<div class="col-sm-2 col-xs-6 rewards pull-right" ng-repeat="rewards in list.rewards">
+					<div class="col-sm-6 col-xs-12" style="padding-right:0">
+						<div class="col-sm-6 col-xs-6 rewards pull-right" ng-repeat="rewards in list.rewards">
 							<div ng-if="rewards.rewards_type != 'free'">
 								<h4>{{(rewards.rewards_type == 'paid' ? rewards.currency_type == 1 ? '&#x24;' : '&#8377;' : 'Points ') + rewards.rewards_value}}</h4>
 								<p ng-bind="rewards.rewards_name + ' Rewards'"></p>
@@ -26,44 +28,60 @@
 				</div>
 				<div class="job-params">
 					<div class="row">
-						<div class="col-sm-2 col-xs-5 labels">Job Function:</div>
-						<div class="col-sm-10 value col-xs-7" ng-bind="list.job_function"></div>
+						<div class="col-sm-3 col-xs-5 labels">Job Function:</div>
+						<div class="col-sm-9 value col-xs-7" ng-bind="list.job_function"></div>
 					</div>
 					<div class="row">
-						<div class="col-sm-2 col-xs-5 labels">Experience:</div>
-						<div class="col-sm-10 value col-xs-7" ng-bind="list.experience"></div>
+						<div class="col-sm-3 col-xs-5 labels">Experience:</div>
+						<div class="col-sm-9 value col-xs-7" ng-bind="list.experience"></div>
 					</div>
 					<div class="row">
-						<div class="col-sm-2 col-xs-5 labels">Vacancies:</div>
-						<div class="col-sm-10 value col-xs-7" ng-bind="list.vacancies"></div>
+						<div class="col-sm-3 col-xs-5 labels">Vacancies:</div>
+						<div class="col-sm-9 value col-xs-7" ng-bind="list.vacancies"></div>
 					</div>
 					<div class="row">
-						<div class="col-sm-2 labels col-xs-5">Location:</div>
-						<div class="col-sm-10 value col-xs-7" ng-bind="list.location"></div>
+						<div class="col-sm-3 labels col-xs-5">Location:</div>
+						<div class="col-sm-9 value col-xs-7" ng-bind="list.location"></div>
+					</div>
+					<div class="row job-desc"">
+						<div class="col-sm-3 labels col-xs-5">Job Description:</div>
+						<div class="col-sm-9 value col-xs-7">
+							<pre ng-bind-html="list.job_description"></pre>
+						</div>
 					</div>
 				</div>
-				<div class="job-desc">
-					<p>Job Description:</p>
-					<pre ng-bind-html="list.job_description"></pre>
-				</div>
-				<div class="action" ng-init="sh_cd = $stateParams.share_status">
-					<a ui-sref="candidateDetails({ref: list.ref_code,flag: 0, status: list.status, jc: list.post_type == 'campaign' ? 1 : $stateParams.jc, share_status:sh_cd})" ng-if="list.post_type == 'internal' || list.post_type == 'campaign' || $stateParams.share_status == 'share' || $stateParams.jc == 2">APPLY</a>
-					<a class="" ui-sref="referralDetails({ref: list.ref_code,flag: 0, status: list.status, jc: list.post_type == 'campaign' ? 1 : $stateParams.jc, share_status:sh_cd})" ng-if="list.post_type == 'external' || list.post_type == 'campaign'">REFER</a>
-					<a class="all-jobs" ui-sref="{{list.post_type == 'campaign' ? 'allCampaigns({ref: $root.camp_ref, share_status:sh_cd})' : 'allJobs({ref: $root.ref, share_status: $stateParams.share_status,share_status:sh_cd, jc : $stateParams.jc})'}}">VIEW ALL JOBS</a>
+				<div class="action" ng-init="sh_cd = $stateParams.share_status" ng-click="JobDetailsCtrl.updateJobDetails(list)">
+					<div ng-if="JobDetailsCtrl.isCampaignJob">
+						<md-button class="md-raised camp-btn" 
+							ui-sref="allCampaigns.candidateDetails({ref: list.ref_code,flag: 0, status: list.status, jc:1, share_status:sh_cd})">APPLY</md-button>
+						<md-button class="md-raised camp-btn" 
+							ui-sref="allCampaigns.referralDetails({ref: list.ref_code,flag: 0, status: list.status, jc:1, share_status:sh_cd})">REFER</md-button>
+					</div>
+					<div ng-if="!JobDetailsCtrl.isCampaignJob">
+						<md-button class="md-raised camp-btn" 
+							ui-sref="allJobs.candidateDetails({ref: list.ref_code,flag: 0, status: list.status, jc:$stateParams.jc, share_status:sh_cd})" 
+							ng-if="list.post_type == 'internal'">APPLY</md-button>
+
+						<md-button class="md-raised camp-btn" 
+							ui-sref="allJobs.referralDetails({ref: list.ref_code,flag: 0, status: list.status, jc:$stateParams.jc, share_status:sh_cd})" 
+							ng-if="list.post_type == 'external'">REFER</md-button>
+					</div>
 				</div>
 			</div>
 		</section>
-		<footer>
+		<footer ng-if="!(JobDetailsCtrl.job_details.list[0].post_type == 'internal')">
 			<div class="social-media">
-				<div ng-if="JobDetailsCtrl.job_details.list[0].post_type == 'external'">
+				<div>
 					Share Job
 					<!-- social media share directive -->
 					<social-sharing data-opts="JobDetailsCtrl.socialMedia" style="margin-top:10px;" data-path="../templates/components"></social-sharing>
 				</div>
-				<copy-url url="{{JobDetailsCtrl.copyUrl}}" btn-text="{{JobDetailsCtrl.copyText}}"></copy-url>
+				<copy-url url="{{JobDetailsCtrl.copyUrl}}"  btn-class="all-job-details" btn-text="{{JobDetailsCtrl.copyText}}"></copy-url>
 			</div>
-			<div class="drop-cv" ng-if="JobDetailsCtrl.job_details.list[0].post_type == 'external'">
-				Refer friend for future openings here <span><a ui-sref="referralDetails({ref: $root.ref,flag: 1,share_status:sh_cd})">Upload CV</a></span>
+			<div class="drop-cv">
+				Refer friend for future openings here 
+				<md-button class="md-raised camp-btn" ng-if="JobDetailsCtrl.isCampaignJob" ui-sref="allCampaigns.referralDetails({ref: $root.ref,flag: 1,share_status:sh_cd})">Upload CV</md-button>
+				<md-button class="md-raised camp-btn" ng-if="!JobDetailsCtrl.isCampaignJob" ui-sref="allJobs.referralDetails({ref: $root.ref,flag: 1,share_status:sh_cd})">Upload CV</md-button>
 			</div>
 		</footer>
 	</div>

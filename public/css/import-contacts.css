@@ -47,8 +47,8 @@
 .import-contacts .container .container-lt .bkt-container{
   height: calc(100vh - 140px) !important;
 }
-.import-contacts .container-rt .grid{
-  height: calc(100vh - 266px) !important; 
+.import-contacts .container-rt .inline-grid{
+  height: calc(100vh - 268px) !important; 
 }
 .import-contacts .container-rt{
   border-top: 1px solid #ccc !important;

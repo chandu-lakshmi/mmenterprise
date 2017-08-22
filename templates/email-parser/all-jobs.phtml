@@ -1,67 +1,82 @@
-<h4  class="text-center" ng-if="!!AllJobsCtrl.noLongerAvailable" style="color:#dc4e41" ng-bind="AllJobsCtrl.noLongerAvailable"></h4>
-<div class="all-jobs" ng-if="!AllJobsCtrl.noLongerAvailable">
-    <div class="container">
-        <header>
-            <div id="logo" ng-hide="AllJobsCtrl.infiniteScroll.company_logo == ''">
-                <img ng-src="{{$root.url_spinner_small}}" class="spinner small img-thumbnail">
-            </div>
-            <span ng-bind="AllJobsCtrl.infiniteScroll.companyName" class="company-name" ng-if="AllJobsCtrl.infiniteScroll.company_logo == ''"></span>			
-        </header>
-        <section class="job">
-            <div class="header clearfix">
-                <div class="search pull-left">
-                    <div data-epi-search data-opts="AllJobsCtrl.search_opts" data-path="../templates/components/"></div>
+<div class="all-campaigns">
+    <header class="logo container">
+        <div layout="column">
+            <div layout="row" flex>
+                <div id="logo" flex="20" ng-hide="ReferralDetails.career_logo == ''">
+                    <img ng-src="{{$root.url_spinner_small}}" class="spinner small img-thumbnail">
                 </div>
-                <div class="count pull-right">
-                    Total Jobs: <span ng-bind="AllJobsCtrl.infiniteScroll.total_count || 0"></span>
+                <span flex="20" ng-bind="ReferralDetails.company_name" class="company-name" ng-if="ReferralDetails.career_logo == ''"></span>         
+                <i flex></i>
+                <div class="menu">
+                    <span class="tab" ng-repeat="link in ReferralDetails.career_links">
+                        <a href="{{link.url}}" target="_blank" ng-bind="link.label"></a>
+                    </span>
                 </div>
             </div>
-            <div infinite-scroll='AllJobsCtrl.infiniteScroll.nextPage()' infinite-scroll-disabled='AllJobsCtrl.infiniteScroll.busy' infinite-scroll-distance='0' class="list">
-                <div class="row" ng-repeat="list in AllJobsCtrl.infiniteScroll.list" ng-click="AllJobsCtrl.updateReferralDetails(list)">
-                    <a ui-sref="jobDetails({ref: list.ref_code, share_status: sh_cd, jc : jc })" title="" class="details">
-                        <div class="col-sm-8">
-                            <span ng-bind="AllJobsCtrl.infiniteScroll.companyName"></span>
-                            <p ng-bind="list.job_name"></p>
-                            <div class="fields">
-                                <span class="label">Experience:</span>
-                                <span class="value" ng-bind="list.experience"></span>
-                                <span class="label">Location:</span>
-                                <span class="value" ng-bind="list.location"></span>
-                            </div>
+        </div>
+    </header>
+    <div class="filters" 
+        ng-style="{'background':'transparent url('+ReferralDetails.career_heroshot_image+')'}"
+        ng-class="{'add-image' : !ReferralDetails.career_heroshot_image}">
+        <div class="container" ng-style="{'margin-top' : $state.current.name === 'allJobs.all' ? '0' : '54px'}">
+            <div class="user-inputs" ng-if="$state.current.name == 'allJobs.all'" style="padding-top: 82px;">
+                <div layout="column">
+                    <div layout="row" class="search-container">
+                        <div class="form-group search">
+                            <i class="material-icons">search</i>
+                            <input type="text" class="form-control" name="search-name" ng-model="JobsCtrl.searchOptions.search_name" tabindex="1" placeholder="I am looking for a job.." >
                         </div>
-                    </a>
-                    <div class="col-sm-4 buttons" ng-init="sh_cd = $stateParams.share_status;jc = $stateParams.jc">
-                        <a class="apply" ui-sref="referralDetails({ref: list.ref_code,flag: 0, status:list.status, jc:jc, share_status: sh_cd})" ng-if="list.post_type == 'external'">REFER</a>
-                        <a class="apply" ui-sref="candidateDetails({ref: list.ref_code, flag: 0, status:list.status, jc:jc, share_status: sh_cd})" ng-if="list.post_type == 'internal' || sh_cd == 'share' || $stateParams.jc == 2">APPLY</a>
+                        <div class="btn-group loc" uib-dropdown>
+                            <input id="location" ng-model="JobsCtrl.searchOptions.search_location" name="location" ng-autocomplete="JobsCtrl.geo_location" details="JobsCtrl.geo_details" options="JobsCtrl.geo_options"  tabindex="2" apiplaceholder="Location">
+                        </div>
+                        <div class="btn-group exp" uib-dropdown>
+                            <button id="btn-append-to-single-button"  tabindex="3" type="button" class="btn btn-primary" uib-dropdown-toggle ng-style="{'color' : JobsCtrl.searchOptions.search_experience ? '#555' : ''}">
+                                {{JobsCtrl.experienceLabel}} <i class="material-icons animated fadeIn">keyboard_arrow_down</i>
+                            </button>
+                            <ul class="dropdown-menu animated slideInUp" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-single-button" >
+                                <li role="menuitem" ng-repeat="exp in JobsCtrl.experiences">
+                                    <a href="#" ng-click="JobsCtrl.selectExperienc(exp)" 
+                                        ng-class="{'exp-active' : exp.experience_name == JobsCtrl.experienceLabel}">{{exp.experience_name}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="action">
+                            <md-button class="md-raised" tabindex="4" ng-click="JobsCtrl.findJobs()">FIND JOBS</md-button>
+                        </div>
                     </div>
                 </div>
-                <div class="overlay" ng-if="AllJobsCtrl.loader">
-                    <img src="../public/images/loader/spin.gif" alt="spinner" style="width:10%">
-                </div>
-                <div class="overlay text" ng-if="AllJobsCtrl.noJobs">
-                    <span>No Jobs Found</span>
-                </div>
-                <div class="text-center" ng-if="AllJobsCtrl.infiniteScroll.busy" style="opacity:0.5">
-                    <img src="../public/images/loader/spin.gif" alt="spinner" style="width:10%">
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="container" >
+            <div layout="column" class="campaign-details">
+                <div layout="row" flex>
+                    <div flex="70" class="left">
+                        <ui-view></ui-view>
+                    </div>
+                    <div flex="30" class="right">
+                        <div class="about-comp" ng-if="ReferralDetails.career_description.length">
+                            <div class="box">
+                                <h4>About <span ng-bind="ReferralDetails.company_name"></span></h4>
+                                <span ng-text-truncate="ReferralDetails.career_description" ng-tt-chars-threshold="900">  
+                                </span>
+                            </div>
+                        </div>
+                        <div class="create-camp" ng-if="ReferralDetails.career_talent_network=='enable'" ng-click="JobsCtrl.createCampaign()">
+                            <div class="join-team">JOIN OUR TALENT COMMUNITY<img src="../public/images/email-parser/arrows.png" alt="next"></div>
+                        </div>
+                        <div class="social-share">
+                            <b>Share Jobs</b>
+                            <!-- social media share directive -->
+                            <social-sharing data-opts="JobsCtrl.socialMedia" data-path="../templates/components" style="margin-top:10px;"></social-sharing>
+                        </div>
+                        <b>Copy Jobs Link</b>
+                        <copy-url url="{{ReferralDetails.bittly_url}}" btn-class="all-camp-copy" btn-text="COPY"></copy-url>
+                    </div>
                 </div>
             </div>
-        </section>
-        <footer>
-            <div class="box">
-                <div class="social-media">
-                    Share Jobs
-                    <!-- <div class="social-icons">
-                            Go to www.addthis.com/dashboard to customize your tools
-                            <div class="addthis_inline_share_toolbox"></div>
-                    </div> -->
-                    <!-- social media share directive -->
-                    <social-sharing data-opts="AllJobsCtrl.socialMedia" style="margin-top:10px;" data-path="../templates/components"></social-sharing>
-                    <copy-url url="{{AllJobsCtrl.copyUrl}}" btn-text="{{AllJobsCtrl.copyText}}"></copy-url>
-                </div>
-                <div class="drop-cv">
-                    Refer friend for future openings here <span><a ui-sref="referralDetails({ref: $root.ref,flag: 1,share_status: $stateParams.share_status, jc:$stateParams.jc})">Upload CV</a></span>
-                </div>
-            </div>
-        </footer>
+        </div>
     </div>
 </div>

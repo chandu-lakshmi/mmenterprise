@@ -1,0 +1,38 @@
+<h3  class="text-center animated slideInDown" ng-if="!!AllJobsCtrl.noLongerAvailable" style="color: rgba(0,0,0,.87); margin-top: 20%;" ng-bind="AllJobsCtrl.noLongerAvailable"></h3>
+<div class="all-jobs" ng-if="!AllJobsCtrl.noLongerAvailable">
+    <h4 class="job-count">{{AllJobsCtrl.infiniteScroll.total_count}} Job(s) found</h4>
+    <md-divider></md-divider>
+    <div style="position:relative">
+        <div class="camp-list">
+            <div class="list" ng-init="sh_cd = $stateParams.share_status" infinite-scroll='AllJobsCtrl.infiniteScroll.nextPage()' infinite-scroll-distance='0'>
+                <div class="row" ng-repeat="list in AllJobsCtrl.infiniteScroll.list" ng-click="AllJobsCtrl.updateReferralDetails(list)">
+                    <a ui-sref="allJobs.jobDetails({ref: list.ref_code, share_status: sh_cd, jc : jc })" title="" class="detail">
+                        <div class="col-sm-7">
+                            <p ng-bind="list.job_name"></p>
+                            <div class="fields">
+                                <span class="labels">Experience:</span>
+                                <span class="value" ng-bind="list.experience"></span><br>
+                                <span class="labels">Location:</span>
+                                <span class="value" ng-bind="list.location"></span>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="col-sm-5 buttons" ng-init="sh_cd = $stateParams.share_status;jc = $stateParams.jc">
+                        <md-button class="md-raised camp-btn" ui-sref="allJobs.referralDetails({ref: list.ref_code,flag: 0, status:list.status, jc:jc, share_status: sh_cd})" ng-if="list.post_type == 'external'">REFER</md-button>
+                        <md-button class="md-raised camp-btn" ui-sref="allJobs.candidateDetails({ref: list.ref_code, flag: 0, status:list.status, jc:jc, share_status: sh_cd})" ng-if="list.post_type == 'internal' || sh_cd == 'share' || $stateParams.jc == 2">APPLY</md-button>
+                    </div>
+                </div>
+                <div class="email-parser-loader" style="top: 12%" ng-if="AllJobsCtrl.infiniteScroll.busy && !AllJobsCtrl.loader">
+                    <img src="../public/images/loader/spin.gif" alt="spinner">
+                </div>
+                <div class="overlay text" ng-if="AllJobsCtrl.noJobs">
+                    <span>No Jobs Found</span>
+                </div>
+                <h4 ng-if="AllJobsCtrl.loader" class="loading-infinite">Loading...</h4>
+            </div>
+        </div>
+        <div class="drop-cv">
+            Refer friend for future openings here<md-button class="md-raised camp-btn" ui-sref="allJobs.referralDetails({ref: $root.ref,flag: 1,share_status: $stateParams.share_status, jc:$stateParams.jc})">Upload CV</md-button>
+        </div>
+    </div>
+</div>

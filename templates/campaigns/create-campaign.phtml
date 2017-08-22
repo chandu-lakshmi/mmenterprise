@@ -1,0 +1,289 @@
+<div class="create-camp">
+    <div class="container">
+        <div layout="row" class="steps">
+            <div flex="25" ng-click="NewCampaignCtrl.nextStep('campaignDetails')" ng-class="{'active' : NewCampaignCtrl.campaignDetails }"><span class="no">1</span><span>CAMPAIGN DETAILS</span></p></div>
+            <div flex="25" ng-click="NewCampaignCtrl.nextStep('schedule')" ng-class="{'active' : NewCampaignCtrl.schedule }"><span class="no">2</span><span>SCHEDULE</span></div>
+            <div flex="25" ng-click="NewCampaignCtrl.nextStep('careersPage')" ng-class="{'active' : NewCampaignCtrl.careersPage }"><span class="no">3</span><span>CAREERS PAGE</span></div>
+            <div flex="25" ng-click="NewCampaignCtrl.nextStep('manageContacts')" ng-class="{'active' : NewCampaignCtrl.manageContacts }"><span class="no">4</span><span>MANAGE CONTACTS</span></div>
+        </div>
+        <div class="step-container" style="min-height: 400px;">
+            <!-- step one -->
+            <div layout="row" class="steps-view mm-slide-left" ng-show="NewCampaignCtrl.campaignDetails">
+                <form name="campaignDetails" flex novalidate>
+                    <div layout="column">
+                        <div layout="row" class="header">
+                            <div class="head-logo"></div>CAMPAIGN DETAILS
+                        </div>
+                        <div layout="row" class="section">
+                            <div layout="column" flex>
+                                <div layout="row">
+                                    <div flex="50">
+                                        <md-input-container flex="65" class="md-block select-box">
+                                            <label style="display:none">CAMPAIGN TYPE</label>
+                                            <md-select name="campaign_type" ng-model="NewCampaignCtrl.campDetails.campaign_type" required ng-class="{'error-border':campaignDetails.campaign_type.$invalid && NewCampaignCtrl.errCondcampaignDetails}">
+                                                <md-option ng-repeat="type in NewCampaignCtrl.campaign" ng-value="type">{{type| uppercase}}</md-option>
+                                            </md-select>
+                                            <div class="error-spacer"></div>
+                                            <div ng-if="campaignDetails.campaign_type.$error.required && NewCampaignCtrl.errCondcampaignDetails"  class="has-error-msg">Please select Campaign Type.</div>
+                                        </md-input-container>
+                                    </div>
+                                    <div flex="50">
+                                        <md-input-container flex="65" class="md-block">
+                                            <label>CAMPAIGN NAME</label>
+                                            <input type="text" name="campaign_name" ng-model="NewCampaignCtrl.campDetails.campaign_name" required ng-class="{'has-error-border':campaignDetails.campaign_name.$invalid && NewCampaignCtrl.errCondcampaignDetails}">
+                                            <div ng-if="campaignDetails.campaign_name.$error.required && NewCampaignCtrl.errCondcampaignDetails" class="has-error-msg">Please enter Campaign Name.</div>
+                                        </md-input-container>
+                                    </div>
+                                </div>
+                                <div class="location-action">
+                                    <p>LOCATION</p>
+                                    <md-radio-group layout="row" ng-init="NewCampaignCtrl.campDetails.location.location_type = 'online'" ng-model="NewCampaignCtrl.campDetails.location.location_type">
+                                        <md-radio-button value="online" flex="10" class="md-primary">Online</md-radio-button>
+                                        <md-radio-button value="onsite" flex="10" class="md-primary">On Site</md-radio-button>
+                                    </md-radio-group>
+                                </div>
+                                <input type="hidden" name="location_type" value={{NewCampaignCtrl.campDetails.location.location_type}}>
+                                <div class="location-opts animated fadeIn" ng-if="NewCampaignCtrl.campDetails.location.location_type == 'onsite'">
+                                    <div layout="row">
+                                        <div flex="50">
+                                            <md-input-container flex="65" class="md-block">
+                                                <label>ADDRESS</label>
+                                                <input type="text" name="address" ng-model="NewCampaignCtrl.campDetails.location.address" required ng-class="{'has-error-border':campaignDetails.address.$invalid && NewCampaignCtrl.errCondcampaignDetails}">
+                                                <div ng-if="campaignDetails.address.$error.required && NewCampaignCtrl.errCondcampaignDetails" class="has-error-msg">Please enter Address.</div>
+                                            </md-input-container>
+                                        </div>
+                                        <div flex="50">
+                                            <md-input-container flex="65" class="md-block">
+                                                <label>CITY</label>
+                                                <input type="text" name="city" ng-model="NewCampaignCtrl.campDetails.location.city" ng-keyup="NewCampaignCtrl.resetLocation(NewCampaignCtrl.campDetails.location.city)" required ng-class="{'has-error-border':campaignDetails.city.$invalid && NewCampaignCtrl.errCondcampaignDetails}" id="location" ng-autocomplete="NewCampaignCtrl.geo_location" details="NewCampaignCtrl.geo_details" options="NewCampaignCtrl.geo_options" apiplaceholder="">
+                                                <div ng-if="campaignDetails.city.$error.required && NewCampaignCtrl.errCondcampaignDetails" class="has-error-msg">Please enter City.</div>
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                    <div layout="row">
+                                        <div flex="50">
+                                            <md-input-container flex="65" class="md-block">
+                                                <label>ZIP CODE</label>
+                                                <input type="text" name="zip_code" ng-model="NewCampaignCtrl.campDetails.location.zip_code" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 0' ng-class="{'has-error-border':campaignDetails.zip_code.$invalid && NewCampaignCtrl.errCondcampaignDetails}" ng-pattern="/^[0-9]{5,6}$/">
+                                                <div ng-if="campaignDetails.zip_code.$error.pattern && NewCampaignCtrl.errCondcampaignDetails" class="has-error-msg">Please enter valid Zip Code.</div>
+                                            </md-input-container>
+                                        </div>
+                                        <div flex="50">
+                                            <md-input-container flex="65" class="md-block">
+                                                <label>STATE</label>
+                                                <input type="text" name="state" ng-model="NewCampaignCtrl.campDetails.location.state" required ng-class="{'has-error-border':campaignDetails.state.$invalid && NewCampaignCtrl.errCondcampaignDetails}">
+                                                <div ng-if="campaignDetails.state.$error.required && NewCampaignCtrl.errCondcampaignDetails" class="has-error-msg">Please enter State.</div>
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                    <div layout="row">
+                                        <div flex="50">
+                                            <md-input-container flex="65" class="md-block">
+                                                <label>COUNTRY</label>
+                                                <input type="text" name="country" ng-model="NewCampaignCtrl.campDetails.location.country" required ng-class="{'has-error-border':campaignDetails.country.$invalid && NewCampaignCtrl.errCondcampaignDetails}">
+                                                <div ng-if="campaignDetails.country.$error.required && NewCampaignCtrl.errCondcampaignDetails" class="has-error-msg">Please enter Country.</div>
+                                            </md-input-container>
+                                            <input type="hidden" name="latitude" value="{{NewCampaignCtrl.lat}}">
+                                            <input type="hidden" name="longitude" value="{{NewCampaignCtrl.lng}}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div layout="row" class="footer">
+                            <i flex></i>
+                            <md-button class="md-raised btn" ng-click="NewCampaignCtrl.nextStep('schedule')">NEXT <i class="material-icons">keyboard_arrow_right</i></md-button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- /step one -->
+
+
+            <!-- step two -->
+            <div layout="row" class="steps-view mm-slide-left" ng-show="NewCampaignCtrl.schedule">
+                <form name="schedule" flex novalidate>
+                    <div layout="column">
+                        <div layout="row" class="header">
+                            <div class="head-logo sch"></div> SCHEDULE
+                        </div>
+                        <div layout="row" class="section">
+                            <div flex class="schedule">
+                                <div layout="column" class="timesheet" ng-repeat="group in NewCampaignCtrl.timeSheetGroups">
+                                    <!--IMP NOTE don't rearrange the below div for this check in directive(chedule-start, chedule-end)-->
+                                    <!--ng-click="NewCampaignCtrl.openCalander('dtPickerStart'+$index)" ng-click="NewCampaignCtrl.openCalander('dtPickerEnd'+$index)"-->
+                                    <div layout="row" class="sib">
+                                        <img ng-hide="$first" ng-click="NewCampaignCtrl.closeTimeSheet(group)" class="closed" src="public/images/close-popup-red.svg" alt="close">
+                                        <md-input-container flex="30" class="md-block date-time">
+                                            <label>CAMPAIGN START DATE</label>
+                                            <input type='text' name="start{{$index}}" class="form-control" schedule-start ng-model="scheduleStart" id='dtPickerStart{{$index}}' required ng-class="{'has-error-border':NewCampaignCtrl.errCondschedule && schedule['start' + $index].$error.required}"/>
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+
+                                            <input type="hidden" name="schedule[{{$index}}][start_on_date]" value="{{NewCampaignCtrl.getScheduleDate('#dtPickerStart' + $index)}}">
+                                            <input type="hidden" name="schedule[{{$index}}][start_on_time]" value="{{NewCampaignCtrl.getScheduleTime('#dtPickerStart' + $index)}}">
+
+                                        </md-input-container>
+                                        <div ng-show="NewCampaignCtrl.errCondschedule && schedule['start' + $index].$error.required" class="has-error-msg msg">Please select Start Date.</div>
+                                    </div>
+                                    <div layout="row" class="sib">
+                                        <md-input-container flex="30" class="md-block date-time">
+                                            <label>CAMPAIGN END DATE</label>
+                                            <input type='text' class="form-control" name="end{{$index}}" required ng-model="scheduleEnd" schedule-end id='dtPickerEnd{{$index}}' ng-class="{'has-error-border':NewCampaignCtrl.errCondschedule && schedule['end' + $index].$error.required}"/>
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+
+                                            <input type="hidden" name="schedule[{{$index}}][end_on_date]" value="{{NewCampaignCtrl.getScheduleDate('#dtPickerEnd' + $index)}}">
+                                            <input type="hidden" name="schedule[{{$index}}][end_on_time]" value="{{NewCampaignCtrl.getScheduleTime('#dtPickerEnd' + $index)}}">
+
+                                        </md-input-container>
+                                        <div ng-show="NewCampaignCtrl.errCondschedule && schedule['end' + $index].$error.required" class="has-error-msg msg">Please select End Date.</div>
+                                    </div>
+                                </div>
+                                <span class="btn-action" ng-class="{ 'disable-cursor' : NewCampaignCtrl.timeSheetGroups.length == 5}" ng-click="NewCampaignCtrl.addTimeSheet()">ADD MULTIPLE SCHEDULE</span>
+                                <div class="controls">
+                                    <div flex="30" class="create-job">
+                                        <div class="modern-select" ng-class="{'no-drop-down': !NewCampaignCtrl.jobLists.length}">
+                                            <select data-rel="chosen" name="job_ids[]" id="selectJob" ng-model="NewCampaignCtrl.scheduleDetails.job_ids" data-own="ADD JOB" data-placeholder="" multiple ng-class="{'has-error-border':NewCampaignCtrl.errCondschedule && NewCampaignCtrl.scheduleDetails.job_ids.length == 0}">
+                                                <option ng-repeat="jobList in NewCampaignCtrl.jobLists" value="{{jobList.id}}" ng-bind="(jobList.job_title) + ' ( ' + (jobList.no_of_vacancies) + ' )'" id="{{jobList.id}}" class="{{jobList.no_of_vacancies}}"></option>
+                                                <!-- <option ng-if="NewCampaignCtrl.jobLists.length == 0" value="" disabled>No jobs found.</option> -->
+                                            </select>
+                                        </div>
+                                        <span class="btn-action" style="position: absolute;top: 9px;right: 0;" ng-click="NewCampaignCtrl.createJob()">CREATE JOB</span>
+                                    </div>
+                                </div>
+                                <div style="min-height:25px">
+                                    <div ng-show="NewCampaignCtrl.errCondschedule && NewCampaignCtrl.scheduleDetails.job_ids.length == 0" class="has-error-msg">Please create atleast one Job.</div>
+                                    <!-- <div ng-show="!schedule['job_ids[]'].$valid && NewCampaignCtrl.errCondschedule && NewCampaignCtrl.jobLists.length == 0" class="has-error-msg">No jobs found. (Please post atleast one job from JOBS tab.)</div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div layout="row" class="footer">
+                            <i flex></i>
+                            <md-button class="md-raised btn" ng-click="NewCampaignCtrl.nextStep('careersPage')">NEXT <i class="material-icons">keyboard_arrow_right</i></md-button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- /step two -->
+
+
+            <!-- step three -->
+            <div layout="row" class="steps-view mm-slide-left" ng-show="NewCampaignCtrl.careersPage">
+                <form name="careersPage" flex novalidate>
+                    <div layout="column">
+                        <div layout="row" class="header">
+                            <div class="head-logo carr"></div> CAREERS PAGE
+                        </div>
+                        <div layout="row" class="section">
+                            <div layout="column" flex class="careers">
+                                <div layout="row">
+                                    <div flex="70" style="padding-right:30px;">
+                                        <div layout="column">
+                                            <h5 class="head-title">UPLOADS</h5>
+                                            <div layout="row">
+                                                <div mm-uploader flex="50" class="upload" datasource="NewCampaignCtrl.companyLogoOpts"></div>
+                                                <i flex="5"></i>
+                                                <div mm-uploader flex="50" class="upload" datasource="NewCampaignCtrl.heroShortImageOpts"></div>
+                                            </div>
+                                            <h5 class="head-title link">SHOW TALENT COMMUNITY</h5>
+                                            <md-radio-group layout="row" style="color: #9f9f9f" ng-model="NewCampaignCtrl.careersDetails.career_talent_network">
+                                                <md-radio-button flex="20" value="enable" class="md-primary">Yes</md-radio-button>
+                                                <md-radio-button flex="20" value="disable" class="md-primary">No</md-radio-button>
+                                            </md-radio-group>
+                                            <input type="hidden" name="career_talent_network" value={{NewCampaignCtrl.careersDetails.career_talent_network}}>
+                                            <h5 class="head-title link">LINKS</h5>
+                                            <div layout="row" class="link-box" ng-repeat="link in NewCampaignCtrl.careersDetails.career_links">
+                                                <a href="#" class="close" ng-click="NewCampaignCtrl.careersDetails.career_links.splice($index, 1);" data-dismiss="alert" aria-label="close"><i class="material-icons">close</i></a>
+                                                <md-input-container flex="50" class="md-block">
+                                                    <label>LABEL {{$index + 1}}</label>
+                                                    <input type="text" class="rm" name="label{{$index}}" ng-required="link.url" ng-model="link.label" ng-class="{'has-error-border':careersPage['label' + $index].$error.required && NewCampaignCtrl.errCondcareersPage}">
+                                                    <div ng-if="careersPage['label' + $index].$error.required && NewCampaignCtrl.errCondcareersPage"  class="has-error-msg">Please enter Label Name.</div>
+                                                </md-input-container>
+                                                <i flex="5"></i>
+                                                <input type="hidden" ng-if="link.label" name="career_links[{{$index}}][label]" value="{{link.label}}"> 	
+                                                <md-input-container flex="50" class="md-block" style="margin-bottom:0">
+                                                    <label>Website(URL)</label>
+                                                    <input  type="text" class="rm" name="url{{$index}}" ng-required="link.label" ng-model="link.url" ng-pattern="/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/" ng-class="{'has-error-border':careersPage['url' + $index].$invalid && NewCampaignCtrl.errCondcareersPage}">
+                                                    <div ng-if="careersPage['url' + $index].$error.required && NewCampaignCtrl.errCondcareersPage"  class="has-error-msg">Please enter Website URL.</div>
+                                                    <div ng-if="careersPage['url' + $index].$error.pattern && NewCampaignCtrl.errCondcareersPage"  class="has-error-msg">Please enter valid Website URL.</div>
+                                                </md-input-container>
+                                                <input type="hidden" ng-if="link.url" name="career_links[{{$index}}][url]" value="{{link.url}}">
+                                            </div>
+                                            <div>
+                                                <span class="btn-action" ng-click="NewCampaignCtrl.addHyperlink()" ng-class="{ 'disable-cursor' : NewCampaignCtrl.careersDetails.career_links.length > 3 }" ng-disabled="NewCampaignCtrl.careersDetails.career_links.length > 3" class="hyper-link">ADD LINK</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div flex="30">
+                                        <h5 class="head-title">COMPANY DESCRIPTION</h5>
+                                        <md-input-container class="md-block" flex>
+                                            <textarea name="career_description" class="description" ng-model="NewCampaignCtrl.careersDetails.career_description" aria-label="des" md-maxlength="5000" maxlength="5000" ng-maxlength="5000"></textarea>
+                                        </md-input-container>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div layout="row" class="footer">
+                            <i flex></i>
+                            <md-button class="md-raised btn" ng-click="NewCampaignCtrl.nextStep('manageContacts')">NEXT <i class="material-icons">keyboard_arrow_right</i></md-button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- /step three-->
+
+
+            <!-- step four -->
+            <div layout="row" class="steps-view mm-slide-left" ng-show="NewCampaignCtrl.manageContacts">
+                <form name="manageContacts" flex id="frm4" novalidate>
+                    <div layout="column">
+                        <div layout="row" class="header">
+                            <div class="head-logo cts"></div> MANAGE CONTACTS
+                        </div>
+                        <div layout="row" class="section">
+                            <div layout="column" flex class="manage-contacts">
+                                <div layout="row"> 
+                                    <buckets-view flex datasource="NewCampaignCtrl.bucktesViewInternalOpts"></buckets-view>
+                                </div>
+                                <div layout="row" ng-if="NewCampaignCtrl.careersDetails.career_talent_network == 'enable'"> 
+                                    <buckets-view datasource="NewCampaignCtrl.bucktesViewExternalOpts"></buckets-view>
+                                </div>
+                                <div style="min-height:25px">
+                                    <div ng-show="!manageContacts.selectedBuckets.$valid && NewCampaignCtrl.errCondmanageContacts" class="has-error-msg">Please select atleast one Community to publish Campaign.</div>
+                                </div>
+                                <input type="hidden" name="selectedBuckets" required value="{{NewCampaignCtrl.getSelectedBkt()}}" ng-model="NewCampaignCtrl.selectedBkts">
+                                <h5 class="head-title">UPLOADS</h5>
+                                <div class="clearfix upload-files">
+                                    <div>
+                                        <md-checkbox ng-model="NewCampaignCtrl.manageContactsDetails.ceoPitch" aria-label="Checkbox 1" class="md-primary">
+                                            Upload CEO's Pitch
+                                        </md-checkbox>
+                                        <div ng-style="{'pointer-events': NewCampaignCtrl.manageContactsDetails.ceoPitch ? 'auto' : 'none'}" class="upload-pitch">BROWSE FILE</div>
+                                    </div>
+                                    <div>
+                                        <md-checkbox ng-model="NewCampaignCtrl.manageContactsDetails.employeePitch" aria-label="Checkbox 2" class="md-primary">
+                                            Upload Employee's Pitch
+                                        </md-checkbox>
+                                        <div ng-style="{'pointer-events': NewCampaignCtrl.manageContactsDetails.employeePitch ? 'auto' : 'none'}" class="upload-pitch">BROWSE FILE</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div layout="row" class="footer">
+                            <span style="margin-top: 12px;">
+                                <span ng-if="!!NewCampaignCtrl.postLoader"><img src="public/images/loader/upload_file.gif" alt="loader" style="margin:5px;">CREATING CAMPAIGN</span>
+                                <span class="message fade" ng-if="!!NewCampaignCtrl.message" ng-bind="NewCampaignCtrl.successMsg"></span>
+                            </span>
+                            <i flex></i>
+                            <md-button class="md-raised btn btn-publish" ng-disabled="NewCampaignCtrl.postPointer" ng-click="NewCampaignCtrl.postNewCampaign()">PUBLISH</md-button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- /step four-->
+        </div>
+    </div>
+</div>

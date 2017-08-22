@@ -189,10 +189,32 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
     gettingData.bol = true;
     this.buckLoader = true;
     this.serverMsg = false;
-
     this.post_job_result = gettingData.getObj();
 
     var scope = this;
+
+    scope.bucktesViewInternalOpts = {
+        type  : 1, //internal set to 1, external set to 2 
+        list  : [],
+        selectedOne: [],
+        newlySelectedBkts : [],
+        headerTxt : 'SELECT CONTACTS COMMUNITY TO PUBLISH CAMPAIGN'
+    }
+
+    scope.bucktesViewExternalOpts = {
+        type  : 2, //internal set to 1, external set to 2 
+        list  : [],
+        selectedOne : [],
+        newlySelectedBkts : [],
+        headerTxt : 'SELECT TALENT COMMUNITY TO PUBLISH CAMPAIGN'
+    }
+
+    scope.selectedBkts = '';
+    scope.getSelectedBkt = function(){
+        var selected = scope.bucktesViewInternalOpts.newlySelectedBkts.concat(scope.bucktesViewExternalOpts.newlySelectedBkts).toString();
+        scope.selectedBkts = selected;
+        return selected;
+    }
 
       // getting bucket names dynamically
     var get_buckets = $http({
@@ -203,7 +225,8 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
         url: CONFIG.APP_DOMAIN+'buckets_list'
     })
     get_buckets.success(function(response){
-        scope.bucket_names = response.data.buckets_list;
+        scope.bucktesViewInternalOpts.list = response.data.buckets_list;
+        scope.bucktesViewExternalOpts.list = response.data.buckets_list;
         scope.buckLoader = false;
     });
     get_buckets.error(function(response){
@@ -292,24 +315,7 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
         scope.userSelOnebkt = true;
         scope.bolFormValid = true;
         scope.bolForm2Valid = true;
-
-        /*if (!bolForm || !bolForm2) {
-            !bolForm ? scope.bolFormValid = true : '';
-            !bolForm2 ? scope.bolForm2Valid = true : '';
-            return false;     
-        }*/
-
         var buckets = $('input[name="selectedBuckets"]').val();
-        /*if (!buckets) {
-            scope.userSelRewards = false;
-            scope.userSelOnebkt = true;
-            return false;    
-        }
-        else if($(".select-rewards input[type='checkbox']").serializeArray().length == 0) {
-            scope.userSelOnebkt = false;
-            scope.userSelRewards = true;
-            return false;
-        }*/
         if (!buckets || $(".select-rewards input[type='checkbox']").serializeArray().length == 0 || !bolForm || !bolForm2) {
             scope.userSelRewards = true;
             return;

@@ -49,7 +49,14 @@
         <link rel="stylesheet" type="text/css" href="../public/css/email-parser.css?v=<?php echo $data['APP_VERSION']; ?>">
         <link rel="stylesheet" type="text/css" href="../public/css/email-parser-jobs.css?v=<?php echo $data['APP_VERSION']; ?>">
         <link rel="stylesheet" type="text/css" href="../public/css/email-parser-common.css?v=<?php echo $data['APP_VERSION']; ?>">
+        <link rel="stylesheet" type="text/css" href="../public/css/angular-material.min.css?v=<?php echo $data['APP_VERSION']; ?>">
+        <link rel="stylesheet" type="text/css" href="../public/css/animate.min.css?v=<?php echo $data['APP_VERSION']; ?>">
         <link rel="stylesheet" type="text/css" media="screen and (max-device-width: 480px)" href="../public/css/responsive.css" />
+
+        <!-- form builder -->
+        <link rel="stylesheet" type="text/css" href="../public/angular-survey/styles/css/my-styles.css?v=<?php echo $data['APP_VERSION']; ?>">
+        <link rel="stylesheet" type="text/css" href="../public/angular-survey/styles/css/form-builder.css?v=<?php echo $data['APP_VERSION']; ?>">
+        <link rel="stylesheet" type="text/css" href="../public/angular-survey/styles/css/form-viewer.css?v=<?php echo $data['APP_VERSION']; ?>">
 
         <script type="text/javascript" src="../public/js/vendor/jquery.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
         <script type="text/javascript" src="../public/js/vendor/bootstrap.min.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
@@ -60,7 +67,23 @@
         <script type="text/javascript" src="../public/js/vendor/fileuploader.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
         <script type="text/javascript" src="../public/js/vendor/angular-sanitize.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
         <script type="text/javascript" src="../public/js/vendor/ui-bootstrap-tpls.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
+        <script type="text/javascript" src="../public/js/vendor/angular-material.min.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
+        <script type="text/javascript" src="../public/js/vendor/angular-animate.min.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
+        <script type="text/javascript" src="../public/js/vendor/angular-aria.min.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
+        <script type="text/javascript" src="../public/js/vendor/ng-text-truncate.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
 
+
+        <!-- form builder -->
+        <script type="text/javascript" src="../public/angular-survey/dist/angular-translate.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
+        <script type="text/javascript" src="../public/angular-survey/dist/angular-translate-loader-static-files.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
+        <script type="text/javascript" src="../public/angular-survey/dist/ng-sortable.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
+        <script type="text/javascript" src="../public/angular-survey/dist/form-utils.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
+        <script type="text/javascript" src="../public/angular-survey/dist/form-builder.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
+        <script type="text/javascript" src="../public/angular-survey/dist/form-viewer.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
+        
+        <!-- Google API for Geo Location -->
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyD0LSkstKfF5yNdEuomco5HxBpXFQq2HeM&location=-33.8670522,151.1957362"></script>
+        <script type="text/javascript" src="../public/js/vendor/ngAutocomplete.js?v=<?php echo $data['APP_VERSION']; ?>"></script>
         <!-- Go to www.addthis.com/dashboard to customize your tools -->
         <!-- <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-584e9bc0740b5886"></script>  -->
     </head>
@@ -89,6 +112,7 @@
 
                         .value('CampaignDetails', <?php echo isset($data["campaignDetails"]) ? $data['campaignDetails'] : "{}"; ?>)
                         .value('campaignJobDetails', <?php echo isset($data["campaignJobDetails"]) ? $data['campaignJobDetails'] : "{}"; ?>)
+                        .value('decryptDetails', <?php echo isset($data["decryptDetails"]) ? $data['decryptDetails'] : "{}"; ?>)
             }());
 
         </script>

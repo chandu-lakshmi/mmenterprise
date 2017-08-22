@@ -169,4 +169,16 @@ function checkJsonResult($jsonResult = "") {
     return $jsonResult;
 }
 
+function formatDecryptDetails($decryptRefArr = array()) {
+    $return = '';
+    if($decryptRefArr) {
+         $decryptRefArr      = json_decode($decryptRefArr);
+         $postType           = !empty($decryptRefArr->post_type) ? $decryptRefArr->post_type : '';
+         $decryptDetails     = json_encode(array('post_type' => $postType));
+         if(!empty($decryptDetails))
+             $return = $decryptDetails;
+    }
+    return $return;
+}
+
 ?>

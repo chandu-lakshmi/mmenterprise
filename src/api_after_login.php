@@ -564,7 +564,22 @@ $app->post('/awaiting_action',function ($request, $response, $args) use ($app) {
 });
 
 //Contacts Page
-$app->get('/contacts',function ($request, $response, $args) use ($app) {
+$app->get('/contacts/internal',function ($request, $response, $args) use ($app) {
+    //Arguments
+    $this->mintmeshAccessToken;
+    $args       = commonData($this->settings);
+   
+    //Check Logged in or not
+    if(!empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']);
+    }
+
+    $args['comp_data'] = companyProfile($this->settings);
+    // Render dashboard view
+    return $this->renderer->render($response, 'index.phtml', $args);
+});
+
+$app->get('/contacts/external',function ($request, $response, $args) use ($app) {
     //Arguments
     $this->mintmeshAccessToken;
     $args       = commonData($this->settings);
@@ -788,8 +803,40 @@ $app->get('/settings/integration-manager/{tab}',function ($request, $response, $
     //return $response->withRedirect($args['APP_DOMAIN']."settings/company-profile");
 });
 
+// integration manager
+$app->get('/settings/careers-page',function ($request, $response, $args) use ($app) {
+     
+    //Arguments
+    $this->mintmeshAccessToken;
+    $args  = commonData($this->settings);
+    
+    //Check Logged in or not
+    if(!empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']);
+    }
+    $args['comp_data'] = companyProfile($this->settings);
+    // Render dashboard view
+    return $this->renderer->render($response, 'index.phtml', $args);
+    //return $response->withRedirect($args['APP_DOMAIN']."settings/company-profile");
+});
+
 // campaigns
 $app->get('/campaigns/all-campaigns',function ($request, $response, $args) use ($app) {
+    //Arguments
+    $this->mintmeshAccessToken;
+    $args       = commonData($this->settings);
+   
+    //Check Logged in or not
+    if(!empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']);
+    }
+
+    $args['comp_data'] = companyProfile($this->settings);
+    // Render dashboard view
+    return $this->renderer->render($response, 'index.phtml', $args);
+});
+
+$app->get('/campaigns/create-campaign',function ($request, $response, $args) use ($app) {
     //Arguments
     $this->mintmeshAccessToken;
     $args       = commonData($this->settings);
@@ -828,6 +875,22 @@ $app->get('/campaigns/edit-campaigns',function ($request, $response, $args) use 
       return $response->withRedirect($args['APP_DOMAIN']);
     }
     return $response->withRedirect($args['APP_DOMAIN']."campaigns/all-campaigns");
+});
+
+//form builder
+$app->get('/campaigns/form-builder',function ($request, $response, $args) use ($app) {
+    //Arguments
+    $this->mintmeshAccessToken;
+    $args       = commonData($this->settings);
+    
+    //Check Logged in or not
+    if(!empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']);
+    }
+
+    $args['comp_data'] = companyProfile($this->settings);
+    // Render dashboard view
+    return $this->renderer->render($response, 'index.phtml', $args);
 });
 
 //Logout
@@ -1266,7 +1329,7 @@ $app->POST('/resume_file_upload',function ($request, $response, $args) {
                 $_REQUEST['filename'] = $_SERVER['HTTP_WMTGOAT'];
             }
             
-            $allowedExtensions = array('doc','docx');
+            $allowedExtensions = array('doc','docx','pdf','rtf');
             // max file size in bytes
             $sizeLimit  = $this->settings['MAX_RESUME_FILE_UPLOAD_SIZE'];
             $myfilename = 'attach_' . mt_rand().time();
@@ -1626,3 +1689,97 @@ $app->get('/getZipDownload',function ($request, $response, $args) use ($app) {
    
 });
 
+//careers page setting
+$app->POST('/image_upload',function ($request, $response, $args) {
+    
+    require 'library/fileupload_library.php';//library
+        //library object
+        $file_upload = new fileupload_library; 
+        $args       = commonData($this->settings);
+        
+        if (!isset($_REQUEST['filename']) && !isset($_FILES['qqfile'])) {
+            $_REQUEST['filename'] = $_REQUEST['qqfile'];
+        }
+        
+        if (!empty($_SERVER['HTTP_WMTGOAT']) || isset($_FILES['qqfile']) || isset($_REQUEST['filename'])) {
+            
+            if (!empty($_SERVER['HTTP_WMTGOAT'])) {
+                $_REQUEST['filename'] = $_SERVER['HTTP_WMTGOAT'];
+            }
+            
+            //allowed Extensions
+            $allowedExtensions = array('jpg', 'gif', 'png', 'jpeg', 'eps', 'cdr', 'ai', 'psd', 'tga', 'tiff', 'tif', 'ttf', 'svg');
+            // max file size in bytes
+            $sizeLimit  = 26 * 1024 * 1024;
+            $myfilename = 'attach_' . mt_rand().time();
+            
+            //upload the file and validate the size and file type
+            $uploader   = $file_upload->fileUpload($allowedExtensions, $sizeLimit);
+            //return the file original and source name and path
+            $path   = $args['PATH'];
+            $result = $file_upload->handleUpload(''.$path.'uploads/', FALSE, $myfilename);
+            
+            
+            if (isset($result['success']) && $result['success'] == true) {
+                    
+                if (isset($_REQUEST['filename']) || isset($_REQUEST['qqfile'])) {
+                    
+                    $org_name = isset($_REQUEST['filename']) ? $_REQUEST['filename'] : (isset($_REQUEST['qqfile']) ? $_REQUEST['qqfile'] : '');
+                } elseif (isset($_FILES['qqfile'])) {
+                    
+                    $org_name = $_FILES['qqfile']['name'];
+                } else {
+                    $org_name = '';
+                }
+                
+                $fname =  str_replace('_',' ',$org_name);
+                //$result['org_name'] = pathinfo(filterString($fname), PATHINFO_FILENAME);
+                $result['org_name'] = $fname;
+                $result['size']     = $result['size']/1000;
+                $result['filename'] = 'uploads/'.$myfilename.'.'.$result['ext'];
+                $data['success']    = true;
+                echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
+            } else {
+                $data['success'] = false;
+                $data['msg']     = 'Maximum file size is 26MB';
+                echo htmlspecialchars(json_encode($data), ENT_NOQUOTES);
+            }
+        } else {
+            $data['success'] = false;
+            $data['msg']     = 'No file uploaded';
+            echo htmlspecialchars(json_encode($data), ENT_NOQUOTES);
+        }
+  
+});
+//add, edit career page settings api
+$app->post('/edit_career_settings',function ($request, $response, $args) use ($app) {
+    
+    // dynamically Access Token, Company Details
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    // getting API endpoint from settings
+   $apiEndpoint = getapiEndpoint($this->settings, 'edit_career_settings');
+   //print_r($_POST).exit;
+    $jobList    = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    
+    return checkJsonResult( $jobList->loadCurl() );
+});
+//get career page settings api
+$app->post('/get_career_settings',function ($request, $response, $args) use ($app) {
+    
+    // dynamically Access Token, Company Details
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    // getting API endpoint from settings
+   $apiEndpoint = getapiEndpoint($this->settings, 'get_career_settings');
+   //print_r($_POST).exit;
+    $jobList    = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    
+    return checkJsonResult( $jobList->loadCurl() );
+});

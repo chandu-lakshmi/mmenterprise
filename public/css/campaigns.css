@@ -15,8 +15,7 @@ md-dialog md-dialog-actions button.md-primary {
   background: #eeeff1;
   /* sub header */
   /* md-input-container */
-  /* mdPicker Styles */
-  /* qq-uploader */ }
+  /* mdPicker Styles */ }
   .campaigns .sub-header {
     background: #0e2d3f;
     height: 60px; }
@@ -75,10 +74,12 @@ md-dialog md-dialog-actions button.md-primary {
           padding: 0;
           margin: 0;
           padding-top: 5px; }
-          .campaigns .sub-header ul li:last-child span button {
+          .campaigns .sub-header ul li:last-child a {
             margin: 0;
             padding: 12px 10px;
             line-height: normal; }
+            .campaigns .sub-header ul li:last-child a:hover:before {
+              border: 0; }
   .campaigns md-input-container .md-placeholder, .campaigns md-input-container label:not(.md-no-float):not(.md-container-ignore) {
     -webkit-transform: translate3d(0, 35px, 0) scale(1);
     transform: translate3d(0, 35px, 0) scale(1);
@@ -140,77 +141,6 @@ md-dialog md-dialog-actions button.md-primary {
       width: 100% !important; }
       .campaigns mdp-time-picker .layout-align-start-start md-input-container .md-input {
         padding: 0 0 0 25px !important; }
-  .campaigns .qq-uploader {
-    margin: 0;
-    padding: 0;
-    height: 100%; }
-    .campaigns .qq-uploader .qq-upload-button {
-      background: transparent;
-      height: 100%;
-      width: 100%;
-      text-shadow: none;
-      font-weight: normal;
-      text-transform: uppercase; }
-      .campaigns .qq-uploader .qq-upload-button .align-title {
-        position: absolute;
-        top: 35%;
-        width: 100%;
-        left: 0;
-        font-size: 18px;
-        text-transform: capitalize; }
-        .campaigns .qq-uploader .qq-upload-button .align-title p {
-          width: 80%;
-          margin: 10px auto 0;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          overflow: hidden; }
-    .campaigns .qq-uploader .qq-upload-drop-area .file-name {
-      width: 100%;
-      height: 100%; }
-      .campaigns .qq-uploader .qq-upload-drop-area .file-name .name {
-        position: absolute;
-        width: 90%;
-        bottom: 17px;
-        font-size: 15px;
-        left: 6%;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-        color: #fff; }
-      .campaigns .qq-uploader .qq-upload-drop-area .file-name .overlay {
-        display: none;
-        background: #000000;
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        opacity: 0.1; }
-      .campaigns .qq-uploader .qq-upload-drop-area .file-name i.fa {
-        position: absolute;
-        top: 5px;
-        right: 10px;
-        padding: 3px;
-        border: 1px solid #ccc;
-        background: #fff;
-        border-radius: 4px;
-        display: none;
-        cursor: pointer; }
-      .campaigns .qq-uploader .qq-upload-drop-area .file-name:hover .overlay, .campaigns .qq-uploader .qq-upload-drop-area .file-name:hover i.fa {
-        display: block; }
-    .campaigns .qq-uploader .qq-upload-list {
-      z-index: -1;
-      top: 65%; }
-      .campaigns .qq-uploader .qq-upload-list li {
-        height: 15px; }
-        .campaigns .qq-uploader .qq-upload-list li span:not(.qq-progress-bar) {
-          visibility: hidden; }
-  .campaigns .qq-upload-fail {
-    position: absolute;
-    font-size: 13px;
-    color: #983a3a;
-    white-space: nowrap;
-    bottom: -25px; }
   .campaigns .all-campaigns {
     min-height: calc(100vh - 160px);
     font-size: 16px;
@@ -311,9 +241,43 @@ md-dialog md-dialog-actions button.md-primary {
       background: #fff;
       padding: 40px; }
       .campaigns .edit-campaigns .box .content {
-        color: #767877; }
+        color: #767877;
+        /* .date{
+             p{margin: 0;}
+             md-input-container{
+                 label{left: 25px;}
+                 &.md-input-focused, &.md-input-has-value{
+                    label:not(.md-no-float){
+                         -webkit-transform: translate3d(0, 10px, 0) scale(0.87);
+                         transform: translate3d(0, 10px, 0) scale(0.87);
+                         color: #767877;
+                         margin-left: -25px;
+                         font-size: 18px;
+                    }
+                    //label{display: none !important;}
+                }
+            }
+            div.clearfix{position: relative;}
+            div.start{width: 45%;float: left;margin-right: 68px;}
+            div.ends{@extend div.start; margin: 0}
+            mdp-date-picker,mdp-time-picker{
+                &.has-error-border{
+                    .md-input{border-color: red;}
+                }
+            }
+            span.status{position: absolute;top: 36%;left: 101%;color: #d85c5e;}
+        } */ }
+        .campaigns .edit-campaigns .box .content md-input-container input, .campaigns .edit-campaigns .box .content md-input-container textarea, .campaigns .edit-campaigns .box .content md-input-container .md-select-value .md-text {
+          font-size: 17px; }
+        .campaigns .edit-campaigns .box .content .head-title {
+          font-weight: 600;
+          font-size: 17px;
+          color: #545454;
+          border-bottom: 1px solid #d8d8d8;
+          padding-bottom: 10px;
+          margin-bottom: 44px; }
         .campaigns .edit-campaigns .box .content .clearfix md-input-container {
-          width: 45%;
+          width: 32%;
           float: left; }
           .campaigns .edit-campaigns .box .content .clearfix md-input-container:first-child {
             margin-right: 68px; }
@@ -334,31 +298,180 @@ md-dialog md-dialog-actions button.md-primary {
               margin-left: 63px; }
         .campaigns .edit-campaigns .box .content .location md-input-container {
           margin: 10px 0; }
-        .campaigns .edit-campaigns .box .content .date p {
-          margin: 0; }
-        .campaigns .edit-campaigns .box .content .date md-input-container label {
-          left: 25px; }
-        .campaigns .edit-campaigns .box .content .date md-input-container.md-input-focused label:not(.md-no-float), .campaigns .edit-campaigns .box .content .date md-input-container.md-input-has-value label:not(.md-no-float) {
-          -webkit-transform: translate3d(0, 10px, 0) scale(0.87);
-          transform: translate3d(0, 10px, 0) scale(0.87);
-          color: #767877;
-          margin-left: -25px;
-          font-size: 18px; }
-        .campaigns .edit-campaigns .box .content .date div.clearfix {
-          position: relative; }
-        .campaigns .edit-campaigns .box .content .date div.start, .campaigns .edit-campaigns .box .content .date div.ends {
-          width: 45%;
-          float: left;
-          margin-right: 68px; }
-        .campaigns .edit-campaigns .box .content .date div.ends {
-          margin: 0; }
-        .campaigns .edit-campaigns .box .content .date mdp-date-picker.has-error-border .md-input, .campaigns .edit-campaigns .box .content .date mdp-time-picker.has-error-border .md-input {
-          border-color: red; }
-        .campaigns .edit-campaigns .box .content .date span.status {
-          position: absolute;
-          top: 36%;
-          left: 101%;
-          color: #d85c5e; }
+        .campaigns .edit-campaigns .box .content .btn-action {
+          color: #3d80b8;
+          font-weight: 600;
+          font-size: 14px; }
+        .campaigns .edit-campaigns .box .content .schedule {
+          color: #333; }
+          .campaigns .edit-campaigns .box .content .schedule md-input-container {
+            width: 79%; }
+            .campaigns .edit-campaigns .box .content .schedule md-input-container input[aria-disabled="true"] {
+              background: transparent;
+              cursor: not-allowed !important; }
+          .campaigns .edit-campaigns .box .content .schedule span.status {
+            position: absolute;
+            top: 28%;
+            right: 18%;
+            color: #d85c5e; }
+          .campaigns .edit-campaigns .box .content .schedule .timesheet {
+            position: relative; }
+            .campaigns .edit-campaigns .box .content .schedule .timesheet .closed {
+              position: absolute;
+              right: 19.8%;
+              top: 28px;
+              width: 20px;
+              z-index: 1; }
+            .campaigns .edit-campaigns .box .content .schedule .timesheet .sib {
+              position: relative; }
+              .campaigns .edit-campaigns .box .content .schedule .timesheet .sib .date-time input {
+                border-radius: 0;
+                box-shadow: none;
+                cursor: pointer; }
+              .campaigns .edit-campaigns .box .content .schedule .timesheet .sib .date-time .input-group-addon {
+                position: absolute;
+                right: 16px;
+                top: 10px;
+                padding: 0;
+                pointer-events: none;
+                border: 0; }
+                .campaigns .edit-campaigns .box .content .schedule .timesheet .sib .date-time .input-group-addon .glyphicon {
+                  font-size: 16px; }
+              .campaigns .edit-campaigns .box .content .schedule .timesheet .sib .has-error-msg.msg {
+                position: absolute;
+                bottom: 20px;
+                left: 4px; }
+        .campaigns .edit-campaigns .box .content .create-job {
+          position: relative;
+          width: 70%; }
+          .campaigns .edit-campaigns .box .content .create-job .btn-schedule {
+            position: absolute;
+            bottom: 7px;
+            right: 0;
+            z-index: 9; }
+          .campaigns .edit-campaigns .box .content .create-job .modern-select label {
+            position: absolute;
+            padding-left: 3px;
+            -webkit-transform: translate3d(0, 8px, 0) scale(1);
+            transform: translate3d(0, 8px, 0) scale(1);
+            font-size: 16px;
+            color: #767877;
+            display: block !important;
+            font-weight: normal;
+            transition: -webkit-transform cubic-bezier(0.25, 0.8, 0.25, 1) 0.25s;
+            transition: transform cubic-bezier(0.25, 0.8, 0.25, 1) 0.25s;
+            -webkit-transform-origin: left top;
+            transform-origin: left top; }
+          .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container {
+            width: 100% !important;
+            min-height: 34px; }
+            .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container .chosen-choices {
+              border: 0;
+              box-shadow: none;
+              background: none;
+              border-bottom: 1px solid #d8d8d8; }
+            .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container .search-choice {
+              margin: 4px 0 4px 5px;
+              padding: 8px 20px 8px 5px; }
+              .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container .search-choice .search-choice-close {
+                top: 8px; }
+            .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container .search-field input {
+              height: 34px; }
+            .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container .chosen-drop {
+              border-top: 1px solid #aaa;
+              top: 110%; }
+          .campaigns .edit-campaigns .box .content .create-job .modern-select .has-error-border + .chosen-container {
+            border-bottom: 1px solid red; }
+          .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container-active, .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container-has-value {
+            border-bottom: 1px solid #208d6e; }
+            .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container-active label, .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container-has-value label {
+              -webkit-transform: translate3d(0, -21px, 0) scale(0.85);
+              transform: translate3d(0, -21px, 0) scale(0.85); }
+            .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container-active .chosen-choices, .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container-has-value .chosen-choices {
+              border: 0;
+              width: 75%; }
+        .campaigns .edit-campaigns .box .content .careers h5.sub-head {
+          font-weight: 600; }
+        .campaigns .edit-campaigns .box .content .careers .left {
+          padding-right: 20px; }
+          .campaigns .edit-campaigns .box .content .careers .left .uploads {
+            height: 70px;
+            background: #f9f9f9;
+            border: 1px solid #dcdcdc; }
+            .campaigns .edit-campaigns .box .content .careers .left .uploads.video .qq-uploader {
+              background: url("../images/add_video.png") no-repeat 12px 12px; }
+            .campaigns .edit-campaigns .box .content .careers .left .uploads .qq-uploader {
+              padding: 0;
+              background: url("../images/add_photo.png") no-repeat 18px 18px;
+              height: 68px; }
+              .campaigns .edit-campaigns .box .content .careers .left .uploads .qq-uploader .qq-upload-button {
+                background: transparent;
+                text-align: left; }
+                .campaigns .edit-campaigns .box .content .careers .left .uploads .qq-uploader .qq-upload-button input {
+                  width: 100%; }
+                .campaigns .edit-campaigns .box .content .careers .left .uploads .qq-uploader .qq-upload-button span {
+                  padding: 2px 0 0 30px;
+                  display: inline-block;
+                  color: gray;
+                  text-transform: none;
+                  font-size: 14px; }
+                  .campaigns .edit-campaigns .box .content .careers .left .uploads .qq-uploader .qq-upload-button span.head {
+                    padding-top: 5px;
+                    color: #56aadf;
+                    margin: initial; }
+                  .campaigns .edit-campaigns .box .content .careers .left .uploads .qq-uploader .qq-upload-button span.desc {
+                    display: block;
+                    color: #bcbfc5; }
+              .campaigns .edit-campaigns .box .content .careers .left .uploads .qq-uploader .qq-upload-drop-area .drag_img {
+                background: #f9f9f9; }
+                .campaigns .edit-campaigns .box .content .careers .left .uploads .qq-uploader .qq-upload-drop-area .drag_img .img-thumbnail {
+                  width: 20%;
+                  float: left;
+                  padding: 6px;
+                  border: 0;
+                  background: transparent;
+                  margin-right: 14px; }
+                .campaigns .edit-campaigns .box .content .careers .left .uploads .qq-uploader .qq-upload-drop-area .drag_img p {
+                  color: #56b8ee;
+                  text-align: left;
+                  padding-top: 25px;
+                  font-weight: 600;
+                  max-width: 230px;
+                  width: auto; }
+          .campaigns .edit-campaigns .box .content .careers .left .link {
+            margin-top: 28px; }
+          .campaigns .edit-campaigns .box .content .careers .left .link-box {
+            position: relative; }
+            .campaigns .edit-campaigns .box .content .careers .left .link-box .close {
+              position: absolute;
+              right: 0;
+              background: #eb6f6b;
+              border-radius: 50%;
+              width: 16px;
+              height: 16px;
+              opacity: 1;
+              text-align: center;
+              font-size: 16px;
+              color: #fff; }
+              .campaigns .edit-campaigns .box .content .careers .left .link-box .close i {
+                font-size: 12px;
+                margin: 1px 2px; }
+          .campaigns .edit-campaigns .box .content .careers .left .closed {
+            position: absolute;
+            right: 0;
+            top: -24px;
+            width: 20px; }
+        .campaigns .edit-campaigns .box .content .careers md-input-container {
+          width: 100%;
+          margin-top: 0; }
+          .campaigns .edit-campaigns .box .content .careers md-input-container .description {
+            min-height: 430px;
+            max-height: 430px;
+            overflow: auto;
+            border: 1px solid #d8d8d8;
+            height: 450px;
+            padding: 10px 16px !important;
+            font-size: 16px; }
         .campaigns .edit-campaigns .box .content .add-schedule, .campaigns .edit-campaigns .box .content .upload-files {
           font-size: 18px;
           font-weight: bold;
@@ -375,7 +488,7 @@ md-dialog md-dialog-actions button.md-primary {
             left: 6.67px;
             top: 2.22px; }
         .campaigns .edit-campaigns .box .content .tag-jobs {
-          margin-bottom: 30px;
+          margin: 30px 0;
           font-size: 14px;
           font-weight: bold; }
           .campaigns .edit-campaigns .box .content .tag-jobs .drop {
@@ -385,8 +498,9 @@ md-dialog md-dialog-actions button.md-primary {
             .campaigns .edit-campaigns .box .content .tag-jobs .drop p span.pull-right {
               cursor: pointer;
               outline: none;
-              color: #1d8e70;
-              text-decoration: underline; }
+              color: #3d80b8;
+              text-decoration: underline;
+              font-weight: 600; }
             .campaigns .edit-campaigns .box .content .tag-jobs .drop .modern-select .chosen-container {
               width: 100% !important;
               min-height: 34px; }
@@ -407,42 +521,115 @@ md-dialog md-dialog-actions button.md-primary {
               font-weight: normal; }
         .campaigns .edit-campaigns .box .content .upload-contacts {
           margin-bottom: 45px; }
-        .campaigns .edit-campaigns .box .content .upload-files .upload-pitch {
-          display: inline-block;
-          vertical-align: middle;
-          position: relative;
-          width: 115px; }
-          .campaigns .edit-campaigns .box .content .upload-files .upload-pitch .qq-uploader .qq-upload-button {
+        .campaigns .edit-campaigns .box .content .upload-files {
+          /* qq-uploader */ }
+          .campaigns .edit-campaigns .box .content .upload-files .qq-uploader {
+            margin: 0;
             padding: 0;
-            font-weight: bold;
-            font-size: 13px;
-            letter-spacing: 0.6px;
-            color: #219070; }
-          .campaigns .edit-campaigns .box .content .upload-files .upload-pitch .qq-upload-fail {
-            top: 0;
-            left: 123%; }
-          .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box {
-            border: 1px solid #ccc;
-            margin-bottom: 20px;
-            min-height: 50px; }
-            .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file {
-              position: relative;
-              padding: 15px; }
-              .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file .progress-bar {
-                width: 300px;
+            height: 100%; }
+            .campaigns .edit-campaigns .box .content .upload-files .qq-uploader .qq-upload-button {
+              background: transparent;
+              height: 100%;
+              width: 100%;
+              text-shadow: none;
+              font-weight: normal;
+              text-transform: uppercase; }
+              .campaigns .edit-campaigns .box .content .upload-files .qq-uploader .qq-upload-button .align-title {
                 position: absolute;
-                height: 25px; }
-              .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file .filename div.logo {
-                background: url("../images/Applied.svg"); }
-              .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file .filename .name {
-                color: #000;
-                width: 50%;
-                display: inline-block;
-                vertical-align: middle;
-                margin: 0 12px; }
-              .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file .filename img {
-                width: 20px;
-                height: 20px; }
+                top: 35%;
+                width: 100%;
+                left: 0;
+                font-size: 18px;
+                text-transform: capitalize; }
+                .campaigns .edit-campaigns .box .content .upload-files .qq-uploader .qq-upload-button .align-title p {
+                  width: 80%;
+                  margin: 10px auto 0;
+                  white-space: nowrap;
+                  text-overflow: ellipsis;
+                  overflow: hidden; }
+            .campaigns .edit-campaigns .box .content .upload-files .qq-uploader .qq-upload-drop-area .file-name {
+              width: 100%;
+              height: 100%; }
+              .campaigns .edit-campaigns .box .content .upload-files .qq-uploader .qq-upload-drop-area .file-name .name {
+                position: absolute;
+                width: 90%;
+                bottom: 17px;
+                font-size: 15px;
+                left: 6%;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                color: #fff; }
+              .campaigns .edit-campaigns .box .content .upload-files .qq-uploader .qq-upload-drop-area .file-name .overlay {
+                display: none;
+                background: #000000;
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                opacity: 0.1; }
+              .campaigns .edit-campaigns .box .content .upload-files .qq-uploader .qq-upload-drop-area .file-name i.fa {
+                position: absolute;
+                top: 5px;
+                right: 10px;
+                padding: 3px;
+                border: 1px solid #ccc;
+                background: #fff;
+                border-radius: 4px;
+                display: none;
+                cursor: pointer; }
+              .campaigns .edit-campaigns .box .content .upload-files .qq-uploader .qq-upload-drop-area .file-name:hover .overlay, .campaigns .edit-campaigns .box .content .upload-files .qq-uploader .qq-upload-drop-area .file-name:hover i.fa {
+                display: block; }
+            .campaigns .edit-campaigns .box .content .upload-files .qq-uploader .qq-upload-list {
+              z-index: -1;
+              top: 65%; }
+              .campaigns .edit-campaigns .box .content .upload-files .qq-uploader .qq-upload-list li {
+                height: 15px; }
+                .campaigns .edit-campaigns .box .content .upload-files .qq-uploader .qq-upload-list li span:not(.qq-progress-bar) {
+                  visibility: hidden; }
+          .campaigns .edit-campaigns .box .content .upload-files .qq-upload-fail {
+            position: absolute;
+            font-size: 13px;
+            color: #983a3a;
+            white-space: nowrap;
+            bottom: -25px; }
+          .campaigns .edit-campaigns .box .content .upload-files .upload-pitch {
+            display: inline-block;
+            vertical-align: middle;
+            position: relative;
+            width: 115px; }
+            .campaigns .edit-campaigns .box .content .upload-files .upload-pitch .qq-uploader .qq-upload-button {
+              padding: 0;
+              font-weight: bold;
+              font-size: 13px;
+              letter-spacing: 0.6px;
+              color: #219070; }
+            .campaigns .edit-campaigns .box .content .upload-files .upload-pitch .qq-upload-fail {
+              top: 0;
+              left: 123%; }
+            .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box {
+              border: 1px solid #ccc;
+              margin-bottom: 20px;
+              min-height: 50px; }
+              .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file {
+                position: relative;
+                padding: 15px; }
+                .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file .progress-bar {
+                  width: 300px;
+                  position: absolute;
+                  height: 25px; }
+                .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file .filename div.logo {
+                  background: url("../images/Applied.svg"); }
+                .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file .filename .name {
+                  color: #000;
+                  width: 50%;
+                  display: inline-block;
+                  vertical-align: middle;
+                  margin: 0 12px; }
+                .campaigns .edit-campaigns .box .content .upload-files .upload-pitch + .upload-box .file .filename img {
+                  width: 20px;
+                  height: 20px; }
       .campaigns .edit-campaigns .box .box-footer {
         border-top: 1px solid #ccc;
         padding: 20px 0; }
@@ -460,5 +647,7 @@ md-dialog md-dialog-actions button.md-primary {
           display: inline-block;
           text-align: center;
           text-transform: uppercase; }
+    .campaigns .edit-campaigns .bucket-container .bucket-each {
+      width: 13.5%; }
 
 /*# sourceMappingURL=campaigns.css.map */

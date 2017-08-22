@@ -6,7 +6,7 @@
         'app.components', 'app.helpers', 'app.services', 'app.constantKeys',
         'app.home', 'app.forgotPassword', 'app.company.profile', 'app.import.contacts', 'app.emails', 'app.dashboard',
         'app.engagement.contacts', 'app.post.job', 'app.job.search', 'app.job.details', 'app.rewards', 'app.edit.company', 'app.contact',
-        'app.candidates', 'app.campaigns', 'app.settings', 'app.license.management'
+        'app.candidates', 'app.campaigns', 'app.settings', 'app.license.management', 'app.analytics'
     ])
 
             .constant('CONFIG', {
@@ -76,7 +76,8 @@
                     url: '/import-contacts',
                     templateUrl: App.base_url + 'templates/import-contacts-list.phtml',
                     params: {
-                        rowEdit: 0
+                        rowEdit     : 0,
+                        bucketType : 1//internal contact 1 & external contact 2
                     },
                     controller: 'ContactsController',
                     controllerAs: 'ContactCtrl'
@@ -138,15 +139,32 @@
                     controller: 'RewardsController',
                     controllerAs: 'RewardCtrl'
                 })
+
                 $stateProvider.state('app.contact', {
                     url: '^/contacts',
-                    templateUrl: App.base_url + 'templates/contacts.phtml',
+                    templateUrl: App.base_url + 'templates/contacts/contacts-header.phtml',
+                })
+                $stateProvider.state('app.contact.Internal', {
+                    url: '^/contacts/internal',
+                    templateUrl: App.base_url + 'templates/contacts/contacts-internal.phtml',
                     params: {
-                        rowEdit: 1
+                        rowEdit     : 1,
+                        bucketType : 1 //internal contact 1 & external contact 2
                     },
                     controller: 'ContactsController',
                     controllerAs: 'ContactCtrl'
                 })
+                $stateProvider.state('app.contact.External', {
+                    url: '^/contacts/external',
+                    templateUrl: App.base_url + 'templates/contacts/contacts-external.phtml',
+                    params : {
+                        rowEdit     : 1,
+                        bucketType : 2 //internal contact 1 & external contact 2
+                    },
+                    controller: 'ContactsController',
+                    controllerAs: 'ContactCtrl'
+                })
+
                 $stateProvider.state('app.candidates', {
                     url: '^/candidates',
                     templateUrl: App.base_url + 'templates/candidates/candidates.phtml',
@@ -170,6 +188,12 @@
                     templateUrl: App.base_url + 'templates/candidates/find-resume.phtml',
                     controller: 'FindResumeController',
                     controllerAs: 'FindResumeCtrl'
+                })
+                $stateProvider.state('app.createCampaign', {
+                    url: '^/campaigns/create-campaign',
+                    templateUrl: App.base_url + 'templates/campaigns/create-campaign.phtml',
+                    controller: 'NewCampaignController',
+                    controllerAs: 'NewCampaignCtrl'
                 })
                 $stateProvider.state('app.campaigns', {
                     url: '^/campaigns',
@@ -202,6 +226,12 @@
                     templateUrl: App.base_url + 'templates/campaigns/edit-campaigns.phtml',
                     controller: 'EditCampaignsController',
                     controllerAs: 'EditCampaignsCtrl'
+                })
+                $stateProvider.state('app.campaigns.formBuilder', {
+                    url: '^/campaigns/form-builder',
+                    templateUrl: App.base_url + 'templates/campaigns/form-builder.phtml',
+                    controller: 'FormBuilderController',
+                    controllerAs: 'FormBuilderCtrl'
                 })
                 $stateProvider.state('app.settings', {
                     url: '^/settings',
@@ -239,6 +269,12 @@
                     controller: 'IntManagerController',
                     controllerAs: 'IntMngCtrl'
                 })
+                $stateProvider.state('app.settings.careersPage', {
+                    url: '^/settings/careers-page',
+                    templateUrl: App.base_url + 'templates/settings/careers-page.phtml',
+                    controller: 'CareersPageController',
+                    controllerAs: 'CareersPageCtrl'
+                })
                 $stateProvider.state('app.editCompanyProfile', {
                     url: '^/edit-company-profile',
                     templateUrl: App.base_url + 'templates/edit-company-profile.phtml',
@@ -251,6 +287,13 @@
                     controller: 'licenseManagementController',
                     controllerAs: 'licMangCtrl'
                 })
+                $stateProvider.state('app.analytics', {
+                    url: '^/analytics',
+                    templateUrl: App.base_url + 'templates/analytics.phtml',
+                    controller: 'licenseManagementController',
+                    controllerAs: 'licMangCtrl'
+                })
+
                 $stateProvider.state('app.mintbot', {
                     url: '^/mintbot',
                     templateUrl: App.base_url + 'templates/mintbot.phtml',

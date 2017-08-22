@@ -7,7 +7,7 @@
 
 .disable-cursor {
   opacity: 0.5;
-  cursor: not-allowed; }
+  cursor: not-allowed !important; }
 
 /* mintmesh buttons */
 /*.mm-btn{

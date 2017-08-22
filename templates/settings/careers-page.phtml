@@ -1,0 +1,93 @@
+<div class="edit-company careers-page">
+	<div class="container">
+		<div class="head">
+			<div ng-if="edit_careers_page_form.$dirty || CareersPageCtrl.update" class="animated fadeIn" style="margin-top:10px;">
+				<span class="pull-right mm-btn ripplelink" style="position:relative;" ng-click="CareersPageCtrl.updateCareersPage(edit_careers_page_form)">UPDATE<img src="public/images/loader/dot.svg" alt="dot" ng-if="CareersPageCtrl.updateLoader"/></span>
+				<span class="pull-right cancel mm-btn ripplelink" style="margin-right:20px;" ng-click="CareersPageCtrl.cancel();edit_careers_page_form.$setPristine();">CANCEL</span>
+			</div>
+		</div>
+		<div class="error-spacer"></div>
+		<div class="msg" ng-if="CareersPageCtrl.errorMsgCond">
+			<span>Successfully Updated</span>
+		</div>
+		<div class="edit-box clearfix">
+			<div class="carrers-parser-loader" ng-if="CareersPageCtrl.inProgress">
+			    <div>
+			        <img src="public/images/loader/spin.gif" alt="loading">
+			    </div>
+			</div>
+			<form name="edit_careers_page_form" class="careers-form" novalidate ng-show="!CareersPageCtrl.inProgress">
+				<div class="row logo-heroshort" style="font-size:13px;">
+					<div class="col-sm-6">
+						<div style="width:85%;">
+							<div class="company-logo">
+					        	<span class="header-info">LOGO <small>( Add your careers page company logo )</small></span>
+					        	<div id="company-logo" style="position:relative"></div>
+					        	<ul class="file-info">
+					        		<li>Supported file format: "jpeg", "jpg", "png"</li>
+					        		<li>Max file size (1.0MB)</li>
+					        	</ul>
+					        </div>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div style="width:85%;">
+							<div>
+								<span class="header-info">HEROSHOT IMAGE <small>( Add your careers page heroshot image )</small></span>
+								<div class="image-group">
+									<div class="multiple-images" id="hero-short-image"></div>
+								</div>
+								<ul style="margin-top:10px;" class="file-info">
+					        		<li>Supported file format: "jpeg", "jpg", "png"</li>
+					        		<li>Max file size (1.0MB)</li>
+					        	</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+	 				<div class="col-sm-6" style="margin-top: 30px">
+    					<span class="header-info">HYPERLINKS <small>( Add your careers page hyperlinks like HOME, ABOUT, JOIN US )</small></span>
+	 					<div class="alert {{link.cls}}" style="width:85%;margin:0;padding-left:0" ng-repeat="link in CareersPageCtrl.carrerPage.career_links">
+		 					<a href="#" class="close" ng-if="!$first" ng-click="CareersPageCtrl.carrerPage.career_links.splice($index, 1);edit_careers_page_form.$setDirty();" data-dismiss="alert" aria-label="close">×</a>
+		 					<md-input-container class="md-block">
+								<label>LABEL NAME<span style="color: #999"></span></label>
+								<input type="text" class="rm" name="label{{$index}}" ng-required="link.url" ng-model="link.label" ng-class="{'has-error-border':edit_careers_page_form['label'+$index].$error.required && CareersPageCtrl.errCond}">
+								<div ng-if="edit_careers_page_form['label'+$index].$error.required && CareersPageCtrl.errCond"  class="has-error-msg">Please enter Label Name.</div>
+							</md-input-container>
+							<input type="hidden" ng-if="link.label" name="career_links[{{$index}}][label]" value="{{link.label}}"> 
+
+		 					<md-input-container class="md-block" style="margin-bottom:0">
+								<label>WEBSITE<span style="color: #999">(URL)</span></label>
+								<input  type="text" class="rm" name="url{{$index}}" ng-required="link.label" ng-model="link.url" ng-pattern="/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/" ng-class="{'has-error-border':edit_careers_page_form['url'+$index].$invalid && CareersPageCtrl.errCond}">
+								<div ng-if="edit_careers_page_form['url'+$index].$error.required && CareersPageCtrl.errCond"  class="has-error-msg">Please enter Website URL.</div>
+								<div ng-if="edit_careers_page_form['url'+$index].$error.pattern && CareersPageCtrl.errCond"  class="has-error-msg">Please enter valid Website URL.</div>
+							</md-input-container>
+							<input type="hidden" ng-if="link.url" name="career_links[{{$index}}][url]" value="{{link.url}}"> 
+	 					</div>
+	 					<div>
+	 						<md-button ng-click="CareersPageCtrl.addHyperlink()" ng-class="{ 'disable-cursor' : CareersPageCtrl.carrerPage.career_links.length > 3 }" ng-disabled="CareersPageCtrl.carrerPage.career_links.length > 3" class="hyper-link">Add Link</md-button>
+	 					</div>
+	 				</div>
+	 				<div class="col-sm-6">
+	 					<div style="width:85%;margin-top: 32px;color: #999;">
+	 						<div class="clearfix">
+	 						   <p class="header-info">SHOW TALENT COMMUNITY</p>
+	 						   <md-radio-group layout="row" ng-model="CareersPageCtrl.carrerPage.career_talent_network">
+	 						         <md-radio-button flex="20" value="enable" class="md-primary">Yes</md-radio-button>
+	 						         <md-radio-button flex="20" value="disable" class="md-primary">No</md-radio-button>
+	 						   </md-radio-group>
+	 						   <input type="hidden" name="career_talent_network" value={{CareersPageCtrl.carrerPage.career_talent_network}}>
+	 						</div>
+							<md-input-container class="md-block" style="margin-top: 50px;">
+      							<label>DESCRIPTION</label>
+          						<textarea name="career_description" ng-model="CareersPageCtrl.carrerPage.career_description" md-maxlength="5000" maxlength="5000" ng-maxlength="5000" style="max-height:106px"></textarea>
+    						</md-input-container>
+						</div>
+	 				</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+</div>
