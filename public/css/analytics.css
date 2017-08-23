@@ -11,12 +11,18 @@
       border-radius: 0; }
     .analytics .box .search input {
       height: 64px; }
+      .analytics .box .search input:focus {
+        border-color: #ddd;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); }
     .analytics .box .search .md-button {
       margin: 0;
       background: #02b892;
       color: #fff;
       font-size: 18px;
       width: 180px; }
+      .analytics .box .search .md-button.has-min-val {
+        font-size: 20px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); }
     .analytics .box .search .angucomplete-dropdown {
       padding: 0;
       margin-top: 1px;
@@ -24,9 +30,11 @@
       .analytics .box .search .angucomplete-dropdown .angucomplete-row {
         color: #343535;
         padding: 7px 16px;
-        margin: 0; }
+        margin: 0;
+        transition: padding .4s; }
       .analytics .box .search .angucomplete-dropdown .angucomplete-selected-row {
-        background-color: #f0f5f8; }
+        background-color: #f0f5f8;
+        padding-left: 26px; }
       .analytics .box .search .angucomplete-dropdown .angucomplete-searching {
         padding: 8px; }
       .analytics .box .search .angucomplete-dropdown .highlight {
@@ -69,6 +77,9 @@
           height: 60px;
           border-color: #e4e5e6;
           padding-right: 55px; }
+          .analytics .search-box .left .search input:focus {
+            border-color: #ddd;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); }
         .analytics .search-box .left .search i {
           position: absolute;
           right: 10px;
@@ -108,7 +119,7 @@
         padding: 16px;
         color: #448cb8; }
         .analytics .search-box .right .sec div {
-          margin-bottom: 12px;
+          padding-bottom: 12px;
           cursor: pointer;
           transition: padding .4s; }
           .analytics .search-box .right .sec div:hover {
