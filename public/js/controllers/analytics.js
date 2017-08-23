@@ -22,10 +22,16 @@
 			{ title : 'Slider Revolution Included', desc : 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.'},
 			{ title : 'Slider Revolution Included', desc : 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.'}
 		];
-		this.dropDownList = [{name:'Diversity in Place'}, {name:'Diversity in Gender'}, {name:'Diversity in Location'},{name:'Diversity in Age'}];
+		this.dropDownList = [
+			{name:'Diversity By Gender'}, 
+			{name:'Diversity by Ethnicity'}, 
+			{name:'Diversity by Religion'},
+			{name:'Diversity by Critical Thinking'}
+		];
 
 
 		this.localSearch = function(str) {
+			console.log(str)
 			var matches = [];
 		  	vm.dropDownList.forEach(function(list) {
 			    if (list.name.toLowerCase().indexOf(str.toString().toLowerCase()) >= 0) {
