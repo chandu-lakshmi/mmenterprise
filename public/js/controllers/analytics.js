@@ -31,7 +31,7 @@
 
 
 		this.localSearch = function(str) {
-			console.log(str)
+			//console.log(str)
 			var matches = [];
 		  	vm.dropDownList.forEach(function(list) {
 			    if (list.name.toLowerCase().indexOf(str.toString().toLowerCase()) >= 0) {
