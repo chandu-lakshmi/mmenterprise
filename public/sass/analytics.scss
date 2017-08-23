@@ -1,5 +1,5 @@
-.analytics{height: calc(100vh - 100px);
-	.box{width: 100%;
+.analytics{min-height: calc(100vh - 100px);
+	.box{width: 100%;padding-bottom: 110px;
 		.info{font-size: 48px;color: #888;margin: 110px 0 62px;line-height: 64px;}
 		.search{
 			*{border-radius: 0}
