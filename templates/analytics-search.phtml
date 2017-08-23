@@ -1,0 +1,35 @@
+<div class="analytics">
+	<div class="container">
+		<div class="search-box">
+			<div class="left pull-left">
+				<div layout="row" class="search">
+					<input flex ng-model="AnalyticsSearchCtrl.search" id="search" class="form-control input-lg" ng-change="AnalyticsSearchCtrl.findResults()" />	
+					<i class="material-icons">search</i>
+				</div>
+				<div layout="row" class="result-count">
+					About 26 results
+				</div>
+				<div class="result">
+					<div class="list" ng-repeat="result in AnalyticsSearchCtrl.searchResults">
+						<p ng-bind="result.title"></p>
+						<span ng-bind="result.desc"></span>
+					</div>
+					<div class="list text-center load" ng-if="AnalyticsSearchCtrl.inProgress">
+						<img src="public/images/loader/blue-loader.gif" alt="loading..">
+					</div>
+				</div>
+			</div>
+			<div  class="right pull-right" >
+				<div class="title">
+					Recent Search
+				</div>
+				<div class="sec">
+					<div ng-repeat="recent in AnalyticsSearchCtrl.recentSearchResults" ng-bind="recent"></div>
+				</div>
+				<div class="foot">
+					Recent Search
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

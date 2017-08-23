@@ -290,8 +290,15 @@
                 $stateProvider.state('app.analytics', {
                     url: '^/analytics',
                     templateUrl: App.base_url + 'templates/analytics.phtml',
-                    controller: 'licenseManagementController',
-                    controllerAs: 'licMangCtrl'
+                    controller: 'AnalyticsController',
+                    controllerAs: 'AnalyticsCtrl'
+                })
+                $stateProvider.state('app.analyticsSearch', {
+                    url: '^/analytics-search',
+                    templateUrl: App.base_url + 'templates/analytics-search.phtml',
+                    controller: 'AnalyticsSearchController',
+                    controllerAs: 'AnalyticsSearchCtrl',
+                    params : { searchVal : '' }
                 })
 
                 $stateProvider.state('app.mintbot', {
