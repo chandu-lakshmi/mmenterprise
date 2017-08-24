@@ -20,12 +20,16 @@
       padding: 8px; }
     .analytics .angucomplete-dropdown .highlight {
       color: #939393 !important; }
+  .analytics.bg-analytics {
+    background: url(../images/analytics_bg.jpg) no-repeat;
+    background-size: cover;
+    background-position: 50% 10%; }
   .analytics .box {
     width: 100%;
     padding-bottom: 110px; }
     .analytics .box .info {
       font-size: 48px;
-      color: #888;
+      color: #fff;
       margin: 110px 0 62px;
       line-height: 64px; }
     .analytics .box .search * {
@@ -56,7 +60,7 @@
         border-bottom: 1px solid #ddd; }
         .analytics .box .data .result.head {
           font-weight: 600;
-          color: #888;
+          color: #fff;
           font-size: 16px;
           padding-bottom: 3px; }
         .analytics .box .data .result.empty {
@@ -70,7 +74,7 @@
           display: block;
           text-decoration: none; }
         .analytics .box .data .result span {
-          color: #888;
+          color: #fff;
           display: inline-block; }
   .analytics .search-box {
     padding: 34px 0;
@@ -109,8 +113,7 @@
           border-bottom: 1px solid #e4e5e6;
           transition: all .5s;
           cursor: pointer;
-          width: 100%;
-          position: relative; }
+          width: 100%; }
           .analytics .search-box .left .result .list:hover:not(.load) {
             box-shadow: 0 8px 8px rgba(0, 33, 52, 0.1), 0 0 8px rgba(0, 33, 52, 0.1), 0 6px 18px rgba(0, 33, 52, 0.1); }
           .analytics .search-box .left .result .list:last-child {

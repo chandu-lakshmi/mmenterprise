@@ -7,9 +7,13 @@
 		.highlight{color: #939393 !important}
 	}
 	/*end common*/
-
+	&.bg-analytics{
+		background: url(../images/analytics_bg.jpg) no-repeat;
+    	background-size: cover;
+    	background-position: 50% 10%;
+	}
 	.box{width: 100%;padding-bottom: 110px;
-		.info{font-size: 48px;color: #888;margin: 110px 0 62px;line-height: 64px;}
+		.info{font-size: 48px;color: #fff;margin: 110px 0 62px;line-height: 64px;}
 		.search{
 			*{border-radius: 0}
 			input{height: 64px;
@@ -22,11 +26,11 @@
 		.recent{padding: 0 48px;}
 		.data{width: 86%;margin: 0 auto;
 			.result{width: 48%;float: left;padding: 15px 0;border-bottom: 1px solid #ddd;
-				&.head{font-weight: 600;color: #888;font-size: 16px; padding-bottom: 3px;}
+				&.head{font-weight: 600;color: #fff;font-size: 16px; padding-bottom: 3px;}
 				&.empty{padding: 20px 0;}
 				&:nth-child(odd){margin-right: 4%;}
 				a{margin:0;color: #02b892;font-size: 16px;display: block;text-decoration: none;}
-				span{color: #888;display: inline-block;}		
+				span{color: #fff;display: inline-block;}		
 			}
 		}
 	}
@@ -41,7 +45,7 @@
 			.result-count{padding: 10px 0 20px;color: #4596d9}
 			.angucomplete-dropdown{width: 100%;}
 			.result{border: 1px solid #e4e5e6;position: relative;
-				.list{display:block;text-decoration:none;padding: 18px;border-bottom: 1px solid #e4e5e6;transition: all .5s;cursor: pointer;width: 100%;position: relative;
+				.list{display:block;text-decoration:none;padding: 18px;border-bottom: 1px solid #e4e5e6;transition: all .5s;cursor: pointer;width: 100%;
 					&:hover:not(.load){box-shadow: 0 8px 8px rgba(0,33,52,0.1), 0 0 8px rgba(0,33,52,0.1), 0 6px 18px rgba(0,33,52,0.1);}
 					&:last-child{border: 0;}
 					p{margin: 0 0 4px;color: #2e7eb1;font-weight: 600;font-size: 16px;}
