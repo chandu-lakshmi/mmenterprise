@@ -3,16 +3,33 @@
 		<div class="search-box">
 			<div class="left pull-left">
 				<div layout="row" class="search">
-					<input flex ng-model="AnalyticsSearchCtrl.search" id="search" class="form-control input-lg" ng-change="AnalyticsSearchCtrl.findResults()" />	
+					<angucomplete-alt id="search"
+		              flex
+		              pause="300"
+		              ng-model="sss"
+		              selected-object="AnalyticsSearchCtrl.selectedResult"
+		              local-data="AnalyticsSearchCtrl.dropDownList"
+		              local-search="AnalyticsSearchCtrl.localSearch"
+		              title-field="name"
+		              text-no-results="No results found"
+		              minlength="2"
+		              input-class="form-control input-lg"
+		              match-class="highlight" />
+		            </angucomplete-alt>
+
+					<!-- <input flex ng-model="AnalyticsSearchCtrl.search" id="search" class="form-control input-lg" ng-change="AnalyticsSearchCtrl.findResults()" />	 -->
+
 					<i class="material-icons">search</i>
 				</div>
 				<div layout="row" class="result-count">
 					About 26 results
 				</div>
 				<div class="result">
-					<div class="list" ng-repeat="result in AnalyticsSearchCtrl.searchResults">
-						<p ng-bind="result.title"></p>
-						<span ng-bind="result.desc"></span>
+					<div class="list" ng-repeat="result in AnalyticsSearchCtrl.searchResults | sortByMatch: AnalyticsSearchCtrl.search"  ng-style="{ 'top': $index * 20 + 'px' }">
+						<div class="list-data">
+							<p ng-bind="result.title"></p>
+							<span ng-bind="result.desc"></span>
+						</div>
 					</div>
 					<div class="list text-center load animated bounceIn" ng-if="AnalyticsSearchCtrl.inProgress">
 						<img src="public/images/loader/blue-loader.gif" alt="loading..">

@@ -5,10 +5,24 @@
 		.module('app.analytics', ["angucomplete-alt"])
 		.controller('AnalyticsController', AnalyticsController)
 		.controller('AnalyticsSearchController', AnalyticsSearchController)
+		.filter('sortByMatch', function() {
+		  	return function(items, searchString) {
+			    var re = new RegExp("[" + searchString + "]", "g"); 
+			    items.sort(function (a, b) {
+				    if (!searchString) {
+				        return '';
+				    }
+				    var matchingCharsA = a.title.length - (a.title.match(re) || []).length; 
+				    var matchingCharsB = b.title.length - (b.title.match(re) || []).length;
 
+				    return (matchingCharsA > matchingCharsB ? 1 : -1);
+			    });
+			    return items;
+		  	};
+		});
 
 	AnalyticsController.$inject       = ['$state'];
-	AnalyticsSearchController.$inject = ['$state', '$timeout'];
+	AnalyticsSearchController.$inject = ['$scope', '$state', '$timeout', '$filter'];
 
 
 	function AnalyticsController ($state){
@@ -24,14 +38,13 @@
 		];
 		this.dropDownList = [
 			{name:'Diversity By Gender'}, 
-			{name:'Diversity by Ethnicity'}, 
-			{name:'Diversity by Religion'},
-			{name:'Diversity by Critical Thinking'}
+			{name:'Diversity By Ethnicity'}, 
+			{name:'Diversity By Religion'},
+			{name:'Diversity By Critical Thinking'}
 		];
 
 
 		this.localSearch = function(str) {
-			//console.log(str)
 			var matches = [];
 		  	vm.dropDownList.forEach(function(list) {
 			    if (list.name.toLowerCase().indexOf(str.toString().toLowerCase()) >= 0) {
@@ -66,14 +79,25 @@
 	}
 
 
-	function AnalyticsSearchController ($state, $timeout){
+	function AnalyticsSearchController ($scope, $state, $timeout, $filter){
 
-		var vm = this;
+		var vm = this,
+				hasDropdownSelelected = false,
+				initSearchData = $state.params.searchVal;
 
-		
-		this.search = $state.params.searchVal;
 
+		this.dropDownList = [
+			{name:'Diversity By Gender'}, 
+			{name:'Diversity By Ethnicity'}, 
+			{name:'Diversity By Religion'},
+			{name:'Diversity By Critical Thinking'}
+		];
 		this.searchResults = [
+			{ title : 'Diversity By Gender', desc : 'Gender diversity is equitable or fair representation between genders. Gender diversity most commonly refers to an equitable ratio of men and women, but may also include non-binary gender categories. Its vital to have a good ratio of gender diversity in the organization which brings in increased financial performance better reputation, customer base …'},
+			{ title : 'Diversity By Ethnicity', desc : 'Ethnic diversity is fair representation of people in an organization based on age, culture, nation etc. Ethnic diversity brings in more, employee satisfaction, retention, different perspectives, improve the ability to influence.'},
+			{ title : 'Diversity By Religion', desc : 'Religious diversity is an important metric to be considered in an organization as this represents the organization as an organization with equal opportunity for all. Religious diversity enhances the brand as an equal opportunity employer…'},
+			{ title : 'Diversity By Critical Thinking', desc : 'Critical Thinking is the ability of a person to reason through any issue/situation. Having an understanding on the mix of people with critical thinking is critical for the overall success of any organization…'},
+			
 			{ title : 'Lorem ipsum', desc : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
 			{ title : 'Aliquam maximum arcu vehicle, blandit orci id, blandit erat.', desc : 'Offers worldwide news coverage, analysis, show profiles, boradcast schedules, team biographies, and email news alerts, it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially.'},
 			{ title : 'Maecenas a arcu in nulla vestibumum euismod.', desc : 'View the latest news and breaking news today for U.S., world, wether, entertainment, politics and health at CNN.com.'},
@@ -82,18 +106,48 @@
 		];
 		this.recentSearchResults = ['Diversity', 'Lorem ipsum dolor sit amet', 'Aliquam maximum arcu vehicle', 'Pellentesque tempus lectus nec', 'Praesent nec felis elementum', 'Sed sit amet eros faucibus', 'Ut et turpis id augue rutrum lacinia.', 'Nam dictum orci mollis Ut vitae elit ut exetrsest', 'consequat accumsan ante aliquam vulputate et ac ex.', 'Maecenas a arcu in nulla', 'Etiam sit amet nunc et augue mattis pharetra.'];
 
-		this.findResults = function() {
-			getSearchResult();
+		this.selectedResult = function(obj) {
+			
+			if(obj){
+				vm.search = obj.title;
+			} else{
+				vm.search = $('#search_value').val();
+			}
+			hasDropdownSelelected = true;
+
 		}
 
+		this.localSearch = function(str) {
+			if (!hasDropdownSelelected) {
+				vm.search = str;
+			}
+
+			if(hasDropdownSelelected && str.length < 3) {
+				hasDropdownSelelected = false;
+			}
+
+			var matches = [];
+		  	vm.dropDownList.forEach(function(list) {
+			    if (list.name.toLowerCase().indexOf(str.toString().toLowerCase()) >= 0) {
+			      	matches.push(list);
+			    }
+		  	});
+		 	return matches;
+
+		};
+
 		function init() {
+			
+			vm.search = initSearchData;
 
-			getSearchResult();
-
+			
+		
 			setTimeout(function(){
-				$('#search').focus();
+				$('#search_value').val(initSearchData);
+				$('#search_value').focus();
 			}, 100); 
 			
+			getSearchResult();
 		}
 		
 		function getSearchResult() {
@@ -105,6 +159,7 @@
 			}, 3000);
 
 		}
+
 
 		init();
 
