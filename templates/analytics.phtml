@@ -1,47 +1,47 @@
 <div class="analytics bg-analytics">
-	<div class="container">
-		<div layout="column" class="box">
-			<div layout="row">
-				<i flex></i>
-				<div flex="60">
-					<div layout="column">
-						<div layout="row" class="info text-center">
-							<i flex></i>
-							<div flex="80">
-								From Intuition to Insight
-							</div>
-							<i flex></i>
-						</div>
-						<div layout="row" class="form-group search">
-							<i flex></i>
-							<angucomplete-alt id="search"
-				              flex="60"
-				              pause="300"
-				              ng-model="sss"
-				              selected-object="AnalyticsCtrl.selectedResult"
-				              local-data="AnalyticsCtrl.dropDownList"
-				              local-search="AnalyticsCtrl.localSearch"
-				              title-field="name"
-				              text-no-results="No results found"
-				              minlength="2"
-				              input-class="form-control input-lg"
-				              match-class="highlight" />
-				            </angucomplete-alt>
-						    <md-button class="md-raised" ng-click="AnalyticsCtrl.search()">SEARCH</md-button>
-						    <i flex></i>
-						</div>
-						<div class="data">
-							<div class="result head">Recent Search</div>
-							<div class="result empty"></div>
-							<div class="result" ng-repeat="result in AnalyticsCtrl.recentSearchResults">
-								<a href="{{result.link}}" target="_blank" ng-bind="result.title"></a>
-								<span ng-bind="result.desc" class="ellipsis"></span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<i flex></i>
-			</div>
-		</div>
-	</div>
+    <div class="container">
+        <div layout="column" class="box">
+            <div layout="row">
+                <i flex></i>
+                <div flex="60">
+                    <div layout="column">
+                        <div layout="row" class="info text-center" style="font-size: 35px;">
+                            <i flex></i>
+                            <div flex="80">
+                                FROM INTUITION TO INSIGHT
+                            </div>
+                            <i flex></i>
+                        </div>
+                        <div layout="row" class="form-group search">
+                            <i flex></i>
+                            <angucomplete-alt id="search"
+                                              flex="60"
+                                              pause="300"
+                                              ng-model="sss"
+                                              selected-object="AnalyticsCtrl.selectedResult"
+                                              local-data="AnalyticsCtrl.dropDownList"
+                                              local-search="AnalyticsCtrl.localSearch"
+                                              title-field="name"
+                                              text-no-results="No results found"
+                                              minlength="2"
+                                              input-class="form-control input-lg"
+                                              match-class="highlight" />
+                            </angucomplete-alt>
+                            <md-button class="md-raised" ng-click="AnalyticsCtrl.search()">SEARCH</md-button>
+                            <i flex></i>
+                        </div>
+                        <div class="data" style="margin: 7% auto">
+                            <div class="result head">Recent Search</div>
+                            <div class="result empty"></div>
+                            <div class="result" ng-repeat="result in AnalyticsCtrl.recentSearchResults">
+                                <a href="{{result.link}}" target="_blank" ng-bind="result.title"></a>
+                                <span ng-bind="result.desc" class="ellipsis"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <i flex></i>
+            </div>
+        </div>
+    </div>
 </div>
