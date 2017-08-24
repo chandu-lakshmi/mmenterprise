@@ -25,12 +25,12 @@
 					About 26 results
 				</div>
 				<div class="result">
-					<div class="list" ng-repeat="result in AnalyticsSearchCtrl.searchResults | sortByMatch: AnalyticsSearchCtrl.search" ng-style="{ 'top': $index * 20 + 'px' , 'padding-top' : (!$first ? '0' : '') }">
+					<a class="list" href="{{result.link}}" target="_blank" ng-repeat="result in AnalyticsSearchCtrl.searchResults | sortByMatch: AnalyticsSearchCtrl.search">
 						<div class="list-data">
 							<p ng-bind="result.title"></p>
 							<span ng-bind="result.desc"></span>
 						</div>
-					</div>
+					</a>
 					<div class="list text-center load animated bounceIn" ng-if="AnalyticsSearchCtrl.inProgress">
 						<img src="public/images/loader/blue-loader.gif" alt="loading..">
 					</div>
@@ -41,7 +41,7 @@
 					Recent Search
 				</div>
 				<div class="sec">
-					<div ng-repeat="recent in AnalyticsSearchCtrl.recentSearchResults" ng-bind="recent"></div>
+					<a ng-repeat="recent in AnalyticsSearchCtrl.searchResults" ng-bind="recent.title" href="{{recent.link}}"></a>
 				</div>
 				<div class="foot">
 					Recent Search

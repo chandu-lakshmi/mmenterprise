@@ -57,15 +57,18 @@
         .analytics .box .data .result.head {
           font-weight: 600;
           color: #888;
-          font-size: 15px;
+          font-size: 16px;
           padding-bottom: 3px; }
         .analytics .box .data .result.empty {
           padding: 20px 0; }
         .analytics .box .data .result:nth-child(odd) {
           margin-right: 4%; }
-        .analytics .box .data .result p {
+        .analytics .box .data .result a {
           margin: 0;
-          color: #02b892; }
+          color: #02b892;
+          font-size: 16px;
+          display: block;
+          text-decoration: none; }
         .analytics .box .data .result span {
           color: #888;
           display: inline-block; }
@@ -100,6 +103,8 @@
         border: 1px solid #e4e5e6;
         position: relative; }
         .analytics .search-box .left .result .list {
+          display: block;
+          text-decoration: none;
           padding: 18px;
           border-bottom: 1px solid #e4e5e6;
           transition: all .5s;
@@ -113,7 +118,8 @@
           .analytics .search-box .left .result .list p {
             margin: 0 0 4px;
             color: #2e7eb1;
-            font-weight: 600; }
+            font-weight: 600;
+            font-size: 16px; }
           .analytics .search-box .left .result .list span {
             color: #808185; }
     .analytics .search-box .right {
@@ -126,13 +132,15 @@
         font-weight: 600;
         border-bottom: 1px solid #e4e5e6; }
       .analytics .search-box .right .sec {
-        padding: 16px;
-        color: #448cb8; }
-        .analytics .search-box .right .sec div {
+        padding: 16px; }
+        .analytics .search-box .right .sec a {
           padding-bottom: 12px;
           cursor: pointer;
-          transition: padding .4s; }
-          .analytics .search-box .right .sec div:hover {
+          transition: padding .4s;
+          display: block;
+          text-decoration: none;
+          color: #448cb8; }
+          .analytics .search-box .right .sec a:hover {
             padding-left: 8px; }
       .analytics .search-box .right .foot {
         background: #f2f6f9;

@@ -1,14 +1,14 @@
 <div class="analytics">
 	<div class="container">
-		<div layout="column" class="box mm-slide-left">
+		<div layout="column" class="box">
 			<div layout="row">
 				<i flex></i>
 				<div flex="60">
 					<div layout="column">
 						<div layout="row" class="info text-center">
 							<i flex></i>
-							<div flex="70">
-								The right place to find Your Business
+							<div flex="80">
+								From Intuition to Insight
 							</div>
 							<i flex></i>
 						</div>
@@ -34,7 +34,7 @@
 							<div class="result head">Recent Search</div>
 							<div class="result empty"></div>
 							<div class="result" ng-repeat="result in AnalyticsCtrl.recentSearchResults">
-								<p ng-bind="result.title"></p>
+								<a href="{{result.link}}" target="_blank" ng-bind="result.title"></a>
 								<span ng-bind="result.desc" class="ellipsis"></span>
 							</div>
 						</div>
