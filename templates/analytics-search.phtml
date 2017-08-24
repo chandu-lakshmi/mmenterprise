@@ -25,7 +25,7 @@
 					About 26 results
 				</div>
 				<div class="result">
-					<div class="list" ng-repeat="result in AnalyticsSearchCtrl.searchResults | sortByMatch: AnalyticsSearchCtrl.search"  ng-style="{ 'top': $index * 20 + 'px' }">
+					<div class="list" ng-repeat="result in AnalyticsSearchCtrl.searchResults | sortByMatch: AnalyticsSearchCtrl.search" ng-style="{ 'top': $index * 20 + 'px' , 'padding-top' : (!$first ? '0' : '') }">
 						<div class="list-data">
 							<p ng-bind="result.title"></p>
 							<span ng-bind="result.desc"></span>
