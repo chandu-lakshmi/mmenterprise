@@ -76,7 +76,8 @@
           color: #0ec59e;
           font-size: 16px;
           display: block;
-          text-decoration: none; }
+          text-decoration: none;
+          font-weight: 600; }
         .analytics .box .data .result span {
           color: #fff;
           display: inline-block; }
