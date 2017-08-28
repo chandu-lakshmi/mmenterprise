@@ -14,8 +14,7 @@
       margin: 0;
       transition: padding .4s; }
     .analytics .angucomplete-dropdown .angucomplete-selected-row {
-      background-color: #f0f5f8;
-      padding-left: 26px; }
+      background-color: #f0f5f8; }
     .analytics .angucomplete-dropdown .angucomplete-searching {
       padding: 8px; }
     .analytics .angucomplete-dropdown .highlight {
@@ -28,14 +27,16 @@
     width: 100%;
     padding-bottom: 110px; }
     .analytics .box .info {
-      font-size: 48px;
+      font-size: 42px;
+      font-weight: 700;
       color: #fff;
-      margin: 110px 0 62px;
+      margin: 0 0 62px;
       line-height: 64px; }
     .analytics .box .search * {
       border-radius: 0; }
     .analytics .box .search input {
-      height: 64px; }
+      height: 64px;
+      color: #000; }
       .analytics .box .search input:focus {
         border-color: #ddd;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); }
@@ -44,7 +45,10 @@
       background: #02b892;
       color: #fff;
       font-size: 18px;
-      width: 180px; }
+      width: 180px;
+      transition: all .5s; }
+      .analytics .box .search .md-button:hover {
+        background: #29d1ae; }
       .analytics .box .search .md-button.has-min-val {
         font-size: 20px;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); }
@@ -57,7 +61,7 @@
         width: 48%;
         float: left;
         padding: 15px 0;
-        border-bottom: 1px solid #ddd; }
+        border-bottom: 1px solid rgba(221, 221, 221, 0.5); }
         .analytics .box .data .result.head {
           font-weight: 600;
           color: #fff;
@@ -69,7 +73,7 @@
           margin-right: 4%; }
         .analytics .box .data .result a {
           margin: 0;
-          color: #02b892;
+          color: #0ec59e;
           font-size: 16px;
           display: block;
           text-decoration: none; }
@@ -78,7 +82,8 @@
           display: inline-block; }
   .analytics .search-box {
     padding: 34px 0;
-    overflow: hidden; }
+    overflow: hidden;
+    width: 100%; }
     .analytics .search-box .left {
       padding-right: 22px;
       width: 65%; }
@@ -88,10 +93,11 @@
           border-radius: 0;
           height: 60px;
           border-color: #e4e5e6;
-          padding-right: 55px; }
+          padding-right: 55px;
+          color: #000; }
           .analytics .search-box .left .search input:focus {
-            border-color: #ddd;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); }
+            border-color: #0ba082;
+            box-shadow: none; }
         .analytics .search-box .left .search i {
           position: absolute;
           right: 10px;
@@ -114,8 +120,6 @@
           transition: all .5s;
           cursor: pointer;
           width: 100%; }
-          .analytics .search-box .left .result .list:hover:not(.load) {
-            box-shadow: 0 8px 8px rgba(0, 33, 52, 0.1), 0 0 8px rgba(0, 33, 52, 0.1), 0 6px 18px rgba(0, 33, 52, 0.1); }
           .analytics .search-box .left .result .list:last-child {
             border: 0; }
           .analytics .search-box .left .result .list p {
@@ -124,7 +128,7 @@
             font-weight: 600;
             font-size: 16px; }
           .analytics .search-box .left .result .list span {
-            color: #808185; }
+            color: #555; }
     .analytics .search-box .right {
       border: 1px solid #e4e5e6;
       width: 34%; }
@@ -135,19 +139,17 @@
         font-weight: 600;
         border-bottom: 1px solid #e4e5e6; }
       .analytics .search-box .right .sec {
-        padding: 16px; }
+        padding: 16px;
+        line-height: 40px; }
         .analytics .search-box .right .sec a {
-          padding-bottom: 12px;
           cursor: pointer;
           transition: padding .4s;
           display: block;
           text-decoration: none;
           color: #448cb8; }
-          .analytics .search-box .right .sec a:hover {
-            padding-left: 8px; }
       .analytics .search-box .right .foot {
         background: #f2f6f9;
-        color: #aeb9c0;
+        color: #777;
         padding: 16px;
         border-top: 1px solid #e4e5e6; }
 
