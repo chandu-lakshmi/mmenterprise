@@ -21,7 +21,7 @@
                                               selected-object="AnalyticsCtrl.selectedResult"
                                               local-data="AnalyticsCtrl.dropDownList"
                                               local-search="AnalyticsCtrl.localSearch"
-                                              title-field="name"
+                                              title-field="title"
                                               text-no-results="No results found"
                                               minlength="2"
                                               input-class="form-control input-lg"
@@ -33,7 +33,7 @@
                         <div class="data" style="margin: 7% auto">
                             <div class="result head">Recent Search</div>
                             <div class="result empty"></div>
-                            <div class="result" ng-repeat="result in AnalyticsCtrl.recentSearchResults">
+                            <div class="result" ng-repeat="result in AnalyticsCtrl.dropDownList">
                                 <a href="{{result.link}}" target="_blank" ng-bind="result.title"></a>
                                 <span ng-bind="result.desc" class="ellipsis"></span>
                             </div>

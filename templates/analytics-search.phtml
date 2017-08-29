@@ -10,7 +10,7 @@
                                       selected-object="AnalyticsSearchCtrl.selectedResult"
                                       local-data="AnalyticsSearchCtrl.dropDownList"
                                       local-search="AnalyticsSearchCtrl.localSearch"
-                                      title-field="name"
+                                      title-field="title"
                                       text-no-results="No results found"
                                       minlength="2"
                                       input-class="form-control input-lg"
@@ -25,7 +25,7 @@
                     Results
                 </div>
                 <div class="result">
-                    <a class="list" href="{{result.link}}" target="_blank" ng-repeat="result in AnalyticsSearchCtrl.searchResults| sortByMatch: AnalyticsSearchCtrl.search">
+                    <a class="list" href="{{result.link}}" target="_blank" ng-repeat="result in AnalyticsSearchCtrl.dropDownList | sortByMatch: AnalyticsSearchCtrl.search">
                         <div class="list-data">
                             <p ng-bind="result.title"></p>
                             <span ng-bind="result.desc"></span>
@@ -41,7 +41,7 @@
                     Recent
                 </div>
                 <div class="sec">
-                    <a ng-repeat="recent in AnalyticsSearchCtrl.searchResults" ng-bind="recent.title" href="{{recent.link}}"></a>
+                    <a ng-repeat="recent in AnalyticsSearchCtrl.dropDownList" ng-bind="recent.title" href="{{recent.link}}"></a>
                 </div>
                 <div class="foot">
                     View All
