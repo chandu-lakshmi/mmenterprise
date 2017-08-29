@@ -1783,3 +1783,37 @@ $app->post('/get_career_settings',function ($request, $response, $args) use ($ap
     
     return checkJsonResult( $jobList->loadCurl() );
 });
+
+//analytics
+$app->get('/analytics',function ($request, $response, $args) use ($app) {
+  
+    $this->mintmeshAccessToken;
+    //Arguments
+    $args       = commonData($this->settings);
+    
+    //Check Logged in or not
+    if(!empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']);
+    }
+
+    $args['comp_data'] = companyProfile($this->settings);
+    // Render dashboard view
+    return $this->renderer->render($response, 'index.phtml', $args);
+});
+
+//analytics-search
+$app->get('/analytics-search',function ($request, $response, $args) use ($app) {
+  
+    $this->mintmeshAccessToken;
+    //Arguments
+    $args       = commonData($this->settings);
+    
+    //Check Logged in or not
+    if(!empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']);
+    }
+
+    $args['comp_data'] = companyProfile($this->settings);
+    // Render dashboard view
+    return $this->renderer->render($response, 'index.phtml', $args);
+});
