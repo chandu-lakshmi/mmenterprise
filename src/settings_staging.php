@@ -58,7 +58,7 @@ return [
 
             
             //Version
-            'APP_VERSION' => '1.1'    
+            'APP_VERSION' => '4.5'    
         ],
 
         // API settings
@@ -85,7 +85,7 @@ return [
         ],
         'S3_BASE_URL' => 'https://s3-us-west-2.amazonaws.com/mintmeshresumestg/',
         'ENABLE_HCM_TAB' => FALSE,
-        'ENABLE_AI_TAB' => FALSE
+        'ENABLE_AI_TAB' => TRUE
         
     ],
 ];

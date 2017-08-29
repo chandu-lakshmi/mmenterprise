@@ -160,6 +160,7 @@
         },
         {
             "name": "pimple/pimple",
+<<<<<<< Updated upstream
             "version": "v3.2.2",
             "source": {
                 "type": "git",
@@ -170,6 +171,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/silexphp/Pimple/zipball/4d45fb62d96418396ec58ba76e6f065bca16e10a",
                 "reference": "4d45fb62d96418396ec58ba76e6f065bca16e10a",
+=======
+            "version": "v3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/silexphp/Pimple.git",
+                "reference": "279b56046fb368deacf77e2f8f3bdcea45cc367a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/silexphp/Pimple/zipball/279b56046fb368deacf77e2f8f3bdcea45cc367a",
+                "reference": "279b56046fb368deacf77e2f8f3bdcea45cc367a",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -182,7 +195,11 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
+<<<<<<< Updated upstream
                     "dev-master": "3.2.x-dev"
+=======
+                    "dev-master": "3.1.x-dev"
+>>>>>>> Stashed changes
                 }
             },
             "autoload": {
@@ -206,7 +223,11 @@
                 "container",
                 "dependency injection"
             ],
+<<<<<<< Updated upstream
             "time": "2017-07-23 07:32:15"
+=======
+            "time": "2017-07-03 14:06:46"
+>>>>>>> Stashed changes
         },
         {
             "name": "psr/container",

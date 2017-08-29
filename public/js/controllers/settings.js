@@ -1163,6 +1163,7 @@
             }, function (response) {
 
             })*/
+
             if (App.ENABLE_HCM_TAB) {
                 vm.mintmeshPartnes = [{hcm_name : 'SuccessFactors', hcm_id : 1}, {hcm_name : 'Zenefits', hcm_id : 2}, {hcm_name : 'iCIMS', hcm_id : 3}];
             } else {
