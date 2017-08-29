@@ -1,0 +1,52 @@
+<div class="analytics">
+    <div class="container">
+        <div class="search-box">
+            <div class="left pull-left">
+                <div layout="row" class="search">
+                    <angucomplete-alt id="search"
+                                      flex
+                                      pause="300"
+                                      ng-model="sss"
+                                      selected-object="AnalyticsSearchCtrl.selectedResult"
+                                      local-data="AnalyticsSearchCtrl.dropDownList"
+                                      local-search="AnalyticsSearchCtrl.localSearch"
+                                      title-field="title"
+                                      text-no-results="No results found"
+                                      minlength="2"
+                                      input-class="form-control input-lg"
+                                      match-class="highlight" />
+                    </angucomplete-alt>
+
+                                        <!-- <input flex ng-model="AnalyticsSearchCtrl.search" id="search" class="form-control input-lg" ng-change="AnalyticsSearchCtrl.findResults()" />	 -->
+
+                    <i class="material-icons">search</i>
+                </div>
+                <div layout="row" class="result-count">
+                    Results
+                </div>
+                <div class="result">
+                    <a class="list" href="{{result.link}}" target="_blank" ng-repeat="result in AnalyticsSearchCtrl.dropDownList | sortByMatch: AnalyticsSearchCtrl.search">
+                        <div class="list-data">
+                            <p ng-bind="result.title"></p>
+                            <span ng-bind="result.desc"></span>
+                        </div>
+                    </a>
+                    <div class="list text-center load animated bounceIn" ng-if="AnalyticsSearchCtrl.inProgress">
+                        <img src="public/images/loader/blue-loader.gif" alt="loading..">
+                    </div>
+                </div>
+            </div>
+            <div  class="right pull-right" >
+                <div class="title">
+                    Recent
+                </div>
+                <div class="sec">
+                    <a ng-repeat="recent in AnalyticsSearchCtrl.dropDownList" ng-bind="recent.title" href="{{recent.link}}"></a>
+                </div>
+                <div class="foot">
+                    View All
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
