@@ -1,0 +1,223 @@
+<div class="candidate-details">
+	<div class="container">
+		<div class="head">
+            <a ui-sref="app.candidates.resumeRoom"><img src="public/images/back-arrow-grey.svg" alt="back"><span>CANDIDATE LIST</span></a>
+        </div>
+        <div class="section">
+        	<div layout="column">
+        		<div layout="row">
+        			<div flex="65">
+        				<md-card>
+        					<div class="title">
+        						PERSONAL INFO
+        					</div>
+        					<div layout="column" class="details">
+        						<div layout="row">
+        							<div flex class="list">
+        								<h5>CANDIDATE NAME</h5>
+        								<span class="bold" ng-bind="CandidateDetailsCtrl.details.name"></span>		
+        							</div>
+        							<img class="pic" ng-if="CandidateDetailsCtrl.details.src" src="public/images/Ui_Faces/John Butler.jpg" alt="candidate-pic">
+        							<h1 class="letter" ng-if="!CandidateDetailsCtrl.details.src" ng-bind="CandidateDetailsCtrl.details.name.trim() | limitTo : 1"></h1>
+        						</div>
+        						<div layout="row">
+        							<div flex="50" class="list">
+        								<h5>MOBILE</h5>
+        								<span ng-bind="CandidateDetailsCtrl.details.mobile"></span>		
+        							</div>
+        							<div flex class="list">
+        								<h5>EMAIL</h5>
+        								<span ng-bind="CandidateDetailsCtrl.details.email"></span>		
+        							</div>
+        						</div>	
+        						<div layout="row">
+        							<div flex="50" class="list">
+        								<h5>CITY/LOCATION</h5>
+        								<span ng-bind="CandidateDetailsCtrl.details.city_location"></span>		
+        							</div>
+        							<div flex class="list">
+        								<h5>SOCIAL CONNECT</h5>
+        								<social-sharing data-opts="CandidateDetailsCtrl.socialMedia" style="margin-top:10px;" data-path="templates/components"></social-sharing>	
+        							</div>
+        						</div>	
+        						<div layout="row">
+        							<div flex="50" class="list">
+        								<h5>CURRENT JOB APPLICATION</h5>
+        								<span>{{CandidateDetailsCtrl.details.current_job}}, <i class="info">On Jul 13, 2017</i></span>		
+        							</div>
+        							<div flex class="list">
+        								<h5>REFERED BY</h5>
+        								<span ng-bind="CandidateDetailsCtrl.details.refered_by"></span>		
+        							</div>
+        						</div>	
+        					</div>
+        				</md-card>
+
+        				<md-card style="margin-top:20px">
+        					<div class="title">
+        						JOB	DETAILS
+        					</div>
+        					<div layout="column" class="details">
+        						<div layout="row">
+        							<div flex="50" class="list">
+        								<h5>CURRENT COMPANY</h5>
+        								<span ng-bind="CandidateDetailsCtrl.details.current_company"></span>
+        								<span class="info" ng-bind="CandidateDetailsCtrl.details.current_company_details"></span><br>
+        								<span class="info" ng-bind="CandidateDetailsCtrl.details.current_company_location"></span>			
+        							</div>
+        							<div flex class="list">
+        								<h5>JOB/POSITION</h5>
+        								<span ng-bind="CandidateDetailsCtrl.details.current_company_position"></span>	
+        							</div>
+        						</div>	
+        						<div layout="row">
+        							<div flex="50" class="list">
+        								<h5>PREV COMPANY</h5>
+        								<span ng-bind="CandidateDetailsCtrl.details.previous_company"></span>	
+        								<span class="info" ng-bind="CandidateDetailsCtrl.details.previous_company_details"></span><br>
+        								<span class="info" ng-bind="CandidateDetailsCtrl.details.previous_company_location"></span>		
+        							</div>
+        							<div flex class="list">
+        								<h5>JOB/POSITION</h5>
+        								<span ng-bind="CandidateDetailsCtrl.details.previous_company_position"></span>		
+        							</div>
+        						</div>	
+        					</div>
+        				</md-card>
+
+        				<md-card style="margin-top:20px">
+        					<div class="title">
+        						SKILLS
+        					</div>
+        					<div layout="column" class="details">
+        						<div layout="row">
+        							<ul>
+        								<li ng-repeat="skill in CandidateDetailsCtrl.details.skills" ng-bind="skill"></li>
+        							</ul>
+        						</div>
+        					</div>
+        				</md-card>
+
+        				<md-card style="margin-top:20px">
+        					<div class="title">
+        						EDUCATION
+        					</div>
+        					<div layout="column" class="details">
+        						<div layout="row">
+		    						<div class="list">
+										<h5>Qualification</h5>
+										<span ng-bind="CandidateDetailsCtrl.details.qualifaction"></span>		
+									</div>
+        						</div>
+        						<div layout="row">
+		    						<div class="list">
+										<h5>Certification</h5>
+										<span ng-bind="CandidateDetailsCtrl.details.certification"></span>		
+									</div>
+        						</div>
+        					</div>
+        				</md-card>
+        			</div>
+        			<div flex="35">
+        				<md-card class="right">
+                            <uib-tabset active="activeForm">
+                                <uib-tab index="0">
+                                    <uib-tab-heading>
+                                        <span class='input-group-addon'>
+                                            <span class='glyphicon glyphicon-calendar'></span>
+                                        </span>
+                                    </uib-tab-heading>
+                                    <form>
+                                        <h5>SCHEDULE</h5>
+                                        <div class="box">
+                                            <md-input-container class="md-block select-box">
+                                                <label style="display:none">SCHEDULE FOR</label>
+                                                <md-select name="campaign_type" ng-model="CandidateDetailsCtrl.campDetails.campaign_type" required ng-class="{'error-border':campaignDetails.campaign_type.$invalid && CandidateDetailsCtrl.errCondcampaignDetails}">
+                                                    <md-option ng-repeat="type in CandidateDetailsCtrl.schedule" ng-value="type">{{type}}</md-option>
+                                                </md-select>
+                                                <div class="error-spacer"></div>
+                                                <div ng-if="campaignDetails.campaign_type.$error.required && CandidateDetailsCtrl.errCondcampaignDetails"  class="has-error-msg">Please select Campaign Type.</div>
+                                            </md-input-container>
+
+                                            <md-input-container class="md-block date-time">
+                                                <label>INTERVIEW TIME</label>
+                                                <input type='text' name="interview_time" class="form-control" ng-model="interviewTime" id='interview_time' required ng-class="{'has-error-border':CandidateDetailsCtrl.errCondschedule && schedule['start' + $index].$error.required}"/>
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </md-input-container>
+                                            <div layout="column">
+                                                <div layout="row">
+                                                    <md-input-container class="md-block date-time">
+                                                        <label>FROM</label>
+                                                        <input type='text' name="time_from" class="form-control" ng-model="interviewTime" id='time_from' required ng-class="{'has-error-border':CandidateDetailsCtrl.errCondschedule && schedule['start' + $index].$error.required}"/>
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-time"></span>
+                                                        </span>
+                                                    </md-input-container>
+                                                    <i flex="5"></i>
+                                                    <md-input-container class="md-block date-time">
+                                                        <label>TO</label>
+                                                        <input type='text' name="time_to" class="form-control" ng-model="interviewTime" id='time_to' required ng-class="{'has-error-border':CandidateDetailsCtrl.errCondschedule && schedule['start' + $index].$error.required}"/>
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-time"></span>
+                                                        </span>
+                                                    </md-input-container>
+                                                </div>
+                                            </div>
+                                            <md-input-container class="time-zone md-block select-box">
+                                                <label style="display:none">TIME ZONE</label>
+                                                <md-select ng-model="selectedVegetables"
+                                                           md-on-close="clearSearchTerm()"
+                                                           data-md-container-class="timezone"
+                                                           >
+                                                    <md-select-header class="demo-select-header">
+                                                        <input flex ng-model="searchTerm"
+                                                            id="search"
+                                                            name="sp"
+                                                           type="text"
+                                                       placeholder="SEARCH FOR A TIMEZONE"
+                                                           class="demo-header-searchbox md-text">
+                                                    </md-select-header>
+                                                    <md-optgroup label="vegetables">
+                                                        <md-option ng-value="place" ng-repeat="place in CandidateDetailsCtrl.timeZone | filter: {text : searchTerm }">{{place.text}}</md-option>
+                                                    </md-optgroup>
+                                                </md-select>
+                                            </md-input-container>
+                                            <md-input-container class="md-block loc">
+                                                <label>LOCATION <sup> *</sup></label>
+                                                <input type="text" name="location" ng-model="jobData.jobLocation" required ng-class="{'has-error-border':create_job.location.$invalid && CreateJobCtrl.errCond}" ng-autocomplete="geo_location" details="geo_details" options="geo_options" apiplaceholder="">
+                                                <div ng-if="create_job.location.$error.required && CreateJobCtrl.errCond" class="has-error-msg">Please enter Location.</div>
+                                            </md-input-container>
+                                            <md-input-container class="md-block">
+                                                <label>NOTES</label>
+                                                <input type="text" name="campaign_name" ng-model="CandidateDetailsCtrl.campDetails.campaign_name" required ng-class="{'has-error-border':campaignDetails.campaign_name.$invalid && CandidateDetailsCtrl.errCondcampaignDetails}">
+                                                <div ng-if="campaignDetails.campaign_name.$error.required && CandidateDetailsCtrl.errCondcampaignDetails" class="has-error-msg">Please enter Campaign Name.</div>
+                                            </md-input-container>
+                                        </div>
+                                    </form>
+                                </uib-tab>
+                                <uib-tab index="1">
+                                    <uib-tab-heading>
+                                        <span class='input-group-addon'>
+                                            <span class='glyphicon glyphicon-calendar'></span>
+                                        </span>
+                                    </uib-tab-heading>
+                                    Some Tab Content
+                                </uib-tab>
+                                <uib-tab index="2">
+                                    <uib-tab-heading>
+                                        <span class='input-group-addon'>
+                                            <span class='glyphicon glyphicon-calendar'></span>
+                                        </span>
+                                    </uib-tab-heading>
+                                    More Tab Content
+                                </uib-tab>
+                            </uib-tabset>            
+                        </md-card>
+        			</div>
+        		</div>
+        	</div>
+        </div>
+	</div>
+</div>

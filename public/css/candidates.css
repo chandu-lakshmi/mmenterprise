@@ -538,6 +538,145 @@
     .candidates .find-resume .container .arrow-spin {
       -webkit-transform: rotate(180deg) !important;
       transform: rotate(180deg) !important; }
+  .candidates .candidate-details {
+    min-height: calc(100vh - 160px); }
+    .candidates .candidate-details .head {
+      margin: 28px 0 14px; }
+      .candidates .candidate-details .head a {
+        color: #777;
+        text-decoration: none;
+        font-weight: 600; }
+      .candidates .candidate-details .head img {
+        width: 20px;
+        height: 20px;
+        float: left;
+        margin-right: 6px; }
+    .candidates .candidate-details .section {
+      padding-bottom: 80px; }
+      .candidates .candidate-details .section md-card {
+        margin: 0 26px 0 0; }
+        .candidates .candidate-details .section md-card .title {
+          padding: 18px 10px 12px;
+          border-bottom: 1px solid #edf1f4;
+          color: #646e6e;
+          font-weight: 600; }
+        .candidates .candidate-details .section md-card .details {
+          padding: 16px 20px 0; }
+          .candidates .candidate-details .section md-card .details .list {
+            margin-bottom: 28px; }
+            .candidates .candidate-details .section md-card .details .list h5 {
+              margin: 0 0 6px;
+              color: #818e95; }
+            .candidates .candidate-details .section md-card .details .list span {
+              color: #333; }
+              .candidates .candidate-details .section md-card .details .list span.bold {
+                font-weight: 600;
+                font-size: 16px; }
+              .candidates .candidate-details .section md-card .details .list span.info {
+                color: #999; }
+            .candidates .candidate-details .section md-card .details .list social-sharing span {
+              border-radius: 50%;
+              width: 24px;
+              height: 24px; }
+              .candidates .candidate-details .section md-card .details .list social-sharing span i {
+                font-size: 13px;
+                margin-top: 6px;
+                color: #fff; }
+          .candidates .candidate-details .section md-card .details .pic {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%; }
+          .candidates .candidate-details .section md-card .details .letter {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 50px;
+            color: #fff;
+            font-size: 20px;
+            text-transform: capitalize;
+            background: #ccc;
+            margin: 0; }
+          .candidates .candidate-details .section md-card .details ul {
+            padding-left: 16px; }
+            .candidates .candidate-details .section md-card .details ul li {
+              margin-bottom: 12px; }
+        .candidates .candidate-details .section md-card.right {
+          margin: 0; }
+          .candidates .candidate-details .section md-card.right .nav-tabs {
+            border-color: #e6e6e7; }
+            .candidates .candidate-details .section md-card.right .nav-tabs > li {
+              width: 50px;
+              height: initial;
+              border: 1px solid #e6e6e7;
+              border-left: 0; }
+              .candidates .candidate-details .section md-card.right .nav-tabs > li.active {
+                border-bottom: 0; }
+                .candidates .candidate-details .section md-card.right .nav-tabs > li.active a {
+                  border-bottom: 1px solid transparent !important; }
+              .candidates .candidate-details .section md-card.right .nav-tabs > li a {
+                border: 0 !important;
+                padding: 10px 10px 6px;
+                line-height: normal; }
+              .candidates .candidate-details .section md-card.right .nav-tabs > li .input-group-addon {
+                width: initial;
+                padding: 0;
+                font-size: 20px;
+                border: 0;
+                background: transparent; }
+                .candidates .candidate-details .section md-card.right .nav-tabs > li .input-group-addon .glyphicon-calendar {
+                  margin-left: 3px; }
+          .candidates .candidate-details .section md-card.right .tab-content h5 {
+            margin: 0;
+            padding: 14px 18px;
+            color: #797979;
+            font-weight: 700;
+            border-bottom: 2px solid #e8e8e8; }
+          .candidates .candidate-details .section md-card.right .tab-content .box {
+            padding: 14px; }
+            .candidates .candidate-details .section md-card.right .tab-content .box md-input-container {
+              margin-bottom: 0; }
+              .candidates .candidate-details .section md-card.right .tab-content .box md-input-container.time-zone {
+                width: 100%; }
+              .candidates .candidate-details .section md-card.right .tab-content .box md-input-container.md-input-has-value .md-select-value :first-child {
+                max-width: 94%;
+                font-size: 16px; }
+              .candidates .candidate-details .section md-card.right .tab-content .box md-input-container.md-input-has-value label {
+                font-weight: 900; }
+              .candidates .candidate-details .section md-card.right .tab-content .box md-input-container.loc {
+                margin-top: 40px; }
+                .candidates .candidate-details .section md-card.right .tab-content .box md-input-container.loc input {
+                  font-size: 16px; }
+              .candidates .candidate-details .section md-card.right .tab-content .box md-input-container.md-input-focused label {
+                font-weight: 900 !important; }
+            .candidates .candidate-details .section md-card.right .tab-content .box .date-time input {
+              box-shadow: none !important;
+              cursor: pointer; }
+              .candidates .candidate-details .section md-card.right .tab-content .box .date-time input:focus {
+                border-color: #208d6e; }
+            .candidates .candidate-details .section md-card.right .tab-content .box .date-time .input-group-addon {
+              width: inherit;
+              position: absolute;
+              right: -8px;
+              top: 3px;
+              background: transparent;
+              border: 0;
+              pointer-events: none; }
+              .candidates .candidate-details .section md-card.right .tab-content .box .date-time .input-group-addon .glyphicon {
+                font-size: 18px; }
+
+.timezone {
+  width: 365px; }
+  .timezone input {
+    width: 100%;
+    padding: 10px;
+    border: 0;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px; }
+    .timezone input:focus {
+      outline: none; }
+  .timezone md-content {
+    overflow-x: hidden; }
 
 *[ng-click] {
   outline: none; }

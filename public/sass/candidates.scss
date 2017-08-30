@@ -280,6 +280,91 @@ $background : #eeeff1;
         }
     }
 
+    .candidate-details{min-height: calc(100vh - 160px);
+        .head{margin: 28px 0 14px;
+            a{color: #777;text-decoration: none;font-weight: 600}
+            img{width: 20px;height: 20px;float: left;margin-right: 6px}
+        }
+        .section{padding-bottom: 80px;
+            md-card{margin: 0 26px 0 0;
+                .title{padding: 18px 10px 12px;border-bottom: 1px solid #edf1f4;color: #646e6e;font-weight: 600}
+                .details{padding: 16px 20px 0;
+                    .list{margin-bottom: 28px;
+                        h5{margin: 0 0 6px;color: #818e95}
+                        span{color: #333;
+                            &.bold{font-weight: 600;font-size: 16px}
+                            &.info{color: #999}
+                        }  
+                        social-sharing{
+                            span{border-radius: 50%;width: 24px;height: 24px;
+                                i{font-size: 13px;margin-top: 6px;color: #fff}
+                            }
+                        }  
+                    }
+                    .pic{width: 50px;height: 50px;border-radius: 50%}
+                    .letter{width: 50px;height: 50px;border-radius: 50%;text-align: center;line-height: 50px; color: #fff;font-size: 20px;text-transform: capitalize; background: #ccc;margin: 0;}
+                    ul{padding-left: 16px;
+                        li{margin-bottom: 12px;}
+                    }
+                }
+                &.right{margin: 0;
+                    .nav-tabs{border-color: #e6e6e7;
+                        & > li{width: 50px;height: initial;border: 1px solid #e6e6e7;border-left: 0;
+                            &.active{border-bottom: 0;
+                                a{
+                                    border-bottom: 1px solid transparent !important;
+                                }
+                            }
+                            a{border: 0 !important;padding: 10px 10px 6px;line-height: normal;}
+                            .input-group-addon{width: initial;padding: 0;font-size: 20px;border: 0;background: transparent;
+                                .glyphicon-calendar{margin-left: 3px;}
+                            }
+                        }
+                    }
+                    .tab-content{
+                        h5{margin:0;padding: 14px 18px;color: #797979;font-weight: 700;border-bottom: 2px solid #e8e8e8}
+                        .box{padding: 14px;
+                            md-input-container{margin-bottom: 0;
+                                &.time-zone{width: 100%}
+                                &.md-input-has-value{
+                                    .md-select-value{
+                                        & :first-child{max-width: 94%;font-size: 16px;}
+                                    }
+                                    label{font-weight: 900;}
+                                }
+                                &.loc{margin-top: 40px;
+                                    input{font-size: 16px;}
+                                } 
+                                &.md-input-focused{
+                                    label{font-weight: 900 !important;}
+                                }
+                            }
+                            
+                            .date-time{
+                                input{box-shadow: none !important;cursor: pointer;
+                                    &:focus{border-color: #208d6e}
+                                }
+                                .input-group-addon{width: inherit;position: absolute;right: -8px;top: 3px;background: transparent;border: 0;pointer-events: none;
+                                    .glyphicon{font-size: 18px;}
+                                }
+                            }    
+                        }
+                        
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+.timezone{ width : 365px;
+    input{width: 100%;padding: 10px; border: 0;border-bottom:1px solid #ddd;font-size: 16px;
+        &:focus{outline: none;};
+    }
+    md-content{
+        overflow-x: hidden; 
+    }
 }
 
 *[ng-click]{outline: none;}
