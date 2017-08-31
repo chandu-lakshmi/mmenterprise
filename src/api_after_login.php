@@ -1871,3 +1871,21 @@ $app->post('/get_candidate_email_templates',function ($request, $response, $args
     return checkJsonResult( $jobList->loadCurl() );
 
 });
+
+//get company employees
+$app->post('/get_company_employees',function ($request, $response, $args) use ($app) {
+    
+    // dynamically Access Token, Company Details
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    // getting API endpoint from settings
+   $apiEndpoint = getapiEndpoint($this->settings, 'get_company_employees');
+   
+    $jobList    = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    
+    return checkJsonResult( $jobList->loadCurl() );
+
+});
