@@ -726,6 +726,52 @@
                 color: #a6a6a6;
                 top: 8px;
                 font-size: 22px; }
+              .candidates .candidate-details .section md-card.right .tab-content .box .attendees {
+                position: relative;
+                margin-bottom: 45px; }
+                .candidates .candidate-details .section md-card.right .tab-content .box .attendees .md-chips {
+                  padding: 0 0 4px 0px; }
+                  .candidates .candidate-details .section md-card.right .tab-content .box .attendees .md-chips .md-chip-input-container input {
+                    height: 34px; }
+                  .candidates .candidate-details .section md-card.right .tab-content .box .attendees .md-chips.md-focused {
+                    box-shadow: 0 1px #208d6e !important; }
+                .candidates .candidate-details .section md-card.right .tab-content .box .attendees md-progress-linear {
+                  display: none; }
+                .candidates .candidate-details .section md-card.right .tab-content .box .attendees md-chip {
+                  background: rgba(204, 204, 204, 0.1);
+                  color: #424242;
+                  cursor: default;
+                  height: 32px;
+                  margin: 8px 8px 0 0;
+                  padding: 0 24px 0 12px;
+                  line-height: 30px;
+                  float: left;
+                  border: 1px solid #b2deed;
+                  position: relative; }
+                  .candidates .candidate-details .section md-card.right .tab-content .box .attendees md-chip .md-chip-content {
+                    text-overflow: ellipsis;
+                    max-width: 74px;
+                    white-space: nowrap;
+                    overflow: hidden; }
+                    .candidates .candidate-details .section md-card.right .tab-content .box .attendees md-chip .md-chip-content strong {
+                      font-weight: normal;
+                      color: #797979; }
+                  .candidates .candidate-details .section md-card.right .tab-content .box .attendees md-chip .md-chip-remove-container {
+                    position: absolute;
+                    top: -1px;
+                    right: 0; }
+                    .candidates .candidate-details .section md-card.right .tab-content .box .attendees md-chip .md-chip-remove-container button {
+                      border: 0;
+                      background: transparent; }
+                      .candidates .candidate-details .section md-card.right .tab-content .box .attendees md-chip .md-chip-remove-container button md-icon {
+                        color: #858585;
+                        width: 20px; }
+                .candidates .candidate-details .section md-card.right .tab-content .box .attendees .loader {
+                  width: 20px;
+                  height: 20px;
+                  position: absolute;
+                  right: 6px;
+                  bottom: 10px; }
               .candidates .candidate-details .section md-card.right .tab-content .box .invitation {
                 margin: -12px 0px 38px;
                 color: #fff;
@@ -742,7 +788,7 @@
                 background: #fafafa; }
               .candidates .candidate-details .section md-card.right .tab-content .timeline_edit .list .rt, .candidates .candidate-details .section md-card.right .tab-content .comment_edit .list .rt {
                 width: 85%;
-                padding: 18px 14px;
+                padding: 12px 14px;
                 line-height: 24px;
                 font-size: 13px; }
                 .candidates .candidate-details .section md-card.right .tab-content .timeline_edit .list .rt p, .candidates .candidate-details .section md-card.right .tab-content .comment_edit .list .rt p {
@@ -756,8 +802,7 @@
                 color: #aaaaaa; }
               .candidates .candidate-details .section md-card.right .tab-content .timeline_edit .list img.pending, .candidates .candidate-details .section md-card.right .tab-content .comment_edit .list img.pending {
                 width: 26px;
-                height: 26px;
-                margin: 29px 17px 0; }
+                margin: 21px 17px 0; }
             .candidates .candidate-details .section md-card.right .tab-content .comment_edit .box {
               padding: 16px 16px 10px;
               background: #fafafb;
@@ -778,6 +823,25 @@
                 line-height: 14px;
                 min-height: 28px; }
 
+.mm_down {
+  animation-name: mm_down;
+  -webkit-animation-name: mm_down;
+  animation-duration: 0.5s;
+  -webkit-animation-duration: 0.5s;
+  animation-timing-function: ease-out;
+  -webkit-animation-timing-function: ease-out;
+  visibility: visible !important; }
+
+@keyframes mm_down {
+  0% {
+    transform: translateY(-2%); }
+  100% {
+    transform: translateY(0%); } }
+@-webkit-keyframes mm_down {
+  0% {
+    transform: translateY(-2%); }
+  100% {
+    transform: translateY(0%); } }
 .timezone {
   width: 365px; }
   .timezone input {

@@ -12,7 +12,7 @@
             .controller('FindResumeController', FindResumeController)
 
     CandidateController.$inject = ['App'];
-    CandidateDetailsController.$inject = ['$http', '$q', '$timeout', 'App'];
+    CandidateDetailsController.$inject = ['$http', '$q', '$timeout', 'sharingDataService', 'CONFIG', 'App'];
     ResumeRoomController.$inject = ['$state', '$window', '$uibModal', '$http', '$q', '$timeout', 'ajaxService', 'CompanyDetails', 'sharingDataService', 'App'];
     UploadResumeController.$inject = ['$rootScope', '$scope', '$http', '$timeout', '$window', '$uibModal', 'App'];
     FindResumeController.$inject = ['$scope', '$http', '$q', '$timeout', '$filter', 'orderByFilter', '$window', 'CompanyDetails', 'App'];
@@ -231,32 +231,28 @@
         }
 
         function candidateDetails(row) {
-            
             vm.loader = true;
 
-            $timeout(function(){
-                $state.go('app.candidates.details');
-            }, 1000);
-            /*$http({
+            $http({
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                 },
                 method: 'POST',
-                url: App.base_url + 'view_campaign',
+                url: App.base_url + 'get_candidate_details',
                 data: $.param({
-                    campaign_id: row.entity.id
+                    referred_id: row.entity.id
                 })
             })
             .then(function (response) {
                 if (response.data.status_code == 200) {
-                    CampaignsData.setCampaigns(response.data.data);
-                    CampaignsData.addCampaigns('id', row.entity.id);
-                    $state.go('app.campaigns.editCampaigns');
+                    sharingDataService.set(angular.extend(response.data.data, {id : row.entity.id}));
+                    $state.go('app.candidates.details');
                 }
                 else if (response.data.status_code == 400) {
                     $window.location = App.base_url + 'logout';
                 }
-            });*/
+
+            });
         }
 
         // important dont delete
@@ -739,32 +735,15 @@
     }
 
 
-    function CandidateDetailsController($http, $q, $timeout, App) {
-        
-        var vm = this;
+    function CandidateDetailsController($http, $q, $timeout, sharingDataService, CONFIG, App) {
+     
+        var vm = this,
+                    cancelerHiringPerson;
 
         vm.status     = "PENDING";
         vm.schedule   = ["Onsite Interview"];
         vm.statusList = ["PENDING"];
-        vm.details    = {
-            name : "K. NITIN RANGANATH",
-            mobile : "+91 9852458752",
-            email :  "nitinranganath@gmail.com",
-            city_location : "Hyderabad, Telangana",
-            current_job : "Sr Android Engineer",
-            refered_by : "Vikram Krishna",
-            current_company : 'EnterPi Software Solutions Pvt Ltd',
-            current_company_details : "May 2015 - Present(2 years 3 months),",
-            current_company_location : "Hyderabad Area, India",
-            current_company_position : "Sr Android Engineer",
-            previous_company : "HTC Global Services (India) Private Ltd",
-            previous_company_details : "May 2013 - May 2015 Present(2 years),",
-            previous_company_location : "Bangalore Area, India",
-            previous_company_position : "Jr. Android Engineer",
-            skills : ["Java & XML, C, C++", "Building to Devices", "Cocoa Touch", "Develop software solutions by studying information needs, conferring with users.", "Distubuting an App (prefearably for an app on the App Store"],
-            qualifaction : "B Tech (CSC) From JNTU, Hyderabad",
-            certification : "Android Developer Certification from Google .Inc"
-        }
+        vm.details    = sharingDataService.get();
         vm.timeZone = [
               {
                 "value": "Dateline Standard Time",
@@ -2123,35 +2102,31 @@
                 ]
               }
         ];
+        vm.inProgressHiringPerson = false;
+        vm.selectedHiringPerson   = [];
 
-
-
-        vm.members  = [];
-        vm.contacts = [{name: 'jaya'},{name: 'Krishna'}];
-        vm.filterSelected = true;
-        var cancelerAI;
-        vm.querySearch = function(ss){
-
-            if (cancelerAI) {
-                cancelerAI.resolve();
+        vm.querySearchHiringPerson = function(searchText){
+            
+            if (cancelerHiringPerson) {
+                cancelerHiringPerson.resolve();
             }
 
-            cancelerAI = $q.defer();
-
+            cancelerHiringPerson = $q.defer();
+            vm.inProgressHiringPerson = true;
+            
             return $http({
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                 },
                 method: 'POST',
-                data: $.param({search: ss}),
+                data: $.param({search: searchText}),
                 url: CONFIG.APP_DOMAIN + 'company_all_contacts',
-                timeout: cancelerAI.promise
+                timeout: cancelerHiringPerson.promise
             })
             .then(function (response) {
-                var services = response.data.data;
-                return  {"data": services}
+                vm.inProgressHiringPerson = !vm.inProgressHiringPerson;
+                return  response.data.data;
             })
-
         }
 
         function init() {

@@ -23,17 +23,17 @@
         						<div layout="row">
         							<div flex="50" class="list">
         								<h5>MOBILE</h5>
-        								<span ng-bind="CandidateDetailsCtrl.details.mobile"></span>		
+        								<span ng-bind="CandidateDetailsCtrl.details.phone"></span>		
         							</div>
         							<div flex class="list">
         								<h5>EMAIL</h5>
-        								<span ng-bind="CandidateDetailsCtrl.details.email"></span>		
+        								<span ng-bind="CandidateDetailsCtrl.details.emailid"></span>		
         							</div>
         						</div>	
         						<div layout="row">
         							<div flex="50" class="list">
         								<h5>CITY/LOCATION</h5>
-        								<span ng-bind="CandidateDetailsCtrl.details.city_location"></span>		
+        								<span ng-bind="CandidateDetailsCtrl.details.location"></span>		
         							</div>
         							<div flex class="list">
         								<h5>SOCIAL CONNECT</h5>
@@ -47,7 +47,7 @@
         							</div>
         							<div flex class="list">
         								<h5>REFERED BY</h5>
-        								<span ng-bind="CandidateDetailsCtrl.details.refered_by"></span>		
+        								<span ng-bind="CandidateDetailsCtrl.details.referred_by"></span>		
         							</div>
         						</div>	
         					</div>
@@ -61,7 +61,7 @@
         						<div layout="row">
         							<div flex="50" class="list">
         								<h5>CURRENT COMPANY</h5>
-        								<span ng-bind="CandidateDetailsCtrl.details.current_company"></span>
+        								<span ng-bind="CandidateDetailsCtrl.details.current_company_name"></span>
         								<span class="info" ng-bind="CandidateDetailsCtrl.details.current_company_details"></span><br>
         								<span class="info" ng-bind="CandidateDetailsCtrl.details.current_company_location"></span>			
         							</div>
@@ -73,7 +73,7 @@
         						<div layout="row">
         							<div flex="50" class="list">
         								<h5>PREV COMPANY</h5>
-        								<span ng-bind="CandidateDetailsCtrl.details.previous_company"></span>	
+        								<span ng-bind="CandidateDetailsCtrl.details.previous_company_name"></span>	
         								<span class="info" ng-bind="CandidateDetailsCtrl.details.previous_company_details"></span><br>
         								<span class="info" ng-bind="CandidateDetailsCtrl.details.previous_company_location"></span>		
         							</div>
@@ -106,7 +106,7 @@
         						<div layout="row">
 		    						<div class="list">
 										<h5>Qualification</h5>
-										<span ng-bind="CandidateDetailsCtrl.details.qualifaction"></span>		
+										<span ng-bind="CandidateDetailsCtrl.details.qualification"></span>		
 									</div>
         						</div>
         						<div layout="row">
@@ -231,32 +231,6 @@
                                     <form class="mm_down">
                                         <h5>SCHEDULE</h5>
                                         <div class="box">
-                                            <md-chips ng-model="CandidateDetailsCtrl.members" md-autocomplete-snap
-                                                      md-transform-chip="CandidateDetailsCtrl.transformChip($chip)"
-                                                      md-require-match="true">
-                                              <md-autocomplete
-                                                  md-selected-item="CandidateDetailsCtrl.selectedItem"
-                                                  md-search-text="CandidateDetailsCtrl.searchText"
-                                                  md-items="item in CandidateDetailsCtrl.querySearch(CandidateDetailsCtrl.searchText)"
-                                                  md-item-text="item.name"
-                                                  md-no-cache = "true"
-                                                  placeholder="Search for a vegetable">
-                                                
-                                                <md-item-template>
-                                                    <span md-highlight-text="CandidateDetailsCtrl.searchText">{{item.name}} </span>
-                                                </md-item-template>
-                                                <md-not-found>
-                                                    <div class="not_found">No Attendees found</div>
-                                                </md-not-found>
-
-                                              </md-autocomplete>
-                                              <md-chip-template>
-                                                <span>
-                                                  <strong>{{$chip.name}}</strong>
-                                                </span>
-                                              </md-chip-template>
-                                            </md-chips>
-
                                             <md-input-container class="md-block select-box">
                                                 <label style="display:none">SCHEDULE FOR</label>
                                                 <md-select name="campaign_type" ng-model="CandidateDetailsCtrl.campDetails.campaign_type" required ng-class="{'error-border':campaignDetails.campaign_type.$invalid && CandidateDetailsCtrl.errCondcampaignDetails}">
@@ -265,7 +239,36 @@
                                                 <div class="error-spacer"></div>
                                                 <div ng-if="campaignDetails.campaign_type.$error.required && CandidateDetailsCtrl.errCondcampaignDetails"  class="has-error-msg">Please select Campaign Type.</div>
                                             </md-input-container>
+                                            
+                                            <div class="attendees">
+                                                <md-chips ng-model="CandidateDetailsCtrl.selectedHiringPerson" md-autocomplete-snap
+                                                          md-require-match="true">
+                                                    <md-autocomplete
+                                                      md-selected-item="CandidateDetailsCtrl.selectedItem"
+                                                      md-search-text="CandidateDetailsCtrl.searchText"
+                                                      md-items="item in CandidateDetailsCtrl.querySearchHiringPerson(CandidateDetailsCtrl.searchText)"
+                                                      md-item-text="item.emailid"
+                                                      md-no-cache = "true"
+                                                      md-min-length="2"
+                                                      md-selected-item-change="CandidateDetailsCtrl.selectedItemChange(item)"
+                                                      placeholder="CHOOSE HIRING PERSON">
+                                                    <md-item-template>
+                                                        <span md-highlight-text="CandidateDetailsCtrl.searchText">{{item.emailid}} </span>
+                                                    </md-item-template>
+                                                    <md-not-found>
+                                                        <div class="not_found">No Attendees found</div>
+                                                    </md-not-found>
 
+                                                  </md-autocomplete>
+                                                  <md-chip-template>
+                                                    <span>
+                                                      <strong title="{{$chip.emailid}}">{{$chip.emailid}}</strong>
+                                                    </span>
+                                                  </md-chip-template>
+                                                </md-chips>
+                                                <img class="loader" ng-if="CandidateDetailsCtrl.inProgressHiringPerson" src="public/images/loader/blue-loader.gif">
+                                            </div>
+                                            
                                             <md-input-container class="md-block date-time">
                                                 <label>INTERVIEW TIME</label>
                                                 <input type='text' name="interview_time" class="form-control" ng-model="interviewTime" id='interview_time' required ng-class="{'has-error-border':CandidateDetailsCtrl.errCondschedule && schedule['start' + $index].$error.required}"/>
@@ -370,27 +373,3 @@
         </div>
 	</div>
 </div>
-
-<style type="text/css">
-    .mm_down{
-        animation-name: mm_down;
-        -webkit-animation-name: mm_down;  
-
-        animation-duration: 0.5s; 
-        -webkit-animation-duration: 0.5s;
-
-        animation-timing-function: ease-out;    
-        -webkit-animation-timing-function: ease-out;    
-
-        visibility: visible !important;                     
-    }
-
-    @keyframes mm_down {
-        0% {
-            transform: translateY(-2%);
-        }
-        100% {
-            transform: translateY(0%);
-        }       
-    }
-</style>

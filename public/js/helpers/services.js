@@ -71,14 +71,14 @@
 
     function sharingDataService() {
         
-        var data;
+        this.data;
 
         this.set = function (data) {
-            data = data;
+            this.data = data;
         }
 
         this.get = function () {
-            return data;
+            return this.data;
         }
     }
 
