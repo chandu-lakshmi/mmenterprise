@@ -44,10 +44,10 @@ return [
             'PREFIX' => '/enterprise',
 
             // Angular Application domain
-            'APP_DOMAIN' => 'http://localhost/mmenterprise_11/',
+            'APP_DOMAIN' => 'http://localhost/mmenterprise/',
 
             // Application API domain
-            'API_DOMAIN' => 'http://localhost/mintmesh_11/',
+            'API_DOMAIN' => 'http://localhost/mintmesh/',
 
             //Client keys
             'CLIENT_ID'         => 'G7iLdQoeZy0Ef06C',
