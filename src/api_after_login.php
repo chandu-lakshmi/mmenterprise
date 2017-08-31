@@ -629,6 +629,24 @@ $app->get('/candidates/resume-room',function ($request, $response, $args) use ($
     return $this->renderer->render($response, 'index.phtml', $args);
 });
 
+//candidates details
+$app->get('/candidates/details',function ($request, $response, $args) use ($app) {
+    //Arguments
+    $this->mintmeshAccessToken;
+    $args       = commonData($this->settings);
+    
+    //Check Logged in or not
+    if(!empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']);
+    }
+
+    $args['comp_data'] = companyProfile($this->settings);
+    // Render dashboard view
+    //return $this->renderer->render($response, 'index.phtml', $args);
+    return $response->withRedirect($args['APP_DOMAIN']."candidates/resume-room");
+});
+
+
 //candidates upload-resume
 $app->get('/candidates/upload-resume',function ($request, $response, $args) use ($app) {
     //Arguments
