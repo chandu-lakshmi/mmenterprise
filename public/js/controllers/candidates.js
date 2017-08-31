@@ -12,7 +12,7 @@
             .controller('FindResumeController', FindResumeController)
 
     CandidateController.$inject = ['App'];
-    CandidateDetailsController.$inject = ['App'];
+    CandidateDetailsController.$inject = ['$http', '$q', '$timeout', 'App'];
     ResumeRoomController.$inject = ['$state', '$window', '$uibModal', '$http', '$q', '$timeout', 'ajaxService', 'CompanyDetails', 'sharingDataService', 'App'];
     UploadResumeController.$inject = ['$rootScope', '$scope', '$http', '$timeout', '$window', '$uibModal', 'App'];
     FindResumeController.$inject = ['$scope', '$http', '$q', '$timeout', '$filter', 'orderByFilter', '$window', 'CompanyDetails', 'App'];
@@ -739,12 +739,14 @@
     }
 
 
-    function CandidateDetailsController(App) {
+    function CandidateDetailsController($http, $q, $timeout, App) {
         
         var vm = this;
 
-        vm.schedule = ["Onsite Interview"];
-        vm.details = {
+        vm.status     = "PENDING";
+        vm.schedule   = ["Onsite Interview"];
+        vm.statusList = ["PENDING"];
+        vm.details    = {
             name : "K. NITIN RANGANATH",
             mobile : "+91 9852458752",
             email :  "nitinranganath@gmail.com",
@@ -2122,6 +2124,35 @@
               }
         ];
 
+
+
+        vm.members  = [];
+        vm.contacts = [{name: 'jaya'},{name: 'Krishna'}];
+        vm.filterSelected = true;
+        var cancelerAI;
+        vm.querySearch = function(ss){
+
+            if (cancelerAI) {
+                cancelerAI.resolve();
+            }
+
+            cancelerAI = $q.defer();
+
+            return $http({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'POST',
+                data: $.param({search: ss}),
+                url: CONFIG.APP_DOMAIN + 'company_all_contacts',
+                timeout: cancelerAI.promise
+            })
+            .then(function (response) {
+                var services = response.data.data;
+                return  {"data": services}
+            })
+
+        }
 
         function init() {
 

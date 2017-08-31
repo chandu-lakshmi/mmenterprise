@@ -54,7 +54,7 @@
         				</md-card>
 
         				<md-card style="margin-top:20px">
-        					<div class="title">
+        					<div class="title info">
         						JOB	DETAILS
         					</div>
         					<div layout="column" class="details">
@@ -86,7 +86,7 @@
         				</md-card>
 
         				<md-card style="margin-top:20px">
-        					<div class="title">
+        					<div class="title skill">
         						SKILLS
         					</div>
         					<div layout="column" class="details">
@@ -99,7 +99,7 @@
         				</md-card>
 
         				<md-card style="margin-top:20px">
-        					<div class="title">
+        					<div class="title edu">
         						EDUCATION
         					</div>
         					<div layout="column" class="details">
@@ -120,16 +120,143 @@
         			</div>
         			<div flex="35">
         				<md-card class="right">
+                            <md-input-container class="md-block select-box status_change">
+                                <md-select name="status" ng-model="CandidateDetailsCtrl.status" aria-label="status">
+                                    <md-option ng-repeat="type in CandidateDetailsCtrl.statusList" ng-value="type">{{type}}</md-option>
+                                </md-select>
+                            </md-input-container>
                             <uib-tabset active="activeForm">
-                                <uib-tab index="0">
-                                    <uib-tab-heading>
-                                        <span class='input-group-addon'>
-                                            <span class='glyphicon glyphicon-calendar'></span>
-                                        </span>
-                                    </uib-tab-heading>
-                                    <form>
+                                <uib-tab class="timeline">
+                                    <div class="mm_down timeline_edit">
+                                        <h5>TIMELINE</h5>
+                                        <div layout="column">
+                                            <div layout="row" class="list">
+                                                <div class="lt">
+                                                    <img class="pending" src="public/images/pending.png" alt="pending">
+                                                </div>
+                                                <div class="rt">
+                                                    <p>Status changed to <span class="status">Pending</span></p>
+                                                    by Ramesh S, <span class="time">about 1 hour ago</span>
+                                                </div>
+                                            </div>
+                                            <div layout="row" class="list">
+                                                <div class="lt">
+                                                    <img class="pending" src="public/images/stamp.png" alt="pending">
+                                                </div>
+                                                <div class="rt">
+                                                    <p>Moved to <span class="interview">Interveiw</span></p>
+                                                    by Pramod M, <span class="time">2 days ago</span>
+                                                </div>
+                                            </div>
+                                            <div layout="row" class="list">
+                                                <div class="lt">
+                                                    <img class="pending" src="public/images/note.png" alt="pending">
+                                                </div>
+                                                <div class="rt">
+                                                    <p>Give Assessment for Machine Test</p>
+                                                    by Ramesh, <span class="time">Jul 10, 2017</span>
+                                                </div>
+                                            </div>
+                                            <div layout="row" class="list">
+                                                <div class="lt">
+                                                    <img class="pending" src="public/images/phone.png" alt="pending">
+                                                </div>
+                                                <div class="rt">
+                                                    <p>Schedule for Telephonic Round</p>
+                                                    by Gopi Krishna, <span class="time">Jul 10, 2017</span>
+                                                </div>
+                                            </div>
+                                            <div layout="row" class="list">
+                                                <div class="lt">
+                                                    <img class="pending" src="public/images/tick.png" alt="pending">
+                                                </div>
+                                                <div class="rt">
+                                                    <p>Application <span class="status">ACCEPTED</span></p>
+                                                    by Ramesh, <span class="time">Jul 10, 2017</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>                      
+                                </uib-tab>
+                                <uib-tab class="comment">
+                                    <div class="mm_down comment_edit">
+                                        <h5>WRITE YOUR COMMENT</h5>
+                                        <div class="box">
+                                            <textarea rows="4" flex></textarea>
+                                            <div class="action">
+                                                <md-button class="md-raised add pull-right">Add Comment</md-button>
+                                            </div>
+                                        </div> 
+                                        <div layout="column">
+                                            <div layout="row" class="list">
+                                                <div class="lt">
+                                                    <img class="pending" src="public/images/pending.png" alt="pending">
+                                                </div>
+                                                <div class="rt">
+                                                    <p>Status changed to <span class="status">Pending</span></p>
+                                                    by Ramesh S, <span class="time">about 1 hour ago</span>
+                                                </div>
+                                            </div>
+                                            <div layout="row" class="list">
+                                                <div class="lt">
+                                                    <img class="pending" src="public/images/stamp.png" alt="pending">
+                                                </div>
+                                                <div class="rt">
+                                                    <p>Moved to <span class="interview">Interveiw</span></p>
+                                                    by Pramod M, <span class="time">2 days ago</span>
+                                                </div>
+                                            </div>
+                                            <div layout="row" class="list">
+                                                <div class="lt">
+                                                    <img class="pending" src="public/images/note.png" alt="pending">
+                                                </div>
+                                                <div class="rt">
+                                                    <p>Give Assessment for Machine Test</p>
+                                                    by Ramesh, <span class="time">Jul 10, 2017</span>
+                                                </div>
+                                            </div>
+                                            <div layout="row" class="list">
+                                                <div class="lt">
+                                                    <img class="pending" src="public/images/phone.png" alt="pending">
+                                                </div>
+                                                <div class="rt">
+                                                    <p>Schedule for Telephonic Round</p>
+                                                    by Gopi Krishna, <span class="time">Jul 10, 2017</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                </uib-tab>
+                                <uib-tab class="schedule">
+                                    <form class="mm_down">
                                         <h5>SCHEDULE</h5>
                                         <div class="box">
+                                            <md-chips ng-model="CandidateDetailsCtrl.members" md-autocomplete-snap
+                                                      md-transform-chip="CandidateDetailsCtrl.transformChip($chip)"
+                                                      md-require-match="true">
+                                              <md-autocomplete
+                                                  md-selected-item="CandidateDetailsCtrl.selectedItem"
+                                                  md-search-text="CandidateDetailsCtrl.searchText"
+                                                  md-items="item in CandidateDetailsCtrl.querySearch(CandidateDetailsCtrl.searchText)"
+                                                  md-item-text="item.name"
+                                                  md-no-cache = "true"
+                                                  placeholder="Search for a vegetable">
+                                                
+                                                <md-item-template>
+                                                    <span md-highlight-text="CandidateDetailsCtrl.searchText">{{item.name}} </span>
+                                                </md-item-template>
+                                                <md-not-found>
+                                                    <div class="not_found">No Attendees found</div>
+                                                </md-not-found>
+
+                                              </md-autocomplete>
+                                              <md-chip-template>
+                                                <span>
+                                                  <strong>{{$chip.name}}</strong>
+                                                </span>
+                                              </md-chip-template>
+                                            </md-chips>
+
                                             <md-input-container class="md-block select-box">
                                                 <label style="display:none">SCHEDULE FOR</label>
                                                 <md-select name="campaign_type" ng-model="CandidateDetailsCtrl.campDetails.campaign_type" required ng-class="{'error-border':campaignDetails.campaign_type.$invalid && CandidateDetailsCtrl.errCondcampaignDetails}">
@@ -187,6 +314,7 @@
                                             <md-input-container class="md-block loc">
                                                 <label>LOCATION <sup> *</sup></label>
                                                 <input type="text" name="location" ng-model="jobData.jobLocation" required ng-class="{'has-error-border':create_job.location.$invalid && CreateJobCtrl.errCond}" ng-autocomplete="geo_location" details="geo_details" options="geo_options" apiplaceholder="">
+                                                <i class="material-icons">location_on</i>
                                                 <div ng-if="create_job.location.$error.required && CreateJobCtrl.errCond" class="has-error-msg">Please enter Location.</div>
                                             </md-input-container>
                                             <md-input-container class="md-block">
@@ -194,24 +322,45 @@
                                                 <input type="text" name="campaign_name" ng-model="CandidateDetailsCtrl.campDetails.campaign_name" required ng-class="{'has-error-border':campaignDetails.campaign_name.$invalid && CandidateDetailsCtrl.errCondcampaignDetails}">
                                                 <div ng-if="campaignDetails.campaign_name.$error.required && CandidateDetailsCtrl.errCondcampaignDetails" class="has-error-msg">Please enter Campaign Name.</div>
                                             </md-input-container>
+                                            <md-button class="md-raised invitation pull-right">SEND INVITATION</md-button>
                                         </div>
                                     </form>
                                 </uib-tab>
-                                <uib-tab index="1">
-                                    <uib-tab-heading>
-                                        <span class='input-group-addon'>
-                                            <span class='glyphicon glyphicon-calendar'></span>
-                                        </span>
-                                    </uib-tab-heading>
-                                    Some Tab Content
+                                <uib-tab class="mail">
+                                    <div class="mm_down send_mail">
+                                        <h5>WRITE AN EMAIL</h5>
+                                        <div class="box" style="border-bottom: 1px solid #e5e5e5">
+                                            <md-input-container class="md-block">
+                                                <label>TO</label>
+                                                <input type="text" name="campaign_name" ng-model="CandidateDetailsCtrl.campDetails.campaign_name" required ng-class="{'has-error-border':campaignDetails.campaign_name.$invalid && CandidateDetailsCtrl.errCondcampaignDetails}">
+                                                <div ng-if="campaignDetails.campaign_name.$error.required && CandidateDetailsCtrl.errCondcampaignDetails" class="has-error-msg">Please enter Campaign Name.</div>
+                                            </md-input-container>
+                                            <md-input-container class="md-block select-box">
+                                                <label style="display:none">SUBJECT</label>
+                                                <md-select name="campaign_type" ng-model="CandidateDetailsCtrl.campDetails.campaign_type" required ng-class="{'error-border':campaignDetails.campaign_type.$invalid && CandidateDetailsCtrl.errCondcampaignDetails}">
+                                                    <md-option ng-repeat="type in CandidateDetailsCtrl.schedule" ng-value="type">{{type}}</md-option>
+                                                </md-select>
+                                                <div class="error-spacer"></div>
+                                                <div ng-if="campaignDetails.campaign_type.$error.required && CandidateDetailsCtrl.errCondcampaignDetails"  class="has-error-msg">Please select Campaign Type.</div>
+                                            </md-input-container>
+                                        </div>
+                                        <div class="comment_edit">
+                                            <div class="box">
+                                                <textarea rows="4" flex></textarea>
+                                                <div class="action">
+                                                    <md-button class="md-raised add pull-right">Send Mail</md-button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>  
                                 </uib-tab>
-                                <uib-tab index="2">
+                                <uib-tab class="link" disable="true">
+                                      
+                                </uib-tab>
+                                <uib-tab class="arrow" disable="true">
                                     <uib-tab-heading>
-                                        <span class='input-group-addon'>
-                                            <span class='glyphicon glyphicon-calendar'></span>
-                                        </span>
+                                        <i class="material-icons">&#xE313;</i>
                                     </uib-tab-heading>
-                                    More Tab Content
                                 </uib-tab>
                             </uib-tabset>            
                         </md-card>
@@ -221,3 +370,27 @@
         </div>
 	</div>
 </div>
+
+<style type="text/css">
+    .mm_down{
+        animation-name: mm_down;
+        -webkit-animation-name: mm_down;  
+
+        animation-duration: 0.5s; 
+        -webkit-animation-duration: 0.5s;
+
+        animation-timing-function: ease-out;    
+        -webkit-animation-timing-function: ease-out;    
+
+        visibility: visible !important;                     
+    }
+
+    @keyframes mm_down {
+        0% {
+            transform: translateY(-2%);
+        }
+        100% {
+            transform: translateY(0%);
+        }       
+    }
+</style>

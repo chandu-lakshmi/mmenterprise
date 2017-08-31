@@ -345,7 +345,7 @@
                 }
             ])
 
-            .run(function($window, $rootScope, $uibModal) {
+            .run(function($window, $rootScope) {
                 $rootScope.online = navigator.onLine;
                 $window.addEventListener("offline", function() {
                     $rootScope.$apply(function() {
