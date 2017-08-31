@@ -171,6 +171,12 @@
                     controller: 'CandidateController',
                     controllerAs: 'CandidateCtrl'
                 })
+                $stateProvider.state('app.candidates.details', {
+                    url: '^/candidates/details',
+                    templateUrl: App.base_url + 'templates/candidates/candidate-details.phtml',
+                    controller: 'CandidateDetailsController',
+                    controllerAs: 'CandidateDetailsCtrl'
+                })
                 $stateProvider.state('app.candidates.resumeRoom', {
                     url: '^/candidates/resume-room',
                     templateUrl: App.base_url + 'templates/candidates/resume-room.phtml',
@@ -289,13 +295,13 @@
                 })
                 $stateProvider.state('app.analytics', {
                     url: '^/analytics',
-                    templateUrl: App.base_url + 'templates/analytics.phtml',
+                    templateUrl: App.base_url + 'templates/analytics/analytics.phtml',
                     controller: 'AnalyticsController',
                     controllerAs: 'AnalyticsCtrl'
                 })
                 $stateProvider.state('app.analyticsSearch', {
                     url: '^/analytics-search',
-                    templateUrl: App.base_url + 'templates/analytics-search.phtml',
+                    templateUrl: App.base_url + 'templates/analytics/analytics-search.phtml',
                     controller: 'AnalyticsSearchController',
                     controllerAs: 'AnalyticsSearchCtrl',
                     params : { searchVal : '' }
@@ -339,7 +345,7 @@
                 }
             ])
 
-            .run(function($window, $rootScope, $uibModal) {
+            .run(function($window, $rootScope) {
                 $rootScope.online = navigator.onLine;
                 $window.addEventListener("offline", function() {
                     $rootScope.$apply(function() {
