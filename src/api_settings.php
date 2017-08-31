@@ -314,6 +314,10 @@ return [
             'add_to_talentcommunity' =>[
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/add_to_talentcommunity'
+            ],
+            'get_candidate_email_templates' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_candidate_email_templates'
             ]
     ];
         
