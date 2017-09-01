@@ -319,6 +319,10 @@ return [
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/get_candidate_email_templates'
             ],
+            'get_candidate_details' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_candidate_details'
+            ],
             'get_company_employees' =>[
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/get_company_employees'
