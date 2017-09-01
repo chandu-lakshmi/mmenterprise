@@ -717,7 +717,7 @@
         var vm = this,
                     cancelerHiringPerson;
 
-        console.log($stateParams)
+ 
         vm.status     = "PENDING";
         vm.schedule   = ["Onsite Interview"];
         vm.statusList = ["PENDING"];
@@ -2083,10 +2083,13 @@
         vm.inProgressCandidateDetails = true;
 
         vm.writeMail             = {};
-        vm.mailSubmitted         = false;
-        vm.inProgressSendingMail = false;
-        vm.sendMailResponseMsg   = null;
+        vm.inProgressPostMail    = false;
+        vm.submittedPostMail     = false;
+        vm.responseMsgPostMail   = null;
         
+        vm.inProgressPostComment  = false;
+        vm.responseMsgPostComment = null;
+
         vm.selectedHiringPerson   = [];
         vm.inProgressHiringPerson = false;
 
@@ -2128,13 +2131,13 @@
 
         vm.postMail = function(form) {
 
-            vm.mailSubmitted = true;
+            vm.submittedPostMail = true;
 
             if(form.$valid) {
                 
                 var apiKeys = $(".send_mail").serialize() + '&' + $.param({referred_id: vm.details.id});
 
-                vm.inProgressSendingMail  = true;
+                vm.inProgressPostMail  = true;
 
                 $http({
                     headers : {
@@ -2147,11 +2150,11 @@
                 .then(function (response) {
 
                     if (response.data.status_code == 200) {
-                        vm.sendMailResponseMsg   = response.data.data;
-                        vm.inProgressSendingMail = !vm.inProgressSendingMail;
-                        vm.mailSubmitted         = !vm.mailSubmitted;
+                        vm.inProgressPostMail   = false;
+                        vm.submittedPostMail    = false;
+                        vm.responseMsgPostMail  = response.data.data;
                         $timeout(function(){
-                            vm.sendMailResponseMsg = null;
+                            vm.responseMsgPostMail = null;
                         });
                     }
                     else if (response.data.status_code == 400) {
@@ -2160,6 +2163,31 @@
 
                 });
             }
+        }
+
+        vm.postComment = function(form) {
+
+            vm.inProgressPostComment  = true;
+
+            $http({
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method  : 'POST',
+                url     : App.base_url + 'get_candidate_email_templates',
+                data    : apiKeys   
+            })
+            .then(function (response) {
+
+                if (response.data.status_code == 200) {
+                    vm.inProgressPostComment  = false;
+                    vm.responseMsgPostComment = response.data.data;
+                }
+                else if (response.data.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+
+            });
         }
 
 
@@ -2172,14 +2200,12 @@
         function getCandidateDetails() {
 
             var candidateDetails = $http({
-                headers: {
+                headers : {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                 },
-                method: 'POST',
-                url: App.base_url + 'get_candidate_details',
-                data: $.param({
-                    referred_id: row.entity.id
-                })
+                method  : 'POST',
+                url     : App.base_url + 'get_candidate_details',
+                data    : $.param({ referred_id: $stateParams.id })
             });
 
             var emailTemplates = $http({
@@ -2201,10 +2227,10 @@
             });
 
             return $q.all([candidateDetails, emailTemplates, candidateActivities]).then(function (data) {
-
-                vm.details                 = data[0].data.result.data.data;
-                vm.writeMailSubjectList    = data[1].data.result.data.data;
-                vm.candidateActivitiesList = data[2].data.result.data.data;
+                
+                vm.details                 = data[0].data;
+                vm.writeMailSubjectList    = data[1].data.data;
+                vm.candidateActivitiesList = data[2].data.data;
 
             }, function() {
                 $window.location = App.base_url + 'logout';

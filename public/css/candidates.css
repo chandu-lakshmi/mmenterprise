@@ -844,7 +844,10 @@
               .candidates .candidate-details .section md-card.right .tab-content .comment_edit .box textarea {
                 width: 100%;
                 border: 1px solid #e0e0e0;
-                outline: none; }
+                outline: none;
+                resize: none;
+                font-size: 16px;
+                padding: 10px; }
               .candidates .candidate-details .section md-card.right .tab-content .comment_edit .box .action .add {
                 margin-top: 10px;
                 width: 110px;

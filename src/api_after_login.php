@@ -630,7 +630,7 @@ $app->get('/candidates/resume-room',function ($request, $response, $args) use ($
 });
 
 //candidates details
-$app->get('/candidates/details',function ($request, $response, $args) use ($app) {
+$app->get('/candidates/details/{id}',function ($request, $response, $args) use ($app) {
     //Arguments
     $this->mintmeshAccessToken;
     $args       = commonData($this->settings);
@@ -642,8 +642,9 @@ $app->get('/candidates/details',function ($request, $response, $args) use ($app)
 
     $args['comp_data'] = companyProfile($this->settings);
     // Render dashboard view
-    //return $this->renderer->render($response, 'index.phtml', $args);
-    return $response->withRedirect($args['APP_DOMAIN']."candidates/resume-room");
+    
+    return $this->renderer->render($response, 'index.phtml', $args);
+    
 });
 
 

@@ -172,7 +172,7 @@
                     controllerAs: 'CandidateCtrl'
                 })
                 $stateProvider.state('app.candidates.details', {
-                    url: '^/candidates/details:id',
+                    url: '^/candidates/details/:id',
                     templateUrl: App.base_url + 'templates/candidates/candidate-details.phtml',
                     controller: 'CandidateDetailsController',
                     controllerAs: 'CandidateDetailsCtrl'

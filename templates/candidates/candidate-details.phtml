@@ -4,7 +4,7 @@
             <img src="public/images/loader/spin.gif" alt="loading">
         </div>
     </div>
-	<div class="container" ng-show="CandidateDetailsCtrl.inProgressCandidateDetails">
+	<div class="container" ng-show="!CandidateDetailsCtrl.inProgressCandidateDetails">
 		<div class="head">
             <a ui-sref="app.candidates.resumeRoom"><img src="public/images/back-arrow-grey.svg" alt="back"><span>CANDIDATE LIST</span></a>
         </div>
@@ -360,11 +360,11 @@
                                             <div class="box">
                                                 <div text-angular class="mm-text-editor" name="body" ng-model="CandidateDetailsCtrl.writeMail.body" ta-toolbar="[]"></div>
                                                 <div class="action">
-                                                    <div class="pull-left" ng-if="CandidateDetailsCtrl.inProgressSendingMail">
+                                                    <div class="pull-left" ng-if="CandidateDetailsCtrl.inProgressPostMail">
                                                         <img src="public/images/loader/upload_file.gif" alt="sending">
                                                         <span class="msg">Sending Mail</span>
                                                     </div>
-                                                    <span class="msg response-msg" ng-bind="CandidateDetailsCtrl.sendMailResponseMsg"></span>
+                                                    <span class="msg response-msg" ng-bind="CandidateDetailsCtrl.responseMsgPostMail"></span>
                                                     <md-button class="md-raised add pull-right" ng-click="CandidateDetailsCtrl.postMail(write_mail_form)">Send Mail</md-button>
                                                 </div>
                                             </div>
