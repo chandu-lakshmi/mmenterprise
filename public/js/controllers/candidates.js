@@ -12,8 +12,8 @@
             .controller('FindResumeController', FindResumeController)
 
     CandidateController.$inject = ['App'];
-    CandidateDetailsController.$inject = ['$http', '$q', '$timeout', 'sharingDataService', 'CONFIG', 'App'];
-    ResumeRoomController.$inject = ['$state', '$window', '$uibModal', '$http', '$q', '$timeout', 'ajaxService', 'CompanyDetails', 'sharingDataService', 'App'];
+    CandidateDetailsController.$inject = ['$http', '$q', '$timeout', '$window', '$stateParams', 'CONFIG', 'App'];
+    ResumeRoomController.$inject = ['$state', '$window', '$uibModal', '$http', '$q', '$timeout', 'ajaxService', 'CompanyDetails', 'App'];
     UploadResumeController.$inject = ['$rootScope', '$scope', '$http', '$timeout', '$window', '$uibModal', 'App'];
     FindResumeController.$inject = ['$scope', '$http', '$q', '$timeout', '$filter', 'orderByFilter', '$window', 'CompanyDetails', 'App'];
 
@@ -23,7 +23,7 @@
     }
 
 
-    function ResumeRoomController($state, $window, $uibModal, $http, $q, $timeout, ajaxService, CompanyDetails, sharingDataService, App) {
+    function ResumeRoomController($state, $window, $uibModal, $http, $q, $timeout, ajaxService, CompanyDetails, App) {
 
         var vm = this, canceler,
                 gridApiCall = App.base_url + 'get_company_all_referrals';
@@ -116,8 +116,10 @@
 
         vm.gridOptions.onRegisterApi = function (gridApi) {
             gridApi.selection.on.rowSelectionChanged(null, function (row) {
+                
                 updateRowSelection(row);
-                candidateDetails(row);
+                $state.go('app.candidates.details', { id : row.entity.id });
+
             });
 
             gridApi.selection.on.rowSelectionChangedBatch(null, function (rows) {
@@ -228,31 +230,6 @@
 
         function gridCall(val, callBack) {
             pageChanged('1', val, callBack);
-        }
-
-        function candidateDetails(row) {
-            vm.loader = true;
-
-            $http({
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                },
-                method: 'POST',
-                url: App.base_url + 'get_candidate_details',
-                data: $.param({
-                    referred_id: row.entity.id
-                })
-            })
-            .then(function (response) {
-                if (response.data.status_code == 200) {
-                    sharingDataService.set(angular.extend(response.data.data, {id : row.entity.id}));
-                    $state.go('app.candidates.details');
-                }
-                else if (response.data.status_code == 400) {
-                    $window.location = App.base_url + 'logout';
-                }
-
-            });
         }
 
         // important dont delete
@@ -735,16 +712,16 @@
     }
 
 
-    function CandidateDetailsController($http, $q, $timeout, sharingDataService, CONFIG, App) {
+    function CandidateDetailsController($http, $q, $timeout, $window, $stateParams, CONFIG, App) {
      
         var vm = this,
                     cancelerHiringPerson;
 
+        console.log($stateParams)
         vm.status     = "PENDING";
         vm.schedule   = ["Onsite Interview"];
         vm.statusList = ["PENDING"];
-        vm.details    = sharingDataService.get();
-        vm.timeZone = [
+        vm.timeZone   = [
               {
                 "value": "Dateline Standard Time",
                 "abbr": "DST",
@@ -2102,8 +2079,17 @@
                 ]
               }
         ];
-        vm.inProgressHiringPerson = false;
+
+        vm.inProgressCandidateDetails = true;
+
+        vm.writeMail             = {};
+        vm.mailSubmitted         = false;
+        vm.inProgressSendingMail = false;
+        vm.sendMailResponseMsg   = null;
+        
         vm.selectedHiringPerson   = [];
+        vm.inProgressHiringPerson = false;
+
 
         vm.querySearchHiringPerson = function(searchText){
             
@@ -2111,27 +2097,121 @@
                 cancelerHiringPerson.resolve();
             }
 
-            cancelerHiringPerson = $q.defer();
+            cancelerHiringPerson      = $q.defer();
             vm.inProgressHiringPerson = true;
             
             return $http({
-                headers: {
+                headers : {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                 },
-                method: 'POST',
-                data: $.param({search: searchText}),
-                url: CONFIG.APP_DOMAIN + 'company_all_contacts',
-                timeout: cancelerHiringPerson.promise
+                method  : 'POST',
+                data    : $.param({search: searchText}),
+                url     : CONFIG.APP_DOMAIN + 'company_all_contacts',
+                timeout : cancelerHiringPerson.promise
             })
             .then(function (response) {
                 vm.inProgressHiringPerson = !vm.inProgressHiringPerson;
                 return  response.data.data;
             })
+
         }
+
+        vm.changeMailSubject = function() {
+            
+            angular.forEach(vm.writeMailSubjectList, function(list) {
+                if(list.id == vm.writeMail.subjectId) {
+                    vm.writeMail.body = list.body;
+                }
+            })
+
+        }
+
+        vm.postMail = function(form) {
+
+            vm.mailSubmitted = true;
+
+            if(form.$valid) {
+                
+                var apiKeys = $(".send_mail").serialize() + '&' + $.param({referred_id: vm.details.id});
+
+                vm.inProgressSendingMail  = true;
+
+                $http({
+                    headers : {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                    },
+                    method  : 'POST',
+                    url     : App.base_url + 'get_candidate_email_templates',
+                    data    : apiKeys   
+                })
+                .then(function (response) {
+
+                    if (response.data.status_code == 200) {
+                        vm.sendMailResponseMsg   = response.data.data;
+                        vm.inProgressSendingMail = !vm.inProgressSendingMail;
+                        vm.mailSubmitted         = !vm.mailSubmitted;
+                        $timeout(function(){
+                            vm.sendMailResponseMsg = null;
+                        });
+                    }
+                    else if (response.data.status_code == 400) {
+                        $window.location = App.base_url + 'logout';
+                    }
+
+                });
+            }
+        }
+
 
         function init() {
+            getCandidateDetails().then(function () {
+                vm.inProgressCandidateDetails = false;
+            });
+        }
+
+        function getCandidateDetails() {
+
+            var candidateDetails = $http({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'POST',
+                url: App.base_url + 'get_candidate_details',
+                data: $.param({
+                    referred_id: row.entity.id
+                })
+            });
+
+            var emailTemplates = $http({
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method  : 'POST',
+                url     : App.base_url + 'get_candidate_email_templates',
+                data    : $.param({ referred_id: 123456 })
+            });
+
+            var candidateActivities = $http({
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method  : 'POST',
+                url     : App.base_url + 'get_candidate_activities',
+                data    : $.param({ referred_id: 123456 })
+            });
+
+            return $q.all([candidateDetails, emailTemplates, candidateActivities]).then(function (data) {
+
+                vm.details                 = data[0].data.result.data.data;
+                vm.writeMailSubjectList    = data[1].data.result.data.data;
+                vm.candidateActivitiesList = data[2].data.result.data.data;
+
+            }, function() {
+                $window.location = App.base_url + 'logout';
+            });
 
         }
+
 
         setTimeout(function(){
 
@@ -2164,6 +2244,7 @@
             });
 
         });
+
 
         init();
 

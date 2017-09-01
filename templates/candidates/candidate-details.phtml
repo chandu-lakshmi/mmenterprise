@@ -1,5 +1,10 @@
 <div class="candidate-details">
-	<div class="container">
+    <div class="mm-spinner" ng-if="CandidateDetailsCtrl.inProgressCandidateDetails">
+        <div>
+            <img src="public/images/loader/spin.gif" alt="loading">
+        </div>
+    </div>
+	<div class="container" ng-show="CandidateDetailsCtrl.inProgressCandidateDetails">
 		<div class="head">
             <a ui-sref="app.candidates.resumeRoom"><img src="public/images/back-arrow-grey.svg" alt="back"><span>CANDIDATE LIST</span></a>
         </div>
@@ -130,7 +135,7 @@
                                     <div class="mm_down timeline_edit">
                                         <h5>TIMELINE</h5>
                                         <div layout="column">
-                                            <div layout="row" class="list">
+                                            <div layout="row" class="list" ng-repeat="list in CandidateDetailsCtrl.candidateActivitiesList">
                                                 <div class="lt">
                                                     <img class="pending" src="public/images/pending.png" alt="pending">
                                                 </div>
@@ -241,8 +246,9 @@
                                             </md-input-container>
                                             
                                             <div class="attendees">
+                                                <!--placeholder value in css please check if you want to change -->
                                                 <md-chips ng-model="CandidateDetailsCtrl.selectedHiringPerson" md-autocomplete-snap
-                                                          md-require-match="true">
+                                                          md-require-match="true" ng-class="{'active' : (!!CandidateDetailsCtrl.selectedHiringPerson.length || !!CandidateDetailsCtrl.searchText.length)}">
                                                     <md-autocomplete
                                                       md-selected-item="CandidateDetailsCtrl.selectedItem"
                                                       md-search-text="CandidateDetailsCtrl.searchText"
@@ -250,8 +256,7 @@
                                                       md-item-text="item.emailid"
                                                       md-no-cache = "true"
                                                       md-min-length="2"
-                                                      md-selected-item-change="CandidateDetailsCtrl.selectedItemChange(item)"
-                                                      placeholder="CHOOSE HIRING PERSON">
+                                                      md-selected-item-change="CandidateDetailsCtrl.selectedItemChange(item)">
                                                     <md-item-template>
                                                         <span md-highlight-text="CandidateDetailsCtrl.searchText">{{item.emailid}} </span>
                                                     </md-item-template>
@@ -268,9 +273,9 @@
                                                 </md-chips>
                                                 <img class="loader" ng-if="CandidateDetailsCtrl.inProgressHiringPerson" src="public/images/loader/blue-loader.gif">
                                             </div>
-                                            
+
                                             <md-input-container class="md-block date-time">
-                                                <label>INTERVIEW TIME</label>
+                                                <label>INTERVIEW DATE</label>
                                                 <input type='text' name="interview_time" class="form-control" ng-model="interviewTime" id='interview_time' required ng-class="{'has-error-border':CandidateDetailsCtrl.errCondschedule && schedule['start' + $index].$error.required}"/>
                                                 <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-calendar"></span>
@@ -330,28 +335,37 @@
                                     </form>
                                 </uib-tab>
                                 <uib-tab class="mail">
-                                    <div class="mm_down send_mail">
+                                    <div class="mm_down send_mail" ng-form="write_mail_form">
                                         <h5>WRITE AN EMAIL</h5>
                                         <div class="box" style="border-bottom: 1px solid #e5e5e5">
+
                                             <md-input-container class="md-block">
                                                 <label>TO</label>
-                                                <input type="text" name="campaign_name" ng-model="CandidateDetailsCtrl.campDetails.campaign_name" required ng-class="{'has-error-border':campaignDetails.campaign_name.$invalid && CandidateDetailsCtrl.errCondcampaignDetails}">
-                                                <div ng-if="campaignDetails.campaign_name.$error.required && CandidateDetailsCtrl.errCondcampaignDetails" class="has-error-msg">Please enter Campaign Name.</div>
+                                                <input type="text" name="to" ng-model="CandidateDetailsCtrl.writeMail.to">
                                             </md-input-container>
+                                            
                                             <md-input-container class="md-block select-box">
                                                 <label style="display:none">SUBJECT</label>
-                                                <md-select name="campaign_type" ng-model="CandidateDetailsCtrl.campDetails.campaign_type" required ng-class="{'error-border':campaignDetails.campaign_type.$invalid && CandidateDetailsCtrl.errCondcampaignDetails}">
-                                                    <md-option ng-repeat="type in CandidateDetailsCtrl.schedule" ng-value="type">{{type}}</md-option>
+                                                <md-select name="subject" ng-model="CandidateDetailsCtrl.writeMail.subjectId" md-on-close="CandidateDetailsCtrl.changeMailSubject()">
+                                                    <md-option ng-repeat="list in CandidateDetailsCtrl.writeMailSubjectList" ng-value="list.id">{{list.subject}}</md-option>
                                                 </md-select>
-                                                <div class="error-spacer"></div>
-                                                <div ng-if="campaignDetails.campaign_type.$error.required && CandidateDetailsCtrl.errCondcampaignDetails"  class="has-error-msg">Please select Campaign Type.</div>
                                             </md-input-container>
+                                            <md-input-container class="md-block animated slideInDown" style="margin-top: 41px" ng-if="CandidateDetailsCtrl.writeMail.subjectId == 1">
+                                                <label>SUBJECT TEXT</label>
+                                                <input type="text" name="custom_subject" ng-model="CandidateDetailsCtrl.writeMail.subjectText">
+                                            </md-input-container>
+
                                         </div>
                                         <div class="comment_edit">
                                             <div class="box">
-                                                <textarea rows="4" flex></textarea>
+                                                <div text-angular class="mm-text-editor" name="body" ng-model="CandidateDetailsCtrl.writeMail.body" ta-toolbar="[]"></div>
                                                 <div class="action">
-                                                    <md-button class="md-raised add pull-right">Send Mail</md-button>
+                                                    <div class="pull-left" ng-if="CandidateDetailsCtrl.inProgressSendingMail">
+                                                        <img src="public/images/loader/upload_file.gif" alt="sending">
+                                                        <span class="msg">Sending Mail</span>
+                                                    </div>
+                                                    <span class="msg response-msg" ng-bind="CandidateDetailsCtrl.sendMailResponseMsg"></span>
+                                                    <md-button class="md-raised add pull-right" ng-click="CandidateDetailsCtrl.postMail(write_mail_form)">Send Mail</md-button>
                                                 </div>
                                             </div>
                                         </div>

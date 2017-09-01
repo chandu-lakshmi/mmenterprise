@@ -280,10 +280,10 @@ $background : #eeeff1;
         }
     }
 
-    .candidate-details{min-height: calc(100vh - 160px);
+    .candidate-details{position: relative;min-height: calc(100vh - 160px);
         .head{margin: 28px 0 14px;
             a{color: #777;text-decoration: none;font-weight: 600}
-            img{width: 20px;height: 20px;float: left;margin-right: 6px}
+            img{width: 20px;height: 20px;float: left;padding-right: 6px}
         }
         .section{padding-bottom: 80px;
             md-card{margin: 0 26px 0 0;
@@ -375,12 +375,18 @@ $background : #eeeff1;
                             .loc{
                                 i{position: absolute;right: 5px;color: #a6a6a6;top: 8px;font-size: 22px}
                             }
-                            .attendees{position: relative;margin-bottom: 45px;
-                                .md-chips{padding: 0 0 4px 0px;
+                            .attendees{position: relative;margin: 10px 0 45px;
+                                .md-chips{padding: 0 0 4px 3px;
+                                    &.md-focused{box-shadow: 0 1px #208d6e !important;
+                                        &:before{-webkit-transform: translate3d(-3px, -13px, 0) scale(0.85);transform: translate3d(-3px, -13px, 0) scale(0.85);font-weight: 900}
+                                    }
+                                    &:before{content: 'CHOOSE HIRING PERSON';position: absolute;padding-left: 3px;-webkit-transform: translate3d(-3px, 18px, 0) scale(1);transform: translate3d(-3px, 18px, 0) scale(1);font-size: 15px;color: #767877;display: block !important;font-weight: normal;transition: -webkit-transform cubic-bezier(.25,.8,.25,1) .25s;transition: transform cubic-bezier(.25,.8,.25,1) .25s;-webkit-transform-origin: left top;transform-origin: left top;}
                                     .md-chip-input-container{
                                         input{height: 34px}
                                     }
-                                    &.md-focused{box-shadow: 0 1px #208d6e !important;}
+                                }
+                                md-chips.active{
+                                    .md-chips:before{-webkit-transform: translate3d(-3px, -13px, 0) scale(0.85);transform: translate3d(-3px, -13px, 0) scale(0.85);font-weight: 900}
                                 }
                                 md-progress-linear{display: none} 
                                 md-chip{background: rgba(204, 204, 204, 0.1);color: rgb(66,66,66);cursor: default;height: 32px;margin: 8px 8px 0 0;padding: 0 24px 0 12px;line-height: 30px;float: left;border: 1px solid #b2deed;;position: relative;
@@ -413,9 +419,19 @@ $background : #eeeff1;
                         }
                         .comment_edit{
                             .box{padding: 16px 16px 10px;background: #fafafb;border-bottom: 1px solid #ddd;overflow: hidden;
-                                textarea{width: 100%;border-color: #d2d2d2;outline: none;}
+                                .mm-text-editor{border: 0;
+                                    .ta-scroll-window.form-control{border: 1px solid #e0e0e0 !important;margin-bottom: 6px;padding: 10px;
+                                        .ta-bind{padding: 0;color: #2e2e2e;font-size: 16px}
+                                    }
+                                }
+                                textarea{width: 100%;border: 1px solid #e0e0e0;outline: none}
                                 .action{
-                                    .add{margin-top: 10px;width: 110px;font-weight: 700;background: #0ba082;color: #fff;border-radius: 14px;font-size: 12px;line-height: 14px;min-height: 28px;}
+                                    .add{margin-top: 10px;width: 110px;font-weight: 700;background: #0ba082;color: #fff;border-radius: 14px;font-size: 12px;line-height: 14px;min-height: 28px;
+                                        &:hover{background: #3b7f71}
+                                    }
+                                    img{width: 30px;float: left;margin: 8px}
+                                    .msg{float: left;margin-top: 14px;font-size: 14px;}
+                                    .response-msg{color: #0ba082;}
                                 }
                             }
                         }   
@@ -425,6 +441,12 @@ $background : #eeeff1;
         }
     }
 
+}
+
+.mm-spinner{text-align: center;opacity: 0.5;position: absolute;left: 0;top: 0;width: 100%;height: 100%;
+    div{left: calc(50% - 36px);top: calc(50% - 36px);position: absolute;
+        img{width: 72px;height: 72px;}
+    }
 }
 
 .mm_down{
