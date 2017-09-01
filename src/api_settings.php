@@ -322,6 +322,22 @@ return [
             'get_company_employees' =>[
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/get_company_employees'
+            ],
+            'add_candidate_schedule' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/add_candidate_schedule'
+            ],
+            'add_candidate_email' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/add_candidate_email'
+            ],
+            'add_candidate_comment' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/add_candidate_comment'
+            ],
+            'get_candidate_activities' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_candidate_activities'
             ]
     ];
         
