@@ -254,6 +254,11 @@
     height: 66px;
     /*line-height: 38px;*/
 }
+.grid-contacts .hover-enable .ui-grid-contents-wrapper > .ui-grid-render-container .ui-grid-canvas div[ui-grid-row="row"] .grid-no-hover .view{
+   color: #808080;
+   margin-top: 8px;
+   display: inline-block; 
+}
 .grid-contacts .inline-grid  .ui-grid-pinned-container.ui-grid-pinned-container-left .ui-grid-header-cell:last-child,
 .grid-contacts .inline-grid  .ui-grid-pinned-container.ui-grid-pinned-container-left .ui-grid-cell:last-child{
     border-right:0 !important;

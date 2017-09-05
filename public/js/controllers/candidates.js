@@ -713,11 +713,13 @@
 
 
     function CandidateDetailsController($http, $q, $timeout, $window, $stateParams, CONFIG, App) {
-     
+        
+
         var vm = this,
                     cancelerAttendees,
                     candidateId = $stateParams.id;
 
+        vm.newTalent = "New Talent";
         vm.status = "PENDING";
         vm.scheduleForList   = ["Onsite Interview"];
         vm.statusList = ["PENDING"];
@@ -2243,6 +2245,15 @@
                     }
 
                 });
+            }
+        }
+        
+        vm.getNewTalent = function() {
+
+            if (vm.newTalent  == 'GOOD FIT') {
+                return '#87cf16';
+            } else if(vm.newTalent == 'NOT SUITABLE') {
+                return '#f44336';
             }
         }
 

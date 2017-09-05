@@ -96,7 +96,7 @@
             })
             get_buckets.success(function (response) {
                 if (response.status_code == 200) {
-                    scope.bucketNames = response.data.buckets_list;
+                    scope.bucketNames  = response.data.buckets_list;
                     scope.totalRecords = response.data.total_count;
                     if (scope.activeBucket == 'ALL CONTACTS') {
                         scope.activeBucketCount = scope.totalRecords;
@@ -162,7 +162,7 @@
                     },
                     validators: {required: true, statusValidation: ''},
                     cellTemplate: 'ui-grid/cellTitleValidator'
-                }
+                },
             ]
         };
 
@@ -180,6 +180,7 @@
             )
         }
 
+        this.gridOptions.columnDefs.push({name: 'id', displayName: '', enableCellEdit: false, cellClass: 'grid-no-hover', cellTemplate: '<div class="ui-grid-cell-contents text-center"><a class="view" ui-sref="app.candidates.details({id: refList.referral_id })"><i class="material-icons">&#xE417;</i></a></div>'});
 
         function gridValidtion(validatorName, regExp) {
             uiGridValidateService.setValidator(validatorName,

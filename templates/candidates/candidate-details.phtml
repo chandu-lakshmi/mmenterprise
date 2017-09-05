@@ -19,8 +19,24 @@
         					<div layout="column" class="details">
         						<div layout="row">
         							<div flex class="list">
-        								<h5>CANDIDATE NAME</h5>
-        								<span class="bold" ng-bind="CandidateDetailsCtrl.details.name"></span>		
+        								<h5 class="name">CANDIDATE NAME</h5>
+                                        <md-menu class="talent" md-position-mode="target-left target">
+                                            <md-button ng-click="$mdOpenMenu($event)">
+                                               <span ng-style="{'color':CandidateDetailsCtrl.getNewTalent()}"> {{CandidateDetailsCtrl.newTalent}} <i class="material-icons">&#xE313;</i></span> 
+                                            </md-button>
+                                            <md-menu-content width="3">
+                                                <md-menu-item>
+                                                   <md-button ng-click="CandidateDetailsCtrl.newTalent='GOOD FIT'">GOOD FIT</md-button>
+                                                </md-menu-item>
+                                                <md-menu-item>
+                                                   <md-button ng-click="CandidateDetailsCtrl.newTalent='NOT SUITABLE'">NOT SUITABLE</md-button>
+                                                </md-menu-item>
+                                                <md-menu-item>
+                                                   <md-button ng-click="CandidateDetailsCtrl.newTalent='NEW TALENT'">NEW TALENT</md-button>
+                                                </md-menu-item>
+                                            </md-menu-content>
+                                        </md-menu>
+        								<span class="bold" style="display:block" ng-bind="CandidateDetailsCtrl.details.name"></span>
         							</div>
         							<img class="pic" ng-if="CandidateDetailsCtrl.details.src" src="public/images/Ui_Faces/John Butler.jpg" alt="candidate-pic">
         							<h1 class="letter" ng-if="!CandidateDetailsCtrl.details.src" ng-bind="CandidateDetailsCtrl.details.name.trim() | limitTo : 1"></h1>
@@ -125,11 +141,16 @@
         			</div>
         			<div flex="35">
         				<md-card class="right">
-                            <md-input-container class="md-block select-box status_change">
-                                <md-select name="status" ng-model="CandidateDetailsCtrl.status" aria-label="status">
-                                    <md-option ng-repeat="type in CandidateDetailsCtrl.statusList" ng-value="type">{{type}}</md-option>
-                                </md-select>
-                            </md-input-container>
+                            <md-menu class="status_change" md-position-mode="target-left target">
+                                <md-button ng-click="$mdOpenMenu($event)">
+                                   <span> PENDING <i class="material-icons">&#xE313;</i></span> 
+                                </md-button>
+                                <md-menu-content width="3">
+                                    <md-menu-item>
+                                       <md-button>PENDING</md-button>
+                                    </md-menu-item>
+                                </md-menu-content>
+                            </md-menu>
                             <uib-tabset active="activeForm">
                                 <uib-tab class="timeline">
                                     <div class="mm_down timeline_edit">
@@ -144,44 +165,6 @@
                                                     {{list.activity_by}}, <span class="time">about {{list.activity_on}}</span>
                                                 </div>
                                             </div>
-
-                                            <!-- <div layout="row" class="list">
-                                                <div class="lt">
-                                                    <img class="pending" src="public/images/stamp.png" alt="pending">
-                                                </div>
-                                                <div class="rt">
-                                                    <p>Moved to <span class="interview">Interveiw</span></p>
-                                                    by Pramod M, <span class="time">2 days ago</span>
-                                                </div>
-                                            </div>
-                                            <div layout="row" class="list">
-                                                <div class="lt">
-                                                    <img class="pending" src="public/images/note.png" alt="pending">
-                                                </div>
-                                                <div class="rt">
-                                                    <p>Give Assessment for Machine Test</p>
-                                                    by Ramesh, <span class="time">Jul 10, 2017</span>
-                                                </div>
-                                            </div>
-                                            <div layout="row" class="list">
-                                                <div class="lt">
-                                                    <img class="pending" src="public/images/phone.png" alt="pending">
-                                                </div>
-                                                <div class="rt">
-                                                    <p>Schedule for Telephonic Round</p>
-                                                    by Gopi Krishna, <span class="time">Jul 10, 2017</span>
-                                                </div>
-                                            </div>
-                                            <div layout="row" class="list">
-                                                <div class="lt">
-                                                    <img class="pending" src="public/images/tick.png" alt="pending">
-                                                </div>
-                                                <div class="rt">
-                                                    <p>Application <span class="status">ACCEPTED</span></p>
-                                                    by Ramesh, <span class="time">Jul 10, 2017</span>
-                                                </div>
-                                            </div> -->
-
                                         </div>
                                     </div>                      
                                 </uib-tab>
@@ -240,7 +223,7 @@
                                     </div>  
                                 </uib-tab>
                                 <uib-tab class="schedule">
-                                    <form name="schedule_form" class="mm_down">
+                                    <form name="schedule_form" class="mm_down" novalidate>
                                         <h5>SCHEDULE</h5>
                                         <div class="box">
                                             <md-input-container class="md-block select-box">
@@ -361,7 +344,7 @@
                                 </uib-tab>
                                 <uib-tab class="mail">
                                     <div class="mm_down send_mail">
-                                        <form name="write_mail_form">
+                                        <form name="write_mail_form" novalidate>
                                             <h5>WRITE AN EMAIL</h5>
                                             <div class="box" style="border-bottom: 1px solid #e5e5e5">
 

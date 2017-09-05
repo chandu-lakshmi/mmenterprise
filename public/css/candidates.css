@@ -575,6 +575,14 @@
             .candidates .candidate-details .section md-card .details .list h5 {
               margin: 0 0 6px;
               color: #818e95; }
+              .candidates .candidate-details .section md-card .details .list h5.name {
+                display: inline; }
+            .candidates .candidate-details .section md-card .details .list .talent i {
+              margin-left: -4px;
+              vertical-align: middle;
+              font-size: 26px; }
+            .candidates .candidate-details .section md-card .details .list .talent span {
+              color: #229fec; }
             .candidates .candidate-details .section md-card .details .list span {
               color: #333; }
               .candidates .candidate-details .section md-card .details .list span.bold {
@@ -618,19 +626,17 @@
             float: left;
             position: absolute;
             height: 46px;
-            width: 129px; }
-            .candidates .candidate-details .section md-card.right .status_change md-select {
-              height: 100%; }
-              .candidates .candidate-details .section md-card.right .status_change md-select md-select-value {
-                border-color: transparent;
-                padding: 2px 12px !important; }
-                .candidates .candidate-details .section md-card.right .status_change md-select md-select-value :first-child {
-                  max-width: 80%;
-                  color: #fff; }
-                .candidates .candidate-details .section md-card.right .status_change md-select md-select-value .md-select-icon:after {
-                  content: url("../images/arrow-dropdown-white.svg") !important; }
-              .candidates .candidate-details .section md-card.right .status_change md-select .md-text {
-                color: #fff; }
+            width: 129px;
+            padding: 5px 0; }
+            .candidates .candidate-details .section md-card.right .status_change .md-button {
+              margin: 0;
+              color: #fff;
+              font-size: 16px;
+              width: 100%; }
+              .candidates .candidate-details .section md-card.right .status_change .md-button i {
+                margin-left: -4px;
+                vertical-align: middle;
+                font-size: 26px; }
           .candidates .candidate-details .section md-card.right .nav-tabs {
             border-color: #e6e6e7;
             float: right;

@@ -294,7 +294,13 @@ $background : #eeeff1;
                 }
                 .details{padding: 16px 20px 0;
                     .list{margin-bottom: 28px;
-                        h5{margin: 0 0 6px;color: #818e95}
+                        h5{margin: 0 0 6px;color: #818e95;
+                            &.name{display: inline;}
+                        }
+                        .talent{
+                            i{margin-left: -4px;vertical-align: middle;font-size: 26px;}
+                            span{color: #229fec}
+                        }
                         span{color: #333;
                             &.bold{font-weight: 600;font-size: 16px}
                             &.info{color: #999}
@@ -312,16 +318,10 @@ $background : #eeeff1;
                     }
                 }
                 &.right{margin: 0;box-shadow: none;
-                    .status_change{background: #0ba082;margin: 0;float: left;position: absolute;height: 46px;width: 129px;
-                        md-select{height: 100%;
-                            md-select-value{border-color: transparent;padding: 2px 12px !important;
-                                & :first-child{max-width: 80%;color: #fff}
-                                .md-select-icon:after{
-                                    content : url("../images/arrow-dropdown-white.svg") !important;
-                                }
-                            }
-                            .md-text{color: #fff}
-                        }
+                    .status_change{background: #0ba082;margin: 0;float: left;position: absolute;height: 46px;width: 129px;padding: 5px 0;
+                       .md-button{margin: 0;color: #fff;font-size: 16px;width: 100%;
+                            i{margin-left: -4px;vertical-align: middle;font-size: 26px}
+                       }
                     }
                     .nav-tabs{border-color: #e6e6e7;float: right;height: 46px;
                         & > li{width: 45px;height: 46px;border: 1px solid #e6e6e7;border-left: 0;background: #f6f6f7;
