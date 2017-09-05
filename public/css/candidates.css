@@ -703,7 +703,7 @@
                 .candidates .candidate-details .section md-card.right .tab-content .box md-input-container.md-input-has-value .glyphicon, .candidates .candidate-details .section md-card.right .tab-content .box md-input-container.md-input-has-value i {
                   color: #1d8f6e; }
                 .candidates .candidate-details .section md-card.right .tab-content .box md-input-container.loc {
-                  margin-top: 40px; }
+                  margin-top: 18px; }
                   .candidates .candidate-details .section md-card.right .tab-content .box md-input-container.loc input {
                     font-size: 16px; }
                 .candidates .candidate-details .section md-card.right .tab-content .box md-input-container.md-input-focused label {
@@ -729,7 +729,7 @@
                 font-size: 22px; }
               .candidates .candidate-details .section md-card.right .tab-content .box .attendees {
                 position: relative;
-                margin: 10px 0 45px; }
+                margin: 12px 0 45px; }
                 .candidates .candidate-details .section md-card.right .tab-content .box .attendees .md-chips {
                   padding: 0 0 4px 3px; }
                   .candidates .candidate-details .section md-card.right .tab-content .box .attendees .md-chips.md-focused {
@@ -739,7 +739,7 @@
                       transform: translate3d(-3px, -13px, 0) scale(0.85);
                       font-weight: 900; }
                   .candidates .candidate-details .section md-card.right .tab-content .box .attendees .md-chips:before {
-                    content: 'CHOOSE HIRING PERSON';
+                    content: 'ATTENDEES *';
                     position: absolute;
                     padding-left: 3px;
                     -webkit-transform: translate3d(-3px, 18px, 0) scale(1);
@@ -754,6 +754,8 @@
                     transform-origin: left top; }
                   .candidates .candidate-details .section md-card.right .tab-content .box .attendees .md-chips .md-chip-input-container input {
                     height: 34px; }
+                .candidates .candidate-details .section md-card.right .tab-content .box .attendees .attendees-required .md-chips {
+                  box-shadow: 0 1px red !important; }
                 .candidates .candidate-details .section md-card.right .tab-content .box .attendees md-chips.active .md-chips:before {
                   -webkit-transform: translate3d(-3px, -13px, 0) scale(0.85);
                   transform: translate3d(-3px, -13px, 0) scale(0.85);
@@ -796,7 +798,6 @@
                   right: 6px;
                   bottom: 10px; }
               .candidates .candidate-details .section md-card.right .tab-content .box .invitation {
-                margin: -12px 0px 38px;
                 color: #fff;
                 background: #339f81;
                 width: 180px;
@@ -848,7 +849,9 @@
                 resize: none;
                 font-size: 16px;
                 padding: 10px; }
-              .candidates .candidate-details .section md-card.right .tab-content .comment_edit .box .action .add {
+            .candidates .candidate-details .section md-card.right .tab-content .action {
+              min-height: 48px; }
+              .candidates .candidate-details .section md-card.right .tab-content .action .add {
                 margin-top: 10px;
                 width: 110px;
                 font-weight: 700;
@@ -858,17 +861,17 @@
                 font-size: 12px;
                 line-height: 14px;
                 min-height: 28px; }
-                .candidates .candidate-details .section md-card.right .tab-content .comment_edit .box .action .add:hover {
-                  background: #3b7f71; }
-              .candidates .candidate-details .section md-card.right .tab-content .comment_edit .box .action img {
+              .candidates .candidate-details .section md-card.right .tab-content .action .md-button:hover {
+                background: #3b7f71; }
+              .candidates .candidate-details .section md-card.right .tab-content .action img {
                 width: 30px;
                 float: left;
                 margin: 8px; }
-              .candidates .candidate-details .section md-card.right .tab-content .comment_edit .box .action .msg {
+              .candidates .candidate-details .section md-card.right .tab-content .action .msg {
                 float: left;
                 margin-top: 14px;
                 font-size: 14px; }
-              .candidates .candidate-details .section md-card.right .tab-content .comment_edit .box .action .response-msg {
+              .candidates .candidate-details .section md-card.right .tab-content .action .response-msg {
                 color: #0ba082; }
 
 .mm-spinner {

@@ -715,11 +715,11 @@
     function CandidateDetailsController($http, $q, $timeout, $window, $stateParams, CONFIG, App) {
      
         var vm = this,
-                    cancelerHiringPerson;
+                    cancelerAttendees,
+                    candidateId = $stateParams.id;
 
- 
-        vm.status     = "PENDING";
-        vm.schedule   = ["Onsite Interview"];
+        vm.status = "PENDING";
+        vm.scheduleForList   = ["Onsite Interview"];
         vm.statusList = ["PENDING"];
         vm.timeZone   = [
               {
@@ -2082,26 +2082,32 @@
 
         vm.inProgressCandidateDetails = true;
 
-        vm.writeMail             = {};
-        vm.inProgressPostMail    = false;
-        vm.submittedPostMail     = false;
-        vm.responseMsgPostMail   = null;
+        vm.schedule = {
+            attendees : []
+        };
+        vm.selectedAttendees   = [];
+        vm.inProgressAttendees = false;
+        vm.inProgressSchedule  = false;
+        vm.submittedSchedule   = false;
+        vm.responseMsgSchedule = null;
         
         vm.inProgressPostComment  = false;
-        vm.responseMsgPostComment = null;
+        vm.responseMsgPostComment = null;   
 
-        vm.selectedHiringPerson   = [];
-        vm.inProgressHiringPerson = false;
+        vm.writeMail           = {};
+        vm.inProgressPostMail  = false;
+        vm.submittedPostMail   = false;
+        vm.responseMsgPostMail = null;
 
 
-        vm.querySearchHiringPerson = function(searchText){
+        vm.querySearchAttendees = function(searchText){
             
-            if (cancelerHiringPerson) {
-                cancelerHiringPerson.resolve();
+            if (cancelerAttendees) {
+                cancelerAttendees.resolve();
             }
 
-            cancelerHiringPerson      = $q.defer();
-            vm.inProgressHiringPerson = true;
+            cancelerAttendees      = $q.defer();
+            vm.inProgressAttendees = true;
             
             return $http({
                 headers : {
@@ -2110,10 +2116,10 @@
                 method  : 'POST',
                 data    : $.param({search: searchText}),
                 url     : CONFIG.APP_DOMAIN + 'company_all_contacts',
-                timeout : cancelerHiringPerson.promise
+                timeout : cancelerAttendees.promise
             })
             .then(function (response) {
-                vm.inProgressHiringPerson = !vm.inProgressHiringPerson;
+                vm.inProgressAttendees = false;
                 return  response.data.data;
             })
 
@@ -2129,33 +2135,38 @@
 
         }
 
-        vm.postMail = function(form) {
+        vm.postSchedule = function(form) {
 
-            vm.submittedPostMail = true;
+            vm.submittedSchedule = true;
 
             if(form.$valid) {
                 
-                var apiKeys = $(".send_mail").serialize() + '&' + $.param({referred_id: vm.details.id});
+                var tempSelectedAttendee = [];
+                angular.forEach(vm.schedule.attendees, function(attendee){
+                    tempSelectedAttendee.push(attendee.emailid);
+                });
 
-                vm.inProgressPostMail  = true;
+                var apiKeys = $("form[name='schedule_form']").serialize() + '&' + $.param({reference_id : candidateId, candidate_id : vm.details.candidate_id, attendees : tempSelectedAttendee.toString() });
+
+                vm.inProgressSchedule  = true;
 
                 $http({
                     headers : {
                         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                     },
                     method  : 'POST',
-                    url     : App.base_url + 'get_candidate_email_templates',
+                    url     : App.base_url + 'add_candidate_schedule',
                     data    : apiKeys   
                 })
                 .then(function (response) {
 
                     if (response.data.status_code == 200) {
-                        vm.inProgressPostMail   = false;
-                        vm.submittedPostMail    = false;
-                        vm.responseMsgPostMail  = response.data.data;
+                        vm.inProgressSchedule   = false;
+                        vm.submittedSchedule    = false;
+                        vm.responseMsgSchedule  = response.data.message.msg[0];
                         $timeout(function(){
-                            vm.responseMsgPostMail = null;
-                        });
+                            vm.responseMsgSchedule = null;
+                        }, 2000);
                     }
                     else if (response.data.status_code == 400) {
                         $window.location = App.base_url + 'logout';
@@ -2165,7 +2176,13 @@
             }
         }
 
-        vm.postComment = function(form) {
+        vm.postComments = function(form) {
+
+            var apiKeys = $.param({
+                    reference_id : candidateId, 
+                    comment : vm.comment,
+                    candidate_id : vm.details.candidate_id
+                });
 
             vm.inProgressPostComment  = true;
 
@@ -2174,14 +2191,17 @@
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                 },
                 method  : 'POST',
-                url     : App.base_url + 'get_candidate_email_templates',
+                url     : App.base_url + 'add_candidate_comment',
                 data    : apiKeys   
             })
             .then(function (response) {
 
                 if (response.data.status_code == 200) {
                     vm.inProgressPostComment  = false;
-                    vm.responseMsgPostComment = response.data.data;
+                    vm.responseMsgPostComment = response.data.message.msg[0];
+                    $timeout(function(){
+                        vm.responseMsgPostComment = null;
+                    }, 2000);
                 }
                 else if (response.data.status_code == 400) {
                     $window.location = App.base_url + 'logout';
@@ -2190,10 +2210,47 @@
             });
         }
 
+        vm.postMail = function(form) {
+
+            vm.submittedPostMail = true;
+
+            if(form.$valid) {
+                
+                var apiKeys = $("form[name='write_mail_form']").serialize() + '&' + $.param({reference_id : candidateId, candidate_id : vm.details.candidate_id });
+
+                vm.inProgressPostMail  = true;
+
+                $http({
+                    headers : {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                    },
+                    method  : 'POST',
+                    url     : App.base_url + 'add_candidate_email',
+                    data    : apiKeys   
+                })
+                .then(function (response) {
+
+                    if (response.data.status_code == 200) {
+                        vm.inProgressPostMail   = false;
+                        vm.submittedPostMail    = false;
+                        vm.responseMsgPostMail  = response.data.message.msg[0];
+                        $timeout(function(){
+                            vm.responseMsgPostMail = null;
+                        }, 2000);
+                    }
+                    else if (response.data.status_code == 400) {
+                        $window.location = App.base_url + 'logout';
+                    }
+
+                });
+            }
+        }
+
 
         function init() {
             getCandidateDetails().then(function () {
                 vm.inProgressCandidateDetails = false;
+                vm.writeMail.to = vm.details.emailid;    
             });
         }
 
@@ -2205,7 +2262,7 @@
                 },
                 method  : 'POST',
                 url     : App.base_url + 'get_candidate_details',
-                data    : $.param({ referred_id: $stateParams.id })
+                data    : $.param({ reference_id: candidateId })
             });
 
             var emailTemplates = $http({
@@ -2214,7 +2271,7 @@
                 },
                 method  : 'POST',
                 url     : App.base_url + 'get_candidate_email_templates',
-                data    : $.param({ referred_id: 123456 })
+                data    : $.param({ reference_id: candidateId })
             });
 
             var candidateActivities = $http({
@@ -2223,12 +2280,12 @@
                 },
                 method  : 'POST',
                 url     : App.base_url + 'get_candidate_activities',
-                data    : $.param({ referred_id: 123456 })
+                data    : $.param({ reference_id: candidateId })
             });
 
             return $q.all([candidateDetails, emailTemplates, candidateActivities]).then(function (data) {
                 
-                vm.details                 = data[0].data;
+                vm.details                 = data[0].data.data;
                 vm.writeMailSubjectList    = data[1].data.data;
                 vm.candidateActivitiesList = data[2].data.data;
 
@@ -2241,7 +2298,7 @@
 
         setTimeout(function(){
 
-            $('#interview_time').datetimepicker({
+            $('#interview_date').datetimepicker({
                 minDate : new Date(),
                 ignoreReadonly: true,
                 format: 'dddd, DD MMM YYYY',

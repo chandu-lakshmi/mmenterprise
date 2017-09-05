@@ -19,6 +19,7 @@
             .directive('myslider', myslider)
             .directive('scheduleStart' , scheduleStart)
             .directive('scheduleEnd' , scheduleEnd)
+            .directive('scheduleRequired', scheduleRequired)
             .directive('mmUploader', mmUploader)
 
             .filter('unique', unique)
@@ -545,6 +546,26 @@
                     sideBySide : true,
                     useCurrent : false
                 });
+            }
+        }
+    }
+
+    function scheduleRequired() {
+        return {
+            restrict: 'AC',
+            require: '?ngModel',
+            link: function (scope, element, attr, ngModel) {
+                
+                if (!ngModel) return;
+                
+                ngModel.$render = function() {
+                  element.val(ngModel.$viewValue || '');
+                };
+                element.on("dp.change", function (e) {
+                    scope.$apply(function() {
+                       ngModel.$setViewValue( !e.date ? '' : e.date);
+                    }); 
+                }); 
             }
         }
     }

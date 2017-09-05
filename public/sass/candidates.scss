@@ -359,7 +359,7 @@ $background : #eeeff1;
                                     label{font-weight: 900;}
                                     .glyphicon, i{color: #1d8f6e}
                                 }
-                                &.loc{margin-top: 40px;
+                                &.loc{margin-top: 18px;
                                     input{font-size: 16px;}
                                 } 
                                 &.md-input-focused{
@@ -375,15 +375,18 @@ $background : #eeeff1;
                             .loc{
                                 i{position: absolute;right: 5px;color: #a6a6a6;top: 8px;font-size: 22px}
                             }
-                            .attendees{position: relative;margin: 10px 0 45px;
+                            .attendees{position: relative;margin: 12px 0 45px;
                                 .md-chips{padding: 0 0 4px 3px;
                                     &.md-focused{box-shadow: 0 1px #208d6e !important;
                                         &:before{-webkit-transform: translate3d(-3px, -13px, 0) scale(0.85);transform: translate3d(-3px, -13px, 0) scale(0.85);font-weight: 900}
                                     }
-                                    &:before{content: 'CHOOSE HIRING PERSON';position: absolute;padding-left: 3px;-webkit-transform: translate3d(-3px, 18px, 0) scale(1);transform: translate3d(-3px, 18px, 0) scale(1);font-size: 15px;color: #767877;display: block !important;font-weight: normal;transition: -webkit-transform cubic-bezier(.25,.8,.25,1) .25s;transition: transform cubic-bezier(.25,.8,.25,1) .25s;-webkit-transform-origin: left top;transform-origin: left top;}
+                                    &:before{content: 'ATTENDEES *';position: absolute;padding-left: 3px;-webkit-transform: translate3d(-3px, 18px, 0) scale(1);transform: translate3d(-3px, 18px, 0) scale(1);font-size: 15px;color: #767877;display: block !important;font-weight: normal;transition: -webkit-transform cubic-bezier(.25,.8,.25,1) .25s;transition: transform cubic-bezier(.25,.8,.25,1) .25s;-webkit-transform-origin: left top;transform-origin: left top;}
                                     .md-chip-input-container{
                                         input{height: 34px}
                                     }
+                                }
+                                .attendees-required{
+                                    .md-chips{box-shadow: 0 1px red !important;}
                                 }
                                 md-chips.active{
                                     .md-chips:before{-webkit-transform: translate3d(-3px, -13px, 0) scale(0.85);transform: translate3d(-3px, -13px, 0) scale(0.85);font-weight: 900}
@@ -402,7 +405,7 @@ $background : #eeeff1;
                                 }
                                 .loader{width: 20px;height: 20px;position: absolute;right: 6px;bottom: 10px;}
                             } 
-                            .invitation{margin: -12px 0px 38px;color: #fff;background: #339f81; width: 180px;height: 40px;font-weight: 700;}  
+                            .invitation{color: #fff;background: #339f81; width: 180px;height: 40px;font-weight: 700;}  
                         }
                         .timeline_edit, .comment_edit{
                             .list{border-bottom: 1px solid #eaeaea;
@@ -425,16 +428,15 @@ $background : #eeeff1;
                                     }
                                 }
                                 textarea{width: 100%;border: 1px solid #e0e0e0;outline: none;resize: none;font-size: 16px;padding: 10px;}
-                                .action{
-                                    .add{margin-top: 10px;width: 110px;font-weight: 700;background: #0ba082;color: #fff;border-radius: 14px;font-size: 12px;line-height: 14px;min-height: 28px;
-                                        &:hover{background: #3b7f71}
-                                    }
-                                    img{width: 30px;float: left;margin: 8px}
-                                    .msg{float: left;margin-top: 14px;font-size: 14px;}
-                                    .response-msg{color: #0ba082;}
-                                }
                             }
                         }   
+                        .action{min-height: 48px;
+                            .add{margin-top: 10px;width: 110px;font-weight: 700;background: #0ba082;color: #fff;border-radius: 14px;font-size: 12px;line-height: 14px;min-height: 28px}
+                            .md-button:hover{background: #3b7f71}
+                            img{width: 30px;float: left;margin: 8px}
+                            .msg{float: left;margin-top: 14px;font-size: 14px;}
+                            .response-msg{color: #0ba082;}
+                        }
                     }
                 }
             }

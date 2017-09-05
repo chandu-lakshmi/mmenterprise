@@ -97,7 +97,7 @@
         					<div layout="column" class="details">
         						<div layout="row">
         							<ul>
-        								<li ng-repeat="skill in CandidateDetailsCtrl.details.skills" ng-bind="skill"></li>
+        								<li ng-repeat="skill in CandidateDetailsCtrl.details.skills track by $index" ng-bind="skill"></li>
         							</ul>
         						</div>
         					</div>
@@ -140,11 +140,12 @@
                                                     <img class="pending" src="public/images/pending.png" alt="pending">
                                                 </div>
                                                 <div class="rt">
-                                                    <p>Status changed to <span class="status">Pending</span></p>
-                                                    by Ramesh S, <span class="time">about 1 hour ago</span>
+                                                    <p>{{list.activity_message}} <span ng-class="list.activity_status == 'interview' ? 'interview' : 'status'" ng-if="list.activity_status" ng-bind="list.activity_status"></span></p>
+                                                    {{list.activity_by}}, <span class="time">about {{list.activity_on}}</span>
                                                 </div>
                                             </div>
-                                            <div layout="row" class="list">
+
+                                            <!-- <div layout="row" class="list">
                                                 <div class="lt">
                                                     <img class="pending" src="public/images/stamp.png" alt="pending">
                                                 </div>
@@ -179,7 +180,8 @@
                                                     <p>Application <span class="status">ACCEPTED</span></p>
                                                     by Ramesh, <span class="time">Jul 10, 2017</span>
                                                 </div>
-                                            </div>
+                                            </div> -->
+
                                         </div>
                                     </div>                      
                                 </uib-tab>
@@ -187,9 +189,14 @@
                                     <div class="mm_down comment_edit">
                                         <h5>WRITE YOUR COMMENT</h5>
                                         <div class="box">
-                                            <textarea rows="4" flex></textarea>
+                                            <textarea rows="4" name="comment" ng-model="CandidateDetailsCtrl.comment"></textarea>
                                             <div class="action">
-                                                <md-button class="md-raised add pull-right">Add Comment</md-button>
+                                                <div class="pull-left" ng-if="CandidateDetailsCtrl.inProgressPostComment">
+                                                    <img src="public/images/loader/upload_file.gif" alt="sending">
+                                                    <span class="msg">Adding Comment</span>
+                                                </div>
+                                                <span class="msg response-msg" ng-bind="CandidateDetailsCtrl.responseMsgPostComment"></span>
+                                                <md-button class="md-raised add pull-right" ng-click="CandidateDetailsCtrl.postComments()" ng-disabled="CandidateDetailsCtrl.inProgressPostComment || !CandidateDetailsCtrl.comment.length">Add Comment</md-button>
                                             </div>
                                         </div> 
                                         <div layout="column">
@@ -233,26 +240,26 @@
                                     </div>  
                                 </uib-tab>
                                 <uib-tab class="schedule">
-                                    <form class="mm_down">
+                                    <form name="schedule_form" class="mm_down">
                                         <h5>SCHEDULE</h5>
                                         <div class="box">
                                             <md-input-container class="md-block select-box">
-                                                <label style="display:none">SCHEDULE FOR</label>
-                                                <md-select name="campaign_type" ng-model="CandidateDetailsCtrl.campDetails.campaign_type" required ng-class="{'error-border':campaignDetails.campaign_type.$invalid && CandidateDetailsCtrl.errCondcampaignDetails}">
-                                                    <md-option ng-repeat="type in CandidateDetailsCtrl.schedule" ng-value="type">{{type}}</md-option>
+                                                <label style="display:none">SCHEDULE FOR *</label>
+                                                <md-select name="schedule_for" ng-model="CandidateDetailsCtrl.schedule.schedule_for" required ng-class="{'has-error-border': schedule_form.schedule_for.$invalid && CandidateDetailsCtrl.submittedSchedule}">
+                                                    <md-option ng-repeat="list in CandidateDetailsCtrl.scheduleForList" ng-value="list">{{list}}</md-option>
                                                 </md-select>
                                                 <div class="error-spacer"></div>
-                                                <div ng-if="campaignDetails.campaign_type.$error.required && CandidateDetailsCtrl.errCondcampaignDetails"  class="has-error-msg">Please select Campaign Type.</div>
+                                                <div ng-if="schedule_form.schedule_for.$error.required && CandidateDetailsCtrl.submittedSchedule"  class="has-error-msg">Please select Schedule For.</div>
                                             </md-input-container>
                                             
                                             <div class="attendees">
                                                 <!--placeholder value in css please check if you want to change -->
-                                                <md-chips ng-model="CandidateDetailsCtrl.selectedHiringPerson" md-autocomplete-snap
-                                                          md-require-match="true" ng-class="{'active' : (!!CandidateDetailsCtrl.selectedHiringPerson.length || !!CandidateDetailsCtrl.searchText.length)}">
+                                                <md-chips ng-model="CandidateDetailsCtrl.schedule.attendees" md-autocomplete-snap
+                                                          md-require-match="true" ng-class="{'active' : (!!CandidateDetailsCtrl.schedule.attendees.length || !!CandidateDetailsCtrl.searchText.length), 'attendees-required' : !CandidateDetailsCtrl.schedule.attendees.length && CandidateDetailsCtrl.submittedSchedule }">
                                                     <md-autocomplete
                                                       md-selected-item="CandidateDetailsCtrl.selectedItem"
                                                       md-search-text="CandidateDetailsCtrl.searchText"
-                                                      md-items="item in CandidateDetailsCtrl.querySearchHiringPerson(CandidateDetailsCtrl.searchText)"
+                                                      md-items="item in CandidateDetailsCtrl.querySearchAttendees(CandidateDetailsCtrl.searchText)"
                                                       md-item-text="item.emailid"
                                                       md-no-cache = "true"
                                                       md-min-length="2"
@@ -271,105 +278,129 @@
                                                     </span>
                                                   </md-chip-template>
                                                 </md-chips>
-                                                <img class="loader" ng-if="CandidateDetailsCtrl.inProgressHiringPerson" src="public/images/loader/blue-loader.gif">
+                                                <div class="error-spacer"></div>
+                                                <div ng-if="!CandidateDetailsCtrl.schedule.attendees.length && CandidateDetailsCtrl.submittedSchedule"  class="has-error-msg">Please select Attendees.</div>
+                                                <img class="loader" ng-if="CandidateDetailsCtrl.inProgressAttendees" src="public/images/loader/blue-loader.gif">
+
                                             </div>
 
                                             <md-input-container class="md-block date-time">
-                                                <label>INTERVIEW DATE</label>
-                                                <input type='text' name="interview_time" class="form-control" ng-model="interviewTime" id='interview_time' required ng-class="{'has-error-border':CandidateDetailsCtrl.errCondschedule && schedule['start' + $index].$error.required}"/>
+                                                <label>INTERVIEW DATE *</label>
+                                                <input type='text' name="interview_date" schedule-required id="interview_date" required class="form-control" ng-model="CandidateDetailsCtrl.schedule.interview_date" ng-class="{'has-error-border':CandidateDetailsCtrl.submittedSchedule && schedule_form.interview_date.$error.required}" />
                                                 <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-calendar"></span>
                                                 </span>
+                                                <div class="error-spacer"></div>
+                                                <div ng-show="CandidateDetailsCtrl.submittedSchedule && schedule_form.interview_date.$error.required" class="has-error-msg msg">Please select Interview Date.</div>
                                             </md-input-container>
                                             <div layout="column">
                                                 <div layout="row">
                                                     <md-input-container class="md-block date-time">
-                                                        <label>FROM</label>
-                                                        <input type='text' name="time_from" class="form-control" ng-model="interviewTime" id='time_from' required ng-class="{'has-error-border':CandidateDetailsCtrl.errCondschedule && schedule['start' + $index].$error.required}"/>
+                                                        <label>FROM *</label>
+                                                        <input type='text' name="interview_from_time" schedule-required class="form-control" id='time_from' required ng-model="CandidateDetailsCtrl.schedule.interview_from_time" ng-class="{'has-error-border':CandidateDetailsCtrl.submittedSchedule && schedule_form.interview_from_time.$error.required}" />
                                                         <span class="input-group-addon">
                                                             <span class="glyphicon glyphicon-time"></span>
                                                         </span>
+                                                        <div class="error-spacer"></div>
+                                                        <div ng-show="CandidateDetailsCtrl.submittedSchedule && schedule_form.interview_from_time.$error.required" class="has-error-msg msg">Please select From.</div>
                                                     </md-input-container>
                                                     <i flex="5"></i>
                                                     <md-input-container class="md-block date-time">
-                                                        <label>TO</label>
-                                                        <input type='text' name="time_to" class="form-control" ng-model="interviewTime" id='time_to' required ng-class="{'has-error-border':CandidateDetailsCtrl.errCondschedule && schedule['start' + $index].$error.required}"/>
+                                                        <label>TO *</label>
+                                                        <input type='text' name="interview_to_time" schedule-required required class="form-control" ng-model="CandidateDetailsCtrl.schedule.interview_to_time"  id='time_to' ng-class="{'has-error-border':CandidateDetailsCtrl.submittedSchedule && schedule_form.interview_to_time.$error.required}" />
                                                         <span class="input-group-addon">
                                                             <span class="glyphicon glyphicon-time"></span>
                                                         </span>
+                                                        <div class="error-spacer"></div>
+                                                        <div ng-show="CandidateDetailsCtrl.submittedSchedule && schedule_form.interview_to_time.$error.required" class="has-error-msg msg">Please select To.</div>
                                                     </md-input-container>
                                                 </div>
                                             </div>
                                             <md-input-container class="time-zone md-block select-box">
-                                                <label style="display:none">TIME ZONE</label>
-                                                <md-select ng-model="selectedVegetables"
+                                                <label style="display:none">TIME ZONE *</label>
+                                                <md-select ng-model="CandidateDetailsCtrl.schedule.timeZone"
                                                            md-on-close="clearSearchTerm()"
                                                            data-md-container-class="timezone"
+                                                           name="interview_time_zone"
+                                                           required ng-class="{'has-error-border': schedule_form.interview_time_zone.$invalid && CandidateDetailsCtrl.submittedSchedule}"
                                                            >
                                                     <md-select-header class="demo-select-header">
-                                                        <input flex ng-model="searchTerm"
-                                                            id="search"
-                                                            name="sp"
-                                                           type="text"
-                                                       placeholder="SEARCH FOR A TIMEZONE"
-                                                           class="demo-header-searchbox md-text">
+                                                        <input flex ng-model="searchTerm" id="search" name="sp" type="text"
+                                                            placeholder="SEARCH FOR A TIMEZONE"
+                                                            class="demo-header-searchbox md-text">
                                                     </md-select-header>
                                                     <md-optgroup label="vegetables">
-                                                        <md-option ng-value="place" ng-repeat="place in CandidateDetailsCtrl.timeZone | filter: {text : searchTerm }">{{place.text}}</md-option>
+                                                        <md-option ng-value="place.offset" ng-repeat="place in CandidateDetailsCtrl.timeZone | filter: {text : searchTerm }">{{place.text}}</md-option>
                                                     </md-optgroup>
                                                 </md-select>
+                                                <div class="error-spacer"></div>
+                                                <div ng-if="schedule_form.interview_time_zone.$error.required && CandidateDetailsCtrl.submittedSchedule"  class="has-error-msg">Please select Time Zone.</div>
                                             </md-input-container>
                                             <md-input-container class="md-block loc">
-                                                <label>LOCATION <sup> *</sup></label>
-                                                <input type="text" name="location" ng-model="jobData.jobLocation" required ng-class="{'has-error-border':create_job.location.$invalid && CreateJobCtrl.errCond}" ng-autocomplete="geo_location" details="geo_details" options="geo_options" apiplaceholder="">
-                                                <i class="material-icons">location_on</i>
-                                                <div ng-if="create_job.location.$error.required && CreateJobCtrl.errCond" class="has-error-msg">Please enter Location.</div>
+                                                <label>LOCATION *</label>
+                                                <input type="text" name="interview_location" ng-model="CandidateDetailsCtrl.schedule.location" ng-autocomplete="geo_location" details="geo_details" options="geo_options" apiplaceholder="" required ng-class="{'has-error-border':schedule_form.interview_location.$invalid && CandidateDetailsCtrl.submittedSchedule }">
+                                                <div class="error-spacer"></div>
+                                                <div ng-if="schedule_form.interview_location.$error.required && CandidateDetailsCtrl.submittedSchedule"  class="has-error-msg">Please select Time Zone.</div>
                                             </md-input-container>
                                             <md-input-container class="md-block">
-                                                <label>NOTES</label>
-                                                <input type="text" name="campaign_name" ng-model="CandidateDetailsCtrl.campDetails.campaign_name" required ng-class="{'has-error-border':campaignDetails.campaign_name.$invalid && CandidateDetailsCtrl.errCondcampaignDetails}">
-                                                <div ng-if="campaignDetails.campaign_name.$error.required && CandidateDetailsCtrl.errCondcampaignDetails" class="has-error-msg">Please enter Campaign Name.</div>
+                                                <label>NOTES *</label>
+                                                <input type="text" name="notes" required ng-model="CandidateDetailsCtrl.schedule.notes" ng-class="{'has-error-border':schedule_form.notes.$invalid && CandidateDetailsCtrl.submittedSchedule }">
+                                                <div class="error-spacer"></div>
+                                                <div ng-if="schedule_form.notes.$error.required && CandidateDetailsCtrl.submittedSchedule"  class="has-error-msg">Please write Notes.</div>
                                             </md-input-container>
-                                            <md-button class="md-raised invitation pull-right">SEND INVITATION</md-button>
+                                            <div class="action">
+                                                <div class="pull-left" ng-if="CandidateDetailsCtrl.inProgressSchedule">
+                                                    <img src="public/images/loader/upload_file.gif" alt="sending">
+                                                    <span class="msg">Sending Invitation</span>
+                                                </div>
+                                                <span class="msg response-msg" ng-bind="CandidateDetailsCtrl.responseMsgSchedule"></span>
+                                                <md-button class="md-raised invitation pull-right"  ng-click="CandidateDetailsCtrl.postSchedule(schedule_form)" ng-disabled="CandidateDetailsCtrl.inProgressSchedule">SEND INVITATION</md-button>
+                                            </div>
                                         </div>
                                     </form>
                                 </uib-tab>
                                 <uib-tab class="mail">
-                                    <div class="mm_down send_mail" ng-form="write_mail_form">
-                                        <h5>WRITE AN EMAIL</h5>
-                                        <div class="box" style="border-bottom: 1px solid #e5e5e5">
+                                    <div class="mm_down send_mail">
+                                        <form name="write_mail_form">
+                                            <h5>WRITE AN EMAIL</h5>
+                                            <div class="box" style="border-bottom: 1px solid #e5e5e5">
 
-                                            <md-input-container class="md-block">
-                                                <label>TO</label>
-                                                <input type="text" name="to" ng-model="CandidateDetailsCtrl.writeMail.to">
-                                            </md-input-container>
-                                            
-                                            <md-input-container class="md-block select-box">
-                                                <label style="display:none">SUBJECT</label>
-                                                <md-select name="subject" ng-model="CandidateDetailsCtrl.writeMail.subjectId" md-on-close="CandidateDetailsCtrl.changeMailSubject()">
-                                                    <md-option ng-repeat="list in CandidateDetailsCtrl.writeMailSubjectList" ng-value="list.id">{{list.subject}}</md-option>
-                                                </md-select>
-                                            </md-input-container>
-                                            <md-input-container class="md-block animated slideInDown" style="margin-top: 41px" ng-if="CandidateDetailsCtrl.writeMail.subjectId == 1">
-                                                <label>SUBJECT TEXT</label>
-                                                <input type="text" name="custom_subject" ng-model="CandidateDetailsCtrl.writeMail.subjectText">
-                                            </md-input-container>
+                                                <md-input-container class="md-block">
+                                                    <label>TO</label>
+                                                    <input type="text" name="to" readonly ng-model="CandidateDetailsCtrl.writeMail.to">
+                                                </md-input-container>
+                                                
+                                                <md-input-container class="md-block select-box">
+                                                    <label style="display:none">SUBJECT *</label>
+                                                    <md-select name="subject" ng-model="CandidateDetailsCtrl.writeMail.subjectId" md-on-close="CandidateDetailsCtrl.changeMailSubject()" ng-class="{'has-error-border': write_mail_form.subject.$invalid && CandidateDetailsCtrl.submittedPostMail}" required>
+                                                        <md-option ng-repeat="list in CandidateDetailsCtrl.writeMailSubjectList" ng-value="list.id">{{list.subject}}</md-option>
+                                                    </md-select>
+                                                    <div class="error-spacer"></div>
+                                                    <div ng-if="write_mail_form.subject.$error.required && CandidateDetailsCtrl.submittedPostMail"  class="has-error-msg">Please select Schedule For.</div>
+                                                </md-input-container>
+                                                <md-input-container class="md-block animated slideInDown" style="margin-top: 18px" ng-if="CandidateDetailsCtrl.writeMail.subjectId == 1">
+                                                    <label>SUBJECT TEXT *</label>
+                                                    <input type="text" name="custom_subject" ng-model="CandidateDetailsCtrl.writeMail.subjectText" ng-class="{'has-error-border': write_mail_form.custom_subject.$invalid && CandidateDetailsCtrl.submittedPostMail}" required>
+                                                    <div class="error-spacer"></div>
+                                                    <div ng-if="write_mail_form.custom_subject.$error.required && CandidateDetailsCtrl.submittedPostMail"  class="has-error-msg">Please select Schedule For.</div>
+                                                </md-input-container>
 
-                                        </div>
-                                        <div class="comment_edit">
-                                            <div class="box">
-                                                <div text-angular class="mm-text-editor" name="body" ng-model="CandidateDetailsCtrl.writeMail.body" ta-toolbar="[]"></div>
-                                                <div class="action">
-                                                    <div class="pull-left" ng-if="CandidateDetailsCtrl.inProgressPostMail">
-                                                        <img src="public/images/loader/upload_file.gif" alt="sending">
-                                                        <span class="msg">Sending Mail</span>
+                                            </div>
+                                            <div class="comment_edit">
+                                                <div class="box">
+                                                    <div text-angular class="mm-text-editor" name="body" ng-model="CandidateDetailsCtrl.writeMail.body" ta-toolbar="[]"></div>
+                                                    <div class="action">
+                                                        <div class="pull-left" ng-if="CandidateDetailsCtrl.inProgressPostMail">
+                                                            <img src="public/images/loader/upload_file.gif" alt="sending">
+                                                            <span class="msg">Sending Mail</span>
+                                                        </div>
+                                                        <span class="msg response-msg" ng-bind="CandidateDetailsCtrl.responseMsgPostMail"></span>
+                                                        <md-button class="md-raised add pull-right" ng-click="CandidateDetailsCtrl.postMail(write_mail_form)" ng-disabled="CandidateDetailsCtrl.inProgressPostMail">Send Mail</md-button>
                                                     </div>
-                                                    <span class="msg response-msg" ng-bind="CandidateDetailsCtrl.responseMsgPostMail"></span>
-                                                    <md-button class="md-raised add pull-right" ng-click="CandidateDetailsCtrl.postMail(write_mail_form)">Send Mail</md-button>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>  
+                                    </form>  
                                 </uib-tab>
                                 <uib-tab class="link" disable="true">
                                       
