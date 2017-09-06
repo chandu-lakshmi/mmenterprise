@@ -519,7 +519,7 @@ md-input-container md-select .md-select-value {
             color: #000;
             text-decoration: none;
             font-size: larger;
-            transition: color .5s ease; }
+            transition: color .2s ease; }
           .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .ui-grid-details .content a.link:hover {
             color: #0ba082; }
         .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .ui-grid-status .pending {
@@ -586,7 +586,7 @@ md-input-container md-select .md-select-value {
             color: #000; }
         .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .details {
           display: block;
-          transition: color .5s ease;
+          transition: color .2s ease;
           line-height: 50px; }
           .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .details:hover {
             color: #0ba082; }

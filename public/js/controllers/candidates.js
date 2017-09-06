@@ -715,15 +715,16 @@
     function CandidateDetailsController($http, $q, $timeout, $window, $stateParams, CONFIG, App) {
         
         var vm = this,
-                    cancelerAttendees,
-                    prevSearchValue,
-                    candidateId = $stateParams.id,
-                    apiKeyType  = $stateParams.type,
-                    apiKeyCandidateDetails = { contact_id : candidateId };
+                cancelerAttendees,
+                prevSearchValue,
+                candidateId = $stateParams.id,
+                apiKeyType  = $stateParams.type,
+                apiKeyCandidateDetails = { contact_id : candidateId };
 
-        vm.newTalent    = "New Talent";
-        vm.status       = "PENDING";
-        vm.statusList   = ["PENDING"];
+        vm.selectedStatus    = "PENDING";
+        vm.statusList        = ["PENDING"];
+        vm.selectedNewTalent = "New Talent";
+        vm.newTalentList     = [{ label:'GOOD FIT' , color:'#87cf16' }, { label:'NOT SUITABLE' , color:'#f44336' }, { label:'NEW TALENT' , color:'#229fec' }];
         vm.scheduleForList   = ["Onsite Interview"];
 
         vm.inProgressCandidateDetails = true;
@@ -903,9 +904,9 @@
         
         vm.getNewTalent = function() {
 
-            if (vm.newTalent  == 'GOOD FIT') {
+            if (vm.selectedNewTalent  == 'GOOD FIT') {
                 return '#87cf16';
-            } else if(vm.newTalent == 'NOT SUITABLE') {
+            } else if(vm.selectedNewTalent == 'NOT SUITABLE') {
                 return '#f44336';
             }
 

@@ -485,7 +485,7 @@
     white-space: nowrap;
     font-size: 14px;
     color: #000;
-    transition: color .5s ease;
+    transition: color .2s ease;
     text-decoration: none; 
 }
 .referrals .content a:hover, .referrals-hires .ref-hire-list a:hover{
@@ -683,7 +683,7 @@ select:-moz-focusring {
 }
 .dashboard .top-contacts .container .box .name{
     color: #108bd5;
-    transition: color .5s ease;
+    transition: color .2s ease;
     text-decoration: none;
 }
 .dashboard .top-contacts .container .box .name:hover{

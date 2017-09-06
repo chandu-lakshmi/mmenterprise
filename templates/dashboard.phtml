@@ -200,7 +200,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-6" ng-if="!DashCtrl.top_referrals_empty" ng-repeat="topreferrals in DashCtrl.topReferralsList">
                         <div class="box clearfix">
                             <div class="pull-left" style="width:18%">
-                                <a ui-sref="app.candidates.details({id: topreferrals.id })">
+                                <a ui-sref="app.candidates.details({type:'ref', id:topreferrals.referred_by_id })">
                                     <img ng-if="!(topreferrals.image == '' || topreferrals.image == null)" ng-src="{{topreferrals.image}}" class="img-responsive img-circle dp">
                                     <span ng-if="topreferrals.image == '' || topreferrals.image == null" ng-bind="topreferrals.name.trim() | limitTo : 1" class="letter" ng-style="{'background':DashCtrl.colorPicker($index + 3, 0)}">
                                     </span>

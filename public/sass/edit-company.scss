@@ -360,7 +360,7 @@ md-input-container{
                                                               img{display: inline-block;box-sizing: content-box;width: 50px;height: 50px;border-width: 2px;}
                                                        }
                                                        .content{display: inline-block;line-height: initial;vertical-align: middle;padding-left: 10px;width: 70%;
-                                                            a.link{color: #000;text-decoration: none; font-size: larger;transition: color .5s ease}
+                                                            a.link{color: #000;text-decoration: none; font-size: larger;transition: color .2s ease}
                                                             a.link:hover{ color: #0ba082;}
                                                        }
                                                    }
@@ -399,7 +399,7 @@ md-input-container{
                                                    .progress{margin: 29px 0 !important;
                                                              .progress-bar{color: #000}
                                                    }
-                                                   .details{display: block;transition: color .5s ease;line-height: 50px;
+                                                   .details{display: block;transition: color .2s ease;line-height: 50px;
                                                         &:hover{color : #0ba082}
                                                    }
                                      }

@@ -22,17 +22,18 @@
         								<h5 class="name">CANDIDATE NAME</h5>
                                         <md-menu class="talent" md-position-mode="target-left target">
                                             <md-button ng-click="$mdOpenMenu($event)">
-                                               <span ng-style="{'color':CandidateDetailsCtrl.getNewTalent()}"> {{CandidateDetailsCtrl.newTalent}} <i class="material-icons">&#xE313;</i></span> 
+                                               <span ng-style="{'color':CandidateDetailsCtrl.getNewTalent()}">{{CandidateDetailsCtrl.selectedNewTalent}} 
+                                                    <i class="material-icons">&#xE313;</i>
+                                               </span> 
                                             </md-button>
                                             <md-menu-content width="3">
-                                                <md-menu-item>
-                                                   <md-button ng-click="CandidateDetailsCtrl.newTalent='GOOD FIT'">GOOD FIT</md-button>
-                                                </md-menu-item>
-                                                <md-menu-item>
-                                                   <md-button ng-click="CandidateDetailsCtrl.newTalent='NOT SUITABLE'">NOT SUITABLE</md-button>
-                                                </md-menu-item>
-                                                <md-menu-item>
-                                                   <md-button ng-click="CandidateDetailsCtrl.newTalent='NEW TALENT'">NEW TALENT</md-button>
+                                                <md-menu-item ng-repeat="newTalent in CandidateDetailsCtrl.newTalentList"> 
+                                                    <md-button 
+                                                        ng-click="CandidateDetailsCtrl.selectedNewTalent=newTalent.label" 
+                                                        ng-bind="newTalent.label" 
+                                                        ng-style="{ color:newTalent.color }"
+                                                        aria-label="{{newTalent.label}}">
+                                                    </md-button>
                                                 </md-menu-item>
                                             </md-menu-content>
                                         </md-menu>
@@ -143,7 +144,7 @@
         				<md-card class="right">
                             <md-menu class="status_change" md-position-mode="target-left target">
                                 <md-button ng-click="$mdOpenMenu($event)">
-                                   <span> PENDING <i class="material-icons">&#xE313;</i></span> 
+                                   <span> {{CandidateDetailsCtrl.selectedStatus}} <i class="material-icons">&#xE313;</i></span> 
                                 </md-button>
                                 <md-menu-content width="3">
                                     <md-menu-item>
@@ -381,11 +382,11 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </form>  
+                                        </form>
+                                    </div>  
                                 </uib-tab>
-                                <uib-tab class="link" disable="true">
-                                      
+                                <uib-tab class="link">
+                                    
                                 </uib-tab>
                                 <uib-tab class="arrow" disable="true">
                                     <uib-tab-heading>
