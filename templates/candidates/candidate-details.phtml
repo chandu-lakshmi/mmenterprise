@@ -245,8 +245,7 @@
                                                       md-items="item in CandidateDetailsCtrl.querySearchAttendees(CandidateDetailsCtrl.searchText)"
                                                       md-item-text="item.emailid"
                                                       md-no-cache = "true"
-                                                      md-min-length="2"
-                                                      md-selected-item-change="CandidateDetailsCtrl.selectedItemChange(item)">
+                                                      >
                                                     <md-item-template>
                                                         <span md-highlight-text="CandidateDetailsCtrl.searchText">{{item.emailid}} </span>
                                                     </md-item-template>

@@ -584,6 +584,12 @@ md-input-container md-select .md-select-value {
           margin: 29px 0 !important; }
           .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .progress .progress-bar {
             color: #000; }
+        .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .details {
+          display: block;
+          transition: color .5s ease;
+          line-height: 50px; }
+          .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .details:hover {
+            color: #0ba082; }
       .grid .ui-grid-viewport .ui-grid-row div[ui-grid-row='row'] {
         height: 100%; }
       .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell {

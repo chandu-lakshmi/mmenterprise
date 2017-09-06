@@ -180,7 +180,7 @@
             )
         }
 
-        this.gridOptions.columnDefs.push({name: 'id', displayName: '', enableCellEdit: false, cellClass: 'grid-no-hover', cellTemplate: '<div class="ui-grid-cell-contents text-center"><a class="view" ui-sref="app.candidates.details({id: refList.referral_id })"><i class="material-icons">&#xE417;</i></a></div>'});
+        this.gridOptions.columnDefs.push({name: 'id', displayName: '', enableCellEdit: false, cellClass: 'grid-no-hover', cellTemplate: 'details-view.html'});
 
         function gridValidtion(validatorName, regExp) {
             uiGridValidateService.setValidator(validatorName,

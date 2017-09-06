@@ -630,7 +630,7 @@ $app->get('/candidates/resume-room',function ($request, $response, $args) use ($
 });
 
 //candidates details
-$app->get('/candidates/details/{id}',function ($request, $response, $args) use ($app) {
+$app->get('/candidates/details/{type}/{id}',function ($request, $response, $args) use ($app) {
     //Arguments
     $this->mintmeshAccessToken;
     $args       = commonData($this->settings);

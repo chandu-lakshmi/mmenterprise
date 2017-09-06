@@ -84,13 +84,13 @@
 
                                     <div class="pull-left" style="position: relative;padding-right: 10px" ng-init="getColor = DashCtrl.getColor(refList.status)">
                                         
-                                        <a ui-sref="app.candidates.details({id: refList.referral_id })">
+                                        <a ui-sref="app.candidates.details({ type:'cdt', id: refList.referral_id })">
                                             <img ng-if="!(refList.referral_img == '' || refList.referral_img == null)" ng-src="{{refList.referral_img}}" class="pull-left img-responsive img-circle dp" ng-style="{'border': '2px solid {{refList.referral_img == '' ? 'transparent' : getColor}}'}">
 
                                             <span ng-if="refList.referral_img == '' || refList.referral_img == null" ng-bind="refList.referral.trim() | limitTo : 1" class="letter" ng-style="{'background':DashCtrl.colorPicker($index, 1)}"></span>
                                         </a>
                                         
-                                        <a ui-sref="app.candidates.details({id: refList.referred_by_id })">
+                                        <a ui-sref="app.candidates.details({ type:'ref', id:refList.referred_by_id })">
                                             <img ng-if="!(refList.referred_by_img == '' || refList.referred_by_img == null)" ng-src="{{refList.referred_by_img}}" class="img-responsive img-circle sub-img">
 
                                             <span ng-if="refList.referred_by_img == '' || refList.referred_by_img == null" ng-bind="refList.referred_by.trim() | limitTo : 1" class="letter-small letter" ng-style="{'background':DashCtrl.colorPicker($index, 0)}">
@@ -100,12 +100,12 @@
                                     </div>
                                     <div class="content">
                                         <span>
-                                            <a ui-sref="app.candidates.details({id: refList.referral_id })" ng-bind="refList.referral"></a>
+                                            <a ui-sref="app.candidates.details({ type:'cdt', id:refList.referral_id })" ng-bind="refList.referral"></a>
                                             was referred for 
                                             <strong ng-bind="refList.job_title"><md-tooltip>{{refList.job_title}}</md-tooltip></strong>
                                         </span>
                                         <br>
-                                        <span style="width: 208px;display: inline-block;vertical-align: middle;" class="ellipsis">by <a ui-sref="app.candidates.details({id: refList.referred_by_id })">{{refList.referred_by}}</a></span>
+                                        <span style="width: 208px;display: inline-block;vertical-align: middle;" class="ellipsis">by <a ui-sref="app.candidates.details({ type:'ref', id:refList.referred_by_id })">{{refList.referred_by}}</a></span>
                                         <span>
                                             <span class="vr"></span>
                                             <span ng-bind="refList.created_at"></span> 
@@ -146,14 +146,14 @@
                                         </span>
                                     </div>
                                     <div class="pull-left" style="position: relative;">
-                                        <a ui-sref="app.candidates.details({id: hireList.referral_id })">
+                                        <a ui-sref="app.candidates.details({ type:'cdt', id: hireList.referral_id })">
                                             <img ng-if="!(hireList.referral_img == '' || hireList.referral_img == null)" ng-src="{{hireList.referral_img}}" class="pull-left img-responsive img-circle dp" ng-style="{'border': (hireList.referral_img == '' || hireList.referral_img == 'null') ? '' : '2px solid #468A25' }">
 
                                             <span ng-if="hireList.referral_img == '' || hireList.referral_img == null" ng-bind="hireList.referral.trim() | limitTo : 1" class="letter" ng-style="{'background':DashCtrl.colorPicker($index + 5, 1)}">
                                             </span>
                                         </a>
                                         
-                                         <a ui-sref="app.candidates.details({id: hireList.referred_by_id })">
+                                         <a ui-sref="app.candidates.details({ type:'ref', id: hireList.referred_by_id })">
 
                                             <img ng-if="!(hireList.referred_by_img == '' || hireList.referred_by_img == null)" ng-src="{{hireList.referred_by_img}}" class="img-responsive img-circle sub-img">
 
@@ -163,13 +163,13 @@
 
                                         <div class="content">
                                             <span class="details">
-                                                <a ui-sref="app.candidates.details({id: hireList.referral_id })" ng-bind="hireList.referral"></a>
+                                                <a ui-sref="app.candidates.details({ type:'cdt', id: hireList.referral_id })" ng-bind="hireList.referral"></a>
                                                 was referred by
                                             </span>
                                             <br>
                                             <span>
                                                 <i class="ellipsis">
-                                                    <a ui-sref="app.candidates.details({id: hireList.referred_by_id })">{{hireList.referred_by}}
+                                                    <a ui-sref="app.candidates.details({ type:'ref', id: hireList.referred_by_id })">{{hireList.referred_by}}
                                                     </a>
                                                 </i>
                                             </span>
@@ -209,7 +209,7 @@
                             </div>
                             <div class="pull-left" style="padding:7px 10px;width:82%">
                                 <div class="top">
-                                    <a ui-sref="app.candidates.details({id: topreferrals.referral_id })" class="name elipsis" ng-bind="topreferrals.name" ng-style="{'line-height': topreferrals.designation ? 'normal' : '40px'}"></a>
+                                    <a ui-sref="app.candidates.details({ type:'ref', id:topreferrals.referred_by_id })" class="name elipsis" ng-bind="topreferrals.name" ng-style="{'line-height': topreferrals.designation ? 'normal' : '40px'}"></a>
                                     <span ng-if="topreferrals.designation" ng-bind="topreferrals.designation" style="font-size:14px;" title="{{topreferrals.designation}}" class="elipsis"></span>
                                 </div>
                                 <div class="bottom">

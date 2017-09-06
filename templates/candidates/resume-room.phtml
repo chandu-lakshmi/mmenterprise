@@ -111,3 +111,20 @@
 		<span>{{COL_FIELD}}</span>
 	</div>
 </script>
+
+
+<script type="text/ng-template" id="candidate-details.html">
+	<div class="ui-grid-cell-contents ui-grid-download" ng-click="$event.stopPropagation()"  title="{{ COL_FIELD }}">
+		<a class="ui-grid-cell-contents details"  ui-sref="app.candidates.details({ type:'cdt', id:row.entity.id })">
+			{{ COL_FIELD }}
+		</a>
+	</div>
+</script>
+
+<script type="text/ng-template" id="referred-details.html">
+	<div class="ui-grid-cell-contents ui-grid-download" ng-click="$event.stopPropagation()" title="{{ COL_FIELD }}">
+		<a class="ui-grid-cell-contents details"  ui-sref="app.candidates.details({ type:'ref', id:row.entity.referred_by_id })">
+			{{ COL_FIELD }}
+		</a>
+	</div>
+</script>
