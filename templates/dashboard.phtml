@@ -84,7 +84,7 @@
 
                                     <div class="pull-left" style="position: relative;padding-right: 10px" ng-init="getColor = DashCtrl.getColor(refList.status)">
                                         
-                                        <a ui-sref="app.candidates.details({ type:'cdt', id: refList.referral_id })">
+                                        <a ui-sref="app.candidates.details({ type:'cdt', id: refList.id })">
                                             <img ng-if="!(refList.referral_img == '' || refList.referral_img == null)" ng-src="{{refList.referral_img}}" class="pull-left img-responsive img-circle dp" ng-style="{'border': '2px solid {{refList.referral_img == '' ? 'transparent' : getColor}}'}">
 
                                             <span ng-if="refList.referral_img == '' || refList.referral_img == null" ng-bind="refList.referral.trim() | limitTo : 1" class="letter" ng-style="{'background':DashCtrl.colorPicker($index, 1)}"></span>
@@ -100,7 +100,7 @@
                                     </div>
                                     <div class="content">
                                         <span>
-                                            <a ui-sref="app.candidates.details({ type:'cdt', id:refList.referral_id })" ng-bind="refList.referral"></a>
+                                            <a ui-sref="app.candidates.details({ type:'cdt', id:refList.id })" ng-bind="refList.referral"></a>
                                             was referred for 
                                             <strong ng-bind="refList.job_title"><md-tooltip>{{refList.job_title}}</md-tooltip></strong>
                                         </span>
@@ -146,7 +146,7 @@
                                         </span>
                                     </div>
                                     <div class="pull-left" style="position: relative;">
-                                        <a ui-sref="app.candidates.details({ type:'cdt', id: hireList.referral_id })">
+                                        <a ui-sref="app.candidates.details({ type:'cdt', id: hireList.id })">
                                             <img ng-if="!(hireList.referral_img == '' || hireList.referral_img == null)" ng-src="{{hireList.referral_img}}" class="pull-left img-responsive img-circle dp" ng-style="{'border': (hireList.referral_img == '' || hireList.referral_img == 'null') ? '' : '2px solid #468A25' }">
 
                                             <span ng-if="hireList.referral_img == '' || hireList.referral_img == null" ng-bind="hireList.referral.trim() | limitTo : 1" class="letter" ng-style="{'background':DashCtrl.colorPicker($index + 5, 1)}">
@@ -163,7 +163,7 @@
 
                                         <div class="content">
                                             <span class="details">
-                                                <a ui-sref="app.candidates.details({ type:'cdt', id: hireList.referral_id })" ng-bind="hireList.referral"></a>
+                                                <a ui-sref="app.candidates.details({ type:'cdt', id: hireList.id })" ng-bind="hireList.referral"></a>
                                                 was referred by
                                             </span>
                                             <br>
@@ -200,7 +200,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-6" ng-if="!DashCtrl.top_referrals_empty" ng-repeat="topreferrals in DashCtrl.topReferralsList">
                         <div class="box clearfix">
                             <div class="pull-left" style="width:18%">
-                                <a ui-sref="app.candidates.details({id: topreferrals.referral_id })">
+                                <a ui-sref="app.candidates.details({id: topreferrals.id })">
                                     <img ng-if="!(topreferrals.image == '' || topreferrals.image == null)" ng-src="{{topreferrals.image}}" class="img-responsive img-circle dp">
                                     <span ng-if="topreferrals.image == '' || topreferrals.image == null" ng-bind="topreferrals.name.trim() | limitTo : 1" class="letter" ng-style="{'background':DashCtrl.colorPicker($index + 3, 0)}">
                                     </span>

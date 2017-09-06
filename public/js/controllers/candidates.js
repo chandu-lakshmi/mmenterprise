@@ -916,12 +916,52 @@
 
             getCandidateDetails().then(function () {
                 vm.inProgressCandidateDetails = false;
-                vm.writeMail.to = vm.details.emailid;    
+                vm.writeMail.to = vm.details.emailid;
+                getDropdownList();    
             });
 
         }
 
         function getCandidateDetails() {
+
+
+            if(apiKeyType == 'ref') {
+                apiKeyCandidateDetails = { candidate_id : candidateId };
+            } 
+            else if(apiKeyType == 'cdt') {
+                apiKeyCandidateDetails = { reference_id : candidateId };
+            } 
+
+            var candidateDetails = $http({
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method  : 'POST',
+                url     : App.base_url + 'get_candidate_details',
+                data    : $.param(apiKeyCandidateDetails)
+            });
+
+            var candidateActivities = $http({
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method  : 'POST',
+                url     : App.base_url + 'get_candidate_activities',
+                data    : $.param({ reference_id:candidateId })
+            });
+
+            return $q.all([candidateDetails, candidateActivities]).then(function (data) {
+                
+                vm.details                 = data[0].data.data;
+                vm.candidateActivitiesList = data[1].data.data;
+
+            }, function() {
+                $window.location = App.base_url + 'logout';
+            });
+
+        }
+
+        function getDropdownList() {
 
             $http({
                 headers : {
@@ -940,52 +980,23 @@
 
             });
 
-            if(apiKeyType == 'ref') {
-                apiKeyCandidateDetails = { candidate_id : candidateId };
-            } 
-            else if(apiKeyType == 'cdt') {
-                apiKeyCandidateDetails = { reference_id : candidateId };
-            } 
-
-            var candidateDetails = $http({
-                headers : {
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                },
-                method  : 'POST',
-                url     : App.base_url + 'get_candidate_details',
-                data    : $.param(apiKeyCandidateDetails)
-            });
-
-            var emailTemplates = $http({
+            $http({
                 headers : {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                 },
                 method  : 'POST',
                 url     : App.base_url + 'get_candidate_email_templates',
-                data    : $.param({ candidate_id:candidateId })
-            });
-
-            var candidateActivities = $http({
-                headers : {
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                },
-                method  : 'POST',
-                url     : App.base_url + 'get_candidate_activities',
-                data    : $.param({ reference_id:candidateId })
-            });
-
-            return $q.all([candidateDetails, emailTemplates, candidateActivities]).then(function (data) {
-                
-                vm.details                 = data[0].data.data;
-                vm.writeMailSubjectList    = data[1].data.data;
-                vm.candidateActivitiesList = data[2].data.data;
-
-            }, function() {
-                $window.location = App.base_url + 'logout';
+                data    : $.param({ reference_id : candidateId, candidate_id : vm.details.candidate_id })
+            }).then(function (response) {
+                if (response.status == 200) {
+                    vm.writeMailSubjectList = response.data.data;
+                }
+                else if (response.data.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
             });
 
         }
-
 
         setTimeout(function() {
 
