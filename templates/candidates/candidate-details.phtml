@@ -312,7 +312,7 @@
                                                             class="demo-header-searchbox md-text">
                                                     </md-select-header>
                                                     <md-optgroup label="vegetables">
-                                                        <md-option ng-value="place.offset" ng-repeat="place in CandidateDetailsCtrl.timeZone | filter: {text : searchTerm }">{{place.text}}</md-option>
+                                                        <md-option ng-value="place.text" ng-repeat="place in CandidateDetailsCtrl.timeZone | filter: {text : searchTerm }">{{place.text}}</md-option>
                                                     </md-optgroup>
                                                 </md-select>
                                                 <div class="error-spacer"></div>
