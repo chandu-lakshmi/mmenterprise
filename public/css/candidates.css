@@ -628,6 +628,8 @@
             height: 46px;
             width: 129px;
             padding: 5px 0; }
+            .candidates .candidate-details .section md-card.right .status_change:hover {
+              background: #3b7f71; }
             .candidates .candidate-details .section md-card.right .status_change .md-button {
               margin: 0;
               color: #fff;
@@ -733,6 +735,8 @@
                 color: #a6a6a6;
                 top: 8px;
                 font-size: 22px; }
+              .candidates .candidate-details .section md-card.right .tab-content .box .tag-job .md-chips:before {
+                content: 'JOBS *' !important; }
               .candidates .candidate-details .section md-card.right .tab-content .box .attendees {
                 position: relative;
                 margin: 12px 0 45px; }

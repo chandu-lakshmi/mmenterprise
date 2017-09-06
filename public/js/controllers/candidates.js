@@ -716,7 +716,9 @@
         
         var vm = this,
                 cancelerAttendees,
+                cancelerTagJobs,
                 prevSearchValue,
+                prevSearchValueJobs,
                 candidateId = $stateParams.id,
                 apiKeyType  = $stateParams.type,
                 apiKeyCandidateDetails = { contact_id : candidateId };
@@ -738,6 +740,12 @@
         vm.submittedSchedule   = false;
         vm.responseMsgSchedule = null;
         
+        vm.selectedTagJobs    = [];
+        vm.inProgressJobsList = false;
+        vm.inProgressTagJobs  = false;
+        vm.submittedTagJobs   = false;
+        vm.responseMsgTagJobs = null;
+
         vm.inProgressPostComment  = false;
         vm.responseMsgPostComment = null;   
 
@@ -773,6 +781,37 @@
                 })
             } else{
                 prevSearchValue = null;
+                return setTimeout(function(){});
+            }
+            
+        }
+
+        vm.querySearchTagJobs = function(searchText) {
+            
+            if (prevSearchValueJobs != searchText) {
+                if (cancelerTagJobs) {
+                    cancelerTagJobs.resolve();
+                }
+                
+                cancelerTagJobs       = $q.defer();
+                vm.inProgressJobsList = true;
+                
+                return $http({
+                    headers : {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                    },
+                    method  : 'POST',
+                    data    : $.param({search: searchText}),
+                    url     : CONFIG.APP_DOMAIN + 'get_candidate_tag_jobs_list',
+                    timeout : cancelerTagJobs.promise
+                })
+                .then(function (response) {
+                    prevSearchValueJobs        = searchText; 
+                    vm.inProgressJobsList = false;
+                    return response.data.data;
+                })
+            } else{
+                prevSearchValueJobs = null;
                 return setTimeout(function(){});
             }
             
@@ -901,8 +940,50 @@
             }
 
         }
+
+        vm.postTagJobs = function() {
+
+            vm.submittedTagJobs = true;
+
+            if(vm.selectedTagJobs.length) {
+                
+                var tempJobIds = [];
+                angular.forEach(vm.selectedTagJobs, function(attendee){
+                    tempJobIds.push(attendee.post_id);
+                });
+
+                var apiKeys = $.param({reference_id : candidateId, candidate_id : vm.details.candidate_id, id : tempJobIds.toString()});
+
+                vm.inProgressTagJobs  = true;
+
+                $http({
+                    headers : {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                    },
+                    method  : 'POST',
+                    url     : App.base_url + 'add_candidate_email',
+                    data    : apiKeys   
+                })
+                .then(function (response) {
+
+                    if (response.data.status_code == 200) {
+                        vm.inProgressTagJobs   = false;
+                        vm.submittedTagJobs    = false;
+                        vm.responseMsgTagJobs  = response.data.message.msg[0];
+                        $timeout(function(){
+                            vm.responseMsgTagJobs = null;
+                        }, 2000);
+                    }
+                    else if (response.data.status_code == 400) {
+                        $window.location = App.base_url + 'logout';
+                    }
+
+                });
+            }
+
+        }
         
-        vm.getNewTalent = function() {
+        vm.getColor = function() {
 
             if (vm.selectedNewTalent  == 'GOOD FIT') {
                 return '#87cf16';

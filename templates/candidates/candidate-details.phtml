@@ -22,7 +22,7 @@
         								<h5 class="name">CANDIDATE NAME</h5>
                                         <md-menu class="talent" md-position-mode="target-left target">
                                             <md-button ng-click="$mdOpenMenu($event)">
-                                               <span ng-style="{'color':CandidateDetailsCtrl.getNewTalent()}">{{CandidateDetailsCtrl.selectedNewTalent}} 
+                                               <span ng-style="{'color':CandidateDetailsCtrl.getColor()}">{{CandidateDetailsCtrl.selectedNewTalent}} 
                                                     <i class="material-icons">&#xE313;</i>
                                                </span> 
                                             </md-button>
@@ -346,7 +346,7 @@
                                     <div class="mm_down send_mail">
                                         <form name="write_mail_form" novalidate>
                                             <h5>WRITE AN EMAIL</h5>
-                                            <div class="box" style="border-bottom: 1px solid #e5e5e5">
+                                            <div class="box">
 
                                                 <md-input-container class="md-block">
                                                     <label>TO</label>
@@ -386,7 +386,48 @@
                                     </div>  
                                 </uib-tab>
                                 <uib-tab class="link">
-                                    
+                                    <div class="mm_down">
+                                        <h5>TAG JOBS</h5>
+                                        <div class="box">
+                                            <div class="attendees tag-job">
+                                                <!--placeholder value in css please check if you want to change -->
+                                                <md-chips ng-model="CandidateDetailsCtrl.selectedTagJobs" md-autocomplete-snap
+                                                          md-require-match="true" ng-class="{'active' : (!!CandidateDetailsCtrl.selectedTagJobs.length || !!CandidateDetailsCtrl.searchTextTagJob.length), 'attendees-required' : !CandidateDetailsCtrl.selectedTagJobs.length && CandidateDetailsCtrl.submittedTagJobs }">
+                                                    <md-autocomplete
+                                                      md-selected-item="CandidateDetailsCtrl.selectedTagJob"
+                                                      md-search-text="CandidateDetailsCtrl.searchTextTagJob"
+                                                      md-items="item in CandidateDetailsCtrl.querySearchTagJobs(CandidateDetailsCtrl.searchTextTagJob)"
+                                                      md-item-text="item.post_name"
+                                                      md-no-cache = "true"
+                                                      >
+                                                    <md-item-template>
+                                                        <span md-highlight-text="CandidateDetailsCtrl.searchTextTagJob">{{item.post_name}} </span>
+                                                    </md-item-template>
+                                                    <md-not-found>
+                                                        <div class="not_found">No Attendees found</div>
+                                                    </md-not-found>
+
+                                                  </md-autocomplete>
+                                                  <md-chip-template>
+                                                    <span>
+                                                      <strong title="{{$chip.post_name}}">{{$chip.post_name}}</strong>
+                                                    </span>
+                                                  </md-chip-template>
+                                                </md-chips>
+                                                <div class="error-spacer"></div>
+                                                <div ng-if="!CandidateDetailsCtrl.selectedTagJobs.length && CandidateDetailsCtrl.submittedTagJobs"  class="has-error-msg">Please select Job(s).</div>
+                                                <img class="loader" ng-if="CandidateDetailsCtrl.inProgressJobsList" src="public/images/loader/blue-loader.gif">
+                                            </div>
+                                            <div class="action">
+                                                <div class="pull-left" ng-if="CandidateDetailsCtrl.inProgressTagJobs">
+                                                    <img src="public/images/loader/upload_file.gif" alt="sending">
+                                                    <span class="msg">Taging Jobs</span>
+                                                </div>
+                                                <span class="msg response-msg" ng-bind="CandidateDetailsCtrl.responseMsgTagJobs"></span>
+                                                <md-button class="md-raised add pull-right" ng-click="CandidateDetailsCtrl.postTagJobs()" ng-disabled="CandidateDetailsCtrl.inProgressTagJobs">TAG JOBS</md-button>
+                                            </div>
+                                        </div>
+                                    </div>  
                                 </uib-tab>
                                 <uib-tab class="arrow" disable="true">
                                     <uib-tab-heading>

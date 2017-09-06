@@ -319,6 +319,7 @@ $background : #eeeff1;
                 }
                 &.right{margin: 0;box-shadow: none;
                     .status_change{background: #0ba082;margin: 0;float: left;position: absolute;height: 46px;width: 129px;padding: 5px 0;
+                        &:hover{background: #3b7f71}
                        .md-button{margin: 0;color: #fff;font-size: 16px;width: 100%;
                             i{margin-left: -4px;vertical-align: middle;font-size: 26px}
                        }
@@ -374,6 +375,9 @@ $background : #eeeff1;
                             } 
                             .loc{
                                 i{position: absolute;right: 5px;color: #a6a6a6;top: 8px;font-size: 22px}
+                            }
+                            .tag-job{
+                                .md-chips:before{content: 'JOBS *' !important}
                             }
                             .attendees{position: relative;margin: 12px 0 45px;
                                 .md-chips{padding: 0 0 4px 3px;
