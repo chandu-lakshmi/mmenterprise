@@ -342,6 +342,14 @@ return [
             'get_candidate_activities' =>[
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/get_candidate_activities'
+            ],
+            'get_candidate_tag_jobs_list' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_candidate_tag_jobs_list'
+            ],
+            'add_candidate_tag_jobs' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/add_candidate_tag_jobs'
             ]
     ];
         
