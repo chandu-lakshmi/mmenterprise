@@ -22,7 +22,7 @@
         								<h5 class="name">CANDIDATE NAME</h5>
                                         <md-menu class="talent" md-position-mode="target-left target">
                                             <md-button ng-click="$mdOpenMenu($event)">
-                                               <span ng-style="{'color':CandidateDetailsCtrl.getColor()}">{{CandidateDetailsCtrl.selectedNewTalent}} 
+                                               <span>{{CandidateDetailsCtrl.selectedNewTalent}} 
                                                     <i class="material-icons">&#xE313;</i>
                                                </span> 
                                             </md-button>
@@ -31,7 +31,6 @@
                                                     <md-button 
                                                         ng-click="CandidateDetailsCtrl.selectedNewTalent=newTalent.label" 
                                                         ng-bind="newTalent.label" 
-                                                        ng-style="{ color:newTalent.color }"
                                                         aria-label="{{newTalent.label}}">
                                                     </md-button>
                                                 </md-menu-item>

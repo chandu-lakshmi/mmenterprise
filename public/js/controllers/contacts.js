@@ -174,7 +174,7 @@
         if (edit_feature && $stateParams.bucketType == 1) {
             this.gridOptions.columnDefs.push(
                     {name: 'download_status', displayName: 'Download', enableCellEdit: false, headerTooltip: 'Download' , cellClass: 'grid-no-hover', width: '10%',
-                        cellTemplate: '<div class="ui-grid-cell-contents">{{ COL_FIELD == 1 ? "Yes" : "No"}}</div>',
+                        cellTemplate: '<div class="ui-grid-cell-contents text-center">{{ COL_FIELD == 1 ? "Yes" : "No"}}</div>',
                         //sortDirectionCycle: ['asc', 'desc', '']
                     }
             )

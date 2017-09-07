@@ -721,12 +721,12 @@
                 prevSearchValueJobs,
                 candidateId = $stateParams.id,
                 apiKeyType  = $stateParams.type,
-                apiKeyCandidateDetails = { contact_id : candidateId };
+                apiKeyCandidateDetails = { contact_id:candidateId };
 
         vm.selectedStatus    = "PENDING";
         vm.statusList        = ["PENDING"];
         vm.selectedNewTalent = "New Talent";
-        vm.newTalentList     = [{ label:'GOOD FIT' , color:'#87cf16' }, { label:'NOT SUITABLE' , color:'#f44336' }, { label:'NEW TALENT' , color:'#229fec' }];
+        vm.newTalentList     = [{ label:'GREAT FIT' }, { label:'GOOD FIT' }, { label:'NOT SUITABLE' }, { label:'HIRED' }, { label:'NEW TALENT' }];
         vm.scheduleForList   = ["Onsite Interview"];
 
         vm.inProgressCandidateDetails = true;

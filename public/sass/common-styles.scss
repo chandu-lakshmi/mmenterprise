@@ -100,7 +100,53 @@ md-dialog.simple-dialog{
     }
 }
 
+
+.mm-spinner{text-align: center;opacity: 0.5;position: absolute;left: 0;top: 0;width: 100%;height: 100%;
+    div{left: calc(50% - 36px);top: calc(50% - 36px);position: absolute;
+        img{width: 72px;height: 72px;}
+    }
+}
+
+
+/* slide down in candidate details tabs */
+
+.mm_down{
+    animation-name: mm_down;
+    -webkit-animation-name: mm_down;  
+
+    animation-duration: 0.5s; 
+    -webkit-animation-duration: 0.5s;
+
+    animation-timing-function: ease-out;    
+    -webkit-animation-timing-function: ease-out;    
+
+    visibility: visible !important;                     
+}
+
+@keyframes mm_down {
+    0% {
+        transform: translateY(-2%);
+    }
+    100% {
+        transform: translateY(0%);
+    }       
+}
+@-webkit-keyframes mm_down {
+    0% {
+        transform: translateY(-2%);
+    }
+    100% {
+        transform: translateY(0%);
+    }       
+}
+
+
 /* resume drop(upload resume) tab*/
+
+.mm-slide-left{
+    animation: 1s ease-out 0s 1 slideInFromLeft;
+}
+
 @keyframes slideInFromLeft {
   0% {
     transform: translateX(3%);
@@ -109,6 +155,4 @@ md-dialog.simple-dialog{
     transform: translateX(0);
   }
 }
-.mm-slide-left{
-    animation: 1s ease-out 0s 1 slideInFromLeft;
-}
+
