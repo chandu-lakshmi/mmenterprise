@@ -299,7 +299,10 @@ $background : #eeeff1;
                         }
                         .talent{
                             i{margin-left: -4px;vertical-align: middle;font-size: 26px;}
-                            span{color: #0ba082}
+                            .md-button{background: #0ba082;border-radius: 14px;padding: 0 10px 0 16px;min-height: 16px;line-height: 30px;text-transform: capitalize;
+                                &:hover{background: #3d7e71}
+                                span{color: #fff;}
+                            }
                         }
                         span{color: #333;
                             &.bold{font-weight: 600;font-size: 16px}
@@ -449,6 +452,11 @@ $background : #eeeff1;
 
 }
 
+.talent-menu{padding: 0;min-width: 160px !important;background: #3d7e71;
+    md-menu-item{border-bottom: 1px solid #fff;
+        .md-button{color: #fff}
+    }
+}
 
 .timezone{ width : 365px;
     input{width: 100%;padding: 10px; border: 0;border-bottom:1px solid #ddd;font-size: 16px;

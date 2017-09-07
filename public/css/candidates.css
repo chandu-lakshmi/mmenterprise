@@ -581,8 +581,17 @@
               margin-left: -4px;
               vertical-align: middle;
               font-size: 26px; }
-            .candidates .candidate-details .section md-card .details .list .talent span {
-              color: #0ba082; }
+            .candidates .candidate-details .section md-card .details .list .talent .md-button {
+              background: #0ba082;
+              border-radius: 14px;
+              padding: 0 10px 0 16px;
+              min-height: 16px;
+              line-height: 30px;
+              text-transform: capitalize; }
+              .candidates .candidate-details .section md-card .details .list .talent .md-button:hover {
+                background: #3d7e71; }
+              .candidates .candidate-details .section md-card .details .list .talent .md-button span {
+                color: #fff; }
             .candidates .candidate-details .section md-card .details .list span {
               color: #333; }
               .candidates .candidate-details .section md-card .details .list span.bold {
@@ -883,6 +892,15 @@
                 font-size: 14px; }
               .candidates .candidate-details .section md-card.right .tab-content .action .response-msg {
                 color: #0ba082; }
+
+.talent-menu {
+  padding: 0;
+  min-width: 160px !important;
+  background: #3d7e71; }
+  .talent-menu md-menu-item {
+    border-bottom: 1px solid #fff; }
+    .talent-menu md-menu-item .md-button {
+      color: #fff; }
 
 .timezone {
   width: 365px; }

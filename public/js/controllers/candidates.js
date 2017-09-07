@@ -726,7 +726,7 @@
         vm.selectedStatus    = "PENDING";
         vm.statusList        = ["PENDING"];
         vm.selectedNewTalent = "New Talent";
-        vm.newTalentList     = [{ label:'GREAT FIT' }, { label:'GOOD FIT' }, { label:'NOT SUITABLE' }, { label:'HIRED' }, { label:'NEW TALENT' }];
+        vm.newTalentList     = [{ label:'Great Fit' }, { label:'Good Fit' }, { label:'Not Suitable' }, { label:'Hired' }, { label:'New Talent'}];
         vm.scheduleForList   = ["Onsite Interview"];
 
         vm.inProgressCandidateDetails = true;
