@@ -12,7 +12,7 @@
             .controller('FindResumeController', FindResumeController)
 
     CandidateController.$inject = ['App'];
-    CandidateDetailsController.$inject = ['$http', '$q', '$timeout', '$window', '$stateParams', 'CONFIG', 'App'];
+    CandidateDetailsController.$inject = ['$state', '$http', '$q', '$timeout', '$window', '$stateParams', 'CONFIG', 'CompanyDetails', 'App'];
     ResumeRoomController.$inject = ['$state', '$window', '$uibModal', '$http', '$q', '$timeout', 'ajaxService', 'CompanyDetails', 'App'];
     UploadResumeController.$inject = ['$rootScope', '$scope', '$http', '$timeout', '$window', '$uibModal', 'App'];
     FindResumeController.$inject = ['$scope', '$http', '$q', '$timeout', '$filter', 'orderByFilter', '$window', 'CompanyDetails', 'App'];
@@ -712,7 +712,7 @@
     }
 
 
-    function CandidateDetailsController($http, $q, $timeout, $window, $stateParams, CONFIG, App) {
+    function CandidateDetailsController($state, $http, $q, $timeout, $window, $stateParams, CONFIG, CompanyDetails, App) {
         
         var vm = this,
                 cancelerAttendees,
@@ -726,9 +726,9 @@
         vm.selectedStatus    = "PENDING";
         vm.statusList        = ["PENDING"];
         vm.selectedNewTalent = "New Talent";
-        vm.newTalentList     = [{ label:'Great Fit' }, { label:'Good Fit' }, { label:'Not Suitable' }, { label:'Hired' }, { label:'New Talent'}];
+        vm.newTalentList     = [{ label:'New Talent'}, { label:'Great Fit' }, { label:'Good Fit' }, { label:'Not Suitable' }, { label:'Hired' }];
         vm.scheduleForList   = ["Onsite Interview"];
-
+        vm.referralId        = $stateParams.id;
         vm.inProgressCandidateDetails = true;
 
         vm.schedule = {
@@ -952,7 +952,7 @@
                     tempJobIds.push(attendee.post_id);
                 });
 
-                var apiKeys = $.param({reference_id : candidateId, candidate_id : vm.details.candidate_id, id : tempJobIds.toString()});
+                var apiKeys = $.param({reference_id : candidateId, candidate_id : vm.details.candidate_id, job_ids : tempJobIds.toString()});
 
                 vm.inProgressTagJobs  = true;
 
@@ -961,7 +961,7 @@
                         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                     },
                     method  : 'POST',
-                    url     : App.base_url + 'add_candidate_email',
+                    url     : App.base_url + 'add_candidate_tag_jobs',
                     data    : apiKeys   
                 })
                 .then(function (response) {
@@ -993,12 +993,17 @@
 
         }
 
+        vm.selectedReferral = function(ref) {
+            $state.go('app.candidates.details', { type:'ref', id : ref.reference_id });
+        }
 
         function init() {
 
             getCandidateDetails().then(function () {
                 vm.inProgressCandidateDetails = false;
-                vm.writeMail.to = vm.details.emailid;
+                vm.writeMail.to   = vm.details.emailid;
+                vm.viewResume     = App.base_url + 'viewer?url=' + vm.details.resume_path;
+                vm.downloadResume = App.API_DOMAIN + "getResumeDownload?company_id=" + CompanyDetails.company_code + "&doc_id=" + vm.details.document_id;
                 getDropdownList();    
             });
 
@@ -1029,13 +1034,40 @@
                 },
                 method  : 'POST',
                 url     : App.base_url + 'get_candidate_activities',
-                data    : $.param({ reference_id:candidateId })
+                data    : $.param(apiKeyCandidateDetails)
             });
 
-            return $q.all([candidateDetails, candidateActivities]).then(function (data) {
+            var candidateComments = $http({
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method  : 'POST',
+                url     : App.base_url + 'get_candidate_comments',
+                data    : $.param(apiKeyCandidateDetails)
+            });
+
+            var candidateSentMails = $http({
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method  : 'POST',
+                url     : App.base_url + 'get_candidate_sent_emails',
+                data    : $.param(apiKeyCandidateDetails)
+            });
+
+            return $q.all([candidateDetails, candidateActivities, candidateComments, candidateSentMails]).then(function (data) {
                 
-                vm.details                 = data[0].data.data;
-                vm.candidateActivitiesList = data[1].data.data;
+                vm.details                 =  data[0].data.data;
+                vm.candidateCommentsList   =  data[2].data.data;
+                vm.candidateSendMailsList  =  data[3].data.data;
+
+                if(data[1].data.status_code == 200){
+                    vm.candidateActivitiesList = data[1].data.data;
+                }
+                else if(data[1].data.status_code == 403) {
+                    vm.candidateActivitiesList =  [];
+                    vm.responseMsgActivities   =  data[1].data.message.msg[0];
+                }
 
             }, function() {
                 $window.location = App.base_url + 'logout';
@@ -1078,6 +1110,22 @@
                 }
             });
 
+            $http({
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method  : 'POST',
+                url     : App.base_url + 'get_candidate_referral_list',
+                data    : $.param({ reference_id : candidateId})
+            }).then(function (response) {
+                if (response.status == 200) {
+                    vm.referralsList = response.data.data;
+                }
+                else if (response.data.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+            });
+
         }
 
         setTimeout(function() {
@@ -1085,23 +1133,23 @@
             $('#interview_date').datetimepicker({
                 minDate : new Date(),
                 ignoreReadonly: true,
-                format: 'dddd, DD MMM YYYY',
+                format     : 'dddd, DD MMM YYYY',
                 sideBySide : true,
-                useCurrent:true
+                useCurrent :true
             });
 
             $('#time_from').datetimepicker({
                 ignoreReadonly: true,
-                format: 'hh:mm A',
+                format     : 'hh:mm A',
                 sideBySide : true,
-                useCurrent:true
+                useCurrent :true
             });
 
             $('#time_to').datetimepicker({
                 ignoreReadonly: true,
-                format: 'hh:mm A',
+                format     : 'hh:mm A',
                 sideBySide : true,
-                useCurrent:true
+                useCurrent :true
             });
 
             $('#search').on('keydown', function(ev) {

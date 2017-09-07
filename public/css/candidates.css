@@ -548,26 +548,45 @@
         text-decoration: none;
         font-weight: 600; }
       .candidates .candidate-details .head img {
-        width: 20px;
+        width: 26px;
         height: 20px;
         float: left;
         padding-right: 6px; }
+      .candidates .candidate-details .head span {
+        vertical-align: middle; }
     .candidates .candidate-details .section {
       padding-bottom: 80px; }
       .candidates .candidate-details .section md-card {
         margin: 0 26px 0 0; }
         .candidates .candidate-details .section md-card .title {
-          padding: 18px 52px 12px;
+          position: relative;
+          padding: 14px 52px 11px;
           border-bottom: 1px solid #edf1f4;
           color: #646e6e;
           font-weight: 600;
-          background: transparent url("../images/cand-details.png") no-repeat 20px 18px; }
+          background: transparent url("../images/cand-details.png") no-repeat 20px 14px; }
           .candidates .candidate-details .section md-card .title.info {
-            background-position: 20px -20px; }
+            background-position: 20px -24px; }
           .candidates .candidate-details .section md-card .title.skill {
-            background-position: 18px -64px; }
+            background-position: 18px -68px; }
           .candidates .candidate-details .section md-card .title.edu {
-            background-position: 14px -109px; }
+            background-position: 14px -113px; }
+          .candidates .candidate-details .section md-card .title .resume {
+            position: absolute;
+            right: 15px;
+            top: 4px; }
+            .candidates .candidate-details .section md-card .title .resume .md-button {
+              margin: 1px 0;
+              text-transform: capitalize;
+              font-size: 16px;
+              color: #4784a9;
+              vertical-align: middle; }
+            .candidates .candidate-details .section md-card .title .resume a.download {
+              background: url(../images/referrals.png) no-repeat 0% 94.6%;
+              padding: 10px;
+              cursor: pointer; }
+              .candidates .candidate-details .section md-card .title .resume a.download:hover {
+                opacity: 0.7; }
         .candidates .candidate-details .section md-card .details {
           padding: 16px 20px 0; }
           .candidates .candidate-details .section md-card .details .list {
@@ -582,16 +601,14 @@
               vertical-align: middle;
               font-size: 26px; }
             .candidates .candidate-details .section md-card .details .list .talent .md-button {
-              background: #0ba082;
-              border-radius: 14px;
-              padding: 0 10px 0 16px;
-              min-height: 16px;
-              line-height: 30px;
+              border: 1px solid #0ba082;
+              border-radius: 5px;
+              padding: 0 1px 0 10px;
+              min-height: 26px;
+              line-height: 26px;
               text-transform: capitalize; }
-              .candidates .candidate-details .section md-card .details .list .talent .md-button:hover {
-                background: #3d7e71; }
               .candidates .candidate-details .section md-card .details .list .talent .md-button span {
-                color: #fff; }
+                color: #0ba082; }
             .candidates .candidate-details .section md-card .details .list span {
               color: #333; }
               .candidates .candidate-details .section md-card .details .list span.bold {
@@ -690,10 +707,20 @@
                 line-height: normal;
                 background: transparent url("../images/tabs.png") no-repeat 10px -28px; }
               .candidates .candidate-details .section md-card.right .nav-tabs > li.arrow a {
-                background-image: none; }
-                .candidates .candidate-details .section md-card.right .nav-tabs > li.arrow a i.material-icons {
-                  font-size: 32px;
-                  margin-left: -4px; }
+                background: none; }
+                .candidates .candidate-details .section md-card.right .nav-tabs > li.arrow a md-menu {
+                  position: absolute;
+                  left: 0;
+                  top: 0;
+                  padding: 0; }
+                  .candidates .candidate-details .section md-card.right .nav-tabs > li.arrow a md-menu .md-button {
+                    margin: 0;
+                    padding: 0;
+                    min-width: 45px;
+                    height: 45px; }
+                    .candidates .candidate-details .section md-card.right .nav-tabs > li.arrow a md-menu .md-button i {
+                      font-size: 35px;
+                      margin-top: 6px; }
           .candidates .candidate-details .section md-card.right .tab-content {
             clear: both; }
             .candidates .candidate-details .section md-card.right .tab-content h5 {
@@ -892,15 +919,27 @@
                 font-size: 14px; }
               .candidates .candidate-details .section md-card.right .tab-content .action .response-msg {
                 color: #0ba082; }
+          .candidates .candidate-details .section md-card.right .tabs-tooltip {
+            font-size: 14px; }
+            .candidates .candidate-details .section md-card.right .tabs-tooltip .tooltip-inner {
+              padding: 3px 8px; }
+          .candidates .candidate-details .section md-card.right .no-records {
+            padding: 10px;
+            margin: 50px;
+            text-align: center;
+            border: 1px solid #ccc;
+            color: #808080;
+            border-radius: 4px; }
 
 .talent-menu {
   padding: 0;
-  min-width: 160px !important;
-  background: #3d7e71; }
+  min-width: 175px !important; }
+  .talent-menu .title {
+    padding: 6px 16px;
+    background: #0e2d3f;
+    color: #fff; }
   .talent-menu md-menu-item {
-    border-bottom: 1px solid #fff; }
-    .talent-menu md-menu-item .md-button {
-      color: #fff; }
+    border-bottom: 1px solid #95a7b1; }
 
 .timezone {
   width: 365px; }

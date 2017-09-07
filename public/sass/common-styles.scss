@@ -156,3 +156,34 @@ md-dialog.simple-dialog{
   }
 }
 
+.mm-slide-l-r{
+  -webkit-animation: slideInLR .5s forwards;
+  -moz-animation: slideInLR .5s forwards;
+  animation: slideInLR .5s forwards;
+}
+
+@-webkit-keyframes slideInLR {
+  0% {
+    transform: translateX(-10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@-moz-keyframes slideInLR {
+  0% {
+    transform: translateX(-10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes slideInLR {
+  0% {
+    transform: translateX(-10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+

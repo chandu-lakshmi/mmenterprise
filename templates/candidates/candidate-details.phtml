@@ -14,7 +14,15 @@
         			<div flex="65">
         				<md-card>
         					<div class="title">
-        						PERSONAL INFO
+        						<span flex>PERSONAL INFO</span>
+                                <span class="resume" ng-if="CandidateDetailsCtrl.details.document_id" title="{{CandidateDetailsCtrl.details.resume_name}}">
+                                    <a class="download" href="{{CandidateDetailsCtrl.downloadResume}}" download></a>
+                                    <md-button href="{{CandidateDetailsCtrl.viewResume}}" target="_blank">View Resume</md-button>
+                                </span>
+                                <span class="resume"  ng-if="!CandidateDetailsCtrl.details.document_id" title="{{CandidateDetailsCtrl.details.resume_name}}">
+                                    <a class="download" href="javascript:void(0)"></a>
+                                    <md-button target="_blank">View Resume</md-button>
+                                </span>
         					</div>
         					<div layout="column" class="details">
         						<div layout="row">
@@ -27,6 +35,7 @@
                                                </span> 
                                             </md-button>
                                             <md-menu-content width="3" class="talent-menu">
+                                                <span class="title">Choose Status</span>
                                                 <md-menu-item ng-repeat="newTalent in CandidateDetailsCtrl.newTalentList"> 
                                                     <md-button 
                                                         ng-click="CandidateDetailsCtrl.selectedNewTalent=newTalent.label" 
@@ -152,7 +161,7 @@
                                 </md-menu-content>
                             </md-menu>
                             <uib-tabset active="activeForm">
-                                <uib-tab class="timeline">
+                                <uib-tab class="timeline" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Timeline" tooltip-placement="left">
                                     <div class="mm_down timeline_edit">
                                         <h5>TIMELINE</h5>
                                         <div layout="column">
@@ -165,10 +174,12 @@
                                                     {{list.activity_by}}, <span class="time">about {{list.activity_on}}</span>
                                                 </div>
                                             </div>
+                                            <div ng-if="!CandidateDetailsCtrl.candidateActivitiesList.length" ng-bind="CandidateDetailsCtrl.responseMsgActivities" class="no-records animated fadeIn">
+                                            </div>
                                         </div>
                                     </div>                      
                                 </uib-tab>
-                                <uib-tab class="comment">
+                                <uib-tab class="comment" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Comment" tooltip-placement="left">
                                     <div class="mm_down comment_edit">
                                         <h5>WRITE YOUR COMMENT</h5>
                                         <div class="box">
@@ -183,46 +194,21 @@
                                             </div>
                                         </div> 
                                         <div layout="column">
-                                            <div layout="row" class="list">
+                                            <div layout="row" class="list" ng-repeat="list in CandidateDetailsCtrl.candidateCommentsList">
                                                 <div class="lt">
                                                     <img class="pending" src="public/images/pending.png" alt="pending">
                                                 </div>
                                                 <div class="rt">
-                                                    <p>Status changed to <span class="status">Pending</span></p>
-                                                    by Ramesh S, <span class="time">about 1 hour ago</span>
-                                                </div>
-                                            </div>
-                                            <div layout="row" class="list">
-                                                <div class="lt">
-                                                    <img class="pending" src="public/images/stamp.png" alt="pending">
-                                                </div>
-                                                <div class="rt">
-                                                    <p>Moved to <span class="interview">Interveiw</span></p>
-                                                    by Pramod M, <span class="time">2 days ago</span>
-                                                </div>
-                                            </div>
-                                            <div layout="row" class="list">
-                                                <div class="lt">
-                                                    <img class="pending" src="public/images/note.png" alt="pending">
-                                                </div>
-                                                <div class="rt">
-                                                    <p>Give Assessment for Machine Test</p>
-                                                    by Ramesh, <span class="time">Jul 10, 2017</span>
-                                                </div>
-                                            </div>
-                                            <div layout="row" class="list">
-                                                <div class="lt">
-                                                    <img class="pending" src="public/images/phone.png" alt="pending">
-                                                </div>
-                                                <div class="rt">
-                                                    <p>Schedule for Telephonic Round</p>
-                                                    by Gopi Krishna, <span class="time">Jul 10, 2017</span>
+                                                    <p>{{list.activity_message}} <span ng-class="list.activity_status == 'interview' ? 'interview' : 'status'" ng-if="list.activity_status" ng-bind="list.activity_status"></span></p>
+                                                    {{list.activity_by}}, <span class="time">about {{list.activity_on}}</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>  
                                 </uib-tab>
-                                <uib-tab class="schedule">
+                                <uib-tab class="schedule" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Schedule Interview" tooltip-placement="left">
+                                    <uib-tab-heading class="mm-tip" tooltip-class="mm-slide-l-r" uib-tooltip="SCHEDULE" tooltip-placement="left">
+                                    </uib-tab-heading>
                                     <form name="schedule_form" class="mm_down" novalidate>
                                         <h5>SCHEDULE</h5>
                                         <div class="box">
@@ -341,7 +327,7 @@
                                         </div>
                                     </form>
                                 </uib-tab>
-                                <uib-tab class="mail">
+                                <uib-tab class="mail" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Send Email" tooltip-placement="left">
                                     <div class="mm_down send_mail">
                                         <form name="write_mail_form" novalidate>
                                             <h5>WRITE AN EMAIL</h5>
@@ -384,7 +370,7 @@
                                         </form>
                                     </div>  
                                 </uib-tab>
-                                <uib-tab class="link">
+                                <uib-tab class="link" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Tag Candidate to job" tooltip-placement="left">
                                     <div class="mm_down">
                                         <h5>TAG JOBS</h5>
                                         <div class="box">
@@ -428,11 +414,28 @@
                                         </div>
                                     </div>  
                                 </uib-tab>
-                                <uib-tab class="arrow" disable="true">
+                                <uib-tab class="arrow" disable="true" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Referred Jobs" tooltip-placement="left">
                                     <uib-tab-heading>
-                                        <i class="material-icons">&#xE313;</i>
+                                        <md-menu class="talent" md-position-mode="target-right target">
+                                           <md-button ng-click="$mdOpenMenu($event)">
+                                              <span>
+                                                   <i class="material-icons">&#xE313;</i>
+                                              </span> 
+                                           </md-button>
+                                           <md-menu-content width="3" class="talent-menu">
+                                               <span class="title">Referred Jobs</span>
+                                               <md-menu-item ng-repeat="referral in CandidateDetailsCtrl.referralsList"> 
+                                                   <md-button ng-style="{background : (referral.reference_id == CandidateDetailsCtrl.referralId) ? 'rgba(158,158,158,0.2)' : '' }"
+                                                       ng-click="CandidateDetailsCtrl.selectedReferral(referral)" 
+                                                       ng-bind="referral.post_name" 
+                                                       aria-label="{{referral.reference_id}}">
+                                                   </md-button>
+                                               </md-menu-item>
+                                           </md-menu-content>
+                                       </md-menu>
                                     </uib-tab-heading>
                                 </uib-tab>
+
                             </uib-tabset>            
                         </md-card>
         			</div>
