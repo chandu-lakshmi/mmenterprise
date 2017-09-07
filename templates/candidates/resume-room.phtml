@@ -123,7 +123,7 @@
 
 <script type="text/ng-template" id="referred-details.html">
 	<div class="ui-grid-cell-contents ui-grid-download" ng-click="$event.stopPropagation()" title="{{ COL_FIELD }}">
-		<a class="ui-grid-cell-contents details"  ui-sref="app.candidates.details({ type:'ref', id:row.entity.referred_by_id })">
+		<a class="ui-grid-cell-contents details no-link" href="javascript:void(0)">
 			{{ COL_FIELD }}
 		</a>
 	</div>

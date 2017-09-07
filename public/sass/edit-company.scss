@@ -361,7 +361,7 @@ md-input-container{
                                                        }
                                                        .content{display: inline-block;line-height: initial;vertical-align: middle;padding-left: 10px;width: 70%;
                                                             a.link{color: #000;text-decoration: none; font-size: larger;transition: color .2s ease}
-                                                            a.link:hover{ color: #0ba082;}
+                                                            a.link:hover:not(.no-link){ color: #0ba082;}
                                                        }
                                                    }
                                                    .ui-grid-status{
@@ -400,7 +400,7 @@ md-input-container{
                                                              .progress-bar{color: #000}
                                                    }
                                                    .details{display: block;transition: color .2s ease;line-height: 50px;
-                                                        &:hover{color : #0ba082}
+                                                        &:hover:not(.no-link){color : #0ba082}
                                                    }
                                      }
                                      div[ui-grid-row='row']{height: 100%;}

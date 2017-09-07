@@ -520,7 +520,7 @@ md-input-container md-select .md-select-value {
             text-decoration: none;
             font-size: larger;
             transition: color .2s ease; }
-          .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .ui-grid-details .content a.link:hover {
+          .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .ui-grid-details .content a.link:hover:not(.no-link) {
             color: #0ba082; }
         .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .ui-grid-status .pending {
           color: #50a28a; }
@@ -588,7 +588,7 @@ md-input-container md-select .md-select-value {
           display: block;
           transition: color .2s ease;
           line-height: 50px; }
-          .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .details:hover {
+          .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .details:hover:not(.no-link) {
             color: #0ba082; }
       .grid .ui-grid-viewport .ui-grid-row div[ui-grid-row='row'] {
         height: 100%; }

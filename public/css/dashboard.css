@@ -488,8 +488,11 @@
     transition: color .2s ease;
     text-decoration: none; 
 }
-.referrals .content a:hover, .referrals-hires .ref-hire-list a:hover{
+.referrals .content a:hover:not(.no-link), .referrals-hires .ref-hire-list a:hover:not(.no-link){
     color: #0ba082 !important;
+}
+.no-link{
+    cursor: text !important;
 }
 
 .hires .content{
