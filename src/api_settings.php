@@ -350,6 +350,18 @@ return [
             'add_candidate_tag_jobs' =>[
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/add_candidate_tag_jobs'
+            ],
+            'get_candidate_sent_emails' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_candidate_sent_emails'
+            ],
+            'get_candidate_comments' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_candidate_comments'
+            ],
+            'get_candidate_referral_list' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_candidate_referral_list'
             ]
     ];
         
