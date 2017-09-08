@@ -823,6 +823,7 @@
             angular.forEach(vm.writeMailSubjectList, function(list) {
                 if(list.id == vm.writeMail.subjectId) {
                     vm.writeMail.body = list.body;
+                    vm.writeMail.email_subject = list.subject;
                 }
             })
 
@@ -911,7 +912,7 @@
 
             if(form.$valid) {
                 
-                var apiKeys = $("form[name='write_mail_form']").serialize() + '&' + $.param({reference_id : candidateId, candidate_id : vm.details.candidate_id });
+                var apiKeys = $("form[name='write_mail_form']").serialize() + '&' + $.param({reference_id : candidateId, candidate_id : vm.details.candidate_id, email_subject : vm.writeMail.email_subject });
 
                 vm.inProgressPostMail  = true;
 

@@ -352,9 +352,9 @@
                                                 </md-input-container>
                                                 <md-input-container class="md-block animated slideInDown" style="margin-top: 18px" ng-if="CandidateDetailsCtrl.writeMail.subjectId == 1">
                                                     <label>SUBJECT TEXT *</label>
-                                                    <input type="text" name="email_subject" ng-model="CandidateDetailsCtrl.writeMail.subjectText" ng-class="{'has-error-border': write_mail_form.email_subject.$invalid && CandidateDetailsCtrl.submittedPostMail}" required>
+                                                    <input type="text" name="email_subject_custom" ng-model="CandidateDetailsCtrl.writeMail.subjectText" ng-class="{'has-error-border': write_mail_form.email_subject_custom.$invalid && CandidateDetailsCtrl.submittedPostMail}" required>
                                                     <div class="error-spacer"></div>
-                                                    <div ng-if="write_mail_form.email_subject.$error.required && CandidateDetailsCtrl.submittedPostMail"  class="has-error-msg">Please enter Subject Text.</div>
+                                                    <div ng-if="write_mail_form.email_subject_custom.$error.required && CandidateDetailsCtrl.submittedPostMail"  class="has-error-msg">Please enter Subject Text.</div>
                                                 </md-input-container>
 
                                             </div>
