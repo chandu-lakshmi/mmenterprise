@@ -914,6 +914,9 @@
                     padding: 0;
                     color: #2e2e2e;
                     font-size: 16px; }
+              .candidates .candidate-details .section md-card.right .tab-content .comment_edit .box .editor-error {
+                overflow: hidden;
+                margin-left: 6px; }
             .candidates .candidate-details .section md-card.right .tab-content .action {
               min-height: 48px; }
               .candidates .candidate-details .section md-card.right .tab-content .action .add {
