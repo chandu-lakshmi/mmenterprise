@@ -348,13 +348,13 @@
                                                         <md-option ng-repeat="list in CandidateDetailsCtrl.writeMailSubjectList" ng-value="list.id">{{list.subject}}</md-option>
                                                     </md-select>
                                                     <div class="error-spacer"></div>
-                                                    <div ng-if="write_mail_form.subject_id.$error.required && CandidateDetailsCtrl.submittedPostMail"  class="has-error-msg">Please select Subject For.</div>
+                                                    <div ng-if="write_mail_form.subject_id.$error.required && CandidateDetailsCtrl.submittedPostMail"  class="has-error-msg">Please select Subject.</div>
                                                 </md-input-container>
                                                 <md-input-container class="md-block animated slideInDown" style="margin-top: 18px" ng-if="CandidateDetailsCtrl.writeMail.subjectId == 1">
                                                     <label>SUBJECT TEXT *</label>
                                                     <input type="text" name="email_subject" ng-model="CandidateDetailsCtrl.writeMail.subjectText" ng-class="{'has-error-border': write_mail_form.email_subject.$invalid && CandidateDetailsCtrl.submittedPostMail}" required>
                                                     <div class="error-spacer"></div>
-                                                    <div ng-if="write_mail_form.email_subject.$error.required && CandidateDetailsCtrl.submittedPostMail"  class="has-error-msg">Please select Subject Text For.</div>
+                                                    <div ng-if="write_mail_form.email_subject.$error.required && CandidateDetailsCtrl.submittedPostMail"  class="has-error-msg">Please enter Subject Text.</div>
                                                 </md-input-container>
 
                                             </div>
@@ -363,7 +363,7 @@
                                                     <div text-angular class="mm-text-editor" name="email_body" ng-model="CandidateDetailsCtrl.writeMail.body" ta-toolbar="[]" required></div>
                                                     <div class="editor-error">
                                                         <div class="error-spacer"></div>
-                                                        <div ng-if="write_mail_form.email_body.$error.required && CandidateDetailsCtrl.submittedPostMail" class="has-error-msg">Please enter Body Text.</div>    
+                                                        <div ng-if="write_mail_form.email_body.$error.required && CandidateDetailsCtrl.submittedPostMail" class="has-error-msg">Please enter Text.</div>    
                                                     </div>
                                                     <div class="action">
                                                         <div class="pull-left" ng-if="CandidateDetailsCtrl.inProgressPostMail">
