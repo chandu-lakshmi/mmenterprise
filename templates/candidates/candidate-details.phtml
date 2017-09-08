@@ -1,10 +1,10 @@
 <div class="candidate-details">
-    <div class="mm-spinner" ng-if="CandidateDetailsCtrl.inProgressCandidateDetails">
+    <div class="mm-spinner" ng-if="CandidateDetailsCtrl.inProgressCandidateDetails" ng-style="{opacity : CandidateDetailsCtrl.hasChangeReferral ? '0.5' : '1' }">
         <div>
             <img src="public/images/loader/spin.gif" alt="loading">
         </div>
     </div>
-	<div class="container" ng-show="!CandidateDetailsCtrl.inProgressCandidateDetails">
+	<div class="container">
 		<div class="head">
             <a ui-sref="app.candidates.resumeRoom"><img src="public/images/back-arrow-grey.svg" alt="back"><span>CANDIDATE LIST</span></a>
         </div>

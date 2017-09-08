@@ -729,6 +729,7 @@
         vm.newTalentList     = [{ label:'New Talent'}, { label:'Great Fit' }, { label:'Good Fit' }, { label:'Not Suitable' }, { label:'Hired' }];
         vm.scheduleForList   = ["Onsite Interview"];
         vm.referralId        = $stateParams.id;
+        vm.hasChangeReferral = false;
         vm.inProgressCandidateDetails = true;
 
         vm.schedule = {
@@ -982,29 +983,43 @@
             }
 
         }
-        
-        vm.getColor = function() {
-
-            if (vm.selectedNewTalent  == 'GOOD FIT') {
-                return '#87cf16';
-            } else if(vm.selectedNewTalent == 'NOT SUITABLE') {
-                return '#f44336';
-            }
-
-        }
 
         vm.selectedReferral = function(ref) {
-            $state.go('app.candidates.details', { type:'ref', id : ref.reference_id });
+            
+            if(ref.reference_id != candidateId) {
+                
+                vm.inProgressCandidateDetails = true;
+                vm.hasChangeReferral = true;
+                vm.submittedSchedule = false;
+                vm.submittedPostMail = false;
+                vm.submittedTagJobs  = false;
+
+                vm.schedule = {
+                    attendees : []
+                };
+                vm.searchText       = null;
+                vm.comment          = null;
+                vm.writeMail        = {};
+                vm.searchTextTagJob = null;
+                vm.selectedTagJobs  = [];
+
+                init(); 
+            }
         }
 
         function init() {
 
             getCandidateDetails().then(function () {
+                
                 vm.inProgressCandidateDetails = false;
+                vm.hasChangeReferral = false;
+
                 vm.writeMail.to   = vm.details.emailid;
                 vm.viewResume     = App.base_url + 'viewer?url=' + vm.details.resume_path;
                 vm.downloadResume = App.API_DOMAIN + "getResumeDownload?company_id=" + CompanyDetails.company_code + "&doc_id=" + vm.details.document_id;
+                
                 getDropdownList();    
+
             });
 
         }
