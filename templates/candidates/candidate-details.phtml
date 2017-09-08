@@ -47,13 +47,14 @@
                                         </md-menu>
         								<span class="bold" style="display:block" ng-bind="CandidateDetailsCtrl.details.name"></span>
         							</div>
-        							<img class="pic" ng-if="CandidateDetailsCtrl.details.src" src="public/images/Ui_Faces/John Butler.jpg" alt="candidate-pic">
+        							<img class="pic" ng-if="CandidateDetailsCtrl.details.src" ng-src="{{CandidateDetailsCtrl.details.src}}" alt="candidate-pic">
         							<h1 class="letter" ng-if="!CandidateDetailsCtrl.details.src" ng-bind="CandidateDetailsCtrl.details.name.trim() | limitTo : 1"></h1>
         						</div>
         						<div layout="row">
         							<div flex="50" class="list">
         								<h5>MOBILE</h5>
-        								<span ng-bind="CandidateDetailsCtrl.details.phone" class="bolder"></span>		
+        								<span ng-bind="CandidateDetailsCtrl.details.phone" class="bolder"></span>
+                                        <i ng-if="!CandidateDetailsCtrl.details.phone">--</i>  	
         							</div>
         							<div flex class="list">
         								<h5>EMAIL</h5>
@@ -63,21 +64,24 @@
         						<div layout="row">
         							<div flex="50" class="list">
         								<h5>CITY/LOCATION</h5>
-        								<span ng-bind="CandidateDetailsCtrl.details.location"></span>		
+        								<span ng-bind="CandidateDetailsCtrl.details.location"></span>
+                                        <i ng-if="!CandidateDetailsCtrl.details.location">--</i>     		
         							</div>
         							<div flex class="list">
         								<h5>SOCIAL CONNECT</h5>
         								<social-sharing data-opts="CandidateDetailsCtrl.socialMedia" style="margin-top:10px;" data-path="templates/components"></social-sharing>	
         							</div>
         						</div>	
+
         						<div layout="row">
         							<div flex="50" class="list">
         								<h5>CURRENT JOB APPLICATION</h5>
         								<span class="bolder">{{CandidateDetailsCtrl.details.current_job}}, <i class="info">On Jul 13, 2017</i></span>		
         							</div>
         							<div flex class="list">
-        								<h5>REFERRED BY</h5>
-        								<span ng-bind="CandidateDetailsCtrl.details.referred_by" class="bolder"></span>		
+        								<h5>REFERRED BY</h5>	
+        								<span ng-if="CandidateDetailsCtrl.details.current_job" class="bolder">{{CandidateDetailsCtrl.details.current_job}}, <i class="info">On Jul 13, 2017</i></span>		
+                                        <span ng-if="!CandidateDetailsCtrl.details.current_job">--</span>
         							</div>
         						</div>	
         					</div>
@@ -87,8 +91,8 @@
         					<div class="title info">
         						JOB	DETAILS
         					</div>
-        					<div layout="column" class="details">
-        						<div layout="row">
+        					<div layout="column" class="details" ng-if="CandidateDetailsCtrl.details.current_company_name && CandidateDetailsCtrl.details.previous_company_name">
+        						<div layout="row" ng-if="CandidateDetailsCtrl.details.current_company_name">
         							<div flex="50" class="list">
         								<h5>CURRENT COMPANY</h5>
         								<span ng-bind="CandidateDetailsCtrl.details.current_company_name"></span>
@@ -100,7 +104,7 @@
         								<span ng-bind="CandidateDetailsCtrl.details.current_company_position"></span>	
         							</div>
         						</div>	
-        						<div layout="row">
+        						<div layout="row" ng-if="CandidateDetailsCtrl.details.previous_company_name">
         							<div flex="50" class="list">
         								<h5>PREV COMPANY</h5>
         								<span ng-bind="CandidateDetailsCtrl.details.previous_company_name"></span>	
@@ -119,7 +123,7 @@
         					<div class="title skill">
         						SKILLS
         					</div>
-        					<div layout="column" class="details">
+        					<div layout="column" class="details" ng-if="CandidateDetailsCtrl.details.skills.length">
         						<div layout="row">
         							<ul>
         								<li ng-repeat="skill in CandidateDetailsCtrl.details.skills track by $index" ng-bind="skill"></li>
@@ -132,14 +136,14 @@
         					<div class="title edu">
         						EDUCATION
         					</div>
-        					<div layout="column" class="details">
-        						<div layout="row">
+        					<div layout="column" class="details" ng-if="CandidateDetailsCtrl.details.qualification && CandidateDetailsCtrl.details.certification">
+        						<div layout="row" ng-if="CandidateDetailsCtrl.details.qualification">
 		    						<div class="list">
 										<h5>Qualification</h5>
 										<span ng-bind="CandidateDetailsCtrl.details.qualification"></span>		
 									</div>
         						</div>
-        						<div layout="row">
+        						<div layout="row" ng-if="CandidateDetailsCtrl.details.certification">
 		    						<div class="list">
 										<h5>Certification</h5>
 										<span ng-bind="CandidateDetailsCtrl.details.certification"></span>		
@@ -164,19 +168,19 @@
                                 <uib-tab class="timeline" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Timeline" tooltip-placement="left">
                                     <div class="mm_down timeline_edit">
                                         <h5>TIMELINE</h5>
-                                        <div layout="column">
-                                            <div layout="row" class="list" ng-repeat="list in CandidateDetailsCtrl.candidateActivitiesList">
-                                                <div class="lt">
-                                                    <img class="pending" src="public/images/pending.png" alt="pending">
+                                        <div class="timeline-container">
+                                            <div layout="column">
+                                                <div layout="row" class="list" ng-repeat="list in CandidateDetailsCtrl.candidateActivitiesList">
+                                                    <div class="lt">
+                                                        <img class="pending" src="public/images/pending.png" alt="pending">
+                                                    </div>
+                                                    <div class="rt">
+                                                        <p>{{list.activity_message}} <span ng-class="list.activity_status == 'interview' ? 'interview' : 'status'" ng-if="list.activity_status" ng-bind="list.activity_status"></span></p>
+                                                        {{list.activity_by}}, <span class="time"> {{list.activity_on.indexOf('hour') > -1 ? 'about ' : ''}} {{list.activity_on}}</span>
+                                                    </div>
                                                 </div>
-                                                <div class="rt">
-                                                    <p>{{list.activity_message}} <span ng-class="list.activity_status == 'interview' ? 'interview' : 'status'" ng-if="list.activity_status" ng-bind="list.activity_status"></span></p>
-                                                    {{list.activity_by}}, <span class="time"> {{list.activity_on.indexOf('hour') > -1 ? 'about ' : ''}} {{list.activity_on}}</span>
-                                                    
-                                                </div>
-                                            </div>
-                                            <div ng-if="!CandidateDetailsCtrl.candidateActivitiesList.length" ng-bind="CandidateDetailsCtrl.responseMsgActivities" class="no-records animated fadeIn">
-                                            </div>
+                                                <div ng-if="!CandidateDetailsCtrl.candidateActivitiesList.length" ng-bind="CandidateDetailsCtrl.responseMsgActivities" class="no-records animated fadeIn"></div>
+                                            </div>  
                                         </div>
                                     </div>                      
                                 </uib-tab>
@@ -184,7 +188,7 @@
                                     <div class="mm_down comment_edit">
                                         <h5>WRITE YOUR COMMENT</h5>
                                         <div class="box">
-                                            <textarea rows="4" name="comment" ng-model="CandidateDetailsCtrl.comment"></textarea>
+                                            <textarea rows="4" name="comment" ng-model="CandidateDetailsCtrl.comment"  maxlength="500"></textarea>
                                             <div class="action">
                                                 <div class="pull-left" ng-if="CandidateDetailsCtrl.inProgressPostComment">
                                                     <img src="public/images/loader/upload_file.gif" alt="sending">
@@ -194,14 +198,16 @@
                                                 <md-button class="md-raised add pull-right" ng-click="CandidateDetailsCtrl.postComments()" ng-disabled="CandidateDetailsCtrl.inProgressPostComment || !CandidateDetailsCtrl.comment.length">Add Comment</md-button>
                                             </div>
                                         </div> 
-                                        <div layout="column">
-                                            <div layout="row" class="list" ng-repeat="list in CandidateDetailsCtrl.candidateCommentsList">
-                                                <div class="lt">
-                                                    <img class="pending" src="public/images/pending.png" alt="pending">
-                                                </div>
-                                                <div class="rt">
-                                                    <p>{{list.activity_message}} <span ng-class="list.activity_status == 'interview' ? 'interview' : 'status'" ng-if="list.activity_status" ng-bind="list.activity_status"></span></p>
-                                                    {{list.activity_by}}, <span class="time">about {{list.activity_on}}</span>
+                                        <div class="timeline-container">
+                                            <div layout="column">
+                                                <div layout="row" class="list" ng-repeat="list in CandidateDetailsCtrl.candidateCommentsList">
+                                                    <div class="lt">
+                                                        <img class="pending" src="public/images/pending.png" alt="pending">
+                                                    </div>
+                                                    <div class="rt">
+                                                        <p>{{list.activity_message}} <span ng-class="list.activity_status == 'interview' ? 'interview' : 'status'" ng-if="list.activity_status" ng-bind="list.activity_status"></span></p>
+                                                        {{list.activity_by}}, <span class="time">about {{list.activity_on}}</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -266,7 +272,7 @@
                                                 <div layout="row">
                                                     <md-input-container class="md-block date-time">
                                                         <label>FROM *</label>
-                                                        <input type='text' name="interview_from_time" schedule-required class="form-control" id='time_from' required ng-model="CandidateDetailsCtrl.schedule.interview_from_time" ng-class="{'has-error-border':CandidateDetailsCtrl.submittedSchedule && schedule_form.interview_from_time.$error.required}" />
+                                                        <input type='text' name="interview_from_time" schedule-required class="form-control" id='time_from' required ng-model="CandidateDetailsCtrl.schedule.interview_from_time" ng-class="{'has-error-border':CandidateDetailsCtrl.submittedSchedule && schedule_form.interview_from_time.$error.required}" ng-readonly="" />
                                                         <span class="input-group-addon">
                                                             <span class="glyphicon glyphicon-time"></span>
                                                         </span>
@@ -276,7 +282,7 @@
                                                     <i flex="5"></i>
                                                     <md-input-container class="md-block date-time">
                                                         <label>TO *</label>
-                                                        <input type='text' name="interview_to_time" schedule-required required class="form-control" ng-model="CandidateDetailsCtrl.schedule.interview_to_time"  id='time_to' ng-class="{'has-error-border':CandidateDetailsCtrl.submittedSchedule && schedule_form.interview_to_time.$error.required}" />
+                                                        <input type='text' name="interview_to_time" schedule-required required class="form-control" ng-model="CandidateDetailsCtrl.schedule.interview_to_time"  id='time_to' ng-class="{'has-error-border':CandidateDetailsCtrl.submittedSchedule && schedule_form.interview_to_time.$error.required}" ng-readonly=""/>
                                                         <span class="input-group-addon">
                                                             <span class="glyphicon glyphicon-time"></span>
                                                         </span>
@@ -286,24 +292,20 @@
                                                 </div>
                                             </div>
                                             <md-input-container class="time-zone md-block select-box">
-                                                <label style="display:none">TIME ZONE *</label>
+                                                <label style="display:none">TIME ZONE</label>
                                                 <md-select ng-model="CandidateDetailsCtrl.schedule.timeZone"
                                                            md-on-close="clearSearchTerm()"
                                                            data-md-container-class="timezone"
                                                            name="interview_time_zone"
-                                                           required ng-class="{'has-error-border': schedule_form.interview_time_zone.$invalid && CandidateDetailsCtrl.submittedSchedule}"
                                                            >
                                                     <md-select-header class="demo-select-header">
                                                         <input flex ng-model="searchTerm" id="search" name="sp" type="text"
-                                                            placeholder="SEARCH FOR A TIME ZONE"
-                                                            class="demo-header-searchbox md-text">
+                                                            placeholder="SEARCH FOR A TIME ZONE" class="demo-header-searchbox md-text">
                                                     </md-select-header>
                                                     <md-optgroup label="vegetables">
                                                         <md-option ng-value="place.text" ng-repeat="place in CandidateDetailsCtrl.timeZone | filter: {text : searchTerm }">{{place.text}}</md-option>
                                                     </md-optgroup>
                                                 </md-select>
-                                                <div class="error-spacer"></div>
-                                                <div ng-if="schedule_form.interview_time_zone.$error.required && CandidateDetailsCtrl.submittedSchedule"  class="has-error-msg">Please select Time Zone.</div>
                                             </md-input-container>
                                             <md-input-container class="md-block loc">
                                                 <label>LOCATION *</label>
@@ -311,12 +313,13 @@
                                                 <div class="error-spacer"></div>
                                                 <div ng-if="schedule_form.interview_location.$error.required && CandidateDetailsCtrl.submittedSchedule"  class="has-error-msg">Please select Location.</div>
                                             </md-input-container>
-                                            <md-input-container class="md-block notes">
-                                                <label>NOTES *</label>
-                                                <input type="text" name="notes" required ng-model="CandidateDetailsCtrl.schedule.notes" ng-class="{'has-error-border':schedule_form.notes.$invalid && CandidateDetailsCtrl.submittedSchedule }">
-                                                <div class="error-spacer"></div>
-                                                <div ng-if="schedule_form.notes.$error.required && CandidateDetailsCtrl.submittedSchedule"  class="has-error-msg">Please write Notes.</div>
-                                            </md-input-container>
+                                            
+                                            
+                                            <div class="notes">
+                                                <span>NOTES</span>
+                                                <textarea rows="4" name="comment" ng-model="CandidateDetailsCtrl.comment"  maxlength="500"></textarea>
+                                            </div>
+
                                             <div class="action">
                                                 <div class="pull-left" ng-if="CandidateDetailsCtrl.inProgressSchedule">
                                                     <img src="public/images/loader/upload_file.gif" alt="sending">
@@ -371,9 +374,9 @@
                                         </form>
                                     </div>  
                                 </uib-tab>
-                                <uib-tab class="link" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Tag Candidate to job" tooltip-placement="left">
+                                <uib-tab class="link" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Link Candidate To Job" tooltip-placement="left">
                                     <div class="mm_down">
-                                        <h5>TAG JOBS</h5>
+                                        <h5>LINK CANDIDATE TO JOB</h5>
                                         <div class="box">
                                             <div class="attendees tag-job">
                                                 <!--placeholder value in css please check if you want to change -->
@@ -388,6 +391,7 @@
                                                       >
                                                     <md-item-template>
                                                         <span md-highlight-text="CandidateDetailsCtrl.searchTextTagJob">{{item.post_name}} </span>
+                                                        <i> ({{item.post_id}})</i>
                                                     </md-item-template>
                                                     <md-not-found>
                                                         <div class="not_found">No Jobs found</div>
@@ -410,7 +414,7 @@
                                                     <span class="msg">Taging Jobs</span>
                                                 </div>
                                                 <span class="msg response-msg" ng-bind="CandidateDetailsCtrl.responseMsgTagJobs"></span>
-                                                <md-button class="md-raised add pull-right" ng-click="CandidateDetailsCtrl.postTagJobs()" ng-disabled="CandidateDetailsCtrl.inProgressTagJobs">TAG JOBS</md-button>
+                                                <md-button class="md-raised add pull-right" ng-click="CandidateDetailsCtrl.postTagJobs()" ng-disabled="CandidateDetailsCtrl.inProgressTagJobs">ADD JOBS</md-button>
                                             </div>
                                         </div>
                                     </div>  

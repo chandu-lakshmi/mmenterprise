@@ -370,6 +370,7 @@ $background : #eeeff1;
                         h5{margin:0;padding: 15px 10px 10px;color: #797979;font-weight: 700;border-bottom: 2px solid #e8e8e8;background: #fdfdff}
                         .box{padding: 18px;
                             .glyphicon{color: #a6a6a6;font-size: 16px;}
+                            textarea{width: 100%;border: 1px solid #e0e0e0;outline: none;resize: none;font-size: 16px;padding: 10px;}
                             md-input-container{margin-bottom: 0;
                                 &.time-zone{width: 100%}
                                 &.md-input-has-value{
@@ -379,8 +380,8 @@ $background : #eeeff1;
                                     label{font-weight: 300;}
                                     .glyphicon, i{color: #1d8f6e}
                                 }
-                                &.loc{margin-top: 18px;
-                                    input{font-size: 14px;}
+                                &.loc{margin-top: 42px;
+                                    input{font-size: 16px;}
                                 } 
                                 &.notes{
                                     input{font-size: 14px;}
@@ -399,7 +400,7 @@ $background : #eeeff1;
                                 i{position: absolute;right: 5px;color: #a6a6a6;top: 8px;font-size: 22px}
                             }
                             .tag-job{
-                                .md-chips:before{content: 'JOBS *' !important}
+                                .md-chips:before{content: 'CHOOSE JOBS *' !important}
                             }
                             .attendees{position: relative;margin: 12px 0 45px;
                                 .md-chips{padding: 0 0 4px 3px;
@@ -430,20 +431,25 @@ $background : #eeeff1;
                                     
                                 }
                                 .loader{width: 20px;height: 20px;position: absolute;right: 6px;bottom: 10px;}
+                            }
+                            .notes{margin: 30px 0;
+                                span{color: #767877;display: inline-block;margin-bottom: 4px;}
                             } 
                             .invitation{color: #fff;background: #339f81; width: 180px;height: 40px;font-weight: 700;}  
                         }
                         .timeline_edit, .comment_edit{
-                            .list{border-bottom: 1px solid #eaeaea;
-                                &:last-child{border-color: transparent}
-                                .lt{width: 15%;background: #fafafa}
-                                .rt{width: 85%;padding: 12px 14px;line-height: 24px;font-size: 13px;
-                                    p{margin:0;font-size: 14px}
+                            .timeline-container{max-height: 512px; overflow: auto;
+                                .list{border-bottom: 1px solid #eaeaea;
+                                    &:last-child{border-color: transparent}
+                                    .lt{width: 15%;background: #fafafa}
+                                    .rt{width: 85%;padding: 12px 14px;line-height: 24px;font-size: 13px;
+                                        p{margin:0;font-size: 14px}
+                                    }
+                                    .status{color: #099478}
+                                    .interview{color: #314aa6}
+                                    .time{color: #aaaaaa}
+                                    img.pending{width: 26px;margin: 21px 17px 0}
                                 }
-                                .status{color: #099478}
-                                .interview{color: #314aa6}
-                                .time{color: #aaaaaa}
-                                img.pending{width: 26px;margin: 21px 17px 0}
                             }
                         }
                         .comment_edit{
@@ -452,8 +458,7 @@ $background : #eeeff1;
                                     .ta-scroll-window.form-control{border: 1px solid #e0e0e0 !important;margin-bottom: 6px;padding: 10px;
                                         .ta-bind{padding: 0;color: #2e2e2e;font-size: 16px}
                                     }
-                                }
-                                textarea{width: 100%;border: 1px solid #e0e0e0;outline: none;resize: none;font-size: 16px;padding: 10px;}
+                                } 
                             }
                         }   
                         .action{min-height: 48px;

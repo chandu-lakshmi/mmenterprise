@@ -727,7 +727,7 @@
         vm.statusList        = ["PENDING"];
         vm.selectedNewTalent = "New Talent";
         vm.newTalentList     = [{ label:'New Talent'}, { label:'Great Fit' }, { label:'Good Fit' }, { label:'Not Suitable' }, { label:'Hired' }];
-        vm.scheduleForList   = ["On site Interview"];
+        vm.scheduleForList   = ["Face to Face", "Online Meeting", "Telephone"];
         vm.referralId        = $stateParams.id;
         vm.hasChangeReferral = false;
         vm.inProgressCandidateDetails = true;
@@ -1164,7 +1164,7 @@
                 ignoreReadonly: true,
                 format     : 'hh:mm A',
                 sideBySide : true,
-                useCurrent :true
+                useCurrent :false
             });
 
             $('#search').on('keydown', function(ev) {
