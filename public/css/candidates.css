@@ -786,6 +786,8 @@
                 color: #a6a6a6;
                 top: 8px;
                 font-size: 22px; }
+              .candidates .candidate-details .section md-card.right .tab-content .box .loc input {
+                font-size: 14px !important; }
               .candidates .candidate-details .section md-card.right .tab-content .box .tag-job .md-chips:before {
                 content: 'CHOOSE JOBS *' !important; }
               .candidates .candidate-details .section md-card.right .tab-content .box .attendees {
@@ -866,6 +868,8 @@
                   color: #767877;
                   display: inline-block;
                   margin-bottom: 4px; }
+                .candidates .candidate-details .section md-card.right .tab-content .box .notes textarea {
+                  font-size: 14px; }
               .candidates .candidate-details .section md-card.right .tab-content .box .invitation {
                 color: #fff;
                 background: #339f81;

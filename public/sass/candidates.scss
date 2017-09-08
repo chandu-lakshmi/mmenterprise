@@ -398,6 +398,9 @@ $background : #eeeff1;
                             } 
                             .loc{
                                 i{position: absolute;right: 5px;color: #a6a6a6;top: 8px;font-size: 22px}
+                                input {
+                                    font-size: 14px !important;
+                                }
                             }
                             .tag-job{
                                 .md-chips:before{content: 'CHOOSE JOBS *' !important}
@@ -434,6 +437,7 @@ $background : #eeeff1;
                             }
                             .notes{margin: 30px 0;
                                 span{color: #767877;display: inline-block;margin-bottom: 4px;}
+                                textarea {font-size: 14px;}
                             } 
                             .invitation{color: #fff;background: #339f81; width: 180px;height: 40px;font-weight: 700;}  
                         }
