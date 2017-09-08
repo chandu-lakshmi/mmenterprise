@@ -53,11 +53,11 @@
         						<div layout="row">
         							<div flex="50" class="list">
         								<h5>MOBILE</h5>
-        								<span ng-bind="CandidateDetailsCtrl.details.phone"></span>		
+        								<span ng-bind="CandidateDetailsCtrl.details.phone" class="bolder"></span>		
         							</div>
         							<div flex class="list">
         								<h5>EMAIL</h5>
-        								<span ng-bind="CandidateDetailsCtrl.details.emailid"></span>		
+        								<span ng-bind="CandidateDetailsCtrl.details.emailid" class="bolder"></span>		
         							</div>
         						</div>	
         						<div layout="row">
@@ -73,11 +73,11 @@
         						<div layout="row">
         							<div flex="50" class="list">
         								<h5>CURRENT JOB APPLICATION</h5>
-        								<span>{{CandidateDetailsCtrl.details.current_job}}, <i class="info">On Jul 13, 2017</i></span>		
+        								<span class="bolder">{{CandidateDetailsCtrl.details.current_job}}, <i class="info">On Jul 13, 2017</i></span>		
         							</div>
         							<div flex class="list">
-        								<h5>REFERED BY</h5>
-        								<span ng-bind="CandidateDetailsCtrl.details.referred_by"></span>		
+        								<h5>REFERRED BY</h5>
+        								<span ng-bind="CandidateDetailsCtrl.details.referred_by" class="bolder"></span>		
         							</div>
         						</div>	
         					</div>
@@ -171,7 +171,8 @@
                                                 </div>
                                                 <div class="rt">
                                                     <p>{{list.activity_message}} <span ng-class="list.activity_status == 'interview' ? 'interview' : 'status'" ng-if="list.activity_status" ng-bind="list.activity_status"></span></p>
-                                                    {{list.activity_by}}, <span class="time">about {{list.activity_on}}</span>
+                                                    {{list.activity_by}}, <span class="time"> {{list.activity_on.indexOf('hour') > -1 ? 'about ' : ''}} {{list.activity_on}}</span>
+                                                    
                                                 </div>
                                             </div>
                                             <div ng-if="!CandidateDetailsCtrl.candidateActivitiesList.length" ng-bind="CandidateDetailsCtrl.responseMsgActivities" class="no-records animated fadeIn">
@@ -294,7 +295,7 @@
                                                            >
                                                     <md-select-header class="demo-select-header">
                                                         <input flex ng-model="searchTerm" id="search" name="sp" type="text"
-                                                            placeholder="SEARCH FOR A TIMEZONE"
+                                                            placeholder="SEARCH FOR A TIME ZONE"
                                                             class="demo-header-searchbox md-text">
                                                     </md-select-header>
                                                     <md-optgroup label="vegetables">
@@ -308,9 +309,9 @@
                                                 <label>LOCATION *</label>
                                                 <input type="text" name="interview_location" ng-model="CandidateDetailsCtrl.schedule.location" ng-autocomplete="geo_location" details="geo_details" options="geo_options" apiplaceholder="" required ng-class="{'has-error-border':schedule_form.interview_location.$invalid && CandidateDetailsCtrl.submittedSchedule }">
                                                 <div class="error-spacer"></div>
-                                                <div ng-if="schedule_form.interview_location.$error.required && CandidateDetailsCtrl.submittedSchedule"  class="has-error-msg">Please select Time Zone.</div>
+                                                <div ng-if="schedule_form.interview_location.$error.required && CandidateDetailsCtrl.submittedSchedule"  class="has-error-msg">Please select Location.</div>
                                             </md-input-container>
-                                            <md-input-container class="md-block">
+                                            <md-input-container class="md-block notes">
                                                 <label>NOTES *</label>
                                                 <input type="text" name="notes" required ng-model="CandidateDetailsCtrl.schedule.notes" ng-class="{'has-error-border':schedule_form.notes.$invalid && CandidateDetailsCtrl.submittedSchedule }">
                                                 <div class="error-spacer"></div>
@@ -344,13 +345,13 @@
                                                         <md-option ng-repeat="list in CandidateDetailsCtrl.writeMailSubjectList" ng-value="list.id">{{list.subject}}</md-option>
                                                     </md-select>
                                                     <div class="error-spacer"></div>
-                                                    <div ng-if="write_mail_form.subject.$error.required && CandidateDetailsCtrl.submittedPostMail"  class="has-error-msg">Please select Schedule For.</div>
+                                                    <div ng-if="write_mail_form.subject.$error.required && CandidateDetailsCtrl.submittedPostMail"  class="has-error-msg">Please select Subject For.</div>
                                                 </md-input-container>
                                                 <md-input-container class="md-block animated slideInDown" style="margin-top: 18px" ng-if="CandidateDetailsCtrl.writeMail.subjectId == 1">
                                                     <label>SUBJECT TEXT *</label>
                                                     <input type="text" name="custom_subject" ng-model="CandidateDetailsCtrl.writeMail.subjectText" ng-class="{'has-error-border': write_mail_form.custom_subject.$invalid && CandidateDetailsCtrl.submittedPostMail}" required>
                                                     <div class="error-spacer"></div>
-                                                    <div ng-if="write_mail_form.custom_subject.$error.required && CandidateDetailsCtrl.submittedPostMail"  class="has-error-msg">Please select Schedule For.</div>
+                                                    <div ng-if="write_mail_form.custom_subject.$error.required && CandidateDetailsCtrl.submittedPostMail"  class="has-error-msg">Please select Subject Text For.</div>
                                                 </md-input-container>
 
                                             </div>
@@ -389,7 +390,7 @@
                                                         <span md-highlight-text="CandidateDetailsCtrl.searchTextTagJob">{{item.post_name}} </span>
                                                     </md-item-template>
                                                     <md-not-found>
-                                                        <div class="not_found">No Attendees found</div>
+                                                        <div class="not_found">No Jobs found</div>
                                                     </md-not-found>
 
                                                   </md-autocomplete>
@@ -400,7 +401,7 @@
                                                   </md-chip-template>
                                                 </md-chips>
                                                 <div class="error-spacer"></div>
-                                                <div ng-if="!CandidateDetailsCtrl.selectedTagJobs.length && CandidateDetailsCtrl.submittedTagJobs"  class="has-error-msg">Please select Job(s).</div>
+                                                <div ng-if="!CandidateDetailsCtrl.selectedTagJobs.length && CandidateDetailsCtrl.submittedTagJobs"  class="has-error-msg">Please select Jobs.</div>
                                                 <img class="loader" ng-if="CandidateDetailsCtrl.inProgressJobsList" src="public/images/loader/blue-loader.gif">
                                             </div>
                                             <div class="action">

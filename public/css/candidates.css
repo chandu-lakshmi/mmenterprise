@@ -616,6 +616,11 @@
                 font-size: 16px; }
               .candidates .candidate-details .section md-card .details .list span.info {
                 color: #999; }
+              .candidates .candidate-details .section md-card .details .list span.bolder {
+                font-weight: 600; }
+              .candidates .candidate-details .section md-card .details .list span .info {
+                color: #818e95;
+                font-weight: normal; }
             .candidates .candidate-details .section md-card .details .list social-sharing span {
               border-radius: 50%;
               width: 24px;
@@ -736,22 +741,25 @@
                 color: #a6a6a6;
                 font-size: 16px; }
               .candidates .candidate-details .section md-card.right .tab-content .box md-input-container {
-                margin-bottom: 0; }
+                margin-bottom: 0;
+                /*&.md-input-focused{
+                    label{font-weight: 900 !important;}
+                }*/ }
                 .candidates .candidate-details .section md-card.right .tab-content .box md-input-container.time-zone {
                   width: 100%; }
                 .candidates .candidate-details .section md-card.right .tab-content .box md-input-container.md-input-has-value .md-select-value :first-child {
                   max-width: 94%;
-                  font-size: 16px; }
+                  font-size: 14px; }
                 .candidates .candidate-details .section md-card.right .tab-content .box md-input-container.md-input-has-value label {
-                  font-weight: 900; }
+                  font-weight: 300; }
                 .candidates .candidate-details .section md-card.right .tab-content .box md-input-container.md-input-has-value .glyphicon, .candidates .candidate-details .section md-card.right .tab-content .box md-input-container.md-input-has-value i {
                   color: #1d8f6e; }
                 .candidates .candidate-details .section md-card.right .tab-content .box md-input-container.loc {
                   margin-top: 18px; }
                   .candidates .candidate-details .section md-card.right .tab-content .box md-input-container.loc input {
-                    font-size: 16px; }
-                .candidates .candidate-details .section md-card.right .tab-content .box md-input-container.md-input-focused label {
-                  font-weight: 900 !important; }
+                    font-size: 14px; }
+                .candidates .candidate-details .section md-card.right .tab-content .box md-input-container.notes input {
+                  font-size: 14px; }
               .candidates .candidate-details .section md-card.right .tab-content .box .date-time input {
                 box-shadow: none !important;
                 cursor: pointer; }
@@ -793,13 +801,14 @@
                     font-size: 15px;
                     color: #767877;
                     display: block !important;
-                    font-weight: normal;
+                    font-weight: normal !important;
                     transition: -webkit-transform cubic-bezier(0.25, 0.8, 0.25, 1) 0.25s;
                     transition: transform cubic-bezier(0.25, 0.8, 0.25, 1) 0.25s;
                     -webkit-transform-origin: left top;
                     transform-origin: left top; }
                   .candidates .candidate-details .section md-card.right .tab-content .box .attendees .md-chips .md-chip-input-container input {
-                    height: 34px; }
+                    height: 34px;
+                    font-size: 14px; }
                 .candidates .candidate-details .section md-card.right .tab-content .box .attendees .attendees-required .md-chips {
                   box-shadow: 0 1px red !important; }
                 .candidates .candidate-details .section md-card.right .tab-content .box .attendees md-chips.active .md-chips:before {
@@ -826,7 +835,8 @@
                     overflow: hidden; }
                     .candidates .candidate-details .section md-card.right .tab-content .box .attendees md-chip .md-chip-content strong {
                       font-weight: normal;
-                      color: #797979; }
+                      color: #797979;
+                      font-size: 14px; }
                   .candidates .candidate-details .section md-card.right .tab-content .box .attendees md-chip .md-chip-remove-container {
                     position: absolute;
                     top: -1px;

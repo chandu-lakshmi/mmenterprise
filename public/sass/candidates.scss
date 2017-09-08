@@ -307,12 +307,18 @@ $background : #eeeff1;
                         .talent{
                             i{margin-left: -4px;vertical-align: middle;font-size: 26px;}
                             .md-button{border: 1px solid #0ba082;border-radius: 5px;padding: 0 1px 0 10px;min-height: 26px;line-height: 26px;text-transform: capitalize;
-                                span{color: #0ba082;;}
+                                span{color: #0ba082}
                             }
                         }
                         span{color: #333;
                             &.bold{font-weight: 600;font-size: 16px}
-                            &.info{color: #999}
+                            &.info{color: #999, }
+                            &.bolder{font-weight: 600}
+
+                            .info {
+                                color: #818e95;
+                                font-weight: normal;
+                            }
                         }  
                         social-sharing{
                             span{border-radius: 50%;width: 24px;height: 24px;
@@ -368,17 +374,20 @@ $background : #eeeff1;
                                 &.time-zone{width: 100%}
                                 &.md-input-has-value{
                                     .md-select-value{
-                                        & :first-child{max-width: 94%;font-size: 16px;}
+                                        & :first-child{max-width: 94%;font-size: 14px;}
                                     }
-                                    label{font-weight: 900;}
+                                    label{font-weight: 300;}
                                     .glyphicon, i{color: #1d8f6e}
                                 }
                                 &.loc{margin-top: 18px;
-                                    input{font-size: 16px;}
+                                    input{font-size: 14px;}
                                 } 
-                                &.md-input-focused{
+                                &.notes{
+                                    input{font-size: 14px;}
+                                } 
+                                /*&.md-input-focused{
                                     label{font-weight: 900 !important;}
-                                }
+                                }*/
                             }
                             .date-time{
                                 input{box-shadow: none !important;cursor: pointer;
@@ -397,9 +406,9 @@ $background : #eeeff1;
                                     &.md-focused{box-shadow: 0 1px #208d6e !important;
                                         &:before{-webkit-transform: translate3d(-3px, -13px, 0) scale(0.85);transform: translate3d(-3px, -13px, 0) scale(0.85);font-weight: 900}
                                     }
-                                    &:before{content: 'ATTENDEES *';position: absolute;padding-left: 3px;-webkit-transform: translate3d(-3px, 18px, 0) scale(1);transform: translate3d(-3px, 18px, 0) scale(1);font-size: 15px;color: #767877;display: block !important;font-weight: normal;transition: -webkit-transform cubic-bezier(.25,.8,.25,1) .25s;transition: transform cubic-bezier(.25,.8,.25,1) .25s;-webkit-transform-origin: left top;transform-origin: left top;}
+                                    &:before{content: 'ATTENDEES *';position: absolute;padding-left: 3px;-webkit-transform: translate3d(-3px, 18px, 0) scale(1);transform: translate3d(-3px, 18px, 0) scale(1);font-size: 15px;color: #767877;display: block !important;font-weight: normal !important;transition: -webkit-transform cubic-bezier(.25,.8,.25,1) .25s;transition: transform cubic-bezier(.25,.8,.25,1) .25s;-webkit-transform-origin: left top;transform-origin: left top;}
                                     .md-chip-input-container{
-                                        input{height: 34px}
+                                        input{height: 34px; font-size: 14px;}
                                     }
                                 }
                                 .attendees-required{
@@ -411,7 +420,7 @@ $background : #eeeff1;
                                 md-progress-linear{display: none} 
                                 md-chip{background: rgba(204, 204, 204, 0.1);color: rgb(66,66,66);cursor: default;height: 32px;margin: 8px 8px 0 0;padding: 0 24px 0 12px;line-height: 30px;float: left;border: 1px solid #b2deed;;position: relative;
                                     .md-chip-content{text-overflow: ellipsis;max-width: 74px;white-space: nowrap;overflow: hidden;
-                                        strong{font-weight: normal;color: #797979}
+                                        strong{font-weight: normal;color: #797979; font-size: 14px}
                                     }
                                     .md-chip-remove-container{position: absolute;top: -1px;right: 0;
                                         button{border: 0;background: transparent;

@@ -727,7 +727,7 @@
         vm.statusList        = ["PENDING"];
         vm.selectedNewTalent = "New Talent";
         vm.newTalentList     = [{ label:'New Talent'}, { label:'Great Fit' }, { label:'Good Fit' }, { label:'Not Suitable' }, { label:'Hired' }];
-        vm.scheduleForList   = ["Onsite Interview"];
+        vm.scheduleForList   = ["On site Interview"];
         vm.referralId        = $stateParams.id;
         vm.hasChangeReferral = false;
         vm.inProgressCandidateDetails = true;
