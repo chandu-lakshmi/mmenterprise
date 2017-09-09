@@ -172,7 +172,7 @@
                                             <div layout="column">
                                                 <div layout="row" class="list" ng-repeat="list in CandidateDetailsCtrl.candidateActivitiesList">
                                                     <div class="lt">
-                                                        <img class="pending" src="public/images/pending.png" alt="pending">
+                                                        <img class="pending" ng-src="{{CandidateDetailsCtrl.getActivityPic(list)}}" alt="pending">
                                                     </div>
                                                     <div class="rt">
                                                         <p>{{list.activity_message}} <span ng-class="list.activity_status == 'interview' ? 'interview' : 'status'" ng-if="list.activity_status" ng-bind="list.activity_status"></span></p>
@@ -321,7 +321,7 @@
                                             
                                             <div class="notes">
                                                 <span>NOTES</span>
-                                                <textarea rows="4" name="comment" ng-model="CandidateDetailsCtrl.comment"  maxlength="500"></textarea>
+                                                <textarea rows="4" name="notes" ng-model="CandidateDetailsCtrl.schedule.notes"  maxlength="500"></textarea>
                                             </div>
 
                                             <div class="action">
@@ -436,7 +436,7 @@
                                                <span class="title">Referred Jobs</span>
                                                <md-menu-item ng-repeat="referral in CandidateDetailsCtrl.referralsList"> 
                                                    <md-button ng-style="{background : (referral.reference_id == CandidateDetailsCtrl.referralId) ? 'rgba(158,158,158,0.2)' : '' }"
-                                                       ng-click="CandidateDetailsCtrl.selectedReferral(referral)" 
+                                                       ng-click="CandidateDetailsCtrl.changeReferral(referral)" 
                                                        ng-bind="referral.post_name" 
                                                        aria-label="{{referral.reference_id}}">
                                                    </md-button>

@@ -679,7 +679,10 @@
               height: 46px;
               border: 1px solid #e6e6e7;
               border-left: 0;
-              background: #f6f6f7; }
+              background: #f6f6f7;
+              transition: background 0.5s ease; }
+              .candidates .candidate-details .section md-card.right .nav-tabs > li:hover {
+                background: #d6d6d6; }
               .candidates .candidate-details .section md-card.right .nav-tabs > li.active {
                 border-bottom: 0; }
                 .candidates .candidate-details .section md-card.right .nav-tabs > li.active.timeline a {
@@ -911,7 +914,7 @@
                   color: #aaaaaa; }
                 .candidates .candidate-details .section md-card.right .tab-content .timeline_edit .timeline-container .list img.pending, .candidates .candidate-details .section md-card.right .tab-content .comment_edit .timeline-container .list img.pending {
                   width: 26px;
-                  margin: 21px 17px 0; }
+                  margin: 22px 16px; }
             .candidates .candidate-details .section md-card.right .tab-content .comment_edit .box {
               padding: 16px 16px 10px;
               background: #fafafb;

@@ -721,12 +721,12 @@
                 prevSearchValueJobs,
                 apiKeyType    = $stateParams.type,
                 candidateId   = $stateParams.id,
-                activatesType = {
-                    mail     : "mail.png", 
-                    link     : "link.png",
-                    status   : "pending.png",
-                    comment  : "comment.png", 
-                    schedule : "schedule.png" 
+                activitiesType = {
+                    candidate_emails    : "mail.png", 
+                    candidate_status    : "pending.png",
+                    candidate_comments  : "comment.png", 
+                    candidate_link_job  : "link.png",
+                    candidate_schedules : "schedule.png" 
                 },
                 apiKeyCandidateDetails = { contact_id:candidateId };
 
@@ -866,13 +866,16 @@
                         vm.submittedSchedule    = false;
                         vm.responseMsgSchedule  = response.data.message.msg[0];
                         $timeout(function(){
+                            vm.searchText = null;
+                            vm.schedule   = {
+                                attendees : []
+                            };
                             vm.responseMsgSchedule = null;
                         }, 2000);
                     }
                     else if (response.data.status_code == 400) {
                         $window.location = App.base_url + 'logout';
                     }
-
                 });
             }
 
@@ -902,6 +905,7 @@
                     vm.inProgressPostComment  = false;
                     vm.responseMsgPostComment = response.data.message.msg[0];
                     $timeout(function(){
+                        vm.comment = null;
                         vm.responseMsgPostComment = null;
                     }, 2000);
                 }
@@ -938,6 +942,7 @@
                         vm.submittedPostMail    = false;
                         vm.responseMsgPostMail  = response.data.message.msg[0];
                         $timeout(function(){
+                            vm.writeMail = { to:vm.details.emailid };
                             vm.responseMsgPostMail = null;
                         }, 2000);
                     }
@@ -980,6 +985,8 @@
                         vm.submittedTagJobs    = false;
                         vm.responseMsgTagJobs  = response.data.message.msg[0];
                         $timeout(function(){
+                            vm.searchTextTagJob   = null;
+                            vm.selectedTagJobs    = [];
                             vm.responseMsgTagJobs = null;
                         }, 2000);
                     }
@@ -992,7 +999,7 @@
 
         }
 
-        vm.selectedReferral = function(ref) {
+        vm.changeReferral = function(ref) {
             
             if(ref.reference_id != candidateId) {
                 
@@ -1016,9 +1023,9 @@
 
         }
 
-        vm.getActivatePic = function(activite) {
+        vm.getActivityPic = function(activity) {
             
-            return activatesType[activite.name];
+            return "public/images/" + activitiesType[activity.activity_type];
 
         }
 
@@ -1040,21 +1047,6 @@
                 default:
                     $state.go('app.candidates.resumeRoom');
             }
-
-            // if($stateParams.stateFrom == 'dashboard') {
-            //     $state.go('app.dashboard');
-            // } 
-            // else if($stateParams.stateFrom == 'job') {
-            //     $state.go('app.engagement/contacts', { post_id :'ref', id : $stateParams.stateId });
-            // } 
-            // else if($stateParams.stateFrom == 'contactInternal') {
-            //     $state.go('app.contact.Internal');
-            // } 
-            // else if($stateParams.stateFrom == 'contactExternal'){
-            //     $state.go('app.contact.External');
-            // } else{
-            //     $state.go('app.candidates.resumeRoom');
-            // }
         }
 
 
@@ -1226,6 +1218,7 @@
             });
 
         });
+
 
         init();
 
