@@ -2044,3 +2044,37 @@ $app->post('/get_candidate_referral_list',function ($request, $response, $args) 
     return checkJsonResult( $jobList->loadCurl() );
 
 });
+//get candidate schedules
+$app->post('/get_candidate_schedules',function ($request, $response, $args) use ($app) {
+    
+    // dynamically Access Token, Company Details
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    // getting API endpoint from settings
+   $apiEndpoint = getapiEndpoint($this->settings, 'get_candidate_schedules');
+   
+    $jobList    = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    
+    return checkJsonResult( $jobList->loadCurl() );
+
+});
+//get candidate schedules
+$app->post('/edit_candidate_referral_status',function ($request, $response, $args) use ($app) {
+    
+    // dynamically Access Token, Company Details
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    // getting API endpoint from settings
+   $apiEndpoint = getapiEndpoint($this->settings, 'edit_candidate_referral_status');
+   
+    $jobList    = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    
+    return checkJsonResult( $jobList->loadCurl() );
+
+});

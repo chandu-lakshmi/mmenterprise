@@ -362,6 +362,14 @@ return [
             'get_candidate_referral_list' =>[
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/get_candidate_referral_list'
+            ],
+            'get_candidate_schedules' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_candidate_schedules'
+            ],
+            'edit_candidate_referral_status' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/edit_candidate_referral_status'
             ]
     ];
         
