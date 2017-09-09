@@ -1,9 +1,9 @@
 <div class="candidate-details">
-    <div class="mm-spinner" ng-if="CandidateDetailsCtrl.inProgressCandidateDetails" ng-style="{opacity : CandidateDetailsCtrl.hasChangeReferral ? '0.5' : '1' }">
+    <!-- <div class="mm-spinner" ng-if="CandidateDetailsCtrl.inProgressCandidateDetails" ng-style="{opacity : CandidateDetailsCtrl.hasChangeReferral ? '0.5' : '1' }">
         <div>
             <img src="public/images/loader/spin.gif" alt="loading">
         </div>
-    </div>
+    </div> -->
 	<div class="container">
 		<div class="head">
             <a ng-click="CandidateDetailsCtrl.stateGoFrom()"><img src="public/images/back-arrow-grey.svg" alt="back"><span>CANDIDATE DETAILS</span></a>
@@ -205,8 +205,8 @@
                                                         <img class="pending" src="public/images/pending.png" alt="pending">
                                                     </div>
                                                     <div class="rt">
-                                                        <p>{{list.activity_message}} <span ng-class="list.activity_status == 'interview' ? 'interview' : 'status'" ng-if="list.activity_status" ng-bind="list.activity_status"></span></p>
-                                                        {{list.activity_by}}, <span class="time">about {{list.activity_on}}</span>
+                                                        <p>{{list.activity_by}} <span class="dot time">&middot;</span><span class="time" ng-bind="list.activity_on"></span></p>
+                                                        <p class="text" ng-bind="list.activity_status"></p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -336,7 +336,7 @@
                                     </form>
                                 </uib-tab>
                                 <uib-tab class="mail" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Send Email" tooltip-placement="left">
-                                    <div class="mm_down send_mail">
+                                    <div class="mm_down">
                                         <form name="write_mail_form" novalidate>
                                             <h5>WRITE AN EMAIL</h5>
                                             <div class="box">
@@ -376,6 +376,42 @@
                                                 </div>
                                             </div>
                                         </form>
+                                        <div class="send-mail">
+                                            <uib-accordion>
+                                                <div uib-accordion-group class="panel-default" is-open="status.isCustomHeaderOpen" ng-repeat="list in CandidateDetailsCtrl.candidateSendMailsList">
+                                                  <uib-accordion-heading>
+                                                    <div class="container-mail">
+                                                        <div class="lt">
+                                                            <img src="public/images/mail.png" alt="mail">
+                                                        </div>
+                                                        <div class="rt">
+                                                            <div class="clear-fix">
+                                                                <div layout="column">
+                                                                    <div layout="row">
+                                                                        <span class="head" ng-bind="list.subject">Application to EPI</span>
+                                                                        <flex>
+                                                                        <span class="time" ng-bind="list.created_at">5 hours ago</span>
+                                                                        <i class="material-icons mm-arrow-spin" ng-class="{'rotate' : !status.isCustomHeaderOpen}">keyboard_arrow_down</i>
+                                                                    </div>
+                                                                    <div layout="row" class="to">
+                                                                        <b>From: {{list.from}}</b><i flex></i>
+                                                                        <span style="margin-right:24px">To: {{list.to_name}}</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                  </uib-accordion-heading>
+                                                  <div class="container-mail body">
+                                                      <div class="lt">&nbsp;
+                                                      </div>
+                                                      <div class="rt">
+                                                        <p ng-bind-html="list.body"></p>
+                                                      </div>
+                                                  </div>
+                                                </div>  
+                                            </uib-accordion>
+                                        </div>
                                     </div>  
                                 </uib-tab>
                                 <uib-tab class="link" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Link Candidate To Job" tooltip-placement="left">

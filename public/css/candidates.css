@@ -912,9 +912,82 @@
                   color: #314aa6; }
                 .candidates .candidate-details .section md-card.right .tab-content .timeline_edit .timeline-container .list .time, .candidates .candidate-details .section md-card.right .tab-content .comment_edit .timeline-container .list .time {
                   color: #aaaaaa; }
+                .candidates .candidate-details .section md-card.right .tab-content .timeline_edit .timeline-container .list .dot, .candidates .candidate-details .section md-card.right .tab-content .comment_edit .timeline-container .list .dot {
+                  font-size: 40px;
+                  vertical-align: middle;
+                  margin: 0 2px 0 10px; }
+                .candidates .candidate-details .section md-card.right .tab-content .timeline_edit .timeline-container .list .text, .candidates .candidate-details .section md-card.right .tab-content .comment_edit .timeline-container .list .text {
+                  line-height: 20px;
+                  margin-top: 6px !important;
+                  word-break: break-word;
+                  font-size: 13px !important; }
                 .candidates .candidate-details .section md-card.right .tab-content .timeline_edit .timeline-container .list img.pending, .candidates .candidate-details .section md-card.right .tab-content .comment_edit .timeline-container .list img.pending {
                   width: 26px;
                   margin: 22px 16px; }
+            .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group {
+              padding: initial; }
+              .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group a:hover {
+                color: initial; }
+              .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default {
+                width: 100%;
+                padding: initial;
+                margin: 0; }
+                .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default span {
+                  font-size: initial; }
+                .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .container-mail {
+                  overflow: hidden; }
+                  .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .container-mail .lt {
+                    width: 15%;
+                    background: #fafafa;
+                    float: left; }
+                    .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .container-mail .lt img {
+                      width: 26px;
+                      margin: 22px 16px; }
+                  .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .container-mail .rt {
+                    width: 85%;
+                    padding: 12px 14px;
+                    float: right;
+                    background: #fff;
+                    min-height: 72px;
+                    line-height: 24px;
+                    position: relative; }
+                    .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .container-mail .rt .head {
+                      padding: 0;
+                      width: 65%;
+                      text-align: left;
+                      float: left;
+                      margin: 0;
+                      color: #959698; }
+                    .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .container-mail .rt .time {
+                      color: #b3b3b5; }
+                    .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .container-mail .rt i.material-icons {
+                      position: absolute;
+                      right: 0;
+                      top: 10px;
+                      font-size: 30px;
+                      color: #808080; }
+                  .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .container-mail.body {
+                    background: #fafafa; }
+                    .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .container-mail.body .rt {
+                      background: #fff;
+                      text-align: initial;
+                      padding: 0;
+                      min-height: inherit; }
+                      .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .container-mail.body .rt .mm-text-editor {
+                        border: 0; }
+                        .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .container-mail.body .rt .mm-text-editor .ta-text {
+                          min-height: initial;
+                          margin: 0; }
+                .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .to {
+                  font-size: 14px;
+                  color: #000; }
+                  .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .to span {
+                    font-size: inherit; }
+                .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .panel-heading {
+                  padding: initial; }
+                .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .panel-body {
+                  border-top: 0;
+                  padding: 0; }
             .candidates .candidate-details .section md-card.right .tab-content .comment_edit .box {
               padding: 16px 16px 10px;
               background: #fafafb;
@@ -1019,5 +1092,17 @@
       color: #0ba082; }
   .autocomplete-attendees-template li .not_found {
     padding: 10px; }
+
+.mm-arrow-spin {
+  -webkit-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: -webkit-transform 0.3s ease-in-out;
+  transition: -webkit-transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out; }
+
+.mm-arrow-spin.rotate {
+  -webkit-transform: rotate(-90deg) !important;
+  transform: rotate(-90deg) !important; }
 
 /*# sourceMappingURL=candidates.css.map */

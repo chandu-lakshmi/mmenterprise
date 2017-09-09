@@ -458,12 +458,44 @@ $background : #eeeff1;
                                     &:last-child{border-color: transparent}
                                     .lt{width: 15%;background: #fafafa}
                                     .rt{width: 85%;padding: 12px 14px;line-height: 24px;font-size: 13px;
-                                        p{margin:0;font-size: 14px}
+                                        p{margin:0;font-size: 14px;}
                                     }
                                     .status{color: #099478}
                                     .interview{color: #314aa6}
                                     .time{color: #aaaaaa}
+                                    .dot{font-size: 40px;vertical-align: middle;margin: 0 2px 0 10px}
+                                    .text{line-height: 20px;margin-top: 6px !important;word-break: break-word;font-size: 13px !important}
                                     img.pending{width: 26px;margin: 22px 16px;}
+                                }
+                            }
+                        }
+                        .send-mail{
+                            .panel-group{padding: initial;
+                                a:hover{color: initial}
+                                .panel-default{width: 100%;padding: initial;margin: 0;
+                                    span{font-size: initial;}
+                                    .container-mail{overflow: hidden;
+                                        .lt{width: 15%;background: #fafafa;float:left;
+                                            img{width: 26px;margin: 22px 16px;}
+                                        }
+                                        .rt{width: 85%;padding: 12px 14px;float:right;background: #fff;min-height: 72px;line-height: 24px;position: relative;
+                                            .head{padding: 0;width: 65%;text-align: left;float:left;margin:0;color: #959698}
+                                            .time{color: #b3b3b5} 
+                                            i.material-icons{position: absolute;right: 0;top: 10px;font-size: 30px;color: #808080;}   
+                                        }
+                                        &.body{background: #fafafa;
+                                            .rt{background: #fff;text-align: initial;padding: 0;min-height: inherit;
+                                                .mm-text-editor{border: 0;
+                                                    .ta-text{min-height:initial;margin: 0}
+                                                }
+                                            }
+                                        }
+                                    }
+                                    .to{font-size: 14px;color: #000;
+                                        span{font-size: inherit;}
+                                    }
+                                    .panel-heading{padding: initial;}
+                                    .panel-body{border-top:0;padding: 0}
                                 }
                             }
                         }
@@ -526,4 +558,17 @@ $background : #eeeff1;
         }
         .not_found{padding: 10px}
     }
+}
+
+.mm-arrow-spin{
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transition: -webkit-transform 0.3s ease-in-out;
+    transition: -webkit-transform 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+}
+.mm-arrow-spin.rotate{
+    -webkit-transform: rotate(-90deg) !important;
+    transform: rotate(-90deg) !important;
 }
