@@ -175,7 +175,11 @@
                     url: '^/candidates/details/:type/:id',
                     templateUrl: App.base_url + 'templates/candidates/candidate-details.phtml',
                     controller: 'CandidateDetailsController',
-                    controllerAs: 'CandidateDetailsCtrl'
+                    controllerAs: 'CandidateDetailsCtrl',
+                    params : {
+                        stateFrom : null,
+                        stateId : null,
+                    }
                 })
                 $stateProvider.state('app.candidates.resumeRoom', {
                     url: '^/candidates/resume-room',

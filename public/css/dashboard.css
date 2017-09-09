@@ -689,9 +689,6 @@ select:-moz-focusring {
     transition: color .2s ease;
     text-decoration: none;
 }
-.dashboard .top-contacts .container .box .name:hover{
-    color: #0ba082;
-}
 .dashboard .top-contacts .container .box .top{
     border-bottom:1px solid #cccccc;
     min-height: 65px;

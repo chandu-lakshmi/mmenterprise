@@ -99,14 +99,14 @@
 	<div class="ui-grid-cell-contents ui-grid-details">
 		<div ng-if="COL_FIELD != '' && COL_FIELD != null">
 			<div class="image">
-				<a ui-sref="app.candidates.details({ type:'cdt', id:row.entity.id })">
+				<a ui-sref="app.candidates.details({ type:'cdt', id:row.entity.id, stateFrom:'job', stateId:grid.appScope.post_id })">
 					<img ng-if="!(row.entity.dp_image == null || row.entity.dp_image == '')" ng-src="{{row.entity.dp_image}}" class="img-responsive img-circle border-{{row.entity.status | lowercase}}" ng-style="{'border': row.entity.dp_image == null ? '0': ''}">					
 					<span ng-if="(row.entity.dp_image == null || row.entity.dp_image == '')" ng-bind="row.entity.name.trim() | limitTo : 1" class='letter' ng-style="{'background':grid.appScope.colorPicker(rowRenderIndex, colRenderIndex)}">
 					</span>
 				</a>
 			</div>
 			<div class="content ellipsis">
-				<a class="link" ui-sref="app.candidates.details({ type:'cdt', id:row.entity.id })" title="{{ COL_FIELD }}" ng-bind="COL_FIELD"></a>
+				<a class="link" ui-sref="app.candidates.details({ type:'cdt', id:row.entity.id, stateFrom:'job', stateId:grid.appScope.post_id })" title="{{ COL_FIELD }}" ng-bind="COL_FIELD"></a>
 				<p style="margin:0" class="ellipsis" title="{{row.entity.designation}}" ng-bind="row.entity.designation"></p>
 			</div>
 		</div>

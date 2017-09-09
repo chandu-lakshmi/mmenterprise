@@ -788,8 +788,18 @@
                 font-size: 22px; }
               .candidates .candidate-details .section md-card.right .tab-content .box .loc input {
                 font-size: 14px !important; }
-              .candidates .candidate-details .section md-card.right .tab-content .box .tag-job .md-chips:before {
-                content: 'CHOOSE JOBS *' !important; }
+              .candidates .candidate-details .section md-card.right .tab-content .box .tag-job {
+                margin: 12px 0 20px !important; }
+                .candidates .candidate-details .section md-card.right .tab-content .box .tag-job .md-chips:before {
+                  content: 'CHOOSE JOBS *' !important; }
+                .candidates .candidate-details .section md-card.right .tab-content .box .tag-job .select-one .md-chips {
+                  box-shadow: none; }
+                  .candidates .candidate-details .section md-card.right .tab-content .box .tag-job .select-one .md-chips .md-chip-content {
+                    max-width: 100%; }
+                  .candidates .candidate-details .section md-card.right .tab-content .box .tag-job .select-one .md-chips:before {
+                    content: '' !important; }
+                  .candidates .candidate-details .section md-card.right .tab-content .box .tag-job .select-one .md-chips .md-chip-input-container {
+                    display: none; }
               .candidates .candidate-details .section md-card.right .tab-content .box .attendees {
                 position: relative;
                 margin: 12px 0 45px; }
@@ -815,9 +825,13 @@
                     transition: transform cubic-bezier(0.25, 0.8, 0.25, 1) 0.25s;
                     -webkit-transform-origin: left top;
                     transform-origin: left top; }
-                  .candidates .candidate-details .section md-card.right .tab-content .box .attendees .md-chips .md-chip-input-container input {
-                    height: 34px;
-                    font-size: 14px; }
+                  .candidates .candidate-details .section md-card.right .tab-content .box .attendees .md-chips .md-chip-input-container {
+                    width: 100%; }
+                    .candidates .candidate-details .section md-card.right .tab-content .box .attendees .md-chips .md-chip-input-container input {
+                      height: 34px;
+                      font-size: 14px; }
+                .candidates .candidate-details .section md-card.right .tab-content .box .attendees .select-one .md-chips.md-focused {
+                  box-shadow: none !important; }
                 .candidates .candidate-details .section md-card.right .tab-content .box .attendees .attendees-required .md-chips {
                   box-shadow: 0 1px red !important; }
                 .candidates .candidate-details .section md-card.right .tab-content .box .attendees md-chips.active .md-chips:before {
@@ -837,15 +851,10 @@
                   float: left;
                   border: 1px solid #b2deed;
                   position: relative; }
-                  .candidates .candidate-details .section md-card.right .tab-content .box .attendees md-chip .md-chip-content {
-                    text-overflow: ellipsis;
-                    max-width: 74px;
-                    white-space: nowrap;
-                    overflow: hidden; }
-                    .candidates .candidate-details .section md-card.right .tab-content .box .attendees md-chip .md-chip-content strong {
-                      font-weight: normal;
-                      color: #797979;
-                      font-size: 14px; }
+                  .candidates .candidate-details .section md-card.right .tab-content .box .attendees md-chip .md-chip-content strong {
+                    font-weight: normal;
+                    color: #797979;
+                    font-size: 14px; }
                   .candidates .candidate-details .section md-card.right .tab-content .box .attendees md-chip .md-chip-remove-container {
                     position: absolute;
                     top: -1px;
@@ -990,5 +999,22 @@
 
 .find-resume-name.md-show {
   transition: all 0.5s linear !important; }
+
+.autocomplete-attendees-template li {
+  height: initial;
+  padding: 10px 15px;
+  line-height: 20px;
+  border-bottom: 1px solid #dcdcdc; }
+  .autocomplete-attendees-template li:hover {
+    background: #f5f5f5; }
+  .autocomplete-attendees-template li .name {
+    text-transform: capitalize;
+    color: #978984; }
+  .autocomplete-attendees-template li span {
+    color: #000; }
+    .autocomplete-attendees-template li span .highlight {
+      color: #0ba082; }
+  .autocomplete-attendees-template li .not_found {
+    padding: 10px; }
 
 /*# sourceMappingURL=candidates.css.map */

@@ -12,7 +12,7 @@
             .controller('FindResumeController', FindResumeController)
 
     CandidateController.$inject = ['App'];
-    CandidateDetailsController.$inject = ['$state', '$http', '$q', '$timeout', '$window', '$stateParams', 'CONFIG', 'CompanyDetails', 'App'];
+    CandidateDetailsController.$inject = ['$scope', '$state', '$http', '$q', '$timeout', '$window', '$stateParams', 'CONFIG', 'CompanyDetails', 'App'];
     ResumeRoomController.$inject = ['$state', '$window', '$uibModal', '$http', '$q', '$timeout', 'ajaxService', 'CompanyDetails', 'App'];
     UploadResumeController.$inject = ['$rootScope', '$scope', '$http', '$timeout', '$window', '$uibModal', 'App'];
     FindResumeController.$inject = ['$scope', '$http', '$q', '$timeout', '$filter', 'orderByFilter', '$window', 'CompanyDetails', 'App'];
@@ -712,21 +712,28 @@
     }
 
 
-    function CandidateDetailsController($state, $http, $q, $timeout, $window, $stateParams, CONFIG, CompanyDetails, App) {
+    function CandidateDetailsController($scope, $state, $http, $q, $timeout, $window, $stateParams, CONFIG, CompanyDetails, App) {
         
         var vm = this,
                 cancelerAttendees,
                 cancelerTagJobs,
                 prevSearchValue,
                 prevSearchValueJobs,
-                candidateId = $stateParams.id,
-                apiKeyType  = $stateParams.type,
+                apiKeyType    = $stateParams.type,
+                candidateId   = $stateParams.id,
+                activatesType = {
+                    mail     : "mail.png", 
+                    link     : "link.png",
+                    status   : "pending.png",
+                    comment  : "comment.png", 
+                    schedule : "schedule.png" 
+                },
                 apiKeyCandidateDetails = { contact_id:candidateId };
 
         vm.selectedStatus    = "PENDING";
         vm.statusList        = ["PENDING"];
         vm.selectedNewTalent = "New Talent";
-        vm.newTalentList     = [{ label:'New Talent'}, { label:'Great Fit' }, { label:'Good Fit' }, { label:'Not Suitable' }, { label:'Hired' }];
+        vm.newTalentList     = [{ label:'New Talent'}, { label:'Great Fit' }, { label:'Good Fit' }, { label:'Not Suitable' }, { label:'Employeed' }];
         vm.scheduleForList   = ["Face to Face", "Online Meeting", "Telephone"];
         vm.referralId        = $stateParams.id;
         vm.hasChangeReferral = false;
@@ -1006,7 +1013,50 @@
 
                 init(); 
             }
+
         }
+
+        vm.getActivatePic = function(activite) {
+            
+            return activatesType[activite.name];
+
+        }
+
+        vm.stateGoFrom = function() {
+
+            switch($stateParams.stateFrom) {
+                case "dashboard":
+                    $state.go('app.dashboard');
+                    break;
+                case "job":
+                    $state.go('app.engagement/contacts', { post_id :'ref', id : $stateParams.stateId });
+                    break;
+                case "contactInternal":
+                    $state.go('app.contact.Internal');
+                    break;
+                case "contactExternal":
+                    $state.go('app.contact.External');
+                    break;
+                default:
+                    $state.go('app.candidates.resumeRoom');
+            }
+
+            // if($stateParams.stateFrom == 'dashboard') {
+            //     $state.go('app.dashboard');
+            // } 
+            // else if($stateParams.stateFrom == 'job') {
+            //     $state.go('app.engagement/contacts', { post_id :'ref', id : $stateParams.stateId });
+            // } 
+            // else if($stateParams.stateFrom == 'contactInternal') {
+            //     $state.go('app.contact.Internal');
+            // } 
+            // else if($stateParams.stateFrom == 'contactExternal'){
+            //     $state.go('app.contact.External');
+            // } else{
+            //     $state.go('app.candidates.resumeRoom');
+            // }
+        }
+
 
         function init() {
 
@@ -1144,6 +1194,7 @@
 
         }
 
+
         setTimeout(function() {
 
             $('#interview_date').datetimepicker({
@@ -1175,7 +1226,6 @@
             });
 
         });
-
 
         init();
 

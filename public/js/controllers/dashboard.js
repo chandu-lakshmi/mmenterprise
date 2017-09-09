@@ -224,6 +224,9 @@
             });
         }
 
+        vm.setLocalStorage = function() {
+            localStorage.setItem("stateToGo", "{ name:'dashboard', id:'' }");
+        }
 
         $scope.$on('$destroy', function () {
             angular.forEach(cancellerArr, function (varPromise) {

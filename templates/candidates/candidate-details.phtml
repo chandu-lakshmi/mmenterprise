@@ -6,7 +6,7 @@
     </div>
 	<div class="container">
 		<div class="head">
-            <a ui-sref="app.candidates.resumeRoom"><img src="public/images/back-arrow-grey.svg" alt="back"><span>CANDIDATE LIST</span></a>
+            <a ng-click="CandidateDetailsCtrl.stateGoFrom()"><img src="public/images/back-arrow-grey.svg" alt="back"><span>CANDIDATE DETAILS</span></a>
         </div>
         <div class="section">
         	<div layout="column">
@@ -231,15 +231,19 @@
                                             <div class="attendees">
                                                 <!--placeholder value in css please check if you want to change -->
                                                 <md-chips ng-model="CandidateDetailsCtrl.schedule.attendees" md-autocomplete-snap
-                                                          md-require-match="true" ng-class="{'active' : (!!CandidateDetailsCtrl.schedule.attendees.length || !!CandidateDetailsCtrl.searchText.length), 'attendees-required' : !CandidateDetailsCtrl.schedule.attendees.length && CandidateDetailsCtrl.submittedSchedule }">
+                                                        md-require-match="true" 
+                                                        ng-class="{'active' : (!!CandidateDetailsCtrl.schedule.attendees.length || !!CandidateDetailsCtrl.searchText.length), 'attendees-required' : !CandidateDetailsCtrl.schedule.attendees.length && CandidateDetailsCtrl.submittedSchedule }"
+                                                          >
                                                     <md-autocomplete
-                                                      md-selected-item="CandidateDetailsCtrl.selectedItem"
-                                                      md-search-text="CandidateDetailsCtrl.searchText"
-                                                      md-items="item in CandidateDetailsCtrl.querySearchAttendees(CandidateDetailsCtrl.searchText)"
-                                                      md-item-text="item.emailid"
-                                                      md-no-cache = "true"
+                                                        md-selected-item="CandidateDetailsCtrl.selectedItem"
+                                                        md-search-text="CandidateDetailsCtrl.searchText"
+                                                        md-items="item in CandidateDetailsCtrl.querySearchAttendees(CandidateDetailsCtrl.searchText)"
+                                                        md-item-text="item.emailid"
+                                                         md-no-cache = "true"
+                                                        md-menu-class="autocomplete-attendees-template"
                                                       >
                                                     <md-item-template>
+                                                        <div class="name">{{item.firstname +' '+ item.lastname}}</div>
                                                         <span md-highlight-text="CandidateDetailsCtrl.searchText">{{item.emailid}} </span>
                                                     </md-item-template>
                                                     <md-not-found>
@@ -249,7 +253,7 @@
                                                   </md-autocomplete>
                                                   <md-chip-template>
                                                     <span>
-                                                      <strong title="{{$chip.emailid}}">{{$chip.emailid}}</strong>
+                                                      <strong title="{{$chip.emailid}}" style="text-transform: capitalize">{{$chip.firstname +' '+ $chip.lastname}}</strong>
                                                     </span>
                                                   </md-chip-template>
                                                 </md-chips>
@@ -360,11 +364,7 @@
                                             </div>
                                             <div class="comment_edit">
                                                 <div class="box">
-                                                    <div text-angular class="mm-text-editor" name="email_body" ng-model="CandidateDetailsCtrl.writeMail.body" ta-toolbar="[]" required></div>
-                                                    <div class="editor-error">
-                                                        <div class="error-spacer"></div>
-                                                        <div ng-if="write_mail_form.email_body.$error.required && CandidateDetailsCtrl.submittedPostMail" class="has-error-msg">Please enter Text.</div>    
-                                                    </div>
+                                                    <div text-angular class="mm-text-editor" name="email_body" ng-model="CandidateDetailsCtrl.writeMail.body" ta-toolbar="[]"></div>
                                                     <div class="action">
                                                         <div class="pull-left" ng-if="CandidateDetailsCtrl.inProgressPostMail">
                                                             <img src="public/images/loader/upload_file.gif" alt="sending">
@@ -385,13 +385,14 @@
                                             <div class="attendees tag-job">
                                                 <!--placeholder value in css please check if you want to change -->
                                                 <md-chips ng-model="CandidateDetailsCtrl.selectedTagJobs" md-autocomplete-snap
-                                                          md-require-match="true" ng-class="{'active' : (!!CandidateDetailsCtrl.selectedTagJobs.length || !!CandidateDetailsCtrl.searchTextTagJob.length), 'attendees-required' : !CandidateDetailsCtrl.selectedTagJobs.length && CandidateDetailsCtrl.submittedTagJobs }">
+                                                          md-require-match="true" ng-class="{'active' : (!!CandidateDetailsCtrl.selectedTagJobs.length || !!CandidateDetailsCtrl.searchTextTagJob.length), 'attendees-required' : !CandidateDetailsCtrl.selectedTagJobs.length && CandidateDetailsCtrl.submittedTagJobs,'select-one' : CandidateDetailsCtrl.selectedTagJobs.length > 0  }">
                                                     <md-autocomplete
                                                       md-selected-item="CandidateDetailsCtrl.selectedTagJob"
                                                       md-search-text="CandidateDetailsCtrl.searchTextTagJob"
                                                       md-items="item in CandidateDetailsCtrl.querySearchTagJobs(CandidateDetailsCtrl.searchTextTagJob)"
                                                       md-item-text="item.post_name"
                                                       md-no-cache = "true"
+                                                      ng-disabled="CandidateDetailsCtrl.selectedTagJobs.length > 0"
                                                       >
                                                     <md-item-template>
                                                         <span md-highlight-text="CandidateDetailsCtrl.searchTextTagJob">{{item.post_name}} </span>
@@ -418,7 +419,7 @@
                                                     <span class="msg">Taging Jobs</span>
                                                 </div>
                                                 <span class="msg response-msg" ng-bind="CandidateDetailsCtrl.responseMsgTagJobs"></span>
-                                                <md-button class="md-raised add pull-right" ng-click="CandidateDetailsCtrl.postTagJobs()" ng-disabled="CandidateDetailsCtrl.inProgressTagJobs">ADD JOBS</md-button>
+                                                <md-button class="md-raised add pull-right" ng-click="CandidateDetailsCtrl.postTagJobs()" ng-disabled="CandidateDetailsCtrl.inProgressTagJobs">ASSIGN  JOBS</md-button>
                                             </div>
                                         </div>
                                     </div>  
