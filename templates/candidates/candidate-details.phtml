@@ -84,6 +84,44 @@
                                         <span ng-if="!CandidateDetailsCtrl.details.referred_by">--</span>
         							</div>
         						</div>	
+
+                                <div layout="row" class="add-tag" ng-if="false">
+                                    <ul class="list">
+                                        <li>Java Script <i class="material-icons">close</i></li>
+                                        <li>PHP <i class="material-icons">close</i></li>
+                                        <li>Angular <i class="material-icons">close</i></li>
+                                        <li>Angular <i class="material-icons">close</i></li>
+                                        <li>Angular <i class="material-icons">close</i></li>
+                                    </ul>
+                                    <md-button class="btn-add-tag" ng-click="CandidateDetailsCtrl.addTag()">Add Tag</md-button>
+                                    <div class="attendees tag-job">
+                                        <md-chips ng-model="CandidateDetailsCtrl.selectedTag" md-autocomplete-snap
+                                                  md-require-match="true">
+                                            <md-autocomplete
+                                              md-selected-item="CandidateDetailsCtrl.selectedTag"
+                                              md-search-text="CandidateDetailsCtrl.searchTagText"
+                                              md-items="item in CandidateDetailsCtrl.querySearchTag(CandidateDetailsCtrl.searchTagText)"
+                                              md-item-text="item.post_name"
+                                              md-no-cache = "true"
+                                              >
+                                            <md-item-template>
+                                                <span md-highlight-text="CandidateDetailsCtrl.searchTextTagJob">{{item.post_name}} </span>
+                                                <i> ({{item.post_id}})</i>
+                                            </md-item-template>
+                                            <md-not-found>
+                                                <div class="not_found">No Tags found</div>
+                                            </md-not-found>
+
+                                          </md-autocomplete>
+                                          <md-chip-template>
+                                            <span>
+                                              <strong title="{{$chip.post_name}}">{{$chip.post_name}}</strong>
+                                            </span>
+                                          </md-chip-template>
+                                        </md-chips>
+                                    </div>
+
+                                </div>
         					</div>
         				</md-card>
 
@@ -125,7 +163,7 @@
         					</div>
         					<div layout="column" class="details" ng-if="CandidateDetailsCtrl.details.skills.length">
         						<div layout="row">
-        							<ul>
+        							<ul class="list">
         								<li ng-repeat="skill in CandidateDetailsCtrl.details.skills track by $index" ng-bind="skill"></li>
         							</ul>
         						</div>
@@ -151,6 +189,7 @@
         						</div>
         					</div>
         				</md-card>
+
         			</div>
         			<div flex="35">
         				<md-card class="right">
@@ -187,6 +226,7 @@
                                         </div>
                                     </div>                      
                                 </uib-tab>
+
                                 <uib-tab class="comment" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Comment" tooltip-placement="left">
                                     <div class="mm_down comment_edit">
                                         <h5>WRITE YOUR COMMENT</h5>
@@ -208,14 +248,15 @@
                                                         <img class="pending" src="public/images/comment.png" alt="comment">
                                                     </div>
                                                     <div class="rt">
-                                                        <p>{{list.activity_by}} <span class="dot time">&middot;</span><span class="time" ng-bind="list.activity_on"></span></p>
-                                                        <p class="text" ng-bind="list.activity_status"></p>
+                                                        <p>{{list.created_by}} <span class="dot time">&middot;</span><span class="time" ng-bind="list.created_at"></span></p>
+                                                        <p class="text" ng-bind="list.comment"></p>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>  
                                 </uib-tab>
+
                                 <uib-tab class="schedule" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Schedule Interview" tooltip-placement="left">
                                     <uib-tab-heading class="mm-tip" tooltip-class="mm-slide-l-r" uib-tooltip="SCHEDULE" tooltip-placement="left">
                                     </uib-tab-heading>
@@ -399,6 +440,7 @@
                                         </uib-accordion>
                                     </div>
                                 </uib-tab>
+
                                 <uib-tab class="mail" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Send Email" tooltip-placement="left">
                                     <div class="mm_down">
                                         <form name="write_mail_form" novalidate>
@@ -478,6 +520,7 @@
                                         </div>
                                     </div>  
                                 </uib-tab>
+
                                 <uib-tab class="link" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Link Candidate To Job" tooltip-placement="left">
                                     <div class="mm_down timeline_edit">
                                         <h5>LINK CANDIDATE TO JOB</h5>
@@ -522,7 +565,6 @@
                                                 <md-button class="md-raised add pull-right" ng-click="CandidateDetailsCtrl.postTagJobs()" ng-disabled="CandidateDetailsCtrl.inProgressTagJobs">ASSIGN  JOBS</md-button>
                                             </div>
                                         </div>
-                                        <md-divider></md-divider>
                                         <div class="timeline-container">
                                             <div layout="column">
                                                 <div layout="row" class="list" ng-repeat="list in CandidateDetailsCtrl.referralsList">
@@ -541,6 +583,7 @@
                                         </div>
                                     </div>  
                                 </uib-tab>
+
                                 <uib-tab class="arrow" disable="true" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Referred Jobs" tooltip-placement="left">
                                     <uib-tab-heading>
                                         <md-menu class="talent" md-position-mode="target-right target">
@@ -562,7 +605,6 @@
                                        </md-menu>
                                     </uib-tab-heading>
                                 </uib-tab>
-
                             </uib-tabset>            
                         </md-card>
         			</div>

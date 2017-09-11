@@ -867,6 +867,8 @@
                         vm.inProgressSchedule   = false;
                         vm.submittedSchedule    = false;
                         vm.responseMsgSchedule  = response.data.message.msg[0];
+                        vm.candidateSchedulesList.unshift(response.data.data.schedule);
+                        vm.candidateActivitiesList.unshift(response.data.data.timeline);
                         $timeout(function(){
                             vm.searchText = null;
                             vm.schedule   = {
@@ -906,6 +908,8 @@
                 if (response.data.status_code == 200) {
                     vm.inProgressPostComment  = false;
                     vm.responseMsgPostComment = response.data.message.msg[0];
+                    vm.candidateCommentsList.unshift(response.data.data.comment);
+                    vm.candidateActivitiesList.unshift(response.data.data.timeline)
                     $timeout(function(){
                         vm.comment = null;
                         vm.responseMsgPostComment = null;
@@ -942,6 +946,8 @@
                     if (response.data.status_code == 200) {
                         vm.inProgressPostMail   = false;
                         vm.submittedPostMail    = false;
+                        vm.candidateSendMailsList.unshift(response.data.data.email);
+                        vm.candidateActivitiesList.unshift(response.data.data.timeline);
                         vm.responseMsgPostMail  = response.data.message.msg[0];
                         $timeout(function(){
                             vm.writeMail = { to:vm.details.emailid };
