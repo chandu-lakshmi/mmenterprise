@@ -1,9 +1,9 @@
 <div class="candidate-details">
-    <!-- <div class="mm-spinner" ng-if="CandidateDetailsCtrl.inProgressCandidateDetails" ng-style="{opacity : CandidateDetailsCtrl.hasChangeReferral ? '0.5' : '1' }">
+    <div class="mm-spinner" ng-if="CandidateDetailsCtrl.inProgressCandidateDetails" ng-style="{opacity : CandidateDetailsCtrl.hasChangeReferral ? '0.5' : '1' }">
         <div>
             <img src="public/images/loader/spin.gif" alt="loading">
         </div>
-    </div> -->
+    </div>
 	<div class="container">
 		<div class="head">
             <a ng-click="CandidateDetailsCtrl.stateGoFrom()"><img src="public/images/back-arrow-grey.svg" alt="back"><span>CANDIDATE DETAILS</span></a>
@@ -47,7 +47,7 @@
                                         </md-menu>
         								<span class="bold" style="display:block" ng-bind="CandidateDetailsCtrl.details.name"></span>
         							</div>
-        							<img class="pic" ng-if="CandidateDetailsCtrl.details.src" ng-src="{{CandidateDetailsCtrl.details.src}}" alt="candidate-pic">
+        							<img class="pic" ng-if="CandidateDetailsCtrl.details.dp_path" ng-src="{{CandidateDetailsCtrl.details.dp_path}}" alt="candidate-pic">
         							<h1 class="letter" ng-if="!CandidateDetailsCtrl.details.src" ng-bind="CandidateDetailsCtrl.details.name.trim() | limitTo : 1"></h1>
         						</div>
         						<div layout="row">
@@ -76,12 +76,12 @@
         						<div layout="row">
         							<div flex="50" class="list">
         								<h5>CURRENT JOB APPLICATION</h5>
-        								<span class="bolder">{{CandidateDetailsCtrl.details.current_job}}, <i class="info">On Jul 13, 2017</i></span>		
+        								<span class="bolder current_job">{{CandidateDetailsCtrl.details.referred_job}}, <i class="info">{{CandidateDetailsCtrl.details.referred_at}}</i></span>		
         							</div>
         							<div flex class="list">
         								<h5>REFERRED BY</h5>	
-        								<span ng-if="CandidateDetailsCtrl.details.current_job" class="bolder">{{CandidateDetailsCtrl.details.current_job}}, <i class="info">On Jul 13, 2017</i></span>		
-                                        <span ng-if="!CandidateDetailsCtrl.details.current_job">--</span>
+        								<span ng-if="CandidateDetailsCtrl.details.referred_by" class="bolder" ng-bind="CandidateDetailsCtrl.details.referred_by"></span>		
+                                        <span ng-if="!CandidateDetailsCtrl.details.referred_by">--</span>
         							</div>
         						</div>	
         					</div>
@@ -156,11 +156,14 @@
         				<md-card class="right">
                             <md-menu class="status_change" md-position-mode="target-left target">
                                 <md-button ng-click="$mdOpenMenu($event)">
-                                   <span> {{CandidateDetailsCtrl.selectedStatus}} <i class="material-icons">&#xE313;</i></span> 
+                                   <span title="{{CandidateDetailsCtrl.selectedStatus}}"> {{CandidateDetailsCtrl.details.referral_status}}</span>
+                                   <i class="material-icons">&#xE313;</i>
+                                   <img class="loader" ng-if="CandidateDetailsCtrl.inProgressUpdateReferralStatus" src="public/images/loader/dot.svg" alt="loading">
                                 </md-button>
+                                
                                 <md-menu-content width="3">
-                                    <md-menu-item>
-                                       <md-button>PENDING</md-button>
+                                    <md-menu-item ng-repeat="status in CandidateDetailsCtrl.referralStatusList">
+                                       <md-button aria-label="status" ng-bind="status" ng-click="CandidateDetailsCtrl.changeReferralStatus(status)"></md-button>
                                     </md-menu-item>
                                 </md-menu-content>
                             </md-menu>
@@ -394,7 +397,7 @@
                                                                         <i class="material-icons mm-arrow-spin" ng-class="{'rotate' : !status.isCustomHeaderOpen}">keyboard_arrow_down</i>
                                                                     </div>
                                                                     <div layout="row" class="to">
-                                                                        <b>From: {{list.from}}</b><i flex></i>
+                                                                        <b>From: {{list.from_name}}</b><i flex></i>
                                                                         <span style="margin-right:24px">To: {{list.to_name}}</span>
                                                                     </div>
                                                                 </div>
