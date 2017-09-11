@@ -370,6 +370,18 @@ return [
             'edit_candidate_referral_status' =>[
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/edit_candidate_referral_status'
+            ],
+            'get_candidates_tags' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_candidates_tags'
+            ],
+            'add_candidate_tags' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/add_candidate_tags'
+            ],
+            'get_candidate_tags' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_candidate_tags'
             ]
     ];
         
