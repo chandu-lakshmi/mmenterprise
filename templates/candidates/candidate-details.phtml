@@ -20,8 +20,8 @@
                                     <md-button href="{{CandidateDetailsCtrl.viewResume}}" target="_blank">View Resume</md-button>
                                 </span>
                                 <span class="resume"  ng-if="!CandidateDetailsCtrl.details.document_id" title="{{CandidateDetailsCtrl.details.resume_name}}">
-                                    <a class="download" href="javascript:void(0)"></a>
-                                    <md-button target="_blank">View Resume</md-button>
+                                    <a class="download" style="cursor:default" href="javascript:void(0)"></a>
+                                    <md-button style="cursor:default" target="_blank">View Resume</md-button>
                                 </span>
         					</div>
         					<div layout="column" class="details">
@@ -48,7 +48,7 @@
         								<span class="bold" style="display:block" ng-bind="CandidateDetailsCtrl.details.name"></span>
         							</div>
         							<img class="pic" ng-if="CandidateDetailsCtrl.details.dp_path" ng-src="{{CandidateDetailsCtrl.details.dp_path}}" alt="candidate-pic">
-        							<h1 class="letter" ng-if="!CandidateDetailsCtrl.details.src" ng-bind="CandidateDetailsCtrl.details.name.trim() | limitTo : 1"></h1>
+        							<h1 class="letter" ng-if="!CandidateDetailsCtrl.details.dp_path" ng-bind="CandidateDetailsCtrl.details.name.trim() | limitTo : 1"></h1>
         						</div>
         						<div layout="row">
         							<div flex="50" class="list">
@@ -161,7 +161,7 @@
                                    <img class="loader" ng-if="CandidateDetailsCtrl.inProgressUpdateReferralStatus" src="public/images/loader/dot.svg" alt="loading">
                                 </md-button>
                                 
-                                <md-menu-content width="3">
+                                <md-menu-content width="3" " class="talent-menu"    >
                                     <md-menu-item ng-repeat="status in CandidateDetailsCtrl.referralStatusList">
                                        <md-button aria-label="status" ng-bind="status" ng-click="CandidateDetailsCtrl.changeReferralStatus(status)"></md-button>
                                     </md-menu-item>
@@ -205,7 +205,7 @@
                                             <div layout="column">
                                                 <div layout="row" class="list" ng-repeat="list in CandidateDetailsCtrl.candidateCommentsList">
                                                     <div class="lt">
-                                                        <img class="pending" src="public/images/pending.png" alt="pending">
+                                                        <img class="pending" src="public/images/comment.png" alt="comment">
                                                     </div>
                                                     <div class="rt">
                                                         <p>{{list.activity_by}} <span class="dot time">&middot;</span><span class="time" ng-bind="list.activity_on"></span></p>
@@ -337,6 +337,67 @@
                                             </div>
                                         </div>
                                     </form>
+                                    <div class="send-mail">
+                                        <uib-accordion>
+                                            <div uib-accordion-group class="panel-default" is-open="status.isCustomHeaderOpen" ng-repeat="list in CandidateDetailsCtrl.candidateSchedulesList">
+                                              <uib-accordion-heading>
+                                                <div class="container-mail">
+                                                    <div class="lt">
+                                                        <img src="public/images/schedule.png" style="margin: 24px 16px;" alt="schedule">
+                                                    </div>
+                                                    <div class="rt" style="padding: 13px 14px">
+                                                        <div class="clear-fix">
+                                                            <div layout="column">
+                                                                <div layout="row">
+                                                                    <span class="head" style="color:initial" ng-bind="list.schedule_for"></span>
+                                                                    <i class="material-icons mm-arrow-spin" ng-class="{'rotate' : !status.isCustomHeaderOpen}">keyboard_arrow_down</i>
+                                                                </div>
+                                                                <div layout="row" class="to">
+                                                                    by <b>&nbsp;{{list.created_by}},&nbsp;</b>
+                                                                    <span class="time" ng-bind="list.created_at"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                              </uib-accordion-heading>
+                                              <div class="container-mail body">
+                                                  <div class="lt">&nbsp;
+                                                  </div>
+                                                  <div class="rt">
+                                                    <ul class="params">
+                                                        <li>
+                                                            <span class="name">Schedule For: </span>
+                                                            <span ng-bind="list.schedule_for"></span>
+                                                        </li>
+                                                        <li>
+                                                            <span class="name">Attendees: </span>
+                                                            <span ng-bind="list.attendees"></span>
+                                                        </li>
+                                                        <li>
+                                                            <span class="name">Interview Date: </span>
+                                                            <span ng-bind="list.interview_date"></span>
+                                                        </li>
+                                                        <li>
+                                                            <span class="name">From: </span>
+                                                            <span ng-bind="list.interview_from_time"></span>
+                                                            <span class="name" style="margin-left: 16px">To: </span>
+                                                            <span ng-bind="list.interview_to_time"></span>
+                                                        </li>
+                                                        <li>
+                                                            <span class="name">Location: </span>
+                                                            <span ng-bind="list.interview_location"></span>
+                                                        </li>
+                                                        <li ng-if="list.notes">
+                                                            <span class="name">Notes: </span>
+                                                            <span ng-bind="list.notes"></span>
+                                                        </li>
+                                                    </ul>
+                                                  </div>
+                                              </div>
+                                            </div>  
+                                        </uib-accordion>
+                                    </div>
                                 </uib-tab>
                                 <uib-tab class="mail" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Send Email" tooltip-placement="left">
                                     <div class="mm_down">
@@ -385,7 +446,7 @@
                                                   <uib-accordion-heading>
                                                     <div class="container-mail">
                                                         <div class="lt">
-                                                            <img src="public/images/mail.png" alt="mail">
+                                                            <img tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Sent Mails" tooltip-placement="right" src="public/images/mail.png" alt="mail">
                                                         </div>
                                                         <div class="rt">
                                                             <div class="clear-fix">
@@ -398,7 +459,7 @@
                                                                     </div>
                                                                     <div layout="row" class="to">
                                                                         <b>From: {{list.from_name}}</b><i flex></i>
-                                                                        <span style="margin-right:24px">To: {{list.to_name}}</span>
+                                                                        <span style="margin-right:24px" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="{{list.to_emailid}}" tooltip-placement="left">To: {{list.to_name}}</span>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -418,7 +479,7 @@
                                     </div>  
                                 </uib-tab>
                                 <uib-tab class="link" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Link Candidate To Job" tooltip-placement="left">
-                                    <div class="mm_down">
+                                    <div class="mm_down timeline_edit">
                                         <h5>LINK CANDIDATE TO JOB</h5>
                                         <div class="box">
                                             <div class="attendees tag-job">
@@ -459,6 +520,23 @@
                                                 </div>
                                                 <span class="msg response-msg" ng-bind="CandidateDetailsCtrl.responseMsgTagJobs"></span>
                                                 <md-button class="md-raised add pull-right" ng-click="CandidateDetailsCtrl.postTagJobs()" ng-disabled="CandidateDetailsCtrl.inProgressTagJobs">ASSIGN  JOBS</md-button>
+                                            </div>
+                                        </div>
+                                        <md-divider></md-divider>
+                                        <div class="timeline-container">
+                                            <div layout="column">
+                                                <div layout="row" class="list" ng-repeat="list in CandidateDetailsCtrl.referralsList">
+                                                    <div class="lt">
+                                                        <img class="pending" src="public/images/link.png" alt="comment">
+                                                    </div>
+                                                    <div class="rt">
+                                                        <p>Linked to {{list.post_name}} by</p>
+                                                        <p class="text">{{list.referred_by}} 
+                                                            <span class="dot time">&middot;</span>
+                                                            <span class="time">{{list.referred_on}}</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>  

@@ -942,7 +942,9 @@
                   font-size: 13px !important; }
                 .candidates .candidate-details .section md-card.right .tab-content .timeline_edit .timeline-container .list img.pending, .candidates .candidate-details .section md-card.right .tab-content .comment_edit .timeline-container .list img.pending {
                   width: 26px;
-                  margin: 22px 16px; }
+                  margin: 25px 16px; }
+            .candidates .candidate-details .section md-card.right .tab-content .timeline_edit md-divider, .candidates .candidate-details .section md-card.right .tab-content .comment_edit md-divider {
+              border-color: #eaeaea; }
             .candidates .candidate-details .section md-card.right .tab-content .send-mail {
               max-height: 600px;
               overflow: auto; }
@@ -953,7 +955,9 @@
                 .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default {
                   width: 100%;
                   padding: initial;
-                  margin: 0; }
+                  margin: 0;
+                  border-right: 0;
+                  border-left: 0; }
                   .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default span {
                     font-size: initial; }
                   .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .container-mail {
@@ -997,6 +1001,17 @@
                         min-height: inherit; }
                         .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .container-mail.body .rt p {
                           margin: 14px 7px; }
+                        .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .container-mail.body .rt .params {
+                          list-style: none;
+                          padding: 0 16px;
+                          margin: 0; }
+                          .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .container-mail.body .rt .params li {
+                            line-height: 40px; }
+                            .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .container-mail.body .rt .params li span {
+                              font-size: 14px;
+                              color: #777f8d; }
+                              .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .container-mail.body .rt .params li span.name {
+                                color: #000; }
                   .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .to {
                     font-size: 14px;
                     color: #000; }

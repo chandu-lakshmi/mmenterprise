@@ -7,17 +7,17 @@
         <div layout="row" class="sec">
             <md-input-container class="md-block">
                 <label>Enter Some Comments</label>
-                <input type="text" name="comment" ng-model="CandidateDetailsCtrl.externalBucket" required ng-class="{'has-error-border':referral_status.comment.$invalid && CandidateDetailsCtrl.submittedReferralStatus}" autocomplete="off">
-                <div ng-if="referral_status.comment.$error.required && CandidateDetailsCtrl.submittedReferralStatus" class="has-error-msg">Please enter some Comments.</div>
+                <input type="text" name="comment" ng-model="CandidateDetailsCtrl.referralStatusComment" autocomplete="off">
             </md-input-container>     
         </div>
         <div layout="row" class="foot">
-            <span ng-if="CandidateDetailsCtrl.inProgressUpdateReferralStatus" class="loading">
+            <span ng-if="CandidateDetailsCtrl.inProgressDialog" class="loading">
                 <img src="public/images/loader/upload_file.gif" alt="loader" style="margin-top: 8px"> 
                 <span class="pull-right" style="margin: 14px 8px;">changing Status</span>
             </span>
+            <span style="color: #269c84;float: left;margin: 14px 0">{{CandidateDetailsCtrl.responseMsgReferralStatus}}</span>
             <i flex></i>
-            <md-button class="md-raised" ng-click="CandidateDetailsCtrl.postCreateExternalBucket(true, referral_status)">SUBMIT</md-button>
+            <md-button class="md-raised" ng-click="CandidateDetailsCtrl.postReferralStatus(true)">SUBMIT</md-button>
         </div>
     </form>
 </div>

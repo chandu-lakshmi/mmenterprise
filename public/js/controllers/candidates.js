@@ -1052,12 +1052,12 @@
 
         }
 
-        var externalBucketDialog,
+        var referralStatusDialog,
             tempReferralStatus;
         vm.changeReferralStatus = function(status){
             tempReferralStatus = status;
             if(['Scheduled for Interview', 'Not Suitable', 'On Hold'].indexOf(status) > -1 ){
-                externalBucketDialog = $uibModal.open({
+                referralStatusDialog = $uibModal.open({
                     animation: false,
                     backdrop: 'static',
                     keyboard: false,
@@ -1066,26 +1066,24 @@
                     scope: $scope
                 });
             } else{
-                vm.postReferralStatus(false, null);   
+                vm.postReferralStatus(false);   
             }
 
         }
 
-        vm.postReferralStatus = function(isForm, form) {
-            console.log(isForm, form)
-            if(isForm) {
-                if(form.$invalid) {
-                    vm.submittedReferralStatus = true;
-                    return;
-                }
+        vm.postReferralStatus = function(formDialog) {
+
+            if(formDialog){
+                vm.inProgressDialog = true;
+            } else{
+                vm.inProgressUpdateReferralStatus = true;
             }
-            
-            vm.inProgressUpdateReferralStatus = true;
 
             var apiKeys = $.param({
                     reference_id    : candidateId, 
                     candidate_id    : vm.details.candidate_id,
-                    referral_status : tempReferralStatus
+                    referral_status : tempReferralStatus,
+                    referral_msg    : vm.referralStatusComment
                 });
 
             $http({
@@ -1099,8 +1097,16 @@
             .then(function (response) {
 
                 if (response.data.status_code == 200) {
-                    vm.submittedReferralStatus = false;
+                    vm.inProgressDialog          = false;
+                    vm.details.referral_status   = tempReferralStatus;
+                    vm.responseMsgReferralStatus =  response.data.message.msg[0];
                     vm.inProgressUpdateReferralStatus = false;
+                    vm.candidateActivitiesList.unshift(response.data.data.timeline);
+                    $timeout(function(){
+                        if(referralStatusDialog)
+                            referralStatusDialog.close();
+                        vm.responseMsgReferralStatus = null;    
+                    }, 1000);
                 }
                 else if (response.data.status_code == 400) {
                     $window.location = App.base_url + 'logout';
@@ -1244,6 +1250,23 @@
                 }
             });
 
+
+            $http({
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method  : 'POST',
+                url     : App.base_url + 'get_candidate_schedules',
+                data    : $.param({ reference_id : candidateId, candidate_id : vm.details.candidate_id })
+            }).then(function (response) {
+                if (response.status == 200) {
+                    vm.candidateSchedulesList = response.data.data;
+                }
+                else if (response.data.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+            });
+
         }
 
 
@@ -1279,6 +1302,10 @@
 
         });
 
+        $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+            if(referralStatusDialog)
+                referralStatusDialog.close();
+        })
 
         init();
 
