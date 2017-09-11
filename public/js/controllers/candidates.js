@@ -12,7 +12,7 @@
             .controller('FindResumeController', FindResumeController)
 
     CandidateController.$inject = ['App'];
-    CandidateDetailsController.$inject = ['$scope', '$state', '$http', '$q', '$timeout', '$window', '$stateParams', 'CONFIG', 'CompanyDetails', 'App'];
+    CandidateDetailsController.$inject = ['$scope', '$state', '$http', '$q', '$timeout', '$window', '$stateParams', '$uibModal', 'CONFIG', 'CompanyDetails', 'App'];
     ResumeRoomController.$inject = ['$state', '$window', '$uibModal', '$http', '$q', '$timeout', 'ajaxService', 'CompanyDetails', 'App'];
     UploadResumeController.$inject = ['$rootScope', '$scope', '$http', '$timeout', '$window', '$uibModal', 'App'];
     FindResumeController.$inject = ['$scope', '$http', '$q', '$timeout', '$filter', 'orderByFilter', '$window', 'CompanyDetails', 'App'];
@@ -712,7 +712,7 @@
     }
 
 
-    function CandidateDetailsController($scope, $state, $http, $q, $timeout, $window, $stateParams, CONFIG, CompanyDetails, App) {
+    function CandidateDetailsController($scope, $state, $http, $q, $timeout, $window, $stateParams, $uibModal, CONFIG, CompanyDetails, App) {
         
         var vm = this,
                 cancelerAttendees,
@@ -730,14 +730,16 @@
                 },
                 apiKeyCandidateDetails = { contact_id:candidateId };
 
-        vm.selectedStatus    = "PENDING";
-        vm.statusList        = ["PENDING"];
-        vm.selectedNewTalent = "New Talent";
-        vm.newTalentList     = [{ label:'New Talent'}, { label:'Great Fit' }, { label:'Good Fit' }, { label:'Not Suitable' }, { label:'Employeed' }];
-        vm.scheduleForList   = ["Face to Face", "Online Meeting", "Telephone"];
-        vm.referralId        = $stateParams.id;
-        vm.hasChangeReferral = false;
-        vm.inProgressCandidateDetails = true;
+        
+        vm.selectedNewTalent  = "New Talent";
+        vm.newTalentList      = [{ label:'New Talent'}, { label:'Great Fit' }, { label:'Good Fit' }, { label:'Not Suitable' }, { label:'Employeed' }];
+        vm.referralStatusList = ["New", "Reviewed", "Shortlisted", "Scheduled for Interview", "Not Suitable", "Selected", "Offered", "Offer Accepted", "On Hold", "Offer Rejected", "Confirmed to Join", "Hired", "Not Joined", "Joined"];
+        vm.scheduleForList    = ["Face to Face", "Online Meeting", "Telephone"];
+        vm.referralId         = $stateParams.id;
+        vm.hasChangeReferral  = false;
+
+        vm.inProgressCandidateDetails     = true;
+        vm.inProgressUpdateReferralStatus = false;
 
         vm.schedule = {
             attendees : []
@@ -1047,6 +1049,64 @@
                 default:
                     $state.go('app.candidates.resumeRoom');
             }
+
+        }
+
+        var externalBucketDialog,
+            tempReferralStatus;
+        vm.changeReferralStatus = function(status){
+            tempReferralStatus = status;
+            if(['Scheduled for Interview', 'Not Suitable', 'On Hold'].indexOf(status) > -1 ){
+                externalBucketDialog = $uibModal.open({
+                    animation: false,
+                    backdrop: 'static',
+                    keyboard: false,
+                    templateUrl: 'templates/candidates/dialog-update-referral_status.phtml',
+                    openedClass: "external-bucket",
+                    scope: $scope
+                });
+            } else{
+                vm.postReferralStatus(false, null);   
+            }
+
+        }
+
+        vm.postReferralStatus = function(isForm, form) {
+            console.log(isForm, form)
+            if(isForm) {
+                if(form.$invalid) {
+                    vm.submittedReferralStatus = true;
+                    return;
+                }
+            }
+            
+            vm.inProgressUpdateReferralStatus = true;
+
+            var apiKeys = $.param({
+                    reference_id    : candidateId, 
+                    candidate_id    : vm.details.candidate_id,
+                    referral_status : tempReferralStatus
+                });
+
+            $http({
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method  : 'POST',
+                url     : App.base_url + 'edit_candidate_referral_status',
+                data    : apiKeys
+            })
+            .then(function (response) {
+
+                if (response.data.status_code == 200) {
+                    vm.submittedReferralStatus = false;
+                    vm.inProgressUpdateReferralStatus = false;
+                }
+                else if (response.data.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+
+            });
         }
 
 
