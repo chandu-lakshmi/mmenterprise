@@ -766,7 +766,6 @@
         vm.submittedPostMail   = false;
         vm.responseMsgPostMail = null;
 
-        vm.selectedTags   = [];
         vm.enableTagChips = false;
         vm.inProgressSearchTagJobs = false;
 
@@ -837,7 +836,6 @@
             
         }
 
-        
         vm.querySearchAddTag = function(searchText) {
             if (prevSearchValueAddTag != searchText) {
                 if (cancelerAddTag) {
@@ -1050,6 +1048,42 @@
 
         }
 
+        vm.postPersonalStatus = function(talent) {
+            
+            vm.selectedNewTalent = talent.label; 
+
+            var updatedInfo = '<md-toast class="mm-toast"><div class="md-toast-text" flex><i class="material-icons">done</i><div class="text"><div class="toast-succ">Success!</div><div class="succ-text">Status updated successfully</div></div></div></md-toast>',
+                apiKeys = $.param({
+                reference_id : candidateId, 
+                candidate_id : vm.details.candidate_id, 
+                status_name  : talent.label
+            });
+
+            $http({
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method  : 'POST',
+                url     : App.base_url + 'add_candidate_personal_status',
+                data    : apiKeys   
+            })
+            .then(function (response) {
+
+                if (response.data.status_code == 200) {
+                    $mdToast.show({
+                       hideDelay: 3000,
+                       position: 'top right',
+                       template: updatedInfo
+                    });
+                }
+                else if (response.data.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+
+            });
+
+        }
+
         vm.changeReferral = function(ref) {
             
             if(ref.reference_id != candidateId) {
@@ -1083,6 +1117,8 @@
                 vm.showScheduleTab = true;
                 vm.showMailsTab    = true;
                 vm.showLinkTab     = true;
+
+                vm.enableTagChips  = false;
 
                 init(); 
             }
@@ -1143,7 +1179,8 @@
                 vm.inProgressUpdateReferralStatus = true;
             }
 
-            var apiKeys = $.param({
+            var updatedInfo = '<md-toast class="mm-toast"><div class="md-toast-text" flex><i class="material-icons">done</i><div class="text"><div class="toast-succ">Success!</div><div class="succ-text">Status updated successfully</div></div></div></md-toast>',
+                apiKeys = $.param({
                     reference_id    : candidateId, 
                     candidate_id    : vm.details.candidate_id,
                     referral_status : tempReferralStatus,
@@ -1165,6 +1202,11 @@
                     vm.details.referral_status   = tempReferralStatus;
                     vm.responseMsgReferralStatus =  response.data.message.msg[0];
                     vm.inProgressUpdateReferralStatus = false;
+                    $mdToast.show({
+                       hideDelay: 3000,
+                       position: 'top right',
+                       template: updatedInfo
+                    });
                     vm.candidateActivitiesList.unshift(response.data.data.timeline);
                     $timeout(function(){
                         if(referralStatusDialog)
@@ -1186,9 +1228,25 @@
             })
         }
 
+        vm.addTag = function(item) {
+            if(item){
+                vm.enableTagChips = false;
+                var hasTag = true;
+                angular.forEach(vm.details.candidate_tags, function(tag, index){
+                    if(tag.tag_id == item.tag_id) {
+                        hasTag = false;
+                    }
+                });
+                if(hasTag){
+                    postAddTags(item);
+                }
+            }
+        }
+
         vm.removeTag = function(removedChip){
 
-            var apiKeys = $.param({
+            var updatedInfo = '<md-toast class="mm-toast"><div class="md-toast-text" flex><i class="material-icons">done</i><div class="text"><div class="toast-succ">Success!</div><div class="succ-text">Tag updated successfully</div></div></div></md-toast>',
+                apiKeys = $.param({
                     reference_id : candidateId, 
                     candidate_id : vm.details.candidate_id,
                     id : removedChip.id
@@ -1205,6 +1263,11 @@
             .then(function (response) {
 
                 if (response.data.status_code == 200) {
+                    $mdToast.show({
+                       hideDelay: 3000,
+                       position: 'top right',
+                       template: updatedInfo
+                    });
                 }
                 else if (response.data.status_code == 400) {
                    $window.location = App.base_url + 'logout';
@@ -1212,21 +1275,6 @@
 
             });
 
-        }
-
-        vm.addTag = function(item) {
-            if(item){
-                vm.enableTagChips = false;
-                var hasTag = true;
-                angular.forEach(vm.selectedTags, function(tag, index){
-                    if(tag.tag_id == item.tag_id) {
-                        hasTag = false;
-                    }
-                });
-                if(hasTag){
-                    postAddTags(item);
-                }
-            }
         }
 
         vm.toogleTabs = function (id) {
@@ -1385,7 +1433,8 @@
 
         function postAddTags(selectedTag) {
 
-            var apiKeys = $.param({
+            var successInfo = '<md-toast class="mm-toast"><div class="md-toast-text" flex><i class="material-icons">done</i><div class="text"><div class="toast-succ">Success!</div><div class="succ-text">Tag added successfully</div></div></div></md-toast>',
+                apiKeys = $.param({
                     reference_id : candidateId, 
                     candidate_id : vm.details.candidate_id,
                     tag_id       : selectedTag.tag_id,
@@ -1403,7 +1452,12 @@
             .then(function (response) {
 
                 if (response.data.status_code == 200) {
-                    vm.selectedTags.push(response.data.data); 
+                    vm.details.candidate_tags.push(response.data.data); 
+                    $mdToast.show({
+                       hideDelay: 3000,
+                       position: 'top right',
+                       template: successInfo
+                    });
                 }
                 else if (response.data.status_code == 400) {
                    $window.location = App.base_url + 'logout';
@@ -1452,11 +1506,11 @@
                 referralStatusDialog.close();
         })
 
-
-
+        
         init();
 
-         
+
+
 
     }
 

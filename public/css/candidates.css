@@ -667,7 +667,7 @@
                   margin-top: -1px;
                   cursor: pointer; }
             .candidates .candidate-details .section md-card .details .add-tag .btn-add-tag {
-              margin-top: 0;
+              margin-top: 2px;
               border-radius: 20px;
               line-height: 20px;
               min-height: 20px;
@@ -943,7 +943,8 @@
                         margin: 0;
                         color: #959698; }
                       .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .container-mail .rt .time {
-                        color: #b3b3b5; }
+                        color: #b3b3b5;
+                        margin-right: 20px; }
                       .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .container-mail .rt i.material-icons {
                         position: absolute;
                         right: 0;
@@ -1210,5 +1211,29 @@
 .mm-arrow-spin.rotate {
   -webkit-transform: rotate(-90deg) !important;
   transform: rotate(-90deg) !important; }
+
+.mm-toast {
+  position: fixed; }
+  .mm-toast .md-toast-content {
+    padding: 0;
+    border-radius: 0;
+    height: 60px; }
+    .mm-toast .md-toast-content .md-toast-text {
+      background: white;
+      border-radius: 0; }
+      .mm-toast .md-toast-content .md-toast-text i.material-icons {
+        padding: 20px 18px;
+        float: left;
+        background: #0ba082;
+        font-size: 30px;
+        font-weight: 900; }
+      .mm-toast .md-toast-content .md-toast-text .text {
+        padding: 15px 15px 15px 78px;
+        color: #5b5b5c; }
+        .mm-toast .md-toast-content .md-toast-text .text .toast-succ {
+          color: #0ba082; }
+
+body.md-toast-animating {
+  overflow: auto !important; }
 
 /*# sourceMappingURL=candidates.css.map */

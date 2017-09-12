@@ -38,7 +38,7 @@
                                                 <span class="title">Choose Status</span>
                                                 <md-menu-item ng-repeat="newTalent in CandidateDetailsCtrl.newTalentList"> 
                                                     <md-button 
-                                                        ng-click="CandidateDetailsCtrl.selectedNewTalent=newTalent.label" 
+                                                        ng-click="CandidateDetailsCtrl.postPersonalStatus(newTalent)" 
                                                         ng-bind="newTalent.label" 
                                                         aria-label="{{newTalent.label}}">
                                                     </md-button>
@@ -98,7 +98,7 @@
 
                                 <div layout="row" class="add-tag">
                                     <div class="attendees tag-job">
-                                        <md-chips ng-model="CandidateDetailsCtrl.selectedTags" md-autocomplete-snap
+                                        <md-chips ng-model="CandidateDetailsCtrl.details.candidate_tags" md-autocomplete-snap
                                             md-require-match="true" class="sp" md-transform-chip="null" ng-class="{'disable-input':!CandidateDetailsCtrl.enableTagChips}" md-on-remove="CandidateDetailsCtrl.removeTag($chip)"
                                               >
                                             <md-autocomplete
@@ -138,7 +138,7 @@
         					<div class="title info">
         						JOB	DETAILS
         					</div>
-        					<div layout="column" class="details" ng-if="CandidateDetailsCtrl.details.current_company_name && CandidateDetailsCtrl.details.previous_company_name">
+        					<div layout="column" class="details" ng-if="CandidateDetailsCtrl.details.current_company_name || CandidateDetailsCtrl.details.previous_company_name">
         						<div layout="row" ng-if="CandidateDetailsCtrl.details.current_company_name">
         							<div flex="50" class="list">
         								<h5>CURRENT COMPANY</h5>
@@ -183,7 +183,7 @@
         					<div class="title edu">
         						EDUCATION
         					</div>
-        					<div layout="column" class="details" ng-if="CandidateDetailsCtrl.details.qualification && CandidateDetailsCtrl.details.certification">
+        					<div layout="column" class="details" ng-if="CandidateDetailsCtrl.details.qualification || CandidateDetailsCtrl.details.certification">
         						<div layout="row" ng-if="CandidateDetailsCtrl.details.qualification">
 		    						<div class="list">
 										<h5>Qualification</h5>
@@ -505,7 +505,7 @@
                                                                 <div layout="column">
                                                                     <div layout="row">
                                                                         <span class="head" ng-bind="list.subject">Application to EPI</span>
-                                                                        <flex>
+                                                                         <i flex></i>
                                                                         <span class="time" ng-bind="list.created_at">5 hours ago</span>
                                                                         <i class="material-icons mm-arrow-spin" ng-class="{'rotate' : !status.isCustomHeaderOpen}">keyboard_arrow_down</i>
                                                                     </div>
