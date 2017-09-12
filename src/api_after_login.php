@@ -2131,3 +2131,21 @@ $app->post('/get_candidate_tags',function ($request, $response, $args) use ($app
     return checkJsonResult( $jobList->loadCurl() );
 
 });
+
+//delete_candidate_tag
+$app->post('/delete_candidate_tag',function ($request, $response, $args) use ($app) {
+    
+    // dynamically Access Token, Company Details
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    // getting API endpoint from settings
+   $apiEndpoint = getapiEndpoint($this->settings, 'delete_candidate_tag');
+   
+    $jobList    = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    
+    return checkJsonResult( $jobList->loadCurl() );
+
+});

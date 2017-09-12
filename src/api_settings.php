@@ -382,6 +382,10 @@ return [
             'get_candidate_tags' =>[
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/get_candidate_tags'
+            ],
+            'delete_candidate_tag' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/delete_candidate_tag'
             ]
     ];
         
