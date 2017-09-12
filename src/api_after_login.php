@@ -2149,3 +2149,39 @@ $app->post('/delete_candidate_tag',function ($request, $response, $args) use ($a
     return checkJsonResult( $jobList->loadCurl() );
 
 });
+
+//add_candidate_personal_status
+$app->post('/add_candidate_personal_status',function ($request, $response, $args) use ($app) {
+    
+    // dynamically Access Token, Company Details
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    // getting API endpoint from settings
+   $apiEndpoint = getapiEndpoint($this->settings, 'add_candidate_personal_status');
+   
+    $jobList    = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    
+    return checkJsonResult( $jobList->loadCurl() );
+
+});
+
+//delete_candidate_tag
+$app->post('/get_candidate_personal_status',function ($request, $response, $args) use ($app) {
+    
+    // dynamically Access Token, Company Details
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    // getting API endpoint from settings
+   $apiEndpoint = getapiEndpoint($this->settings, 'get_candidate_personal_status');
+   
+    $jobList    = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    
+    return checkJsonResult( $jobList->loadCurl() );
+
+});

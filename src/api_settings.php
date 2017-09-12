@@ -386,6 +386,14 @@ return [
             'delete_candidate_tag' =>[
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/delete_candidate_tag'
+            ],
+            'add_candidate_personal_status' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/add_candidate_personal_status'
+            ],
+            'get_candidate_personal_status' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_candidate_personal_status'
             ]
     ];
         
