@@ -12,7 +12,7 @@
             .controller('FindResumeController', FindResumeController)
 
     CandidateController.$inject = ['App'];
-    CandidateDetailsController.$inject = ['$scope', '$state', '$http', '$q', '$timeout', '$window', '$stateParams', '$uibModal', 'CONFIG', 'CompanyDetails', 'App'];
+    CandidateDetailsController.$inject = ['$scope', '$state', '$http', '$q', '$timeout', '$window', '$stateParams', '$uibModal', '$mdToast', 'CONFIG', 'CompanyDetails', 'App'];
     ResumeRoomController.$inject = ['$state', '$window', '$uibModal', '$http', '$q', '$timeout', 'ajaxService', 'CompanyDetails', 'App'];
     UploadResumeController.$inject = ['$rootScope', '$scope', '$http', '$timeout', '$window', '$uibModal', 'App'];
     FindResumeController.$inject = ['$scope', '$http', '$q', '$timeout', '$filter', 'orderByFilter', '$window', 'CompanyDetails', 'App'];
@@ -712,7 +712,7 @@
     }
 
 
-    function CandidateDetailsController($scope, $state, $http, $q, $timeout, $window, $stateParams, $uibModal, CONFIG, CompanyDetails, App) {
+    function CandidateDetailsController($scope, $state, $http, $q, $timeout, $window, $stateParams, $uibModal, $mdToast, CONFIG, CompanyDetails, App) {
         
         var vm = this,
                 cancelerAttendees,
@@ -1055,7 +1055,7 @@
             if(ref.reference_id != candidateId) {
 
                 $state.transitionTo( 'app.candidates.details',
-                    { type:'ref', id : ref.reference_id },
+                    { type:'cdt', id : ref.reference_id },
                     { location: true, inherit: true, relative: $state.$current, notify: false }
                 ); 
 
@@ -1078,6 +1078,11 @@
                 vm.writeMail        = {};
                 vm.searchTextTagJob = null;
                 vm.selectedTagJobs  = [];
+
+                vm.showCommentsTab = true;
+                vm.showScheduleTab = true;
+                vm.showMailsTab    = true;
+                vm.showLinkTab     = true;
 
                 init(); 
             }
@@ -1182,13 +1187,45 @@
         }
 
         vm.removeTag = function(removedChip){
-            console.log(removedChip)
+
+            var apiKeys = $.param({
+                    reference_id : candidateId, 
+                    candidate_id : vm.details.candidate_id,
+                    id : removedChip.id
+                });
+
+            $http({
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method  : 'POST',
+                url     : App.base_url + 'delete_candidate_tag',
+                data    : apiKeys
+            })
+            .then(function (response) {
+
+                if (response.data.status_code == 200) {
+                }
+                else if (response.data.status_code == 400) {
+                   $window.location = App.base_url + 'logout';
+                }
+
+            });
+
         }
 
         vm.addTag = function(item) {
             if(item){
                 vm.enableTagChips = false;
-                postAddTags(item);
+                var hasTag = true;
+                angular.forEach(vm.selectedTags, function(tag, index){
+                    if(tag.tag_id == item.tag_id) {
+                        hasTag = false;
+                    }
+                });
+                if(hasTag){
+                    postAddTags(item);
+                }
             }
         }
 
@@ -1351,7 +1388,8 @@
             var apiKeys = $.param({
                     reference_id : candidateId, 
                     candidate_id : vm.details.candidate_id,
-                    tag_id       : selectedTag.id
+                    tag_id       : selectedTag.tag_id,
+                    tag_name     : selectedTag.tag_name
                 });
 
             $http({
@@ -1365,10 +1403,10 @@
             .then(function (response) {
 
                 if (response.data.status_code == 200) {
-                   vm.selectedTags.push(selectedTag); 
+                    vm.selectedTags.push(response.data.data); 
                 }
                 else if (response.data.status_code == 400) {
-                    $window.location = App.base_url + 'logout';
+                   $window.location = App.base_url + 'logout';
                 }
 
             });
@@ -1414,7 +1452,11 @@
                 referralStatusDialog.close();
         })
 
+
+
         init();
+
+         
 
     }
 

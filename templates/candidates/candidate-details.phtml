@@ -83,7 +83,18 @@
         								<span ng-if="CandidateDetailsCtrl.details.referred_by" class="bolder" ng-bind="CandidateDetailsCtrl.details.referred_by"></span>		
                                         <span ng-if="!CandidateDetailsCtrl.details.referred_by">--</span>
         							</div>
-        						</div>	
+        						</div>
+
+                                <div layout="row" ng-if="CandidateDetailsCtrl.referralsList | filter: { reference_id : '!'+CandidateDetailsCtrl.referralId }.length">
+                                    <div flex="50" class="list">
+                                        <h5>OTHER JOB APPLICATION</h5>
+                                        <div class="other-job" ng-repeat="ref in CandidateDetailsCtrl.referralsList | filter: { reference_id : '!'+CandidateDetailsCtrl.referralId }">
+                                            <span class="bolder current_job">{{ref.post_name}}, 
+                                                <i class="info" ng-bind="ref.referred_date"></i>
+                                            </span>    
+                                        </div>
+                                    </div>
+                                </div>	
 
                                 <div layout="row" class="add-tag">
                                     <div class="attendees tag-job">
@@ -95,11 +106,12 @@
                                                 md-selected-item="CandidateDetailsCtrl.selectedTagItem"
                                                 md-search-text="CandidateDetailsCtrl.searchTagText"
                                                 md-items="item in CandidateDetailsCtrl.querySearchAddTag(CandidateDetailsCtrl.searchTagText)"
-                                                md-item-text="item.post_name"
+                                                md-item-text="item.tag_name"
                                                 md-no-cache = "true"
                                                 ng-disabled="!CandidateDetailsCtrl.enableTagChips"
                                                 md-menu-class="autocomplete-attendees-template"
                                                 md-input-id = "tagJob" 
+                                                placeholder = "Enter Tag"
                                               >
                                             <md-item-template>
                                                 <span md-highlight-text="CandidateDetailsCtrl.searchTagText">{{item.tag_name}} </span>
@@ -214,7 +226,7 @@
                                                         <img class="pending" ng-src="{{CandidateDetailsCtrl.getActivityPic(list)}}" alt="pending">
                                                     </div>
                                                     <div class="rt">
-                                                        <p>{{list.activity_message}} <span ng-class="list.activity_status == 'interview' ? 'interview' : 'status'" ng-if="list.activity_status" ng-bind="list.activity_status"></span></p>
+                                                        <p ng-bind-html="list.activity_message"></p>
                                                         {{list.activity_by}}, <span class="time"> {{list.activity_on.indexOf('hour') > -1 ? 'about ' : ''}} {{list.activity_on}}</span>
                                                     </div>
                                                 </div>
@@ -227,7 +239,7 @@
                                 <uib-tab class="comment" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Comment" tooltip-placement="left">
                                     <div class="mm_down comment_edit">
                                         <h5 ng-click="CandidateDetailsCtrl.toogleTabs('showCommentsTab')">WRITE YOUR COMMENT <i class="material-icons mm-arrow-spin" ng-class="{'rotate' : CandidateDetailsCtrl.showCommentsTab}">keyboard_arrow_down</i></h5>
-                                        <div class="box" id="showCommentsTab">
+                                        <div class="box" id="showCommentsTab" style="border-bottom:1px solid #eaeaea">
                                             <textarea rows="4" name="comment" ng-model="CandidateDetailsCtrl.comment"  maxlength="500"></textarea>
                                             <div class="action">
                                                 <div class="pull-left" ng-if="CandidateDetailsCtrl.inProgressPostComment">
@@ -347,7 +359,7 @@
                                                         <input flex ng-model="searchTerm" id="search" name="sp" type="text"
                                                             placeholder="SEARCH FOR A TIME ZONE" class="demo-header-searchbox md-text">
                                                     </md-select-header>
-                                                    <md-optgroup label="vegetables">
+                                                    <md-optgroup label="lists">
                                                         <md-option ng-value="place.text" ng-repeat="place in CandidateDetailsCtrl.timeZone | filter: {text : searchTerm }">{{place.text}}</md-option>
                                                     </md-optgroup>
                                                 </md-select>
@@ -381,7 +393,7 @@
                                               <uib-accordion-heading>
                                                 <div class="container-mail">
                                                     <div class="lt">
-                                                        <img src="public/images/schedule.png" style="margin: 24px 16px;" alt="schedule">
+                                                        <img src="public/images/schedule.png" style="margin: 23px 16px;" alt="schedule">
                                                     </div>
                                                     <div class="rt" style="padding: 13px 14px">
                                                         <div class="clear-fix">
@@ -505,7 +517,7 @@
                                                                             <span class="ellipsis trunk">{{list.from_name}}</span>
                                                                         </b>
                                                                         <i flex></i>
-                                                                        <span style="margin-right:24px" 
+                                                                        <span class="to-mail" 
                                                                             tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="{{list.to_emailid}}" tooltip-placement="left"
                                                                             ><span>To:</span> 
                                                                             <span class="ellipsis trunk">{{list.to_name}}</span>
@@ -531,9 +543,8 @@
 
                                 <uib-tab class="link" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Link Candidate To Job" tooltip-placement="left">
                                     <div class="mm_down timeline_edit">
-                                        <h5></h5>
                                         <h5 ng-click="CandidateDetailsCtrl.toogleTabs('showLinkTab')">LINK CANDIDATE TO JOB<i class="material-icons mm-arrow-spin" ng-class="{'rotate' : CandidateDetailsCtrl.showLinkTab}">keyboard_arrow_down</i></h5>
-                                        <div class="box" id="showLinkTab">
+                                        <div class="box" id="showLinkTab" style="border-bottom:1px solid #eaeaea">
                                             <div class="attendees tag-job">
                                                 <!--placeholder value in css please check if you want to change -->
                                                 <md-chips ng-model="CandidateDetailsCtrl.selectedTagJobs" md-autocomplete-snap
@@ -562,7 +573,7 @@
                                                   </md-chip-template>
                                                 </md-chips>
                                                 <div class="error-spacer"></div>
-                                                <div ng-if="!CandidateDetailsCtrl.selectedTagJobs.length && CandidateDetailsCtrl.submittedTagJobs"  class="has-error-msg">Please select a Job.</div>
+                                                <div ng-if="!CandidateDetailsCtrl.selectedTagJobs.length && CandidateDetailsCtrl.submittedTagJobs"  class="has-error-msg">Please choose a Job.</div>
                                                 <img class="loader" ng-if="CandidateDetailsCtrl.inProgressJobsList" src="public/images/loader/blue-loader.gif">
                                             </div>
                                             <div class="action">
