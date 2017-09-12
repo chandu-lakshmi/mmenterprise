@@ -733,7 +733,6 @@
                 apiKeyCandidateDetails = { contact_id:candidateId };
 
         
-        vm.selectedNewTalent  = "New Talent";
         vm.newTalentList      = [{ label:'New Talent'}, { label:'Great Fit' }, { label:'Good Fit' }, { label:'Not Suitable' }, { label:'Employeed' }];
         vm.referralStatusList = ["New", "Reviewed", "Shortlisted", "Scheduled for Interview", "Not Suitable", "Selected", "Offered", "Offer Accepted", "On Hold", "Offer Rejected", "Confirmed to Join", "Hired", "Not Joined", "Joined"];
         vm.scheduleForList    = ["Face to Face", "Online Meeting", "Telephone"];
@@ -1049,8 +1048,8 @@
         }
 
         vm.postPersonalStatus = function(talent) {
-            
-            vm.selectedNewTalent = talent.label; 
+             
+            vm.details.candidate_status.status_name = talent.label; 
 
             var updatedInfo = '<md-toast class="mm-toast"><div class="md-toast-text" flex><i class="material-icons">done</i><div class="text"><div class="toast-succ">Success!</div><div class="succ-text">Status updated successfully</div></div></div></md-toast>',
                 apiKeys = $.param({
