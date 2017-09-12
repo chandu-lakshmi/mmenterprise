@@ -717,8 +717,10 @@
         var vm = this,
                 cancelerAttendees,
                 cancelerTagJobs,
+                cancelerAddTag,
                 prevSearchValue,
                 prevSearchValueJobs,
+                prevSearchValueAddTag,
                 apiKeyType    = $stateParams.type,
                 candidateId   = $stateParams.id,
                 activitiesType = {
@@ -764,6 +766,14 @@
         vm.submittedPostMail   = false;
         vm.responseMsgPostMail = null;
 
+        vm.selectedTags   = [];
+        vm.enableTagChips = false;
+        vm.inProgressSearchTagJobs = false;
+
+        vm.showCommentsTab = true;
+        vm.showScheduleTab = true;
+        vm.showMailsTab    = true;
+        vm.showLinkTab     = true;
 
         vm.querySearchAttendees = function(searchText) {
             
@@ -822,6 +832,37 @@
                 })
             } else{
                 prevSearchValueJobs = null;
+                return setTimeout(function(){});
+            }
+            
+        }
+
+        
+        vm.querySearchAddTag = function(searchText) {
+            if (prevSearchValueAddTag != searchText) {
+                if (cancelerAddTag) {
+                    cancelerAddTag.resolve();
+                }
+                
+                cancelerAddTag = $q.defer();
+                vm.inProgressSearchTagJobs = true;
+                
+                return $http({
+                    headers : {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                    },
+                    method  : 'POST',
+                    data    : $.param({tag_name: searchText}),
+                    url     : CONFIG.APP_DOMAIN + 'get_candidates_tags',
+                    timeout : cancelerAddTag.promise
+                })
+                .then(function (response) {
+                    prevSearchValueAddTag      = searchText; 
+                    vm.inProgressSearchTagJobs = false;
+                    return response.data.data;
+                })
+            } else{
+                prevSearchValueAddTag = null;
                 return setTimeout(function(){});
             }
             
@@ -991,6 +1032,8 @@
                     if (response.data.status_code == 200) {
                         vm.inProgressTagJobs   = false;
                         vm.submittedTagJobs    = false;
+                        vm.candidateSendMailsList.unshift(response.data.data.email);
+                        vm.candidateActivitiesList.unshift(response.data.data.timeline);
                         vm.responseMsgTagJobs  = response.data.message.msg[0];
                         $timeout(function(){
                             vm.searchTextTagJob   = null;
@@ -1010,7 +1053,17 @@
         vm.changeReferral = function(ref) {
             
             if(ref.reference_id != candidateId) {
-                
+
+                $state.transitionTo( 'app.candidates.details',
+                    { type:'ref', id : ref.reference_id },
+                    { location: true, inherit: true, relative: $state.$current, notify: false }
+                ); 
+
+                apiKeyType    = $stateParams.type;
+                candidateId   = ref.reference_id;
+                vm.referralId = ref.reference_id;
+                apiKeyCandidateDetails = { contact_id:candidateId };
+
                 vm.inProgressCandidateDetails = true;
                 vm.hasChangeReferral = true;
                 vm.submittedSchedule = false;
@@ -1121,6 +1174,28 @@
             });
         }
 
+        vm.toggleAddTag = function() {
+            vm.enableTagChips = true;
+            setTimeout(function(){
+                $('#tagJob').focus();
+            })
+        }
+
+        vm.removeTag = function(removedChip){
+            console.log(removedChip)
+        }
+
+        vm.addTag = function(item) {
+            if(item){
+                vm.enableTagChips = false;
+                postAddTags(item);
+            }
+        }
+
+        vm.toogleTabs = function (id) {
+            $("#" + id).slideToggle('slow');
+            vm[id] = !vm[id];
+        }
 
         function init() {
 
@@ -1187,17 +1262,13 @@
 
             return $q.all([candidateDetails, candidateActivities, candidateComments, candidateSentMails]).then(function (data) {
                 
-                vm.details                 =  data[0].data.data;
-                vm.candidateCommentsList   =  data[2].data.data;
-                vm.candidateSendMailsList  =  data[3].data.data;
-
-                if(data[1].data.status_code == 200){
-                    vm.candidateActivitiesList = data[1].data.data;
+                vm.details                 =  angular.copy(data[0].data.data);
+                vm.candidateActivitiesList =  angular.copy(data[1].data.data);
+                if(!data[1].data.data.length) {
+                    vm.responseMsgActivities = data[1].data.message.msg[0];
                 }
-                else if(data[1].data.status_code == 403) {
-                    vm.candidateActivitiesList =  [];
-                    vm.responseMsgActivities   =  data[1].data.message.msg[0];
-                }
+                vm.candidateCommentsList   =  angular.copy(data[2].data.data);
+                vm.candidateSendMailsList  =  angular.copy(data[3].data.data);
 
             }, function() {
                 $window.location = App.base_url + 'logout';
@@ -1233,7 +1304,7 @@
                 data    : $.param({ reference_id : candidateId, candidate_id : vm.details.candidate_id })
             }).then(function (response) {
                 if (response.status == 200) {
-                    vm.writeMailSubjectList = response.data.data;
+                    vm.writeMailSubjectList = angular.copy(response.data.data);
                 }
                 else if (response.data.status_code == 400) {
                     $window.location = App.base_url + 'logout';
@@ -1249,7 +1320,7 @@
                 data    : $.param({ reference_id : candidateId})
             }).then(function (response) {
                 if (response.status == 200) {
-                    vm.referralsList = response.data.data;
+                    vm.referralsList = angular.copy(response.data.data);
                 }
                 else if (response.data.status_code == 400) {
                     $window.location = App.base_url + 'logout';
@@ -1266,11 +1337,40 @@
                 data    : $.param({ reference_id : candidateId, candidate_id : vm.details.candidate_id })
             }).then(function (response) {
                 if (response.status == 200) {
-                    vm.candidateSchedulesList = response.data.data;
+                    vm.candidateSchedulesList = angular.copy(response.data.data);
                 }
                 else if (response.data.status_code == 400) {
                     $window.location = App.base_url + 'logout';
                 }
+            });
+
+        }
+
+        function postAddTags(selectedTag) {
+
+            var apiKeys = $.param({
+                    reference_id : candidateId, 
+                    candidate_id : vm.details.candidate_id,
+                    tag_id       : selectedTag.id
+                });
+
+            $http({
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method  : 'POST',
+                url     : App.base_url + 'add_candidate_tags',
+                data    : apiKeys
+            })
+            .then(function (response) {
+
+                if (response.data.status_code == 200) {
+                   vm.selectedTags.push(selectedTag); 
+                }
+                else if (response.data.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+
             });
 
         }
@@ -1307,6 +1407,7 @@
             });
 
         });
+
 
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if(referralStatusDialog)

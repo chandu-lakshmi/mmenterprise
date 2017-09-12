@@ -331,7 +331,7 @@ $background : #eeeff1;
                     ul.list{padding-left: 16px;
                         li{margin-bottom: 12px;}
                     }
-                    .add-tag{
+                    .add-tag{min-height: 50px;
                         .list{padding: 0px;list-style: none;margin-bottom: 24px;
                             li{float:left;padding: 4px 8px;border: 1px solid #c3dce4;color: #8a8a8a;margin-right: 6px;
                                 i{vertical-align: middle;font-size: 16px;font-weight: 900;margin-top: -1px;cursor: pointer}
@@ -378,7 +378,12 @@ $background : #eeeff1;
                         }
                     }
                     .tab-content{clear: both;
-                        h5{margin:0;padding: 15px 10px 10px;color: #797979;font-weight: 700;border-bottom: 2px solid #e8e8e8;background: #fdfdff}
+                        h5{margin:0;padding: 15px 10px 10px;color: #797979;font-weight: 700;border-bottom: 2px solid #e8e8e8;background: #fdfdff;
+                            i{float: right;font-size: 34px;margin: -12px;cursor: pointer}
+                            .mm-arrow-spin{-webkit-transform: rotate(-90deg);transform: rotate(-90deg);
+                                &.rotate{-webkit-transform: rotate(0deg) !important;transform: rotate(0deg) !important}
+                            }
+                        }
                         .box{padding: 18px;border-bottom: 1px solid #e0e0e0;
                             .glyphicon{color: #a6a6a6;font-size: 16px;}
                             textarea{width: 100%;border: 1px solid #e0e0e0;outline: none;resize: none;font-size: 16px;padding: 10px;}
@@ -462,12 +467,14 @@ $background : #eeeff1;
                                                 }
                                             }
                                         }
+                                        b{white-space: nowrap;}
                                     }
-                                    .to{font-size: 14px;color: #000;
+                                    .to{font-size: 14px;color: #000;height: 10px;
                                         span{font-size: inherit;}
                                     }
                                     .panel-heading{padding: initial;}
                                     .panel-body{border-top:0;padding: 0}
+                                    .ellipsis.trunk{max-width: 90px;display: inline-block;vertical-align: middle;text-align: left}
                                 }
                             }
                         }
@@ -495,7 +502,7 @@ $background : #eeeff1;
                     .no-records{padding: 10px;margin: 50px;text-align: center;border: 1px solid #ccc;color: #808080;border-radius: 4px}
                 }
                 .tag-job{margin: 12px 0 20px !important;
-                    .md-chips:before{content: 'CHOOSE JOBS *' !important}
+                    .md-chips:before{content: 'CHOOSE A JOB*' !important}
                     .select-one{
                         .md-chips{box-shadow: none; 
                             .md-chip-content{max-width: 100%}
@@ -537,6 +544,28 @@ $background : #eeeff1;
                     }
                     .loader{width: 20px;height: 20px;position: absolute;right: 6px;bottom: 10px;}
                 }
+                .add-tag{
+                    .attendees{margin: 0 !important;
+                        .sp{
+                            .md-chips:before{content: '' !important}
+                            md-chips-wrap.md-chips{box-shadow: none;
+                                &.md-focused{box-shadow: none !important;
+                                    .md-chip-input-container{
+                                        box-shadow: 0 1px #208d6e;
+                                    }
+                                }
+                                .md-chip-input-container{width: 200px !important;box-shadow: 0 1px rgba(0,0,0,0.12);margin:0}
+                                md-chip{margin-top: 0;}
+                            }
+                        }
+                        .disable-input{
+                            .md-chip-input-container{display: none;}
+                        }
+                    }
+                    .loader{bottom: 25px;right: 0;}
+                    
+                }
+
             }
         }
     }
