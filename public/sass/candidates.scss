@@ -339,6 +339,7 @@ $background : #eeeff1;
                         }
                         .btn-add-tag{margin-top: 0;border-radius: 20px;line-height: 20px;min-height: 20px;padding: 0;max-height: 28px;border: 1px solid #0ba082;color: #0ba082}
                     }
+                    .other-job{line-height: 25px}
                 }
                 &.right{margin: 0;box-shadow: none;
                     .status_change{background: #0ba082;margin: 0;float: left;position: absolute;height: 46px;width: 129px;padding:0;
@@ -384,7 +385,7 @@ $background : #eeeff1;
                                 &.rotate{-webkit-transform: rotate(0deg) !important;transform: rotate(0deg) !important}
                             }
                         }
-                        .box{padding: 18px;border-bottom: 1px solid #e0e0e0;
+                        .box{padding: 18px;
                             .glyphicon{color: #a6a6a6;font-size: 16px;}
                             textarea{width: 100%;border: 1px solid #e0e0e0;outline: none;resize: none;font-size: 16px;padding: 10px;}
                             md-input-container{margin-bottom: 0;
@@ -430,9 +431,11 @@ $background : #eeeff1;
                                     &:last-child{border-color: transparent}
                                     .lt{width: 15%;background: #fafafa}
                                     .rt{width: 85%;padding: 12px 14px;line-height: 24px;font-size: 13px;
-                                        p{margin:0;font-size: 14px;}
+                                        p{margin:0;font-size: 14px;
+                                            b{color: #099478}
+                                        }
                                     }
-                                    .status{color: #099478}
+                                    /*.status{color: #099478}*/
                                     .interview{color: #314aa6}
                                     .time{color: #aaaaaa}
                                     .dot{font-size: 40px;vertical-align: middle;margin: 0 2px 0 10px}
@@ -445,6 +448,7 @@ $background : #eeeff1;
                             .panel-group{padding: initial;
                                 a:hover{color: initial}
                                 .panel-default{width: 100%;padding: initial;margin: 0;border-right: 0;border-left: 0;
+                                    &:not(:last-child){border-bottom:0;}
                                     span{font-size: initial;}
                                     .container-mail{overflow: hidden;
                                         .lt{width: 15%;background: #fafafa;float:left;
@@ -470,7 +474,9 @@ $background : #eeeff1;
                                         b{white-space: nowrap;}
                                     }
                                     .to{font-size: 14px;color: #000;height: 10px;
-                                        span{font-size: inherit;}
+                                        span{font-size: inherit;
+                                            &.to-mail{margin-right: 24px;white-space: nowrap}
+                                        }
                                     }
                                     .panel-heading{padding: initial;}
                                     .panel-body{border-top:0;padding: 0}
@@ -479,7 +485,7 @@ $background : #eeeff1;
                             }
                         }
                         .comment_edit{
-                            .box{padding: 16px 16px 10px;background: #fafafb;border-bottom: 1px solid #ddd;overflow: hidden;
+                            .box{padding: 16px 16px 10px;background: #fafafb;overflow: hidden;
                                 .mm-text-editor{border: 0;
                                     .ta-scroll-window.form-control{border: 1px solid #e0e0e0 !important;margin-bottom: 6px;padding: 10px;
                                         .ta-bind{padding: 0;color: #2e2e2e;font-size: 16px}
