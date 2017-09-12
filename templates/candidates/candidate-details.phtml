@@ -30,7 +30,7 @@
         								<h5 class="name">CANDIDATE NAME</h5>
                                         <md-menu class="talent" md-position-mode="target-left target">
                                             <md-button ng-click="$mdOpenMenu($event)">
-                                               <span>{{CandidateDetailsCtrl.details.candidate_status.status_name}} 
+                                               <span>{{CandidateDetailsCtrl.details.candidate_status.status_name || 'New Talent'}} 
                                                     <i class="material-icons">&#xE313;</i>
                                                </span> 
                                             </md-button>
@@ -38,6 +38,7 @@
                                                 <span class="title">Choose Status</span>
                                                 <md-menu-item ng-repeat="newTalent in CandidateDetailsCtrl.newTalentList"> 
                                                     <md-button 
+                                                        ng-style="{background : CandidateDetailsCtrl.tempGetColor(newTalent.label, CandidateDetailsCtrl.details.candidate_status.status_name)}"
                                                         ng-click="CandidateDetailsCtrl.postPersonalStatus(newTalent)" 
                                                         ng-bind="newTalent.label" 
                                                         aria-label="{{newTalent.label}}">
@@ -84,8 +85,7 @@
                                         <span ng-if="!CandidateDetailsCtrl.details.referred_by">--</span>
         							</div>
         						</div>
-
-                                <div layout="row" ng-if="CandidateDetailsCtrl.referralsList | filter: { reference_id : '!'+CandidateDetailsCtrl.referralId }.length">
+                                <div layout="row" ng-if="(CandidateDetailsCtrl.referralsList | filter: { reference_id : '!'+CandidateDetailsCtrl.referralId }).length">
                                     <div flex="50" class="list">
                                         <h5>OTHER JOB APPLICATION</h5>
                                         <div class="other-job" ng-repeat="ref in CandidateDetailsCtrl.referralsList | filter: { reference_id : '!'+CandidateDetailsCtrl.referralId }">
@@ -204,14 +204,15 @@
         				<md-card class="right">
                             <md-menu class="status_change" md-position-mode="target-left target">
                                 <md-button ng-click="$mdOpenMenu($event)">
-                                   <span title="{{CandidateDetailsCtrl.selectedStatus}}"> {{CandidateDetailsCtrl.details.referral_status}}</span>
+                                   <span title="{{CandidateDetailsCtrl.details.referral_status}}"> {{CandidateDetailsCtrl.details.referral_status}}</span>
                                    <i class="material-icons">&#xE313;</i>
                                    <img class="loader" ng-if="CandidateDetailsCtrl.inProgressUpdateReferralStatus" src="public/images/loader/dot.svg" alt="loading">
                                 </md-button>
                                 
-                                <md-menu-content width="3" " class="talent-menu"    >
+                                <md-menu-content width="3" " class="talent-menu">
                                     <md-menu-item ng-repeat="status in CandidateDetailsCtrl.referralStatusList">
-                                       <md-button aria-label="status" ng-bind="status" ng-click="CandidateDetailsCtrl.changeReferralStatus(status)"></md-button>
+                                       <md-button aria-label="status" ng-bind="status" 
+                                       ng-style="{background : CandidateDetailsCtrl.tempGetColor(status, CandidateDetailsCtrl.details.referral_status)}"></md-button>
                                     </md-menu-item>
                                 </md-menu-content>
                             </md-menu>
@@ -399,6 +400,7 @@
                                                         <div class="clear-fix">
                                                             <div layout="column">
                                                                 <div layout="row">
+                                                                    Scheduled&nbsp;
                                                                     <span class="head" style="color:initial" ng-bind="list.schedule_for"></span>
                                                                     <i class="material-icons mm-arrow-spin" ng-class="{'rotate' : !status.isCustomHeaderOpen}">keyboard_arrow_down</i>
                                                                 </div>
@@ -498,7 +500,7 @@
                                                   <uib-accordion-heading>
                                                     <div class="container-mail">
                                                         <div class="lt">
-                                                            <img tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Sent Mails" tooltip-placement="right" src="public/images/mail.png" alt="mail">
+                                                            <img tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Sent Mail" tooltip-placement="right" src="public/images/mail.png" alt="mail">
                                                         </div>
                                                         <div class="rt">
                                                             <div class="clear-fix">
@@ -613,7 +615,7 @@
                                               </span> 
                                            </md-button>
                                            <md-menu-content width="3" class="talent-menu">
-                                               <span class="title">Referred Jobs</span>
+                                               <span class="title">Assigned Jobs</span>
                                                <md-menu-item ng-repeat="referral in CandidateDetailsCtrl.referralsList"> 
                                                    <md-button ng-style="{background : (referral.reference_id == CandidateDetailsCtrl.referralId) ? 'rgba(158,158,158,0.2)' : '' }"
                                                        ng-click="CandidateDetailsCtrl.changeReferral(referral)" 

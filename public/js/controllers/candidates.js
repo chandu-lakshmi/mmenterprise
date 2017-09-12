@@ -1029,7 +1029,7 @@
                     if (response.data.status_code == 200) {
                         vm.inProgressTagJobs   = false;
                         vm.submittedTagJobs    = false;
-                        vm.candidateSendMailsList.unshift(response.data.data.email);
+                        vm.candidateSendMailsList.unshift(response.data.data.link_job);
                         vm.candidateActivitiesList.unshift(response.data.data.timeline);
                         vm.responseMsgTagJobs  = response.data.message.msg[0];
                         $timeout(function(){
@@ -1128,6 +1128,14 @@
             
             return "public/images/" + activitiesType[activity.activity_type];
 
+        }
+
+        vm.tempGetColor = function(text, selected) {
+            if(!!text && !!selected){
+                if(text.toUpperCase()==selected.toUpperCase()){
+                    return 'rgba(158,158,158,0.2)';
+                }
+            }
         }
 
         vm.stateGoFrom = function() {
