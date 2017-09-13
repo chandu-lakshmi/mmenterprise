@@ -810,7 +810,7 @@
                 
                 var apiKeys = $.param({
                         reference_id : candidateId, 
-                        candidate_id : vm.details.candidate_id
+                        candidate_id : vm.details.candidate_id,
                         search : searchText,
                     });
 
