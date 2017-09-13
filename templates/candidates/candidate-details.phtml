@@ -231,7 +231,7 @@
                                                         <p ng-bind-html="list.activity_message"></p>
                                                         {{list.activity_by}}, <span class="time"> {{list.activity_on.indexOf('hour') > -1 ? 'about ' : ''}} {{list.activity_on}}</span>
                                                         <p ng-if="list.activity_type=='candidate_status' && !!list.activity_comment" class="special-comment">
-                                                             <img src="public/images/comment.png">sdfasdfasdfasdfas 
+                                                             <img src="public/images/comment.png">{{list.activity_comment}} 
                                                         </p>
                                                     </div>
                                                 </div>
