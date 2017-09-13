@@ -92,7 +92,7 @@
             enableHorizontalScrollbar: 0,
             enableSorting: true,
             enableColumnMenus: false,
-            enableRowSelection: true,
+            enableRowSelection: false,
             enableRowHeaderSelection: false,
             enableFullRowSelection: true,
             data: 'data',
@@ -116,10 +116,7 @@
 
         vm.gridOptions.onRegisterApi = function (gridApi) {
             gridApi.selection.on.rowSelectionChanged(null, function (row) {
-                
                 updateRowSelection(row);
-                $state.go('app.candidates.details', { type:'ref', id : row.entity.id });
-
             });
 
             gridApi.selection.on.rowSelectionChangedBatch(null, function (rows) {
@@ -1207,7 +1204,7 @@
                 if (response.data.status_code == 200) {
                     vm.inProgressDialog          = false;
                     vm.details.referral_status   = tempReferralStatus;
-                    vm.responseMsgReferralStatus =  response.data.message.msg[0];
+                    //vm.responseMsgReferralStatus =  response.data.message.msg[0];
                     vm.inProgressUpdateReferralStatus = false;
                     $mdToast.show({
                        hideDelay: 3000,
@@ -1219,7 +1216,7 @@
                         if(referralStatusDialog)
                             referralStatusDialog.close();
                         vm.responseMsgReferralStatus = null;    
-                    }, 1000);
+                    });
                 }
                 else if (response.data.status_code == 400) {
                     $window.location = App.base_url + 'logout';

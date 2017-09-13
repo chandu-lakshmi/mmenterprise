@@ -463,9 +463,11 @@ $background : #eeeff1;
                                             .rt{background: #fff;text-align: initial;padding: 0;min-height: inherit;
                                                 p{margin: 14px 7px}
                                                 .params{list-style: none;padding: 0 16px;margin: 0;
-                                                    li{line-height: 40px;
+                                                    li{line-height: 40px;position: relative;
+                                                        img.person{width: 15px;float: left;position: absolute;top: 11px;left: 0;}
+                                                        .material-icons{left: -2px;font-size: 19px;} 
                                                         span{font-size: 14px;color: #777f8d;
-                                                            &.name{color: #000}
+                                                            &.name{color: #000;margin-left: 24px;}
                                                         }    
                                                     }
                                                 }

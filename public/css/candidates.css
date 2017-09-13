@@ -965,12 +965,23 @@
                           padding: 0 16px;
                           margin: 0; }
                           .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .container-mail.body .rt .params li {
-                            line-height: 40px; }
+                            line-height: 40px;
+                            position: relative; }
+                            .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .container-mail.body .rt .params li img.person {
+                              width: 15px;
+                              float: left;
+                              position: absolute;
+                              top: 11px;
+                              left: 0; }
+                            .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .container-mail.body .rt .params li .material-icons {
+                              left: -2px;
+                              font-size: 19px; }
                             .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .container-mail.body .rt .params li span {
                               font-size: 14px;
                               color: #777f8d; }
                               .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .container-mail.body .rt .params li span.name {
-                                color: #000; }
+                                color: #000;
+                                margin-left: 24px; }
                     .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .container-mail b {
                       white-space: nowrap; }
                   .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .to {

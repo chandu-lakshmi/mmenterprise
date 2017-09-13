@@ -212,7 +212,7 @@
                                 <md-menu-content width="3" " class="talent-menu">
                                     <md-menu-item ng-repeat="status in CandidateDetailsCtrl.referralStatusList">
                                        <md-button aria-label="status" ng-bind="status" 
-                                       ng-style="{background : CandidateDetailsCtrl.tempGetColor(status, CandidateDetailsCtrl.details.referral_status)}"></md-button>
+                                       ng-style="{background : CandidateDetailsCtrl.tempGetColor(status, CandidateDetailsCtrl.details.referral_status)}" ng-click="CandidateDetailsCtrl.changeReferralStatus(status)"></md-button>
                                     </md-menu-item>
                                 </md-menu-content>
                             </md-menu>
@@ -423,24 +423,31 @@
                                                             <span ng-bind="list.schedule_for"></span>
                                                         </li>
                                                         <li>
+                                                            <img src="public/images/attendies.png" class="person" alt="person">
                                                             <span class="name">Attendees: </span>
                                                             <span ng-bind="list.attendees"></span>
+                                                           <!--  <span>sdfasdfsdf!@gmail.com</span>
+                                                            <span style="color: #0ba082" class="mm-tip" tooltip-class="mm-slide-l-r" uib-tooltip="jayakrishna@mail.com, sp.gmail.com" tooltip-placement="left">+13 more</span> -->
                                                         </li>
                                                         <li>
+                                                            <img src="public/images/schedule.png" class="person" alt="person">
                                                             <span class="name">Interview Date: </span>
                                                             <span ng-bind="list.interview_date"></span>
                                                         </li>
                                                         <li>
+                                                            <i class="material-icons">access_time</i>
                                                             <span class="name">From: </span>
                                                             <span ng-bind="list.interview_from_time"></span>
                                                             <span class="name" style="margin-left: 16px">To: </span>
                                                             <span ng-bind="list.interview_to_time"></span>
                                                         </li>
                                                         <li>
+                                                            <i class="material-icons">location_on</i>
                                                             <span class="name">Location: </span>
                                                             <span ng-bind="list.interview_location"></span>
                                                         </li>
                                                         <li ng-if="list.notes">
+                                                            <img src="public/images/note.png" class="person" alt="person">
                                                             <span class="name">Notes: </span>
                                                             <span ng-bind="list.notes"></span>
                                                         </li>
