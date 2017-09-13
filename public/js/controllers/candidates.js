@@ -1303,8 +1303,9 @@
         }
 
         vm.getAttendeesTooltip = function(attendees) {
-            var data = angular.copy(attendees).shift();
-                return data;
+            var data = angular.copy(attendees);
+            data.shift();
+            return data.toString();
         }
 
 
