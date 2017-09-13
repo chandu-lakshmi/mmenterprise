@@ -1000,6 +1000,7 @@
 
         vm.postTagJobs = function() {
 
+            vm.errorResponse = false;
             vm.submittedTagJobs = true;
 
             if(vm.selectedTagJobs.length) {
@@ -1034,6 +1035,15 @@
                             vm.selectedTagJobs    = [];
                             vm.responseMsgTagJobs = null;
                         }, 2000);
+
+                    }
+                    else if (response.data.status_code == 403) {
+                        vm.selectedTagJobs    = [];
+                        vm.submittedTagJobs   = false;
+                        vm.searchTextTagJob   = null;
+                        vm.errorResponse      = true;
+                        vm.inProgressTagJobs  = false;
+                        vm.errorResponseMsgTagJobs  = response.data.message.msg[0];
                     }
                     else if (response.data.status_code == 400) {
                         $window.location = App.base_url + 'logout';

@@ -435,6 +435,9 @@ $background : #eeeff1;
                                         p{margin:0;font-size: 14px;
                                             b{color: #099478}
                                         }
+                                        p.special-comment{
+                                            img{ width: 20px;position: relative;top: 4px;float: left;margin-right: 6px}
+                                        }
                                     }
                                     /*.status{color: #099478}*/
                                     .interview{color: #314aa6}
@@ -456,7 +459,7 @@ $background : #eeeff1;
                                             img{width: 26px;margin: 22px 16px;}
                                         }
                                         .rt{width: 85%;padding: 12px 14px;float:right;background: #fff;min-height: 72px;line-height: 24px;position: relative;
-                                            .head{padding: 0;width: 55%;text-align: left;float:left;margin:0;color: #959698}
+                                            .head{padding: 0;width: 55%;text-align: left;float:left;margin:0;color: #959698;white-space: nowrap;}
                                             .time{color: #b3b3b5;margin-right: 20px;} 
                                             i.material-icons{position: absolute;right: 0;top: 10px;font-size: 30px;color: #808080;}   
                                         }

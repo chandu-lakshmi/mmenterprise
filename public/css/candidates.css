@@ -887,6 +887,12 @@
                     font-size: 14px; }
                     .candidates .candidate-details .section md-card.right .tab-content .timeline_edit .timeline-container .list .rt p b, .candidates .candidate-details .section md-card.right .tab-content .comment_edit .timeline-container .list .rt p b {
                       color: #099478; }
+                  .candidates .candidate-details .section md-card.right .tab-content .timeline_edit .timeline-container .list .rt p.special-comment img, .candidates .candidate-details .section md-card.right .tab-content .comment_edit .timeline-container .list .rt p.special-comment img {
+                    width: 20px;
+                    position: relative;
+                    top: 4px;
+                    float: left;
+                    margin-right: 6px; }
                 .candidates .candidate-details .section md-card.right .tab-content .timeline_edit .timeline-container .list .interview, .candidates .candidate-details .section md-card.right .tab-content .comment_edit .timeline-container .list .interview {
                   color: #314aa6; }
                 .candidates .candidate-details .section md-card.right .tab-content .timeline_edit .timeline-container .list .time, .candidates .candidate-details .section md-card.right .tab-content .comment_edit .timeline-container .list .time {
@@ -943,7 +949,8 @@
                         text-align: left;
                         float: left;
                         margin: 0;
-                        color: #959698; }
+                        color: #959698;
+                        white-space: nowrap; }
                       .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .container-mail .rt .time {
                         color: #b3b3b5;
                         margin-right: 20px; }
