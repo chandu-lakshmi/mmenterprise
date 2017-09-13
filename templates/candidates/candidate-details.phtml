@@ -204,7 +204,7 @@
         			<div flex="35">
         				<md-card class="right">
                             <md-menu class="status_change" md-position-mode="target-left target">
-                                <md-button ng-click="$mdOpenMenu($event)">
+                                <md-button ng-click="$mdOpenMenu($event)" ng-disabled="CandidateDetailsCtrl.inProgressUpdateReferralStatus">
                                    <span title="{{CandidateDetailsCtrl.details.referral_status}}"> {{CandidateDetailsCtrl.details.referral_status}}</span>
                                    <i class="material-icons">&#xE313;</i>
                                    <img class="loader" ng-if="CandidateDetailsCtrl.inProgressUpdateReferralStatus" src="public/images/loader/dot.svg" alt="loading">
