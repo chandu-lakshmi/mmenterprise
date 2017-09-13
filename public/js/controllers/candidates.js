@@ -1346,34 +1346,13 @@
                 data    : $.param(apiKeyCandidateDetails)
             });
 
-            var candidateComments = $http({
-                headers : {
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                },
-                method  : 'POST',
-                url     : App.base_url + 'get_candidate_comments',
-                data    : $.param(apiKeyCandidateDetails)
-            });
-
-            var candidateSentMails = $http({
-                headers : {
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                },
-                method  : 'POST',
-                url     : App.base_url + 'get_candidate_sent_emails',
-                data    : $.param(apiKeyCandidateDetails)
-            });
-
-            return $q.all([candidateDetails, candidateActivities, candidateComments, candidateSentMails]).then(function (data) {
+            return $q.all([candidateDetails, candidateActivities]).then(function (data) {
                 
                 vm.details                 =  angular.copy(data[0].data.data);
                 vm.candidateActivitiesList =  angular.copy(data[1].data.data);
                 if(!data[1].data.data.length) {
                     vm.responseMsgActivities = data[1].data.message.msg[0];
                 }
-                vm.candidateCommentsList   =  angular.copy(data[2].data.data);
-                vm.candidateSendMailsList  =  angular.copy(data[3].data.data);
-
             }, function() {
                 $window.location = App.base_url + 'logout';
             });
@@ -1447,6 +1426,43 @@
                     $window.location = App.base_url + 'logout';
                 }
             });
+
+            $http({
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method  : 'POST',
+                url     : App.base_url + 'get_candidate_comments',
+                data    : $.param(apiKeyCandidateDetails)
+            })
+            .then(function (response) {
+                if (response.status == 200) {
+                    vm.candidateCommentsList   =  angular.copy(response.data.data);
+                }
+                else if (response.data.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+
+            });
+
+            $http({
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method  : 'POST',
+                url     : App.base_url + 'get_candidate_sent_emails',
+                data    : $.param(apiKeyCandidateDetails)
+            })
+            .then(function (response) {
+                if (response.status == 200) {
+                    vm.candidateSendMailsList  =  angular.copy(response.data.data);
+                }
+                else if (response.data.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+
+            });
+
 
         }
 
