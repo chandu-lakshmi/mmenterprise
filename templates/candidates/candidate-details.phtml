@@ -467,7 +467,7 @@
                                                 <div class="box" >
                                                     <md-input-container class="md-block">
                                                         <label>TO</label>
-                                                        <input type="text" name="to" readonly ng-model="CandidateDetailsCtrl.writeMail.to">
+                                                        <input type="text" class="small-font" name="to" readonly ng-model="CandidateDetailsCtrl.writeMail.to">
                                                     </md-input-container>
                                                     
                                                     <md-input-container class="md-block select-box">
@@ -479,8 +479,8 @@
                                                         <div ng-if="write_mail_form.subject_id.$error.required && CandidateDetailsCtrl.submittedPostMail"  class="has-error-msg">Please select Subject.</div>
                                                     </md-input-container>
                                                     <md-input-container class="md-block animated slideInDown" style="margin-top: 18px" ng-if="CandidateDetailsCtrl.writeMail.subjectId == 1">
-                                                        <label>Please enter Subject</label>
-                                                        <input type="text" name="email_subject_custom" ng-model="CandidateDetailsCtrl.writeMail.subjectText" >
+                                                        <label>PLEASE ENTER SUBJECT</label>
+                                                        <input type="text" class="small-font" name="email_subject_custom" ng-model="CandidateDetailsCtrl.writeMail.subjectText" >
                                                     </md-input-container>
 
                                                 </div>

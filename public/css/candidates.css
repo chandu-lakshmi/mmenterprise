@@ -829,6 +829,8 @@
                     font-size: 16px; }
                 .candidates .candidate-details .section md-card.right .tab-content .box md-input-container.notes input {
                   font-size: 14px; }
+                .candidates .candidate-details .section md-card.right .tab-content .box md-input-container .small-font {
+                  font-size: 14px; }
               .candidates .candidate-details .section md-card.right .tab-content .box .date-time input {
                 box-shadow: none !important;
                 cursor: pointer; }
