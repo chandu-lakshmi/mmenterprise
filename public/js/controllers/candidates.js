@@ -808,6 +808,12 @@
                     cancelerTagJobs.resolve();
                 }
                 
+                var apiKeys = $.param({
+                        reference_id : candidateId, 
+                        candidate_id : vm.details.candidate_id
+                        search : searchText,
+                    });
+
                 cancelerTagJobs       = $q.defer();
                 vm.inProgressJobsList = true;
                 
@@ -816,7 +822,7 @@
                         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                     },
                     method  : 'POST',
-                    data    : $.param({search: searchText}),
+                    data    : apiKeys,
                     url     : CONFIG.APP_DOMAIN + 'get_candidate_tag_jobs_list',
                     timeout : cancelerTagJobs.promise
                 })
