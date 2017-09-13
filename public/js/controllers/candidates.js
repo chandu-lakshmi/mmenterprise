@@ -1023,11 +1023,10 @@
                     data    : apiKeys   
                 })
                 .then(function (response) {
-
                     if (response.data.status_code == 200) {
                         vm.inProgressTagJobs   = false;
                         vm.submittedTagJobs    = false;
-                        vm.candidateSendMailsList.unshift(response.data.data.link_job);
+                        vm.referralsList.unshift(response.data.data.link_job);
                         vm.candidateActivitiesList.unshift(response.data.data.timeline);
                         vm.responseMsgTagJobs  = response.data.message.msg[0];
                         $timeout(function(){
@@ -1295,6 +1294,12 @@
             $("#" + id).slideToggle('slow');
             vm[id] = !vm[id];
         }
+
+        vm.getAttendeesTooltip = function(attendees) {
+            var data = angular.copy(attendees).shift();
+                return data;
+        }
+
 
         function init() {
 

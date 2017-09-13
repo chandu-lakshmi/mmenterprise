@@ -1,14 +1,13 @@
 <div layout="column">
     <form name="referral_status"> 
         <div layout="row" class="head">
-            <span flex>Change Status</span>
+            <span flex>Add Comments</span>
             <i class="material-icons" ng-click="$dismiss()">close</i>
         </div>
         <div layout="row" class="sec">
-            <md-input-container class="md-block">
-                <label>Enter Some Comments</label>
-                <input type="text" name="comment" ng-model="CandidateDetailsCtrl.referralStatusComment" autocomplete="off">
-            </md-input-container>     
+            <textarea class="comment" placeholder="Enter Some Comments" name="comment" ng-model="CandidateDetailsCtrl.referralStatusComment" autocomplete="off">
+                
+            </textarea>
         </div>
         <div layout="row" class="foot">
             <span ng-if="CandidateDetailsCtrl.inProgressDialog" class="loading">

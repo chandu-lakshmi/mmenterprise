@@ -1059,6 +1059,13 @@
     padding: 16px;
     min-height: 170px;
 }
+.external-bucket .modal .modal-dialog .sec .comment{
+    resize: none;
+    width: 100%;
+    margin-bottom: 13px;
+    padding: 12px;
+    outline: none;
+}
 .external-bucket .modal .modal-dialog .foot{
     background: #eee;
     padding: 6px 12px;

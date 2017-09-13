@@ -430,9 +430,8 @@
                                                         <li>
                                                             <img src="public/images/attendies.png" class="person" alt="person">
                                                             <span class="name">Attendees: </span>
-                                                            <span ng-bind="list.attendees"></span>
-                                                           <!--  <span>sdfasdfsdf!@gmail.com</span>
-                                                            <span style="color: #0ba082" class="mm-tip" tooltip-class="mm-slide-l-r" uib-tooltip="jayakrishna@mail.com, sp.gmail.com" tooltip-placement="left">+13 more</span> -->
+                                                            <span ng-bind="list.attendees[0]"></span>
+                                                            <div style="text-align:right" ng-if="list.attendees.length > 1" ><span class="mm-tip" style="color: #0ba082" tooltip-class="mm-slide-l-r" uib-tooltip="{{CandidateDetailsCtrl.getAttendeesTooltip(list.attendees)}}" tooltip-placement="left">+{{list.attendees.length - 1}} more Attendees</span></div>
                                                         </li>
                                                         <li>
                                                             <img src="public/images/schedule.png" class="person" alt="person">
