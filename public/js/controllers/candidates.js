@@ -1219,6 +1219,7 @@
                 if (response.data.status_code == 200) {
                     vm.inProgressDialog          = false;
                     vm.details.referral_status   = tempReferralStatus;
+                    vm.referralStatusComment     = '';
                     //vm.responseMsgReferralStatus =  response.data.message.msg[0];
                     vm.inProgressUpdateReferralStatus = false;
                     $mdToast.show({
