@@ -24,8 +24,6 @@
                 $translateProvider.preferredLanguage('en');
             })
 
-            
-
     CampaignsController.$inject = ['$rootScope', '$http', '$window', 'contactBuckets', '$uibModal', 'App'];
     NewCampaignController.$inject = ['$scope', '$state', '$filter', '$uibModal', '$timeout', 'CampaignsData', '$http', 'CompanyDetails', 'App'];
     AllCampaignsController.$inject = ['$scope', '$state', '$http', '$rootScope', '$q', '$timeout', '$window', 'uiGridConstants', 'CampaignsData', 'userPermissions', '$stateParams', 'App'];
@@ -33,7 +31,7 @@
     EditCampaignsController.$inject = ['$scope','$timeout', '$filter', '$rootScope', '$state', '$uibModal', 'CompanyDetails', 'CampaignsData', 'contactBuckets', '$window', '$http', 'App'];
     CreateJobController.$inject = ['$scope', '$http', '$timeout', '$window', '$uibModalInstance', 'App'];
     SocialShareController.$inject = ['$scope', '$uibModalInstance', '$state', '$rootScope', 'CampaignsData', 'CompanyDetails', 'App']
-    FormBuilderController.$inject = ['$scope', '$http', '$q', '$uibModal'];
+    FormBuilderController.$inject = ['$scope', '$http', '$q', '$uibModal', '$mdDialog'];
 
     
 
@@ -1275,7 +1273,7 @@
 
     }
 
-    function FormBuilderController($scope, $http, $q, $uibModal) {
+    function FormBuilderController($scope, $http, $q, $uibModal, $mdDialog) {
         var vm = this;
 
         vm.builderReadOnly = false;
@@ -1323,6 +1321,26 @@
                     scope: $scope
                 });
             }
+        }
+
+        vm.showFormViewer = function(ev) {
+            $mdDialog.show({
+                controller: FormViewerController,
+                controllerAs: 'FormViewerCtrl',
+                templateUrl: 'templates/campaigns/form-viewer.phtml',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: false,
+                fullscreen: false,
+                locals: {
+                    RefDetails: vm.referralDetails
+                }
+            })
+            .then(function (answer) {
+                vm.status = 'You said the information was "' + answer + '".';
+            }, function () {
+                vm.status = 'You cancelled the dialog.';
+            });
         }
     }
 
@@ -1495,5 +1513,99 @@
         init();
 
     }
+        
+    function FormViewerController($scope, $rootScope, $http, $timeout, $q, $uibModal, $mdDialog, $state, RefDetails) {
+        var vm = this;
+        vm.companyName = 'Company1';
+        //RefDetails.company_name;
+        vm.formOptions = {
+            autoStart: false,
+            disableSubmit: false
+        };
+        vm.formStatus = {};
+        vm.formViewer = {};
+        vm.viewerReadOnly = false;
 
+        vm.responseData = {};
+        /*$http.get('response-data.json')
+         .then(function (res) {
+         vm.responseData = res.data;
+         });*/
+
+        vm.formData = null;
+        $http.get('mintmesh_survey.json')
+                .then(function (res) {
+                    vm.formData = res.data;
+                });
+
+        vm.templateData = null;
+        /*$http.get('template-data.json')
+         .then(function (res) {
+         vm.templateData = res.data;
+         });*/
+
+        vm.resetViewer = function () {
+            if (vm.formViewer.reset) {
+                vm.formViewer.reset();
+            }
+
+        };
+
+        vm.showResponseRata = false;
+        vm.saveResponse = function () {
+            return $timeout(function(){
+                vm.closeDialog();
+                $state.go('allCampaigns.all', {ref: $rootScope.$root.camp_ref,share_status:$stateParams.share_status});
+            }, 3000);
+            /*var d = $q.defer();
+            var res = confirm("Response save success?");
+            if (res) {
+                d.resolve(true);
+            } else {
+                d.reject();
+            }
+            return d.promise;*/
+
+        };
+
+        vm.showResponseModal = showResponseModal;
+        function showResponseModal(flag) {
+            if (flag) {
+                vm.modalInstance = $uibModal.open({
+                    animation: false,
+                    keyboard: false,
+                    backdrop: 'static',
+                    templateUrl: 'form_view_json.phtml',
+                    openedClass: "form-build",
+                    scope: $scope
+                });
+            }
+        }
+
+        /*vm.changeLanguage = function (languageKey) {
+         $translate.use(languageKey);
+         };*/
+
+        vm.getMerged = function () {
+            return mwFormResponseUtils.mergeFormWithResponse(vm.formData, vm.responseData);
+        };
+
+        vm.getQuestionWithResponseList = function () {
+            return mwFormResponseUtils.getQuestionWithResponseList(vm.formData, vm.responseData);
+        };
+        vm.getResponseSheetRow = function () {
+            return mwFormResponseUtils.getResponseSheetRow(vm.formData, vm.responseData);
+        };
+        vm.getResponseSheetHeaders = function () {
+            return mwFormResponseUtils.getResponseSheetHeaders(vm.formData, vm.headersWithQuestionNumber);
+        };
+
+        vm.getResponseSheet = function () {
+            return mwFormResponseUtils.getResponseSheet(vm.formData, vm.responseData, vm.headersWithQuestionNumber);
+        };
+
+        vm.closeDialog = function(){
+            $mdDialog.hide();
+        }
+    }
 }());

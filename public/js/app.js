@@ -181,6 +181,14 @@
                         stateId : null,
                     }
                 })
+                /*.state('app.referralDetails', {
+                    url: '/referral-details/:share_status?ref&flag&jc',
+                    templateUrl: App.base_url + 'templates/email-parser/referral-details.phtml',
+                    controller: 'ApplyJobController',
+                    controllerAs: 'ApplyJobCtrl',
+                    data: {pageTitle: ''},
+                    params: {status: '', share_status: 'web', jc: '0'}
+                })*/
                 $stateProvider.state('app.candidates.resumeRoom', {
                     url: '^/candidates/resume-room',
                     templateUrl: App.base_url + 'templates/candidates/resume-room.phtml',

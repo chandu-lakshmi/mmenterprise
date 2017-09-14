@@ -1,13 +1,96 @@
+<style type="text/css">
+    /* Form view */
+.angular-survey-template {
+  min-height: 218px !important;
+  height: 450px; }
+  .angular-survey-template .container {
+    width: 824px;
+    padding: 0; }
+    .angular-survey-template .container .close {
+      position: absolute;
+      right: 0;
+      padding: 30px;
+      top: 0;
+      opacity: 1; }
+    .angular-survey-template .container .head, .angular-survey-template .container .checkbox, .angular-survey-template .container hr {
+      display: none; }
+    .angular-survey-template .container .mw-form-viewer {
+      margin: 15px;
+      margin-top: 0;
+      padding: 0; }
+      .angular-survey-template .container .mw-form-viewer form {
+        overflow: hidden; }
+        .angular-survey-template .container .mw-form-viewer form .mw-title-page {
+          text-align: center;
+          margin-top: 96px; }
+          .angular-survey-template .container .mw-form-viewer form .mw-title-page .mw-form-description {
+            font-size: 22px; }
+        .angular-survey-template .container .mw-form-viewer form .begin-response-button, .angular-survey-template .container .mw-form-viewer form .begin-response-button:hover {
+          background: #24a678 !important;
+          color: #fff;
+          width: 116px;
+          height: 52px;
+          font-size: 22px;
+          border-radius: 0; }
+          .angular-survey-template .container .mw-form-viewer form .begin-response-button:hover, .angular-survey-template .container .mw-form-viewer form .begin-response-button:active, .angular-survey-template .container .mw-form-viewer form .begin-response-button:hover:hover, .angular-survey-template .container .mw-form-viewer form .begin-response-button:hover:active {
+            background: transparent;
+            outline: none;
+            box-shadow: none; }
+        .angular-survey-template .container .mw-form-viewer form .mw-form-question {
+          color: #808080;
+          padding-top: 24px; }
+          .angular-survey-template .container .mw-form-viewer form .mw-form-question .mw-question-text {
+            font-weight: normal;
+            font-size: 20px;
+            margin-bottom: 24px; }
+          .angular-survey-template .container .mw-form-viewer form .mw-form-question .mw-question-answers {
+            font-size: 18px; }
+        .angular-survey-template .container .mw-form-viewer form .mw-form-action-list {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          width: 100%;
+          background: #eee; }
+          .angular-survey-template .container .mw-form-viewer form .mw-form-action-list .btn {
+            padding: 6px 20px;
+            font-size: 16px;
+            margin: 16px; }
+          .angular-survey-template .container .mw-form-viewer form .mw-form-action-list .prev-page-button {
+            float: left;
+            color: gray; }
+            .angular-survey-template .container .mw-form-viewer form .mw-form-action-list .prev-page-button:hover, .angular-survey-template .container .mw-form-viewer form .mw-form-action-list .prev-page-button:active {
+              background: transparent;
+              outline: none;
+              box-shadow: none; }
+            .angular-survey-template .container .mw-form-viewer form .mw-form-action-list .prev-page-button i {
+              display: none; }
+          .angular-survey-template .container .mw-form-viewer form .mw-form-action-list .prev-page-button:hover {
+            background: #fff !important; }
+          .angular-survey-template .container .mw-form-viewer form .mw-form-action-list .next-page-button {
+            float: right;
+            background: #24a678;
+            opacity: 1;
+            color: #fff; }
+            .angular-survey-template .container .mw-form-viewer form .mw-form-action-list .next-page-button i {
+              display: none; }
+    .angular-survey-template .container .mw-pending-message {
+      color: #9E9E9E;
+      display: block;
+      text-align: center;
+      font-size: 24px;
+      line-height: 200px; }
+</style>
 <md-dialog class="angular-survey-template">
     <div class="container">
         <h2 style="text-align: center;color: #24a678;text-transform: uppercase;margin: 0;padding: 24px 10px;background: #eeeeee;" ng-bind="FormViewerCtrl.companyName"></h2>
-        <img src="../public/images/cross_icon.png" alt="close" class="close" ng-click="FormViewerCtrl.closeDialog($event)">
+        <img src="public/images/cross_icon.png" alt="close" class="close" ng-click="FormViewerCtrl.closeDialog($event)">
         <div layout="row" class="head">
             <span flex></span>
             <md-checkbox ng-model="FormViewerCtrl.viewerReadOnly" aria-label="Checkbox 1">Read only</md-checkbox>
             <md-checkbox ng-model="FormViewerCtrl.formOptions.autoStart" aria-label="Checkbox 1">Autostart</md-checkbox>
             <button class="btn mm-btn" type="button" ng-click="FormViewerCtrl.resetViewer()">Reset</button>
         </div>
+
         <mw-form-viewer ng-if="FormViewerCtrl.formData"
                         form-data="FormViewerCtrl.formData"
                         template-data="FormViewerCtrl.templateData" 

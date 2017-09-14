@@ -1,6 +1,11 @@
 <div class="angular-survey-template">
     <div class="container">
         <div layout="row" class="head">
+            
+            <button class="btn mm-btn" type="button" ng-click="FormBuilderCtrl.showFormViewer()">Questionnaire</button>
+
+            <button class="btn mm-btn" type="button" ng-click="FormBuilderCtrl.showFormViewer()">Questionnaire on NewTab</button>
+
             <span flex></span>
             <md-checkbox ng-model="FormBuilderCtrl.builderReadOnly" aria-label="Checkbox 1">Read only</md-checkbox>
             <button class="btn mm-btn" type="button" ng-click="FormBuilderCtrl.resetBuilder()">Reset</button>
