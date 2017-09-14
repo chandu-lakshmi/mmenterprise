@@ -618,6 +618,8 @@
                 color: #999; }
               .candidates .candidate-details .section md-card .details .list span.bolder {
                 font-weight: 600; }
+              .candidates .candidate-details .section md-card .details .list span.current-job {
+                color: #0ba082; }
               .candidates .candidate-details .section md-card .details .list span .info {
                 color: #818e95;
                 font-weight: normal; }
@@ -887,12 +889,6 @@
                     font-size: 14px; }
                     .candidates .candidate-details .section md-card.right .tab-content .timeline_edit .timeline-container .list .rt p b, .candidates .candidate-details .section md-card.right .tab-content .comment_edit .timeline-container .list .rt p b {
                       color: #099478; }
-                  .candidates .candidate-details .section md-card.right .tab-content .timeline_edit .timeline-container .list .rt p.special-comment img, .candidates .candidate-details .section md-card.right .tab-content .comment_edit .timeline-container .list .rt p.special-comment img {
-                    width: 20px;
-                    position: relative;
-                    top: 4px;
-                    float: left;
-                    margin-right: 6px; }
                 .candidates .candidate-details .section md-card.right .tab-content .timeline_edit .timeline-container .list .interview, .candidates .candidate-details .section md-card.right .tab-content .comment_edit .timeline-container .list .interview {
                   color: #314aa6; }
                 .candidates .candidate-details .section md-card.right .tab-content .timeline_edit .timeline-container .list .time, .candidates .candidate-details .section md-card.right .tab-content .comment_edit .timeline-container .list .time {

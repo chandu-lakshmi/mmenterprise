@@ -312,13 +312,10 @@ $background : #eeeff1;
                         }
                         span{color: #333;
                             &.bold{font-weight: 600;font-size: 16px}
-                            &.info{color: #999, }
+                            &.info{color: #999}
                             &.bolder{font-weight: 600}
-
-                            .info {
-                                color: #818e95;
-                                font-weight: normal;
-                            }
+                            &.current-job {color: #0ba082}
+                            .info { color: #818e95;font-weight: normal}
                         }  
                         social-sharing{
                             span{border-radius: 50%;width: 24px;height: 24px;
@@ -434,9 +431,6 @@ $background : #eeeff1;
                                     .rt{width: 85%;padding: 12px 14px;line-height: 24px;font-size: 13px;
                                         p{margin:0;font-size: 14px;
                                             b{color: #099478}
-                                        }
-                                        p.special-comment{
-                                            img{ width: 20px;position: relative;top: 4px;float: left;margin-right: 6px}
                                         }
                                     }
                                     /*.status{color: #099478}*/

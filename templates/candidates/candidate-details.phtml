@@ -12,6 +12,7 @@
         	<div layout="column">
         		<div layout="row">
         			<div flex="65">
+
         				<md-card>
         					<div class="title">
         						<span flex>PERSONAL INFO</span>
@@ -66,7 +67,7 @@
         							<div flex="50" class="list">
         								<h5>CITY/LOCATION</h5>
         								<span ng-bind="CandidateDetailsCtrl.details.location"></span>
-                                        <i ng-if="!CandidateDetailsCtrl.details.location">--</i>     		
+                                        <span ng-if="!CandidateDetailsCtrl.details.location">Not Available</span>     		
         							</div>
         							<div flex class="list">
         								<h5>SOCIAL CONNECT</h5>
@@ -76,8 +77,13 @@
 
         						<div layout="row">
         							<div flex="50" class="list">
-        								<h5>CURRENT JOB APPLICATION</h5>
-        								<span class="bolder current_job">{{CandidateDetailsCtrl.details.referred_job}}, <i class="info">{{CandidateDetailsCtrl.details.referred_at}}</i></span>		
+        								<h5>APPLIED FOR</h5>
+        								<span class="bolder current-job">{{CandidateDetailsCtrl.details.referred_job}}, <i class="info">{{CandidateDetailsCtrl.details.referred_at}}</i></span>
+                                        <div class="other-job" ng-repeat="ref in CandidateDetailsCtrl.referralsList | filter: { reference_id : '!'+CandidateDetailsCtrl.referralId }">
+                                            <span class="bolder">{{ref.post_name}}, 
+                                                <i class="info" ng-bind="ref.referred_date"></i>
+                                            </span>    
+                                        </div>		
         							</div>
         							<div flex class="list">
         								<h5>REFERRED BY</h5>	
@@ -85,16 +91,6 @@
                                         <span ng-if="!CandidateDetailsCtrl.details.referred_by">--</span>
         							</div>
         						</div>
-                                <div layout="row" ng-if="(CandidateDetailsCtrl.referralsList | filter: { reference_id : '!'+CandidateDetailsCtrl.referralId }).length">
-                                    <div flex="50" class="list">
-                                        <h5>OTHER JOB APPLICATION</h5>
-                                        <div class="other-job" ng-repeat="ref in CandidateDetailsCtrl.referralsList | filter: { reference_id : '!'+CandidateDetailsCtrl.referralId }">
-                                            <span class="bolder current_job">{{ref.post_name}}, 
-                                                <i class="info" ng-bind="ref.referred_date"></i>
-                                            </span>    
-                                        </div>
-                                    </div>
-                                </div>	
 
                                 <div layout="row" class="add-tag">
                                     <div class="attendees tag-job">
@@ -137,7 +133,7 @@
 
         				<md-card style="margin-top:20px">
         					<div class="title info">
-        						JOB	DETAILS
+        						EXPERIENCE
         					</div>
         					<div layout="column" class="details" ng-if="CandidateDetailsCtrl.details.current_company_name || CandidateDetailsCtrl.details.previous_company_name">
         						<div layout="row" ng-if="CandidateDetailsCtrl.details.current_company_name">
@@ -210,7 +206,7 @@
                                    <img class="loader" ng-if="CandidateDetailsCtrl.inProgressUpdateReferralStatus" src="public/images/loader/dot.svg" alt="loading">
                                 </md-button>
                                 
-                                <md-menu-content width="3" " class="talent-menu">
+                                <md-menu-content width="3" class="talent-menu">
                                     <md-menu-item ng-repeat="status in CandidateDetailsCtrl.referralStatusList">
                                        <md-button aria-label="status" ng-bind="status" 
                                        ng-style="{background : CandidateDetailsCtrl.tempGetColor(status, CandidateDetailsCtrl.details.referral_status)}" ng-click="CandidateDetailsCtrl.changeReferralStatus(status)"></md-button>
@@ -218,6 +214,7 @@
                                 </md-menu-content>
                             </md-menu>
                             <uib-tabset active="activeForm">
+
                                 <uib-tab class="timeline" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Timeline" tooltip-placement="left">
                                     <div class="mm_down timeline_edit">
                                         <h5>TIMELINE</h5>
@@ -229,10 +226,8 @@
                                                     </div>
                                                     <div class="rt">
                                                         <p ng-bind-html="list.activity_message"></p>
-                                                        {{list.activity_by}}, <span class="time"> {{list.activity_on.indexOf('hour') > -1 ? 'about ' : ''}} {{list.activity_on}}</span>
-                                                        <p ng-if="list.activity_type=='candidate_status' && !!list.activity_comment" class="special-comment">
-                                                             <img src="public/images/comment.png">{{list.activity_comment}} 
-                                                        </p>
+                                                        {{list.activity_by}}, 
+                                                        <span class="time"> {{list.activity_on.indexOf('hour') > -1 ? 'about ' : ''}} {{list.activity_on}}</span>
                                                     </div>
                                                 </div>
                                                 <div ng-if="!CandidateDetailsCtrl.candidateActivitiesList.length" ng-bind="CandidateDetailsCtrl.responseMsgActivities" class="no-records animated fadeIn"></div>
@@ -440,13 +435,11 @@
                                                         </li>
                                                         <li>
                                                             <i class="material-icons">access_time</i>
-                                                            <span class="name">From: </span>
-                                                            <span ng-bind="list.interview_from_time"></span>
-                                                            <span class="name" style="margin-left: 16px">To: </span>
-                                                            <span ng-bind="list.interview_to_time"></span>
+                                                            <span class="name">Time: </span>
+                                                            <span ng-bind="list.interview_from_time + ' - ' + list.interview_to_time"></span>
                                                         </li>
                                                         <li>
-                                                            <i class="material-icons">location_on</i>
+                                                            <img src="public/images/location.svg" class="person" alt="person">
                                                             <span class="name">Location: </span>
                                                             <span ng-bind="list.interview_location"></span>
                                                         </li>
@@ -640,6 +633,7 @@
                                        </md-menu>
                                     </uib-tab-heading>
                                 </uib-tab>
+
                             </uib-tabset>            
                         </md-card>
         			</div>
