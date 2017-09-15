@@ -381,102 +381,102 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
 }]);
 
 angular.module('mwFormViewer').directive('timer', function($timeout, $compile) {
-  return {
-    restrict: 'E',
-    transclude: true,
-    scope: {
-      interval: '=', //don't need to write word again, if property name matches HTML attribute name
-      startTimeAttr: '=?startTime', //a question mark makes it optional
-      countdownAttr: '=?countdown' //what unit?
-    },
-    //data-ng-if="hours||minutes||seconds" 
-    template: '<div style="color: #f00; font-size: 14px;">' +
-      'Time Remaining: {{ hours }}:{{ minutes }}:{{ seconds }}',
+    return {
+        restrict: 'E',
+        transclude: true,
+        scope: {
+            interval: '=', //do not need to write word again, if property name matches HTML attribute name
+            startTimeAttr: '=?startTime', //a question mark makes it optional
+            countdownAttr: '=?countdown' //what unit?
+        },
+        
+        template: '<div data-ng-if="hours||minutes||seconds" style="color: #f00; font-size: 14px;">' +
+            'Time Remaining: {{ hours }}:{{ minutes }}:{{ seconds }}',
 
-    link: function(scope, elem, attrs, $ctrl) {
-      //Properties
-      scope.startTime = scope.startTimeAttr ? new Date(scope.startTimeAttr) : new Date();
-      var countdown = (scope.countdownAttr && parseInt(scope.countdownAttr, 10) > 0) ? parseInt(scope.countdownAttr, 10) : 60; //defaults to 60 seconds
+        link: function(scope, elem, attrs, $ctrl) {
+            //Properties
+            scope.startTime = scope.startTimeAttr ? new Date(scope.startTimeAttr) : new Date();
+            var countdown = (scope.countdownAttr && parseInt(scope.countdownAttr, 10) > 0) ? parseInt(scope.countdownAttr, 10) : 60; //defaults to 60 seconds
 
-      function pad(d) {
-          return (d < 10) ? '0' + d.toString() : d.toString();
-      }
+            function pad(d) {
+                return (d < 10) ? '0' + d.toString() : d.toString();
+            }
 
-      function tick() {
+            function tick() {
 
-        //How many milliseconds have passed: current time - start time
-        scope.millis = new Date() - scope.startTime;
+                //How many milliseconds have passed: current time - start time
+                scope.millis = new Date() - scope.startTime;
 
-        if (countdown > 0) {
-          scope.millis = countdown * 1000;
-          countdown--;
-        } else if (countdown <= 0) {
-          scope.stop();
-            console.log('stopped');
+                if (countdown > 0) {
+                    scope.millis = countdown * 1000;
+                    countdown--;
+                } else if (countdown <= 0) {
+                    scope.stop();
+                    console.log('stopped');
+                }
+
+                scope.seconds = pad(Math.floor((scope.millis / 1000) % 60));
+                scope.minutes = pad(Math.floor(((scope.millis / (1000 * 60)) % 60)));
+                scope.hours = pad(Math.floor(((scope.millis / (1000 * 60 * 60)) % 24)));
+                scope.days = pad(Math.floor(((scope.millis / (1000 * 60 * 60)) / 24)));
+
+                //is this necessary? is there another piece of unposted code using this?
+                scope.$emit('timer-tick', {
+                    intervalId: scope.intervalId,
+                    millis: scope.millis
+                });
+
+                scope.$apply();
+
+            }
+
+            function resetInterval() {
+                if (scope.intervalId) {
+                    clearInterval(scope.intervalId);
+                    scope.intervalId = null;
+                }
+            }
+
+            scope.stop = function() {
+                scope.stoppedTime = new Date();
+                resetInterval();
+            }
+
+            //if not used anywhere, make it a regular function so you do not pollute the scope
+            function start() {
+                resetInterval();
+                scope.intervalId = setInterval(tick, scope.interval);
+            }
+
+            scope.resume = function() {
+                scope.stoppedTime = null;
+                scope.startTime = new Date() - (scope.stoppedTime - scope.startTime);
+                start();
+            }
+
+            start(); //start timer automatically
+
+            //Watches
+            scope.$on('time-start', function() {
+                console.log('started')
+                start();
+            });
+
+            scope.$on('timer-resume', function() {
+                scope.resume();
+            });
+
+            scope.$on('timer-stop', function() {
+                scope.stop();
+            });
+
+            //Cleanup
+            elem.on('$destroy', function() {
+                resetInterval();
+            });
+
         }
-
-        scope.seconds = pad(Math.floor((scope.millis / 1000) % 60));
-        scope.minutes = pad(Math.floor(((scope.millis / (1000 * 60)) % 60)));
-        scope.hours = pad(Math.floor(((scope.millis / (1000 * 60 * 60)) % 24)));
-        scope.days = pad(Math.floor(((scope.millis / (1000 * 60 * 60)) / 24)));
-
-        //is this necessary? is there another piece of unposted code using this?
-        scope.$emit('timer-tick', {
-          intervalId: scope.intervalId,
-          millis: scope.millis
-        });
-
-        scope.$apply();
-
-      }
-
-      function resetInterval() {
-        if (scope.intervalId) {
-          clearInterval(scope.intervalId);
-          scope.intervalId = null;
-        }
-      }
-
-      scope.stop = function() {
-        scope.stoppedTime = new Date();
-        resetInterval();
-      }
-
-      //if not used anywhere, make it a regular function so you don't pollute the scope
-      function start() {
-        resetInterval();
-        scope.intervalId = setInterval(tick, scope.interval);
-      }
-
-      scope.resume = function() {
-        scope.stoppedTime = null;
-        scope.startTime = new Date() - (scope.stoppedTime - scope.startTime);
-        start();
-      }
-
-      start(); //start timer automatically
-
-      //Watches
-      scope.$on('time-start', function() {
-        console.log('started')
-        start();
-      });
-
-       scope.$on('timer-resume', function() {
-         scope.resume();
-       });
-
-      scope.$on('timer-stop', function() {
-        scope.stop();
-      });
-
-      //Cleanup
-      elem.on('$destroy', function() {
-        resetInterval();
-      });
-
-    }
-  };
+    };
 });
             
 

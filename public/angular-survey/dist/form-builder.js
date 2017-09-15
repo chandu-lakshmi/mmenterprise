@@ -951,11 +951,9 @@ angular.module('mwFormBuilder').directive('mwFormPageBuilder', ["$rootScope", fu
                 $rootScope.$broadcast('mwForm.pageEvents.pageNameChanged', {page: ctrl.formPage});
             };
 
-
-
             ctrl.addElement = function(type){
-                if(!type){
 
+                if(!type){
                     type=mwFormBuilderOptions.elementTypes[0];
                 }
                 var element = createEmptyElement(type, ctrl.formPage.elements.length + 1);

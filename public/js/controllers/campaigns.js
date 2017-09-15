@@ -1332,6 +1332,7 @@
                 targetEvent: ev,
                 clickOutsideToClose: false,
                 fullscreen: false,
+                escapeToClose: false,
                 locals: {
                     RefDetails: vm.referralDetails
                 }
