@@ -380,105 +380,56 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
     };
 }]);
 
-angular.module('mwFormViewer').directive('timer', function($timeout, $compile) {
+/* MM-Questionnaire timer directive */
+angular.module('mwFormViewer').directive('mmTimer', function($interval) {
     return {
         restrict: 'E',
         transclude: true,
         scope: {
-            interval: '=', //do not need to write word again, if property name matches HTML attribute name
-            startTimeAttr: '=?startTime', //a question mark makes it optional
-            countdownAttr: '=?countdown' //what unit?
+            initialCountdown: '=?initialCountdown'
         },
-        
-        template: '<div data-ng-if="hours||minutes||seconds" style="color: #f00; font-size: 14px;">' +
-            'Time Remaining: {{ hours }}:{{ minutes }}:{{ seconds }}',
-
-        link: function(scope, elem, attrs, $ctrl) {
-            //Properties
-            scope.startTime = scope.startTimeAttr ? new Date(scope.startTimeAttr) : new Date();
-            var countdown = (scope.countdownAttr && parseInt(scope.countdownAttr, 10) > 0) ? parseInt(scope.countdownAttr, 10) : 60; //defaults to 60 seconds
-
-            function pad(d) {
-                return (d < 10) ? '0' + d.toString() : d.toString();
-            }
-
-            function tick() {
-
-                //How many milliseconds have passed: current time - start time
-                scope.millis = new Date() - scope.startTime;
-
-                if (countdown > 0) {
-                    scope.millis = countdown * 1000;
-                    countdown--;
-                } else if (countdown <= 0) {
-                    scope.stop();
-                    console.log('stopped');
-                }
-
-                scope.seconds = pad(Math.floor((scope.millis / 1000) % 60));
-                scope.minutes = pad(Math.floor(((scope.millis / (1000 * 60)) % 60)));
-                scope.hours = pad(Math.floor(((scope.millis / (1000 * 60 * 60)) % 24)));
-                scope.days = pad(Math.floor(((scope.millis / (1000 * 60 * 60)) / 24)));
-
-                //is this necessary? is there another piece of unposted code using this?
-                scope.$emit('timer-tick', {
-                    intervalId: scope.intervalId,
-                    millis: scope.millis
-                });
-
-                scope.$apply();
-
-            }
-
-            function resetInterval() {
-                if (scope.intervalId) {
-                    clearInterval(scope.intervalId);
-                    scope.intervalId = null;
-                }
-            }
-
-            scope.stop = function() {
-                scope.stoppedTime = new Date();
-                resetInterval();
-            }
-
-            //if not used anywhere, make it a regular function so you do not pollute the scope
-            function start() {
-                resetInterval();
-                scope.intervalId = setInterval(tick, scope.interval);
-            }
-
-            scope.resume = function() {
-                scope.stoppedTime = null;
-                scope.startTime = new Date() - (scope.stoppedTime - scope.startTime);
-                start();
-            }
-
-            start(); //start timer automatically
-
-            //Watches
-            scope.$on('time-start', function() {
-                console.log('started')
-                start();
-            });
-
-            scope.$on('timer-resume', function() {
-                scope.resume();
-            });
-
-            scope.$on('timer-stop', function() {
-                scope.stop();
-            });
-
-            //Cleanup
-            elem.on('$destroy', function() {
-                resetInterval();
-            });
-
-        }
-    };
-});
+        template: 'Time Remaining: {{countdown | secondsToDateTime | date:"HH:mm:ss"}}',
+        link: function($scope, elem, attrs) {
+            var intervalId;
             
+            $scope.counter = 0;
+            $scope.countdown = $scope.initialCountdown;
+
+            $scope.timer = function(){
+                var startTime = new Date();
+                intervalId = $interval(function(){
+                    var actualTime = new Date();
+                    $scope.counter = Math.floor((actualTime - startTime) / 1000);
+                    $scope.countdown = $scope.initialCountdown - $scope.counter;
+                }, 1000);
+            };
+
+            $scope.$watch('countdown', function(countdown){
+                if (countdown === 0){
+                    $scope.stop();
+                }
+            });
+
+            $scope.start = function(){
+                $scope.timer();
+            };
+          
+            $scope.stop = function(){
+                $interval.cancel(intervalId);
+                console.log('stopped')
+            };
+            $scope.timer();  
+        }
+    }
+});
+
+/* Filters seconds to date-tie format - Using for MM-Questionnaire timer */
+angular.module('mwFormViewer').filter('secondsToDateTime', [function() {
+    return function(seconds) {
+        return new Date(1970, 0, 1).setSeconds(seconds);
+    };
+}]);
+
 
 angular.module('mwFormViewer').factory("FormQuestionId", function(){
     var id = 0;

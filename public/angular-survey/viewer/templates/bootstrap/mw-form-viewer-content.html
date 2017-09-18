@@ -11,7 +11,9 @@
         </div>
 
         <div class="mw-form-page" ng-if="ctrl.currentPage">
-            <timer interval="1000" style="text-align: right;" countdown="120"></timer>
+            
+            <!-- <timer interval="1000" style="text-align: right;" countdown="1200"></timer> -->
+            <mm-timer initial-countdown="100" style="color: #f00; font-size: 14px;text-align: right; float: right; clear: both;"></mm-timer>  
 
             <!-- <label>Timer with timeout: {{timerWithTimeout | hhmmss}}</label> -->
             <h2 class="mw-page-title" ng-if="ctrl.currentPage.namedPage && ctrl.currentPage.name">{{ctrl.currentPage.name}}</h2>

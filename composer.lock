@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "38291c737666ddcd6d39d21f9394ef33",
+    "content-hash": "4ba243708f2996f3e00c5084d38652a1",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -35,7 +35,7 @@
             ],
             "description": "Promoting the interoperability of container objects (DIC, SL, etc.)",
             "homepage": "https://github.com/container-interop/container-interop",
-            "time": "2017-02-14 19:40:03"
+            "time": "2017-02-14T19:40:03+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -113,7 +113,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2017-06-19 01:22:40"
+            "time": "2017-06-19T01:22:40+00:00"
         },
         {
             "name": "nikic/fast-route",
@@ -156,11 +156,10 @@
                 "router",
                 "routing"
             ],
-            "time": "2017-01-19 11:35:12"
+            "time": "2017-01-19T11:35:12+00:00"
         },
         {
             "name": "pimple/pimple",
-<<<<<<< Updated upstream
             "version": "v3.2.2",
             "source": {
                 "type": "git",
@@ -171,18 +170,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/silexphp/Pimple/zipball/4d45fb62d96418396ec58ba76e6f065bca16e10a",
                 "reference": "4d45fb62d96418396ec58ba76e6f065bca16e10a",
-=======
-            "version": "v3.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/silexphp/Pimple.git",
-                "reference": "279b56046fb368deacf77e2f8f3bdcea45cc367a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/silexphp/Pimple/zipball/279b56046fb368deacf77e2f8f3bdcea45cc367a",
-                "reference": "279b56046fb368deacf77e2f8f3bdcea45cc367a",
->>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -195,11 +182,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-<<<<<<< Updated upstream
                     "dev-master": "3.2.x-dev"
-=======
-                    "dev-master": "3.1.x-dev"
->>>>>>> Stashed changes
                 }
             },
             "autoload": {
@@ -223,11 +206,7 @@
                 "container",
                 "dependency injection"
             ],
-<<<<<<< Updated upstream
-            "time": "2017-07-23 07:32:15"
-=======
-            "time": "2017-07-03 14:06:46"
->>>>>>> Stashed changes
+            "time": "2017-07-23T07:32:15+00:00"
         },
         {
             "name": "psr/container",
@@ -276,7 +255,7 @@
                 "container-interop",
                 "psr"
             ],
-            "time": "2017-02-14 16:28:37"
+            "time": "2017-02-14T16:28:37+00:00"
         },
         {
             "name": "psr/http-message",
@@ -326,7 +305,7 @@
                 "request",
                 "response"
             ],
-            "time": "2016-08-06 14:39:51"
+            "time": "2016-08-06T14:39:51+00:00"
         },
         {
             "name": "psr/log",
@@ -373,7 +352,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-10-10 12:19:37"
+            "time": "2016-10-10T12:19:37+00:00"
         },
         {
             "name": "slim/php-view",
@@ -422,7 +401,7 @@
                 "template",
                 "view"
             ],
-            "time": "2016-10-11 07:43:08"
+            "time": "2016-10-11T07:43:08+00:00"
         },
         {
             "name": "slim/slim",
@@ -493,7 +472,7 @@
                 "micro",
                 "router"
             ],
-            "time": "2017-03-19 17:55:20"
+            "time": "2017-03-19T17:55:20+00:00"
         }
     ],
     "packages-dev": [],
