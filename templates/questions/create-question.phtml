@@ -1,0 +1,117 @@
+<div class="questions test">
+	<div layout="column" class="container-box">
+		<div class="create-question">
+
+			<div class="header">
+				<div class="container">
+					<h4 class="title">Create Question</h4>
+				</div>
+			</div>
+
+			<div class="section">
+				<div class="container">
+					<div layout="row" class="list first">
+						<md-input-container flex="35" class="md-block select-box">
+							<label style="display:none">Select a question type?</label>
+							<md-select name="campaign_type" ng-model="CreateTestCtrl.campDetails.campaign_type" required ng-class="{'error-border':campaignDetails.campaign_type.$invalid && CreateTestCtrl.errCondcampaignDetails}">
+								<md-option ng-repeat="type in CreateQuestionCtrl.questionTypes" ng-value="type">{{type}}</md-option>
+							</md-select>
+							<div class="error-spacer"></div>
+							<div ng-if="campaignDetails.campaign_type.$error.required && CreateTestCtrl.errCondcampaignDetails"  class="has-error-msg">Please select Campaign Type.</div>
+						</md-input-container>
+					</div>
+					<div layout="row" class="list">
+						<div layout="column" flex>
+							<div layout="row">
+								<md-input-container flex class="md-block full-box">
+									<label>Question</label>
+									<input type="text" name="campaign_name" ng-model="NewCampaignCtrl.campDetails.campaign_name" required ng-class="{'has-error-border':campaignDetails.campaign_name.$invalid && NewCampaignCtrl.errCondcampaignDetails}">
+									<div ng-if="campaignDetails.campaign_name.$error.required && NewCampaignCtrl.errCondcampaignDetails" class="has-error-msg">Please enter Campaign Name.</div>
+								</md-input-container>
+							</div>
+							<div layout="row" class="question-desc">
+								<md-input-container flex class="md-block full-box">
+									<label>Question Description</label>
+									<textarea ng-model="user.biography" md-select-on-focus></textarea>
+								</md-input-container>
+							</div>
+							<div layout="row" class="question-desc">
+								<md-input-container flex="35" class="md-block full-box">
+									<label>Score</label>
+									<input type="text" name="campaign_name" ng-model="NewCampaignCtrl.campDetails.campaign_name" required ng-class="{'has-error-border':campaignDetails.campaign_name.$invalid && NewCampaignCtrl.errCondcampaignDetails}">
+									<div ng-if="campaignDetails.campaign_name.$error.required && NewCampaignCtrl.errCondcampaignDetails" class="has-error-msg">Please enter Campaign Name.</div>
+								</md-input-container>
+							</div>
+							<div layout="row" class="tags">
+                        <!--placeholder value in css please check if you want to change -->
+								<md-chips flex ng-model="CreateQuestionCtrl.selectedTags" md-autocomplete-snap
+											md-require-match="true" 
+											ng-class="{'active' : (!!CreateQuestionCtrl.selectedTags.length || !!CreateQuestionCtrl.searchText.length), 'attendees-required' : !CreateQuestionCtrl.schedule.attendees.length && CreateQuestionCtrl.submittedSchedule }"
+												>
+										<md-autocomplete
+											md-selected-item="CreateQuestionCtrl.selectedItem"
+											md-search-text="CreateQuestionCtrl.searchText"
+											md-items="item in CreateQuestionCtrl.tags"
+											md-item-text="item.emailid"
+											md-no-cache = "true"
+											md-menu-class="autocomplete-attendees-template"
+										>
+										<md-item-template>
+											<span md-highlight-text="CreateQuestionCtrl.searchText">{{item.name}} </span>
+										</md-item-template>
+										<md-not-found>
+											<div class="not_found">No Tags found</div>
+										</md-not-found>
+
+									</md-autocomplete>
+									<md-chip-template>
+										<span>
+										<strong style="text-transform: capitalize">{{$chip.name}}</strong>
+										</span>
+									</md-chip-template>
+								</md-chips>
+							</div>
+
+						</div>
+						<i flex="5"></i>
+						<div layout="column" flex style="position:relative">
+							<span class="text-opts">Answer Options</span>
+							<div layout="row">
+								<md-radio-group ng-model="data.group1" flex>
+									<div layout="column">
+										
+										<div layout="row" ng-repeat="answerOpts in CreateQuestionCtrl.answerOptionsList" ng-if="CreateQuestionCtrl.showAnswerOptions > $index">
+											<div flex="10" class="left">
+												<md-radio-button  aria-label="answerOpts.label" value="{{answerOpts.label}}"> {{answerOpts.label}}</md-radio-button>
+											</div>
+											<div flex="90">
+												<md-input-container flex class="md-block full-box">
+													<input type="text"  aria-label="answerOpts.label" name="campaign_name" ng-model="NewCampaignCtrl.campDetails.campaign_name">
+													<div ng-if="campaignDetails.campaign_name.$error.required && NewCampaignCtrl.errCondcampaignDetails" class="has-error-msg">Please enter Campaign Name.</div>
+												</md-input-container>
+											</div>
+										</div>
+
+										<div layout="row">
+											<md-button class="action-add-opts" ng-class="{ 'disable-cursor' : CreateQuestionCtrl.showAnswerOptions > 5}" ng-click="CreateQuestionCtrl.addAnswerOption()" ng-disabled="CreateQuestionCtrl.showAnswerOptions > 5">+ADD OPTION</md-button>
+										</div>
+									</div>
+								</md-radio-group>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="footer">
+				<div layout="row">
+					<i flex></i>
+					<md-button ui-sref="app.assessmentCreateTest" class="md-raised action">SAVE QUESTIONS</md-button>
+					<span class="or"> or </span>
+					<md-button ui-sref="app.assessmentCreateTest" class="md-raised action add-add-new">ADD & ADD ANOTHER</md-button>
+					<i flex></i>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

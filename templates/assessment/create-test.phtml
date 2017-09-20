@@ -1,0 +1,71 @@
+<div class="assessment test">
+	<div layout="column" class="container-box">
+		<div class="create-test">
+			<div class="header">
+				<div class="container">
+					<h4 class="title">Create a New Test</h4>
+				</div>
+			</div>
+			<div class="section">
+				<div class="container">
+					<div class="test-pic"><img src="public/images/analytics_bg.jpg"></div>
+					<div layout="row">
+						<i flex></i>
+						<div flex="70">
+							<div layout="column">
+								<div layout="row">
+									<md-input-container flex class="md-block select-box">
+										<label style="display:none">What role is this test for?</label>
+										<md-select name="campaign_type" ng-model="CreateTestCtrl.campDetails.campaign_type" required ng-class="{'error-border':campaignDetails.campaign_type.$invalid && CreateTestCtrl.errCondcampaignDetails}">
+											<md-option ng-repeat="type in CreateTestCtrl.role" ng-value="type">{{type}}</md-option>
+										</md-select>
+										<div class="error-spacer"></div>
+										<div ng-if="campaignDetails.campaign_type.$error.required && CreateTestCtrl.errCondcampaignDetails"  class="has-error-msg">Please select Campaign Type.</div>
+									</md-input-container>
+									<i flex="5"></i>
+									<md-input-container flex class="md-block select-box">
+										<label style="display:none">Work Experience</label>
+										<md-select name="campaign_type" ng-model="CreateTestCtrl.campDetails.campaign_type" required ng-class="{'error-border':campaignDetails.campaign_type.$invalid && CreateTestCtrl.errCondcampaignDetails}">
+											<md-option ng-repeat="type in CreateTestCtrl.campaign" ng-value="type">{{type| uppercase}}</md-option>
+										</md-select>
+										<div class="error-spacer"></div>
+										<div ng-if="campaignDetails.campaign_type.$error.required && CreateTestCtrl.errCondcampaignDetails"  class="has-error-msg">Please select Campaign Type.</div>
+									</md-input-container>
+								</div>
+								<div layout="row">
+									<md-input-container flex class="md-block full-box">
+										<label>Test Name</label>
+										<input type="text" name="campaign_name" ng-model="NewCampaignCtrl.campDetails.campaign_name" required ng-class="{'has-error-border':campaignDetails.campaign_name.$invalid && NewCampaignCtrl.errCondcampaignDetails}">
+										<div ng-if="campaignDetails.campaign_name.$error.required && NewCampaignCtrl.errCondcampaignDetails" class="has-error-msg">Please enter Campaign Name.</div>
+									</md-input-container>
+									<i flex="5"></i>
+									<md-input-container flex class="md-block full-box">
+										<label>Duration (mins)</label>
+										<input type="text" name="campaign_name" ng-model="NewCampaignCtrl.campDetails.campaign_name" required ng-class="{'has-error-border':campaignDetails.campaign_name.$invalid && NewCampaignCtrl.errCondcampaignDetails}">
+										<div ng-if="campaignDetails.campaign_name.$error.required && NewCampaignCtrl.errCondcampaignDetails" class="has-error-msg">Please enter Campaign Name.</div>
+									</md-input-container>
+								</div>
+								<div layout="row">
+									<md-input-container flex class="md-block full-box">
+										<label>Test Description Link(Optional)</label>
+										<input type="text" name="campaign_name" ng-model="NewCampaignCtrl.campDetails.campaign_name" required ng-class="{'has-error-border':campaignDetails.campaign_name.$invalid && NewCampaignCtrl.errCondcampaignDetails}">
+										<div ng-if="campaignDetails.campaign_name.$error.required && NewCampaignCtrl.errCondcampaignDetails" class="has-error-msg">Please enter Campaign Name.</div>
+									</md-input-container>
+									<i flex="5"></i>
+									<i flex></i>
+								</div>
+							</div>
+						</div>
+						<i flex></i>
+					</div>
+					<div layout="row" class="footer">
+						<i flex></i>
+						<md-button ui-sref="app.campaigns.TestsList" class="cancel">Cancel</md-button>
+						<md-button ui-sref="app.campaigns.EditTest" class="md-raised action">CREATE TEST</md-button>
+						<i flex></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

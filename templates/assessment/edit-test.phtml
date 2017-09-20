@@ -1,0 +1,53 @@
+<div class="assessment test">
+	<div layout="column" class="container-box">
+		<div class="edit-test">
+			<div class="header">
+				<div class="container">
+					<div layout="row">
+						<a ui-sref="app.campaigns.TestsList"><img class="back" src="public/images/back-arrow-grey.svg" alt="back"></a>
+						<h4 class="title" flex>Campus Drive - Sep 2017- Test</h4>
+						<md-button ui-sref="app.campaigns.TestSettings" class="md-raised action">SETTINGS</md-button>
+						<md-button ui-sref="app.assessmentCreateTest" class="md-raised action">EDIT</md-button>
+					</div>
+				</div>
+			</div>
+			<div class="section md-padding">
+				<div class="container">
+					<div layout="row" class="meta-data">
+						<div flex="30">
+							<span class="title">Role for the Test</span>
+							<span>Software Developer</span>
+						</div>
+						<div flex="30">
+							<span class="title">Test Name</span>
+							<span>Developer hiring Test, Sep-17</span>
+						</div>
+						<div flex="25">
+							<span class="title">Work Experience</span>
+							<span>0-2 Years</span>
+						</div>
+						<div flex="15">
+							<span class="title">Duration (mins)</span>
+							<span>60</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer">
+				<div layout="row" class="success-msg">
+					<h5 class="text-center" flex>
+						<span class="icon"><i class="material-icons">done</i></span>
+						Your test has been successfully created now lets add some questions
+					</h5>
+				</div>
+				<div layout="row">
+					<i flex></i>
+					<md-button ui-sref="app.assessmentCreateTest" class="md-raised action">ADD QUESTIONS</md-button>
+					<span class="or"> or </span>
+					<md-button ui-sref="app.assessmentCreateTest" class="md-raised action create-new">CREATE NEW QUESTIONS</md-button>
+					<i flex></i>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

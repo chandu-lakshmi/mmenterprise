@@ -1,0 +1,53 @@
+<div class="questions">
+	<div layout="column" class="container-box">
+		<div class="questions-list">
+			<div class="header" style="border-color:transparent">
+				<div class="container">
+					<div layout="row" >
+						<h4 class="title">Questions</h4>
+						<i flex></i>
+						<md-button ui-sref="app.campaigns.CreateQuestion" class="md-raised action">CREATE QUESTION</md-button>
+					</div>
+				</div>
+			</div>
+
+			<div class="section container" layout="row" style="clear:both">
+				<div id="grid" ui-grid="QuestionsListCtrl.gridOptions" class="grid" ui-grid-selection>
+					
+					<div class="grid-msg-overlay" ng-if="QuestionsListCtrl.grid.inProgress">
+						<div class="msg">
+							<span>
+								<img src="public/images/loader/spin.gif" alt="loader" width="18%">
+							</span>
+						</div>
+					</div>
+
+					<div class="grid-msg-overlay" ng-if="!QuestionsListCtrl.gridOptions.data.length">
+						<div class="msg">
+							<span ng-bind="QuestionsListCtrl.grid.responseMsg"></span>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="container">
+				<div class="footer clearfix" layout="row">
+					<div class="paging col-sm-4 col-sm-offset-4 text-center">
+						<ul uib-pagination total-items="QuestionsListCtrl.grid.totalRecords" ng-model="QuestionsListCtrl.pageNumber" max-size="3" direction-links="false" force-ellipses="true" ng-change="QuestionsListCtrl.pageChanged(QuestionsListCtrl.pageNumber)" boundary-link-numbers="true" rotate="false"></ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<!-- Test Name -->
+<script type="text/ng-template" id="test-name.html">
+	<div class="ui-grid-cell-contents ui-grid-details">
+      <a ng-bind="COL_FIELD" ui-sref="app.assessmentEditTest" class="name" ng-click="$event.stopPropagation()"></a>
+      <span ng-bind="row.entity.role + ', ' + row.entity.exp"></span>
+	</div>
+</script>

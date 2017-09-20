@@ -1,0 +1,124 @@
+<div class="assessment test">
+	<div layout="column" class="container-box">
+		<div class="test-settings">
+			<div class="header">
+				<div class="container">
+					<div layout="row">
+						<a ui-sref="app.campaigns.EditTest"><img class="back" src="public/images/back-arrow-grey.svg" alt="back"></a>
+						<h4 class="title" flex>Campus Drive - Sep 2017- Test</h4>
+						<md-input-container flex="15" class="md-block select-box">
+							<md-select name="campaign_type" ng-model="TestSettingsCtrl.settings.status" aria-label="status">
+								<md-option ng-repeat="status in TestSettingsCtrl.statusList"  ng-value="status">{{status}}</md-option>
+							</md-select>
+						</md-input-container>
+						<md-button ui-sref="app.campaigns.EditTest" class="cancel">CANCEL</md-button>
+						<md-button ui-sref="app.campaigns.EditTest" class="md-raised action">SAVE CHANGES</md-button>
+					</div>
+				</div>
+			</div>
+			<div class="section md-padding">
+				<div class="container">
+					<div layout="row" flex="50" class="copy-url">
+						<md-input-container flex class="md-block full-box">
+							<label>Test Name</label>
+							<input type="text" name="campaign_name" id="copy-url" ng-model="NewCampaignCtrl.campDetails.campaign_name">
+						</md-input-container>
+						<div class="btns" data-copytarget="#copy-url">COPY</div>
+					</div>
+					<div class="pwd-protection"><md-checkbox ng-model="data.cb2" aria-label="Checkbox 2" ng-true-value="'yup'" ng-false-value="'nope'" class="md-align-top-left"> Password Protection</div>
+					<div layout="row" flex="30" class="pwd-action">
+						<md-input-container  class="md-block full-box hide-label">
+							<input type="text" placeholder="Set New Password" name="campaign_name" id="copy-url" ng-model="NewCampaignCtrl.campDetails.campaign_name">
+						</md-input-container>
+						<md-button class="md-raised action">SAVE</md-button>	
+					</div>
+					<div layout="row" class="time">
+						<md-input-container flex="20" class="md-block full-box">
+							<input type="text" placeholder="Time (in Minutes)" name="campaign_name" id="copy-url" ng-model="NewCampaignCtrl.campDetails.campaign_name">
+						</md-input-container>
+					</div>
+					<div layout="row" class="time">
+						<md-input-container flex="20" class="md-block full-box">
+							<input type="text" placeholder="Start Date" name="start_date" id="start_date" schedule-required>
+						</md-input-container>
+						<md-input-container  flex="20" class="md-block full-box">
+							<input type="text" placeholder="Start Time" name="start_time" id="start_time" schedule-required>
+						</md-input-container>
+						<i class="gap"></i>
+						<md-input-container  flex="20" class="md-block full-box">
+							<input type="text" placeholder="End Date" name="end_date" id="end_date" schedule-required>
+						</md-input-container>
+						<md-input-container flex="20" class="md-block full-box">
+							<input type="text" placeholder="End Time" name="end_time" id="end_time" schedule-required>
+						</md-input-container>
+					</div>
+					<div layout="row" class="cutoff">
+						<md-input-container flex="20" class="md-block full-box">
+							<input type="text" placeholder="Cutoff Score (out of 100)" name="campaign_name" id="copy-url" ng-model="NewCampaignCtrl.campDetails.campaign_name">
+						</md-input-container>
+						<md-input-container flex="20" class="md-block full-box">
+							<input type="text" placeholder="MCQ Settings" name="campaign_name" id="copy-url" ng-model="NewCampaignCtrl.campDetails.campaign_name">
+						</md-input-container>
+					</div>
+					<div layout="row" class="cutoff-desc" flex="60">
+						Using this you can set a cutoff score for you test. All candidates with score greater then that will automatically the qualified for interview.
+					</div>
+
+					<md-divider flex="85"></md-divider>
+
+					<div class="switch">
+						<span class="text">Auto Screening</span>
+						<div class="switch-box">
+							<md-button ng-click="TestSettingsCtrl.toogleAutoScreen(1)" ng-class="{'active':TestSettingsCtrl.settings.autoScreen}">Yes</md-button><md-button ng-click="TestSettingsCtrl.toogleAutoScreen(0)" ng-class="{'active':!TestSettingsCtrl.settings.autoScreen}">No</md-button>
+						</div>
+					</div>
+					<div layout="row" class="qualification">
+						<md-input-container flex="25" class="md-block full-box">
+							<input type="text" placeholder="Cutoff Score (out of 100)" name="campaign_name" id="copy-url" ng-model="NewCampaignCtrl.campDetails.campaign_name">
+						</md-input-container>
+						<i class="gap"></i>
+						<md-input-container flex="25" class="md-block full-box">
+							<input type="text" placeholder="MCQ Settings" name="campaign_name" id="copy-url" ng-model="NewCampaignCtrl.campDetails.campaign_name">
+						</md-input-container>
+					</div>
+					<div layout="row" class="qualification switch">
+						<md-input-container flex="25" class="md-block full-box">
+							<input type="text" placeholder="Cutoff Score (out of 100)" name="campaign_name" id="copy-url" ng-model="NewCampaignCtrl.campDetails.campaign_name">
+						</md-input-container>
+						<i class="gap"></i>
+						<div flex="30">
+							<span class="text">AI Screening</span>
+							<div class="switch-box">
+								<md-button ng-click="TestSettingsCtrl.toogleAutoScreen(1)" ng-class="{'active':TestSettingsCtrl.settings.autoScreen}">Yes</md-button><md-button ng-click="TestSettingsCtrl.toogleAutoScreen(0)" ng-class="{'active':!TestSettingsCtrl.settings.autoScreen}">No</md-button>
+							</div>
+						</div>
+					</div>
+
+					<md-divider flex="85"></md-divider>
+					
+					<div class="extra-opts">
+						<div class="pwd-protection"><md-checkbox ng-model="data.cb2" aria-label="Checkbox 2" ng-true-value="'yup'" ng-false-value="'nope'" class="md-align-top-left"> Enable Full screen</div>
+						<div class="pwd-protection"><md-checkbox ng-model="data.cb2" aria-label="Checkbox 2" ng-true-value="'yup'" ng-false-value="'nope'" class="md-align-top-left"> Shuffle Questions</div>
+						<div class="pwd-protection"><md-checkbox ng-model="data.cb2" aria-label="Checkbox 2" ng-true-value="'yup'" ng-false-value="'nope'" class="md-align-top-left"> Confirmation Mail</div>
+						<div class="pwd-protection"><md-checkbox ng-model="data.cb2" aria-label="Checkbox 2" ng-true-value="'yup'" ng-false-value="'nope'" class="md-align-top-left"> Disclaimer</div>
+						<textarea></textarea>
+					</div>
+
+					<md-divider></md-divider>
+				</div>
+				<div class="footer">
+					<div class="header">
+						<div class="container">
+							<div layout="row">
+								<i flex></i>
+								<md-button ui-sref="app.campaigns.EditTest" class="cancel">CANCEL</md-button>
+								<md-button ui-sref="app.campaigns.EditTest" class="md-raised action">SAVE CHANGES</md-button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+</div>
