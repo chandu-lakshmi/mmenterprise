@@ -6,7 +6,7 @@
         'app.components', 'app.helpers', 'app.services', 'app.constantKeys',
         'app.home', 'app.forgotPassword', 'app.company.profile', 'app.import.contacts', 'app.emails', 'app.dashboard',
         'app.engagement.contacts', 'app.post.job', 'app.job.search', 'app.job.details', 'app.rewards', 'app.edit.company', 'app.contact',
-        'app.candidates', 'app.campaigns', 'app.settings', 'app.license.management', 'app.analytics'
+        'app.candidates', 'app.campaigns', 'app.settings', 'app.license.management', 'app.analytics', 'app.assessment', 'app.questions'
     ])
 
             .constant('CONFIG', {
@@ -251,6 +251,47 @@
                     controller: 'FormBuilderController',
                     controllerAs: 'FormBuilderCtrl'
                 })
+
+                /* Assessment */
+                $stateProvider.state('app.campaigns.TestsList', {
+                    url: '^/assessment/tests-list',
+                    templateUrl: App.base_url + 'templates/assessment/tests-list.phtml',
+                    controller: 'TestsListController',
+                    controllerAs: 'TestsListCtrl'
+                })
+                $stateProvider.state('app.campaigns.CreateTest', {
+                    url: '^/assessment/create-test',
+                    templateUrl: App.base_url + 'templates/assessment/create-test.phtml',
+                    controller: 'CreateTestController',
+                    controllerAs: 'CreateTestCtrl'
+                })
+                $stateProvider.state('app.campaigns.EditTest', {
+                    url: '^/assessment/edit-test',
+                    templateUrl: App.base_url + 'templates/assessment/edit-test.phtml',
+                    controller: 'EditTestController',
+                    controllerAs: 'EditTestCtrl'
+                })
+                $stateProvider.state('app.campaigns.TestSettings', {
+                    url: '^/assessment/test-settings',
+                    templateUrl: App.base_url + 'templates/assessment/test-settings.phtml',
+                    controller: 'TestSettingsController',
+                    controllerAs: 'TestSettingsCtrl'
+                })
+
+                /* Questions */
+                $stateProvider.state('app.campaigns.QuestionsList', {
+                    url: '^/questions/questions-list',
+                    templateUrl: App.base_url + 'templates/questions/questions-list.phtml',
+                    controller: 'QuestionsListController',
+                    controllerAs: 'QuestionsListCtrl'
+                })
+                $stateProvider.state('app.campaigns.CreateQuestion', {
+                    url: '^/questions/create-question',
+                    templateUrl: App.base_url + 'templates/questions/create-question.phtml',
+                    controller: 'CreateQuestionController',
+                    controllerAs: 'CreateQuestionCtrl'
+                })
+
                 $stateProvider.state('app.settings', {
                     url: '^/settings',
                     templateUrl: App.base_url + 'templates/settings/settings.phtml',
