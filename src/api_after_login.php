@@ -2185,3 +2185,68 @@ $app->post('/get_candidate_personal_status',function ($request, $response, $args
     return checkJsonResult( $jobList->loadCurl() );
 
 });
+//get_question_types
+$app->post('/get_question_types',function ($request, $response, $args) use ($app) {
+    // dynamically Access Token, Company Details
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    // getting API endpoint from settings
+    $apiEndpoint = getapiEndpoint($this->settings, 'get_question_types');
+    $jobList    = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    return checkJsonResult( $jobList->loadCurl() );
+});
+//get_question_libraries
+$app->post('/get_question_libraries',function ($request, $response, $args) use ($app) {
+    // dynamically Access Token, Company Details
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    // getting API endpoint from settings
+    $apiEndpoint = getapiEndpoint($this->settings, 'get_question_libraries');
+    $jobList    = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    return checkJsonResult( $jobList->loadCurl() );
+});
+//add_question
+$app->post('/add_question',function ($request, $response, $args) use ($app) {
+    // dynamically Access Token, Company Details
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    // getting API endpoint from settings
+    $apiEndpoint = getapiEndpoint($this->settings, 'add_question');
+    $jobList     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    return checkJsonResult( $jobList->loadCurl() );
+});
+//edit_question
+$app->post('/edit_question',function ($request, $response, $args) use ($app) {
+    // dynamically Access Token, Company Details
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    // getting API endpoint from settings
+    $apiEndpoint = getapiEndpoint($this->settings, 'edit_question');
+    $jobList     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    return checkJsonResult( $jobList->loadCurl() );
+});
+//view_question
+$app->post('/view_question',function ($request, $response, $args) use ($app) {
+    // dynamically Access Token, Company Details
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    // getting API endpoint from settings
+    $apiEndpoint = getapiEndpoint($this->settings, 'view_question');
+    $jobList     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    return checkJsonResult( $jobList->loadCurl() );
+});

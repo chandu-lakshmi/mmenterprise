@@ -394,6 +394,26 @@ return [
             'get_candidate_personal_status' =>[
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/get_candidate_personal_status'
+            ],
+            'get_question_types' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_question_types'
+            ],
+            'get_question_libraries' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_question_libraries'
+            ],
+            'add_question' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/add_question'
+            ],
+            'edit_question' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/edit_question'
+            ],
+            'view_question' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/view_question'
             ]
     ];
         
