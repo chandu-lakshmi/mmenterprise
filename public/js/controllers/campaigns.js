@@ -3,7 +3,7 @@
 
     angular
             .module('app.campaigns', ['app.components', 'ui.grid', 'ui.grid.selection', 'mdPickers', 'ngMessages', 'ngAutocomplete', 'mwFormBuilder', 'mwFormViewer', 'pascalprecht.translate'])
-            
+
             .controller('CampaignsController', CampaignsController)
             .controller('NewCampaignController', NewCampaignController)
             .controller('AllCampaignsController', AllCampaignsController)
@@ -15,7 +15,7 @@
 
             .service('CampaignsData', CampaignsData)
             .service('contactBuckets', contactBuckets)
-            
+
             .config(function ($translateProvider) {
                 $translateProvider.useStaticFilesLoader({
                     prefix: 'public/angular-survey/i18n/',
@@ -33,7 +33,7 @@
     SocialShareController.$inject = ['$scope', '$uibModalInstance', '$state', '$rootScope', 'CampaignsData', 'CompanyDetails', 'App']
     FormBuilderController.$inject = ['$scope', '$http', '$q', '$uibModal', '$mdDialog'];
 
-    
+
 
     function contactBuckets() {
 
@@ -129,7 +129,7 @@
 
         vm.campaign        = ['Mass Recruitment', 'Military Veterans', 'Campus Hires'];
         vm.campaignDetails = true;
-        vm.schedule        = false; 
+        vm.schedule        = false;
         vm.careersPage     = false;
         vm.manageContacts  = false;
 
@@ -146,7 +146,7 @@
 
             vm[currentTab] = false;
             vm[viewTab]    = true;
-            currentTab     = viewTab; 
+            currentTab     = viewTab;
 
             /*if(vm.scheduleDetails.job_ids.length == 0 && currentTab == 'schedule'){
                 vm['errCond' + currentTab] = true;
@@ -156,9 +156,9 @@
             if($scope[currentTab].$valid) {
                 vm[currentTab] = false;
                 vm[viewTab]    = true;
-                currentTab     = viewTab; 
+                currentTab     = viewTab;
             }else{
-                vm['errCond' + currentTab] = true; 
+                vm['errCond' + currentTab] = true;
             }*/
 
         }
@@ -236,7 +236,7 @@
         this.geo_location = '';
         this.geo_options = {types: '(cities)'};
         this.geo_details = '';
-        
+
         var componentForm = {
             locality: 'long_name',
             administrative_area_level_1: 'long_name',
@@ -279,7 +279,7 @@
         }
 
         vm.bucktesViewInternalOpts = {
-            type  : 1, //internal set to 1, external set to 2 
+            type  : 1, //internal set to 1, external set to 2
             list  : [],
             selectedOne: [],
             newlySelectedBkts : [],
@@ -287,7 +287,7 @@
         }
 
         vm.bucktesViewExternalOpts = {
-            type  : 2, //internal set to 1, external set to 2 
+            type  : 2, //internal set to 1, external set to 2
             list  : [],
             selectedOne : [],
             newlySelectedBkts : [],
@@ -313,7 +313,7 @@
                     vm.careersDetails = response.data.data;
                     $timeout(function(){
                         vm.updateLogo(vm.careersDetails.career_logo, 'career_logo', vm.careersDetails.logo_name);
-                        vm.updateHeroShortImage(vm.careersDetails.career_heroshot_image, 'career_heroshot_image', vm.careersDetails.heroshot_image_name);    
+                        vm.updateHeroShortImage(vm.careersDetails.career_heroshot_image, 'career_heroshot_image', vm.careersDetails.heroshot_image_name);
                     });
                 }
                 else if (response.status_code == 400) {
@@ -372,7 +372,7 @@
         this.trash = trash;
         this.showJobTemplate = false;
 
-        
+
         this.timeSheetGroups = [1];
         this.currentTimeSheet = 1;
 
@@ -393,30 +393,30 @@
             vm[currentTab] = false;
             vm[viewTab]    = true;
             currentTab     = viewTab;
-            vm['errCond' + viewTab] = true; 
+            vm['errCond' + viewTab] = true;
         }
 
-        function postNewCampaign() {         
-            
+        function postNewCampaign() {
+
             if($scope.campaignDetails.$invalid) {
                 return validStep('campaignDetails');
-            } 
+            }
             else if($scope.schedule.$invalid || vm.scheduleDetails.job_ids.length == 0) {
                 return validStep('schedule');
-            } 
+            }
             else if($scope.careersPage.$invalid) {
                 return validStep('careersPage');
             }
             else if($scope.manageContacts.$invalid){
                 return validStep('manageContacts');
-            } 
+            }
 
             vm.postPointer = true;
             vm.postLoader = true;
-            
+
             var frmData = $("form[name='campaignDetails'], form[name='schedule'] :not('.form-control'), form[name='careersPage'] :not('.rm'), form[name='manageContacts']").serialize();
-            
-            
+
+
             var newCampaign = $http({
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -461,7 +461,7 @@
                 controllerAs: 'SocialShareCtrl'
             });
         }
-        
+
         function uploader() {
             for (var i = 0; i < 2; i++) {
                 window["$upload_pitch" + i] = $('.upload-pitch').eq(i);
@@ -538,7 +538,7 @@
             eval("$upload_pitch" + index).next('.upload-box').remove();
             eval("$upload_pitch" + index).find('.qq-upload-fail').remove();
         }
-        
+
         setTimeout(function () {
             uploader()
         }, 1000);
@@ -546,7 +546,7 @@
         setTimeout(function () {
             $('#selectJob').chosen()
         }, 0);
-        
+
     }
 
 
@@ -671,7 +671,7 @@
             resetGrid();
 
             vm.loader = true;
-            
+
             if(filters == '' && vm.filterList != undefined && vm.filterList.length > 0){
                 vm.filterList = undefined;
             }
@@ -811,7 +811,7 @@
             previewImg : function(dirFun) {
                 vm.updateHeroShortImage = dirFun;
             }
-        } 
+        }
 
         vm.addHyperlink = function() {
             if(vm.campaignDetails.career_links.length < 4){
@@ -821,7 +821,7 @@
 
         $timeout(function(){
             vm.updateLogo(vm.campaignDetails.career_logo, 'career_logo', vm.campaignDetails.logo_name);
-            vm.updateHeroShortImage(vm.campaignDetails.career_heroshot_image, 'career_heroshot_image', vm.campaignDetails.heroshot_image_name);    
+            vm.updateHeroShortImage(vm.campaignDetails.career_heroshot_image, 'career_heroshot_image', vm.campaignDetails.heroshot_image_name);
         }, 1000);
         //carrer page end
 
@@ -872,14 +872,14 @@
             }
         }
         //Location end
-        
+
 
         //Buckets
         vm.selectedBkts = '';
         vm.bucketsName  = angular.copy(contactBuckets.getBucket());
-        
+
         vm.bucktesViewInternalOpts = {
-            type  : 1, //internal set to 1, external set to 2 
+            type  : 1, //internal set to 1, external set to 2
             list  : [],
             selectedOne: vm.campaignDetails.bucket_ids,
             newlySelectedBkts : [],
@@ -887,13 +887,13 @@
         }
 
         vm.bucktesViewExternalOpts = {
-            type  : 2, //internal set to 1, external set to 2 
+            type  : 2, //internal set to 1, external set to 2
             list  : [],
             selectedOne : vm.campaignDetails.bucket_ids,
             newlySelectedBkts : [],
             headerTxt : 'SELECT TALENT COMMUNITY TO PUBLISH CAMPAIGN'
         }
-     
+
         vm.getSelectedBkt = function(){
             var selected = vm.bucktesViewInternalOpts.newlySelectedBkts.concat(vm.bucktesViewExternalOpts.newlySelectedBkts).toString();
             vm.selectedBkts = selected;
@@ -902,7 +902,7 @@
 
         vm.bucktesViewInternalOpts.list = vm.bucketsName;
         vm.bucktesViewExternalOpts.list = vm.bucketsName;
-        
+
         //Buckets end
 
 
@@ -942,7 +942,7 @@
             })
 
             modalInstance.result.then(function (response) {
-                
+
                 var data = response.data;
                 vm.jobsList.push(data);
                 var id = data.post_id.toString();
@@ -983,27 +983,27 @@
 
 
         function schedule() {
-            
+
             var closedScheduleCount = 0;
-            
+
             angular.forEach(vm.campaignDetails.schedule, function(schedule, index){
-                 
+
                 var start   = new Date(schedule.start_on_date + ' ' + schedule.start_on_time),
                     end     = new Date(schedule.end_on_date + ' ' + schedule.end_on_time);
-                
+
                 schedule.hasCloseIcon = false;
 
                 //set the minDate if selected date is less then current date or both date are equal
                 if(moment(new Date()).isAfter(new Date(start))) {
                     $('#dtPickerStart' + index ).data("DateTimePicker").minDate(start);
                 }
-                $('#dtPickerStart' + index ).data("DateTimePicker").maxDate(end); 
-                $('#dtPickerStart' + index ).data("DateTimePicker").date(start);   
+                $('#dtPickerStart' + index ).data("DateTimePicker").maxDate(end);
+                $('#dtPickerStart' + index ).data("DateTimePicker").date(start);
                 $('#dtPickerEnd' + index ).data("DateTimePicker").date(end);
-                
+
                 if(schedule.status == 'CLOSED') {
                     closedScheduleCount++;
-                } 
+                }
             });
 
             if(closedScheduleCount == vm.campaignDetails.schedule.length) {
@@ -1283,9 +1283,9 @@
 
         vm.formData = null;
         $http.get('form-data.json')
-                .then(function (res) {
-                    vm.formData = res.data;
-                });
+        .then(function (res) {
+            vm.formData = res.data;
+        });
 
         vm.formStatus = {};
 
@@ -1324,6 +1324,25 @@
         }
 
         vm.showFormViewer = function(ev) {
+
+            /*var modalInstance = $uibModal.open({
+                animation: false,
+                controller: 'FormViewerController',
+                controllerAs: 'FormViewerCtrl',
+                templateUrl: 'templates/campaigns/form-viewer.phtml',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                openedClass: "new-campaign",
+
+                clickOutsideToClose: false,
+                fullscreen: true,
+                escapeToClose: false,
+                locals: {
+                    RefDetails: vm.referralDetails
+                }
+            })*/
+
+
             $mdDialog.show({
                 controller: FormViewerController,
                 controllerAs: 'FormViewerCtrl',
@@ -1336,8 +1355,8 @@
                 locals: {
                     RefDetails: vm.referralDetails
                 }
-            })
-            .then(function (answer) {
+            }).
+            then(function(answer) {
                 vm.status = 'You said the information was "' + answer + '".';
             }, function () {
                 vm.status = 'You cancelled the dialog.';
@@ -1429,7 +1448,7 @@
     }
 
     function CreateJobController($scope, $http, $timeout, $window, $uibModalInstance, App){
-        
+
         var vm      = this,
             apiCall = ['get_job_functions', 'get_industries', 'get_employment_types', 'get_experiences'];
 
@@ -1458,7 +1477,7 @@
                 });
             }
         }
-        
+
         vm.postJob = function (createJobForm) {
             vm.errCond = true;
             if(createJobForm.$valid && vm.jobData.jobDescription.trim().length != 0){
@@ -1510,11 +1529,11 @@
             $uibModalInstance.dismiss('cancel');
         });
 
-        
+
         init();
 
     }
-        
+
     function FormViewerController($scope, $rootScope, $http, $timeout, $q, $uibModal, $mdDialog, $state, RefDetails) {
         var vm = this;
         vm.companyName = 'Company1';
@@ -1535,9 +1554,9 @@
 
         vm.formData = null;
         $http.get('mintmesh_survey.json')
-                .then(function (res) {
-                    vm.formData = res.data;
-                });
+        .then(function (res) {
+            vm.formData = res.data;
+        });
 
         vm.templateData = null;
         /*$http.get('template-data.json')
@@ -1568,6 +1587,10 @@
             return d.promise;*/
 
         };
+
+        vm.fullScreen = function() {
+          $(".angular-survey-template").toggleClass("full-screen")
+        }
 
         vm.showResponseModal = showResponseModal;
         function showResponseModal(flag) {

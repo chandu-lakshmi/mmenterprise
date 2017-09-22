@@ -1,7 +1,7 @@
 <div class="mw-form-question">
 
     <div class="mw-question-text">
-        {{::ctrl.print(ctrl.question.text)}} <span ng-if="ctrl.question.required">*</span>
+        {{::ctrl.print(ctrl.question.text)}} <span ng-if="ctrl.question.required" class="required-question">*</span>
     </div>
 
     <div class="mw-question-answers" ng-switch="ctrl.question.type">
@@ -23,8 +23,7 @@
                     <input type="radio" ng-model="ctrl.isOtherAnswer" ng-value="true" name="other-answer-for-question-{{ctrl.question.id}}" ng-change="ctrl.otherAnswerRadioChanged()" ng-disabled="ctrl.readOnly"><span translate="mwForm.question.preview.otherAnswer">Inna</span>:
                 </label>
                 <span class="form-inline">
-                    <input type="text" name="other-answer-for-question-{{ctrl.question.id}}" ng-model="ctrl.questionResponse.other" class="form-control" ng-disabled="!ctrl.isOtherAnswer || ctrl.readOnly"
-                                   ng-required="ctrl.isOtherAnswer">
+                    <input type="text" name="other-answer-for-question-{{ctrl.question.id}}" ng-model="ctrl.questionResponse.other" class="form-control" ng-disabled="!ctrl.isOtherAnswer || ctrl.readOnly" ng-required="ctrl.isOtherAnswer">
                 </span>
             </div>
         </div>

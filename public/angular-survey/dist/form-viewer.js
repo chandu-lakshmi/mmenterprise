@@ -133,11 +133,17 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
         templateUrl: $rootScope.$root.base_url + 'public/angular-survey/viewer/templates/bootstrap/mw-form-viewer.html',
         controllerAs: 'ctrl',
         bindToController: true,
-        controller: ["$timeout", "$interpolate", function($timeout, $interpolate){
-            var ctrl = this;
+        controller: ["$scope", "$timeout", "$interpolate", "$interval", function($scope, $timeout, $interpolate, $interval){
+            
+            var ctrl = this,
+                intervalId;
             // Put initialization logic inside `$onInit()`
             // to make sure bindings have been initialized.
             ctrl.$onInit = function() {
+                ctrl.counter = 0;
+                ctrl.initialCountdown = ctrl.formData.duration*60;
+                ctrl.countdown = ctrl.initialCountdown;
+
                 ctrl.defaultOptions = {
                     nestedForm: false,
                     autoStart: false,
@@ -190,20 +196,47 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
                 }
             };
 
+            ctrl.timer = function(){
+                var startTime = new Date();
+                intervalId = $interval(function(){
+                    var actualTime = new Date();
+                    ctrl.counter = Math.floor((actualTime - startTime) / 1000);
+                    ctrl.countdown = ctrl.initialCountdown - ctrl.counter;
+                }, 1000);
+            };
+
+            $scope.$watch('ctrl.countdown', function(countdown){
+                if (countdown === 0){
+                    ctrl.stop();
+                }
+            });
+
+            ctrl.startTimer = function(){
+                ctrl.timer();
+            };
+          
+            ctrl.stop = function() {
+                $interval.cancel(intervalId);
+                ctrl.timeUP();
+            };
+
+            ctrl.timeUP = function() {
+                console.log('time up')
+            }
+
             ctrl.submitForm = function(){
                 ctrl.formSubmitted=true;
                 ctrl.submitStatus='IN_PROGRESS';
 
                 ctrl.setCurrentPage(null);
-
-
+                $interval.cancel(intervalId);
+                
                 var resultPromise = ctrl.onSubmit();
                 resultPromise.then(function(){
                     ctrl.submitStatus='SUCCESS';
                 }).catch(function(){
                     ctrl.submitStatus='ERROR';
                 });
-
 
             };
 
@@ -268,10 +301,10 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
             };
 
             ctrl.beginResponse=function(){
-                $rootScope.$broadcast("time-start");
-
+                
                 if(ctrl.formData.pages.length>0){
                     ctrl.setCurrentPage(ctrl.formData.pages[0]);
+                    ctrl.startTimer();
                     $rootScope.$broadcast("mwForm.pageEvents.pageCurrentChanged",{currentPage:ctrl.currentPage});
                 }
             };
@@ -388,7 +421,8 @@ angular.module('mwFormViewer').directive('mmTimer', function($interval) {
         scope: {
             initialCountdown: '=?initialCountdown'
         },
-        template: 'Time Remaining: {{countdown | secondsToDateTime | date:"HH:mm:ss"}}',
+        template: 'Time Remaining: {{countdown | secondsToDateTime | date:"HH:mm:ss"}} / {{initialCountdown | secondsToDateTime | date:"HH:mm:ss"}}',
+        //{{ ">>" + (countdown/initialCountdown) * 100 + "%"}}
         link: function($scope, elem, attrs) {
             var intervalId;
             
@@ -429,7 +463,6 @@ angular.module('mwFormViewer').filter('secondsToDateTime', [function() {
         return new Date(1970, 0, 1).setSeconds(seconds);
     };
 }]);
-
 
 angular.module('mwFormViewer').factory("FormQuestionId", function(){
     var id = 0;
