@@ -14,7 +14,7 @@
         <div ng-switch-when="radio">
             <div class="radio" ng-repeat="answer in ctrl.question.offeredAnswers">
                 <label>
-                    <input type="radio" ng-model="ctrl.questionResponse.selectedAnswer" ng-value="answer.id" name="answer-for-question-{{ctrl.question.id}}" ng-change="ctrl.selectedAnswerChanged()" ng-required="ctrl.question.required &&!ctrl.isOtherAnswer" ng-disabled="ctrl.readOnly">
+                    <input type="radio" ng-model="ctrl.questionResponse.question_ans" ng-value="answer.id" name="answer-for-question-{{ctrl.question.id}}" ng-change="ctrl.selectedAnswerChanged()" ng-required="ctrl.question.required &&!ctrl.isOtherAnswer" ng-disabled="ctrl.readOnly">
                     {{::ctrl.print(answer.value)}}
                 </label>
             </div>
@@ -44,10 +44,10 @@
                 </span>
 
             </div>
-            <input type="hidden" ng-model="ctrl.selectedAnswer" ng-required="ctrl.question.required &&!ctrl.isOtherAnswer"/>
+            <input type="hidden" ng-model="ctrl.question_ans" ng-required="ctrl.question.required &&!ctrl.isOtherAnswer"/>
         </div>
         <div ng-switch-when="select">
-            <select ng-options="answer.id as ctrl.print(answer.value) for answer in ::ctrl.question.offeredAnswers" ng-model="ctrl.questionResponse.selectedAnswer" class="form-control"  ng-disabled="ctrl.readOnly" ng-required="ctrl.question.required"></select>
+            <select ng-options="answer.id as ctrl.print(answer.value) for answer in ::ctrl.question.offeredAnswers" ng-model="ctrl.questionResponse.question_ans" class="form-control"  ng-disabled="ctrl.readOnly" ng-required="ctrl.question.required"></select>
         </div>
         <div ng-switch-when="grid">
             <div class="table-responsive">

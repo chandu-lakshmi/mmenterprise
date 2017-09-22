@@ -16,7 +16,7 @@
             </md-input-container>
         </div>
         <div ng-switch-when="radio">
-            <md-radio-group ng-model="ctrl.questionResponse.selectedAnswer"  ng-required="ctrl.question.required &&!ctrl.isOtherAnswer" ng-disabled="ctrl.readOnly" ng-change="ctrl.selectedAnswerChanged()">
+            <md-radio-group ng-model="ctrl.questionResponse.question_ans"  ng-required="ctrl.question.required &&!ctrl.isOtherAnswer" ng-disabled="ctrl.readOnly" ng-change="ctrl.selectedAnswerChanged()">
                 <md-radio-button  ng-repeat="answer in ctrl.question.offeredAnswers" aria-label="{{ answer.value }}"  ng-value="answer.id" name="answer-for-question-{{ctrl.question.id}}" ng-readonly="ctrl.readOnly">
                     {{::ctrl.print(answer.value)}}
                 </md-radio-button>
@@ -54,11 +54,11 @@
                     </md-input-container>
                 </div>
             </div>
-            <input type="hidden" ng-model="ctrl.selectedAnswer" ng-required="ctrl.question.required &&!ctrl.isOtherAnswer"/>
+            <input type="hidden" ng-model="ctrl.question_ans" ng-required="ctrl.question.required &&!ctrl.isOtherAnswer"/>
         </div>
         <div ng-switch-when="select">
             <md-input-container >
-                <md-select ng-disabled="ctrl.readOnly" ng-required="ctrl.question.required" ng-model="ctrl.questionResponse.selectedAnswer">
+                <md-select ng-disabled="ctrl.readOnly" ng-required="ctrl.question.required" ng-model="ctrl.questionResponse.question_ans">
                     <md-option ng-repeat="answer in ctrl.question.offeredAnswers" ng-value="answer.id">
                         {{::ctrl.print(answer.value)}}
                     </md-option>

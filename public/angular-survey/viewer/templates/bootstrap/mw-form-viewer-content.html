@@ -15,12 +15,11 @@
         </div>
         
         <div class="mw-form-page" ng-if="ctrl.currentPage">
-            <!-- <mm-timer initial-countdown="ctrl.countdown" style="color: #f00; font-size: 14px;text-align: right; float: right; clear: both;"></mm-timer>   -->
             <div class="pull-left question-number">Question {{ctrl.currentPage.number}}</div>
+            
             <div class="pull-right time-left" ng-if="ctrl.formData.max_duration">Time left: <span>{{ctrl.countdown | secondsToDateTime | date:"HH:mm:ss"}} Sec</span></div>
             <div class="clearfix"></div>
 
-            <!-- <label>Timer with timeout: {{timerWithTimeout | hhmmss}}</label> -->
             <h2 class="mw-page-title" ng-if="ctrl.currentPage.namedPage && ctrl.currentPage.name">{{ctrl.currentPage.name}}</h2>
 
             <div class="mw-form-page-element-list">

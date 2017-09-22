@@ -224,6 +224,7 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
 
             ctrl.timeUP = function() {
                 console.log('time up')
+                
             }
 
             ctrl.submitForm = function(){
@@ -239,8 +240,6 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
                 }).catch(function(){
                     ctrl.submitStatus='ERROR';
                 });
-
-                console.log(ctrl.responseData)
 
             };
 
@@ -353,25 +352,11 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
 
             ctrl.updateNextPageBasedOnPageElementAnswers = function (element) {
                 var question = element.question;
-                
-                /*ctrl.responseData = {
-                    "candidate_emailid": '',
-                    "exam_id": ctrl.formData.exam_id,
-                    "exam_question_list": [
-                        {
-                            "exam_question_id": element.exam_question_id,
-                            "question_id": question.id,
-                            "question_type": (question.type == 'radio' ? 1 : 2),
-                            "question_ans": ctrl.responseData[question.id].selectedAnswer
-                        }
-                    ]
-                }*/
-
 
                 if (question && question.pageFlowModifier) {
                     question.offeredAnswers.forEach(function (answer) {
                         if (answer.pageFlow) {
-                            if(ctrl.responseData[question.id].selectedAnswer == answer.id){
+                            if(ctrl.responseData[question.id].question_ans == answer.id){
                                 if (answer.pageFlow.formSubmit) {
                                     ctrl.nextPage = null;
                                 } else if (answer.pageFlow.page) {
@@ -479,8 +464,8 @@ angular.module('mwFormViewer').factory("FormQuestionId", function(){
                 ctrl.questionResponse.question_type = (ctrl.question.type == 'radio' ? 1 : 2);
 
                 if(ctrl.question.type=='radio') {
-                    if(!ctrl.questionResponse.selectedAnswer){
-                        ctrl.questionResponse.selectedAnswer=null;
+                    if(!ctrl.questionResponse.question_ans){
+                        ctrl.questionResponse.question_ans=null;
                     }
                     if(ctrl.questionResponse.other){
                         ctrl.isOtherAnswer=true;
@@ -488,7 +473,7 @@ angular.module('mwFormViewer').factory("FormQuestionId", function(){
 
                 }else if(ctrl.question.type=='checkbox'){
                     if(ctrl.questionResponse.selectedAnswers && ctrl.questionResponse.selectedAnswers.length){
-                        ctrl.selectedAnswer=true;
+                        ctrl.question_ans=true;
                     }else{
                         ctrl.questionResponse.selectedAnswers=[];
                     }
@@ -543,7 +528,7 @@ angular.module('mwFormViewer').factory("FormQuestionId", function(){
             ctrl.otherAnswerRadioChanged= function(){
                 console.log('otherAnswerRadioChanged');
                 if(ctrl.isOtherAnswer){
-                    ctrl.questionResponse.selectedAnswer=null;
+                    ctrl.questionResponse.question_ans=null;
                 }
                 ctrl.answerChanged();
             };
@@ -552,7 +537,7 @@ angular.module('mwFormViewer').factory("FormQuestionId", function(){
                 if(!ctrl.isOtherAnswer){
                     delete ctrl.questionResponse.other;
                 }
-                ctrl.selectedAnswer = ctrl.questionResponse.selectedAnswers.length||ctrl.isOtherAnswer ? true:null ;
+                ctrl.question_ans = ctrl.questionResponse.selectedAnswers.length||ctrl.isOtherAnswer ? true:null ;
                 ctrl.answerChanged();
             };
 
@@ -563,7 +548,7 @@ angular.module('mwFormViewer').factory("FormQuestionId", function(){
                 } else {
                     ctrl.questionResponse.selectedAnswers.splice(ctrl.questionResponse.selectedAnswers.indexOf(answer.id), 1);
                 }
-                ctrl.selectedAnswer = ctrl.questionResponse.selectedAnswers.length||ctrl.isOtherAnswer ? true:null ;
+                ctrl.question_ans = ctrl.questionResponse.selectedAnswers.length||ctrl.isOtherAnswer ? true:null ;
 
                 ctrl.answerChanged();
             };
