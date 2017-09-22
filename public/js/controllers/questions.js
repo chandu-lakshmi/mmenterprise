@@ -8,11 +8,11 @@
     .controller('CreateQuestionController', CreateQuestionController)
 
 
- 	QuestionsListController.$inject = ['$http', '$window', 'App'];
-	CreateQuestionController.$inject = ['$timeout', '$state', '$http', '$window', '$mdToast', 'App'];
+    QuestionsListController.$inject  = ['$timeout', '$mdToast','$uibModal', '$http', '$window', 'App'];
+	CreateQuestionController.$inject = ['$stateParams', '$timeout', '$state', '$http', '$window', '$mdToast', 'App'];
 
 
-	function QuestionsListController($http, $window, App) {
+	function QuestionsListController($timeout, $mdToast, $uibModal, $http, $window, App) {
 		
 		var vm = this;
 
@@ -37,9 +37,9 @@
 
 		this.gridOptions.columnDefs = [
 			{ name: 'question', displayName: 'ALL QUESTIONS', width: '52%' },
-			{ name: 'question_type_name', displayName: 'TYPE' },
+			{ name: 'question_type', displayName: 'TYPE' },
 			{ name: 'question_value', displayName: 'SCORE', width: '10%'},
-			{ name: 'actions', displayName: 'ACTIONS', width: '15%', cellTemplate: 'action.html', cellClass: 'action-view'}
+			{ name: 'question_id', displayName: 'ACTIONS', width: '15%', cellTemplate: 'action.html', cellClass: 'action-view'}
 		];
 
 		this.gridOptions.onRegisterApi = function (gridApi) {
@@ -58,6 +58,30 @@
 		this.pageChanged = function(pageNo) {
 			vm.grid.pageNo = pageNo;
 			getQuestionList();
+		}
+
+		this.deleteQuestion = function (id) {
+
+			$uibModal.open({
+				animation: false,
+				backdrop: 'static',
+				keyboard: false,
+				templateUrl: 'templates/dialogs/common-confirm-msg.phtml',
+				openedClass: "referral-status confirm-message",
+				resolve: {
+					paramsMdService: function () {
+						return {
+							firstMsg: 'Are you sure you want to ',
+							secondMsg: 'delete Question?',
+							params: { question_id: id },
+							apiEndPoint: 'add_edit_exam_question',
+							callback: deleteQeustionCallback
+						};
+					}
+				},
+				controller: 'CommonConfirmMessage',
+				controllerAs: 'CommonConfirmMsgCtrl'
+			})
 		}
 
 		function init() {
@@ -93,21 +117,31 @@
 			});
 		}
 
+		function deleteQeustionCallback(response) {
+			$timeout(function () {
+				$mdToast.show({
+					hideDelay: 3000,
+					position: 'top right',
+					template: '<md-toast class="mm-toast"><div class="md-toast-text" flex><i class="material-icons">done</i><div class="text"><div class="toast-succ">Success!</div><div class="succ-text">' + response.message.msg[0] + '</div></div></div></md-toast>'
+				}, 200);
+			});
+		}
+
+
 		init();
 		
 	}
 
 
-	function CreateQuestionController($timeout, $state, $http, $window, $mdToast, App) {
+	function CreateQuestionController($stateParams, $timeout, $state, $http, $window, $mdToast, App) {
 
 		var vm = this;
-		
 
 		this.alphabet = ['A', 'B', 'C', 'D', 'E', 'F'];
 		this.questionObj = {
 			type  : null,
 			answerOpts : null,
-			selectedTags : [],
+			libraries : [],
 			options: [
 				{ option: null, is_correct_answer:0 },
 				{ option: null, is_correct_answer:0 },
@@ -116,6 +150,7 @@
 			]
 		};
 		this.copyQuestionObj = angular.copy(vm.questionObj);
+		this.enableViewMode = $stateParams.mode == 'view';
 
 		this.postQuestionInProgressSave = false;
 		this.postQuestionInProgressAdd  = false;
@@ -152,23 +187,29 @@
 			
 			vm.postQuestionSubmitted = true;
 			
-			if (vm.questionObj.type == 1 && !vm.questionObj.answerOpts){
+			if (vm.questionObj.question_type == 1 && !vm.questionObj.answerOpts){
 				return;
 			}
 
 			if (form.$valid) {
 
+				var tempObj = { libraries: angular.copy(vm.questionObj.libraries) },
+					tempFrmData = $("form[name='questionForm'] :not('.hide-from-frm')").serialize(),
+					apiEndPoint = 'add_question';
+
+				if ($stateParams.mode == 'edit') {
+					apiEndPoint = 'edit_question';
+					tempObj.question_id = $stateParams.id;
+				}
+
+				if (vm.questionObj.question_type == 1) {
+					tempObj.options = vm.questionObj.options;
+				}
+
 				if (status == "addAnother") {
 					this.postQuestionInProgressAdd = true;
 				} else {
 					this.postQuestionInProgressSave = true;
-				}
-
-				var tempObj = { libraries: angular.copy(vm.questionObj.selectedTags) },
-					tempFrmData = $("form[name='questionForm'] :not('.hide-from-frm')").serialize()
-
-				if (vm.questionObj.type == 1) {
-					tempObj.options = vm.questionObj.options;
 				}
 
 				var apiKeys = tempFrmData + '&' + $.param(tempObj);
@@ -179,7 +220,7 @@
 					},
 					method: 'POST',
 					data: apiKeys,
-					url: App.base_url + 'add_question',
+					url: App.base_url + apiEndPoint,
 				})
 				.then(function (response) {
 					if (response.data.status_code == 200) {
@@ -214,6 +255,9 @@
 
 		function init() {
 			getAPI();
+			if ($stateParams.id != 0) {
+				getQuestion();
+			}
 		}
 
 		function getAPI() {
@@ -253,6 +297,31 @@
 
 		}
 
+		function getQuestion() {
+
+			vm.qestionViewEditInProgress = true;
+
+			var apiKeys = $.param({ question_id :$stateParams.id});
+
+			$http({
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+				},
+				method: 'POST',
+				data: apiKeys,
+				url: App.base_url + 'view_question',
+			})
+			.then(function (response) {
+				if (response.data.status_code == 200) {
+					vm.qestionViewEditInProgress = false;
+					vm.questionObj = angular.copy(response.data.data)
+				}
+				else if (response.data.status_code == 400) {
+					$window.location = App.base_url + 'logout';
+				}
+			});
+		}
+		
 
 		init();
 	}
