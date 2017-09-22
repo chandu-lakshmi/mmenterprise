@@ -414,6 +414,14 @@ return [
             'view_question' =>[
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/view_question'
+            ],
+            'get_company_assessments_list' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_company_assessments_list'
+            ],
+            'get_exam_details' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_exam_details'
             ]
     ];
         
