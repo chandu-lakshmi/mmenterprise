@@ -422,6 +422,14 @@ return [
             'get_exam_details' =>[
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/get_exam_details'
+            ],
+            'delete_question' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/delete_question'
+            ],
+            'get_company_assessments_all' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_company_assessments_all'
             ]
     ];
         
