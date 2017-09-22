@@ -286,7 +286,7 @@
                     controllerAs: 'QuestionsListCtrl'
                 })
                 $stateProvider.state('app.campaigns.CreateQuestion', {
-                    url: '^/questions/create-question',
+                    url: '^/questions/add-edit-question/:mode/:id',
                     templateUrl: App.base_url + 'templates/questions/create-question.phtml',
                     controller: 'CreateQuestionController',
                     controllerAs: 'CreateQuestionCtrl'

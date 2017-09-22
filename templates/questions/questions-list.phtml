@@ -6,7 +6,7 @@
 					<div layout="row" >
 						<h4 class="title">Questions</h4>
 						<i flex></i>
-						<md-button ui-sref="app.campaigns.CreateQuestion" class="md-raised action">CREATE QUESTION</md-button>
+						<md-button ui-sref="app.campaigns.CreateQuestion({mode:'add', id:0})" class="md-raised action">CREATE QUESTION</md-button>
 					</div>
 				</div>
 			</div>
@@ -47,8 +47,8 @@
 <!-- Test Name -->
 <script type="text/ng-template" id="action.html">
 	<div class="ui-grid-cell-contents ui-grid-details">
-      <a ui-sref="app.assessmentEditTest" class="name" ng-click="$event.stopPropagation()"><img src="public/images/eye.png" alt="view"></a>
-      <a ui-sref="app.assessmentEditTest" class="name" ng-click="$event.stopPropagation()"><img src="public/images/edit.png" alt="view"></a>
-      <a ui-sref="app.assessmentEditTest" class="name" ng-click="$event.stopPropagation()"><img src="public/images/bin.png" alt="view"></a>
+      <a class="name" ui-sref="app.campaigns.CreateQuestion({mode:'view', id:COL_FIELD})" ng-click="$event.stopPropagation()"><img src="public/images/eye.png" alt="view"></a>
+      <a class="name" ui-sref="app.campaigns.CreateQuestion({mode:'edit', id:COL_FIELD})" ng-click="$event.stopPropagation()"><img src="public/images/edit.png" alt="view"></a>
+      <a class="name" ng-click="grid.appScope.deleteQuestion(COL_FIELD);$event.stopPropagation()"><img src="public/images/bin.png" alt="view"></a>
 	</div>
 </script>
