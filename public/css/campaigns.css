@@ -19,6 +19,8 @@ md-dialog md-dialog-actions button.md-primary {
   .campaigns .sub-header {
     background: #0e2d3f;
     height: 60px; }
+    .campaigns .sub-header .highlight {
+      color: #fff; }
     .campaigns .sub-header ul {
       list-style: none;
       margin: 0;

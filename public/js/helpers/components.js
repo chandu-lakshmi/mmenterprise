@@ -71,11 +71,11 @@
             .success(function (response) {
                 if (response.status_code == 200) {
                     paramsMdService.callback(response);
+                    $uibModalInstance.dismiss('cancel');  
                     scope.responseMsg = response.message.msg[0];                    
                     scope.actionScreen = false;
-                    $timeout(function(){
-                      $uibModalInstance.dismiss('cancel');  
-                  }, 2000);
+                //     $timeout(function(){
+                //   }, 2000);
                 }
                 else if (response.status_code == 400) {
                     $window.location = App.base_url + 'logout';

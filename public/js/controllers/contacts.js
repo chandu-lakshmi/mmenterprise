@@ -10,7 +10,7 @@
             .directive('checkBucket', checkBucket)
             .service('buckets', buckets)
 
-    ContactsController.$inject = ['$scope', '$window', '$http', '$q', 'buckets', 'uiGridValidateService', '$uibModal', 'App', 'userPermissions', '$stateParams'];
+    ContactsController.$inject = ['$timeout', '$mdToast', '$scope', '$window', '$http', '$q', 'buckets', 'uiGridValidateService', '$uibModal', 'App', 'userPermissions', '$stateParams'];
     contactsInviteController.$inject = ['$scope', '$uibModalInstance', 'listContacts', '$http', '$window', 'userPermissions', 'App'];
     UploadContactsController.$inject = ['$scope', '$window', 'defaultFunction', 'getBuckets', '$uibModalInstance', '$state', '$http', '$uibModal', 'buckets', '$timeout', 'App'];
     UploadSingleContactController.$inject = ['$scope', '$window', 'defaultFunction', 'getBuckets', '$http', '$uibModalInstance', 'buckets', 'bucketType', 'App'];
@@ -62,7 +62,7 @@
     }
 
 
-    function ContactsController($scope, $window, $http, $q, buckets, uiGridValidateService, $uibModal, App, userPermissions, $stateParams) {
+    function ContactsController($timeout, $mdToast, $scope, $window, $http, $q, buckets, uiGridValidateService, $uibModal, App, userPermissions, $stateParams) {
 
         var scope = this,
                     edit_feature;
@@ -590,6 +590,13 @@
             })
             
             function deleteCallback(res){
+                $timeout(function(){
+                    $mdToast.show({
+                        hideDelay: 4000,
+                        position: 'top right',
+                        template: '<md-toast class="mm-toast"><div class="md-toast-text" flex><i class="material-icons">done</i><div class="text"><div class="toast-succ">Success!</div><div class="succ-text">' + res.message.msg[0] + '</div></div></div></md-toast>'
+                    }, 200);
+                });              
                 scope.getGridData('ALL CONTACTS', '0', '', '');
                 scope.getActiveBucketCount(-1);
                 scope.bucketNames.splice(bktIndex, 1);

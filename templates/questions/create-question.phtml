@@ -9,15 +9,15 @@
 			</div>
 
 			<div class="section">
-				<div class="container">
+				<form name="questionForm" class="container">
 					<div layout="row" class="list first">
 						<md-input-container flex="35" class="md-block select-box">
 							<label style="display:none">Select a question type?</label>
-							<md-select name="campaign_type" ng-model="CreateTestCtrl.campDetails.campaign_type" required ng-class="{'error-border':campaignDetails.campaign_type.$invalid && CreateTestCtrl.errCondcampaignDetails}">
-								<md-option ng-repeat="type in CreateQuestionCtrl.questionTypes" ng-value="type">{{type}}</md-option>
+							<md-select name="question_type" ng-model="CreateQuestionCtrl.questionObj.type" required>
+								<md-option ng-repeat="type in CreateQuestionCtrl.questionTypesList" ng-value="type.id">{{type.name}}</md-option>
 							</md-select>
 							<div class="error-spacer"></div>
-							<div ng-if="campaignDetails.campaign_type.$error.required && CreateTestCtrl.errCondcampaignDetails"  class="has-error-msg">Please select Campaign Type.</div>
+							<div ng-if="questionForm.question_type.$error.required && CreateQuestionCtrl.postQuestionSubmitted"  class="has-error-msg">Please select Question type.</div>
 						</md-input-container>
 					</div>
 					<div layout="row" class="list">
@@ -25,34 +25,36 @@
 							<div layout="row">
 								<md-input-container flex class="md-block full-box">
 									<label>Question</label>
-									<input type="text" name="campaign_name" ng-model="NewCampaignCtrl.campDetails.campaign_name" required ng-class="{'has-error-border':campaignDetails.campaign_name.$invalid && NewCampaignCtrl.errCondcampaignDetails}">
-									<div ng-if="campaignDetails.campaign_name.$error.required && NewCampaignCtrl.errCondcampaignDetails" class="has-error-msg">Please enter Campaign Name.</div>
+									<input type="text" name="question" ng-model="CreateQuestionCtrl.questionObj.question" required maxlength="500">
+									<div class="error-spacer"></div>
+									<div ng-if="questionForm.question.$error.required && CreateQuestionCtrl.postQuestionSubmitted"  class="has-error-msg">Please add question.</div>
 								</md-input-container>
 							</div>
 							<div layout="row" class="question-desc">
 								<md-input-container flex class="md-block full-box">
 									<label>Question Description</label>
-									<textarea ng-model="user.biography" md-select-on-focus></textarea>
+									<textarea name="question_notes" ng-model="CreateQuestionCtrl.questionObj.description" maxlength="500"></textarea>
 								</md-input-container>
 							</div>
 							<div layout="row" class="question-desc">
 								<md-input-container flex="35" class="md-block full-box">
 									<label>Score</label>
-									<input type="text" name="campaign_name" ng-model="NewCampaignCtrl.campDetails.campaign_name" required ng-class="{'has-error-border':campaignDetails.campaign_name.$invalid && NewCampaignCtrl.errCondcampaignDetails}">
-									<div ng-if="campaignDetails.campaign_name.$error.required && NewCampaignCtrl.errCondcampaignDetails" class="has-error-msg">Please enter Campaign Name.</div>
+									<input type="text" check-char-zero name="question_value" ng-pattern="/(^[^0]$)|(^[1-9]\d{0,}$)/" maxlength="100" ng-model="CreateQuestionCtrl.questionObj.score" required>
+									<div ng-if="questionForm.question_value.$error.required && CreateQuestionCtrl.postQuestionSubmitted"  class="has-error-msg">Please add Score.</div>
+									<div ng-if="questionForm.question_value.$error.pattern" class="has-error-msg">Score should not be zero.</div>
 								</md-input-container>
 							</div>
 							<div layout="row" class="tags">
                         <!--placeholder value in css please check if you want to change -->
-								<md-chips flex ng-model="CreateQuestionCtrl.selectedTags" md-autocomplete-snap
+								<md-chips flex ng-model="CreateQuestionCtrl.questionObj.selectedTags" md-autocomplete-snap
 											md-require-match="true" 
-											ng-class="{'active' : (!!CreateQuestionCtrl.selectedTags.length || !!CreateQuestionCtrl.searchText.length), 'attendees-required' : !CreateQuestionCtrl.schedule.attendees.length && CreateQuestionCtrl.submittedSchedule }"
+											ng-class="{'active' : (!!CreateQuestionCtrl.questionObj.selectedTags.length || !!CreateQuestionCtrl.searchText.length)}"
 												>
 										<md-autocomplete
 											md-selected-item="CreateQuestionCtrl.selectedItem"
 											md-search-text="CreateQuestionCtrl.searchText"
-											md-items="item in CreateQuestionCtrl.tags"
-											md-item-text="item.emailid"
+											md-items="item in CreateQuestionCtrl.tagsList"
+											md-item-text="item.name"
 											md-no-cache = "true"
 											md-menu-class="autocomplete-attendees-template"
 										>
@@ -75,40 +77,51 @@
 						</div>
 						<i flex="5"></i>
 						<div layout="column" flex style="position:relative">
-							<span class="text-opts">Answer Options</span>
-							<div layout="row">
-								<md-radio-group ng-model="data.group1" flex>
-									<div layout="column">
+							<div layout="row" ng-if="CreateQuestionCtrl.questionObj.type == 1">
+								<div class="mm-slide-left" flex>
+									<span class="text-opts">Answer Options</span>
+									<md-radio-group name="answer_options" ng-model="CreateQuestionCtrl.questionObj.answerOpts" flex>
+										<div layout="column">
 										
-										<div layout="row" ng-repeat="answerOpts in CreateQuestionCtrl.answerOptionsList" ng-if="CreateQuestionCtrl.showAnswerOptions > $index">
-											<div flex="10" class="left">
-												<md-radio-button  aria-label="answerOpts.label" value="{{answerOpts.label}}"> {{answerOpts.label}}</md-radio-button>
+											<div layout="row" ng-repeat="data in CreateQuestionCtrl.questionObj.options track by $index" ng-init="CreateQuestionCtrl.getCorrectAnswer(data.is_correct_answer, $index)">
+												<i class="material-icons" ng-if="$index > 3 && $last" ng-click="CreateQuestionCtrl.trashAnswerOption()">delete</i>
+												<div flex="10" class="left" ng-click="CreateQuestionCtrl.setCorrectAnswer($index)">
+													<md-radio-button aria-label="CreateQuestionCtrl.alphabet[$index]" value="{{CreateQuestionCtrl.alphabet[$index]}}"> {{CreateQuestionCtrl.alphabet[$index]}}</md-radio-button>
+												</div>
+												<div flex="90">
+													<md-input-container flex class="md-block full-box">
+														<input class="hide-from-frm" type="text" required aria-label="data.option" name="{{CreateQuestionCtrl.alphabet[$index]}}" ng-model="data.option">
+														<div class="error-spacer"></div>
+														<div ng-if="questionForm[CreateQuestionCtrl.alphabet[$index]].$error.required && CreateQuestionCtrl.postQuestionSubmitted" class="has-error-msg" style="margin-left: -52px">Please add options text.</div>
+													</md-input-container>
+												</div>
 											</div>
-											<div flex="90">
-												<md-input-container flex class="md-block full-box">
-													<input type="text"  aria-label="answerOpts.label" name="campaign_name" ng-model="NewCampaignCtrl.campDetails.campaign_name">
-													<div ng-if="campaignDetails.campaign_name.$error.required && NewCampaignCtrl.errCondcampaignDetails" class="has-error-msg">Please enter Campaign Name.</div>
-												</md-input-container>
+											<div ng-if="!CreateQuestionCtrl.questionObj.answerOpts && CreateQuestionCtrl.postQuestionSubmitted" class="has-error-msg">Please select answer.</div>
+											<div layout="row">
+												<md-button class="action-add-opts" ng-class="{ 'disable-cursor' : CreateQuestionCtrl.questionObj.options.length > 5}" ng-click="CreateQuestionCtrl.addAnswerOption()" ng-disabled="CreateQuestionCtrl.questionObj.options.length > 5">+ADD OPTION</md-button>
 											</div>
-										</div>
 
-										<div layout="row">
-											<md-button class="action-add-opts" ng-class="{ 'disable-cursor' : CreateQuestionCtrl.showAnswerOptions > 5}" ng-click="CreateQuestionCtrl.addAnswerOption()" ng-disabled="CreateQuestionCtrl.showAnswerOptions > 5">+ADD OPTION</md-button>
 										</div>
-									</div>
-								</md-radio-group>
+									</md-radio-group>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+				</form>
 			</div>
 
 			<div class="footer">
 				<div layout="row">
 					<i flex></i>
-					<md-button ui-sref="app.assessmentCreateTest" class="md-raised action">SAVE QUESTIONS</md-button>
+					<md-button class="md-raised action" ng-disabled="CreateQuestionCtrl.postQuestionInProgressSave" ng-click="CreateQuestionCtrl.postQuestion(questionForm, 'goList')">
+						SAVE QUESTIONS
+						<img class="loader" ng-if="CreateQuestionCtrl.postQuestionInProgressSave" src="public/images/loader/dot.svg" alt="loading">
+					</md-button>
 					<span class="or"> or </span>
-					<md-button ui-sref="app.assessmentCreateTest" class="md-raised action add-add-new">ADD & ADD ANOTHER</md-button>
+					<md-button ng-disabled="CreateQuestionCtrl.postQuestionInProgressAdd" ng-click="CreateQuestionCtrl.postQuestion(questionForm, 'addAnother')" class="md-raised action add-add-new">
+						ADD & ADD ANOTHER
+						<img class="loader" ng-if="CreateQuestionCtrl.postQuestionInProgressAdd" src="public/images/loader/dot.svg" alt="loading">
+					</md-button>
 					<i flex></i>
 				</div>
 			</div>

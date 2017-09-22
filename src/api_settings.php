@@ -430,6 +430,26 @@ return [
             'get_company_assessments_all' =>[
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/get_company_assessments_all'
+            ],
+            'get_questions_list' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_questions_list'
+            ],
+            'add_edit_exam' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/add_edit_exam'
+            ],
+            'edit_exam_settings' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/edit_exam_settings'
+            ],
+            'view_exam_question' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/view_exam_question'
+            ],
+            'add_edit_exam_question' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/add_edit_exam_question'
             ]
     ];
         

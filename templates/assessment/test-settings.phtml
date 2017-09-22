@@ -1,124 +1,142 @@
 <div class="assessment test">
 	<div layout="column" class="container-box">
-		<div class="test-settings">
-			<div class="header">
-				<div class="container">
-					<div layout="row">
-						<a ui-sref="app.campaigns.EditTest"><img class="back" src="public/images/back-arrow-grey.svg" alt="back"></a>
-						<h4 class="title" flex>Campus Drive - Sep 2017- Test</h4>
-						<md-input-container flex="15" class="md-block select-box">
-							<md-select name="campaign_type" ng-model="TestSettingsCtrl.settings.status" aria-label="status">
-								<md-option ng-repeat="status in TestSettingsCtrl.statusList"  ng-value="status">{{status}}</md-option>
-							</md-select>
-						</md-input-container>
-						<md-button ui-sref="app.campaigns.EditTest" class="cancel">CANCEL</md-button>
-						<md-button ui-sref="app.campaigns.EditTest" class="md-raised action">SAVE CHANGES</md-button>
-					</div>
-				</div>
-			</div>
-			<div class="section md-padding">
-				<div class="container">
-					<div layout="row" flex="50" class="copy-url">
-						<md-input-container flex class="md-block full-box">
-							<label>Test Name</label>
-							<input type="text" name="campaign_name" id="copy-url" ng-model="NewCampaignCtrl.campDetails.campaign_name">
-						</md-input-container>
-						<div class="btns" data-copytarget="#copy-url">COPY</div>
-					</div>
-					<div class="pwd-protection"><md-checkbox ng-model="data.cb2" aria-label="Checkbox 2" ng-true-value="'yup'" ng-false-value="'nope'" class="md-align-top-left"> Password Protection</div>
-					<div layout="row" flex="30" class="pwd-action">
-						<md-input-container  class="md-block full-box hide-label">
-							<input type="text" placeholder="Set New Password" name="campaign_name" id="copy-url" ng-model="NewCampaignCtrl.campDetails.campaign_name">
-						</md-input-container>
-						<md-button class="md-raised action">SAVE</md-button>	
-					</div>
-					<div layout="row" class="time">
-						<md-input-container flex="20" class="md-block full-box">
-							<input type="text" placeholder="Time (in Minutes)" name="campaign_name" id="copy-url" ng-model="NewCampaignCtrl.campDetails.campaign_name">
-						</md-input-container>
-					</div>
-					<div layout="row" class="time">
-						<md-input-container flex="20" class="md-block full-box">
-							<input type="text" placeholder="Start Date" name="start_date" id="start_date" schedule-required>
-						</md-input-container>
-						<md-input-container  flex="20" class="md-block full-box">
-							<input type="text" placeholder="Start Time" name="start_time" id="start_time" schedule-required>
-						</md-input-container>
-						<i class="gap"></i>
-						<md-input-container  flex="20" class="md-block full-box">
-							<input type="text" placeholder="End Date" name="end_date" id="end_date" schedule-required>
-						</md-input-container>
-						<md-input-container flex="20" class="md-block full-box">
-							<input type="text" placeholder="End Time" name="end_time" id="end_time" schedule-required>
-						</md-input-container>
-					</div>
-					<div layout="row" class="cutoff">
-						<md-input-container flex="20" class="md-block full-box">
-							<input type="text" placeholder="Cutoff Score (out of 100)" name="campaign_name" id="copy-url" ng-model="NewCampaignCtrl.campDetails.campaign_name">
-						</md-input-container>
-						<md-input-container flex="20" class="md-block full-box">
-							<input type="text" placeholder="MCQ Settings" name="campaign_name" id="copy-url" ng-model="NewCampaignCtrl.campDetails.campaign_name">
-						</md-input-container>
-					</div>
-					<div layout="row" class="cutoff-desc" flex="60">
-						Using this you can set a cutoff score for you test. All candidates with score greater then that will automatically the qualified for interview.
-					</div>
-
-					<md-divider flex="85"></md-divider>
-
-					<div class="switch">
-						<span class="text">Auto Screening</span>
-						<div class="switch-box">
-							<md-button ng-click="TestSettingsCtrl.toogleAutoScreen(1)" ng-class="{'active':TestSettingsCtrl.settings.autoScreen}">Yes</md-button><md-button ng-click="TestSettingsCtrl.toogleAutoScreen(0)" ng-class="{'active':!TestSettingsCtrl.settings.autoScreen}">No</md-button>
+		<form name="settingsForm">
+			<div class="test-settings">
+				<div class="header">
+					<div class="container">
+						<div layout="row">
+							<a ui-sref="app.campaigns.EditTest"><img class="back" src="public/images/back-arrow-grey.svg" alt="back"></a>
+							<h4 class="title" flex>Campus Drive - Sep 2017- Test</h4>
+							<md-input-container flex="15" class="md-block select-box">
+								<md-select name="is_active" ng-model="TestSettingsCtrl.settingsObj.status" aria-label="status">
+									<md-option ng-repeat="status in TestSettingsCtrl.statusList"  ng-value="status.value">{{status.label}}</md-option>
+								</md-select>
+							</md-input-container>
+							<md-button ui-sref="app.campaigns.EditTest" class="cancel">CANCEL</md-button>
+							<md-button ng-disabled="TestSettingsCtrl.postSettingsInProgress" class="md-raised action" ng-click="TestSettingsCtrl.postSettings(settingsForm)">SAVE CHANGES
+								<img class="loader-dot" ng-if="TestSettingsCtrl.postSettingsInProgress" src="public/images/loader/dot.svg" alt="loading">
+							</md-button>
 						</div>
 					</div>
-					<div layout="row" class="qualification">
-						<md-input-container flex="25" class="md-block full-box">
-							<input type="text" placeholder="Cutoff Score (out of 100)" name="campaign_name" id="copy-url" ng-model="NewCampaignCtrl.campDetails.campaign_name">
-						</md-input-container>
-						<i class="gap"></i>
-						<md-input-container flex="25" class="md-block full-box">
-							<input type="text" placeholder="MCQ Settings" name="campaign_name" id="copy-url" ng-model="NewCampaignCtrl.campDetails.campaign_name">
-						</md-input-container>
-					</div>
-					<div layout="row" class="qualification switch">
-						<md-input-container flex="25" class="md-block full-box">
-							<input type="text" placeholder="Cutoff Score (out of 100)" name="campaign_name" id="copy-url" ng-model="NewCampaignCtrl.campDetails.campaign_name">
-						</md-input-container>
-						<i class="gap"></i>
-						<div flex="30">
-							<span class="text">AI Screening</span>
+				</div>
+				<div class="section md-padding">
+					<div class="container">
+						<div layout="row" flex="50" class="copy-url">
+							<md-input-container flex class="md-block full-box">
+								<label>Test URL</label>
+								<input type="text" name="exam_url" id="copy-url" ng-model="TestSettingsCtrl.settingsObj.testUrl">
+							</md-input-container>
+							<div class="btns" data-copytarget="#copy-url">COPY</div>
+						</div>
+						<div class="pwd-protection"><md-checkbox name="password_protected" ng-model="pwd" aria-label="pwdProtection" ng-true-value="1" ng-false-value="0" class="md-align-top-left"> Password Protection</div>
+						<div layout="row" flex="30" class="pwd-action">
+							<md-input-container  class="md-block full-box hide-label">
+								<input type="text" placeholder="Set New Password" ng-required="pwd" name="password" ng-model="TestSettingsCtrl.settingsObj.pwd">
+								<div class="error-spacer"></div>
+								<div ng-if="settingsForm.password.$error.required && TestSettingsCtrl.postSettingsSubmitted" class="has-error-msg">Please enter Password.</div>
+							</md-input-container>
+							<md-button class="md-raised action">SAVE</md-button>	
+						</div>
+						<div layout="row" class="time">
+							<md-input-container flex="20" class="md-block full-box">
+								<input type="text" placeholder="Time (in Minutes)" name="exam_duration" ng-pattern="/(^[^0]$)|(^[1-9]\d{0,}$)/" check-char-zero ng-model="TestSettingsCtrl.settingsObj.duration">
+							</md-input-container>
+						</div>
+						<div layout="row" class="time">
+							<md-input-container flex="20" class="md-block full-box">
+								<input type="text" placeholder="Start Date" required name="start_date" id="start_date" ng-model="TestSettingsCtrl.settingsObj.startDate" schedule-required>
+								<div class="error-spacer"></div>
+								<div ng-if="settingsForm.start_date.$error.required && TestSettingsCtrl.postSettingsSubmitted" class="has-error-msg">Please select Start Date.</div>
+							</md-input-container>
+							<md-input-container  flex="20" class="md-block full-box">
+								<input type="text" placeholder="Start Time" name="start_time" id="start_time" required ng-model="TestSettingsCtrl.settingsObj.startTime" schedule-required>
+								<div class="error-spacer"></div>
+								<div ng-if="settingsForm.start_time.$error.required && TestSettingsCtrl.postSettingsSubmitted" class="has-error-msg">Please select Start Time.</div>
+							</md-input-container>
+							<i class="gap"></i>
+							<md-input-container  flex="20" class="md-block full-box">
+								<input type="text" placeholder="End Date" name="end_date" id="end_date" required ng-model="TestSettingsCtrl.settingsObj.endDate" schedule-required>
+								<div class="error-spacer"></div>
+								<div ng-if="settingsForm.end_date.$error.required && TestSettingsCtrl.postSettingsSubmitted" class="has-error-msg">Please select End Date.</div>
+							</md-input-container>
+							<md-input-container flex="20" class="md-block full-box">
+								<input type="text" placeholder="End Time" name="end_time" id="end_time" required ng-model="TestSettingsCtrl.settingsObj.endTime" schedule-required>
+								<div class="error-spacer"></div>
+								<div ng-if="settingsForm.end_time.$error.required && TestSettingsCtrl.postSettingsSubmitted" class="has-error-msg">Please select End Time.</div>
+							</md-input-container>
+						</div>
+						<div layout="row" class="cutoff">
+							<md-input-container flex="20" class="md-block full-box">
+								<input type="text" placeholder="Cutoff Score (out of 100)" check-char-zero required  ng-pattern="/(^[^0]$)|(^[1-9]\d{0,}$)/" name="min_marks" ng-model="TestSettingsCtrl.settingsObj.cutoffScore">
+								<div class="error-spacer"></div>
+								<div ng-if="settingsForm.min_marks.$error.required && TestSettingsCtrl.postSettingsSubmitted" class="has-error-msg err-display">Please enter Cutoff Score.</div>
+								<div ng-if="settingsForm.min_marks.$error.pattern" class="has-error-msg err-display">Cutoff Score should not be zero.</div>
+							</md-input-container>
+							<md-input-container flex="20" class="md-block full-box">
+								<input type="text" placeholder="MCQ Settings" name="mcq_settings" ng-model="TestSettingsCtrl.settingsObj.mcqSettings">
+							</md-input-container>
+						</div>
+						<div layout="row" class="cutoff-desc" flex="60">
+							Using this you can set a cutoff score for you test. All candidates with score greater then that will automatically the qualified for interview.
+						</div>
+
+						<md-divider flex="85"></md-divider>
+						<div class="switch">
+							<span class="text">Auto Screening</span>
 							<div class="switch-box">
-								<md-button ng-click="TestSettingsCtrl.toogleAutoScreen(1)" ng-class="{'active':TestSettingsCtrl.settings.autoScreen}">Yes</md-button><md-button ng-click="TestSettingsCtrl.toogleAutoScreen(0)" ng-class="{'active':!TestSettingsCtrl.settings.autoScreen}">No</md-button>
+								<md-button ng-click="TestSettingsCtrl.toogleAutoScreen(1)" ng-class="{'active':TestSettingsCtrl.settingsObj.autoScreen}">Yes</md-button><md-button ng-click="TestSettingsCtrl.toogleAutoScreen(0)" ng-class="{'active':!TestSettingsCtrl.settingsObj.autoScreen}">No</md-button>
+							</div>
+						</div>
+						<div layout="row" class="qualification">
+							<md-input-container flex="25" class="md-block full-box">
+								<input type="text" placeholder="Maximum Qualification" name="max_qualification" ng-model="TestSettingsCtrl.settingsObj.maxQualification">
+							</md-input-container>
+							<i class="gap"></i>
+							<md-input-container flex="25" class="md-block full-box">
+								<input type="text" placeholder="Prefered Qualifications" name="pre_qualification" ng-model="TestSettingsCtrl.settingsObj.preQualification">
+							</md-input-container>
+						</div>
+						<div layout="row" class="qualification switch">
+							<md-input-container flex="25" class="md-block full-box">
+								<input type="text" placeholder="Keywords Matches" name="keywords_matches" ng-model="TestSettingsCtrl.settingsObj.keywordsMatches">
+							</md-input-container>
+							<i class="gap"></i>
+							<div flex="30">
+								<span class="text">AI Screening</span>
+								<div class="switch-box">
+									<md-button ng-click="TestSettingsCtrl.toogleAIScreening(1)" ng-class="{'active':TestSettingsCtrl.settingsObj.aIScreening}">Yes</md-button><md-button ng-click="TestSettingsCtrl.toogleAIScreening(0)" ng-class="{'active':!TestSettingsCtrl.settingsObj.aIScreening}">No</md-button>
+								</div>
+							</div>
+						</div>
+
+						<md-divider flex="85"></md-divider>
+						<div class="extra-opts">
+							<div class="pwd-protection"><md-checkbox name="enable_full_screen" ng-model="TestSettingsCtrl.settingsObj.enableFullscreen" aria-label="enableFullscreen" ng-true-value="1" ng-false-value="0"> Enable Full screen</div>
+							<div class="pwd-protection"><md-checkbox name="shuffle_questions" ng-model="TestSettingsCtrl.settingsObj.shuffleQuestions" aria-label="shuffleQuestions" ng-true-value="1" ng-false-value="0"> Shuffle Questions</div>
+							<div class="pwd-protection"><md-checkbox name="reminder_emails" ng-model="TestSettingsCtrl.settingsObj.reminderMail" aria-label="reminderMail" ng-true-value="1" ng-false-value="0"> Reminder EMail</div>
+							<div class="pwd-protection"><md-checkbox name="confirmation_email" ng-model="TestSettingsCtrl.settingsObj.confirmationMail" aria-label="confirmationMail" ng-true-value="1" ng-false-value="0"> Confirmation EMail</div>
+							<div class="pwd-protection"><md-checkbox name="disclaimer" ng-model="TestSettingsCtrl.settingsObj.disclaimer" aria-label="disclaimer" ng-true-value="1" ng-false-value="0"> Disclaimer</div>
+							<textarea name="disclaimer_text" ng-model="TestSettingsCtrl.settingsObj.disclaimerText" ></textarea>
+						</div>
+
+						<md-divider></md-divider>
+					</div>
+					<div class="footer">
+						<div class="header">
+							<div class="container">
+								<div layout="row">
+									<i flex></i>
+									<md-button ui-sref="app.campaigns.EditTest" class="cancel">CANCEL</md-button>
+									<md-button ng-disabled="TestSettingsCtrl.postSettingsInProgress" class="md-raised action" ng-click="TestSettingsCtrl.postSettings(settingsForm)">SAVE CHANGES
+										<img class="loader-dot" ng-if="TestSettingsCtrl.postSettingsInProgress" src="public/images/loader/dot.svg" alt="loading">
+									</md-button>
+								</div>
 							</div>
 						</div>
 					</div>
-
-					<md-divider flex="85"></md-divider>
-					
-					<div class="extra-opts">
-						<div class="pwd-protection"><md-checkbox ng-model="data.cb2" aria-label="Checkbox 2" ng-true-value="'yup'" ng-false-value="'nope'" class="md-align-top-left"> Enable Full screen</div>
-						<div class="pwd-protection"><md-checkbox ng-model="data.cb2" aria-label="Checkbox 2" ng-true-value="'yup'" ng-false-value="'nope'" class="md-align-top-left"> Shuffle Questions</div>
-						<div class="pwd-protection"><md-checkbox ng-model="data.cb2" aria-label="Checkbox 2" ng-true-value="'yup'" ng-false-value="'nope'" class="md-align-top-left"> Confirmation Mail</div>
-						<div class="pwd-protection"><md-checkbox ng-model="data.cb2" aria-label="Checkbox 2" ng-true-value="'yup'" ng-false-value="'nope'" class="md-align-top-left"> Disclaimer</div>
-						<textarea></textarea>
-					</div>
-
-					<md-divider></md-divider>
 				</div>
-				<div class="footer">
-					<div class="header">
-						<div class="container">
-							<div layout="row">
-								<i flex></i>
-								<md-button ui-sref="app.campaigns.EditTest" class="cancel">CANCEL</md-button>
-								<md-button ui-sref="app.campaigns.EditTest" class="md-raised action">SAVE CHANGES</md-button>
-							</div>
-						</div>
-					</div>
-				</div>
+				
 			</div>
-			
-		</div>
+		</form>
 	</div>
 </div>
