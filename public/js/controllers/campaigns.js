@@ -1325,24 +1325,6 @@
 
         vm.showFormViewer = function(ev) {
 
-            /*var modalInstance = $uibModal.open({
-                animation: false,
-                controller: 'FormViewerController',
-                controllerAs: 'FormViewerCtrl',
-                templateUrl: 'templates/campaigns/form-viewer.phtml',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                openedClass: "new-campaign",
-
-                clickOutsideToClose: false,
-                fullscreen: true,
-                escapeToClose: false,
-                locals: {
-                    RefDetails: vm.referralDetails
-                }
-            })*/
-
-
             $mdDialog.show({
                 controller: FormViewerController,
                 controllerAs: 'FormViewerCtrl',
@@ -1536,7 +1518,7 @@
 
     function FormViewerController($scope, $rootScope, $http, $timeout, $q, $uibModal, $mdDialog, $state, RefDetails) {
         var vm = this;
-        vm.companyName = 'Company1';
+        //vm.companyName = 'Company1';
         //RefDetails.company_name;
         vm.formOptions = {
             autoStart: false,
@@ -1555,7 +1537,7 @@
         vm.formData = null;
         $http.get('mintmesh_survey.json')
         .then(function (res) {
-            vm.formData = res.data;
+            vm.formData = res.data.data;
         });
 
         vm.templateData = null;

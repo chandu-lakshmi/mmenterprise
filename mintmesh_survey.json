@@ -1,156 +1,160 @@
 {
-  "pages": [
-    {
-      "id": "8260913cb519c3625b619eb68c911c18",
-      "number": 1,
-      "name": null,
-      "description": null,
-      "pageFlow": {
-        "nextPage": true,
-        "label": "mwForm.pageFlow.goToNextPage"
-      },
-      "elements": [
-        {
-          "id": "c7f5a67a4f7c1ad42b09fd33187ec0c3",
-          "orderNo": 1,
-          "type": "question",
-          "question": {
-            "id": "cc88dcd13a69477170f804149ba9837c",
-            "text": "1. Have you ever been employed with us before?",
-            "type": "radio",
-            "required": true,
-            "offeredAnswers": [
-              {
-                "id": "6d9a5579b572c8bdb38378eed17e2d5c",
-                "orderNo": 1,
-                "value": "Yes",
-                "pageFlow": {
-                  "nextPage": true,
-                  "label": "mwForm.pageFlow.goToNextPage"
-                }
-              },
-              {
-                "id": "9fa492b5b68b87fc99e6a338c6ee5e72",
-                "orderNo": 2,
-                "value": "No",
-                "pageFlow": {
-                  "nextPage": true,
-                  "label": "mwForm.pageFlow.goToNextPage"
-                }
-              }
-            ]
-          }
-        }
-      ],
-      "namedPage": false
+    "status_code": 200,
+    "status": "success",
+    "message": {
+        "msg": [
+            "Successfully listed"
+        ]
     },
-    {
-      "id": "b55550b92f3847eee609e034dd5d765c",
-      "number": 2,
-      "name": null,
-      "description": null,
-      "pageFlow": {
-        "nextPage": true,
-        "label": "mwForm.pageFlow.goToNextPage"
-      },
-      "elements": [
-        {
-          "id": "fb3e454f15f5b76bdeb1d0002fb5c0cd",
-          "orderNo": 1,
-          "type": "question",
-          "question": {
-            "id": "5c76ffc20c3269f0eef947c988075972",
-            "text": "2. Would you be available to work in shifts?",
-            "type": "radio",
-            "required": true,
-            "offeredAnswers": [
-              {
-                "id": "38308e5160c4fa5ea8b9e07fdfc19f7e",
-                "orderNo": 1,
-                "value": "Yes",
+    "data": {
+        "exam_id": 4,
+        "exam_name": "test 3",
+        "exam_type": "",
+        "max_duration": 60,
+        "experience_name": "3-5  Years",
+        "pages": [
+            {
+                "id": 2,
+                "number": 2,
+                "exam_question_id": 2,
+                "question_id": 18,
+                "question": "what is c",
+                "question_value": 5,
+                "question_type": "",
+                "name": "",
+                "description": "",
                 "pageFlow": {
-                  "nextPage": true,
-                  "label": "mwForm.pageFlow.goToNextPage"
-                }
-              },
-              {
-                "id": "a88742da8a3a467558092ade69217ffb",
-                "orderNo": 2,
-                "value": "No",
+                    "nextPage": true,
+                    "label": "mwForm.pageFlow.goToNextPage"
+                },
+                "elements": [
+                    {
+                        "id": 2,
+                        "exam_question_id": 2,
+                        "orderNo": 2,
+                        "type": "question",
+                        "question": {
+                            "id": 2,
+                            "text": "what is c",
+                            "type": "radio",
+                            "required": "true",
+                            "offeredAnswers": [
+                                {
+                                    "id": 18,
+                                    "orderNo": 18,
+                                    "value": "it is a general-purpose object-oriented programming (OOP) language",
+                                    "option_id": 18,
+                                    "pageFlow": {
+                                        "nextPage": true,
+                                        "label": "mwForm.pageFlow.goToNextPage"
+                                    }
+                                },
+                                {
+                                    "id": 19,
+                                    "orderNo": 19,
+                                    "value": "It is not a programming language",
+                                    "option_id": 19,
+                                    "pageFlow": {
+                                        "nextPage": true,
+                                        "label": "mwForm.pageFlow.goToNextPage"
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "id": 3,
+                "number": 3,
+                "exam_question_id": 3,
+                "question_id": 15,
+                "question": "what is c",
+                "question_value": 5,
+                "question_type": "",
+                "name": "",
+                "description": "",
                 "pageFlow": {
-                  "nextPage": true,
-                  "label": "mwForm.pageFlow.goToNextPage"
-                }
-              }
-            ]
-          }
-        }
-      ],
-      "namedPage": false
-    },
-    {
-      "id": "adad28bb6cd4824daa240dccfbba737c",
-      "number": 3,
-      "name": null,
-      "description": null,
-      "pageFlow": {
-        "nextPage": true,
-        "label": "mwForm.pageFlow.goToNextPage"
-      },
-      "elements": [
-        {
-          "id": "ddf5daec43ef75c9e680e7a48860c717",
-          "orderNo": 1,
-          "type": "question",
-          "question": {
-            "id": "fc94221f54fd422ee914422a21c34c85",
-            "text": "3. How long have you been working at your current job?",
-            "type": "radio",
-            "required": true,
-            "offeredAnswers": [
-              {
-                "id": "6d7eac94537314e290cb8bf65e138d6c",
-                "orderNo": 1,
-                "value": "Not long, it's part time",
-                "pageFlow": {
-                  "nextPage": true,
-                  "label": "mwForm.pageFlow.goToNextPage"
-                }
-              },
-              {
-                "id": "f5e61ff70eec1769423d10a51d296e4f",
-                "orderNo": 2,
-                "value": "1-2 yrs",
-                "pageFlow": {
-                  "nextPage": true,
-                  "label": "mwForm.pageFlow.goToNextPage"
-                }
-              },
-              {
-                "id": "c421eb8543f4f27d0b4e6db07367dbf2",
-                "orderNo": 3,
-                "value": "3-4 yrs",
-                "pageFlow": {
-                  "nextPage": true,
-                  "label": "mwForm.pageFlow.goToNextPage"
-                }
-              },
-              {
-                "id": "341f1c38f629a010e82e55b370153be8",
-                "orderNo": 4,
-                "value": "5+ years",
-                "pageFlow": {
-                  "nextPage": true,
-                  "label": "mwForm.pageFlow.goToNextPage"
-                }
-              }
-            ]
-          }
-        }
-      ],
-      "namedPage": false
+                    "nextPage": true,
+                    "label": "mwForm.pageFlow.goToNextPage"
+                },
+                "elements": [
+                    {
+                        "id": 3,
+                        "exam_question_id": 3,
+                        "orderNo": 3,
+                        "type": "question",
+                        "question": {
+                            "id": 3,
+                            "text": "what is c",
+                            "type": "radio",
+                            "required": "true",
+                            "offeredAnswers": [
+                                {
+                                    "id": 18,
+                                    "orderNo": 18,
+                                    "value": "it is a general-purpose object-oriented programming (OOP) language",
+                                    "option_id": 18,
+                                    "pageFlow": {
+                                        "nextPage": true,
+                                        "label": "mwForm.pageFlow.goToNextPage"
+                                    }
+                                },
+                                {
+                                    "id": 19,
+                                    "orderNo": 19,
+                                    "value": "It is not a programming language",
+                                    "option_id": 19,
+                                    "pageFlow": {
+                                        "nextPage": true,
+                                        "label": "mwForm.pageFlow.goToNextPage"
+                                    }
+                                },
+                                {
+                                    "id": 10,
+                                    "orderNo": 10,
+                                    "value": "it is a general-purpose object-oriented programming (OOP) language -55",
+                                    "option_id": 10,
+                                    "pageFlow": {
+                                        "nextPage": true,
+                                        "label": "mwForm.pageFlow.goToNextPage"
+                                    }
+                                },
+                                {
+                                    "id": 11,
+                                    "orderNo": 11,
+                                    "value": "It is not a programming language 665",
+                                    "option_id": 11,
+                                    "pageFlow": {
+                                        "nextPage": true,
+                                        "label": "mwForm.pageFlow.goToNextPage"
+                                    }
+                                },
+                                {
+                                    "id": 12,
+                                    "orderNo": 12,
+                                    "value": "it is a general-purpose object-oriented programming (OOP) language ",
+                                    "option_id": 12,
+                                    "pageFlow": {
+                                        "nextPage": true,
+                                        "label": "mwForm.pageFlow.goToNextPage"
+                                    }
+                                },
+                                {
+                                    "id": 13,
+                                    "orderNo": 13,
+                                    "value": "It is not a programming language ",
+                                    "option_id": 13,
+                                    "pageFlow": {
+                                        "nextPage": true,
+                                        "label": "mwForm.pageFlow.goToNextPage"
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        ]
     }
-  ],
-  "duration": 10,
-  "description": "You are almost done. Tell us something about Yourself."
 }

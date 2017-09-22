@@ -101,7 +101,7 @@
       }
       .questionnaire-description {
           float: right;
-          margin-right: 150px;
+          margin-right: 139px;
           clear: both;
           margin-top: 6px;
           font-size: 14px;
@@ -141,10 +141,10 @@
         font-size: 17px;
       }
       .total-question {
-        margin-right: 30px;
+        
       }
       .time-duration {
-
+        margin-left: 30px;
       }
       .copy-right {
         color: #767877;
@@ -175,7 +175,7 @@
       .fullscreen-icon {
         position: absolute;
         top: 20px;
-        right: 100px;
+        right: 90px;
         font-size: 30px;
         width: 28px;
         height: 28px;
@@ -187,24 +187,24 @@
 <md-dialog class="angular-survey-template">
     <div class="container">
         <div class="container-header">
-
-          <span class="questionnaire-name">{{FormViewerCtrl.companyName}}  - Instructions</span>
+        <!-- {{FormViewerCtrl.formData}} -->
+          <span class="questionnaire-name">{{FormViewerCtrl.formData.exam_name}}  - Instructions</span>
           <div class="questionnaire-description">
             <span class="total-question">Total Questions: {{FormViewerCtrl.formData.pages.length}}</span>
-            <span class="time-duration">Time: {{FormViewerCtrl.formData.duration}} mins</span>
+            <span class="time-duration" ng-if="FormViewerCtrl.formData.max_duration">Time: {{FormViewerCtrl.formData.max_duration}} mins</span>
           </div>
-          <img src="public/images/fullscreen.png" alt="fullscreen" class="fullscreen-icon" ng-click="FormViewerCtrl.fullScreen();" />
+          <img src="public/images/resize.svg" alt="fullscreen" class="fullscreen-icon" ng-click="FormViewerCtrl.fullScreen();" />
 
           <img src="public/images/cross-grey.svg" alt="close" class="close" ng-click="FormViewerCtrl.closeDialog($event)">
         </div>
 
 
-        <div layout="row" class="head">
+        <!-- <div layout="row" class="head">
             <span flex></span>
             <md-checkbox ng-model="FormViewerCtrl.viewerReadOnly" aria-label="Checkbox 1">Read only</md-checkbox>
             <md-checkbox ng-model="FormViewerCtrl.formOptions.autoStart" aria-label="Checkbox 1">Autostart</md-checkbox>
             <button class="btn mm-btn" type="button" ng-click="FormViewerCtrl.resetViewer()">Reset</button>
-        </div>
+        </div> -->
 
         <mw-form-viewer ng-if="FormViewerCtrl.formData"
                         form-data="FormViewerCtrl.formData"
