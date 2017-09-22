@@ -2334,6 +2334,7 @@ $app->post('/edit_question',function ($request, $response, $args) use ($app) {
      ));
     return checkJsonResult( $jobList->loadCurl() );
 });
+
 //view_question
 $app->post('/view_question',function ($request, $response, $args) use ($app) {
     // dynamically Access Token, Company Details
@@ -2347,13 +2348,14 @@ $app->post('/view_question',function ($request, $response, $args) use ($app) {
      ));
     return checkJsonResult( $jobList->loadCurl() );
 });
-//get_company_assessments_list
-$app->post('/get_company_assessments_list',function ($request, $response, $args) use ($app) {
+
+//get_question
+$app->post('/get_questions_list',function ($request, $response, $args) use ($app) {
     // dynamically Access Token, Company Details
     $this->mintmeshAccessToken;
     $this->mintmeshCompanyId;
     // getting API endpoint from settings
-    $apiEndpoint = getapiEndpoint($this->settings, 'get_company_assessments_list');
+    $apiEndpoint = getapiEndpoint($this->settings, 'get_questions_list');
     $jobList     = new Curl(array(
         'url'           => $apiEndpoint,
         'postData'      => $_POST
@@ -2361,13 +2363,70 @@ $app->post('/get_company_assessments_list',function ($request, $response, $args)
     return checkJsonResult( $jobList->loadCurl() );
 });
 
-//get_exam_details
-$app->post('/get_exam_details',function ($request, $response, $args) use ($app) {
+//add_edit_exam
+$app->post('/add_edit_exam',function ($request, $response, $args) use ($app) {
     // dynamically Access Token, Company Details
     $this->mintmeshAccessToken;
     $this->mintmeshCompanyId;
     // getting API endpoint from settings
-    $apiEndpoint = getapiEndpoint($this->settings, 'get_exam_details');
+    $apiEndpoint = getapiEndpoint($this->settings, 'add_edit_exam');
+    $jobList     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    return checkJsonResult( $jobList->loadCurl() );
+});
+
+
+//edit_exam_settings
+$app->post('/edit_exam_settings',function ($request, $response, $args) use ($app) {
+    // dynamically Access Token, Company Details
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    // getting API endpoint from settings
+    $apiEndpoint = getapiEndpoint($this->settings, 'edit_exam_settings');
+    $jobList     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    return checkJsonResult( $jobList->loadCurl() );
+});
+
+//view_exam_question
+$app->post('/view_exam_question',function ($request, $response, $args) use ($app) {
+    // dynamically Access Token, Company Details
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    // getting API endpoint from settings
+    $apiEndpoint = getapiEndpoint($this->settings, 'view_exam_question');
+    $jobList     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    return checkJsonResult( $jobList->loadCurl() );
+});
+
+//add_edit_exam_question
+$app->post('/add_edit_exam_question',function ($request, $response, $args) use ($app) {
+    // dynamically Access Token, Company Details
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    // getting API endpoint from settings
+    $apiEndpoint = getapiEndpoint($this->settings, 'add_edit_exam_question');
+    $jobList     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    return checkJsonResult( $jobList->loadCurl() );
+});
+
+//get_company_assessments_list
+$app->post('/get_company_assessments_list',function ($request, $response, $args) use ($app) {
+    // dynamically Access Token, Company Details
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    // getting API endpoint from settings
+    $apiEndpoint = getapiEndpoint($this->settings, 'get_company_assessments_list');
     $jobList     = new Curl(array(
         'url'           => $apiEndpoint,
         'postData'      => $_POST
