@@ -450,6 +450,10 @@ return [
             'add_edit_exam_question' =>[
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/add_edit_exam_question'
+            ],
+            'get_assessment' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_assessment'
             ]
     ];
         
