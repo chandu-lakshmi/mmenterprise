@@ -45,9 +45,10 @@
 
 
 <!-- Test Name -->
-<script type="text/ng-template" id="test-name.html">
+<script type="text/ng-template" id="action.html">
 	<div class="ui-grid-cell-contents ui-grid-details">
-      <a ng-bind="COL_FIELD" ui-sref="app.assessmentEditTest" class="name" ng-click="$event.stopPropagation()"></a>
-      <span ng-bind="row.entity.role + ', ' + row.entity.exp"></span>
+      <a ui-sref="app.assessmentEditTest" class="name" ng-click="$event.stopPropagation()"><img src="public/images/eye.png" alt="view"></a>
+      <a ui-sref="app.assessmentEditTest" class="name" ng-click="$event.stopPropagation()"><img src="public/images/edit.png" alt="view"></a>
+      <a ui-sref="app.assessmentEditTest" class="name" ng-click="$event.stopPropagation()"><img src="public/images/bin.png" alt="view"></a>
 	</div>
 </script>

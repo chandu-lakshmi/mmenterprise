@@ -1,11 +1,18 @@
 .assessment {
   min-height: calc(100vh - 160px);
-  font-size: 16px;
-  background: #f8fafb; }
+  font-size: 16px; }
   .assessment.test {
     background: #fff; }
   .assessment .container-box {
     width: 100%; }
+    .assessment .container-box img.loader-dot {
+      position: absolute;
+      background: rgba(14, 45, 63, 0.51);
+      width: 138px;
+      height: 44px;
+      z-index: 9;
+      top: 0;
+      left: 0; }
     .assessment .container-box .header {
       height: 60px;
       color: #4a4a4a;
@@ -22,11 +29,11 @@
         .assessment .container-box .header .container div[layout="row"] {
           height: inherit; }
     .assessment .container-box .action {
-      background: #0fb89b;
+      background: #0fb89b !important;
       color: #fff;
       transition: all .5s ease; }
       .assessment .container-box .action:hover {
-        background: #359383; }
+        background: #359383 !important; }
     .assessment .container-box md-input-container md-select-value {
       border: 1px solid rgba(0, 0, 0, 0.12) !important;
       padding: 6px 10px !important;
@@ -70,9 +77,6 @@
     .assessment .container-box .create-test .section .test-pic {
       text-align: center;
       margin: 50px 0; }
-      .assessment .container-box .create-test .section .test-pic img {
-        width: 150px;
-        height: 206px; }
     .assessment .container-box .create-test .section .footer {
       margin-bottom: 50px; }
       .assessment .container-box .create-test .section .footer .action {
@@ -115,12 +119,31 @@
     .assessment .container-box .edit-test .footer .action {
       padding: 4px 20px; }
       .assessment .container-box .edit-test .footer .action.create-new {
-        background: #7791a5; }
+        background: #7791a5 !important; }
         .assessment .container-box .edit-test .footer .action.create-new:hover {
-          background: #4b6477; }
+          background: #4b6477 !important; }
     .assessment .container-box .edit-test .footer .or {
       line-height: 56px;
       color: #777; }
+    .assessment .container-box .edit-test .grid-view {
+      border: 1px solid #dde4e7;
+      border-top: 0;
+      border-bottom: 0; }
+      .assessment .container-box .edit-test .grid-view .head {
+        padding: 4px 12px;
+        color: #757982;
+        font-size: 13px; }
+      .assessment .container-box .edit-test .grid-view .list {
+        height: 65px;
+        line-height: 65px;
+        padding-left: 10px;
+        border-bottom: 1px solid #dde4e7;
+        color: #798193; }
+        .assessment .container-box .edit-test .grid-view .list .qst {
+          color: #5a616b;
+          font-weight: 600; }
+        .assessment .container-box .edit-test .grid-view .list .action-view a {
+          padding: 14px; }
     .assessment .container-box .test-settings .header .action {
       width: 146px;
       height: 40px;
@@ -131,11 +154,19 @@
       margin: 9px 0 9px 10px;
       color: #99aeb8;
       line-height: 40px; }
+    .assessment .container-box .test-settings .header img.loader-dot {
+      width: 146px; }
     .assessment .container-box .test-settings .header md-input-container {
       margin: 4px;
       padding-left: 30px; }
       .assessment .container-box .test-settings .header md-input-container md-select-value {
         background: #fff; }
+    .assessment .container-box .test-settings .section .md-errors-spacer {
+      min-height: 35px; }
+    .assessment .container-box .test-settings .section .err-display {
+      position: absolute;
+      top: 48px;
+      left: 6px; }
     .assessment .container-box .test-settings .section .hide-label.md-input-focused label, .assessment .container-box .test-settings .section .hide-label.md-input-has-value label {
       display: none !important; }
     .assessment .container-box .test-settings .section .copy-url md-input-container {
@@ -177,7 +208,8 @@
     .assessment .container-box .test-settings .section .pwd-protection md-checkbox:not(.md-checked) .md-icon {
       border-color: #E0E0E0; }
     .assessment .container-box .test-settings .section .pwd-protection .md-label {
-      color: #767877; }
+      color: #767877;
+      margin-top: 3px; }
     .assessment .container-box .test-settings .section .pwd-action md-input-container {
       margin: 0; }
     .assessment .container-box .test-settings .section .pwd-action .action {

@@ -5,7 +5,7 @@
 				<div class="container">
 					<div layout="row">
 						<a ui-sref="app.campaigns.TestsList"><img class="back" src="public/images/back-arrow-grey.svg" alt="back"></a>
-						<h4 class="title" flex>Campus Drive - Sep 2017- Test</h4>
+						<h4 class="title" flex ng-bind="EditTestCtrl.testDetails.exam_name"></h4>
 						<md-button ui-sref="app.campaigns.TestSettings" class="md-raised action">SETTINGS</md-button>
 						<md-button ui-sref="app.assessmentCreateTest" class="md-raised action">EDIT</md-button>
 					</div>
@@ -16,23 +16,45 @@
 					<div layout="row" class="meta-data">
 						<div flex="30">
 							<span class="title">Role for the Test</span>
-							<span>Software Developer</span>
+							<span ng-bind="EditTestCtrl.testDetails.exam_type">Software Developer</span>
 						</div>
 						<div flex="30">
 							<span class="title">Test Name</span>
-							<span>Developer hiring Test, Sep-17</span>
+							<span ng-bind="EditTestCtrl.testDetails.exam_name">Developer hiring Test, Sep-17</span>
 						</div>
 						<div flex="25">
 							<span class="title">Work Experience</span>
-							<span>0-2 Years</span>
+							<span ng-bind="EditTestCtrl.testDetails.experience_name"></span>
 						</div>
 						<div flex="15">
 							<span class="title">Duration (mins)</span>
-							<span>60</span>
+							<span ng-bind="EditTestCtrl.testDetails.max_duration"></span>
 						</div>
 					</div>
 				</div>
 			</div>
+
+			<div class="container">
+				<div class="grid-view ">
+					<div layout="row" class="head">
+						<div flex="55">QUESTIONS</div>
+						<div flex="15">TYPE</div>
+						<div flex="15">SCORE</div>
+						<div flex="15">ACTIONS</div>
+					</div>
+					<md-divider></md-divider>
+					<div layout="row" class="list" ng-repeat="list in EditTestCtrl.testDetails.exam_question_list">
+						<div flex="55" ng-bind="list.question" class="qst"></div>
+						<div flex="15" ng-bind="list.question_type"></div>
+						<div flex="15" ng-bind="list.question_value"></div>
+						<div flex="15" class="action-view">
+							<a ui-sref="app.assessmentEditTest"><img src="public/images/eye.png" alt="view"></a>
+							<a ng-click="EditTestCtrl.deleteQuestion(list.exam_question_id)"><img src="public/images/bin.png" alt="view"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+
 			<div class="footer">
 				<div layout="row" class="success-msg">
 					<h5 class="text-center" flex>

@@ -4,8 +4,9 @@
 			<ul>
 				<li><a ui-sref="^.campaigns.allCampaigns" ui-sref-active="active"><span class="background three"></span><span class="text">ALL CAMPAIGNS</span></a></li>
 				<li><a ui-sref="^.campaigns.myCampaigns" ui-sref-active="active"><span  class="background two"></span><span class="text">MY CAMPAIGNS</span></a></li>
-				<li><a ui-sref="^.campaigns.TestsList" ui-sref-active="active"><span  class="background two"></span><span class="text">ASSESSMENT</span></a></li>
-				<li><a ui-sref="^.campaigns.QuestionsList" ui-sref-active="active"><span class="background two"></span><span class="text">QUESTIONS</span></a></li>
+				<li><a ui-sref="^.campaigns.TestsList" ui-sref-active="active" 
+				ng-class="{highlight: ('app.campaigns.TestsList' | includedByState) || ('app.campaigns.CreateTest' | includedByState)  || ('app.campaigns.EditTest' | includedByState)  || ('app.campaigns.TestSettings' | includedByState)}"><span  class="background two"></span><span class="text">ASSESSMENT</span></a></li>
+				<li><a ui-sref="^.campaigns.QuestionsList" ui-sref-active="active" ng-class="{highlight: ('app.campaigns.QuestionsList' | includedByState) || ('app.campaigns.CreateQuestion' | includedByState)}"><span class="background two"></span><span class="text">QUESTIONS</span></a></li>
 				<li ng-show="{{::userPermissions.run_campaign == 1}}">
 					<span ng-show="$state.current.controller == 'AllCampaignsController'">
 						<a ui-sref="^.createCampaign" class="mm-btn">CREATE NEW CAMPAIGN</a>

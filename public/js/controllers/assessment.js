@@ -10,8 +10,9 @@
     .controller('TestSettingsController', TestSettingsController)
 
   
-	TestsListController.$inject = [];
-	CreateTestController.$inject = [];
+  	TestsListController.$inject  = ['$timeout', '$http', '$window', '$mdToast', 'App'];
+	CreateTestController.$inject = ['$timeout', '$http', '$window', '$mdToast', 'CompanyDetails', 'App'];
+	EditTestController.$inject = ['$timeout', '$http', '$window', '$mdToast', '$uibModal', 'App'];
 
 
 	function TestsListController() {
@@ -69,32 +70,226 @@
 	}
 
 
-	function CreateTestController() {
+	function CreateTestController($timeout, $http, $window, $mdToast, CompanyDetails, App) {
 
 		var vm = this;
 
-		this.role = ["Front-End Developer"];
+		
+		this.testObj = {};
+		this.postCreateTestInProgress = false;
+		this.postCreateTestSubmitted  = false;
+		
+		this.setTestName = function() {
+			this.testObj.testName = CompanyDetails.name + ' - ' + this.testObj.role;
+			if (!vm.testObj.role) {
+				this.testObj.testName = null;
+			}
+		}	
+		
+		this.postCreateTest = function(form) {
+			
+			vm.postCreateTestSubmitted = true;
+			
+			if (form.$valid) {
+				
+				vm.postCreateTestInProgress = true;
+				var apiKeys = $("form[name='createTestForm']").serialize();
+				
+				$http({
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+					},
+					method : 'POST',
+					data   : apiKeys,
+					url    : App.base_url + 'add_edit_exam',
+				})
+				.then(function (response) {
+					if (response.data.status_code == 200) {
+						
+						vm.postCreateTestInProgress = false;
+						
+						$mdToast.show({
+							hideDelay: 3000,
+							position: 'top right',
+							template: '<md-toast class="mm-toast"><div class="md-toast-text" flex><i class="material-icons">done</i><div class="text"><div class="toast-succ">Success!</div><div class="succ-text">' + response.data.message.msg[0] + '</div></div></div></md-toast>'
+						});
 
-	}
+						$timeout(function () {
+							$state.go('app.campaigns.QuestionsList');
+						}, 2000);
 
-
-	function EditTestController() {
-
-	}
-
-
-	function TestSettingsController() {
-
-		var vm = this;
-
-		this.statusList = ['Active', 'Inactive'];
-		this.settings = {
-			autoScreen : true,
-			status : 'Active'
+					}
+					else if (response.data.status_code == 400) {
+						$window.location = App.base_url + 'logout';
+					}
+				});
+			}
 		}
 
+		function init() {
+			getAPI();
+		}
+
+		function getAPI() {
+			$http({
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+				},
+				method: 'GET',
+				url: App.base_url + 'get_experiences'
+			})
+			.success(function (response) {
+				vm.experienceList = response.data.experiences;
+			});
+
+		}
+
+
+		init();
+	}
+
+
+	function EditTestController($timeout, $http, $window, $mdToast, $uibModal, App) {
+		
+		var vm = this;
+
+		this.getTestDetailsInProgress = true;
+		
+		this.deleteQuestion = function (id) {
+			$uibModal.open({
+				animation: false,
+				backdrop: 'static',
+				keyboard: false,
+				templateUrl: 'templates/dialogs/common-confirm-msg.phtml',
+				openedClass: "referral-status confirm-message",
+				resolve: {
+					paramsMdService: function () {
+						return {
+							firstMsg   : 'Are you sure you want to ',
+							secondMsg  :'delete Question?',
+							params     : { exam_question_id:id },
+							apiEndPoint: 'add_edit_exam_question',
+							callback   : deleteQeustionCallback
+						};
+					}
+				},
+				controller: 'CommonConfirmMessage',
+				controllerAs: 'CommonConfirmMsgCtrl'
+			})
+		}
+
+		function init() {
+			getTestDetails();
+		}
+
+		function getTestDetails() {
+			
+			vm.getTestDetailsInProgress = true;
+			
+			$http({
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+				},
+				method: 'POST',
+				data: $.param({ exam_id: 3 }),
+				url: App.base_url + 'view_exam_question',
+			})
+			.then(function (response) {
+				if (response.data.status_code == 200) {
+
+					vm.testDetails = response.data.data;
+					vm.getTestDetailsInProgress = false;
+
+				}
+				else if (response.data.status_code == 400) {
+					$window.location = App.base_url + 'logout';
+				}
+			});
+
+		}
+
+		function deleteQeustionCallback(response) {
+			$timeout(function () {
+				$mdToast.show({
+					hideDelay: 3000,
+					position: 'top right',
+					template: '<md-toast class="mm-toast"><div class="md-toast-text" flex><i class="material-icons">done</i><div class="text"><div class="toast-succ">Success!</div><div class="succ-text">' + response.message.msg[0] + '</div></div></div></md-toast>'
+				}, 200);
+			});				
+		}
+
+		init();
+	}
+
+
+	function TestSettingsController($timeout, $http, $window, $mdToast, App) {
+
+		var vm = this;
+
+		this.statusList  = [{ label: 'Active', value: 1 }, { label: 'Inactive', value: 0 }];
+
+		this.postSettingsInProgress = false;
+		this.postSettingsSubmitted  = false;
+		this.settingsObj = {
+			aIScreening  : 1,
+			autoScreen   : 1,
+			status : 1
+		}
+		
+		
 		this.toogleAutoScreen = function(status) {
-			vm.settings.autoScreen = status;
+			vm.settingsObj.autoScreen = status;
+		}
+
+		this.toogleAIScreening = function (status) {
+			vm.settingsObj.aIScreening = status;
+		}
+
+		this.postSettings = function(form) {
+			
+			vm.postSettingsSubmitted = true;
+
+			if (form.$valid) {
+
+				vm.postSettingsInProgress = true;
+				
+				var apiKeys = $("form[name='settingsForm']").serialize() + '&' + $.param({ 
+					exam_id: 3,
+					is_auto_screening  : vm.settingsObj.autoScreen,
+					enable_ai_screening : vm.settingsObj.aIScreening,
+					enable_full_screen : vm.settingsObj.enableFullscreen,
+					reminder_emails    : vm.settingsObj.reminderMail,
+					confirmation_email : vm.settingsObj.confirmationMail,
+					shuffle_questions  : vm.settingsObj.shuffleQuestions,
+					disclaimer         : vm.settingsObj.disclaimer
+				});
+
+				$http({
+					headers : {
+						'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+					},
+					method  : 'POST',
+					data    : apiKeys,
+					url     : App.base_url + 'edit_exam_settings',
+				})
+				.then(function (response) {
+					if (response.data.status_code == 200) {
+
+						vm.postSettingsSubmitted  = false;
+						vm.postSettingsInProgress = false;
+						
+						$mdToast.show({
+							hideDelay: 4000,
+							position: 'top right',
+							template: '<md-toast class="mm-toast"><div class="md-toast-text" flex><i class="material-icons">done</i><div class="text"><div class="toast-succ">Success!</div><div class="succ-text">' + response.data.message.msg[0] + '</div></div></div></md-toast>'
+						});
+
+					}
+					else if (response.data.status_code == 400) {
+						$window.location = App.base_url + 'logout';
+					}
+				});
+			}
 		}
 
 		

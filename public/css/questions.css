@@ -6,6 +6,14 @@
     background: #fff; }
   .questions .container-box {
     width: 100%; }
+    .questions .container-box img.loader {
+      position: absolute;
+      background: rgba(14, 45, 63, 0.51);
+      width: 154px;
+      height: 44px;
+      z-index: 9;
+      top: 0;
+      left: 0; }
     .questions .container-box .header {
       height: 60px;
       color: #4a4a4a;
@@ -55,6 +63,11 @@
       height: calc(100vh - 340px) !important; }
       .questions .container-box .questions-list .section .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell {
         line-height: 60px; }
+      .questions .container-box .questions-list .section .grid .ui-grid-viewport .action-view a {
+        padding: 8px 16px 8px 0;
+        margin: 0 4px; }
+      .questions .container-box .questions-list .section .grid .grid-msg-overlay {
+        top: 50px; }
     .questions .container-box .questions-list .footer {
       background: #eeeff1;
       border: 1px solid #c8d1d0;
@@ -87,7 +100,7 @@
       .questions .container-box .create-question .section .list md-radio-group md-radio-button .md-ink-ripple {
         color: rgba(15, 184, 155, 0.28); }
       .questions .container-box .create-question .section .list .action-add-opts {
-        margin: -14px 0 0 0;
+        margin: 0;
         color: #0fb89b; }
       .questions .container-box .create-question .section .list .question-desc {
         margin-top: 30px; }
@@ -165,6 +178,8 @@
           background: #7791a5; }
           .questions .container-box .create-question .footer .action.add-add-new:hover {
             background: #4b6477; }
+          .questions .container-box .create-question .footer .action.add-add-new img.loader {
+            width: 180px; }
       .questions .container-box .create-question .footer .or {
         line-height: 56px;
         color: #777; }
