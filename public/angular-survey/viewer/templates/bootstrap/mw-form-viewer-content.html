@@ -16,7 +16,7 @@
         
         <div class="mw-form-page" ng-if="ctrl.currentPage">
             <div class="pull-left question-number">Question {{ctrl.currentPage.number}}</div>
-            
+
             <div class="pull-right time-left" ng-if="ctrl.formData.max_duration">Time left: <span>{{ctrl.countdown | secondsToDateTime | date:"HH:mm:ss"}} Sec</span></div>
             <div class="clearfix"></div>
 
@@ -25,7 +25,7 @@
             <div class="mw-form-page-element-list">
                 <div class="mw-page-element animated fadeIn" ng-repeat="pageElement in ctrl.currentPage.elements" ng-switch="pageElement.type">
 
-                    <mw-form-question ng-switch-when="question" question="pageElement.question" exam-question-id="pageElement.exam_question_id" question-response="ctrl.responseData[pageElement.question.id]" read-only="ctrl.readOnly" on-response-changed="ctrl.onResponseChanged(pageElement)"></mw-form-question>
+                    <mw-form-question ng-switch-when="question" question="pageElement.question" question-response="ctrl.responseData[pageElement.question.id]" read-only="ctrl.readOnly" on-response-changed="ctrl.onResponseChanged(pageElement)"></mw-form-question>
                     <div class="image-element" ng-switch-when="image">
                         <figure ng-class="'align-'+pageElement.image.align">
                             <img ng-src="{{pageElement.image.src}}" ng-attr-alt="pageElement.image.caption">

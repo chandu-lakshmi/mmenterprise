@@ -231,15 +231,16 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
                 ctrl.formSubmitted=true;
                 ctrl.submitStatus='SUCCESS';
 
+                console.log(ctrl.mmqResponse);
                 ctrl.setCurrentPage(null);
                 $interval.cancel(intervalId);
 
-                var resultPromise = ctrl.onSubmit();
-                resultPromise.then(function(){
-                    ctrl.submitStatus='SUCCESS';
-                }).catch(function(){
-                    ctrl.submitStatus='ERROR';
-                });
+                // var resultPromise = ctrl.onSubmit();
+                // resultPromise.then(function(){
+                //     ctrl.submitStatus='SUCCESS';
+                // }).catch(function(){
+                //     ctrl.submitStatus='ERROR';
+                // });
 
             };
 
@@ -299,6 +300,11 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
                     var question = element.question;
                     if(question && !ctrl.responseData[question.id]){
                         ctrl.responseData[question.id]={};
+                        angular.extend(ctrl.responseData[question.id], {
+                          "exam_question_id": element.exam_question_id,
+                          "question_id": element.question.id,
+                          "question_type": (element.question.type == 'radio' ? 1 : 2)
+                        })
                     }
                 });
             };
@@ -323,7 +329,6 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
                 }
 
             };
-
 
             ctrl.goToPrevPage= function(){
                 var prevPage = ctrl.prevPages.pop();
@@ -350,6 +355,10 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
                 ctrl.buttons.nextPage.visible=!!ctrl.nextPage;
             };
 
+            ctrl.mmqResponse = {};
+            ctrl.mmqResponse.exam_question_list = {};
+            ctrl.answerList = [];
+
             ctrl.updateNextPageBasedOnPageElementAnswers = function (element) {
                 var question = element.question;
 
@@ -369,6 +378,13 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
             };
 
             ctrl.onResponseChanged = function(pageElement){
+
+                ctrl.mmqResponse = {
+                  "candidate_emailid": 'xyz@gmail.com',
+                  "exam_id": ctrl.formData.exam_id,
+                  "exam_question_list": ctrl.responseData
+                }
+
                 ctrl.setDefaultNextPage();
                 ctrl.updateNextPageBasedOnAllAnswers();
             };
@@ -441,7 +457,6 @@ angular.module('mwFormViewer').factory("FormQuestionId", function(){
         require: '^mwFormViewer',
         scope: {
             question: '=',
-            examQuestionId: '=',
             questionResponse: '=',
             readOnly: '=?',
             options: '=?',
@@ -452,16 +467,12 @@ angular.module('mwFormViewer').factory("FormQuestionId", function(){
         bindToController: true,
         controller: ["$timeout", "FormQuestionId", function($timeout,FormQuestionId){
             var ctrl = this;
-
-            console.log(ctrl)
-
             // Put initialization logic inside `$onInit()`
             // to make sure bindings have been initialized.
+
             this.$onInit = function() {
+
                 ctrl.id = FormQuestionId.next();
-                ctrl.questionResponse.exam_question_id = ctrl.examQuestionId;
-                ctrl.questionResponse.question_id = ctrl.question.id;
-                ctrl.questionResponse.question_type = (ctrl.question.type == 'radio' ? 1 : 2);
 
                 if(ctrl.question.type=='radio') {
                     if(!ctrl.questionResponse.question_ans){
