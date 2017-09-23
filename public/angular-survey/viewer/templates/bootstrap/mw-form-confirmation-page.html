@@ -1,7 +1,7 @@
 <div class="mw-form-confirmation-page">
     <div class="mw-confirmation-message vertical-center" ng-if="ctrl.submitStatus=='SUCCESS'">
         <span ng-if="ctrl.confirmationMessage"> {{::ctrl.print(ctrl.confirmationMessage)}}</span>
-        <i class="fa fa-check-circle" aria-hidden="true" ng-if="!ctrl.confirmationMessage"></i>
+        <i class="fa fa-check-circle" aria-hidden="true"></i>
         <span ng-if="!ctrl.confirmationMessage" translate="mwForm.confirmationPage.defaultMessage"> Twoja odpowiedź została zapisana</span>
     </div>
     <div class="mw-error-message vertical-center" ng-if="ctrl.submitStatus=='ERROR'">
@@ -10,7 +10,8 @@
     <div class="mw-pending-message vertical-center" ng-if="ctrl.submitStatus=='IN_PROGRESS'">
         <span translate="mwForm.confirmationPage.pendingMessage">Zapisywanie odpowiedzi w trakcie.</span>
     </div>
-    <div class="mw-pending-message vertical-center" ng-if="ctrl.submitStatus=='TIME_UP'">
+    <div class="mw-pending-message mw-timeup-message vertical-center" ng-if="ctrl.submitStatus=='TIME_UP'">
+        <i class="fa fa-clock-o" aria-hidden="true"></i>
         <span translate="mwForm.confirmationPage.timeupMessage">Zapisywanie odpowiedzi w trakcie.</span>
     </div>
 </div>

@@ -1323,6 +1323,10 @@
             }
         }
 
+        $scope.$on('responseSubmitted', function (event, response) {
+            console.log(response);
+        });
+
         vm.showFormViewer = function(ev) {
 
             $mdDialog.show({
@@ -1344,6 +1348,7 @@
                 vm.status = 'You cancelled the dialog.';
             });
         }
+        vm.showFormViewer(); //open questionnaire viewer modal
     }
 
     function SocialShareController($scope, $uibModalInstance, $state, $rootScope, CampaignsData, CompanyDetails, App) {
@@ -1511,15 +1516,13 @@
             $uibModalInstance.dismiss('cancel');
         });
 
-
         init();
 
     }
 
     function FormViewerController(App, $scope, $rootScope, $http, $timeout, $q, $uibModal, $mdDialog, $state, RefDetails) {
+
         var vm = this;
-        //vm.companyName = 'Company1';
-        //RefDetails.company_name;
         vm.formOptions = {
             autoStart: false,
             disableSubmit: false
@@ -1530,7 +1533,7 @@
 
         vm.responseData = {};
         var apiKeys = $.param({
-            assessment_id : 2
+            assessment_id : 41
         });
         vm.formData = null;
         $http({
@@ -1545,8 +1548,7 @@
 
             if (response.data.status_code == 200) {
                 vm.formData = response.data.data;
-            }
-            else if (response.data.status_code == 400) {
+            } else if (response.data.status_code == 400) {
                 $window.location = App.base_url + 'logout';
             }
 

@@ -8,7 +8,7 @@
             </div>
             <div class="questionnaire-footer">
                 <span class="pull-left copy-right">Copyright &copy; mintmesh</span>
-                <md-button type="button" class="btn btn-default begin-response-button pull-right" ng-click="ctrl.beginResponse()" translate="mwForm.buttons.begin">Rozpocznij</md-button>
+                <md-button type="button" class="btn btn-default begin-response-button pull-right" ng-click="ctrl.beginResponse()" translate="mwForm.buttons.begin" ng-disabled="!ctrl.formData.pages.length">Rozpocznij</md-button>
 
                 <div class="clearfix"></div>
             </div>

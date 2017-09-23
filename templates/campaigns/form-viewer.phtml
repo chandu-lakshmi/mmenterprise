@@ -194,18 +194,21 @@
         color: #1f8c6f;
         font-size: 25px;
       }
-      .mw-confirmation-message i {
+      .mw-form-confirmation-page .vertical-center i {
         font-size: 50px;
-        margin-right: 15px;
+        margin-right: 10px;
         position: relative;
         top: 8px;
+      }
+      .mw-timeup-message {
+        color: red;
       }
 </style>
 <md-dialog class="angular-survey-template">
     <div class="container">
         <div class="container-header">
         <!-- {{FormViewerCtrl.formData}} -->
-          <span class="questionnaire-name">{{FormViewerCtrl.formData.exam_name}}  - Instructions</span>
+          <span class="questionnaire-name">{{FormViewerCtrl.formData.exam_name}} - Instructions</span>
           <div class="questionnaire-description">
             <span class="total-question">Total Questions: {{FormViewerCtrl.formData.pages.length}}</span>
             <span class="time-duration" ng-if="FormViewerCtrl.formData.max_duration">Time: {{FormViewerCtrl.formData.max_duration}} mins</span>

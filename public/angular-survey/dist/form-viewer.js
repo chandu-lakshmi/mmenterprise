@@ -130,7 +130,7 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
         templateUrl: $rootScope.$root.base_url + 'public/angular-survey/viewer/templates/bootstrap/mw-form-viewer.html',
         controllerAs: 'ctrl',
         bindToController: true,
-        controller: ["$scope", "$timeout", "$interpolate", "$interval", function($scope, $timeout, $interpolate, $interval){
+        controller: ["$scope", "$timeout", "$interpolate", "$interval", "mmQuestionnaire",  function($scope, $timeout, $interpolate, $interval, mmQuestionnaire){
 
             var ctrl = this,
                 intervalId;
@@ -221,7 +221,7 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
             ctrl.timeUP = function() {
                 ctrl.formSubmitted=true;
                 ctrl.submitStatus='TIME_UP';
-
+                alert("timeup");
                 ctrl.setCurrentPage(null);
                 $interval.cancel(intervalId);
 
@@ -231,10 +231,9 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
                 ctrl.formSubmitted=true;
                 ctrl.submitStatus='SUCCESS';
 
-                console.log(ctrl.mmqResponse);
                 ctrl.setCurrentPage(null);
                 $interval.cancel(intervalId);
-
+                mmQuestionnaire.setResponseData(ctrl.mmqResponse)
                 // var resultPromise = ctrl.onSubmit();
                 // resultPromise.then(function(){
                 //     ctrl.submitStatus='SUCCESS';
@@ -433,6 +432,18 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
         }
     };
 }]);
+
+angular.module('mwFormViewer').service('mmQuestionnaire', function($rootScope) {
+  var responseData = {};
+  this.getResponseData = function () {
+      return responseData;
+  }
+
+  this.setResponseData = function (response) {
+      responseData = response;
+      $rootScope.$broadcast("responseSubmitted", responseData);
+  }
+});
 
 /* Filters seconds to date-tie format - Using for MM-Questionnaire timer */
 angular.module('mwFormViewer').filter('secondsToDateTime', [function() {

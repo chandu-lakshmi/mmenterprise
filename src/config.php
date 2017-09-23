@@ -4,7 +4,7 @@ $hostName = gethostname();
 
 // deciding the environment
 switch ($hostName) {
-	case 'scotchbox':
+	case 'ananya-desktop':
 		$environment = '_local';
 		break;
 	case 'mintmesh.com':
