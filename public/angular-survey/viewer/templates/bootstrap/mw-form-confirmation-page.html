@@ -1,15 +1,16 @@
 <div class="mw-form-confirmation-page">
-    <div class="mw-confirmation-message" ng-if="ctrl.submitStatus=='SUCCESS'">
+    <div class="mw-confirmation-message vertical-center" ng-if="ctrl.submitStatus=='SUCCESS'">
         <span ng-if="ctrl.confirmationMessage"> {{::ctrl.print(ctrl.confirmationMessage)}}</span>
-        <span ng-if="!ctrl.confirmationMessage" translate="mwForm.confirmationPage.defaultMessage"> <i class="fa fa-check-circle" aria-hidden="true"></i> Twoja odpowiedź została zapisana</span>
+        <i class="fa fa-check-circle" aria-hidden="true" ng-if="!ctrl.confirmationMessage"></i>
+        <span ng-if="!ctrl.confirmationMessage" translate="mwForm.confirmationPage.defaultMessage"> Twoja odpowiedź została zapisana</span>
     </div>
-    <div class="mw-error-message" ng-if="ctrl.submitStatus=='ERROR'">
+    <div class="mw-error-message vertical-center" ng-if="ctrl.submitStatus=='ERROR'">
         <span translate="mwForm.confirmationPage.errorMessage"> Bład. Twoja odpowiedź nie została zapisana.</span>
     </div>
-    <div class="mw-pending-message" ng-if="ctrl.submitStatus=='IN_PROGRESS'">
+    <div class="mw-pending-message vertical-center" ng-if="ctrl.submitStatus=='IN_PROGRESS'">
         <span translate="mwForm.confirmationPage.pendingMessage">Zapisywanie odpowiedzi w trakcie.</span>
     </div>
-    <div class="mw-pending-message" ng-if="ctrl.submitStatus=='TIME_UP'">
+    <div class="mw-pending-message vertical-center" ng-if="ctrl.submitStatus=='TIME_UP'">
         <span translate="mwForm.confirmationPage.timeupMessage">Zapisywanie odpowiedzi w trakcie.</span>
     </div>
 </div>

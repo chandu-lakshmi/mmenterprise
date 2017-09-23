@@ -1516,7 +1516,7 @@
 
     }
 
-    function FormViewerController($scope, $rootScope, $http, $timeout, $q, $uibModal, $mdDialog, $state, RefDetails) {
+    function FormViewerController(App, $scope, $rootScope, $http, $timeout, $q, $uibModal, $mdDialog, $state, RefDetails) {
         var vm = this;
         //vm.companyName = 'Company1';
         //RefDetails.company_name;
@@ -1529,16 +1529,37 @@
         vm.viewerReadOnly = false;
 
         vm.responseData = {};
+        var apiKeys = $.param({
+            assessment_id : 2
+        });
+        vm.formData = null;
+        $http({
+            headers : {
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
+            method  : 'POST',
+            url     : App.base_url + 'get_assessment',
+            data    : apiKeys
+        })
+        .then(function (response) {
+
+            if (response.data.status_code == 200) {
+                vm.formData = response.data.data;
+            }
+            else if (response.data.status_code == 400) {
+                $window.location = App.base_url + 'logout';
+            }
+
+        });
         /*$http.get('response-data.json')
          .then(function (res) {
          vm.responseData = res.data;
          });*/
 
-        vm.formData = null;
-        $http.get('mintmesh_survey.json')
-        .then(function (res) {
-            vm.formData = res.data.data;
-        });
+        // $http.get('mintmesh_survey.json')
+        // .then(function (res) {
+        //     vm.formData = res.data.data;
+        // });
 
         vm.templateData = null;
         /*$http.get('template-data.json')

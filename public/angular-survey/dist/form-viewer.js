@@ -390,6 +390,7 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
             };
 
             function sortPagesByNumber() {
+              console.log(ctrl.formData);
                 ctrl.formData.pages.sort(function(a,b){
                     return a.number - b.number;
                 });
