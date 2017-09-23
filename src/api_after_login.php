@@ -2508,17 +2508,3 @@ $app->post('/get_exam_details',function ($request, $response, $args) use ($app) 
     return checkJsonResult( $jobList->loadCurl() );
 });
 
-
-//get_assessment
-$app->post('/get_assessment',function ($request, $response, $args) use ($app) {
-    // dynamically Access Token, Company Details
-    $this->mintmeshAccessToken;
-    $this->mintmeshCompanyId;
-    // getting API endpoint from settings
-    $apiEndpoint = getapiEndpoint($this->settings, 'get_assessment');
-    $jobList     = new Curl(array(
-        'url'           => $apiEndpoint,
-        'postData'      => $_POST
-     ));
-    return checkJsonResult( $jobList->loadCurl() );
-});
