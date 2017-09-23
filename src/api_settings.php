@@ -458,6 +458,10 @@ return [
             'get_exam_details' =>[
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/get_exam_details'
+            ],
+            'get_assessment' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_assessment'
             ]
     ];
         
