@@ -31,7 +31,7 @@
 							<div layout="row">
 								<md-input-container flex class="md-block full-box">
 									<label>Question</label>
-									<input type="text" name="question" ng-model="CreateQuestionCtrl.questionObj.question_notes" ng-disabled="CreateQuestionCtrl.enableViewMode" required maxlength="500">
+									<input type="text" name="question" ng-model="CreateQuestionCtrl.questionObj.question" ng-disabled="CreateQuestionCtrl.enableViewMode" required maxlength="500">
 									<div class="error-spacer"></div>
 									<div ng-if="questionForm.question.$error.required && CreateQuestionCtrl.postQuestionSubmitted"  class="has-error-msg">Please add question.</div>
 								</md-input-container>

@@ -260,19 +260,19 @@
                     controllerAs: 'TestsListCtrl'
                 })
                 $stateProvider.state('app.campaigns.CreateTest', {
-                    url: '^/assessment/create-test',
+                    url: '^/assessment/add-edit-test/:examId',
                     templateUrl: App.base_url + 'templates/assessment/create-test.phtml',
                     controller: 'CreateTestController',
                     controllerAs: 'CreateTestCtrl'
                 })
                 $stateProvider.state('app.campaigns.EditTest', {
-                    url: '^/assessment/edit-test',
+                    url: '^/assessment/edit-test/:id',
                     templateUrl: App.base_url + 'templates/assessment/edit-test.phtml',
                     controller: 'EditTestController',
                     controllerAs: 'EditTestCtrl'
                 })
                 $stateProvider.state('app.campaigns.TestSettings', {
-                    url: '^/assessment/test-settings',
+                    url: '^/assessment/test-settings/:id',
                     templateUrl: App.base_url + 'templates/assessment/test-settings.phtml',
                     controller: 'TestSettingsController',
                     controllerAs: 'TestSettingsCtrl'
@@ -285,11 +285,20 @@
                     controller: 'QuestionsListController',
                     controllerAs: 'QuestionsListCtrl'
                 })
+                $stateProvider.state('app.campaigns.QuestionAdd', {
+                    url: '^/questions/question-add/:examId',
+                    templateUrl: App.base_url + 'templates/questions/question-add.phtml',
+                    controller: 'QuestionAddController',
+                    controllerAs: 'QuestionAddCtrl'
+                })
                 $stateProvider.state('app.campaigns.CreateQuestion', {
                     url: '^/questions/add-edit-question/:mode/:id',
                     templateUrl: App.base_url + 'templates/questions/create-question.phtml',
                     controller: 'CreateQuestionController',
-                    controllerAs: 'CreateQuestionCtrl'
+                    controllerAs: 'CreateQuestionCtrl',
+                    params: {
+                        examId: null
+                    }
                 })
 
                 $stateProvider.state('app.settings', {

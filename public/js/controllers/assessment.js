@@ -7,22 +7,25 @@
 	.controller('TestsListController', TestsListController)
     .controller('CreateTestController', CreateTestController)
     .controller('EditTestController', EditTestController)
-    .controller('TestSettingsController', TestSettingsController)
+	.controller('TestSettingsController', TestSettingsController)
+	  
+	.service('EditTestService', EditTestService)
 
   
-  	TestsListController.$inject  = ['$timeout', '$http', '$window', '$mdToast', 'App'];
-	CreateTestController.$inject = ['$timeout', '$http', '$window', '$mdToast', 'CompanyDetails', 'App'];
-	EditTestController.$inject = ['$timeout', '$http', '$window', '$mdToast', '$uibModal', 'App'];
+  	TestsListController.$inject    = ['$timeout', '$mdToast', '$uibModal', '$http', '$window', 'App'];
+	CreateTestController.$inject   = ['$state', '$timeout', '$http', '$window', '$mdToast', 'CompanyDetails', 'App'];
+	EditTestController.$inject = ['$stateParams', '$timeout', '$http', '$window', '$mdToast', '$uibModal', 'App', 'EditTestService'];
+	TestSettingsController.$inject = ['$stateParams', '$timeout', '$http', '$window', '$mdToast', 'App'];
 
-
-	function TestsListController() {
+	function TestsListController($timeout, $mdToast, $uibModal, $http, $window, App) {
 
 		var vm = this;
 
 		this.grid = {
+			pageNo: 1,
 			inProgress: false,
 			responseMsg: null,
-			totalRecords : 100
+			totalRecords : null
 		};
 
 		this.gridOptions = {
@@ -34,17 +37,17 @@
 			enableRowSelection: true,
 			enableRowHeaderSelection: true,
 			enableFullRowSelection: true,
-			data: 'data',
+			data: [],
 			appScopeProvider: vm // bindin scope to grid
 		};
 
 		this.gridOptions.columnDefs = [
-			{ name: 'test_name', displayName: 'TEST NAME', cellTemplate: 'test-name.html', cellClass: 'test-name', width: '30%' },
-			{ name: 'questions', displayName: 'QUESTIONS' },
-			{ name: 'duration', displayName: 'DURATION' },
-			{ name: 'status', displayName: 'STATUS' },
+			{ name: 'name', displayName: 'TEST NAME', cellTemplate: 'test-name.html', cellClass: 'test-name', width: '30%' },
+			{ name: 'qcount', displayName: 'QUESTIONS' },
+			{ name: 'max_duration', displayName: 'DURATION' },
+			{ name: 'is_active', displayName: 'STATUS' },
 			{ name: 'created_by', displayName: 'CREATED BY' },
-			{ name: 'date', displayName: 'DATE' }
+			{ name: 'created_at', displayName: 'DATE' }
 		];
 
 		this.gridOptions.onRegisterApi = function (gridApi) {
@@ -61,28 +64,58 @@
 
 
 		function init() {
-			vm.gridOptions.data = [{ test_name: 'UI/UX Developer Test', role: 'Software Developer', exp: '0-2 Years', questions: 10, duration: 60, status: 'Active', created_by: 'E.Max Well', date: 'Sep 14, 2017' }];
+			getTestList();
 		}
 
+		function getTestList() {
+
+			var apiKeys = $.param({ page_no: vm.grid.pageNo });
+			vm.grid.inProgress = true;
+
+			$http({
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+				},
+				method: 'POST',
+				data: apiKeys,
+				url: App.base_url + 'get_company_assessments_all',
+			})
+				.then(function (response) {
+					if (response.data.status_code == 200) {
+						vm.gridOptions.data = response.data.data;
+					}
+					else if (response.data.status_code == 403) {
+						vm.gridOptions.data = [];
+						vm.grid.responseMsg = response.data.message.msg[0];
+					}
+					else if (response.data.status_code == 400) {
+						$window.location = App.base_url + 'logout';
+					}
+					vm.grid.inProgress = false;
+					vm.grid.totalRecords = vm.gridOptions.data.length;
+				});
+		}
 
 		init();
 
 	}
 
 
-	function CreateTestController($timeout, $http, $window, $mdToast, CompanyDetails, App) {
+	function CreateTestController($state, $timeout, $http, $window, $mdToast, CompanyDetails, App) {
 
 		var vm = this;
 
 		
 		this.testObj = {};
+		this.testId  = $state.params.examId == 0 ? 0 : $state.params.examId; 
 		this.postCreateTestInProgress = false;
 		this.postCreateTestSubmitted  = false;
-		
+		this.getSettingsInProgress    = false;
+
 		this.setTestName = function() {
-			this.testObj.testName = CompanyDetails.name + ' - ' + this.testObj.role;
-			if (!vm.testObj.role) {
-				this.testObj.testName = null;
+			this.testObj.exam_name = CompanyDetails.name + ' - ' + this.testObj.exam_type;
+			if (!vm.testObj.exam_type) {
+				this.testObj.exam_name = null;
 			}
 		}	
 		
@@ -93,7 +126,13 @@
 			if (form.$valid) {
 				
 				vm.postCreateTestInProgress = true;
-				var apiKeys = $("form[name='createTestForm']").serialize();
+				var testForm = $("form[name='createTestForm']").serialize();
+				
+				if ($state.params.examId != 0) {
+					testForm = testForm + '&' + $.param({ exam_id: $state.params.examId });
+				} 
+
+				var apiKeys = testForm;
 				
 				$http({
 					headers: {
@@ -115,7 +154,7 @@
 						});
 
 						$timeout(function () {
-							$state.go('app.campaigns.QuestionsList');
+							$state.go('app.campaigns.EditTest', {id: response.data.data.id});
 						}, 2000);
 
 					}
@@ -126,8 +165,12 @@
 			}
 		}
 
+
 		function init() {
 			getAPI();
+			if ($state.params.examId != 0) {
+				getSettings();
+			}
 		}
 
 		function getAPI() {
@@ -144,12 +187,37 @@
 
 		}
 
+		function getSettings() {
+
+			vm.getSettingsInProgress = true;
+
+			var apiKeys = $.param({ exam_id: $state.params.examId });
+
+			$http({
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+				},
+				method: 'POST',
+				data: apiKeys,
+				url: App.base_url + 'get_exam_details',
+			})
+			.then(function (response) {
+				if (response.data.status_code == 200) {
+					vm.testObj = response.data.data;
+					vm.getSettingsInProgress = false;
+				}
+				else if (response.data.status_code == 400) {
+					$window.location = App.base_url + 'logout';
+				}
+			});
+		}
+
 
 		init();
 	}
 
 
-	function EditTestController($timeout, $http, $window, $mdToast, $uibModal, App) {
+	function EditTestController($stateParams, $timeout, $http, $window, $mdToast, $uibModal, App, EditTestService) {
 		
 		var vm = this;
 
@@ -179,6 +247,12 @@
 		}
 
 		function init() {
+			/* var data = EditTestService.getData(); 
+			if (!data) {
+				getTestDetails();
+			} else{
+				vm.testDetails = data;
+			} */
 			getTestDetails();
 		}
 
@@ -191,13 +265,14 @@
 					'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
 				},
 				method: 'POST',
-				data: $.param({ exam_id: 3 }),
+				data: $.param({ exam_id: $stateParams.id }),
 				url: App.base_url + 'view_exam_question',
 			})
 			.then(function (response) {
 				if (response.data.status_code == 200) {
-
-					vm.testDetails = response.data.data;
+					
+					EditTestService.setData(response.data.data);
+					vm.testDetails = response.data.data 
 					vm.getTestDetailsInProgress = false;
 
 				}
@@ -215,6 +290,11 @@
 					position: 'top right',
 					template: '<md-toast class="mm-toast"><div class="md-toast-text" flex><i class="material-icons">done</i><div class="text"><div class="toast-succ">Success!</div><div class="succ-text">' + response.message.msg[0] + '</div></div></div></md-toast>'
 				}, 200);
+			});
+			angular.forEach(vm.testDetails.exam_question_list, function(element, index) {
+				if (response.data.id == element.exam_question_id) {
+					vm.testDetails.exam_question_list.splice(index, 1)
+				}	
 			});				
 		}
 
@@ -222,28 +302,29 @@
 	}
 
 
-	function TestSettingsController($timeout, $http, $window, $mdToast, App) {
+	function TestSettingsController($stateParams, $timeout, $http, $window, $mdToast, App) {
 
 		var vm = this;
 
+		this.examId      = $stateParams.id;
 		this.statusList  = [{ label: 'Active', value: 1 }, { label: 'Inactive', value: 0 }];
 
 		this.postSettingsInProgress = false;
 		this.postSettingsSubmitted  = false;
 		this.settingsObj = {
-			aIScreening  : 1,
-			autoScreen   : 1,
+			//aIScreening  : 1,
+			is_auto_screening   : 1,
 			status : 1
 		}
 		
 		
 		this.toogleAutoScreen = function(status) {
-			vm.settingsObj.autoScreen = status;
+			vm.settingsObj.is_auto_screening = status;
 		}
 
-		this.toogleAIScreening = function (status) {
+		/* this.toogleAIScreening = function (status) {
 			vm.settingsObj.aIScreening = status;
-		}
+		} */
 
 		this.postSettings = function(form) {
 			
@@ -254,14 +335,15 @@
 				vm.postSettingsInProgress = true;
 				
 				var apiKeys = $("form[name='settingsForm']").serialize() + '&' + $.param({ 
-					exam_id: 3,
-					is_auto_screening  : vm.settingsObj.autoScreen,
-					enable_ai_screening : vm.settingsObj.aIScreening,
-					enable_full_screen : vm.settingsObj.enableFullscreen,
-					reminder_emails    : vm.settingsObj.reminderMail,
+					exam_id: $stateParams.id,
+					is_auto_screening: vm.settingsObj.is_auto_screening,
+					//enable_ai_screening : vm.settingsObj.aIScreening,
+					enable_full_screen : vm.settingsObj.enable_full_screen,
+					reminder_emails    : vm.settingsObj.reminder_emails,
 					confirmation_email : vm.settingsObj.confirmationMail,
-					shuffle_questions  : vm.settingsObj.shuffleQuestions,
-					disclaimer         : vm.settingsObj.disclaimer
+					shuffle_questions  : vm.settingsObj.shuffle_questions,
+					disclaimer         : vm.settingsObj.disclaimer,
+					password_protected : vm.settingsObj.password_protected
 				});
 
 				$http({
@@ -292,7 +374,45 @@
 			}
 		}
 
-		
+		function init() {
+			getSettings();
+		}
+
+		function getSettings() {
+
+			vm.getSettingsInProgress = true;
+
+			var apiKeys =  $.param({ exam_id: $stateParams.id });
+
+			$http({
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+				},
+				method: 'POST',
+				data: apiKeys,
+				url: App.base_url + 'get_exam_details',
+			})
+			.then(function (response) {
+				if (response.data.status_code == 200) {
+					vm.getSettingsInProgress = false;
+					var data = response.data.data;
+					vm.settingsObj = data;
+					setTimeout(function(){
+						$('#start_date').data("DateTimePicker").minDate(new Date(data.start_date));
+						$('#end_date').data("DateTimePicker").minDate(new Date(data.end_date));
+						$('#start_date').data("DateTimePicker").date(new Date(data.start_date));
+						$('#end_date').data("DateTimePicker").date(new Date(data.end_date));
+						$('#start_time').data("DateTimePicker").date(new Date(data.end_date + ' ' + data.start_time));
+						$('#end_time').data("DateTimePicker").date(new Date(data.start_date +' '+ data.end_time));
+					})
+				}
+				else if (response.data.status_code == 400) {
+					$window.location = App.base_url + 'logout';
+				}
+			});
+
+		}
+
 		function copy(e) {
 			
 			// find target element
@@ -322,11 +442,12 @@
 			}
 		}
 
+		
 		setTimeout(function () {
-
+			
 			document.getElementsByClassName('btns')[0].addEventListener('click', copy, true);
 			document.getElementsByClassName('btns')[0].addEventListener('touchstart', copy, true);
-
+			
 			$('#start_date').datetimepicker({
 				minDate: new Date(),
 				ignoreReadonly: true,
@@ -334,6 +455,7 @@
 				sideBySide: true,
 				useCurrent: true
 			});
+
 
 			$('#end_date').datetimepicker({
 				minDate: new Date(),
@@ -357,6 +479,23 @@
 				useCurrent: true
 			});
 		})
+
+		init();
+	}
+
+
+	function EditTestService() {
+		
+		this.data;
+
+		this.setData = function (data) {
+			this.data = angular.copy(data);
+		}
+
+		this.getData = function () {
+			return this.data;
+		}
+
 	}
 	  
 }());

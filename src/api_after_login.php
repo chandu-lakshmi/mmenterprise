@@ -929,7 +929,7 @@ $app->get('/assessment/tests-list',function ($request, $response, $args) use ($a
 });
 
 //assessment-CREATE TEST
-$app->get('/assessment/create-test',function ($request, $response, $args) use ($app) {
+$app->get('/assessment/add-edit-test/{examId}',function ($request, $response, $args) use ($app) {
     //Arguments
     $this->mintmeshAccessToken;
     $args       = commonData($this->settings);
@@ -945,7 +945,7 @@ $app->get('/assessment/create-test',function ($request, $response, $args) use ($
 });
 
 //assessment-Edit TEST
-$app->get('/assessment/edit-test',function ($request, $response, $args) use ($app) {
+$app->get('/assessment/edit-test/{id}',function ($request, $response, $args) use ($app) {
     //Arguments
     $this->mintmeshAccessToken;
     $args       = commonData($this->settings);
@@ -961,7 +961,7 @@ $app->get('/assessment/edit-test',function ($request, $response, $args) use ($ap
 });
 
 //assessment-Test Settings
-$app->get('/assessment/test-settings',function ($request, $response, $args) use ($app) {
+$app->get('/assessment/test-settings/{id}',function ($request, $response, $args) use ($app) {
     //Arguments
     $this->mintmeshAccessToken;
     $args       = commonData($this->settings);
@@ -992,8 +992,26 @@ $app->get('/questions/questions-list',function ($request, $response, $args) use 
     return $this->renderer->render($response, 'index.phtml', $args);
 });
 
+
+
+//Questions-add
+$app->get('/questions/question-add/{examId}',function ($request, $response, $args) use ($app) {
+    //Arguments
+    $this->mintmeshAccessToken;
+    $args       = commonData($this->settings);
+    
+    //Check Logged in or not
+    if(!empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']);
+    }
+
+    $args['comp_data'] = companyProfile($this->settings);
+    // Render dashboard view
+    return $this->renderer->render($response, 'index.phtml', $args);
+});
+
 //Create Questions
-$app->get('/questions/create-question',function ($request, $response, $args) use ($app) {
+$app->get('/questions/add-edit-question/{mode}/{id}',function ($request, $response, $args) use ($app) {
     //Arguments
     $this->mintmeshAccessToken;
     $args       = commonData($this->settings);
@@ -2461,6 +2479,7 @@ $app->post('/get_company_assessments_all',function ($request, $response, $args) 
      ));
     return checkJsonResult( $jobList->loadCurl() );
 });
+
 //get_assessment
 $app->post('/get_assessment',function ($request, $response, $args) use ($app) {
     // dynamically Access Token, Company Details
@@ -2468,6 +2487,20 @@ $app->post('/get_assessment',function ($request, $response, $args) use ($app) {
     $this->mintmeshCompanyId;
     // getting API endpoint from settings
     $apiEndpoint = getapiEndpoint($this->settings, 'get_assessment');
+    $jobList     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    return checkJsonResult( $jobList->loadCurl() );
+});
+
+//get_exam_details
+$app->post('/get_exam_details',function ($request, $response, $args) use ($app) {
+    // dynamically Access Token, Company Details
+    $this->mintmeshAccessToken;
+    $this->mintmeshCompanyId;
+    // getting API endpoint from settings
+    $apiEndpoint = getapiEndpoint($this->settings, 'get_exam_details');
     $jobList     = new Curl(array(
         'url'           => $apiEndpoint,
         'postData'      => $_POST

@@ -1,6 +1,7 @@
 .assessment {
   min-height: calc(100vh - 160px);
-  font-size: 16px; }
+  font-size: 16px;
+  position: relative; }
   .assessment.test {
     background: #fff; }
   .assessment .container-box {
@@ -19,7 +20,7 @@
       background: #f8fafb;
       border-bottom: 1px solid #eaebeb; }
       .assessment .container-box .header .back {
-        padding: 18px 20px 0 0; }
+        padding: 20px 15px 20px 0px; }
       .assessment .container-box .header .title {
         margin: 0;
         line-height: 60px;
@@ -128,22 +129,26 @@
     .assessment .container-box .edit-test .grid-view {
       border: 1px solid #dde4e7;
       border-top: 0;
-      border-bottom: 0; }
+      margin-bottom: 34px; }
       .assessment .container-box .edit-test .grid-view .head {
         padding: 4px 12px;
         color: #757982;
         font-size: 13px; }
-      .assessment .container-box .edit-test .grid-view .list {
-        height: 65px;
-        line-height: 65px;
-        padding-left: 10px;
-        border-bottom: 1px solid #dde4e7;
-        color: #798193; }
-        .assessment .container-box .edit-test .grid-view .list .qst {
-          color: #5a616b;
-          font-weight: 600; }
-        .assessment .container-box .edit-test .grid-view .list .action-view a {
-          padding: 14px; }
+      .assessment .container-box .edit-test .grid-view .list-container {
+        height: calc(100vh - 448px);
+        overflow: auto;
+        min-height: 300px; }
+        .assessment .container-box .edit-test .grid-view .list-container .list {
+          height: 65px;
+          line-height: 65px;
+          padding-left: 10px;
+          border-bottom: 1px solid #dde4e7;
+          color: #798193; }
+          .assessment .container-box .edit-test .grid-view .list-container .list .qst {
+            color: #5a616b;
+            font-weight: 600; }
+          .assessment .container-box .edit-test .grid-view .list-container .list .action-view a {
+            padding: 14px; }
     .assessment .container-box .test-settings .header .action {
       width: 146px;
       height: 40px;

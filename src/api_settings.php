@@ -454,6 +454,10 @@ return [
             'get_assessment' =>[
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/get_assessment'
+            ],
+            'get_exam_details' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_exam_details'
             ]
     ];
         

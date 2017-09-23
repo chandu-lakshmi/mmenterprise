@@ -1,14 +1,19 @@
 <div class="assessment test">
-	<div layout="column" class="container-box">
+	<div class="mm-spinner" ng-if="TestSettingsCtrl.getSettingsInProgress">
+		<div>
+			<img src="public/images/loader/spin.gif" alt="loading">
+		</div>
+	</div>
+	<div layout="column" class="container-box" ng-show="!TestSettingsCtrl.getSettingsInProgress">
 		<form name="settingsForm">
 			<div class="test-settings">
 				<div class="header">
 					<div class="container">
 						<div layout="row">
-							<a ui-sref="app.campaigns.EditTest"><img class="back" src="public/images/back-arrow-grey.svg" alt="back"></a>
-							<h4 class="title" flex>Campus Drive - Sep 2017- Test</h4>
+							<a ui-sref="app.campaigns.EditTest({ id: TestSettingsCtrl.examId })"><img class="back" src="public/images/back.png" alt="back"></a>
+							<h4 class="title" flex ng-bind="TestSettingsCtrl.settingsObj.exam_name">Campus Drive - Sep 2017- Test</h4>
 							<md-input-container flex="15" class="md-block select-box">
-								<md-select name="is_active" ng-model="TestSettingsCtrl.settingsObj.status" aria-label="status">
+								<md-select name="is_active" ng-model="TestSettingsCtrl.settingsObj.is_active" aria-label="status">
 									<md-option ng-repeat="status in TestSettingsCtrl.statusList"  ng-value="status.value">{{status.label}}</md-option>
 								</md-select>
 							</md-input-container>
@@ -24,14 +29,14 @@
 						<div layout="row" flex="50" class="copy-url">
 							<md-input-container flex class="md-block full-box">
 								<label>Test URL</label>
-								<input type="text" name="exam_url" id="copy-url" ng-model="TestSettingsCtrl.settingsObj.testUrl">
+								<input type="text" name="exam_url" id="copy-url" ng-model="TestSettingsCtrl.settingsObj.exam_url">
 							</md-input-container>
 							<div class="btns" data-copytarget="#copy-url">COPY</div>
 						</div>
-						<div class="pwd-protection"><md-checkbox name="password_protected" ng-model="pwd" aria-label="pwdProtection" ng-true-value="1" ng-false-value="0" class="md-align-top-left"> Password Protection</div>
+						<div class="pwd-protection"><md-checkbox name="password_protected" ng-model="TestSettingsCtrl.settingsObj.password_protected" aria-label="pwdProtection" ng-true-value="1" ng-false-value="0" class="md-align-top-left"> Password Protection</div>
 						<div layout="row" flex="30" class="pwd-action">
 							<md-input-container  class="md-block full-box hide-label">
-								<input type="text" placeholder="Set New Password" ng-required="pwd" name="password" ng-model="TestSettingsCtrl.settingsObj.pwd">
+								<input type="text" placeholder="Set New Password" ng-required="pwd" name="password" ng-model="TestSettingsCtrl.settingsObj.password">
 								<div class="error-spacer"></div>
 								<div ng-if="settingsForm.password.$error.required && TestSettingsCtrl.postSettingsSubmitted" class="has-error-msg">Please enter Password.</div>
 							</md-input-container>
@@ -39,7 +44,7 @@
 						</div>
 						<div layout="row" class="time">
 							<md-input-container flex="20" class="md-block full-box">
-								<input type="text" placeholder="Time (in Minutes)" name="exam_duration" ng-pattern="/(^[^0]$)|(^[1-9]\d{0,}$)/" check-char-zero ng-model="TestSettingsCtrl.settingsObj.duration">
+								<input type="text" placeholder="Time (in Minutes)" name="max_duration" ng-pattern="/(^[^0]$)|(^[1-9]\d{0,}$)/" check-char-zero ng-model="TestSettingsCtrl.settingsObj.max_duration">
 							</md-input-container>
 						</div>
 						<div layout="row" class="time">
@@ -67,7 +72,7 @@
 						</div>
 						<div layout="row" class="cutoff">
 							<md-input-container flex="20" class="md-block full-box">
-								<input type="text" placeholder="Cutoff Score (out of 100)" check-char-zero required  ng-pattern="/(^[^0]$)|(^[1-9]\d{0,}$)/" name="min_marks" ng-model="TestSettingsCtrl.settingsObj.cutoffScore">
+								<input type="text" placeholder="Cutoff Score (out of 100)" check-char-zero required  ng-pattern="/(^[^0]$)|(^[1-9]\d{0,}$)/" name="min_marks" ng-model="TestSettingsCtrl.settingsObj.min_marks">
 								<div class="error-spacer"></div>
 								<div ng-if="settingsForm.min_marks.$error.required && TestSettingsCtrl.postSettingsSubmitted" class="has-error-msg err-display">Please enter Cutoff Score.</div>
 								<div ng-if="settingsForm.min_marks.$error.pattern" class="has-error-msg err-display">Cutoff Score should not be zero.</div>
@@ -84,7 +89,7 @@
 						<div class="switch">
 							<span class="text">Auto Screening</span>
 							<div class="switch-box">
-								<md-button ng-click="TestSettingsCtrl.toogleAutoScreen(1)" ng-class="{'active':TestSettingsCtrl.settingsObj.autoScreen}">Yes</md-button><md-button ng-click="TestSettingsCtrl.toogleAutoScreen(0)" ng-class="{'active':!TestSettingsCtrl.settingsObj.autoScreen}">No</md-button>
+								<md-button ng-click="TestSettingsCtrl.toogleAutoScreen(1)" ng-class="{'active':TestSettingsCtrl.settingsObj.is_auto_screening}">Yes</md-button><md-button ng-click="TestSettingsCtrl.toogleAutoScreen(0)" ng-class="{'active':!TestSettingsCtrl.settingsObj.is_auto_screening}">No</md-button>
 							</div>
 						</div>
 						<div layout="row" class="qualification">
@@ -101,19 +106,19 @@
 								<input type="text" placeholder="Keywords Matches" name="keywords_matches" ng-model="TestSettingsCtrl.settingsObj.keywordsMatches">
 							</md-input-container>
 							<i class="gap"></i>
-							<div flex="30">
+							<!-- <div flex="30">
 								<span class="text">AI Screening</span>
 								<div class="switch-box">
 									<md-button ng-click="TestSettingsCtrl.toogleAIScreening(1)" ng-class="{'active':TestSettingsCtrl.settingsObj.aIScreening}">Yes</md-button><md-button ng-click="TestSettingsCtrl.toogleAIScreening(0)" ng-class="{'active':!TestSettingsCtrl.settingsObj.aIScreening}">No</md-button>
 								</div>
-							</div>
+							</div> -->
 						</div>
 
 						<md-divider flex="85"></md-divider>
 						<div class="extra-opts">
-							<div class="pwd-protection"><md-checkbox name="enable_full_screen" ng-model="TestSettingsCtrl.settingsObj.enableFullscreen" aria-label="enableFullscreen" ng-true-value="1" ng-false-value="0"> Enable Full screen</div>
-							<div class="pwd-protection"><md-checkbox name="shuffle_questions" ng-model="TestSettingsCtrl.settingsObj.shuffleQuestions" aria-label="shuffleQuestions" ng-true-value="1" ng-false-value="0"> Shuffle Questions</div>
-							<div class="pwd-protection"><md-checkbox name="reminder_emails" ng-model="TestSettingsCtrl.settingsObj.reminderMail" aria-label="reminderMail" ng-true-value="1" ng-false-value="0"> Reminder EMail</div>
+							<div class="pwd-protection"><md-checkbox name="enable_full_screen" ng-model="TestSettingsCtrl.settingsObj.enable_full_screen" aria-label="enableFullscreen" ng-true-value="1" ng-false-value="0"> Enable Full screen</div>
+							<div class="pwd-protection"><md-checkbox name="shuffle_questions" ng-model="TestSettingsCtrl.settingsObj.shuffle_questions" aria-label="shuffleQuestions" ng-true-value="1" ng-false-value="0"> Shuffle Questions</div>
+							<div class="pwd-protection"><md-checkbox name="reminder_emails" ng-model="TestSettingsCtrl.settingsObj.reminder_emails" aria-label="reminderMail" ng-true-value="1" ng-false-value="0"> Reminder EMail</div>
 							<div class="pwd-protection"><md-checkbox name="confirmation_email" ng-model="TestSettingsCtrl.settingsObj.confirmationMail" aria-label="confirmationMail" ng-true-value="1" ng-false-value="0"> Confirmation EMail</div>
 							<div class="pwd-protection"><md-checkbox name="disclaimer" ng-model="TestSettingsCtrl.settingsObj.disclaimer" aria-label="disclaimer" ng-true-value="1" ng-false-value="0"> Disclaimer</div>
 							<textarea name="disclaimer_text" ng-model="TestSettingsCtrl.settingsObj.disclaimerText" ></textarea>
