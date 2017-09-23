@@ -103,6 +103,12 @@
         border-color: #cacaca; }
       .questions .container-box .create-question .section .list md-radio-group md-radio-button .md-ink-ripple {
         color: rgba(15, 184, 155, 0.28); }
+      .questions .container-box .create-question .section .list md-radio-group .animated {
+        position: relative; }
+      .questions .container-box .create-question .section .list md-radio-group .bin {
+        position: absolute;
+        left: -26px;
+        top: 14px; }
       .questions .container-box .create-question .section .list .action-add-opts {
         margin: 0;
         color: #0fb89b; }

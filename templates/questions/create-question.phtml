@@ -91,8 +91,8 @@
 									<md-radio-group name="answer_options" ng-model="CreateQuestionCtrl.questionObj.answerOpts" flex>
 										<div layout="column">
 										
-											<div layout="row" ng-repeat="data in CreateQuestionCtrl.questionObj.options track by $index" ng-init="CreateQuestionCtrl.getCorrectAnswer(data.is_correct_answer, $index)">
-												<i class="material-icons" ng-if="$index > 3 && $last" ng-click="CreateQuestionCtrl.trashAnswerOption()">delete</i>
+											<div layout="row" class="animated" ng-repeat="data in CreateQuestionCtrl.questionObj.options track by $index" ng-class="{'slideInDown': $index > 3}" ng-init="CreateQuestionCtrl.getCorrectAnswer(data.is_correct_answer, $index)">
+												<img src="public/images/bin.png" class="bin" alt="del" ng-if="$index > 3 && $last" ng-click="CreateQuestionCtrl.trashAnswerOption()">
 												<div flex="10" class="left" ng-click="CreateQuestionCtrl.setCorrectAnswer($index)">
 													<md-radio-button aria-label="CreateQuestionCtrl.alphabet[$index]" ng-disabled="CreateQuestionCtrl.enableViewMode" value="{{CreateQuestionCtrl.alphabet[$index]}}"> {{CreateQuestionCtrl.alphabet[$index]}}</md-radio-button>
 												</div>

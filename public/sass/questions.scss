@@ -64,7 +64,9 @@
 							} 
 							.md-off{border-color: #cacaca}
 							.md-ink-ripple{color: rgba(15, 184, 155, 0.28)}
-						} 
+						}
+						.animated{position: relative}
+						.bin{position: absolute;left: -26px;top: 14px}
 					}
 					.action-add-opts{margin: 0;color: #0fb89b}
 					.question-desc{margin-top: 30px;
