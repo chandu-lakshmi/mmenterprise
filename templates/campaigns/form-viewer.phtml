@@ -167,7 +167,7 @@
       }
       .full-screen {
         width: 100%;
-        min-height: 100%;
+        min-height: 100% !important;
       }
       .full-screen .container {
         width: 100%;
@@ -213,9 +213,9 @@
             <span class="total-question">Total Questions: {{FormViewerCtrl.formData.pages.length}}</span>
             <span class="time-duration" ng-if="FormViewerCtrl.formData.max_duration">Time: {{FormViewerCtrl.formData.max_duration}} mins</span>
           </div>
-          <img src="public/images/resize.svg" alt="fullscreen" class="fullscreen-icon" ng-click="FormViewerCtrl.fullScreen();" />
+          <img src="../public/images/resize.svg" alt="fullscreen" class="fullscreen-icon" ng-click="FormViewerCtrl.fullScreen();" />
 
-          <img src="public/images/cross-grey.svg" alt="close" class="close" ng-click="FormViewerCtrl.closeDialog($event)">
+          <img src="../public/images/cross-grey.svg" alt="close" class="close" ng-click="FormViewerCtrl.closeDialog($event)">
         </div>
 
 

@@ -21,7 +21,8 @@
 			<div class="section">
 				<form name="questionForm" class="container">
 					<div layout="row" class="list first">
-						<md-input-container flex="35" class="md-block select-box">
+						<md-input-container flex="35" class="md-block hide-label select-box">
+							<span class="qst-label">Select a question type?</span>
 							<label style="display:none">Select a question type?</label>
 							<md-select name="question_type" ng-model="CreateQuestionCtrl.questionObj.question_type" required ng-disabled="CreateQuestionCtrl.enableViewMode">
 								<md-option ng-repeat="type in CreateQuestionCtrl.questionTypesList" ng-value="type.id">{{type.name}}</md-option>
@@ -33,7 +34,7 @@
 					<div layout="row" class="list">
 						<div layout="column" flex>
 							<div layout="row">
-								<md-input-container flex class="md-block full-box">
+								<md-input-container flex class="md-block hide-label full-box">
 									<label>Question</label>
 									<input type="text" name="question" ng-model="CreateQuestionCtrl.questionObj.question" ng-disabled="CreateQuestionCtrl.enableViewMode" required maxlength="500">
 									<div class="error-spacer"></div>
@@ -41,13 +42,13 @@
 								</md-input-container>
 							</div>
 							<div layout="row" class="question-desc">
-								<md-input-container flex class="md-block full-box">
+								<md-input-container flex class="md-block hide-label full-box">
 									<label>Question Description</label>
 									<textarea name="question_notes" ng-model="CreateQuestionCtrl.questionObj.question_notes" ng-disabled="CreateQuestionCtrl.enableViewMode" maxlength="500"></textarea>
 								</md-input-container>
 							</div>
 							<div layout="row" class="question-desc">
-								<md-input-container flex="35" class="md-block full-box">
+								<md-input-container flex="35" class="md-block hide-label full-box">
 									<label>Score</label>
 									<input type="text" check-char-zero name="question_value" ng-pattern="/(^[^0]$)|(^[1-9]\d{0,}$)/" maxlength="100" ng-disabled="CreateQuestionCtrl.enableViewMode" ng-model="CreateQuestionCtrl.questionObj.question_value" required>
 									<div ng-if="questionForm.question_value.$error.required && CreateQuestionCtrl.postQuestionSubmitted"  class="has-error-msg">Please add Score.</div>
@@ -59,7 +60,7 @@
 								<md-chips flex ng-model="CreateQuestionCtrl.questionObj.libraries" md-autocomplete-snap
 											md-require-match="true" 
 											md-removable="!CreateQuestionCtrl.enableViewMode"
-											ng-class="{'active' : (!!CreateQuestionCtrl.questionObj.libraries.length || !!CreateQuestionCtrl.searchText.length)}"
+											ng-class="{'active' : (!!CreateQuestionCtrl.searchText.length)}"
 												>
 										<md-autocomplete
 											md-selected-item="CreateQuestionCtrl.selectedItem"
@@ -101,7 +102,7 @@
 													<md-radio-button aria-label="CreateQuestionCtrl.alphabet[$index]" ng-disabled="CreateQuestionCtrl.enableViewMode" value="{{CreateQuestionCtrl.alphabet[$index]}}"> {{CreateQuestionCtrl.alphabet[$index]}}</md-radio-button>
 												</div>
 												<div flex="90">
-													<md-input-container flex class="md-block full-box">
+													<md-input-container flex class="md-block hide-label full-box">
 														<input class="hide-from-frm" type="text" required aria-label="data.option" ng-disabled="CreateQuestionCtrl.enableViewMode" name="{{CreateQuestionCtrl.alphabet[$index]}}" ng-model="data.option">
 														<div class="error-spacer"></div>
 														<div ng-if="questionForm[CreateQuestionCtrl.alphabet[$index]].$error.required && CreateQuestionCtrl.postQuestionSubmitted" class="has-error-msg" style="margin-left: -52px">Please add options text.</div>

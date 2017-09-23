@@ -51,6 +51,8 @@
     .assessment .container-box md-input-container.full-box:not(.md-input-focused):not(.md-input-has-value) label:not(.md-no-float):not(.md-container-ignore) {
       -webkit-transform: translate3d(10px, 42px, 0) scale(0.9);
       transform: translate3d(10px, 42px, 0) scale(0.9); }
+    .assessment .container-box .hide-label.md-input-focused label, .assessment .container-box .hide-label.md-input-has-value label {
+      display: none !important; }
     .assessment .container-box .tests-list .header .action {
       width: 132px;
       height: 40px;
@@ -191,8 +193,6 @@
       position: absolute;
       top: 48px;
       left: 6px; }
-    .assessment .container-box .test-settings .section .hide-label.md-input-focused label, .assessment .container-box .test-settings .section .hide-label.md-input-has-value label {
-      display: none !important; }
     .assessment .container-box .test-settings .section .copy-url md-input-container {
       margin: 20px 0 0 0; }
     .assessment .container-box .test-settings .section .copy-url .btns {

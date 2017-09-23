@@ -54,6 +54,14 @@
       .questions .container-box md-input-container.full-box:not(.md-input-focused):not(.md-input-has-value) label:not(.md-no-float):not(.md-container-ignore) {
         -webkit-transform: translate3d(10px, 42px, 0) scale(0.9);
         transform: translate3d(10px, 42px, 0) scale(0.9); }
+    .questions .container-box .hide-label {
+      /* label {
+      	display: none !important
+      } */ }
+      .questions .container-box .hide-label.md-input-focused label, .questions .container-box .hide-label.md-input-has-value label {
+        display: none !important; }
+    .questions .container-box .qst-label {
+      color: #7b7d7c; }
     .questions .container-box .questions-list .header .action {
       width: 164px;
       height: 40px;
@@ -127,8 +135,7 @@
           .questions .container-box .create-question .section .list .tags .md-chips.md-focused {
             box-shadow: 0 0 #208d6e !important; }
             .questions .container-box .create-question .section .list .tags .md-chips.md-focused:before {
-              -webkit-transform: translate3d(-7px, -25px, 0) scale(1);
-              transform: translate3d(-7px, -25px, 0) scale(1); }
+              content: ''; }
           .questions .container-box .create-question .section .list .tags .md-chips:before {
             content: 'Tags ';
             position: absolute;
@@ -151,8 +158,7 @@
             margin: 0;
             height: 38px; }
         .questions .container-box .create-question .section .list .tags md-chips.active .md-chips:before {
-          -webkit-transform: translate3d(-7px, -25px, 0) scale(1);
-          transform: translate3d(-7px, -25px, 0) scale(1); }
+          content: ''; }
         .questions .container-box .create-question .section .list .tags md-progress-linear {
           display: none; }
         .questions .container-box .create-question .section .list .tags md-chip {

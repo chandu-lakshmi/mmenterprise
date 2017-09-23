@@ -455,3 +455,28 @@ $app->post('/add_to_talentcommunity',function ($request, $response, $args) use (
      ));
      return checkJsonResult( $allJobs->loadCurl() );
 });
+
+
+$app->get('/email/assessment/candidate-assessment/{examId}',function ($request, $response, $args) use ($app) {
+    // getting API endpoint from settings
+    
+    $args = parserData($this->settings);
+
+    return $this->email_renderer->render($response, 'index.phtml', $args);
+    // if(empty($checkResult['refDetails'])){
+    // } else {
+    //    return $response->withRedirect($args['APP_DOMAIN'].'404');
+    // } 
+
+});
+
+
+$app->post('/submit_assessment',function ($request, $response, $args) use ($app) {
+    
+    $apiEndpoint = getapiEndpoint($this->settings, 'submit_assessment');
+    $allJobs     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+     return checkJsonResult( $allJobs->loadCurl() );
+});

@@ -25,6 +25,15 @@
             }
         }
 
+        .hide-label {
+            &.md-input-focused,
+            &.md-input-has-value {
+                label {
+                    display: none !important
+                }
+            }
+        }
+
         //test-list-GRID
         .tests-list{
             .header{
@@ -120,11 +129,7 @@
             .section{
                 .md-errors-spacer{min-height: 35px}
                 .err-display{position: absolute;top: 48px;left: 6px;}
-                .hide-label{
-                        &.md-input-focused, &.md-input-has-value {
-                        label{display:none !important}
-                    }
-                }
+                
                 .copy-url{
                      md-input-container{margin:20px 0 0 0}
                     .btns {background: #95b0bd;position: relative;cursor: pointer;outline: none;margin: 22px -2px;height: 44px;width: 120px;text-align: center;line-height: 44px;color: #fff;transition: all .5s ease;
