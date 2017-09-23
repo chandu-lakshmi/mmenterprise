@@ -10,7 +10,7 @@
 
 
     QuestionsListController.$inject  = ['$timeout', '$mdToast','$uibModal', '$http', '$window', 'App'];
-	CreateQuestionController.$inject = ['$stateParams', '$timeout', '$state', '$http', '$window', '$mdToast', 'App'];
+	CreateQuestionController.$inject = ['$stateParams', '$timeout', '$state', '$http', '$window', '$mdToast', 'EditTestService', 'App'];
 	QuestionAddController.$inject = ['$stateParams', '$timeout', '$state', '$http', '$window', '$mdToast', 'EditTestService', 'App'];
 
 
@@ -135,11 +135,14 @@
 	}
 
 
-	function CreateQuestionController($stateParams, $timeout, $state, $http, $window, $mdToast, App) {
-
+	function CreateQuestionController($stateParams, $timeout, $state, $http, $window, $mdToast, EditTestService, App) {
+		
 		var vm = this;
 
-		this.alphabet = ['A', 'B', 'C', 'D', 'E', 'F'];
+		this.alphabet      = ['A', 'B', 'C', 'D', 'E', 'F'];
+		this.textMode      = "Create Question";
+		this.examDetails   = EditTestService.getData();
+
 		this.questionObj = {
 			type  : null,
 			answerOpts : null,
@@ -157,6 +160,12 @@
 		this.postQuestionInProgressSave = false;
 		this.postQuestionInProgressAdd  = false;
 		this.postQuestionSubmitted      = false;
+		
+		if ($stateParams.mode == 'view'){
+			this.textMode = "View Question";
+		} else if ($stateParams.mode == 'edit') {
+			this.textMode = "Edit Question";
+		}
 
 		var prevAnswerIndex;
 		this.getCorrectAnswer = function(isCorrect, index) {
@@ -411,14 +420,15 @@
 
 		var vm     = this,
 			examId = $stateParams.examId;
-		this.testDetails = EditTestService.getData();
 
+
+		this.testDetails = EditTestService.getData();
+		console.log(this.testDetails);
 		this.grid = {
 			pageNo: 1,
 			inProgress: false,
 			responseMsg: null
 		};
-
 		this.gridOptions = {
 			rowHeight: 70,
 			selectionRowHeaderWidth: 44,
@@ -431,7 +441,6 @@
 			data: [],
 			appScopeProvider: vm // bindin scope to grid
 		};
-
 		this.gridOptions.columnDefs = [
 			{ name: 'question', displayName: 'ALL QUESTIONS', width: '52%' },
 			{ name: 'question_type', displayName: 'TYPE' },
@@ -454,6 +463,8 @@
 
 		this.addQuestion = function(row) {
 			
+			vm.prevSelectedQuestions.push(row.entity.question_id);
+
 			var apiKeys = $.param({ 
 				exam_id     : examId, 
 				question_id : row.entity.question_id
@@ -482,19 +493,25 @@
 				}
 			});
 
-			$timeout(function(){
+			/* $timeout(function(){
 				//vm.testDetails.exam_question_list.push(row.entity);
 				$state.go('app.campaigns.EditTest', { id: examId });
-			}, 1000);
+			}, 1000); */
 		}
 
 		function init() {
+
 			getQuestionList();
+
+			vm.prevSelectedQuestions = [];
+			angular.forEach(vm.testDetails.exam_question_list, function (question) {
+				vm.prevSelectedQuestions.push(question.question_id);
+			});
 		}
 
 		function getQuestionList() {
 
-			var apiKeys = $.param({ page_no: vm.grid.pageNo, exam_id: examId});
+			var apiKeys = $.param({ page_no: vm.grid.pageNo});
 			
 			vm.grid.inProgress = true;
 
@@ -523,8 +540,12 @@
 		}
 
 
-		init();
-
+		if (!vm.testDetails) {
+			$state.go('app.campaigns.EditTest', { id: examId });
+		} else {
+			init();
+		}
+		
 	}
 
 }());

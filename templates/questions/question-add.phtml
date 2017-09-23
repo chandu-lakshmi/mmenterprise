@@ -4,8 +4,10 @@
 			<div class="header" style="border-color:transparent">
 				<div class="container">
 					<div layout="row" >
-						<h4 class="title" ng-bind="QuestionAddCtrl.testDetails.exam_name"></h4>
-						<i flex></i>
+						<div layout="row">
+							<a ui-sref="app.campaigns.EditTest({id: QuestionAddCtrl.testDetails.exam_id})"><img class="back" src="public/images/back.png" alt="back"></a>
+							<h4 class="title" flex ng-bind="QuestionAddCtrl.testDetails.exam_name"></h4>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -45,10 +47,10 @@
 
 <!-- Test Name -->
 <script type="text/ng-template" id="action.html">
-	<div class="ui-grid-cell-contents ui-grid-details" ng-init="text='ADD'">
+	<div class="ui-grid-cell-contents ui-grid-details">
       <!-- <a class="name" ui-sref="app.campaigns.CreateQuestion({mode:'view', id:COL_FIELD})" ng-click="$event.stopPropagation()"><img src="public/images/eye.png" alt="view"></a>
       <a class="name" ui-sref="app.campaigns.CreateQuestion({mode:'edit', id:COL_FIELD})" ng-click="$event.stopPropagation()"><img src="public/images/edit.png" alt="view"></a>
 		<a class="name" ng-click="grid.appScope.deleteQuestion(COL_FIELD);$event.stopPropagation()"><img src="public/images/bin.png" alt="view"></a> -->
-		<md-button class="add-qst" ng-click="grid.appScope.addQuestion(row);text='ADDED';$event.stopPropagation()">{{text}}</md-button>
+		<md-button class="add-qst" ng-disabled="grid.appScope.prevSelectedQuestions.indexOf(row.entity.question_id) == -1 ? false : true" ng-click="grid.appScope.addQuestion(row);$event.stopPropagation()">{{grid.appScope.prevSelectedQuestions.indexOf(row.entity.question_id) == -1 ? 'ADD' : 'ADDED'}}</md-button>
 	</div>
 </script>

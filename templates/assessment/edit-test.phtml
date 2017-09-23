@@ -54,7 +54,7 @@
 							<div flex="15" ng-bind="list.question_type"></div>
 							<div flex="15" ng-bind="list.question_value"></div>
 							<div flex="15" class="action-view">
-								<a ui-sref="app.assessmentEditTest"><img src="public/images/eye.png" alt="view"></a>
+								<a ui-sref="app.campaigns.CreateQuestion({ mode:'view', id: list.question_id, examId: EditTestCtrl.testDetails.exam_id})"><img src="public/images/eye.png" alt="view"></a>
 								<a ng-click="EditTestCtrl.deleteQuestion(list.exam_question_id)"><img src="public/images/bin.png" alt="view"></a>
 							</div>
 						</div>

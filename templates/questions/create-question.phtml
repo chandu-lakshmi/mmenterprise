@@ -10,7 +10,11 @@
 
 			<div class="header">
 				<div class="container">
-					<h4 class="title">Create Question</h4>
+					<div layout="row" ng-if="CreateQuestionCtrl.examDetails.exam_id">
+						<a ui-sref="app.campaigns.EditTest({id: CreateQuestionCtrl.examDetails.exam_id})"><img class="back" src="public/images/back.png" alt="back"></a>
+						<h4 class="title" flex ng-bind="CreateQuestionCtrl.examDetails.exam_name"></h4>
+					</div>
+					<h4 class="title" ng-if="!CreateQuestionCtrl.examDetails.exam_id" ng-bind="CreateQuestionCtrl.textMode"></h4>
 				</div>
 			</div>
 
