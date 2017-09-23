@@ -76,7 +76,7 @@
 							firstMsg: 'Are you sure you want to ',
 							secondMsg: 'delete Question?',
 							params: { question_id: id },
-							apiEndPoint: 'add_edit_exam_question',
+							apiEndPoint: 'delete_question',
 							callback: deleteQeustionCallback
 						};
 					}
@@ -423,7 +423,6 @@
 
 
 		this.testDetails = EditTestService.getData();
-		console.log(this.testDetails);
 		this.grid = {
 			pageNo: 1,
 			inProgress: false,
