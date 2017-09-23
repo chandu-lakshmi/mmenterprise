@@ -71,6 +71,14 @@
             transition: color .2s ease; }
             .assessment .container-box .tests-list .section .grid .test-name .ui-grid-cell-contents span.name, .assessment .container-box .tests-list .section .grid .test-name .ui-grid-cell-contents a.name {
               color: #39424e; }
+      .assessment .container-box .tests-list .section .grid .duration {
+        line-height: 40px;
+        color: #677083; }
+        .assessment .container-box .tests-list .section .grid .duration img.qst {
+          float: left;
+          margin-top: 14px; }
+        .assessment .container-box .tests-list .section .grid .duration span.qst {
+          margin-left: 7px; }
     .assessment .container-box .tests-list .footer {
       background: #eeeff1;
       border: 1px solid #c8d1d0;
@@ -164,8 +172,19 @@
     .assessment .container-box .test-settings .header md-input-container {
       margin: 4px;
       padding-left: 30px; }
-      .assessment .container-box .test-settings .header md-input-container md-select-value {
+      .assessment .container-box .test-settings .header md-input-container md-select md-select-value {
         background: #fff; }
+        .assessment .container-box .test-settings .header md-input-container md-select md-select-value .md-text {
+          color: #737b7f; }
+      .assessment .container-box .test-settings .header md-input-container md-select .dot {
+        display: inline-block;
+        border-radius: 50%;
+        width: 10px;
+        height: 10px;
+        margin-right: 10px;
+        background: #c3c3c3; }
+        .assessment .container-box .test-settings .header md-input-container md-select .dot.dot-active {
+          background: #83be3f; }
     .assessment .container-box .test-settings .section .md-errors-spacer {
       min-height: 35px; }
     .assessment .container-box .test-settings .section .err-display {
@@ -273,6 +292,18 @@
     .assessment .container-box .test-settings .section .footer .header {
       background: transparent;
       border-bottom: 0; }
+
+.test-settings-status .md-text {
+  color: #737b7f; }
+.test-settings-status .dot {
+  display: inline-block;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  margin-right: 10px;
+  background: #c3c3c3; }
+  .test-settings-status .dot.dot-active {
+    background: #83be3f; }
 
 @keyframes showcopied {
   0% {

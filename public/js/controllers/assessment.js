@@ -43,11 +43,11 @@
 
 		this.gridOptions.columnDefs = [
 			{ name: 'name', displayName: 'TEST NAME', cellTemplate: 'test-name.html', cellClass: 'test-name', width: '30%' },
-			{ name: 'qcount', displayName: 'QUESTIONS' },
-			{ name: 'max_duration', displayName: 'DURATION' },
-			{ name: 'is_active', displayName: 'STATUS' },
-			{ name: 'created_by', displayName: 'CREATED BY' },
-			{ name: 'created_at', displayName: 'DATE' }
+			{ name: 'qcount', displayName: 'QUESTIONS', cellTemplate: '<div class="ui-grid-cell-contents duration"><img class="qst" src="public/images/qstn_list.png" /><span class="qst">{{ COL_FIELD }}</span></div>'},
+			{ name: 'max_duration', displayName: 'DURATION', cellTemplate: '<div class="ui-grid-cell-contents duration"><span class="qst">{{ COL_FIELD }}</span></div>'},
+			{ name: 'is_active', displayName: 'STATUS', cellTemplate: '<div class="ui-grid-cell-contents duration"><span class="qst">{{ COL_FIELD }}</span></div>'},
+			{ name: 'created_by', displayName: 'CREATED BY', cellTemplate: '<div class="ui-grid-cell-contents duration"><span class="qst">{{ COL_FIELD }}</span></div>'},
+			{ name: 'created_at', displayName: 'DATE', cellTemplate: '<div class="ui-grid-cell-contents duration"><span class="qst">{{ COL_FIELD }}</span></div>'}
 		];
 
 		this.gridOptions.onRegisterApi = function (gridApi) {
@@ -397,14 +397,16 @@
 					vm.getSettingsInProgress = false;
 					var data = response.data.data;
 					vm.settingsObj = data;
-					setTimeout(function(){
-						$('#start_date').data("DateTimePicker").minDate(new Date(data.start_date));
-						$('#end_date').data("DateTimePicker").minDate(new Date(data.end_date));
-						$('#start_date').data("DateTimePicker").date(new Date(data.start_date));
-						$('#end_date').data("DateTimePicker").date(new Date(data.end_date));
-						$('#start_time').data("DateTimePicker").date(new Date(data.end_date + ' ' + data.start_time));
-						$('#end_time').data("DateTimePicker").date(new Date(data.start_date +' '+ data.end_time));
-					})
+					if (data.hasOwnProperty('start_date')) {
+						setTimeout(function () {
+							$('#start_date').data("DateTimePicker").minDate(new Date(data.start_date));
+							$('#end_date').data("DateTimePicker").minDate(new Date(data.end_date));
+							$('#start_date').data("DateTimePicker").date(new Date(data.start_date));
+							$('#end_date').data("DateTimePicker").date(new Date(data.end_date));
+							$('#start_time').data("DateTimePicker").date(new Date(data.end_date + ' ' + data.start_time));
+							$('#end_time').data("DateTimePicker").date(new Date(data.start_date + ' ' + data.end_time));
+						})
+					}
 				}
 				else if (response.data.status_code == 400) {
 					$window.location = App.base_url + 'logout';

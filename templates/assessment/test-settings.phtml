@@ -13,8 +13,8 @@
 							<a ui-sref="app.campaigns.EditTest({ id: TestSettingsCtrl.examId })"><img class="back" src="public/images/back.png" alt="back"></a>
 							<h4 class="title" flex ng-bind="TestSettingsCtrl.settingsObj.exam_name">Campus Drive - Sep 2017- Test</h4>
 							<md-input-container flex="15" class="md-block select-box">
-								<md-select name="is_active" ng-model="TestSettingsCtrl.settingsObj.is_active" aria-label="status">
-									<md-option ng-repeat="status in TestSettingsCtrl.statusList"  ng-value="status.value">{{status.label}}</md-option>
+								<md-select md-container-class="test-settings-status"  name="is_active" ng-model="TestSettingsCtrl.settingsObj.is_active" aria-label="status">
+									<md-option ng-repeat="status in TestSettingsCtrl.statusList"  ng-value="status.value"><span class="dot" ng-class="{'dot-active' : status.value==1}" ></span>{{status.label}}</md-option>
 								</md-select>
 							</md-input-container>
 							<md-button ui-sref="app.campaigns.EditTest" class="cancel">CANCEL</md-button>
