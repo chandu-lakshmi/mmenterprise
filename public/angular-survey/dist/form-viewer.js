@@ -1,8 +1,5 @@
 angular.module('mwFormViewer', ['ngSanitize', 'ui.bootstrap','ng-sortable', 'pascalprecht.translate']);
 
-
-
-
 angular.module('mwFormViewer')
     .directive('mwPriorityList', function ($rootScope) {
 
@@ -134,7 +131,7 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
         controllerAs: 'ctrl',
         bindToController: true,
         controller: ["$scope", "$timeout", "$interpolate", "$interval", function($scope, $timeout, $interpolate, $interval){
-            
+
             var ctrl = this,
                 intervalId;
             // Put initialization logic inside `$onInit()`
@@ -216,24 +213,27 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
             ctrl.startTimer = function(){
                 ctrl.timer();
             };
-          
+
             ctrl.stop = function() {
-                $interval.cancel(intervalId);
                 ctrl.timeUP();
             };
 
             ctrl.timeUP = function() {
-                console.log('time up')
-                
+                ctrl.formSubmitted=true;
+                ctrl.submitStatus='TIME_UP';
+
+                ctrl.setCurrentPage(null);
+                $interval.cancel(intervalId);
+
             }
 
             ctrl.submitForm = function(){
                 ctrl.formSubmitted=true;
-                ctrl.submitStatus='IN_PROGRESS';
+                ctrl.submitStatus='SUCCESS';
 
                 ctrl.setCurrentPage(null);
                 $interval.cancel(intervalId);
-                
+
                 var resultPromise = ctrl.onSubmit();
                 resultPromise.then(function(){
                     ctrl.submitStatus='SUCCESS';
@@ -304,14 +304,14 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
             };
 
             ctrl.beginResponse=function(){
-                
+
                 if(ctrl.formData.pages.length>0){
                     ctrl.setCurrentPage(ctrl.formData.pages[0]);
                     ctrl.startTimer();
                     $rootScope.$broadcast("mwForm.pageEvents.pageCurrentChanged",{currentPage:ctrl.currentPage});
                 }
             };
-            
+
             ctrl.resetPages = function(){
                 ctrl.prevPages=[];
 
@@ -398,13 +398,13 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
             if(ctrl.formStatus){
                 ctrl.formStatus.form = ctrl.form;
             }
-            
+
             scope.$on('mwForm.pageEvents.changePage', function(event,data){
                 if(typeof data.page !== "undefined" && data.page < ctrl.formData.pages.length){
                    ctrl.resetPages();
                    for(var i =0; i < data.page;i++){
                         ctrl.prevPages.push(ctrl.formData.pages[i]);
-                   } 
+                   }
                    var currenPge=ctrl.formData.pages[data.page];
                    ctrl.setCurrentPage(currenPge);
                    $rootScope.$broadcast("mwForm.pageEvents.pageCurrentChanged",{currentPage:currenPge});

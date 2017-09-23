@@ -154,7 +154,7 @@
          "title":"Confirmation page",
          "customMessage":"Custom confirmation message",
          "defaultMessage":"Your response has been recorded",
-         "timeupMessage":"Your time is over.. Please try again!!!",
+         "timeupMessage":"Hold On!! Time’s up",
          "errorMessage":"Error! Your response has not been recorded",
          "pendingMessage":"Thanks for your info. Welcome to our talent Community."
       }
