@@ -3,13 +3,13 @@
 		<div>
 			<img src="public/images/loader/spin.gif" alt="loading">
 		</div>
-	</div>
+	</div> 
 	<div layout="column" class="container-box">
 		<div class="create-test">
 			<div class="header">
 				<div class="container">
 					<div layout="row" ng-if="CreateTestCtrl.testId">
-						<a ui-sref="app.campaigns.EditTest({examId: CreateTestCtrl.testId})"><img class="back" src="public/images/back.png" alt="back"></a>
+						<a ui-sref="app.campaigns.EditTest({id: CreateTestCtrl.testId})"><img class="back" src="public/images/back.png" alt="back"></a>
 						<h4 class="title" flex ng-bind="CreateTestCtrl.testObj.exam_type"></h4>
 					</div>
 					<h4 ng-if="!CreateTestCtrl.testId" class="title">Create a New Test</h4>
@@ -25,14 +25,16 @@
 								<div layout="column">
 									<div layout="row">
 										<md-input-container flex class="md-block full-box">
-											<label>What role is this test for? *</label>
-											<input type="text" name="exam_type" ng-change="CreateTestCtrl.setTestName()" ng-model="CreateTestCtrl.testObj.exam_type" required>
+											<span class="qst-label">What role is this test for? *</span>
+											<!-- <label>What role is this test for? *</label> -->
+											<input type="text" name="exam_type" ng-change="CreateTestCtrl.setTestName()" ng-model="CreateTestCtrl.testObj.exam_type" required aria-label="role">
 											<div class="error-spacer"></div>
-											<div ng-if="createTestForm.exam_type.$error.required && CreateTestCtrl.postCreateTestSubmitted" class="has-error-msg">Please enter job role.</div>
+											<div ng-if="createTestForm.exam_type.$error.required && CreateTestCtrl.postCreateTestSubmitted" class="has-error-msg">Please enter job Role.</div>
 										</md-input-container>
 										<i flex="5"></i>
 										<md-input-container flex class="md-block select-box">
-											<label style="display:none">Work Experience *</label>
+											<span class="qst-label">Work Experience *</span>
+											<label style="display:none">Please Select</label>
 											<md-select name="work_experience" ng-model="CreateTestCtrl.testObj.work_experience" required>
 												<md-option ng-repeat="type in CreateTestCtrl.experienceList" ng-value="type.experience_id">{{type.experience_name}}</md-option>
 											</md-select>
@@ -42,21 +44,22 @@
 									</div>
 									<div layout="row">
 										<md-input-container flex class="md-block full-box">
-											<label>Test Name</label>
-											<input type="text" name="exam_name" readonly ng-model="CreateTestCtrl.testObj.exam_name" style="background: #f0f0f0">
+											<span class="qst-label">Test Name </span>
+											<!-- <label>Test Name</label> -->
+											<input type="text" name="exam_name" readonly ng-model="CreateTestCtrl.testObj.exam_name" style="background: #f0f0f0" aria-label="exam_name">
 										</md-input-container>
 										<i flex="5"></i>
 										<md-input-container flex class="md-block full-box">
-											<label>Duration (mins) *</label>
-											<input type="text" check-char-zero ng-pattern="/(^[^0]$)|(^[1-9]\d{0,}$)/" name="max_duration" ng-model="CreateTestCtrl.testObj.max_duration" required>
+											<span class="qst-label">Duration (mins) * </span>
+											<input type="text" check-char-zero ng-pattern="/(^[^0]$)|(^[1-9]\d{0,}$)/" name="max_duration" ng-model="CreateTestCtrl.testObj.max_duration" required aria-label="due">
 											<div ng-if="createTestForm.max_duration.$error.required && CreateTestCtrl.postCreateTestSubmitted"  class="has-error-msg">Please enter Duration.</div>
 											<div ng-if="createTestForm.max_duration.$error.pattern" class="has-error-msg">Duration should not be zero.</div>
 										</md-input-container>
 									</div>
 									<div layout="row">
 										<md-input-container flex class="md-block full-box">
-											<label>Test Description Link(Optional)</label>
-											<input type="text" name="description_url" ng-model="CreateTestCtrl.testObj.description_url">
+											<span class="qst-label">Test Description Link(Optional)</span>
+											<input type="text" name="description_url" ng-model="CreateTestCtrl.testObj.description_url" aria-label="link">
 										</md-input-container>
 										<i flex="5"></i>
 										<i flex></i>
@@ -66,12 +69,20 @@
 						</div>
 						<i flex></i>
 					</div>
-					<div layout="row" class="footer">
+					<div layout="row" class="footer" ng-if="!CreateTestCtrl.testId">
 						<i flex></i>
-						<md-button ui-sref="app.campaigns.TestsList" class="cancel">Cancel</md-button>
-						<md-button class="md-raised action" ng-disabled="CreateTestCtrl.postCreateTestInProgress" ng-click="CreateTestCtrl.postCreateTest(createTestForm)">CREATE TEST
-							<img class="loader-dot" ng-if="CreateTestCtrl.postCreateTestInProgress" src="public/images/loader/dot.svg" alt="loading">
-						</md-button>
+							<md-button ui-sref="app.campaigns.TestsList" class="cancel">Cancel</md-button>
+							<md-button class="md-raised action" ng-disabled="CreateTestCtrl.postCreateTestInProgress" ng-click="CreateTestCtrl.postCreateTest(createTestForm)">CREATE TEST
+								<img class="loader-dot" ng-if="CreateTestCtrl.postCreateTestInProgress" src="public/images/loader/dot.svg" alt="loading">
+							</md-button>
+						<i flex></i>
+					</div>
+					<div layout="row" class="footer" ng-if="CreateTestCtrl.testId">
+						<i flex></i>
+							<md-button ui-sref="app.campaigns.EditTest({id: CreateTestCtrl.testId})" class="cancel">Cancel</md-button>
+							<md-button class="md-raised action" ng-disabled="CreateTestCtrl.postCreateTestInProgress" ng-click="CreateTestCtrl.postCreateTest(createTestForm)">EDIT TEST
+								<img class="loader-dot" ng-if="CreateTestCtrl.postCreateTestInProgress" src="public/images/loader/dot.svg" alt="loading">
+							</md-button>
 						<i flex></i>
 					</div>
 				</div>

@@ -11,11 +11,10 @@
 	  
 	.service('EditTestService', EditTestService)
 
-  
   	TestsListController.$inject    = ['$timeout', '$mdToast', '$uibModal', '$http', '$window', 'App'];
 	CreateTestController.$inject   = ['$state', '$timeout', '$http', '$window', '$mdToast', 'CompanyDetails', 'App'];
-	EditTestController.$inject = ['$stateParams', '$timeout', '$http', '$window', '$mdToast', '$uibModal', 'App', 'EditTestService'];
-	TestSettingsController.$inject = ['$stateParams', '$timeout', '$http', '$window', '$mdToast', 'App'];
+	EditTestController.$inject     = ['$stateParams', '$timeout', '$http', '$window', '$mdToast', '$uibModal', 'App', 'EditTestService'];
+	TestSettingsController.$inject = ['$state', '$stateParams', '$timeout', '$http', '$window', '$mdToast', 'App'];
 
 	function TestsListController($timeout, $mdToast, $uibModal, $http, $window, App) {
 
@@ -302,7 +301,7 @@
 	}
 
 
-	function TestSettingsController($stateParams, $timeout, $http, $window, $mdToast, App) {
+	function TestSettingsController($state, $stateParams, $timeout, $http, $window, $mdToast, App) {
 
 		var vm = this;
 
@@ -365,6 +364,10 @@
 							position: 'top right',
 							template: '<md-toast class="mm-toast"><div class="md-toast-text" flex><i class="material-icons">done</i><div class="text"><div class="toast-succ">Success!</div><div class="succ-text">' + response.data.message.msg[0] + '</div></div></div></md-toast>'
 						});
+
+						$timeout(function() {
+							$state.go('app.campaigns.EditTest', { id: $stateParams.id });
+						}, 500);
 
 					}
 					else if (response.data.status_code == 400) {

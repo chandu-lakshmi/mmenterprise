@@ -26,12 +26,19 @@
         }
 
         .hide-label {
+            label {
+				display: none !important
+			} 
             &.md-input-focused,
             &.md-input-has-value {
                 label {
                     display: none !important
                 }
             }
+        }
+
+        .qst-label {
+            color: #7b7d7c;
         }
 
         //test-list-GRID
@@ -101,7 +108,7 @@
                     .list{height: 65px;line-height: 65px;padding-left: 10px;border-bottom:1px solid #dde4e7;color: #798193;
                         .qst{color: #5a616b;font-weight: 600}
                         .action-view{
-                            a{padding: 14px;}
+                            a{padding-right: 20px;}
                         }
                     }
                 }
@@ -131,8 +138,8 @@
                 .err-display{position: absolute;top: 48px;left: 6px;}
                 
                 .copy-url{
-                     md-input-container{margin:20px 0 0 0}
-                    .btns {background: #95b0bd;position: relative;cursor: pointer;outline: none;margin: 22px -2px;height: 44px;width: 120px;text-align: center;line-height: 44px;color: #fff;transition: all .5s ease;
+                     md-input-container{margin:0}
+                    .btns {background: #95b0bd;position: relative;cursor: pointer;outline: none;margin: 24px -2px;height: 44px;width: 120px;text-align: center;line-height: 44px;color: #fff;transition: all .5s ease;
                         &:hover{background: #7492a0}
                     }
                     .copied::after {position: absolute; width: 60px;line-height: 22px;top: 25%;height: 22px;right: 110%;display: block;content: "copied";font-size: 0.75em;color: #fff;background-color: #22a;border-radius: 3px;opacity: 0;will-change: opacity, transform;animation: showcopied 1.5s ease;}

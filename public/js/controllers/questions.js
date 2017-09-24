@@ -189,9 +189,18 @@
 			}
 		}
 
-		this.trashAnswerOption = function() {
+		this.trashAnswerOption = function($index) {
 			prevAnswerIndex = null;
 			this.questionObj.options.pop();
+			if ($index > 3 && ['E', 'F'].indexOf(vm.questionObj.answerOpts) != -1) {
+				vm.questionObj.answerOpts = null;
+			}
+		}
+
+		this.removeSeletedOpt = function(text, index) {
+			if (index > 1 && !text.length && ['C', 'D', 'E', 'F'].indexOf(vm.questionObj.answerOpts) != -1) {
+				vm.questionObj.answerOpts = null;
+			}
 		}
 
 		this.postQuestion = function(form, btnFrom) {
@@ -212,7 +221,13 @@
 				}
 
 				if (vm.questionObj.question_type == 1) {
-					tempObj.options = vm.questionObj.options;
+					var tempOpts = [];
+					angular.forEach(vm.questionObj.options, function (questionOption){
+						if (questionOption.option) {
+							tempOpts.push(questionOption);
+						}
+					});
+					tempObj.options = tempOpts;
 				}
 
 				if (btnFrom == "addAnother") {
@@ -231,6 +246,8 @@
 				}
 			}
 		}
+
+		
 		
 
 		function init() {
@@ -308,7 +325,6 @@
 
 			if ($stateParams.mode == 'edit') {
 				apiEndPoint = 'edit_question';
-				tempObj.question_id = $stateParams.id;
 			}
 
 			$http({
@@ -441,7 +457,7 @@
 			appScopeProvider: vm // bindin scope to grid
 		};
 		this.gridOptions.columnDefs = [
-			{ name: 'question', displayName: 'ALL QUESTIONS', width: '52%' },
+			{ name: 'question', displayName: 'QUESTIONS', width: '52%' },
 			{ name: 'question_type', displayName: 'TYPE' },
 			{ name: 'question_value', displayName: 'SCORE', width: '10%' },
 			{ name: 'question_id', displayName: 'ACTIONS', width: '15%', cellTemplate: 'action.html', cellClass: 'action-view' }
