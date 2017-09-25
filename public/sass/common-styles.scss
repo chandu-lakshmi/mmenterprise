@@ -108,6 +108,60 @@ md-dialog.simple-dialog{
 }
 
 
+.mm-chip-list{position: relative;margin: 52px 0 45px;padding-right: 30px;
+    .md-chips{padding: 0 0 4px 3px;
+        &.md-focused{box-shadow: 0 1px #208d6e !important;
+            &:before{-webkit-transform: translate3d(-3px, -20px, 0) scale(0.85);transform: translate3d(-3px, -20px, 0) scale(0.85);font-weight: 900}
+        }
+        &:before{content: 'ADD ASSESSMENT';position: absolute;padding-left: 3px;-webkit-transform: translate3d(-3px, 18px, 0) scale(1);transform: translate3d(-3px, 18px, 0) scale(1);font-size: 15px;color: #767877;display: block !important;font-weight: normal !important;transition: -webkit-transform cubic-bezier(.25,.8,.25,1) .25s;transition: transform cubic-bezier(.25,.8,.25,1) .25s;-webkit-transform-origin: left top;transform-origin: left top;}
+        .md-chip-input-container{width: 100%;
+            input{height: 34px; font-size: 18px;width: 100%;}
+        }
+    }
+    .select-one{
+        .md-chips.md-focused{box-shadow: none !important}
+        .md-chip-input-container{
+            md-autocomplete{display: none}
+        }
+    }
+    md-chips.active{
+        .md-chips:before{-webkit-transform: translate3d(-3px, -20px, 0) scale(0.85);transform: translate3d(-3px, -20px, 0) scale(0.85);font-weight: 900}
+    }
+    md-progress-linear{display: none} 
+    md-chip{background: rgba(204, 204, 204, 0.1);color: rgb(66,66,66);cursor: default;height: 32px;margin: 8px 8px 0 0;padding: 0 24px 0 12px;line-height: 30px;float: left;border: 1px solid #aaa;position: relative;border-radius:4px;
+        .md-chip-content{
+            strong{font-weight: normal;color: #797979; font-size: 14px}
+        }
+        .md-chip-remove-container{position: absolute;top: -1px;right: 0;
+            button{border: 0;background: transparent;
+                md-icon{color: #858585;width: 20px}
+            }
+        }
+        
+    }
+    .loader{width: 20px;height: 20px;position: absolute;right: 30px;bottom: 10px;}
+}
+.add-test{
+    .mm-chip-list{margin: 0 !important;
+        .sp{
+            .md-chips:before{content: '' !important}
+            md-chips-wrap.md-chips{box-shadow: none;
+                &.md-focused{box-shadow: none !important;
+                    .md-chip-input-container{
+                        box-shadow: 0 1px #208d6e;
+                    }
+                }
+                .md-chip-input-container{width: 200px !important;box-shadow: 0 1px rgba(0,0,0,0.12);margin:0}
+                md-chip{margin-top: 0;margin-bottom: 10px;}
+            }
+        }
+        .disable-input{
+            .md-chip-input-container{display: none;}
+        }
+    }
+}
+
+
 /* slide down in candidate details tabs */
 
 .mm_down{

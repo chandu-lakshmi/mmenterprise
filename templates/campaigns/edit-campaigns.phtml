@@ -70,6 +70,37 @@
                                         </md-input-container>
                                     </div>
                                 </div>
+                                <div layout="row">
+                                    <div class="mm-chip-list add-test" flex="35" ng-style="{'margin-top': EditCampaignsCtrl.campDetails.location.location_type == 'onsite' ? '10px' : ''}">
+                                        <!--placeholder value in css please check if you want to change -->
+                                        <md-chips ng-model="EditCampaignsCtrl.campaignDetails.assessment" md-autocomplete-snap
+                                                    md-require-match="true" class="sp"  md-removable="::!EditCampaignsCtrl.campaignDetails.assessment.length" ng-class="{'active' : (!!EditCampaignsCtrl.campaignDetails.assessment.length || !!EditCampaignsCtrl.searchTextAssessmentList.length),'select-one' : EditCampaignsCtrl.campaignDetails.assessment.length > 0  }" >
+                                            <md-autocomplete
+                                                md-selected-item="EditCampaignsCtrl.AssessmentList"
+                                                md-search-text="EditCampaignsCtrl.searchTextAssessmentList"
+                                                md-items="item in EditCampaignsCtrl.queryAssessmentList(EditCampaignsCtrl.searchTextAssessmentList)"
+                                                md-item-text="item.assessment_name"
+                                                md-no-cache = "true"
+                                                md-min-length="2"
+                                                ng-disabled="EditCampaignsCtrl.campaignDetails.assessment.length > 0"
+                                                >
+                                            <md-item-template>
+                                                <span md-highlight-text="EditCampaignsCtrl.searchTextAssessmentList">{{item.assessment_name}} </span>
+                                            </md-item-template>
+                                            <md-not-found>
+                                                <div class="not_found">No Jobs found</div>
+                                            </md-not-found>
+
+                                            </md-autocomplete>
+                                            <md-chip-template>
+                                            <span>
+                                                <strong title="{{$chip.assessment_name}}">{{$chip.assessment_name}}</strong>
+                                            </span>
+                                            </md-chip-template>
+                                        </md-chips>
+                                        <img class="loader" ng-if="EditCampaignsCtrl.inProgressQueryAssessmentList" src="public/images/loader/blue-loader.gif">
+                                    </div>
+                                </div>
                                 <div class="clearfix date" ng-style="{'margin-top': EditCampaignsCtrl.address == 'online' ? '40px' : '30px'}">
                                 <div class="head-title">SCHEDULE & JOBS</div>
                                     

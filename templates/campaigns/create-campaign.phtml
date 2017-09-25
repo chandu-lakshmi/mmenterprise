@@ -88,8 +88,40 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div layout="row">
+                                    <div class="mm-chip-list add-test" flex="35" ng-style="{'margin-top': NewCampaignCtrl.campDetails.location.location_type == 'onsite' ? '10px' : ''}">
+                                        <!--placeholder value in css please check if you want to change -->
+                                        <md-chips ng-model="NewCampaignCtrl.selectedAssessmentList" md-autocomplete-snap
+                                                    md-require-match="true" class="sp" ng-class="{'active' : (!!NewCampaignCtrl.selectedAssessmentList.length || !!NewCampaignCtrl.searchTextAssessmentList.length),'select-one' : NewCampaignCtrl.selectedAssessmentList.length > 0  }" >
+                                            <md-autocomplete
+                                                md-selected-item="NewCampaignCtrl.AssessmentList"
+                                                md-search-text="NewCampaignCtrl.searchTextAssessmentList"
+                                                md-items="item in NewCampaignCtrl.queryAssessmentList(NewCampaignCtrl.searchTextAssessmentList)"
+                                                md-item-text="item.assessment_name"
+                                                md-no-cache = "true"
+                                                md-min-length="2"
+                                                ng-disabled="NewCampaignCtrl.selectedAssessmentList.length > 0"
+                                                >
+                                            <md-item-template>
+                                                <span md-highlight-text="NewCampaignCtrl.searchTextAssessmentList">{{item.assessment_name}} </span>
+                                            </md-item-template>
+                                            <md-not-found>
+                                                <div class="not_found">No Jobs found</div>
+                                            </md-not-found>
+
+                                            </md-autocomplete>
+                                            <md-chip-template>
+                                            <span>
+                                                <strong title="{{$chip.assessment_name}}">{{$chip.assessment_name}}</strong>
+                                            </span>
+                                            </md-chip-template>
+                                        </md-chips>
+                                        <img class="loader" ng-if="NewCampaignCtrl.inProgressQueryAssessmentList" src="public/images/loader/blue-loader.gif">
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                       
                         <div layout="row" class="footer">
                             <i flex></i>
                             <md-button class="md-raised btn" ng-click="NewCampaignCtrl.nextStep('schedule')">NEXT <i class="material-icons">keyboard_arrow_right</i></md-button>

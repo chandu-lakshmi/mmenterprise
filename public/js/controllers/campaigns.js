@@ -25,10 +25,10 @@
             })
 
     CampaignsController.$inject = ['$rootScope', '$http', '$window', 'contactBuckets', '$uibModal', 'App'];
-    NewCampaignController.$inject = ['$scope', '$state', '$filter', '$uibModal', '$timeout', 'CampaignsData', '$http', 'CompanyDetails', 'App'];
+    NewCampaignController.$inject = ['$scope', '$state', '$filter', '$uibModal', '$timeout', 'CampaignsData', '$http', '$q', 'CompanyDetails', 'App'];
     AllCampaignsController.$inject = ['$scope', '$state', '$http', '$rootScope', '$q', '$timeout', '$window', 'uiGridConstants', 'CampaignsData', 'userPermissions', '$stateParams', 'App'];
     MyCampaignsController.$inject = [];
-    EditCampaignsController.$inject = ['$scope','$timeout', '$filter', '$rootScope', '$state', '$uibModal', 'CompanyDetails', 'CampaignsData', 'contactBuckets', '$window', '$http', 'App'];
+    EditCampaignsController.$inject = ['$scope','$timeout', '$filter', '$rootScope', '$state', '$uibModal', 'CompanyDetails', 'CampaignsData', 'contactBuckets', '$window', '$http', '$q', 'App'];
     CreateJobController.$inject = ['$scope', '$http', '$timeout', '$window', '$uibModalInstance', 'App'];
     SocialShareController.$inject = ['$scope', '$uibModalInstance', '$state', '$rootScope', 'CampaignsData', 'CompanyDetails', 'App']
     FormBuilderController.$inject = ['$scope', '$http', '$q', '$uibModal', '$mdDialog'];
@@ -122,10 +122,12 @@
         };*/
     }
 
-    function NewCampaignController($scope, $state, $filter, $uibModal, $timeout, CampaignsData, $http, CompanyDetails, App) {
+    function NewCampaignController($scope, $state, $filter, $uibModal, $timeout, CampaignsData, $http, $q, CompanyDetails, App) {
 
         var vm = this,
-            currentTab = 'campaignDetails';
+            currentTab = 'campaignDetails',
+            cancelerAssessmentList,
+            prevAssessmentListSearchText;
 
         vm.campaign        = ['Mass Recruitment', 'Military Veterans', 'Campus Hires'];
         vm.campaignDetails = true;
@@ -141,6 +143,8 @@
         vm.careersDetails  = {};
         vm.manageContactsDetails = {};
 
+        vm.selectedAssessmentList = [];
+        vm.inProgressQueryAssessmentList = false;
 
         vm.nextStep = function(viewTab) {
 
@@ -301,6 +305,39 @@
             return selected;
         }
 
+        vm.queryAssessmentList = function (searchText) {
+
+            if (prevAssessmentListSearchText != searchText) {
+                if (cancelerAssessmentList) {
+                    cancelerAssessmentList.resolve();
+                }
+
+                cancelerAssessmentList = $q.defer();
+                vm.inProgressQueryAssessmentList = true;
+
+                return $http({
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                    },
+                    method: 'POST',
+                    data: $.param({ name: searchText }),
+                    url: App.base_url + 'get_company_assessments_list',
+                    timeout: cancelerAssessmentList.promise
+                })
+                .then(function (response) {
+                    prevAssessmentListSearchText = searchText;
+                    vm.inProgressQueryAssessmentList = false;
+                    return response.data.data;
+                })
+            } 
+            else {
+                prevAssessmentListSearchText = null;
+                return setTimeout(function () { });
+            }
+        }
+
+
+        
         function init() {
             $http({
                 headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
@@ -414,16 +451,21 @@
             vm.postPointer = true;
             vm.postLoader = true;
 
-            var frmData = $("form[name='campaignDetails'], form[name='schedule'] :not('.form-control'), form[name='careersPage'] :not('.rm'), form[name='manageContacts']").serialize();
-
-
+            var frmData = $("form[name='campaignDetails'], form[name='schedule'] :not('.form-control'), form[name='careersPage'] :not('.rm'), form[name='manageContacts']").serialize(),
+                assessment_id;
+            
+            if (vm.selectedAssessmentList.length){
+                assessment_id = vm.selectedAssessmentList[0].assessment_id;
+            }
+           
             var newCampaign = $http({
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                 },
                 method: 'POST',
                 data: frmData + '&' + $.param({
-                    request_type: 'add'
+                    request_type: 'add',
+                    assessment_id: assessment_id
                 }),
                 url: App.base_url + 'add_campaign'
             })
@@ -763,9 +805,11 @@
 
     }
 
-    function EditCampaignsController($scope, $timeout, $filter, $rootScope, $state, $uibModal, CompanyDetails, CampaignsData, contactBuckets, $window, $http, App) {
+    function EditCampaignsController($scope, $timeout, $filter, $rootScope, $state, $uibModal, CompanyDetails, CampaignsData, contactBuckets, $window, $http, $q, App) {
 
         var vm = this,
+                cancelerAssessmentList,
+                prevAssessmentListSearchText,
                 link = App.base_url + 'email-parser/all-campaigns?ref=';
 
         vm.company_name = CompanyDetails.name;
@@ -965,6 +1009,36 @@
             });
         };
 
+        vm.queryAssessmentList = function (searchText) {
+
+            if (prevAssessmentListSearchText != searchText) {
+                if (cancelerAssessmentList) {
+                    cancelerAssessmentList.resolve();
+                }
+
+                cancelerAssessmentList = $q.defer();
+                vm.inProgressQueryAssessmentList = true;
+
+                return $http({
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                    },
+                    method: 'POST',
+                    data: $.param({ name: searchText }),
+                    url: App.base_url + 'get_company_assessments_list',
+                    timeout: cancelerAssessmentList.promise
+                })
+                    .then(function (response) {
+                        prevAssessmentListSearchText = searchText;
+                        vm.inProgressQueryAssessmentList = false;
+                        return response.data.data;
+                    })
+            }
+            else {
+                prevAssessmentListSearchText = null;
+                return setTimeout(function () { });
+            }
+        }
 
         function radioButton() {
             vm.radioButtons = {
@@ -1224,7 +1298,13 @@
                 vm.errCond = false;
                 vm.loader = true;
                 angular.element('.box-footer .disabled').css('pointer-events', 'none');
-                var data = $("form[name='edit_campaigns_form'] :not('.form-controls')").serialize();
+                var data = $("form[name='edit_campaigns_form'] :not('.form-controls')").serialize(),
+                    assessment_id;
+
+                if (vm.campaignDetails.assessment.length) {
+                    assessment_id = vm.campaignDetails.assessment[0].assessment_id;
+                }
+
                 return $http({
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -1232,7 +1312,8 @@
                     method: 'POST',
                     url: App.base_url + 'add_campaign',
                     data: data + '&' + $.param({
-                        request_type: 'edit'
+                    request_type  : 'edit',
+                        assessment_id : assessment_id
                     }),
                 })
                         .then(function (response) {

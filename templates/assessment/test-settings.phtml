@@ -81,8 +81,8 @@
 								<span class="qst-label">Minimum Score to Qualify *</span>
 								<input type="text" aria-label="Cutoff Score (out of 100)" check-char-zero required  ng-pattern="/(^[^0]$)|(^[1-9]\d{0,}$)/" name="min_marks" ng-model="TestSettingsCtrl.settingsObj.min_marks">
 								<div class="error-spacer"></div>
-								<div ng-if="settingsForm.min_marks.$error.required && TestSettingsCtrl.postSettingsSubmitted" class="has-error-msg err-display">Please enter Cutoff Score.</div>
-								<div ng-if="settingsForm.min_marks.$error.pattern" class="has-error-msg err-display">Cutoff Score should not be zero.</div>
+								<div ng-if="settingsForm.min_marks.$error.required && TestSettingsCtrl.postSettingsSubmitted" class="has-error-msg err-display">Please enter Minimum Score to Qualify.</div>
+								<div ng-if="settingsForm.min_marks.$error.pattern" class="has-error-msg err-display">Minimum Score to Qualify should not be zero.</div>
 							</md-input-container>
 							<md-input-container flex="25" class="md-block full-box">
 								<span class="qst-label">MCQ Settings</span>
@@ -107,7 +107,7 @@
 							</md-input-container>
 							<i class="gap"></i>
 							<md-input-container flex="25" class="md-block full-box">
-								<span class="qst-label">Prefered Qualifications</span>
+								<span class="qst-label">Preferred Qualifications</span>
 								<input type="text" aria-label="Prefered Qualifications" name="pre_qualification" ng-model="TestSettingsCtrl.settingsObj.preQualification">
 							</md-input-container>
 						</div>
