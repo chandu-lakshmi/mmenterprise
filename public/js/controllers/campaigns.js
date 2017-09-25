@@ -1659,10 +1659,10 @@
 
         vm.showResponseRata = false;
         vm.saveResponse = function () {
-            return $timeout(function(){
-                vm.closeDialog();
-                $state.go('allCampaigns.all', {ref: $rootScope.$root.camp_ref,share_status:$stateParams.share_status});
-            }, 3000);
+            // return $timeout(function(){
+            //     vm.closeDialog();
+            //     $state.go('allCampaigns.all', {ref: $rootScope.$root.camp_ref,share_status:$stateParams.share_status});
+            // }, 3000);
             /*var d = $q.defer();
             var res = confirm("Response save success?");
             if (res) {
@@ -1718,5 +1718,5 @@
             $mdDialog.hide();
         }
     }
-    
+
 }());

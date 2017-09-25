@@ -8,11 +8,16 @@
   .angular-survey-template .container {
     width: 1027px;
     padding: 0; }
+    .angular-survey-template .container-header.mmq-start .close {
+      top: 15px;
+      width: 25px;
+      height: 25px;
+    }
     .angular-survey-template .container .close {
       position: absolute;
       right: 20px;
       padding: 0;
-      top: 20px;
+      top: 18px;
       opacity: 1;
       width: 28px;
       height: 28px;
@@ -47,22 +52,22 @@
           /*color: #808080;*/
           padding-top: 24px; }
           .angular-survey-template .container .mw-form-viewer form .mw-form-question .mw-question-text {
-            font-weight: normal;
-            font-size: 14px;
+            font-weight: 600;
+            font-size: 13px;
             margin-bottom: 24px; }
           .angular-survey-template .container .mw-form-viewer form .mw-form-question .mw-question-answers {
-            font-size: 14px; }
+            font-size: 13px; }
         .angular-survey-template .container .mw-form-viewer form .mw-form-action-list {
           position: fixed;
           bottom: 0;
           right: 0;
           width: 100%;
           background: #eee;
-          height: 80px;}
+          height: 66px;}
           .angular-survey-template .container .mw-form-viewer form .mw-form-action-list .btn {
-            padding: 2px 50px;
-            margin: 20px 20px 16px 20px;
-            font-size: 14px;
+            padding: 2px 48px;
+            margin: 14px 20px;
+            font-size: 16px;
             font-weight: 600; }
           .angular-survey-template .container .mw-form-viewer form .mw-form-action-list .prev-page-button {
             float: left;
@@ -91,13 +96,24 @@
       font-size: 24px;
       line-height: 200px; }
       .container-header {
-        padding: 19px 20px;
+        padding: 18px 20px;
         background: #eeeeee;
+      }
+      .container-header.mmq-start {
+        padding: 15px 15px;
+      }
+      .container-header.mmq-start .questionnaire-name {
+        font-size: 17px;
       }
       .questionnaire-name {
           text-align: left;
           margin: 0;
           font-size: 20px;
+          color: rgba(0,0,0,.87);
+      }
+      .container-header.mmq-start .questionnaire-description {
+        font-size: 13px;
+        margin-top: 4px;
       }
       .questionnaire-description {
           float: right;
@@ -125,11 +141,11 @@
         -webkit-border-radius: 5px;
         -moz-border-radius: 5px;
         -o-border-radius: 5px;
-        font-size: 17px;
+        font-size: 18px;
         font-weight: 700;
-        letter-spacing: 1px;
+        /*letter-spacing: 1px;*/
         margin-top: 15px;
-        padding: 0 40px;
+        padding: 0 35px;
       }
       .angular-survey-template .container .mw-form-viewer form .begin-response-button:hover {
         width: auto;
@@ -138,7 +154,7 @@
         -webkit-border-radius: 5px;
         -moz-border-radius: 5px;
         -o-border-radius: 5px;
-        font-size: 17px;
+        font-size: 18px;
       }
       .total-question {
 
@@ -152,12 +168,13 @@
       }
       .mw-form-viewer .mw-form-page {
         margin: 0;
-        padding: 25px 20px;
+        padding: 18px 20px 20px;
         font-size: 14px;
       }
       .question-number {
         font-weight: 600;
-        color: rgba(0,0,0,0.87);
+        color: #555;
+        text-transform: uppercase;
       }
       .time-left {
         font-size: 14px;
@@ -172,9 +189,14 @@
       .full-screen .container {
         width: 100%;
       }
+      .container-header.mmq-start .fullscreen-icon {
+        top: 15px;
+        width: 25px;
+        height: 25px;
+      }
       .fullscreen-icon {
         position: absolute;
-        top: 20px;
+        top: 18px;
         right: 90px;
         font-size: 30px;
         width: 28px;
@@ -204,11 +226,10 @@
         color: red;
       }
 </style>
-<md-dialog class="angular-survey-template">
+<md-dialog class="angular-survey-template" ng-class="{'full-screen': FormViewerCtrl.formData.fullScreen}">
     <div class="container">
-        <div class="container-header">
-        <!-- {{FormViewerCtrl.formData}} -->
-          <span class="questionnaire-name">{{FormViewerCtrl.formData.exam_name}} - Instructions</span>
+        <div class="container-header" ng-class="{'mmq-start': FormViewerCtrl.formData.pages[0].isFirst}">
+          <span class="questionnaire-name">{{FormViewerCtrl.formData.exam_name}} {{FormViewerCtrl.formData.pages[0].isFirst ? '' : '- Instructions'}}</span>
           <div class="questionnaire-description">
             <span class="total-question">Total Questions: {{FormViewerCtrl.formData.pages.length}}</span>
             <span class="time-duration" ng-if="FormViewerCtrl.formData.max_duration">Time: {{FormViewerCtrl.formData.max_duration}} mins</span>
@@ -236,17 +257,17 @@
                         read-only="FormViewerCtrl.viewerReadOnly"
                         on-submit="FormViewerCtrl.saveResponse()">
         </mw-form-viewer>
-        <hr>
+        <!-- <hr>
         <div class="checkbox">
             <label>
                 <input type="checkbox" ng-model="FormViewerCtrl.showResponseData" ng-click="FormViewerCtrl.showResponseModal(FormViewerCtrl.showResponseData)"> Show response data
             </label>
-        </div>
+        </div> -->
     </div>
 </md-dialog>
 
 <!-- Form Build Json -->
-<script type="text/ng-template" id="form_view_json.phtml">
+<!-- <script type="text/ng-template" id="form_view_json.phtml">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -261,4 +282,4 @@
             </div>
         </div>
     </div>
-</script>
+</script> -->

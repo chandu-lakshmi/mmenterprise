@@ -403,7 +403,8 @@
               outline: none;
               box-shadow: none; }
             .angular-survey-template .container .mw-form-viewer form .mw-form-action-list .prev-page-button i {
-              display: none; }
+              /*display:none*/
+              font-size: 11px; }
           .angular-survey-template .container .mw-form-viewer form .mw-form-action-list .prev-page-button:hover {
             background: #fff !important; }
           .angular-survey-template .container .mw-form-viewer form .mw-form-action-list .next-page-button {
@@ -412,7 +413,8 @@
             opacity: 1;
             color: #fff; }
             .angular-survey-template .container .mw-form-viewer form .mw-form-action-list .next-page-button i {
-              display: none; }
+              /*display:none*/
+              font-size: 11px; }
     .angular-survey-template .container .mw-pending-message {
       color: #9E9E9E;
       display: block;
