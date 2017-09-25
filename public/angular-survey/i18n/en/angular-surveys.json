@@ -17,6 +17,7 @@
          "back":"Previous",
          "submit":"Submit",
          "begin":"Start Test",
+         "reBegin":"Restart Test",
          "fold":"Fold",
          "unfold":"Unfold",
          "edit":"Edit",
@@ -154,7 +155,7 @@
          "title":"Confirmation page",
          "customMessage":"Custom confirmation message",
          "defaultMessage":"Successfully listed",
-         "timeupMessage":"Hold On!! Time’s up",
+         "timeupMessage":"Hold On!!! Your time’s up",
          "errorMessage":"Error! Your response has not been recorded",
          "pendingMessage":"Thanks for your info. Welcome to our talent Community."
       }

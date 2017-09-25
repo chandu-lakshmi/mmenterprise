@@ -1355,7 +1355,7 @@
             });
     }
 
-    function FormViewerController(App, $scope, $rootScope, $http, $timeout, $q, $uibModal, $mdDialog, $state, RefDetails, $window) {
+    function FormViewerController(App, $scope, $rootScope, $http, $timeout, $q, $uibModal, $mdDialog, $state, $stateParams, RefDetails, $window) {
 
         var vm = this;
         vm.formOptions = {
@@ -1388,22 +1388,8 @@
                 }
 
             });
-        /*$http.get('response-data.json')
-         .then(function (res) {
-         vm.responseData = res.data;
-         });*/
-
-        // $http.get('mintmesh_survey.json')
-        // .then(function (res) {
-        //     vm.formData = res.data.data;
-        // });
 
         vm.templateData = null;
-        /*$http.get('template-data.json')
-         .then(function (res) {
-         vm.templateData = res.data;
-         });*/
-
         vm.resetViewer = function () {
             if (vm.formViewer.reset) {
                 vm.formViewer.reset();
@@ -1471,6 +1457,7 @@
 
         vm.closeDialog = function () {
             $mdDialog.hide();
+            $state.go('allCampaigns.all', {ref: $rootScope.$root.camp_ref,share_status:$stateParams.share_status});
         }
     }
 
