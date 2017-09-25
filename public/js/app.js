@@ -213,6 +213,8 @@
                     controller: 'NewCampaignController',
                     controllerAs: 'NewCampaignCtrl'
                 })
+
+
                 $stateProvider.state('app.campaigns', {
                     url: '^/campaigns',
                     templateUrl: App.base_url + 'templates/campaigns/campaigns.phtml',
@@ -239,17 +241,46 @@
                     controller: 'AllCampaignsController',
                     controllerAs: 'AllCampaignsCtrl'
                 })
-                $stateProvider.state('app.campaigns.editCampaigns', {
-                    url: '^/campaigns/edit-campaigns',
-                    templateUrl: App.base_url + 'templates/campaigns/edit-campaigns.phtml',
-                    controller: 'EditCampaignsController',
-                    controllerAs: 'EditCampaignsCtrl'
-                })
+
                 $stateProvider.state('app.campaigns.formBuilder', {
                     url: '^/campaigns/form-builder',
                     templateUrl: App.base_url + 'templates/campaigns/form-builder.phtml',
                     controller: 'FormBuilderController',
                     controllerAs: 'FormBuilderCtrl'
+                })
+
+                /* $stateProvider.state('app.campaigns.editCampaigns', {
+                    url: '^/campaigns/edit-campaigns',
+                    templateUrl: App.base_url + 'templates/campaigns/edit-campaigns.phtml',
+                    controller: 'EditCampaignsController',
+                    controllerAs: 'EditCampaignsCtrl'
+                }) */
+
+
+                /* campaign Detais & Candidates */
+                $stateProvider.state('app.campaignView', {
+                    url: '^/campaign-view',
+                    templateUrl: App.base_url + 'templates/campaigns/campaign-view/campaign-view.phtml',
+                    controller: 'CampaignViewController',
+                    controllerAs: 'CampaignViewCtrl'
+                })
+                $stateProvider.state('app.campaignView.editCampaign', {
+                    url: '^/campaign-view/edit-campaigns',
+                    templateUrl: App.base_url + 'templates/campaigns/campaign-view/edit-campaigns.phtml',
+                    controller: 'EditCampaignsController',
+                    controllerAs: 'EditCampaignsCtrl'
+                })
+                $stateProvider.state('app.campaignView.allCandidates', {
+                    url: '^/campaign-view/all-candidates',
+                    templateUrl: App.base_url + 'templates/campaigns/campaign-view/all-candidates.phtml',
+                    controller: 'CampaignAllCandidateController',
+                    controllerAs: 'CampaignAllCandidateCtrl'
+                })
+                $stateProvider.state('app.campaignView.screenedCandidates', {
+                    url: '^/campaign-view/screened-candidates',
+                    templateUrl: App.base_url + 'templates/campaigns/campaign-view/screened-candidates.phtml',
+                    controller: 'CampaignScreenedController',
+                    controllerAs: 'CampaignScreenedCtrl'
                 })
 
                 /* Assessment */

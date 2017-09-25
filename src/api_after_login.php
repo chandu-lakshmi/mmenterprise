@@ -883,7 +883,33 @@ $app->get('/campaigns/my-campaigns',function ($request, $response, $args) use ($
     return $response->withRedirect($args['APP_DOMAIN']."campaigns/all-campaigns");
 });
 
-$app->get('/campaigns/edit-campaigns',function ($request, $response, $args) use ($app) {
+$app->get('/campaign-view/edit-campaigns',function ($request, $response, $args) use ($app) {
+     
+    //Arguments
+    $this->mintmeshAccessToken;
+    $args  = commonData($this->settings);
+    
+    //Check Logged in or not
+    if(!empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']);
+    }
+    return $response->withRedirect($args['APP_DOMAIN']."campaigns/all-campaigns");
+});
+
+$app->get('/campaign-view/all-candidates',function ($request, $response, $args) use ($app) {
+     
+    //Arguments
+    $this->mintmeshAccessToken;
+    $args  = commonData($this->settings);
+    
+    //Check Logged in or not
+    if(!empty(authenticate())){
+      return $response->withRedirect($args['APP_DOMAIN']);
+    }
+    return $response->withRedirect($args['APP_DOMAIN']."campaigns/all-campaigns");
+});
+
+$app->get('/campaign-view/screened-candidates',function ($request, $response, $args) use ($app) {
      
     //Arguments
     $this->mintmeshAccessToken;

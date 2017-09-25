@@ -13,6 +13,10 @@
             .controller('FormBuilderController', FormBuilderController)
             .controller('CreateJobController', CreateJobController)
 
+            .controller('CampaignViewController', CampaignViewController)
+            .controller('CampaignAllCandidateController', CampaignAllCandidateController)
+            .controller('CampaignScreenedController', CampaignScreenedController)
+
             .service('CampaignsData', CampaignsData)
             .service('contactBuckets', contactBuckets)
 
@@ -790,7 +794,7 @@
                         if (response.data.status_code == 200) {
                             CampaignsData.setCampaigns(response.data.data);
                             CampaignsData.addCampaigns('id', row.entity.id);
-                            $state.go('app.campaigns.editCampaigns');
+                            $state.go('app.campaignView.editCampaign');
                         }
                         else if (response.data.status_code == 400) {
                             $window.location = App.base_url + 'logout';
@@ -1717,6 +1721,19 @@
         vm.closeDialog = function(){
             $mdDialog.hide();
         }
+    }
+
+
+    function CampaignViewController() {
+
+    }
+
+    function CampaignAllCandidateController() {
+
+    }
+
+    function CampaignScreenedController() {
+
     }
 
 }());
