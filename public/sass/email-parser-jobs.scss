@@ -179,39 +179,116 @@
 
 
 /* Form view */
-.angular-survey-template{min-height: 218px !important;height: 450px;
-    .container{width: 824px;padding: 0;
-        .close{ position: absolute;right: 0;padding: 30px;top: 0;opacity:1}
+.angular-survey-template{min-height: calc(100vh - 350px) !important;height: 500px;max-width: 100%;
+    .container{width: 1027px;padding: 0;
+        .container-header {padding: 18px 20px;background: #eeeeee;
+          .questionnaire-name {text-align: left;margin: 0;font-size: 20px;color: rgba(0,0,0,.87);}
+          .questionnaire-description {float: right;margin-right: 139px;clear: both;margin-top: 6px;font-size: 14px;color: #4a4a4a;
+            .time-duration {margin-left: 30px;}
+          }
+          .fullscreen-icon {position: absolute;top: 18px;right: 90px;font-size: 30px;width: 28px;height: 28px;}
+        }
+        .container-header.mmq-start {padding: 15px 15px;
+          .close{top: 15px;width: 25px;height: 25px;}
+          .questionnaire-name {font-size: 17px;}
+          .questionnaire-description {font-size: 13px;margin-top: 4px;}
+          .fullscreen-icon {top: 15px;width: 25px;height: 25px;}
+        }
+        .close{ position: absolute;right: 20px;padding: 0;top: 18px;opacity: 1;width: 28px;height: 28px;}
         .head,.checkbox, hr{display:none}
-        .mw-form-viewer{margin: 15px;margin-top: 0;padding:0;
+        .mw-form-viewer{margin: 0;padding: 0;
             form{overflow: hidden;
-                 .mw-title-page{text-align:center;margin-top: 96px;
-                    .mw-form-description{font-size: 22px;}
+                 .mw-title-page{text-align:center;margin: 38px 20px;
+                    .mw-form-description{font-size: 14px;text-align: left;line-height: 22px;}
+                    .questionnaire-footer {position: absolute;bottom: 0;left: 0;right: 0;width: 100%;height: 80px;line-height: 80px;background: #eeeeee;padding: 0 20px;
+                      .copy-right{color: #767877;font-size: 14px;}
+                    }
                  }
-                .begin-response-button,.begin-response-button:hover{background: #24a678 !important;color: #fff;width: 116px;height: 52px;font-size: 22px;border-radius: 0;
-                    &:hover,&:active{background: transparent;outline:none;box-shadow: none}
+                 .mw-confirmation-message {color: #1f8c6f;font-size: 25px;}
+                  .mw-confirmation-message.vertical-center {position: absolute;top: 50%;transform: translateY(-50%);width: 100%;text-align: center;
+                    i {font-size: 50px;margin-right: 10px;position: relative;top: 8px;}
+                  }
+                .begin-response-button,.begin-response-button:hover{
+                    background: #31BE9E !important;
+                    text-transform: uppercase;
+                    width: auto;
+                    border-radius: 5px;
+                    -webkit-border-radius: 5px;
+                    -moz-border-radius: 5px;
+                    -o-border-radius: 5px;
+                    font-size: 18px;
+                    font-weight: 700;
+                    margin-top: 15px;
+                    padding: 0 35px;
+                    color: #fff;
+                    height: 52px;
+                    &:hover,&:active{background: #359383 !important;outline:none;box-shadow: none}
                 }
+                .password-detection {position: absolute;top: 50%;transform: translate(-50%,-50%);width: 300px;margin: 0 auto;left: 50%;}
                 .mw-form-question{color :#808080;padding-top: 24px;
-                    .mw-question-text{font-weight:normal;font-size:20px;margin-bottom: 24px;}
-                    .mw-question-answers{font-size: 18px;}
+                    .mw-question-text{font-weight:600;font-size:13px;margin-bottom: 24px;
+                      .required-question {color: red;}
+                    }
+                    .mw-question-answers{font-size: 13px;
+                      md-radio-group md-radio-button:not([disabled]) .md-on {
+                        background: #0fb89b; 
+                      }
+                      md-radio-group md-radio-button.md-checked .md-off {
+                        border-color: #0fb89b; 
+                      }
+                      md-radio-group md-radio-button .md-off {
+                        border-color: #cacaca; 
+                      }
+                      md-radio-group md-radio-button .md-ink-ripple {
+                        color: rgba(15, 184, 155, 0.28); 
+                      }
+                      md-radio-group.md-default-theme.md-focused:not(:empty) {
+                        .md-checked {
+                          .md-container:before {
+                            background-color: rgba(15, 184, 155, 0.40); 
+                          }
+                        }
+                      }
+                      md-radio-group.md-focused:not(:empty) {
+                        .md-checked {
+                          .md-container:before {
+                            background-color: rgba(15, 184, 155, 0.40);
+                          }
+                        }
+                      }
+                    }
                 }
-                .mw-form-action-list{position: absolute;bottom: 0;right: 0;width: 100%;background: #eee;
-                    .btn{padding: 6px 20px;font-size: 16px;margin: 16px;}
-                    .prev-page-button{float: left;color: gray;
+                .mw-form-action-list{position: fixed;bottom: 0;right: 0;width: 100%;background: #eee;height: 66px;
+                    .btn{padding: 2px 48px;font-size: 16px;margin: 13px 20px;font-weight: 600;}
+                    .prev-page-button{float: left;color: #fff;background: #31BE9E;padding: 2px 25px;
                         &:hover,&:active{background: transparent;outline:none;box-shadow: none}
                         i{/*display:none*/font-size: 11px;}
                     }
                     .prev-page-button:hover{
-                        background:#fff !important;
+                        background:#359383 !important;
                     }
-                    .next-page-button{float: right;background: #24a678;opacity: 1;color: #fff;
+                    .next-page-button{float: right;background: #31BE9E;opacity: 1;color: #fff;
                         i{/*display:none*/font-size: 11px;}
+                    }
+                    .prev-page-button:hover, .next-page-button:hover{
+                        background:#359383 !important;
                     }
                 }
 
             }
+            .mw-form-page {margin: 0;padding: 18px 20px 20px;font-size: 14px;
+                .question-number {font-weight: 600;color: #555;text-transform: uppercase;}
+                .time-left {font-size: 14px;
+                  span {color: #a63936;}
+                }
+                
+                
+            }
+
         }
+        .mw-pending-message.mw-timeup-message {color: red;}
         .mw-pending-message{color: #9E9E9E;display: block;text-align: center;font-size: 24px;line-height: 200px;}
+        .mw-pending-message.mw-timeup-message .begin-response-button {position: absolute;left: 50%;transform: translateX(-50%);white-space: nowrap;}
     }
 }
 /*dialog styles for create campaign*/
