@@ -1,6 +1,6 @@
 <style type="text/css">
     /* Form view */
-
+    
       .full-screen {
         width: 100%;
         min-height: 100% !important;
@@ -15,7 +15,8 @@
           <span class="questionnaire-name">{{FormViewerCtrl.formData.exam_name}} {{FormViewerCtrl.formData.pages[0].isFirst ? '' : '- Instructions'}}</span>
           <div class="questionnaire-description">
             <span class="total-question">Total Questions: {{FormViewerCtrl.formData.pages.length}}</span>
-            <span class="time-duration" ng-if="FormViewerCtrl.formData.max_duration">Time: {{FormViewerCtrl.formData.max_duration}} {{FormViewerCtrl.formData.max_duration > 1 ? 'mins' : 'min'}}</span>
+            <span class="time-duration" ng-if="FormViewerCtrl.formData.max_duration">Time: {{FormViewerCtrl.formData.max_duration}} Min</span>
+            <!-- {{FormViewerCtrl.formData.max_duration > 1 ? 'Mins' : 'Min'}} -->
           </div>
           <img src="../public/images/resize.svg" alt="fullscreen" class="fullscreen-icon" ng-click="FormViewerCtrl.fullScreen();" />
 
