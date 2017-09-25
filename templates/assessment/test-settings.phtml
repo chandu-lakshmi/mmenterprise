@@ -52,26 +52,26 @@
 						<div layout="row" class="time">
 							<md-input-container flex="20" class="md-block full-box">
 								<span class="qst-label">Start Date *</span>
-								<input type="text" aria-label="Start Date" required name="start_date" id="start_date" ng-model="TestSettingsCtrl.settingsObj.startDate" schedule-required>
+								<input type="text" class="picker-close" aria-label="Start Date" required name="start_date" id="start_date" ng-model="TestSettingsCtrl.settingsObj.startDate" schedule-required>
 								<div class="error-spacer"></div>
 								<div ng-if="settingsForm.start_date.$error.required && TestSettingsCtrl.postSettingsSubmitted" class="has-error-msg">Please select Start Date.</div>
 							</md-input-container>
 							<md-input-container  flex="20" class="md-block full-box">
 								<span class="qst-label">Start Time *</span>
-								<input type="text" aria-label="Start Time" name="start_time" id="start_time" required ng-model="TestSettingsCtrl.settingsObj.startTime" schedule-required>
+								<input type="text" class="picker-close" aria-label="Start Time" name="start_time" id="start_time" required ng-model="TestSettingsCtrl.settingsObj.startTime" schedule-required>
 								<div class="error-spacer"></div>
 								<div ng-if="settingsForm.start_time.$error.required && TestSettingsCtrl.postSettingsSubmitted" class="has-error-msg">Please select Start Time.</div>
 							</md-input-container>
 							<i class="gap"></i>
 							<md-input-container  flex="20" class="md-block full-box">
 								<span class="qst-label">End Date *</span>
-								<input type="text" aria-label="End Date" name="end_date" id="end_date" required ng-model="TestSettingsCtrl.settingsObj.endDate" schedule-required>
+								<input type="text" class="picker-close" aria-label="End Date" name="end_date" id="end_date" required ng-model="TestSettingsCtrl.settingsObj.endDate" schedule-required>
 								<div class="error-spacer"></div>
 								<div ng-if="settingsForm.end_date.$error.required && TestSettingsCtrl.postSettingsSubmitted" class="has-error-msg">Please select End Date.</div>
 							</md-input-container>
 							<md-input-container flex="20" class="md-block full-box">
 								<span class="qst-label">End Time *</span>
-								<input type="text" aria-label="End Time" name="end_time" id="end_time" required ng-model="TestSettingsCtrl.settingsObj.endTime" schedule-required>
+								<input type="text" class="picker-close" aria-label="End Time" name="end_time" id="end_time" required ng-model="TestSettingsCtrl.settingsObj.endTime" schedule-required>
 								<div class="error-spacer"></div>
 								<div ng-if="settingsForm.end_time.$error.required && TestSettingsCtrl.postSettingsSubmitted" class="has-error-msg">Please select End Time.</div>
 							</md-input-container>

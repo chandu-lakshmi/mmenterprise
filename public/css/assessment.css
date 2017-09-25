@@ -318,16 +318,19 @@
     transform: translateX(0); }
   100% {
     opacity: 0; } }
-.bootstrap-datetimepicker-widget table {
+.picker-close + .bootstrap-datetimepicker-widget table {
   width: 90%; }
-.bootstrap-datetimepicker-widget .list-unstyled {
+.picker-close + .bootstrap-datetimepicker-widget .list-unstyled {
   position: relative; }
-  .bootstrap-datetimepicker-widget .list-unstyled .picker-switch.accordion-toggle {
+  .picker-close + .bootstrap-datetimepicker-widget .list-unstyled .picker-switch.accordion-toggle {
     position: absolute;
-    top: -4px;
-    right: 10px; }
-    .bootstrap-datetimepicker-widget .list-unstyled .picker-switch.accordion-toggle .glyphicon-remove {
+    top: 4px;
+    right: 5px; }
+    .picker-close + .bootstrap-datetimepicker-widget .list-unstyled .picker-switch.accordion-toggle .glyphicon-remove {
       text-align: right;
-      width: 10px; }
+      width: 16px;
+      display: inline-block;
+      height: 16px;
+      line-height: 16px; }
 
 /*# sourceMappingURL=assessment.css.map */

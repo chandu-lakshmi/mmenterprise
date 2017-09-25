@@ -219,16 +219,14 @@
         opacity: 0;
     }
 }
-
-.bootstrap-datetimepicker-widget{
+.picker-close+.bootstrap-datetimepicker-widget{
     table{width: 90%}
     .list-unstyled{position: relative;
         .picker-switch{
-            &.accordion-toggle{position: absolute;top: -4px;right:10px;
-                .glyphicon-remove{text-align: right;width:10px}
+            &.accordion-toggle{position: absolute;top: 4px;right:5px;
+                .glyphicon-remove{text-align: right;width: 16px;display: inline-block;height: 16px;line-height: 16px;}
             } 
         }
 
     }
-
 }
