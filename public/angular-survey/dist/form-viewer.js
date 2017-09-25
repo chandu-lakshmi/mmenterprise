@@ -136,7 +136,7 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", "$timeou
                 intervalId;
             // Put initialization logic inside `$onInit()`
             // to make sure bindings have been initialized.
-            
+
             ctrl.$onInit = function() {
                 ctrl.counter = 0;
                 if(ctrl.formData.max_duration) {
@@ -224,6 +224,11 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", "$timeou
                 ctrl.submitStatus='TIME_UP';
                 ctrl.setCurrentPage(null);
                 $interval.cancel(intervalId);
+
+                return $timeout(function(){
+                    ctrl.closeDialog();
+                }, 3000);
+
             }
 
             ctrl.submitForm = function(){
@@ -232,11 +237,11 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", "$timeou
 
                 ctrl.setCurrentPage(null);
                 $interval.cancel(intervalId);
+                
                 mmQuestionnaire.setResponseData(ctrl.mmqResponse);
 
-                return $timeout(function(){
+                return $timeout(function() {
                     ctrl.closeDialog();
-                    $state.go('allCampaigns.all', {ref: $rootScope.$root.camp_ref,share_status:$stateParams.share_status});
                 }, 3000);
 
                 // var resultPromise = ctrl.onSubmit();
@@ -250,6 +255,7 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", "$timeou
 
             ctrl.closeDialog = function(){
                 $mdDialog.hide();
+                $state.go('allCampaigns.all', {ref: $rootScope.$root.camp_ref,share_status:$stateParams.share_status});
             }
 
             ctrl.setCurrentPage = function (page) {
@@ -316,9 +322,20 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", "$timeou
                     }
                 });
             };
+            if(ctrl.formData.isPasswordProtected) {
+              ctrl.isPasswordProtected = true;
+            } else {
+              ctrl.isPasswordProtected = false;
+            }
 
-            ctrl.beginResponse=function(){
+            $scope.$on("restartAssesment", function (event, args) {
+               if(args) {
+                 ctrl.$onInit();
+               }
+            });
 
+            ctrl.beginResponse = function(){
+                // password validation pending
                 if(ctrl.formData.pages.length>0){
                     ctrl.setCurrentPage(ctrl.formData.pages[0]);
                     ctrl.startTimer();
@@ -622,8 +639,9 @@ angular.module('mwFormViewer')
         bindToController: true,
         controller: function(){
             var ctrl = this;
-
-
+            ctrl.beginResponse = function() {
+              $rootScope.$broadcast("restartAssesment", true);
+            }
         },
         link: function (scope, ele, attrs, mwFormViewer){
             var ctrl = scope.ctrl;

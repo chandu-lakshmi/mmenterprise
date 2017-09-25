@@ -4,14 +4,13 @@
         <div class="mw-title-page" ng-if="!ctrl.currentPage && !ctrl.formSubmitted">
 
             <div class="mw-form-description">
-                <div ng-if="!ctrl.formData.isPasswordProtected">
-                    <form role="form" name="attend_exam" novalidate onkeypress="return (event.keyCode == 13 && (event.target.tagName == 'INPUT' || event.target.tagName == 'SELECT')) ? false : true" autocomplete="off">
-                        <md-input-container class="md-block">
-                            <input type="password" id="exam_password" name="job_title"  ng-model="ctrl.attend_exam.exam_password" autocomplete="off" aria-label="job_title"ng-pattern="/^(?=.*[a-zA-Z0-9]).{6,}$/" required>
-                            <!-- <div class="error-spacer"></div>
-                            <div ng-if="post_job.job_title.$error.required && PtJobCtrl.job_post_error" class="has-error-msg">Please enter Job Title.</div> -->
-                        </md-input-container>
-                    </form>
+                <div ng-if="!ctrl.formData.isPasswordProtected" class="password-detection">
+                  <md-input-container class="md-block" style="margin-bottom:0">
+                    <label for="mmq_pass">PASSWORD*</label>
+                    <input type="password" id="mmq_pass" name="mmq_pass" ng-model="ctrl.attend_exam.mmq_pass" required ng-class="{'has-error-border':attend_exam.mmq_pass.$invalid && ctrl.login_show_error}">
+                    <div ng-if="attend_exam.mmq_pass.$error.required && homeCtrl.login_show_error" class="has-error-msg">Please enter Password.</div>
+                    <div ng-if="attend_exam.mmq_pass.$error && ctrl.login_show_error" class="has-error-msg">Please enter password.</div>
+                </md-input-container>
                 </div>
                 {{ctrl.formData.description}}
             </div>
@@ -23,7 +22,7 @@
                 <div class="clearfix"></div>
             </div>
         </div>
-        
+
         <div class="mw-form-page" ng-if="ctrl.currentPage">
             <div class="pull-left question-number">Question {{ctrl.currentPage.number}}</div>
 
