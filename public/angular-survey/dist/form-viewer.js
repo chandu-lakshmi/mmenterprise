@@ -225,9 +225,9 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", "$timeou
                 ctrl.setCurrentPage(null);
                 $interval.cancel(intervalId);
 
-                return $timeout(function(){
-                    ctrl.closeDialog();
-                }, 3000);
+                // return $timeout(function(){
+                //     ctrl.closeDialog();
+                // }, 3000);
 
             }
 
@@ -237,12 +237,12 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", "$timeou
 
                 ctrl.setCurrentPage(null);
                 $interval.cancel(intervalId);
-                
+
                 mmQuestionnaire.setResponseData(ctrl.mmqResponse);
 
-                return $timeout(function() {
-                    ctrl.closeDialog();
-                }, 3000);
+                // return $timeout(function() {
+                //     ctrl.closeDialog();
+                // }, 3000);
 
                 // var resultPromise = ctrl.onSubmit();
                 // resultPromise.then(function(){
