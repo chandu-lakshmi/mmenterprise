@@ -11,7 +11,7 @@
             .controller('CampaignsController', CampaignsController)
             .controller('AllCampaignsController', AllCampaignsController)
             .controller('TalentCommunityController', TalentCommunityController)
-            
+
             //Candidate Write Exam
             .controller('AssessmentController', AssessmentController)
 
@@ -31,7 +31,7 @@
     CampaignsController.$inject = ['$scope', '$http', '$uibModal', 'CampaignDetails', 'App'];
     AllCampaignsController.$inject = ['$scope', '$http', '$window', '$q', '$mdDialog', 'App', 'CampaignDetails', 'campaignJobDetails'];
     TalentCommunityController.$inject = ['$scope', '$http', '$timeout', '$uibModalInstance', 'ReferralDetails', 'CampaignDetails', 'formJobOrCampagin', 'App'];
-    
+
     AssessmentController.$inject = ['$stateParams', '$mdDialog', '$scope', '$http', '$timeout', 'App'];
 
 
@@ -59,7 +59,7 @@
     }
 
     function JobsController($scope, $state, $http, $uibModal, ReferralDetails, App) {
-        
+
         var vm = this,
                 copySearchOptions,
                 desc    = '',
@@ -77,7 +77,7 @@
         };
         copySearchOptions = angular.copy(this.searchOptions);
 
- 
+
         function init() {
 
             $http({
@@ -100,7 +100,7 @@
                     $('#logo img').attr('width', App.Components.aspectRatio({domTarget: $('#logo img')[0]}) + 'px');
                 },
                 onError: function () {
-                    
+
                 }
             });
 
@@ -157,10 +157,10 @@
                 if (hasEmptyFields) {
                     return;
                 } else{
-                    hasEmptyFields = true;        
+                    hasEmptyFields = true;
                 }
             } else{
-                hasEmptyFields = false;        
+                hasEmptyFields = false;
             }
 
             $scope.$broadcast('findJob' , {opts : vm.searchOptions});
@@ -205,9 +205,9 @@
     function AllJobsController($scope, $http, $stateParams, $q, $window, ReferralDetails, App) {
 
         $window.scrollTo(0, 0);
-        
-        
-        
+
+
+
         var vm = this,
                 canceler,
                 page_no     = 1,
@@ -235,7 +235,7 @@
                 return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
             });
         }
-        
+
         /*function load(url){
             App.Helpers.loadImage({
                 target: $('#logo'),
@@ -243,10 +243,10 @@
                 url_prefix: false,
                 url: url,
                 onComplete: function () {
-                    
+
                 },
                 onError: function () {
-                    
+
                 }
             });
         }*/
@@ -344,7 +344,7 @@
             if (canceler) {
                 canceler.resolve();
             }
-            
+
             if (pageNo > 1) {
                 vm.loader = true;
             }
@@ -440,17 +440,17 @@
         $scope.$emit('resetFindJob');
 
         $scope.$on('findJob', function(event, data){
-            
+
             page_no = 1;
             jobFilterParams = data.opts;
-            
+
             vm.noLongerAvailable   = '';
             vm.infiniteScroll.busy = false;
 
             if (canceler) {
                 canceler.resolve();
             }
-            
+
             vm.infiniteScroll.nextPage();
         });
 
@@ -475,13 +475,13 @@
             if(str){
                 return str.replace(/\w\S*/g, function (txt) {
                     return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-                });    
+                });
             }
         }
 
         if(decryptDetails.post_type == 'campaign') {
             vm.isCampaignJob = true;
-        } 
+        }
         else{
             vm.isCampaignJob = false;
         }
@@ -567,7 +567,7 @@
             if(vm.isCampaignJob) {
                 campaignJobDetails.job_title = job.job_name;
                 campaignJobDetails.experience = job.experience;
-                campaignJobDetails.location = job.location;    
+                campaignJobDetails.location = job.location;
             }
         }
     }
@@ -579,11 +579,11 @@
         vm.backendMsg   = '';
         vm.backendError = '';
         vm.fileName        = 'Select a file to upload...';
-        vm.hasUploadResume = true; 
+        vm.hasUploadResume = true;
         vm.loader          = false;
-        vm.readOnlyEmail   = false; 
+        vm.readOnlyEmail   = false;
         vm.showJobDetails  = true;
-        vm.invalidFile     = false; 
+        vm.invalidFile     = false;
         vm.status = $location.search().flag;
 
         $("#can-mobile").intlTelInput({
@@ -624,13 +624,13 @@
         if($stateParams.refrel != 0){
             vm.refParam = $stateParams.ref;
         }
-        
+
 
         var ref = $stateParams.ref;
         var apiCall = App.base_url + 'apply_job';
         if($stateParams.refrel != 0 && ($state.current.name == 'allJobs.candidateDetails' || $state.current.name == 'allCampaigns.candidateDetails')) {
             vm.referralDetails.emailid = candidateDetails.emailid;
-            vm.readOnlyEmail = true; 
+            vm.readOnlyEmail = true;
             apiCall = App.base_url + 'apply_job_ref';
         }
 
@@ -678,17 +678,17 @@
                             setTimeout(function () {
                                 $state.go('allJobs.all', {ref: ref, share_status: $stateParams.share_status, jc : 2});
                             }, 1000);
-                        } 
+                        }
                         else if($stateParams.refrel != 0 && $stateParams.jc == 1) {
                             setTimeout(function () {
                                 $state.go('allCampaigns.all', {ref: App.camp_ref, share_status: $stateParams.share_status});
                             }, 1000);
-                        } 
+                        }
                         else if($stateParams.jc == 0){
                             setTimeout(function () {
                                 $state.go('allJobs.all', {ref: ref, share_status: $stateParams.share_status, jc: $stateParams.jc});
                             }, 1000);
-                        } 
+                        }
                         else {
                             setTimeout(function () {
                                 $state.go('allCampaigns.all', {ref: App.camp_ref, share_status: $stateParams.share_status});
@@ -802,12 +802,12 @@
     }
 
     function CampaignsController($scope, $http, $uibModal, CampaignDetails, App) {
-        
+
         var vm = this,
                 copySearchOptions,
                 reg_exp        = new RegExp("^(http|https)://", "i"),
                 hasEmptyFields = true;
-        
+
         this.geo_location = '';
         this.geo_options  = '';
         this.geo_details  = '';
@@ -841,7 +841,7 @@
                     $('#logo img').attr('width', App.Components.aspectRatio({domTarget: $('#logo img')[0]}) + 'px');
                 },
                 onError: function () {
-                    
+
                 }
             });
 
@@ -852,7 +852,7 @@
             });
 
             vm.shareUrl = App.base_url + 'email/all-campaigns/share?ref=' + App.camp_ref;
-    
+
             vm.socialMedia = {
                 socialIcons: ['facebook', 'twitter', 'linkedin', 'googlePlus'],
                 url: vm.shareUrl,
@@ -897,11 +897,11 @@
             if(str){
                 return str.replace(/\w\S*/g, function (txt) {
                     return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-                });    
+                });
             }
         }
 
-        
+
         vm.selectExperienc = function(exp) {
             this.experienceLabel    = exp.experience_name;
             this.searchOptions.search_experience = exp.experience_id;
@@ -912,10 +912,10 @@
                 if (hasEmptyFields) {
                     return;
                 } else{
-                    hasEmptyFields = true;        
+                    hasEmptyFields = true;
                 }
             } else{
-                hasEmptyFields = false;        
+                hasEmptyFields = false;
             }
 
             $scope.$broadcast('findJob' , {opts : vm.searchOptions});
@@ -954,7 +954,7 @@
             vm.socialMedia = angular.copy(data);
         });
 
-        
+
         init();
     }
 
@@ -965,7 +965,7 @@
 
         var vm = this,
             canceler,
-            page_no = 1, 
+            page_no = 1,
             total_pages = 1,
             campaignFilterParams = {
                 time_zone : new Date().getTimezoneOffset()
@@ -982,7 +982,7 @@
         /*if (screen.width <= 480)
             vm.copyText = 'Copy'
         else
-            vm.copyText = 'COPY CAMPAIGN LINK'*/    
+            vm.copyText = 'COPY CAMPAIGN LINK'*/
 
         // capitalize string in javascript
         function toTitleCase(str) {
@@ -1034,7 +1034,7 @@
 
             $scope.$emit('socialMediaData', socialMedia);
         }
-        
+
         /*function load(url){
             App.Helpers.loadImage({
                 target: $('#logo'),
@@ -1042,10 +1042,10 @@
                 url_prefix: false,
                 url: url,
                 onComplete: function () {console.log('shiva')
-                    
+
                 },
                 onError: function () {
-                    
+
                 }
             });
         }*/
@@ -1089,10 +1089,10 @@
         }
 
         vm.infiniteScroll.loadApi = function (pageNo, searchVal, callBack) {
-            
+
             campaignFilterParams.page_no     = page_no;
             campaignFilterParams.campaign_id = CampaignDetails.campaign_id;
-            
+
             canceler = $q.defer();
             if(page_no > 1){
                 vm.inProgressInfinite = true;
@@ -1145,7 +1145,7 @@
         vm.infiniteScroll.nextPage();
 
         vm.findJobs = function() {
-            
+
         }
 
         vm.updateCampaignDetails = function(job) {
@@ -1158,7 +1158,7 @@
         $scope.$emit('resetFindJob');
 
         $scope.$on('findJob', function(event, data){
-            
+
             page_no = 1;
             vm.noLongerAvailable   = '';
             vm.infiniteScroll.busy = false;
@@ -1170,7 +1170,7 @@
             vm.infiniteScroll.nextPage();
 
         });
-        
+
     }
 
 
@@ -1178,9 +1178,9 @@
     function TalentCommunityController($scope, $http, $timeout, $uibModalInstance, ReferralDetails, CampaignDetails, formJobOrCampagin, App) {
 
         var vm = this,
-            details, 
+            details,
             colorPicker  = ["#5d80cd", "#e8655c", "#81a757", "#8b5eb2", "#e2a746", "#947956", "#a8a53d", "#607D8B", "#484848", "#3c8576"];
-        
+
         if(formJobOrCampagin == 'job') {
             details = ReferralDetails;
         }
@@ -1241,7 +1241,7 @@
         this.getColor = function (ind) {
             return colorPicker[String(ind).slice(-1)];
         }
-        
+
         this.addOrDeleteCommunity = function(CommunityId) {
             var pos = this.selectedCommunities.indexOf(CommunityId);
             $timeout(function(){
@@ -1249,12 +1249,12 @@
                     vm.selectedCommunities.push(CommunityId);
                 } else {
                     vm.selectedCommunities.splice(pos, 1);
-                }  
+                }
             }, 200)
         }
-        
+
         this.postAddContact = function(form) {
-            
+
             vm.submitted = true;
             vm.responseMsg = '';
             vm.errorMsg  = '';
@@ -1330,7 +1330,7 @@
 
 
             $scope.$on('responseSubmitted', function (event, response) {
-                
+
                 var apiKeys = $.param({
                     assessment_id: $stateParams.examId,
                     exam_response: response
@@ -1354,8 +1354,8 @@
                 });
             });
     }
-    
-    function FormViewerController(App, $scope, $rootScope, $http, $timeout, $q, $uibModal, $mdDialog, $state, RefDetails) {
+
+    function FormViewerController(App, $scope, $rootScope, $http, $timeout, $q, $uibModal, $mdDialog, $state, RefDetails, $window) {
 
         var vm = this;
         vm.formOptions = {
@@ -1413,6 +1413,7 @@
 
         vm.showResponseRata = false;
         vm.saveResponse = function () {
+            console.log('response submitted');
             return $timeout(function () {
                 vm.closeDialog();
                 $state.go('allCampaigns.all', { ref: $rootScope.$root.camp_ref, share_status: $stateParams.share_status });

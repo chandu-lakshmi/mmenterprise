@@ -111,7 +111,7 @@ angular.module('mwFormViewer')
 });
 
 
-angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function ($rootScope) {
+angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", "$timeout", "$state", "$stateParams", "$mdDialog", function ($rootScope, $timeout, $state, $stateParams, $mdDialog)  {
 
     return {
         replace: true,
@@ -136,6 +136,7 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
                 intervalId;
             // Put initialization logic inside `$onInit()`
             // to make sure bindings have been initialized.
+            
             ctrl.$onInit = function() {
                 ctrl.counter = 0;
                 if(ctrl.formData.max_duration) {
@@ -221,10 +222,8 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
             ctrl.timeUP = function() {
                 ctrl.formSubmitted=true;
                 ctrl.submitStatus='TIME_UP';
-                alert("timeup");
                 ctrl.setCurrentPage(null);
                 $interval.cancel(intervalId);
-
             }
 
             ctrl.submitForm = function(){
@@ -233,7 +232,13 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
 
                 ctrl.setCurrentPage(null);
                 $interval.cancel(intervalId);
-                mmQuestionnaire.setResponseData(ctrl.mmqResponse)
+                mmQuestionnaire.setResponseData(ctrl.mmqResponse);
+
+                return $timeout(function(){
+                    ctrl.closeDialog();
+                    $state.go('allCampaigns.all', {ref: $rootScope.$root.camp_ref,share_status:$stateParams.share_status});
+                }, 3000);
+
                 // var resultPromise = ctrl.onSubmit();
                 // resultPromise.then(function(){
                 //     ctrl.submitStatus='SUCCESS';
@@ -242,6 +247,10 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
                 // });
 
             };
+
+            ctrl.closeDialog = function(){
+                $mdDialog.hide();
+            }
 
             ctrl.setCurrentPage = function (page) {
                 ctrl.currentPage = page;
@@ -389,7 +398,6 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
             };
 
             function sortPagesByNumber() {
-              console.log(ctrl.formData);
                 ctrl.formData.pages.sort(function(a,b){
                     return a.number - b.number;
                 });
