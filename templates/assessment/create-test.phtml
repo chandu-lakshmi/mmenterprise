@@ -29,7 +29,7 @@
 											<!-- <label>What role is this test for? *</label> -->
 											<input type="text" name="exam_type" ng-change="CreateTestCtrl.setTestName()" ng-model="CreateTestCtrl.testObj.exam_type" required aria-label="role">
 											<div class="error-spacer"></div>
-											<div ng-if="createTestForm.exam_type.$error.required && CreateTestCtrl.postCreateTestSubmitted" class="has-error-msg">Please enter job Role.</div>
+											<div ng-if="createTestForm.exam_type.$error.required && CreateTestCtrl.postCreateTestSubmitted" class="has-error-msg">Please enter Job Role.</div>
 										</md-input-container>
 										<i flex="5"></i>
 										<md-input-container flex class="md-block select-box">
@@ -58,7 +58,7 @@
 									</div>
 									<div layout="row">
 										<md-input-container flex class="md-block full-box">
-											<span class="qst-label">Test Description Link(Optional)</span>
+											<span class="qst-label">Test Description Link (Optional)</span>
 											<input type="text" name="description_url" ng-model="CreateTestCtrl.testObj.description_url" aria-label="link">
 										</md-input-container>
 										<i flex="5"></i>

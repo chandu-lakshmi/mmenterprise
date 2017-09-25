@@ -22,13 +22,13 @@
 				<form name="questionForm" class="container">
 					<div layout="row" class="list first">
 						<md-input-container flex="35" class="md-block hide-label select-box">
-							<span class="qst-label">Select a question type? *</span>
+							<span class="qst-label">Select a Question Type? *</span>
 							<label style="display:none">Please Select</label>
 							<md-select name="question_type" ng-model="CreateQuestionCtrl.questionObj.question_type" required ng-disabled="CreateQuestionCtrl.enableViewMode">
 								<md-option ng-repeat="type in CreateQuestionCtrl.questionTypesList" ng-value="type.id">{{type.name}}</md-option>
 							</md-select>
 							<div class="error-spacer"></div>
-							<div ng-if="questionForm.question_type.$error.required && CreateQuestionCtrl.postQuestionSubmitted"  class="has-error-msg">Please select Question type.</div>
+							<div ng-if="questionForm.question_type.$error.required && CreateQuestionCtrl.postQuestionSubmitted"  class="has-error-msg">Please select Question Type.</div>
 						</md-input-container>
 					</div>
 					<div layout="row" class="list">
@@ -109,11 +109,11 @@
 													<md-input-container flex class="md-block hide-label full-box">
 														<input class="hide-from-frm" type="text" ng-required="$index < 2" ng-change="CreateQuestionCtrl.removeSeletedOpt(data.option, $index)" aria-label="data.option" ng-disabled="CreateQuestionCtrl.enableViewMode" name="{{CreateQuestionCtrl.alphabet[$index]}}" ng-model="data.option">
 														<div class="error-spacer"></div>
-														<div ng-if="questionForm[CreateQuestionCtrl.alphabet[$index]].$error.required && CreateQuestionCtrl.postQuestionSubmitted" class="has-error-msg" style="margin-left: -52px">Please add options text.</div>
+														<div ng-if="questionForm[CreateQuestionCtrl.alphabet[$index]].$error.required && CreateQuestionCtrl.postQuestionSubmitted" class="has-error-msg" style="margin-left: -52px">Please enter Answer Option.</div>
 													</md-input-container>
 												</div>
 											</div>
-											<div ng-if="!CreateQuestionCtrl.questionObj.answerOpts && CreateQuestionCtrl.postQuestionSubmitted" class="has-error-msg">Please select answer.</div>
+											<div ng-if="!CreateQuestionCtrl.questionObj.answerOpts && CreateQuestionCtrl.postQuestionSubmitted" class="has-error-msg">Please Select Answer.</div>
 											<div layout="row" ng-if="!CreateQuestionCtrl.enableViewMode">
 												<md-button class="action-add-opts" ng-class="{ 'disable-cursor' : CreateQuestionCtrl.questionObj.options.length > 5}" ng-click="CreateQuestionCtrl.addAnswerOption()" ng-disabled="CreateQuestionCtrl.questionObj.options.length > 5">+ADD OPTION</md-button>
 											</div>
