@@ -354,7 +354,7 @@
         text-align: left;
         margin: 0;
         font-size: 20px;
-        color: rgba(0, 0, 0, 0.87); }
+        color: #333; }
       .angular-survey-template .container .container-header .questionnaire-description {
         float: right;
         margin-right: 139px;
@@ -419,7 +419,7 @@
             background: #eeeeee;
             padding: 0 20px; }
             .angular-survey-template .container .mw-form-viewer form .mw-title-page .questionnaire-footer .copy-right {
-              color: #767877;
+              color: #777;
               font-size: 14px; }
         .angular-survey-template .container .mw-form-viewer form .mw-confirmation-message {
           color: #1f8c6f;
@@ -443,12 +443,13 @@
           -webkit-border-radius: 5px;
           -moz-border-radius: 5px;
           -o-border-radius: 5px;
-          font-size: 18px;
+          font-size: 17px;
           font-weight: 700;
-          margin-top: 15px;
-          padding: 0 35px;
+          margin-top: 14px;
           color: #fff;
-          height: 52px; }
+          padding: 4px 43px;
+          margin-right: 0;
+          border: 1px solid #3CAA92; }
           .angular-survey-template .container .mw-form-viewer form .begin-response-button:hover, .angular-survey-template .container .mw-form-viewer form .begin-response-button:active, .angular-survey-template .container .mw-form-viewer form .begin-response-button:hover:hover, .angular-survey-template .container .mw-form-viewer form .begin-response-button:hover:active {
             background: #359383 !important;
             outline: none;
@@ -461,10 +462,10 @@
           margin: 0 auto;
           left: 50%; }
         .angular-survey-template .container .mw-form-viewer form .mw-form-question {
-          color: #808080;
+          color: #4C4C4C;
           padding-top: 24px; }
           .angular-survey-template .container .mw-form-viewer form .mw-form-question .mw-question-text {
-            font-weight: 600;
+            font-weight: normal;
             font-size: 13px;
             margin-bottom: 24px; }
             .angular-survey-template .container .mw-form-viewer form .mw-form-question .mw-question-text .required-question {
@@ -472,9 +473,13 @@
           .angular-survey-template .container .mw-form-viewer form .mw-form-question .mw-question-answers {
             font-size: 13px; }
             .angular-survey-template .container .mw-form-viewer form .mw-form-question .mw-question-answers md-radio-group md-radio-button:not([disabled]) .md-on {
-              background: #0fb89b; }
+              background: #0fb89b;
+              top: -1px;
+              left: -1px; }
             .angular-survey-template .container .mw-form-viewer form .mw-form-question .mw-question-answers md-radio-group md-radio-button.md-checked .md-off {
-              border-color: #0fb89b; }
+              border-color: #0fb89b;
+              width: 18px;
+              height: 18px; }
             .angular-survey-template .container .mw-form-viewer form .mw-form-question .mw-question-answers md-radio-group md-radio-button .md-off {
               border-color: #cacaca; }
             .angular-survey-template .container .mw-form-viewer form .mw-form-question .mw-question-answers md-radio-group md-radio-button .md-ink-ripple {
@@ -492,14 +497,15 @@
           height: 66px; }
           .angular-survey-template .container .mw-form-viewer form .mw-form-action-list .btn {
             padding: 2px 48px;
-            font-size: 16px;
+            font-size: 14px;
             margin: 13px 20px;
             font-weight: 600; }
           .angular-survey-template .container .mw-form-viewer form .mw-form-action-list .prev-page-button {
             float: left;
             color: #fff;
             background: #31BE9E;
-            padding: 2px 25px; }
+            padding: 1px 25px;
+            border: 1px solid #3CAA92; }
             .angular-survey-template .container .mw-form-viewer form .mw-form-action-list .prev-page-button:hover, .angular-survey-template .container .mw-form-viewer form .mw-form-action-list .prev-page-button:active {
               background: transparent;
               outline: none;
@@ -513,7 +519,8 @@
             float: right;
             background: #31BE9E;
             opacity: 1;
-            color: #fff; }
+            color: #fff;
+            border: 1px solid #3CAA92; }
             .angular-survey-template .container .mw-form-viewer form .mw-form-action-list .next-page-button i {
               /*display:none*/
               font-size: 11px; }
@@ -522,13 +529,13 @@
       .angular-survey-template .container .mw-form-viewer .mw-form-page {
         margin: 0;
         padding: 18px 20px 20px;
-        font-size: 14px; }
+        font-size: 13px; }
         .angular-survey-template .container .mw-form-viewer .mw-form-page .question-number {
           font-weight: 600;
           color: #555;
           text-transform: uppercase; }
         .angular-survey-template .container .mw-form-viewer .mw-form-page .time-left {
-          font-size: 14px; }
+          font-size: 13px; }
           .angular-survey-template .container .mw-form-viewer .mw-form-page .time-left span {
             color: #a63936; }
     .angular-survey-template .container .mw-pending-message.mw-timeup-message {

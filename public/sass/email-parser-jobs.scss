@@ -182,7 +182,7 @@
 .angular-survey-template{min-height: calc(100vh - 350px) !important;height: 500px;max-width: 100%;
     .container{width: 1027px;padding: 0;
         .container-header {padding: 18px 20px;background: #eeeeee;
-          .questionnaire-name {text-align: left;margin: 0;font-size: 20px;color: rgba(0,0,0,.87);}
+          .questionnaire-name {text-align: left;margin: 0;font-size: 20px;color: #333;}
           .questionnaire-description {float: right;margin-right: 139px;clear: both;margin-top: 6px;font-size: 14px;color: #4a4a4a;
             .time-duration {margin-left: 30px;}
           }
@@ -201,7 +201,7 @@
                  .mw-title-page{text-align:center;margin: 38px 20px;
                     .mw-form-description{font-size: 14px;text-align: left;line-height: 22px;}
                     .questionnaire-footer {position: absolute;bottom: 0;left: 0;right: 0;width: 100%;height: 80px;line-height: 80px;background: #eeeeee;padding: 0 20px;
-                      .copy-right{color: #767877;font-size: 14px;}
+                      .copy-right{color: #777;font-size: 14px;}
                     }
                  }
                  .mw-confirmation-message {color: #1f8c6f;font-size: 25px;}
@@ -216,25 +216,30 @@
                     -webkit-border-radius: 5px;
                     -moz-border-radius: 5px;
                     -o-border-radius: 5px;
-                    font-size: 18px;
+                    font-size: 17px;
                     font-weight: 700;
-                    margin-top: 15px;
-                    padding: 0 35px;
+                    margin-top: 14px;
                     color: #fff;
-                    height: 52px;
+                    padding: 4px 43px;
+                    margin-right: 0;
+                    border: 1px solid #3CAA92;
                     &:hover,&:active{background: #359383 !important;outline:none;box-shadow: none}
                 }
                 .password-detection {position: absolute;top: 50%;transform: translate(-50%,-50%);width: 300px;margin: 0 auto;left: 50%;}
-                .mw-form-question{color :#808080;padding-top: 24px;
-                    .mw-question-text{font-weight:600;font-size:13px;margin-bottom: 24px;
+                .mw-form-question{color :#4C4C4C;padding-top: 24px;
+                    .mw-question-text{font-weight:normal;font-size:13px;margin-bottom: 24px;
                       .required-question {color: red;}
                     }
                     .mw-question-answers{font-size: 13px;
                       md-radio-group md-radio-button:not([disabled]) .md-on {
                         background: #0fb89b; 
+                        top: -1px;
+                        left: -1px;
                       }
                       md-radio-group md-radio-button.md-checked .md-off {
                         border-color: #0fb89b; 
+                        width: 18px;
+                        height: 18px;
                       }
                       md-radio-group md-radio-button .md-off {
                         border-color: #cacaca; 
@@ -259,15 +264,15 @@
                     }
                 }
                 .mw-form-action-list{position: fixed;bottom: 0;right: 0;width: 100%;background: #eee;height: 66px;
-                    .btn{padding: 2px 48px;font-size: 16px;margin: 13px 20px;font-weight: 600;}
-                    .prev-page-button{float: left;color: #fff;background: #31BE9E;padding: 2px 25px;
+                    .btn{padding: 2px 48px;font-size: 14px;margin: 13px 20px;font-weight: 600;}
+                    .prev-page-button{float: left;color: #fff;background: #31BE9E;padding: 1px 25px;border: 1px solid #3CAA92;
                         &:hover,&:active{background: transparent;outline:none;box-shadow: none}
                         i{/*display:none*/font-size: 11px;}
                     }
                     .prev-page-button:hover{
                         background:#359383 !important;
                     }
-                    .next-page-button{float: right;background: #31BE9E;opacity: 1;color: #fff;
+                    .next-page-button{float: right;background: #31BE9E;opacity: 1;color: #fff;border: 1px solid #3CAA92;
                         i{/*display:none*/font-size: 11px;}
                     }
                     .prev-page-button:hover, .next-page-button:hover{
@@ -276,9 +281,9 @@
                 }
 
             }
-            .mw-form-page {margin: 0;padding: 18px 20px 20px;font-size: 14px;
+            .mw-form-page {margin: 0;padding: 18px 20px 20px;font-size: 13px;
                 .question-number {font-weight: 600;color: #555;text-transform: uppercase;}
-                .time-left {font-size: 14px;
+                .time-left {font-size: 13px;
                   span {color: #a63936;}
                 }
                 
