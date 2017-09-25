@@ -318,5 +318,16 @@
     transform: translateX(0); }
   100% {
     opacity: 0; } }
+.bootstrap-datetimepicker-widget table {
+  width: 90%; }
+.bootstrap-datetimepicker-widget .list-unstyled {
+  position: relative; }
+  .bootstrap-datetimepicker-widget .list-unstyled .picker-switch.accordion-toggle {
+    position: absolute;
+    top: -4px;
+    right: 10px; }
+    .bootstrap-datetimepicker-widget .list-unstyled .picker-switch.accordion-toggle .glyphicon-remove {
+      text-align: right;
+      width: 10px; }
 
 /*# sourceMappingURL=assessment.css.map */

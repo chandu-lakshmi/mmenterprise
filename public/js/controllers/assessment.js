@@ -456,6 +456,7 @@
 			$('#start_date').datetimepicker({
 				minDate: new Date(),
 				ignoreReadonly: true,
+				showClose :true,
 				format: 'dddd, DD MMM YYYY',
 				sideBySide: true,
 				useCurrent: true
@@ -467,6 +468,7 @@
 			$('#end_date').datetimepicker({
 				minDate: new Date(),
 				ignoreReadonly: true,
+				showClose: true,
 				format: 'dddd, DD MMM YYYY',
 				sideBySide: true,
 				useCurrent: false
@@ -478,12 +480,14 @@
 			$('#start_time').datetimepicker({
 				ignoreReadonly: true,
 				format: 'hh:mm A',
+				showClose: true,
 				sideBySide: true,
 				useCurrent: true
 			});
 
 			$('#end_time').datetimepicker({
 				ignoreReadonly: true,
+				showClose: true,
 				format: 'hh:mm A',
 				sideBySide: true,
 				useCurrent: true
