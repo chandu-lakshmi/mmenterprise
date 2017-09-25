@@ -457,16 +457,43 @@ $app->post('/add_to_talentcommunity',function ($request, $response, $args) use (
 });
 
 
-$app->get('/email/assessment/candidate-assessment/{examId}',function ($request, $response, $args) use ($app) {
+$app->get('/email/campaign/candidate-assessment/{status}',function ($request, $response, $args) use ($app) {
     // getting API endpoint from settings
     
     $args = parserData($this->settings);
+    
+    if(!empty($_GET['refrel']) && isset($_GET['ref'])){
+        #get candidate Details here
+        
+        $args['refrel']     = $_GET['refrel'];
+        $args['ref']        = $_GET['ref'];
+        $_POST['ref']       = $args['ref'];
+        $_POST['refrel']    = $args['refrel'];
+        $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_mobile_ref');
+        $Details     = new Curl(array(
+            'url'           => $apiEndpoint,
+            'postData'      => $_POST
+        ));
+        $args['candidateDetails'] = checkJsonResult( $Details->loadCurl() );
+        #get referral details here
+        $_POST['ref']   = $args['ref'];
+        $apiEndpoint    = getapiEndpoint($this->settings, 'decrypt_ref');
+        $Details        = new Curl(array(
+            'url'           => $apiEndpoint,
+            'postData'      => $_POST
+        ));
+        $args['referralDetails'] = $decryptRefArr = checkJsonResult( $Details->loadCurl() );
+    }
 
-    return $this->email_renderer->render($response, 'index.phtml', $args);
-    // if(empty($checkResult['refDetails'])){
-    // } else {
-    //    return $response->withRedirect($args['APP_DOMAIN'].'404');
-    // } 
+    $args['campaignJobDetails'] = $decryptRefArr = checkJsonResult( $Details->loadCurl());
+    $checkResult['refDetails']  = json_decode(checkJsonResult( $Details->loadCurl()));
+    $args['decryptDetails']     = formatDecryptDetails($decryptRefArr);//default Details
+    // Render index view
+    if(!empty($checkResult['refDetails'])){
+        return $this->email_renderer->render($response, 'index.phtml', $args);
+    } else {
+        return $response->withRedirect($args['APP_DOMAIN'].'404');
+    } 
 
 });
 

@@ -93,14 +93,14 @@
 			    	data : { pageTitle: 'MintMesh ( Apply )' },
 			    	params : {status : '',share_status : 'web', jc : '1', refrel : '0'}
 				})
-
-				.state('candidateAssessment', {
-					url: '/assessment/candidate-assessment/:examId',
-					templateUrl: App.base_url + 'templates/email-parser/assessment.phtml',
-					controller: 'AssessmentController',
-					controllerAs: 'AssessmentCtrl',
-					data: { pageTitle: 'Assessment' },
-				})
+                            .state('candidateAssessment', {
+                                    url: '/campaign/candidate-assessment/:share_status',
+                                    templateUrl: App.base_url + 'templates/email-parser/assessment.phtml',
+                                    controller: 'AssessmentController',
+                                    controllerAs: 'AssessmentCtrl',
+                                    data: { pageTitle: 'Assessment' },
+                                    params : {status : '',share_status : 'web', jc : '1', refrel : '0'}
+                            })
 				
 
 
