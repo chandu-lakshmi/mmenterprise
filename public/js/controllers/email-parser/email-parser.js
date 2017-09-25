@@ -32,7 +32,7 @@
     AllCampaignsController.$inject = ['$scope', '$http', '$window', '$q', '$mdDialog', 'App', 'CampaignDetails', 'campaignJobDetails'];
     TalentCommunityController.$inject = ['$scope', '$http', '$timeout', '$uibModalInstance', 'ReferralDetails', 'CampaignDetails', 'formJobOrCampagin', 'App'];
 
-    AssessmentController.$inject = ['$stateParams', '$mdDialog', '$scope', '$http', '$timeout', 'App'];
+    AssessmentController.$inject = ['$stateParams', '$mdDialog', '$scope', '$http', '$timeout', 'App', 'candidateDetails'];
 
 
     function modalController($scope, $state, $stateParams, $uibModalInstance, App) {
@@ -1305,7 +1305,7 @@
 
     }
 
-    function AssessmentController($stateParams, $mdDialog, $scope, $http, $timeout, App) {
+    function AssessmentController($stateParams, $mdDialog, $scope, $http, $timeout, App, candidateDetails) {
 
             var vm = this;
             /*Form Viewer*/
@@ -1331,17 +1331,21 @@
 
             $scope.$on('responseSubmitted', function (event, response) {
 
-                var apiKeys = $.param({
-                    assessment_id: $stateParams.examId,
-                    exam_response: response
-                });
+                var apiKeys = angular.copy(response);
+                    angular.extend(apiKeys, {
+                        assessment_id: candidateDetails.assessment_id,
+                        got_referred_id: candidateDetails.got_referred_id,
+                        company_code: candidateDetails.company_code,
+                        emailid: candidateDetails.emailid
+                    });
+
                 $http({
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                     },
                     method: 'POST',
                     url: App.base_url + 'submit_assessment',
-                    data: apiKeys
+                    data: $.param(apiKeys)
                 })
                 .then(function (response) {
 
@@ -1355,7 +1359,7 @@
             });
     }
 
-    function FormViewerController(App, $scope, $rootScope, $http, $timeout, $q, $uibModal, $mdDialog, $state, $stateParams, RefDetails, $window) {
+    function FormViewerController(App, $scope, $rootScope, $http, $timeout, $q, $uibModal, $mdDialog, $state, $stateParams, RefDetails, $window, candidateDetails) {
 
         var vm = this;
         vm.formOptions = {
@@ -1368,7 +1372,10 @@
 
         vm.responseData = {};
         var apiKeys = $.param({
-            assessment_id: $state.params.examId
+            assessment_id: candidateDetails.assessment_id,
+            got_referred_id : candidateDetails.got_referred_id,
+            company_code : candidateDetails.company_code,
+            emailid     : candidateDetails.emailid
         });
         vm.formData = null;
         $http({
