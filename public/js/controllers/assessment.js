@@ -459,15 +459,20 @@
 				format: 'dddd, DD MMM YYYY',
 				sideBySide: true,
 				useCurrent: true
+			})
+			.on("dp.change", function (e) {
+				$('#end_date').data("DateTimePicker").minDate(e.date);
 			});
-
 
 			$('#end_date').datetimepicker({
 				minDate: new Date(),
 				ignoreReadonly: true,
 				format: 'dddd, DD MMM YYYY',
 				sideBySide: true,
-				useCurrent: true
+				useCurrent: false
+			})
+			.on("dp.change", function (e) {
+				$('#start_date').data("DateTimePicker").maxDate(e.date);
 			});
 
 			$('#start_time').datetimepicker({
