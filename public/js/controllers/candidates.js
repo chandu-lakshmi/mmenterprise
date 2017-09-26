@@ -882,9 +882,8 @@
         vm.postSchedule = function(form) {
 
             vm.submittedSchedule = true;
-
             if(form.$valid) {
-
+              if(vm.schedule.attendees.length) {
                 var tempSelectedAttendee = [];
                 angular.forEach(vm.schedule.attendees, function(attendee){
                     tempSelectedAttendee.push(attendee.emailid);
@@ -923,7 +922,11 @@
                     }
                 });
             }
+          }
+        }
 
+        vm.resetScheduleForm = function(form) {
+          console.log(form);
         }
 
         vm.postComments = function(form) {
@@ -1307,7 +1310,6 @@
             data.shift();
             return data.toString();
         }
-
 
         function init() {
 

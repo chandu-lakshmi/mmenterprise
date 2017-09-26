@@ -575,6 +575,10 @@
             position: absolute;
             right: 15px;
             top: 4px; }
+            .candidates .candidate-details .section md-card .title .resume.disabled-element {
+              opacity: 0.5; }
+              .candidates .candidate-details .section md-card .title .resume.disabled-element a.download:hover {
+                opacity: 1; }
             .candidates .candidate-details .section md-card .title .resume .md-button {
               margin: 1px 0;
               text-transform: capitalize;
@@ -838,6 +842,10 @@
                 cursor: pointer; }
                 .candidates .candidate-details .section md-card.right .tab-content .box .date-time input:focus {
                   border-color: #208d6e; }
+              .candidates .candidate-details .section md-card.right .tab-content .box .date-time .error-spacer {
+                float: none; }
+              .candidates .candidate-details .section md-card.right .tab-content .box .date-time .md-error-spacer {
+                float: none; }
               .candidates .candidate-details .section md-card.right .tab-content .box .date-time .input-group-addon {
                 width: inherit;
                 position: absolute;

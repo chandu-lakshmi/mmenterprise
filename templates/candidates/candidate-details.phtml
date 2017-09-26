@@ -1,3 +1,9 @@
+<style type="text/css">
+/*.md-button:not([disabled]):hover {
+  background-color: transparent;
+}*/
+</style>
+
 <div class="candidate-details">
     <div class="mm-spinner" ng-if="CandidateDetailsCtrl.inProgressCandidateDetails" ng-style="{opacity : CandidateDetailsCtrl.hasChangeReferral ? '0.5' : '1' }">
         <div>
@@ -16,13 +22,16 @@
         				<md-card>
         					<div class="title">
         						<span flex>PERSONAL INFO</span>
-                                <span class="resume" ng-if="CandidateDetailsCtrl.details.document_id" title="{{CandidateDetailsCtrl.details.resume_name}}">
+                                <span class="resume" ng-if="CandidateDetailsCtrl.details.document_id" title="{{CandidateDetailsCtrl.details.resume_name}}"
+                                 >
                                     <a class="download" href="{{CandidateDetailsCtrl.downloadResume}}" download></a>
                                     <md-button href="{{CandidateDetailsCtrl.viewResume}}" target="_blank">View Resume</md-button>
                                 </span>
-                                <span class="resume"  ng-if="!CandidateDetailsCtrl.details.document_id" title="{{CandidateDetailsCtrl.details.resume_name}}">
+                                <span class="resume"
+                                 ng-if="!CandidateDetailsCtrl.details.document_id" title="{{CandidateDetailsCtrl.details.resume_name}}"
+                                 ng-class="{'disabled-element' : !CandidateDetailsCtrl.details.document_id}">
                                     <a class="download" style="cursor:default" href="javascript:void(0)"></a>
-                                    <md-button style="cursor:default" target="_blank">View Resume</md-button>
+                                    <md-button style="cursor:default" target="_blank" ng-disabled="!CandidateDetailsCtrl.details.document_id">View Resume</md-button>
                                 </span>
         					</div>
         					<div layout="column" class="details">
@@ -284,7 +293,7 @@
 
                                             <div class="attendees">
                                                 <!--placeholder value in css please check if you want to change -->
-                                                <md-chips ng-model="CandidateDetailsCtrl.schedule.attendees" md-autocomplete-snap
+                                                <md-chips ng-model="CandidateDetailsCtrl.schedule.attendees" required md-autocomplete-snap
                                                         md-require-match="true"
                                                         ng-class="{'active' : (!!CandidateDetailsCtrl.schedule.attendees.length || !!CandidateDetailsCtrl.searchText.length), 'attendees-required' : !CandidateDetailsCtrl.schedule.attendees.length && CandidateDetailsCtrl.submittedSchedule }"
                                                           >
@@ -385,6 +394,7 @@
                                                     <span class="msg">Sending Invitation</span>
                                                 </div>
                                                 <span class="msg response-msg" ng-bind="CandidateDetailsCtrl.responseMsgSchedule"></span>
+                                                <!-- <md-button class="md-primary" ng-click="CandidateDetailsCtrl.resetScheduleForm(schedule_form)">CANCEL</md-button> -->
                                                 <md-button class="md-raised invitation pull-right"  ng-click="CandidateDetailsCtrl.postSchedule(schedule_form)" ng-disabled="CandidateDetailsCtrl.inProgressSchedule">SEND INVITATION</md-button>
                                             </div>
                                         </div>
@@ -550,9 +560,9 @@
                                     </div>
                                 </uib-tab>
 
-                                <uib-tab class="link" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Link Candidate To Job" tooltip-placement="left">
+                                <uib-tab class="link" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Link Candidate To A Job" tooltip-placement="left">
                                     <div class="mm_down timeline_edit">
-                                        <h5 ng-click="CandidateDetailsCtrl.toogleTabs('showLinkTab')">LINK CANDIDATE TO JOB<i class="material-icons mm-arrow-spin" ng-class="{'rotate' : CandidateDetailsCtrl.showLinkTab}">keyboard_arrow_down</i></h5>
+                                        <h5 ng-click="CandidateDetailsCtrl.toogleTabs('showLinkTab')">LINK CANDIDATE TO A JOB<i class="material-icons mm-arrow-spin" ng-class="{'rotate' : CandidateDetailsCtrl.showLinkTab}">keyboard_arrow_down</i></h5>
                                         <div class="box" id="showLinkTab" style="border-bottom:1px solid #eaeaea">
                                             <div class="attendees tag-job">
                                                 <!--placeholder value in css please check if you want to change -->

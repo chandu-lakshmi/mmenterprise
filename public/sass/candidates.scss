@@ -293,6 +293,11 @@ $background : #eeeff1;
                     &.skill{background-position: 18px -68px}
                     &.edu{background-position: 14px -113px;}
                     .resume{position:absolute;right: 15px;top: 4px;
+                        &.disabled-element{opacity: 0.5;
+                          a.download {
+                            &:hover {opacity: 1;}
+                          }
+                        }
                         .md-button{margin: 1px 0;text-transform: capitalize;font-size: 16px;color: #4784a9;vertical-align: middle;}
                         a.download{background: url(../images/referrals.png) no-repeat 0% 94.6%;padding: 10px;cursor: pointer;
                             &:hover{opacity:0.7;};
@@ -409,6 +414,8 @@ $background : #eeeff1;
                                 input{box-shadow: none !important;cursor: pointer;
                                     &:focus{border-color: #208d6e}
                                 }
+                                .error-spacer{float: none;}
+                                .md-error-spacer{float: none;}
                                 .input-group-addon{width: inherit;position: absolute;right: -5px;top: 5px;background: transparent;border: 0;pointer-events: none}
                             }
                             .loc{
