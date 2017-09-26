@@ -32,7 +32,7 @@
     AllCampaignsController.$inject = ['$scope', '$http', '$window', '$q', '$mdDialog', 'App', 'CampaignDetails', 'campaignJobDetails'];
     TalentCommunityController.$inject = ['$scope', '$http', '$timeout', '$uibModalInstance', 'ReferralDetails', 'CampaignDetails', 'formJobOrCampagin', 'App'];
 
-    AssessmentController.$inject = ['$stateParams', '$mdDialog', '$scope', '$http', '$timeout', 'App', 'candidateDetails'];
+    AssessmentController.$inject = ['$state', '$stateParams', '$mdDialog', '$scope', '$http', '$timeout', 'App', 'candidateDetails'];
 
 
     function modalController($scope, $state, $stateParams, $uibModalInstance, App) {
@@ -1312,7 +1312,7 @@
 
     }
 
-    function AssessmentController($stateParams, $mdDialog, $scope, $http, $timeout, App, candidateDetails) {
+    function AssessmentController($state, $stateParams, $mdDialog, $scope, $http, $timeout, App, candidateDetails) {
 
             var vm = this;
             /*Form Viewer*/
