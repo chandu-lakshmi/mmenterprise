@@ -58,7 +58,7 @@
     .assessment .container-box .qst-label {
       color: #7b7d7c; }
     .assessment .container-box .tests-list .header .action {
-      width: 132px;
+      width: 186px;
       height: 40px;
       line-height: 40px;
       margin: 9px 0; }
@@ -95,7 +95,7 @@
     .assessment .container-box .create-test .section .footer {
       margin-bottom: 50px; }
       .assessment .container-box .create-test .section .footer .action {
-        width: 136px;
+        width: 186px;
         height: 44px;
         line-height: 44px; }
       .assessment .container-box .create-test .section .footer .cancel {

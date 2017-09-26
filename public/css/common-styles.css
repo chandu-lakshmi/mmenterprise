@@ -262,7 +262,7 @@ md-dialog.simple-dialog md-dialog-actions {
         transform: translate3d(-3px, -20px, 0) scale(0.85);
         font-weight: 900; }
     .mm-chip-list .md-chips:before {
-      content: 'ADD ASSESSMENT';
+      content: 'ADD ASSESSMENT TO CAMPAIGN';
       position: absolute;
       padding-left: 3px;
       -webkit-transform: translate3d(-3px, 18px, 0) scale(1);

@@ -34,14 +34,14 @@
 			enableSorting: true,
 			enableColumnMenus: false,
 			enableRowSelection: true,
-			enableRowHeaderSelection: true,
-			enableFullRowSelection: true,
+			enableRowHeaderSelection: false,
+			enableFullRowSelection: false,
 			data: [],
 			appScopeProvider: vm // bindin scope to grid
 		};
 
 		this.gridOptions.columnDefs = [
-			{ name: 'name', displayName: 'TEST NAME', cellTemplate: 'test-name.html', cellClass: 'test-name', width: '30%' },
+            { name: 'name', displayName: 'ASSESSMENT NAME', cellTemplate: 'test-name.html', cellClass: 'test-name', width: '30%' },
 			{ name: 'qcount', displayName: 'QUESTIONS', cellTemplate: '<div class="ui-grid-cell-contents duration"><img class="qst" src="public/images/qstn_list.png" /><span class="qst">{{ COL_FIELD }}</span></div>'},
 			{ name: 'max_duration', displayName: 'DURATION', cellTemplate: '<div class="ui-grid-cell-contents duration"><span class="qst">{{ COL_FIELD }}</span></div>'},
 			{ name: 'is_active', displayName: 'STATUS', cellTemplate: '<div class="ui-grid-cell-contents duration"><span class="qst">{{ COL_FIELD }}</span></div>'},
@@ -112,7 +112,7 @@
 		this.getSettingsInProgress    = false;
 
 		this.setTestName = function() {
-			this.testObj.exam_name = CompanyDetails.name + ' - ' + this.testObj.exam_type;
+            this.testObj.exam_name = CompanyDetails.name + ' - ' + this.testObj.exam_type + ' Assessment';
 			if (!vm.testObj.exam_type) {
 				this.testObj.exam_name = null;
 			}
