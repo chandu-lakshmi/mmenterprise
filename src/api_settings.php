@@ -462,6 +462,10 @@ return [
             'submit_assessment' =>[
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/submit_assessment'
+            ],
+            'get_screened_candidates' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_screened_candidates'
             ]
     ];
         

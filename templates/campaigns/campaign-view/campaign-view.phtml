@@ -1,12 +1,38 @@
 <div class="campaigns">
-	<div class="sub-header">
+	<div class="sub-header screen-cdt">
 		<div class="container">
-			<ul>
-				<li style="padding: 30px 0px 6px 0px"><a ui-sref="^.campaignView.editCampaign" ui-sref-active="active"></span><span class="text">CAMPAIGN DETAILS</span></a></li>
-				<li style="padding: 30px 0px 6px 0px"><a ui-sref="^.campaignView.allCandidates" ui-sref-active="active"></span><span class="text">ALL CANDIDATES</span></a></li>
-            <li style="padding: 30px 0px 6px 0px"><a ui-sref="^.campaignView.screenedCandidates" ui-sref-active="active"><span class="text">SCREENED CANDIDATES</span></a></li>
-            <li></li>
-			</ul>
+         <div layout="column" class="mm-column">
+            <div layout="row">
+               <div flex="50">
+                  <div layout="column">
+                     <div layout="row">
+                        <h5 class="view-name">CAMPAIGN</h5>
+                     </div>
+                     <div layout="row">
+                        <a class="link" ui-sref="app.campaigns.allCampaigns"><img src="public/images/back-arrow.svg"> <span ng-bind="CampaignViewCtrl.campData.campaign_name"></span></a>
+                     </div>
+                     <div layout="row">
+                        <ul>
+                           <li style="padding: 30px 0px 6px 0px"><a ui-sref="^.campaignView.editCampaign" ui-sref-active="active"></span><span class="text">CAMPAIGN DETAILS</span></a></li>
+                           <li style="padding: 30px 0px 6px 0px"><a ui-sref="^.campaignView.allCandidates" ui-sref-active="active"></span><span class="text">ALL CANDIDATES</span></a></li>
+                           <li style="padding: 30px 0px 6px 0px"><a ui-sref="^.campaignView.screenedCandidates" ui-sref-active="active"><span class="text">SCREENED CANDIDATES</span></a></li>
+                           <li></li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+               <i flex></i>
+               <i class="material-icons share">share</i>
+               <div class="count">
+                  <h2>85</h2>
+                  <h5>All CANDIDATES</h5>
+               </div>
+               <div class="count">
+                  <h2>63</h2>
+                  <h5>SCREENED</h5>
+               </div>
+            </div>
+         </div>
 		</div>
 	</div>
 	<div ui-view class="animated fadeIn"></div>
