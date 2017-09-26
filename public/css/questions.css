@@ -7,6 +7,10 @@
     background: #fff; }
   .questions .container-box {
     width: 100%; }
+    .questions .container-box img.info {
+      margin-top: -4px;
+      width: 15px;
+      height: 15px; }
     .questions .container-box img.loader {
       position: absolute;
       background: rgba(14, 45, 63, 0.51);
@@ -21,7 +25,7 @@
       background: #f8fafb;
       border-bottom: 1px solid #eaebeb; }
       .questions .container-box .header .back {
-        padding: 18px 20px 0 0; }
+        padding: 21px 20px 0 0; }
       .questions .container-box .header .title {
         margin: 0;
         line-height: 60px;
@@ -68,6 +72,15 @@
     .questions .container-box .questions-list .section .grid {
       width: 100%;
       height: calc(100vh - 340px) !important; }
+      .questions .container-box .questions-list .section .grid .ui-grid-pinned-container .ui-grid-header .ui-grid-all-selected:after {
+        top: 17px; }
+      .questions .container-box .questions-list .section .grid .ui-grid-header .ui-grid-top-panel {
+        border-bottom: 1px solid #c8d1d0;
+        z-index: 1; }
+      .questions .container-box .questions-list .section .grid .ui-grid-header .ui-grid-selection-row-header-buttons {
+        margin-top: 10px; }
+      .questions .container-box .questions-list .section .grid .ui-grid-header .ui-grid-top-panel .ui-grid-header-cell-row .ui-grid-header-cell div[role='columnheader'] .ui-grid-cell-contents {
+        line-height: 42px; }
       .questions .container-box .questions-list .section .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell {
         line-height: 60px; }
       .questions .container-box .questions-list .section .grid .ui-grid-viewport .action-view a {
@@ -77,7 +90,7 @@
         border: 1px solid #d4d4d4;
         color: #989898;
         position: relative;
-        margin-left: 0; }
+        margin: 12px 8px 6px 0; }
         .questions .container-box .questions-list .section .grid .ui-grid-viewport .action-view .add-qst span {
           position: absolute;
           z-index: 33;

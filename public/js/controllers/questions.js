@@ -57,11 +57,6 @@
 			vm.gridApi = gridApi;
 		}
 
-		this.pageChanged = function(pageNo) {
-			vm.grid.pageNo = pageNo;
-			getQuestionList();
-		}
-
 		this.deleteQuestion = function (id) {
 
 			$uibModal.open({
@@ -86,37 +81,38 @@
 			})
 		}
 
+        this.getQuestionList = function () {
+
+            var apiKeys = $.param({ page_no: vm.grid.pageNo });
+            vm.grid.inProgress = true;
+
+            $http({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'POST',
+                data: apiKeys,
+                url: App.base_url + 'get_questions_list',
+            })
+            .then(function (response) {
+                if (response.data.status_code == 200) {
+                    vm.gridOptions.data = response.data.data.questions_list;
+                }
+                else if (response.data.status_code == 403) {
+                    vm.gridOptions.data = [];
+                    vm.grid.responseMsg = response.data.message.msg[0];
+                }
+                else if (response.data.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+                vm.grid.inProgress = false;
+                vm.grid.totalRecords = response.data.data.total_records;
+            });
+        }
+
+
 		function init() {
-			getQuestionList();
-		}
-
-		function getQuestionList() {
-
-			var apiKeys = $.param({ page_no:vm.grid.pageNo });
-			vm.grid.inProgress = true;
-
-			$http({
-				headers: {
-					'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-				},
-				method: 'POST',
-				data: apiKeys,
-				url: App.base_url + 'get_questions_list',
-			})
-			.then(function (response) {
-				if (response.data.status_code == 200) {
-					vm.gridOptions.data = response.data.data;
-				}
-				else if (response.data.status_code == 403) {
-					vm.gridOptions.data = [];
-					vm.grid.responseMsg = response.data.message.msg[0];
-				}
-				else if (response.data.status_code == 400) {
-					$window.location = App.base_url + 'logout';
-				}
-				vm.grid.inProgress   = false;
-				vm.grid.totalRecords = vm.gridOptions.data.length;
-			});
+			vm.getQuestionList();
 		}
 
 		function deleteQeustionCallback(response) {
@@ -481,8 +477,9 @@
 			vm.prevSelectedQuestions.push(row.entity.question_id);
 
 			var apiKeys = $.param({ 
-				exam_id     : examId, 
-				question_id : row.entity.question_id
+                exam_id     : examId,
+				question_id : row.entity.question_id,
+                question_value : row.entity.question_value
 			});
 
 			$http({
@@ -514,46 +511,46 @@
 			}, 1000); */
 		}
 
+        this.getQuestionList = function () {
+
+            var apiKeys = $.param({ page_no: vm.grid.pageNo });
+
+            vm.grid.inProgress = true;
+
+            $http({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'POST',
+                data: apiKeys,
+                url: App.base_url + 'get_questions_list',
+            })
+            .then(function (response) {
+                if (response.data.status_code == 200) {
+                    vm.gridOptions.data = response.data.data.questions_list;
+                }
+                else if (response.data.status_code == 403) {
+                    vm.gridOptions.data = [];
+                    vm.grid.responseMsg = response.data.message.msg[0];
+                }
+                else if (response.data.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+                vm.grid.inProgress = false;
+                vm.grid.totalRecords = response.data.data.total_records;
+            });
+        }
+
+
 		function init() {
 
-			getQuestionList();
+			vm.getQuestionList();
 
 			vm.prevSelectedQuestions = [];
 			angular.forEach(vm.testDetails.exam_question_list, function (question) {
 				vm.prevSelectedQuestions.push(question.question_id);
 			});
 		}
-
-		function getQuestionList() {
-
-			var apiKeys = $.param({ page_no: vm.grid.pageNo});
-			
-			vm.grid.inProgress = true;
-
-			$http({
-				headers: {
-					'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-				},
-				method: 'POST',
-				data: apiKeys,
-				url: App.base_url + 'get_questions_list',
-			})
-			.then(function (response) {
-				if (response.data.status_code == 200) {
-					vm.gridOptions.data = response.data.data;
-				}
-				else if (response.data.status_code == 403) {
-					vm.gridOptions.data = [];
-					vm.grid.responseMsg = response.data.message.msg[0];
-				}
-				else if (response.data.status_code == 400) {
-					$window.location = App.base_url + 'logout';
-				}
-				vm.grid.inProgress = false;
-				vm.grid.totalRecords = vm.gridOptions.data.length;
-			});
-		}
-
 
 		if (!vm.testDetails) {
 			$state.go('app.campaigns.EditTest', { id: examId });

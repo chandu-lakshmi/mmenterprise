@@ -306,7 +306,9 @@ md-dialog.simple-dialog md-dialog-actions {
     .mm-chip-list md-chip .md-chip-content strong {
       font-weight: normal;
       color: #797979;
-      font-size: 14px; }
+      font-size: 14px;
+      max-width: 306px;
+      display: inline-block; }
     .mm-chip-list md-chip .md-chip-remove-container {
       position: absolute;
       top: -1px;

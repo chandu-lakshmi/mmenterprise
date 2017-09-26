@@ -2,7 +2,7 @@
 	<div layout="column" class="container-box">
 		<div class="mm-spinner" ng-if="CreateQuestionCtrl.qestionViewEditInProgress">
 			<div>
-					<img src="public/images/loader/spin.gif" alt="loading">
+				<img src="public/images/loader/spin.gif" alt="loading">
 			</div>
 		</div>
 
@@ -13,8 +13,11 @@
 					<div layout="row" ng-if="CreateQuestionCtrl.examDetails.exam_id">
 						<a ui-sref="app.campaigns.EditTest({id: CreateQuestionCtrl.examDetails.exam_id})"><img class="back" src="public/images/back.png" alt="back"></a>
 						<h4 class="title" flex ng-bind="CreateQuestionCtrl.examDetails.exam_name"></h4>
+               </div>
+               <div layout="row" ng-if="!CreateQuestionCtrl.examDetails.exam_id">
+						<a ui-sref="app.campaigns.QuestionsList"><img class="back" src="public/images/back.png" alt="back"></a>
+                  <h4 class="title" ng-if="!CreateQuestionCtrl.examDetails.exam_id" ng-bind="CreateQuestionCtrl.textMode"></h4>
 					</div>
-					<h4 class="title" ng-if="!CreateQuestionCtrl.examDetails.exam_id" ng-bind="CreateQuestionCtrl.textMode"></h4>
 				</div>
 			</div>
 
@@ -59,7 +62,12 @@
 								</md-input-container>
 							</div>
 							
-							<span class="qst-label" style="margin-top: 30px">Tags</span>
+							<span class="qst-label" style="margin-top: 30px">Tags
+                        <img src="public/images/info.svg"  
+                           tooltip-class="mm-slide-l-r tabs-tooltip mm-width" 
+                           uib-tooltip="Add tags for better search and organization." 
+                           tooltip-placement="right" class="info">
+                     </span>
 							<div layout="row" class="tags">
 								<md-chips flex ng-model="CreateQuestionCtrl.questionObj.libraries" md-autocomplete-snap
 											md-require-match="true" 

@@ -44,7 +44,7 @@
 									</div>
 									<div layout="row">
 										<md-input-container flex class="md-block full-box">
-											<span class="qst-label">Test Name </span>
+											<span class="qst-label">Assessment Name </span>
 											<!-- <label>Test Name</label> -->
 											<input type="text" name="exam_name" readonly ng-model="CreateTestCtrl.testObj.exam_name" style="background: #f0f0f0" aria-label="exam_name">
 										</md-input-container>
@@ -80,7 +80,7 @@
 					<div layout="row" class="footer" ng-if="CreateTestCtrl.testId">
 						<i flex></i>
 							<md-button ui-sref="app.campaigns.EditTest({id: CreateTestCtrl.testId})" class="cancel">Cancel</md-button>
-							<md-button class="md-raised action" ng-disabled="CreateTestCtrl.postCreateTestInProgress" ng-click="CreateTestCtrl.postCreateTest(createTestForm)">EDIT ASSESSMENT
+							<md-button class="md-raised action" ng-disabled="CreateTestCtrl.postCreateTestInProgress" ng-click="CreateTestCtrl.postCreateTest(createTestForm)">UPDATE ASSESSMENT
 								<img class="loader-dot" ng-if="CreateTestCtrl.postCreateTestInProgress" src="public/images/loader/dot.svg" alt="loading">
 							</md-button>
 						<i flex></i>

@@ -34,8 +34,8 @@
 			enableSorting: true,
 			enableColumnMenus: false,
 			enableRowSelection: true,
-			enableRowHeaderSelection: false,
-			enableFullRowSelection: false,
+			enableRowHeaderSelection: true,
+			enableFullRowSelection: true,
 			data: [],
 			appScopeProvider: vm // bindin scope to grid
 		};
@@ -43,9 +43,9 @@
 		this.gridOptions.columnDefs = [
             { name: 'name', displayName: 'ASSESSMENT NAME', cellTemplate: 'test-name.html', cellClass: 'test-name', width: '30%' },
 			{ name: 'qcount', displayName: 'QUESTIONS', cellTemplate: '<div class="ui-grid-cell-contents duration"><img class="qst" src="public/images/qstn_list.png" /><span class="qst">{{ COL_FIELD }}</span></div>'},
-			{ name: 'max_duration', displayName: 'DURATION', cellTemplate: '<div class="ui-grid-cell-contents duration"><span class="qst">{{ COL_FIELD }}</span></div>'},
-			{ name: 'is_active', displayName: 'STATUS', cellTemplate: '<div class="ui-grid-cell-contents duration"><span class="qst">{{ COL_FIELD }}</span></div>'},
-			{ name: 'created_by', displayName: 'CREATED BY', cellTemplate: '<div class="ui-grid-cell-contents duration"><span class="qst">{{ COL_FIELD }}</span></div>'},
+            { name: 'max_duration', displayName: 'DURATION', cellTemplate: '<div class="ui-grid-cell-contents duration"><img class="qst" src="public/images/time-f.svg" /><span class="qst">{{ COL_FIELD }}</span></div>'},
+            { name: 'is_active', displayName: 'STATUS', cellTemplate: '<div class="ui-grid-cell-contents duration"><span class="qst"><i class="dot {{COL_FIELD}}"></i>{{ COL_FIELD }}</span></div>'},
+            { name: 'created_by', displayName: 'CREATED BY', cellTemplate: '<div class="ui-grid-cell-contents duration"><img class="qst" src="public/images/User.svg" /><span class="qst">{{ COL_FIELD }}</span></div>'},
 			{ name: 'created_at', displayName: 'DATE', cellTemplate: '<div class="ui-grid-cell-contents duration"><span class="qst">{{ COL_FIELD }}</span></div>'}
 		];
 
@@ -61,39 +61,40 @@
 			vm.gridApi = gridApi;
 		}
 
+        this.getTestList =  function () {
+
+            var apiKeys = $.param({ page_no: vm.grid.pageNo });
+            vm.grid.inProgress = true;
+
+            $http({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'POST',
+                data: apiKeys,
+                url: App.base_url + 'get_company_assessments_all',
+            })
+            .then(function (response) {
+                if (response.data.status_code == 200) {
+                    vm.gridOptions.data = response.data.data.assessments_list;
+                }
+                else if (response.data.status_code == 403) {
+                    vm.gridOptions.data = [];
+                    vm.grid.responseMsg = response.data.message.msg[0];
+                }
+                else if (response.data.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+                vm.grid.inProgress = false;
+                vm.grid.totalRecords = response.data.data.total_records;
+            });
+        }
+
 
 		function init() {
-			getTestList();
+			vm.getTestList();
 		}
 
-		function getTestList() {
-
-			var apiKeys = $.param({ page_no: vm.grid.pageNo });
-			vm.grid.inProgress = true;
-
-			$http({
-				headers: {
-					'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-				},
-				method: 'POST',
-				data: apiKeys,
-				url: App.base_url + 'get_company_assessments_all',
-			})
-				.then(function (response) {
-					if (response.data.status_code == 200) {
-						vm.gridOptions.data = response.data.data;
-					}
-					else if (response.data.status_code == 403) {
-						vm.gridOptions.data = [];
-						vm.grid.responseMsg = response.data.message.msg[0];
-					}
-					else if (response.data.status_code == 400) {
-						$window.location = App.base_url + 'logout';
-					}
-					vm.grid.inProgress = false;
-					vm.grid.totalRecords = vm.gridOptions.data.length;
-				});
-		}
 
 		init();
 

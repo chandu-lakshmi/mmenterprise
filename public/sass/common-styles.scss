@@ -130,7 +130,7 @@ md-dialog.simple-dialog{
     md-progress-linear{display: none} 
     md-chip{background: rgba(204, 204, 204, 0.1);color: rgb(66,66,66);cursor: default;height: 32px;margin: 8px 8px 0 0;padding: 0 24px 0 12px;line-height: 30px;float: left;border: 1px solid #aaa;position: relative;border-radius:4px;
         .md-chip-content{
-            strong{font-weight: normal;color: #797979; font-size: 14px}
+            strong{font-weight: normal;color: #797979; font-size: 14px;max-width: 306px;display: inline-block;}
         }
         .md-chip-remove-container{position: absolute;top: -1px;right: 0;
             button{border: 0;background: transparent;

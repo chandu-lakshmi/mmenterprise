@@ -14,7 +14,7 @@
 			<div class="section container" layout="row" style="clear:both">
 				<div id="grid" ui-grid="TestsListCtrl.gridOptions" class="grid" ui-grid-selection>
 					
-					<div class="grid-msg-overlay" ng-if="TestsListCtrl.grid.inProgress">
+					<div class="grid-msg-overlay" ng-if="TestsListCtrl.grid.inProgress"  style="margin-top: 8px">
 						<div class="msg">
 							<span>
 								<img src="public/images/loader/spin.gif" alt="loader" width="18%">
@@ -34,7 +34,7 @@
 			<div class="container">
 				<div class="footer clearfix" layout="row">
 					<div class="paging col-sm-4 col-sm-offset-4 text-center">
-						<ul uib-pagination total-items="TestsListCtrl.grid.totalRecords" ng-model="TestsListCtrl.pageNumber" max-size="3" direction-links="false" force-ellipses="true" ng-change="TestsListCtrl.pageChanged(TestsListCtrl.pageNumber)" boundary-link-numbers="true" rotate="false"></ul>
+						<ul uib-pagination total-items="TestsListCtrl.grid.totalRecords" ng-model="TestsListCtrl.grid.pageNo" max-size="3" direction-links="false" force-ellipses="true" ng-change="TestsListCtrl.getTestList()" boundary-link-numbers="true" rotate="false"></ul>
 					</div>
 				</div>
 			</div>

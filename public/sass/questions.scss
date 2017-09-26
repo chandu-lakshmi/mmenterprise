@@ -1,10 +1,11 @@
 .questions {min-height: calc(100vh - 160px);font-size: 16px;background: #f8fafb;position: relative;
     &.test{background: #fff}
     .container-box{width: 100%;
-		//common
+        //common
+        img.info {margin-top: -4px;width: 15px;height: 15px;}
 		img.loader{position: absolute;background: rgba(14, 45, 63, 0.51);width: 154px;height: 44px;z-index: 9;top: 0;left: 0;}
         .header{height: 60px;color: #4a4a4a;background: #f8fafb;border-bottom: 1px solid #eaebeb;
-            .back{padding: 18px 20px 0 0}
+            .back{padding: 21px 20px 0 0}
             .title{margin: 0;line-height: 60px;color: #4a4a4a}
             .container{height:inherit;
                 div[layout="row"]{height: inherit}
@@ -45,13 +46,31 @@
             }
             .section{
                 .grid{width: 100%;height: calc(100vh - 340px) !important;
+                    .ui-grid-pinned-container{
+                        .ui-grid-header{
+                            .ui-grid-all-selected:after{top: 17px;}
+                        } 
+                    } 
+                    .ui-grid-header{
+                        .ui-grid-top-panel{border-bottom: 1px solid #c8d1d0;z-index: 1}
+                        .ui-grid-selection-row-header-buttons{margin-top: 10px}
+                        .ui-grid-top-panel{
+                            .ui-grid-header-cell-row{
+                                .ui-grid-header-cell{
+                                    div[role='columnheader']{
+                                        .ui-grid-cell-contents{line-height: 42px;}
+                                    } 
+                                } 
+                            } 
+                        } 
+                    } 
                     .ui-grid-viewport{
 						.ui-grid-row{
 							.ui-grid-cell{line-height: 60px}
 						}
 						.action-view{
 							a{padding: 8px 16px 8px 0;margin: 0 4px}
-							.add-qst{border: 1px solid #d4d4d4;color: #989898;position:relative;margin-left: 0;
+							.add-qst{border: 1px solid #d4d4d4;color: #989898;position:relative;margin: 12px 8px 6px 0;
 								span {position: absolute;z-index: 33;left: 0;width: 100%;top: 0;}   
 							}
 						}
