@@ -31,17 +31,17 @@
         								<h5 class="name">CANDIDATE NAME</h5>
                                         <md-menu class="talent" md-position-mode="target-left target">
                                             <md-button ng-click="$mdOpenMenu($event)">
-                                               <span>{{CandidateDetailsCtrl.details.candidate_status.status_name || 'New Talent'}} 
+                                               <span>{{CandidateDetailsCtrl.details.candidate_status.status_name || 'New Talent'}}
                                                     <i class="material-icons">&#xE313;</i>
-                                               </span> 
+                                               </span>
                                             </md-button>
                                             <md-menu-content width="3" class="talent-menu">
                                                 <span class="title">Choose Status</span>
-                                                <md-menu-item ng-repeat="newTalent in CandidateDetailsCtrl.newTalentList"> 
-                                                    <md-button 
+                                                <md-menu-item ng-repeat="newTalent in CandidateDetailsCtrl.newTalentList">
+                                                    <md-button
                                                         ng-style="{background : CandidateDetailsCtrl.tempGetColor(newTalent.label, CandidateDetailsCtrl.details.candidate_status.status_name)}"
-                                                        ng-click="CandidateDetailsCtrl.postPersonalStatus(newTalent)" 
-                                                        ng-bind="newTalent.label" 
+                                                        ng-click="CandidateDetailsCtrl.postPersonalStatus(newTalent)"
+                                                        ng-bind="newTalent.label"
                                                         aria-label="{{newTalent.label}}">
                                                     </md-button>
                                                 </md-menu-item>
@@ -56,38 +56,38 @@
         							<div flex="50" class="list">
         								<h5>MOBILE</h5>
         								<span ng-bind="CandidateDetailsCtrl.details.phone" class="bolder"></span>
-                                        <i ng-if="!CandidateDetailsCtrl.details.phone">--</i>  	
+                                        <i ng-if="!CandidateDetailsCtrl.details.phone">--</i>
         							</div>
         							<div flex class="list">
         								<h5>EMAIL</h5>
-        								<span ng-bind="CandidateDetailsCtrl.details.emailid" class="bolder"></span>		
+        								<span ng-bind="CandidateDetailsCtrl.details.emailid" class="bolder"></span>
         							</div>
-        						</div>	
+        						</div>
         						<div layout="row">
         							<div flex="50" class="list">
         								<h5>CITY/LOCATION</h5>
         								<span ng-bind="CandidateDetailsCtrl.details.location"></span>
-                                        <span ng-if="!CandidateDetailsCtrl.details.location">Not Available</span>     		
+                                        <span ng-if="!CandidateDetailsCtrl.details.location">Not Available</span>
         							</div>
         							<div flex class="list">
         								<h5>SOCIAL CONNECT</h5>
-        								<social-sharing data-opts="CandidateDetailsCtrl.socialMedia" style="margin-top:10px;" data-path="templates/components"></social-sharing>	
+        								<social-sharing data-opts="CandidateDetailsCtrl.socialMedia" style="margin-top:10px;" data-path="templates/components"></social-sharing>
         							</div>
-        						</div>	
+        						</div>
 
         						<div layout="row">
         							<div flex="50" class="list">
         								<h5>APPLIED FOR</h5>
         								<span class="bolder current-job">{{CandidateDetailsCtrl.details.referred_job}}, <i class="info">{{CandidateDetailsCtrl.details.referred_at}}</i></span>
                                         <div class="other-job" ng-repeat="ref in CandidateDetailsCtrl.referralsList | filter: { reference_id : '!'+CandidateDetailsCtrl.referralId }">
-                                            <span class="bolder">{{ref.post_name}}, 
+                                            <span class="bolder">{{ref.post_name}},
                                                 <i class="info" ng-bind="ref.referred_date"></i>
-                                            </span>    
-                                        </div>		
+                                            </span>
+                                        </div>
         							</div>
         							<div flex class="list">
-        								<h5>REFERRED BY</h5>	
-        								<span ng-if="CandidateDetailsCtrl.details.referred_by" class="bolder" ng-bind="CandidateDetailsCtrl.details.referred_by"></span>		
+        								<h5>REFERRED BY</h5>
+        								<span ng-if="CandidateDetailsCtrl.details.referred_by" class="bolder" ng-bind="CandidateDetailsCtrl.details.referred_by"></span>
                                         <span ng-if="!CandidateDetailsCtrl.details.referred_by">--</span>
         							</div>
         						</div>
@@ -106,7 +106,7 @@
                                                 md-no-cache = "true"
                                                 ng-disabled="!CandidateDetailsCtrl.enableTagChips"
                                                 md-menu-class="autocomplete-attendees-template"
-                                                md-input-id = "tagJob" 
+                                                md-input-id = "tagJob"
                                                 md-min-length="2"
                                                 placeholder = "Enter Tag"
                                               >
@@ -141,25 +141,25 @@
         								<h5>CURRENT COMPANY</h5>
         								<span ng-bind="CandidateDetailsCtrl.details.current_company_name"></span>
         								<span class="info" ng-bind="CandidateDetailsCtrl.details.current_company_details"></span><br>
-        								<span class="info" ng-bind="CandidateDetailsCtrl.details.current_company_location"></span>			
+        								<span class="info" ng-bind="CandidateDetailsCtrl.details.current_company_location"></span>
         							</div>
         							<div flex class="list">
         								<h5>JOB/POSITION</h5>
-        								<span ng-bind="CandidateDetailsCtrl.details.current_company_position"></span>	
+        								<span ng-bind="CandidateDetailsCtrl.details.current_company_position"></span>
         							</div>
-        						</div>	
+        						</div>
         						<div layout="row" ng-if="CandidateDetailsCtrl.details.previous_company_name">
         							<div flex="50" class="list">
         								<h5>PREV COMPANY</h5>
-        								<span ng-bind="CandidateDetailsCtrl.details.previous_company_name"></span>	
+        								<span ng-bind="CandidateDetailsCtrl.details.previous_company_name"></span>
         								<span class="info" ng-bind="CandidateDetailsCtrl.details.previous_company_details"></span><br>
-        								<span class="info" ng-bind="CandidateDetailsCtrl.details.previous_company_location"></span>		
+        								<span class="info" ng-bind="CandidateDetailsCtrl.details.previous_company_location"></span>
         							</div>
         							<div flex class="list">
         								<h5>JOB/POSITION</h5>
-        								<span ng-bind="CandidateDetailsCtrl.details.previous_company_position"></span>		
+        								<span ng-bind="CandidateDetailsCtrl.details.previous_company_position"></span>
         							</div>
-        						</div>	
+        						</div>
         					</div>
         				</md-card>
 
@@ -184,13 +184,13 @@
         						<div layout="row" ng-if="CandidateDetailsCtrl.details.qualification">
 		    						<div class="list">
 										<h5>Qualification</h5>
-										<span ng-bind="CandidateDetailsCtrl.details.qualification"></span>		
+										<span ng-bind="CandidateDetailsCtrl.details.qualification"></span>
 									</div>
         						</div>
         						<div layout="row" ng-if="CandidateDetailsCtrl.details.certification">
 		    						<div class="list">
 										<h5>Certification</h5>
-										<span ng-bind="CandidateDetailsCtrl.details.certification"></span>		
+										<span ng-bind="CandidateDetailsCtrl.details.certification"></span>
 									</div>
         						</div>
         					</div>
@@ -205,10 +205,10 @@
                                    <i class="material-icons">&#xE313;</i>
                                    <img class="loader" ng-if="CandidateDetailsCtrl.inProgressUpdateReferralStatus" src="public/images/loader/dot.svg" alt="loading">
                                 </md-button>
-                                
+
                                 <md-menu-content width="3" class="talent-menu">
                                     <md-menu-item ng-repeat="status in CandidateDetailsCtrl.referralStatusList">
-                                       <md-button aria-label="status" ng-bind="status" 
+                                       <md-button aria-label="status" ng-bind="status"
                                        ng-style="{background : CandidateDetailsCtrl.tempGetColor(status, CandidateDetailsCtrl.details.referral_status)}" ng-click="CandidateDetailsCtrl.changeReferralStatus(status)"></md-button>
                                     </md-menu-item>
                                 </md-menu-content>
@@ -226,14 +226,15 @@
                                                     </div>
                                                     <div class="rt">
                                                         <p ng-bind-html="list.activity_message"></p>
-                                                        {{list.activity_by}}, 
+                                                        {{list.activity_by}}
+                                                        <span class="dot time">·</span>
                                                         <span class="time"> {{list.activity_on.indexOf('hour') > -1 ? 'about ' : ''}} {{list.activity_on}}</span>
                                                     </div>
                                                 </div>
                                                 <div ng-if="!CandidateDetailsCtrl.candidateActivitiesList.length" ng-bind="CandidateDetailsCtrl.responseMsgActivities" class="no-records animated fadeIn"></div>
-                                            </div>  
+                                            </div>
                                         </div>
-                                    </div>                      
+                                    </div>
                                 </uib-tab>
 
                                 <uib-tab class="comment" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Comment" tooltip-placement="left">
@@ -249,7 +250,7 @@
                                                 <span class="msg response-msg" ng-bind="CandidateDetailsCtrl.responseMsgPostComment"></span>
                                                 <md-button class="md-raised add pull-right" ng-click="CandidateDetailsCtrl.postComments()" ng-disabled="CandidateDetailsCtrl.inProgressPostComment || !CandidateDetailsCtrl.comment.length">Add Comment</md-button>
                                             </div>
-                                        </div> 
+                                        </div>
                                         <div class="timeline-container">
                                             <div layout="column">
                                                 <div layout="row" class="list" ng-repeat="list in CandidateDetailsCtrl.candidateCommentsList">
@@ -263,7 +264,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>  
+                                    </div>
                                 </uib-tab>
 
                                 <uib-tab class="schedule" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Schedule Interview" tooltip-placement="left">
@@ -274,17 +275,17 @@
                                         <div class="box" id="showScheduleTab" >
                                             <md-input-container class="md-block select-box">
                                                 <label style="display:none">SCHEDULE FOR *</label>
-                                                <md-select name="schedule_for" ng-model="CandidateDetailsCtrl.schedule.schedule_for" required ng-class="{'has-error-border': schedule_form.schedule_for.$invalid && CandidateDetailsCtrl.submittedSchedule}">
+                                                <md-select name="schedule_for" ng-model="CandidateDetailsCtrl.schedule.schedule_for" required ng-class="{'has-error-border': schedule_form.schedule_for.$invalid && CandidateDetailsCtrl.submittedSchedule}" data-md-container-class="schedule-for">
                                                     <md-option ng-repeat="list in CandidateDetailsCtrl.scheduleForList" ng-value="list">{{list}}</md-option>
                                                 </md-select>
                                                 <div class="error-spacer"></div>
                                                 <div ng-if="schedule_form.schedule_for.$error.required && CandidateDetailsCtrl.submittedSchedule"  class="has-error-msg">Please select Schedule For.</div>
                                             </md-input-container>
-                                            
+
                                             <div class="attendees">
                                                 <!--placeholder value in css please check if you want to change -->
                                                 <md-chips ng-model="CandidateDetailsCtrl.schedule.attendees" md-autocomplete-snap
-                                                        md-require-match="true" 
+                                                        md-require-match="true"
                                                         ng-class="{'active' : (!!CandidateDetailsCtrl.schedule.attendees.length || !!CandidateDetailsCtrl.searchText.length), 'attendees-required' : !CandidateDetailsCtrl.schedule.attendees.length && CandidateDetailsCtrl.submittedSchedule }"
                                                           >
                                                     <md-autocomplete
@@ -371,8 +372,8 @@
                                                 <div class="error-spacer"></div>
                                                 <div ng-if="schedule_form.interview_location.$error.required && CandidateDetailsCtrl.submittedSchedule"  class="has-error-msg">Please select Location.</div>
                                             </md-input-container>
-                                            
-                                            
+
+
                                             <div class="notes">
                                                 <span>NOTES</span>
                                                 <textarea rows="4" name="notes" ng-model="CandidateDetailsCtrl.schedule.notes"  maxlength="500"></textarea>
@@ -405,7 +406,8 @@
                                                                     <i class="material-icons mm-arrow-spin" ng-class="{'rotate' : !status.isCustomHeaderOpen}">keyboard_arrow_down</i>
                                                                 </div>
                                                                 <div layout="row" class="to">
-                                                                    by <b>&nbsp;{{list.created_by}},&nbsp;</b>
+                                                                    by <b>&nbsp;{{list.created_by}}&nbsp;</b>
+                                                                    <span class="dot time">·</span>
                                                                     <span class="time" ng-bind="list.created_at"></span>
                                                                 </div>
                                                             </div>
@@ -451,7 +453,7 @@
                                                     </ul>
                                                   </div>
                                               </div>
-                                            </div>  
+                                            </div>
                                         </uib-accordion>
                                     </div>
                                 </uib-tab>
@@ -466,10 +468,10 @@
                                                         <label>TO</label>
                                                         <input type="text" class="small-font" name="to" readonly ng-model="CandidateDetailsCtrl.writeMail.to">
                                                     </md-input-container>
-                                                    
+
                                                     <md-input-container class="md-block select-box">
                                                         <label style="display:none">SUBJECT *</label>
-                                                        <md-select name="subject_id" ng-model="CandidateDetailsCtrl.writeMail.subjectId" md-on-close="CandidateDetailsCtrl.changeMailSubject()" ng-class="{'has-error-border': write_mail_form.subject_id.$invalid && CandidateDetailsCtrl.submittedPostMail}" required>
+                                                        <md-select name="subject_id" ng-model="CandidateDetailsCtrl.writeMail.subjectId" data-md-container-class="email-subject" md-on-close="CandidateDetailsCtrl.changeMailSubject()" ng-class="{'has-error-border': write_mail_form.subject_id.$invalid && CandidateDetailsCtrl.submittedPostMail}" required>
                                                             <md-option ng-repeat="list in CandidateDetailsCtrl.writeMailSubjectList" ng-value="list.id">{{list.subject}}</md-option>
                                                         </md-select>
                                                         <div class="error-spacer"></div>
@@ -510,22 +512,23 @@
                                                             <div class="clear-fix">
                                                                 <div layout="column">
                                                                     <div layout="row">
-                                                                        <span class="head" ng-bind="list.subject">Application to EPI</span>
+                                                                        <span class="head" ng-bind="list.subject" title="{{list.subject}}">Application to EPI</span>
                                                                          <i flex></i>
+                                                                         <!-- <span class="dot time">·</span> -->
                                                                         <span class="time" ng-bind="list.created_at">5 hours ago</span>
                                                                         <i class="material-icons mm-arrow-spin" ng-class="{'rotate' : !status.isCustomHeaderOpen}">keyboard_arrow_down</i>
                                                                     </div>
                                                                     <div layout="row" class="to">
-                                                                        <b 
+                                                                        <b
                                                                             tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="{{list.from_emailid}}" tooltip-placement="right"
                                                                             >
-                                                                            <span>From:</span> 
+                                                                            <span>From:</span>
                                                                             <span class="ellipsis trunk">{{list.from_name}}</span>
                                                                         </b>
                                                                         <i flex></i>
-                                                                        <span class="to-mail" 
+                                                                        <span class="to-mail"
                                                                             tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="{{list.to_emailid}}" tooltip-placement="left"
-                                                                            ><span>To:</span> 
+                                                                            ><span>To:</span>
                                                                             <span class="ellipsis trunk">{{list.to_name}}</span>
                                                                         </span>
                                                                     </div>
@@ -541,10 +544,10 @@
                                                         <p ng-bind-html="list.body"></p>
                                                       </div>
                                                   </div>
-                                                </div>  
+                                                </div>
                                             </uib-accordion>
                                         </div>
-                                    </div>  
+                                    </div>
                                 </uib-tab>
 
                                 <uib-tab class="link" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Link Candidate To Job" tooltip-placement="left">
@@ -601,7 +604,7 @@
                                                     </div>
                                                     <div class="rt">
                                                         <p>Linked to {{list.post_name}}</p>
-                                                        <p class="text">by {{list.referred_by}} 
+                                                        <p class="text">by {{list.referred_by}}
                                                             <span class="dot time">&middot;</span>
                                                             <span class="time">{{list.referred_on}}</span>
                                                         </p>
@@ -609,7 +612,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>  
+                                    </div>
                                 </uib-tab>
 
                                 <uib-tab class="arrow" disable="true" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Assigned Jobs" tooltip-placement="left">
@@ -618,14 +621,14 @@
                                            <md-button ng-click="$mdOpenMenu($event)">
                                               <span>
                                                    <i class="material-icons">&#xE313;</i>
-                                              </span> 
+                                              </span>
                                            </md-button>
                                            <md-menu-content width="3" class="talent-menu">
                                                <span class="title">Assigned Jobs</span>
-                                               <md-menu-item ng-repeat="referral in CandidateDetailsCtrl.referralsList"> 
+                                               <md-menu-item ng-repeat="referral in CandidateDetailsCtrl.referralsList">
                                                    <md-button ng-style="{background : (referral.reference_id == CandidateDetailsCtrl.referralId) ? 'rgba(158,158,158,0.2)' : '' }"
-                                                       ng-click="CandidateDetailsCtrl.changeReferral(referral)" 
-                                                       ng-bind="referral.post_name" 
+                                                       ng-click="CandidateDetailsCtrl.changeReferral(referral)"
+                                                       ng-bind="referral.post_name"
                                                        aria-label="{{referral.reference_id}}">
                                                    </md-button>
                                                </md-menu-item>
@@ -634,7 +637,7 @@
                                     </uib-tab-heading>
                                 </uib-tab>
 
-                            </uib-tabset>            
+                            </uib-tabset>
                         </md-card>
         			</div>
         		</div>

@@ -28,7 +28,7 @@
         var vm = this, canceler,
                 gridApiCall = App.base_url + 'get_company_all_referrals';
 
-        // Multiple Select Search header 
+        // Multiple Select Search header
         /*$element.find('input').on('keydown', function(ev) {
          ev.stopPropagation();
          });*/
@@ -106,11 +106,11 @@
                 }
             },
             {name: 'referred_by_name', displayName: 'REFERRED BY', headerTooltip: 'Referred By', cellTemplate : 'referred-details.html'},
-            {name: 'service_name', displayName: 'JOB/POSITION', headerTooltip: 'Job/Position'},
+            {name: 'service_name', displayName: 'JOB/POSITION', headerTooltip: 'Job/Position', cellTemplate : 'job-details.html'},
             {name: 'resume_name', displayName: 'RESUME', headerTooltip: 'RESUME',
                 cellTemplate: 'download-resume.html'
             },
-            {name: 'created_at', displayName: 'DATE', headerTooltip: 'DATE'},
+            {name: 'created_at', displayName: 'DATE', headerTooltip: 'DATE', cellTemplate : 'date-details.html'},
             {name: 'one_way_status', displayName: 'STATUS', headerTooltip: 'Status', cellTemplate: 'status-change.html', width: '14%'}
         ]
 
@@ -208,7 +208,7 @@
                             catch(err) {
                                 console.log("error in scroll");
                             }
-                            
+
                         }
                         else if (response.data.status_code == 403) {
                             vm.noCandidates = true;
@@ -240,14 +240,14 @@
          if(!filterIds.length){
          return;
          }
-         
+
          if(canceler){
          canceler.resolve();
          }
-         
+
          vm.loader = true;
          canceler = $q.defer();
-         
+
          $http({
          headers: {
          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -341,10 +341,10 @@
 
 
     function UploadResumeController($rootScope, $scope, $http, $timeout, $window, $uibModal, App) {
-        /*Note filesInQueue object status( 
-         1->qqUploading--valid file(progressbar(blue), crossMark) 
-         2-> s3Uploading--apiTriggering(progressbar(blue), loadingspinner), 
-         3->s3Uploaded--sucesss(serverMessage , deleteIcon) 
+        /*Note filesInQueue object status(
+         1->qqUploading--valid file(progressbar(blue), crossMark)
+         2-> s3Uploading--apiTriggering(progressbar(blue), loadingspinner),
+         3->s3Uploaded--sucesss(serverMessage , deleteIcon)
          4->failed(progressbar(red), crossMark);
          */
         var vm = this;
@@ -710,7 +710,7 @@
 
 
     function CandidateDetailsController($scope, $state, $http, $q, $timeout, $window, $stateParams, $uibModal, $mdToast, CONFIG, CompanyDetails, App) {
-        
+
         var vm = this,
                 cancelerAttendees,
                 cancelerTagJobs,
@@ -721,15 +721,15 @@
                 apiKeyType    = $stateParams.type,
                 candidateId   = $stateParams.id,
                 activitiesType = {
-                    candidate_emails    : "mail.png", 
+                    candidate_emails    : "mail.png",
                     candidate_status    : "pending.png",
-                    candidate_comments  : "comment.png", 
+                    candidate_comments  : "comment.png",
                     candidate_link_job  : "link.png",
-                    candidate_schedules : "schedule.png" 
+                    candidate_schedules : "schedule.png"
                 },
                 apiKeyCandidateDetails = { contact_id:candidateId };
 
-        
+
         vm.newTalentList      = [{ label:'New Talent'}, { label:'Great Fit' }, { label:'Good Fit' }, { label:'Not Suitable' }, { label:'Employed' }];
         vm.referralStatusList = ["New", "Reviewed", "Shortlisted", "Scheduled for Interview", "Not Suitable", "Selected", "Offered", "Offer Accepted", "On Hold", "Offer Rejected", "Confirmed to Join", "Hired", "Not Joined", "Joined"];
         vm.scheduleForList    = ["Face to Face", "Online Meeting", "Telephone"];
@@ -747,7 +747,7 @@
         vm.inProgressSchedule  = false;
         vm.submittedSchedule   = false;
         vm.responseMsgSchedule = null;
-        
+
         vm.selectedTagJobs    = [];
         vm.inProgressJobsList = false;
         vm.inProgressTagJobs  = false;
@@ -755,7 +755,7 @@
         vm.responseMsgTagJobs = null;
 
         vm.inProgressPostComment  = false;
-        vm.responseMsgPostComment = null;   
+        vm.responseMsgPostComment = null;
 
         vm.writeMail           = {};
         vm.inProgressPostMail  = false;
@@ -771,15 +771,15 @@
         vm.showLinkTab     = true;
 
         vm.querySearchAttendees = function(searchText) {
-            
+
             if (prevSearchValue != searchText) {
                 if (cancelerAttendees) {
                     cancelerAttendees.resolve();
                 }
-                
+
                 cancelerAttendees      = $q.defer();
                 vm.inProgressAttendees = true;
-                
+
                 return $http({
                     headers : {
                         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -790,7 +790,7 @@
                     timeout : cancelerAttendees.promise
                 })
                 .then(function (response) {
-                    prevSearchValue        = searchText; 
+                    prevSearchValue        = searchText;
                     vm.inProgressAttendees = false;
                     return response.data.data;
                 })
@@ -798,25 +798,25 @@
                 prevSearchValue = null;
                 return setTimeout(function(){});
             }
-            
+
         }
 
         vm.querySearchTagJobs = function(searchText) {
-            
+
             if (prevSearchValueJobs != searchText) {
                 if (cancelerTagJobs) {
                     cancelerTagJobs.resolve();
                 }
-                
+
                 var apiKeys = $.param({
-                        reference_id : candidateId, 
+                        reference_id : candidateId,
                         candidate_id : vm.details.candidate_id,
                         search : searchText,
                     });
 
                 cancelerTagJobs       = $q.defer();
                 vm.inProgressJobsList = true;
-                
+
                 return $http({
                     headers : {
                         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -827,7 +827,7 @@
                     timeout : cancelerTagJobs.promise
                 })
                 .then(function (response) {
-                    prevSearchValueJobs        = searchText; 
+                    prevSearchValueJobs        = searchText;
                     vm.inProgressJobsList = false;
                     return response.data.data;
                 })
@@ -835,7 +835,7 @@
                 prevSearchValueJobs = null;
                 return setTimeout(function(){});
             }
-            
+
         }
 
         vm.querySearchAddTag = function(searchText) {
@@ -843,10 +843,10 @@
                 if (cancelerAddTag) {
                     cancelerAddTag.resolve();
                 }
-                
+
                 cancelerAddTag = $q.defer();
                 vm.inProgressSearchTagJobs = true;
-                
+
                 return $http({
                     headers : {
                         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -857,7 +857,7 @@
                     timeout : cancelerAddTag.promise
                 })
                 .then(function (response) {
-                    prevSearchValueAddTag      = searchText; 
+                    prevSearchValueAddTag      = searchText;
                     vm.inProgressSearchTagJobs = false;
                     return response.data.data;
                 })
@@ -865,11 +865,11 @@
                 prevSearchValueAddTag = null;
                 return setTimeout(function(){});
             }
-            
+
         }
 
         vm.changeMailSubject = function() {
-            
+
             angular.forEach(vm.writeMailSubjectList, function(list) {
                 if(list.id == vm.writeMail.subjectId) {
                     vm.writeMail.body = list.body;
@@ -884,7 +884,7 @@
             vm.submittedSchedule = true;
 
             if(form.$valid) {
-                
+
                 var tempSelectedAttendee = [];
                 angular.forEach(vm.schedule.attendees, function(attendee){
                     tempSelectedAttendee.push(attendee.emailid);
@@ -900,7 +900,7 @@
                     },
                     method  : 'POST',
                     url     : App.base_url + 'add_candidate_schedule',
-                    data    : apiKeys   
+                    data    : apiKeys
                 })
                 .then(function (response) {
 
@@ -929,7 +929,7 @@
         vm.postComments = function(form) {
 
             var apiKeys = $.param({
-                    reference_id : candidateId, 
+                    reference_id : candidateId,
                     comment : vm.comment,
                     candidate_id : vm.details.candidate_id
                 });
@@ -942,7 +942,7 @@
                 },
                 method  : 'POST',
                 url     : App.base_url + 'add_candidate_comment',
-                data    : apiKeys   
+                data    : apiKeys
             })
             .then(function (response) {
 
@@ -969,7 +969,7 @@
             vm.submittedPostMail = true;
 
             if(form.$valid) {
-                
+
                 var apiKeys = $("form[name='write_mail_form']").serialize() + '&' + $.param({reference_id : candidateId, candidate_id : vm.details.candidate_id, email_subject : vm.writeMail.email_subject });
 
                 vm.inProgressPostMail  = true;
@@ -980,7 +980,7 @@
                     },
                     method  : 'POST',
                     url     : App.base_url + 'add_candidate_email',
-                    data    : apiKeys   
+                    data    : apiKeys
                 })
                 .then(function (response) {
 
@@ -1010,7 +1010,7 @@
             vm.submittedTagJobs = true;
 
             if(vm.selectedTagJobs.length) {
-                
+
                 var tempJobIds = [];
                 angular.forEach(vm.selectedTagJobs, function(attendee){
                     tempJobIds.push(attendee.post_id);
@@ -1026,7 +1026,7 @@
                     },
                     method  : 'POST',
                     url     : App.base_url + 'add_candidate_tag_jobs',
-                    data    : apiKeys   
+                    data    : apiKeys
                 })
                 .then(function (response) {
                     if (response.data.status_code == 200) {
@@ -1060,13 +1060,13 @@
         }
 
         vm.postPersonalStatus = function(talent) {
-             
-            vm.details.candidate_status.status_name = talent.label; 
+
+            vm.details.candidate_status.status_name = talent.label;
 
             var updatedInfo = '<md-toast class="mm-toast"><div class="md-toast-text" flex><i class="material-icons">done</i><div class="text"><div class="toast-succ">Success!</div><div class="succ-text">Status updated successfully</div></div></div></md-toast>',
                 apiKeys = $.param({
-                reference_id : candidateId, 
-                candidate_id : vm.details.candidate_id, 
+                reference_id : candidateId,
+                candidate_id : vm.details.candidate_id,
                 status_name  : talent.label
             });
 
@@ -1076,7 +1076,7 @@
                 },
                 method  : 'POST',
                 url     : App.base_url + 'add_candidate_personal_status',
-                data    : apiKeys   
+                data    : apiKeys
             })
             .then(function (response) {
 
@@ -1096,13 +1096,13 @@
         }
 
         vm.changeReferral = function(ref) {
-            
+
             if(ref.reference_id != candidateId) {
 
                 $state.transitionTo( 'app.candidates.details',
                     { type:'cdt', id : ref.reference_id },
                     { location: true, inherit: true, relative: $state.$current, notify: false }
-                ); 
+                );
 
                 apiKeyType    = $stateParams.type;
                 candidateId   = ref.reference_id;
@@ -1131,13 +1131,13 @@
 
                 vm.enableTagChips  = false;
 
-                init(); 
+                init();
             }
 
         }
 
         vm.getActivityPic = function(activity) {
-            
+
             return "public/images/" + activitiesType[activity.activity_type];
 
         }
@@ -1185,7 +1185,7 @@
                     scope: $scope
                 });
             } else{
-                vm.postReferralStatus(false);   
+                vm.postReferralStatus(false);
             }
 
         }
@@ -1200,7 +1200,7 @@
 
             var updatedInfo = '<md-toast class="mm-toast"><div class="md-toast-text" flex><i class="material-icons">done</i><div class="text"><div class="toast-succ">Success!</div><div class="succ-text">Status updated successfully</div></div></div></md-toast>',
                 apiKeys = $.param({
-                    reference_id    : candidateId, 
+                    reference_id    : candidateId,
                     candidate_id    : vm.details.candidate_id,
                     referral_status : tempReferralStatus,
                     referral_msg    : vm.referralStatusComment
@@ -1231,7 +1231,7 @@
                     $timeout(function(){
                         if(referralStatusDialog)
                             referralStatusDialog.close();
-                        vm.responseMsgReferralStatus = null;    
+                        vm.responseMsgReferralStatus = null;
                     });
                 }
                 else if (response.data.status_code == 400) {
@@ -1267,7 +1267,7 @@
 
             var updatedInfo = '<md-toast class="mm-toast"><div class="md-toast-text" flex><i class="material-icons">done</i><div class="text"><div class="toast-succ">Success!</div><div class="succ-text">Tag updated successfully</div></div></div></md-toast>',
                 apiKeys = $.param({
-                    reference_id : candidateId, 
+                    reference_id : candidateId,
                     candidate_id : vm.details.candidate_id,
                     id : removedChip.id
                 });
@@ -1312,15 +1312,15 @@
         function init() {
 
             getCandidateDetails().then(function () {
-                
+
                 vm.inProgressCandidateDetails = false;
                 vm.hasChangeReferral = false;
 
                 vm.writeMail.to   = vm.details.emailid;
                 vm.viewResume     = App.base_url + 'viewer?url=' + vm.details.resume_path;
                 vm.downloadResume = App.API_DOMAIN + "getResumeDownload?company_id=" + CompanyDetails.company_code + "&doc_id=" + vm.details.document_id;
-                
-                getDropdownList();    
+
+                getDropdownList();
 
             });
 
@@ -1331,10 +1331,10 @@
 
             if(apiKeyType == 'ref') {
                 apiKeyCandidateDetails = { candidate_id : candidateId };
-            } 
+            }
             else if(apiKeyType == 'cdt') {
                 apiKeyCandidateDetails = { reference_id : candidateId };
-            } 
+            }
 
             var candidateDetails = $http({
                 headers : {
@@ -1355,7 +1355,7 @@
             });
 
             return $q.all([candidateDetails, candidateActivities]).then(function (data) {
-                
+
                 vm.details                 =  angular.copy(data[0].data.data);
                 vm.candidateActivitiesList =  angular.copy(data[1].data.data);
                 if(!data[1].data.data.length) {
@@ -1478,7 +1478,7 @@
 
             var successInfo = '<md-toast class="mm-toast"><div class="md-toast-text" flex><i class="material-icons">done</i><div class="text"><div class="toast-succ">Success!</div><div class="succ-text">Tag added successfully</div></div></div></md-toast>',
                 apiKeys = $.param({
-                    reference_id : candidateId, 
+                    reference_id : candidateId,
                     candidate_id : vm.details.candidate_id,
                     tag_id       : selectedTag.tag_id,
                     tag_name     : selectedTag.tag_name
@@ -1495,7 +1495,7 @@
             .then(function (response) {
 
                 if (response.data.status_code == 200) {
-                    vm.details.candidate_tags.push(response.data.data); 
+                    vm.details.candidate_tags.push(response.data.data);
                     $mdToast.show({
                        hideDelay: 3000,
                        position: 'top right',
@@ -1537,7 +1537,7 @@
 
             $('#search').on('keydown', function(ev) {
                 if(ev.which != 40 && ev.which != 38){
-                    ev.stopPropagation();   
+                    ev.stopPropagation();
                 }
             });
 
@@ -1549,7 +1549,7 @@
                 referralStatusDialog.close();
         })
 
-        
+
         init();
 
 
