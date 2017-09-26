@@ -390,12 +390,12 @@
 				if (response.data.status_code == 200) {
 
 					if (btnFrom == "goList") {
-						addQuestionExam(response.data.data.id, "EditTest");
+						addQuestionExam(response.data.data, "EditTest");
 					} else {
 						vm.postQuestionSubmitted = false;
 						vm.postQuestionInProgressSave = false;
 						vm.postQuestionInProgressAdd = false;
-						addQuestionExam(response.data.data.id, "createAnother");
+						addQuestionExam(response.data.data, "createAnother");
 						vm.searchText = null;
 						vm.questionObj = angular.copy(vm.copyQuestionObj);
 					}
@@ -407,11 +407,12 @@
 			});
 		}
 		
-		function addQuestionExam(questionId, stateGo) {
-			
+		function addQuestionExam(question, stateGo) {
+            
 			var apiKeys = $.param({
 				exam_id: $stateParams.examId,
-				question_id: questionId
+                question_id: question.id,
+                question_value : question.question_value
 			});
 			
 			$http({
