@@ -293,7 +293,8 @@
 			});
 			angular.forEach(vm.testDetails.exam_question_list, function(element, index) {
 				if (response.data.id == element.exam_question_id) {
-					vm.testDetails.exam_question_list.splice(index, 1)
+                    vm.testDetails.exam_question_list.splice(index, 1);
+                    EditTestService.getData().exam_question_list.splice(index, 1);
 				}	
 			});				
 		}

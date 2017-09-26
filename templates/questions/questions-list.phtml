@@ -5,7 +5,8 @@
 				<div class="container">
 					<div layout="row" >
 						<h4 class="title">Questions</h4>
-						<i flex></i>
+                  <i flex></i>
+                  <md-button class="md-raised action delete-all mm-slide-left" ng-if="QuestionsListCtrl.selectedQuestions.length > 1" ng-click="QuestionsListCtrl.deleteQuestion()">DELETE</md-button>
 						<md-button ui-sref="app.campaigns.CreateQuestion({mode:'add', id:0})" class="md-raised action">CREATE QUESTION</md-button>
 					</div>
 				</div>

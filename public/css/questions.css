@@ -35,11 +35,20 @@
         .questions .container-box .header .container div[layout="row"] {
           height: inherit; }
     .questions .container-box .action {
-      background: #0fb89b;
+      background: #0fb89b !important;
       color: #fff;
       transition: all .5s ease; }
       .questions .container-box .action:hover {
         background: #359383; }
+      .questions .container-box .action.add-add-new, .questions .container-box .action.delete-all {
+        background: #7791a5 !important; }
+        .questions .container-box .action.add-add-new:hover, .questions .container-box .action.delete-all:hover {
+          background: #4b6477; }
+        .questions .container-box .action.add-add-new img.loader, .questions .container-box .action.delete-all img.loader {
+          width: 180px; }
+      .questions .container-box .action.delete-all {
+        margin-right: 10px !important;
+        width: 100px !important; }
     .questions .container-box md-input-container {
       margin: 0; }
       .questions .container-box md-input-container md-select-value {
@@ -193,12 +202,6 @@
       margin: 30px 0; }
       .questions .container-box .create-question .footer .action {
         padding: 4px 20px; }
-        .questions .container-box .create-question .footer .action.add-add-new {
-          background: #7791a5; }
-          .questions .container-box .create-question .footer .action.add-add-new:hover {
-            background: #4b6477; }
-          .questions .container-box .create-question .footer .action.add-add-new img.loader {
-            width: 180px; }
       .questions .container-box .create-question .footer .or {
         line-height: 56px;
         color: #777; }
