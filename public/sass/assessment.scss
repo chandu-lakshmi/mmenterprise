@@ -2,6 +2,7 @@
     &.test{background: #fff}
     .container-box{width: 100%;
         //common
+        img.info {margin-top: -4px;width: 15px;height: 15px;}
         img.loader-dot{position: absolute;background: rgba(14, 45, 63, 0.51);width: 138px;height: 44px;z-index: 9;top: 0;left: 0;}
         .header{height: 60px;color: #4a4a4a;background: #f8fafb;border-bottom: 1px solid #eaebeb;
             .back{padding: 20px 15px 20px 0px;}
@@ -139,7 +140,7 @@
                 
                 .copy-url{
                      md-input-container{margin:0}
-                    .btns {background: #95b0bd;position: relative;cursor: pointer;outline: none;margin: 24px -2px;height: 44px;width: 120px;text-align: center;line-height: 44px;color: #fff;transition: all .5s ease;
+                    .btns {background: #95b0bd;position: relative;cursor: pointer;outline: none;margin: 2px 24px -2px -4px;height: 44px;width: 120px;text-align: center;line-height: 44px;color: #fff;transition: all .5s ease;
                         &:hover{background: #7492a0}
                     }
                     .copied::after {position: absolute; width: 60px;line-height: 22px;top: 25%;height: 22px;right: 110%;display: block;content: "copied";font-size: 0.75em;color: #fff;background-color: #22a;border-radius: 3px;opacity: 0;will-change: opacity, transform;animation: showcopied 1.5s ease;}
@@ -229,4 +230,8 @@
         }
 
     }
+}
+
+.mm-width {
+    width: 500px;
 }

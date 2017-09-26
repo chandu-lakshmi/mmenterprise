@@ -451,8 +451,8 @@
 			enableSorting: true,
 			enableColumnMenus: false,
 			enableRowSelection: true,
-			enableRowHeaderSelection: true,
-			enableFullRowSelection: true,
+			enableRowHeaderSelection: false,
+			enableFullRowSelection: false,
 			data: [],
 			appScopeProvider: vm // bindin scope to grid
 		};
@@ -460,7 +460,7 @@
 			{ name: 'question', displayName: 'QUESTIONS', width: '52%' },
 			{ name: 'question_type', displayName: 'TYPE' },
 			{ name: 'question_value', displayName: 'SCORE', width: '10%' },
-			{ name: 'question_id', displayName: 'ACTIONS', width: '15%', cellTemplate: 'action.html', cellClass: 'action-view' }
+			{ name: 'question_id', displayName: 'ACTION', width: '15%', cellTemplate: 'action.html', cellClass: 'action-view' }
 		];
 
 		this.gridOptions.onRegisterApi = function (gridApi) {

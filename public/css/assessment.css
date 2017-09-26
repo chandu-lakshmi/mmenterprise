@@ -6,6 +6,10 @@
     background: #fff; }
   .assessment .container-box {
     width: 100%; }
+    .assessment .container-box img.info {
+      margin-top: -4px;
+      width: 15px;
+      height: 15px; }
     .assessment .container-box img.loader-dot {
       position: absolute;
       background: rgba(14, 45, 63, 0.51);
@@ -204,7 +208,7 @@
       position: relative;
       cursor: pointer;
       outline: none;
-      margin: 24px -2px;
+      margin: 2px 24px -2px -4px;
       height: 44px;
       width: 120px;
       text-align: center;
@@ -332,5 +336,8 @@
       display: inline-block;
       height: 16px;
       line-height: 16px; }
+
+.mm-width {
+  width: 500px; }
 
 /*# sourceMappingURL=assessment.css.map */

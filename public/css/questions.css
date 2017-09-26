@@ -76,7 +76,8 @@
       .questions .container-box .questions-list .section .grid .ui-grid-viewport .action-view .add-qst {
         border: 1px solid #d4d4d4;
         color: #989898;
-        position: relative; }
+        position: relative;
+        margin-left: 0; }
         .questions .container-box .questions-list .section .grid .ui-grid-viewport .action-view .add-qst span {
           position: absolute;
           z-index: 33;

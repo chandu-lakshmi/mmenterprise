@@ -34,7 +34,7 @@
 										<i flex="5"></i>
 										<md-input-container flex class="md-block select-box">
 											<span class="qst-label">Work Experience *</span>
-											<label style="display:none">Please Select</label>
+											<label style="display:none !important">Please Select</label>
 											<md-select name="work_experience" ng-model="CreateTestCtrl.testObj.work_experience" required>
 												<md-option ng-repeat="type in CreateTestCtrl.experienceList" ng-value="type.experience_id">{{type.experience_name}}</md-option>
 											</md-select>
