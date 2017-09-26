@@ -206,8 +206,6 @@
 
         $window.scrollTo(0, 0);
 
-
-
         var vm = this,
                 canceler,
                 page_no     = 1,
@@ -585,6 +583,11 @@
         vm.showJobDetails  = true;
         vm.invalidFile     = false;
         vm.status = $location.search().flag;
+        vm.enableTestMode = false;
+
+        if (candidateDetails.hasOwnProperty('assessment_id') && !!candidateDetails.assessment_id){
+            vm.enableTestMode  = true;
+        }
 
         $("#can-mobile").intlTelInput({
             preferredCountries : ['us', 'in', 'gb'],
@@ -681,7 +684,11 @@
                         }
                         else if($stateParams.refrel != 0 && $stateParams.jc == 1) {
                             setTimeout(function () {
-                                $state.go('allCampaigns.all', {ref: App.camp_ref, share_status: $stateParams.share_status});
+                                if (vm.enableTestMode) {
+                                    $state.go('candidateAssessment', { ref: App.camp_ref, share_status: $stateParams.share_status });
+                                } else{
+                                    $state.go('allCampaigns.all', {ref: App.camp_ref, share_status: $stateParams.share_status});
+                                }
                             }, 1000);
                         }
                         else if($stateParams.jc == 0){
@@ -1350,7 +1357,7 @@
                 .then(function (response) {
 
                     if (response.data.status_code == 200) {
-                        console.log(response);
+                        $state.go('allCampaigns.all', { ref: App.camp_ref, share_status: $stateParams.share_status });
                     } else if (response.data.status_code == 400) {
                         $window.location = App.base_url + 'logout';
                     }
