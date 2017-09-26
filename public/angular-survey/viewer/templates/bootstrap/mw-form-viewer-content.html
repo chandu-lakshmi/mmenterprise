@@ -4,14 +4,15 @@
         <div class="mw-title-page" ng-if="!ctrl.currentPage && !ctrl.formSubmitted">
 
             <div class="mw-form-description">
-                <div ng-if="!ctrl.formData.isPasswordProtected" class="password-detection">
+                <p>Please give your information, we look forward to staying connected with you.</p>
+                <!-- <div ng-if="!ctrl.formData.isPasswordProtected" class="password-detection">
                   <md-input-container class="md-block" style="margin-bottom:0">
                     <label for="mmq_pass">PASSWORD*</label>
                     <input type="password" id="mmq_pass" name="mmq_pass" ng-model="ctrl.attend_exam.mmq_pass" required ng-class="{'has-error-border':attend_exam.mmq_pass.$invalid && ctrl.login_show_error}">
                     <div ng-if="attend_exam.mmq_pass.$error.required && homeCtrl.login_show_error" class="has-error-msg">Please enter Password.</div>
                     <div ng-if="attend_exam.mmq_pass.$error && ctrl.login_show_error" class="has-error-msg">Please enter password.</div>
-                </md-input-container>
-                </div>
+                    </md-input-container>
+                </div> -->
                 {{ctrl.formData.description}}
             </div>
 
