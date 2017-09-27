@@ -927,6 +927,7 @@
 
         vm.resetScheduleForm = function(form) {
           console.log(form);
+          // form.$setPristine();
         }
 
         vm.postComments = function(form) {
