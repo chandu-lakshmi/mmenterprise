@@ -75,6 +75,13 @@
         }
 
 		this.deleteQuestion = function (id) {
+            var textMsgSecond = "delete Question ?",
+                questionIds   = [id];
+
+            if(!id) {
+                textMsgSecond = "delete selected Questions?";
+                questionIds   = vm.selectedQuestions;
+            }
 
 			$uibModal.open({
 				animation: false,
@@ -86,8 +93,8 @@
 					paramsMdService: function () {
 						return {
 							firstMsg: 'Are you sure you want to ',
-                            secondMsg: id ? 'delete Question?' : 'delete selected Questions?',
-                            params: { question_id: id ? id : vm.selectedQuestions },
+                            secondMsg: textMsgSecond,
+                            params: { question_id: questionIds},
 							apiEndPoint: 'delete_question',
 							callback: deleteQeustionCallback
 						};

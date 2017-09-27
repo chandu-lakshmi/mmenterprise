@@ -108,6 +108,7 @@
             }
             .section{background: #f8f9fb;color: #343434;border:1px solid #dde4e7;border-right:0;border-left:0;
                 .meta-data{
+                    .ellipsis{margin-right: 15px}
                     .title{color: #748187;display:block;font-size: 13px}
                 }
             }
@@ -124,8 +125,8 @@
                 }
                 .or{line-height: 56px;color:#777} 
             }
-            .grid-view{border: 1px solid #dde4e7;border-top: 0;margin-bottom: 34px;
-                .head{padding: 4px 12px;color: #757982;font-size: 13px;}
+            .grid-view{border: 1px solid #dde4e7;border-top: 0;margin-bottom: 25px;
+                .head{padding: 14px 12px;color: #757982;font-size: 13px;}
                 .list-container{height: calc(100vh - 448px);overflow: auto;min-height: 300px;
                     .list{height: 65px;line-height: 65px;padding-left: 10px;border-bottom:1px solid #dde4e7;color: #798193;
                         .qst{color: #5a616b;font-weight: 600}

@@ -19,13 +19,13 @@
 			<div class="section md-padding">
 				<div class="container">
 					<div layout="row" class="meta-data">
-						<div flex="30">
+						<div flex="30" class="ellipsis">
 							<span class="title">Role for the Assessment</span>
-							<span ng-bind="EditTestCtrl.testDetails.exam_type"></span>
+							<span ng-bind="EditTestCtrl.testDetails.exam_type" title="{{EditTestCtrl.testDetails.exam_type}}"></span>
 						</div>
-						<div flex="30">
+						<div flex="30" class="ellipsis">
 							<span class="title">Assessment Name</span>
-							<span ng-bind="EditTestCtrl.testDetails.exam_name"></span>
+							<span ng-bind="EditTestCtrl.testDetails.exam_name" title="{{EditTestCtrl.testDetails.exam_name}}"></span>
 						</div>
 						<div flex="25">
 							<span class="title">Work Experience</span>

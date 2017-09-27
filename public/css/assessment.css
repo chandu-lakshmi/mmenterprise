@@ -134,6 +134,8 @@
       border: 1px solid #dde4e7;
       border-right: 0;
       border-left: 0; }
+      .assessment .container-box .edit-test .section .meta-data .ellipsis {
+        margin-right: 15px; }
       .assessment .container-box .edit-test .section .meta-data .title {
         color: #748187;
         display: block;
@@ -165,9 +167,9 @@
     .assessment .container-box .edit-test .grid-view {
       border: 1px solid #dde4e7;
       border-top: 0;
-      margin-bottom: 34px; }
+      margin-bottom: 25px; }
       .assessment .container-box .edit-test .grid-view .head {
-        padding: 4px 12px;
+        padding: 14px 12px;
         color: #757982;
         font-size: 13px; }
       .assessment .container-box .edit-test .grid-view .list-container {
