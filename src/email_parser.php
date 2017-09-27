@@ -515,3 +515,10 @@ $app->post('/submit_assessment',function ($request, $response, $args) use ($app)
      ));
      return checkJsonResult( $allJobs->loadCurl() );
 });
+
+$app->get('/email/candidate-assessment/{assessmentId}',function ($request, $response, $args) use ($app) {
+   // getting API endpoint from settings
+   $args = parserData($this->settings);    
+ 
+   return $this->email_renderer->render($response, 'index.phtml', $args);
+});
