@@ -346,7 +346,6 @@
 					reminder_emails    : vm.settingsObj.reminder_emails,
 					confirmation_email : vm.settingsObj.confirmationMail,
 					shuffle_questions  : vm.settingsObj.shuffle_questions,
-					disclaimer         : vm.settingsObj.disclaimer,
 					password_protected : vm.settingsObj.password_protected
 				});
 
@@ -404,7 +403,8 @@
 				if (response.data.status_code == 200) {
 					vm.getSettingsInProgress = false;
 					var data = response.data.data;
-					vm.settingsObj = data;
+                    vm.settingsObj = data;
+                    vm.settingsObj.disclaimer = !data.disclaimer_text ? 0 : 1;
 					if (data.hasOwnProperty('start_date')) {
 						setTimeout(function () {
 							$('#start_date').data("DateTimePicker").minDate(new Date(data.start_date));
