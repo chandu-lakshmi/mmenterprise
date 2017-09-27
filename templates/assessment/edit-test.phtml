@@ -1,0 +1,83 @@
+<div class="assessment test">
+	<div class="mm-spinner" ng-if="EditTestCtrl.getTestDetailsInProgress">
+		<div>
+			<img src="public/images/loader/spin.gif" alt="loading">
+		</div>
+	</div>
+	<div layout="column" class="container-box" ng-show="!EditTestCtrl.getTestDetailsInProgress">
+		<div class="edit-test">
+			<div class="header">
+				<div class="container">
+					<div layout="row">
+						<a ui-sref="app.campaigns.TestsList"><img class="back" src="public/images/back.png" alt="back"></a>
+						<h4 class="title" flex ng-bind="EditTestCtrl.testDetails.exam_name"></h4>
+						<md-button ui-sref="app.campaigns.TestSettings({id:EditTestCtrl.testDetails.exam_id})" class="md-raised action">SETTINGS</md-button>
+						<md-button ui-sref="app.campaigns.CreateTest({examId:EditTestCtrl.testDetails.exam_id})" class="md-raised action">EDIT</md-button>
+					</div>
+				</div>
+			</div>
+			<div class="section md-padding">
+				<div class="container">
+					<div layout="row" class="meta-data">
+						<div flex="30" class="ellipsis">
+							<span class="title">Role for the Assessment</span>
+							<span ng-bind="EditTestCtrl.testDetails.exam_type" title="{{EditTestCtrl.testDetails.exam_type}}"></span>
+						</div>
+						<div flex="30" class="ellipsis">
+							<span class="title">Assessment Name</span>
+							<span ng-bind="EditTestCtrl.testDetails.exam_name" title="{{EditTestCtrl.testDetails.exam_name}}"></span>
+						</div>
+						<div flex="25">
+							<span class="title">Work Experience</span>
+							<span ng-bind="EditTestCtrl.testDetails.experience_name"></span>
+						</div>
+						<div flex="15">
+							<span class="title">Duration (mins)</span>
+							<span ng-bind="EditTestCtrl.testDetails.max_duration"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="container" ng-if="EditTestCtrl.testDetails.exam_question_list.length">
+				<div class="grid-view ">
+					<div layout="row" class="head">
+						<div flex="50">QUESTIONS</div>
+						<div flex="20">TYPE</div>
+						<div flex="15">SCORE</div>
+						<div flex="15">ACTIONS</div>
+					</div>
+					<md-divider></md-divider>
+					<div class="list-container">
+						<div layout="row"  class="list" ng-repeat="list in EditTestCtrl.testDetails.exam_question_list">
+							<div flex="50" ng-bind="list.question" class="qst"></div>
+							<div flex="20" ng-bind="list.question_type"></div>
+							<div flex="15" ng-bind="list.question_value"></div>
+							<div flex="15" class="action-view">
+								<a ui-sref="app.campaigns.CreateQuestion({ mode:'view', id: list.question_id, examId: EditTestCtrl.testDetails.exam_id})"><img src="public/images/eye.png" alt="view"></a>
+								<a ng-click="EditTestCtrl.deleteQuestion(list.exam_question_id)"><img src="public/images/bin.png" alt="view"></a>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+
+			<div class="footer">
+				<div layout="row" class="success-msg" ng-if="!EditTestCtrl.testDetails.exam_question_list.length">
+					<h5 class="text-center" flex>
+						<span class="icon"><i class="material-icons">done</i></span>
+						Your assessment has been successfully created.
+					</h5>
+				</div>
+				<div layout="row">
+					<i flex></i>
+					<md-button ui-sref="app.campaigns.QuestionAdd({ examId: EditTestCtrl.testDetails.exam_id})" ng-click="EditTestCtrl.setServieData()" class="md-raised action">ADD QUESTIONS</md-button>
+					<span class="or"> or </span>
+					<md-button ui-sref="app.campaigns.CreateQuestion({ mode:'add', id: 0, examId: EditTestCtrl.testDetails.exam_id})" ng-click="EditTestCtrl.setServieData()" class="md-raised action create-new">CREATE NEW QUESTION</md-button>
+					<i flex></i>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

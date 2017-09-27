@@ -1,0 +1,22 @@
+<div layout="column">
+    <form name="referral_status"> 
+        <div layout="row" class="head">
+            <span flex>Write Your Comment</span>
+            <i class="material-icons" ng-click="$dismiss();CandidateDetailsCtrl.referralStatusComment=''">close</i>
+        </div>
+        <div layout="row" class="sec">
+            <textarea class="comment" placeholder="Enter Some Comment" name="comment" ng-model="CandidateDetailsCtrl.referralStatusComment" autocomplete="off">
+                
+            </textarea>
+        </div>
+        <div layout="row" class="foot">
+            <span ng-if="CandidateDetailsCtrl.inProgressDialog" class="loading">
+                <img src="public/images/loader/upload_file.gif" alt="loader" style="margin-top: 8px"> 
+                <span class="pull-right" style="margin: 14px 8px;">Changing Status</span>
+            </span>
+            <span style="color: #269c84;float: left;margin: 14px 0">{{CandidateDetailsCtrl.responseMsgReferralStatus}}</span>
+            <i flex></i>
+            <md-button class="md-raised" ng-click="CandidateDetailsCtrl.postReferralStatus(true)">SUBMIT</md-button>
+        </div>
+    </form>
+</div>

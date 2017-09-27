@@ -1,8 +1,5 @@
 angular.module('mwFormViewer', ['ngSanitize', 'ui.bootstrap','ng-sortable', 'pascalprecht.translate']);
 
-
-
-
 angular.module('mwFormViewer')
     .directive('mwPriorityList', function ($rootScope) {
 
@@ -114,7 +111,7 @@ angular.module('mwFormViewer')
 });
 
 
-angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function ($rootScope) {
+angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", "$timeout", "$state", "$stateParams", "$mdDialog", function ($rootScope, $timeout, $state, $stateParams, $mdDialog)  {
 
     return {
         replace: true,
@@ -133,11 +130,20 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
         templateUrl: $rootScope.$root.base_url + 'public/angular-survey/viewer/templates/bootstrap/mw-form-viewer.html',
         controllerAs: 'ctrl',
         bindToController: true,
-        controller: ["$timeout", "$interpolate", function($timeout, $interpolate){
-            var ctrl = this;
+        controller: ["$scope", "$timeout", "$interpolate", "$interval", "mmQuestionnaire",  function($scope, $timeout, $interpolate, $interval, mmQuestionnaire){
+
+            var ctrl = this,
+                intervalId;
             // Put initialization logic inside `$onInit()`
             // to make sure bindings have been initialized.
+
             ctrl.$onInit = function() {
+                ctrl.counter = 0;
+                if(ctrl.formData.max_duration) {
+                    ctrl.initialCountdown = ctrl.formData.max_duration*60;
+                }
+                ctrl.countdown = ctrl.initialCountdown;
+
                 ctrl.defaultOptions = {
                     nestedForm: false,
                     autoStart: false,
@@ -190,22 +196,66 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
                 }
             };
 
+            ctrl.timer = function(){
+                var startTime = new Date();
+                intervalId = $interval(function(){
+                    var actualTime = new Date();
+                    ctrl.counter = Math.floor((actualTime - startTime) / 1000);
+                    ctrl.countdown = ctrl.initialCountdown - ctrl.counter;
+                }, 1000);
+            };
+
+            $scope.$watch('ctrl.countdown', function(countdown){
+                if (countdown === 0){
+                    ctrl.stop();
+                }
+            });
+
+            ctrl.startTimer = function(){
+                ctrl.timer();
+            };
+
+            ctrl.stop = function() {
+                ctrl.timeUP();
+            };
+
+            ctrl.timeUP = function() {
+                ctrl.formSubmitted=true;
+                ctrl.submitStatus='TIME_UP';
+                ctrl.setCurrentPage(null);
+                $interval.cancel(intervalId);
+                mmQuestionnaire.setResponseData(null);
+                // return $timeout(function(){
+                //     ctrl.closeDialog();
+                // }, 3000);
+
+            }
+
             ctrl.submitForm = function(){
                 ctrl.formSubmitted=true;
-                ctrl.submitStatus='IN_PROGRESS';
+                ctrl.submitStatus='SUCCESS';
 
                 ctrl.setCurrentPage(null);
+                $interval.cancel(intervalId);
 
+                mmQuestionnaire.setResponseData(ctrl.mmqResponse);
 
-                var resultPromise = ctrl.onSubmit();
-                resultPromise.then(function(){
-                    ctrl.submitStatus='SUCCESS';
-                }).catch(function(){
-                    ctrl.submitStatus='ERROR';
-                });
+                // return $timeout(function() {
+                //     ctrl.closeDialog();
+                // }, 3000);
 
+                // var resultPromise = ctrl.onSubmit();
+                // resultPromise.then(function(){
+                //     ctrl.submitStatus='SUCCESS';
+                // }).catch(function(){
+                //     ctrl.submitStatus='ERROR';
+                // });
 
             };
+
+            ctrl.closeDialog = function(){
+                mmQuestionnaire.setResponseData(null);
+            }
 
             ctrl.setCurrentPage = function (page) {
                 ctrl.currentPage = page;
@@ -263,18 +313,35 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
                     var question = element.question;
                     if(question && !ctrl.responseData[question.id]){
                         ctrl.responseData[question.id]={};
+                        angular.extend(ctrl.responseData[question.id], {
+                          "exam_question_id": element.exam_question_id,
+                          "question_id": element.question.id,
+                          "question_type": (element.question.type == 'radio' ? 1 : 2)
+                        })
                     }
                 });
             };
+            if(ctrl.formData.isPasswordProtected) {
+              ctrl.isPasswordProtected = true;
+            } else {
+              ctrl.isPasswordProtected = false;
+            }
 
-            ctrl.beginResponse=function(){
+            $scope.$on("restartAssesment", function (event, args) {
+               if(args) {
+                 ctrl.$onInit();
+               }
+            });
 
+            ctrl.beginResponse = function(){
+                // password validation pending
                 if(ctrl.formData.pages.length>0){
                     ctrl.setCurrentPage(ctrl.formData.pages[0]);
+                    ctrl.startTimer();
                     $rootScope.$broadcast("mwForm.pageEvents.pageCurrentChanged",{currentPage:ctrl.currentPage});
                 }
             };
-            
+
             ctrl.resetPages = function(){
                 ctrl.prevPages=[];
 
@@ -286,7 +353,6 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
                 }
 
             };
-
 
             ctrl.goToPrevPage= function(){
                 var prevPage = ctrl.prevPages.pop();
@@ -313,12 +379,17 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
                 ctrl.buttons.nextPage.visible=!!ctrl.nextPage;
             };
 
+            ctrl.mmqResponse = {};
+            ctrl.mmqResponse.exam_question_list = {};
+            ctrl.answerList = [];
+
             ctrl.updateNextPageBasedOnPageElementAnswers = function (element) {
                 var question = element.question;
+
                 if (question && question.pageFlowModifier) {
                     question.offeredAnswers.forEach(function (answer) {
                         if (answer.pageFlow) {
-                            if(ctrl.responseData[question.id].selectedAnswer == answer.id){
+                            if(ctrl.responseData[question.id].question_ans == answer.id){
                                 if (answer.pageFlow.formSubmit) {
                                     ctrl.nextPage = null;
                                 } else if (answer.pageFlow.page) {
@@ -331,6 +402,13 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
             };
 
             ctrl.onResponseChanged = function(pageElement){
+
+                ctrl.mmqResponse = {
+                  "candidate_emailid": 'xyz@gmail.com',
+                  "exam_id": ctrl.formData.exam_id,
+                  "exam_question_list": ctrl.responseData
+                }
+
                 ctrl.setDefaultNextPage();
                 ctrl.updateNextPageBasedOnAllAnswers();
             };
@@ -360,13 +438,13 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
             if(ctrl.formStatus){
                 ctrl.formStatus.form = ctrl.form;
             }
-            
+
             scope.$on('mwForm.pageEvents.changePage', function(event,data){
                 if(typeof data.page !== "undefined" && data.page < ctrl.formData.pages.length){
                    ctrl.resetPages();
                    for(var i =0; i < data.page;i++){
                         ctrl.prevPages.push(ctrl.formData.pages[i]);
-                   } 
+                   }
                    var currenPge=ctrl.formData.pages[data.page];
                    ctrl.setCurrentPage(currenPge);
                    $rootScope.$broadcast("mwForm.pageEvents.pageCurrentChanged",{currentPage:currenPge});
@@ -379,6 +457,24 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
     };
 }]);
 
+angular.module('mwFormViewer').service('mmQuestionnaire', function($rootScope) {
+  var responseData = {};
+  this.getResponseData = function () {
+      return responseData;
+  }
+
+  this.setResponseData = function (response) {
+      responseData = response;
+      $rootScope.$broadcast("responseSubmitted", responseData);
+  }
+});
+
+/* Filters seconds to date-tie format - Using for MM-Questionnaire timer */
+angular.module('mwFormViewer').filter('secondsToDateTime', [function() {
+    return function(seconds) {
+        return new Date(1970, 0, 1).setSeconds(seconds);
+    };
+}]);
 
 angular.module('mwFormViewer').factory("FormQuestionId", function(){
     var id = 0;
@@ -407,15 +503,16 @@ angular.module('mwFormViewer').factory("FormQuestionId", function(){
         bindToController: true,
         controller: ["$timeout", "FormQuestionId", function($timeout,FormQuestionId){
             var ctrl = this;
-
             // Put initialization logic inside `$onInit()`
             // to make sure bindings have been initialized.
+
             this.$onInit = function() {
+
                 ctrl.id = FormQuestionId.next();
 
-                if(ctrl.question.type=='radio'){
-                    if(!ctrl.questionResponse.selectedAnswer){
-                        ctrl.questionResponse.selectedAnswer=null;
+                if(ctrl.question.type=='radio') {
+                    if(!ctrl.questionResponse.question_ans){
+                        ctrl.questionResponse.question_ans=null;
                     }
                     if(ctrl.questionResponse.other){
                         ctrl.isOtherAnswer=true;
@@ -423,7 +520,7 @@ angular.module('mwFormViewer').factory("FormQuestionId", function(){
 
                 }else if(ctrl.question.type=='checkbox'){
                     if(ctrl.questionResponse.selectedAnswers && ctrl.questionResponse.selectedAnswers.length){
-                        ctrl.selectedAnswer=true;
+                        ctrl.question_ans=true;
                     }else{
                         ctrl.questionResponse.selectedAnswers=[];
                     }
@@ -478,7 +575,7 @@ angular.module('mwFormViewer').factory("FormQuestionId", function(){
             ctrl.otherAnswerRadioChanged= function(){
                 console.log('otherAnswerRadioChanged');
                 if(ctrl.isOtherAnswer){
-                    ctrl.questionResponse.selectedAnswer=null;
+                    ctrl.questionResponse.question_ans=null;
                 }
                 ctrl.answerChanged();
             };
@@ -487,7 +584,7 @@ angular.module('mwFormViewer').factory("FormQuestionId", function(){
                 if(!ctrl.isOtherAnswer){
                     delete ctrl.questionResponse.other;
                 }
-                ctrl.selectedAnswer = ctrl.questionResponse.selectedAnswers.length||ctrl.isOtherAnswer ? true:null ;
+                ctrl.question_ans = ctrl.questionResponse.selectedAnswers.length||ctrl.isOtherAnswer ? true:null ;
                 ctrl.answerChanged();
             };
 
@@ -498,7 +595,7 @@ angular.module('mwFormViewer').factory("FormQuestionId", function(){
                 } else {
                     ctrl.questionResponse.selectedAnswers.splice(ctrl.questionResponse.selectedAnswers.indexOf(answer.id), 1);
                 }
-                ctrl.selectedAnswer = ctrl.questionResponse.selectedAnswers.length||ctrl.isOtherAnswer ? true:null ;
+                ctrl.question_ans = ctrl.questionResponse.selectedAnswers.length||ctrl.isOtherAnswer ? true:null ;
 
                 ctrl.answerChanged();
             };
@@ -541,8 +638,9 @@ angular.module('mwFormViewer')
         bindToController: true,
         controller: function(){
             var ctrl = this;
-
-
+            ctrl.beginResponse = function() {
+              $rootScope.$broadcast("restartAssesment", true);
+            }
         },
         link: function (scope, ele, attrs, mwFormViewer){
             var ctrl = scope.ctrl;

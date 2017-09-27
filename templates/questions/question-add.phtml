@@ -1,0 +1,56 @@
+<div class="questions">
+	<div layout="column" class="container-box">
+		<div class="questions-list">
+			<div class="header" style="border-color:transparent">
+				<div class="container">
+					<div layout="row" >
+						<div layout="row">
+							<a ui-sref="app.campaigns.EditTest({id: QuestionAddCtrl.testDetails.exam_id})"><img class="back" src="public/images/back.png" alt="back"></a>
+							<h4 class="title" flex ng-bind="QuestionAddCtrl.testDetails.exam_name"></h4>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="section container" layout="row" style="clear:both">
+				<div id="grid" ui-grid="QuestionAddCtrl.gridOptions" class="grid" ui-grid-selection>
+					
+					<div class="grid-msg-overlay" ng-if="QuestionAddCtrl.grid.inProgress">
+						<div class="msg">
+							<span>
+								<img src="public/images/loader/spin.gif" alt="loader" width="18%">
+							</span>
+						</div>
+					</div>
+
+					<div class="grid-msg-overlay" ng-if="!QuestionAddCtrl.gridOptions.data.length">
+						<div class="msg">
+							<span ng-bind="QuestionAddCtrl.grid.responseMsg"></span>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="container">
+				<div class="footer clearfix" layout="row">
+					<div class="paging col-sm-4 col-sm-offset-4 text-center">
+						<ul uib-pagination total-items="QuestionAddCtrl.grid.totalRecords" ng-model="QuestionAddCtrl.grid.pageNo" max-size="3" direction-links="false" force-ellipses="true" ng-change="QuestionAddCtrl.getQuestionList()" boundary-link-numbers="true" rotate="false"></ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<!-- Test Name -->
+<script type="text/ng-template" id="action.html">
+	<div class="ui-grid-cell-contents ui-grid-details">
+      <!-- <a class="name" ui-sref="app.campaigns.CreateQuestion({mode:'view', id:COL_FIELD})" ng-click="$event.stopPropagation()"><img src="public/images/eye.png" alt="view"></a>
+      <a class="name" ui-sref="app.campaigns.CreateQuestion({mode:'edit', id:COL_FIELD})" ng-click="$event.stopPropagation()"><img src="public/images/edit.png" alt="view"></a>
+		<a class="name" ng-click="grid.appScope.deleteQuestion(COL_FIELD);$event.stopPropagation()"><img src="public/images/bin.png" alt="view"></a> -->
+		<md-button class="add-qst" ng-disabled="grid.appScope.prevSelectedQuestions.indexOf(row.entity.question_id) == -1 ? false : true" ng-click="grid.appScope.addQuestion(row);$event.stopPropagation()">{{grid.appScope.prevSelectedQuestions.indexOf(row.entity.question_id) == -1 ? 'ADD' : 'ADDED'}}</md-button>
+	</div>
+</script>

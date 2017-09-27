@@ -1,0 +1,48 @@
+<div class="all-candidates">
+   <div class="container">
+      <div class="box">
+         <div class="header" layout="column">
+            <div layout="row">
+               <span class="count-cdt" flex>CANDIDATES ({{CampaignScreenedCtrl.grid.recordsCount}})</span>
+               <md-input-container>
+                  <label style="display:none !important">Filter By Status</label>
+                  <md-select ng-model="CampaignScreenedCtrl.filterList" md-on-close="CampaignScreenedCtrl.applyFilter()"
+                           data-md-container-class="multiple-select" multiple placeholder="Filter by Status">
+                     <md-optgroup ng-repeat="parent in CampaignScreenedCtrl.filterOptions" label="{{parent.name}}">
+                        <md-option ng-value="children.label" ng-repeat="children in parent.children">{{children.value}}</md-option>
+                     </md-optgroup>
+                  </md-select>
+               </md-input-container>
+               <div data-epi-search data-opts="CampaignScreenedCtrl.search_opts" data-path="templates/components/"></div>
+            </div>
+         </div>
+         <div layout="row" class="flex-full">
+            <div id="grid" flex ui-grid="CampaignScreenedCtrl.gridOptions" class="grid" style="clear:both" ui-grid-selection>
+               
+               <div class="grid-msg-overlay" ng-if="CampaignScreenedCtrl.grid.inProgress">
+                  <div class="msg">
+                     <span>
+                        <img src="public/images/loader/spin.gif" alt="loader" width="18%">
+                     </span>
+                  </div>
+               </div>
+
+               <div class="grid-msg-overlay" ng-if="!CampaignScreenedCtrl.gridOptions.data.length">
+                  <div class="msg">
+                     <span ng-bind="CampaignScreenedCtrl.grid.responseMsg"></span>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+   </div>
+</div>
+
+
+<!-- Test Name -->
+<script type="text/ng-template" id="action.html">
+	<div class="ui-grid-cell-contents ui-grid-details">
+      <a class="name" style="margin-left: 16px" ui-sref="app.candidates.details({ type:'cdt', id:COL_FIELD })" ng-click="$event.stopPropagation()"><img src="public/images/eye.png" alt="view"></a>
+	</div>
+</script>

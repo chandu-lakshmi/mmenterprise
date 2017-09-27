@@ -19,6 +19,7 @@
             .directive('myslider', myslider)
             .directive('scheduleStart' , scheduleStart)
             .directive('scheduleEnd' , scheduleEnd)
+            .directive('scheduleRequired', scheduleRequired)
             .directive('mmUploader', mmUploader)
 
             .filter('unique', unique)
@@ -70,11 +71,11 @@
             .success(function (response) {
                 if (response.status_code == 200) {
                     paramsMdService.callback(response);
+                    $uibModalInstance.dismiss('cancel');  
                     scope.responseMsg = response.message.msg[0];                    
                     scope.actionScreen = false;
-                    $timeout(function(){
-                      $uibModalInstance.dismiss('cancel');  
-                  }, 2000);
+                //     $timeout(function(){
+                //   }, 2000);
                 }
                 else if (response.status_code == 400) {
                     $window.location = App.base_url + 'logout';
@@ -545,6 +546,26 @@
                     sideBySide : true,
                     useCurrent : false
                 });
+            }
+        }
+    }
+
+    function scheduleRequired() {
+        return {
+            restrict: 'AC',
+            require: '?ngModel',
+            link: function (scope, element, attr, ngModel) {
+                
+                if (!ngModel) return;
+                
+                ngModel.$render = function() {
+                  element.val(ngModel.$viewValue || '');
+                };
+                element.on("dp.change", function (e) {
+                    scope.$apply(function() {
+                       ngModel.$setViewValue( !e.date ? '' : e.date);
+                    }); 
+                }); 
             }
         }
     }

@@ -92,7 +92,27 @@
 			    	controllerAs:'ApplyJobCtrl',
 			    	data : { pageTitle: 'MintMesh ( Apply )' },
 			    	params : {status : '',share_status : 'web', jc : '1', refrel : '0'}
-			    })
+                })
+                
+                /* Assessment */
+                .state('candidateAssessment', {
+                    url: '/campaign/candidate-assessment/:share_status?ref&flag&jc&refrel',
+                    templateUrl: App.base_url + 'templates/email-parser/assessment.phtml',
+                    controller: 'AssessmentController',
+                    controllerAs: 'AssessmentCtrl',
+                    data: { pageTitle: 'Assessment' },
+                    params : {status : '',share_status : 'web', jc : '1', refrel : '0'}
+                })
+
+                .state('checkAssessment', {
+                    url: '/candidate-assessment/:assessmentId',
+                    templateUrl: App.base_url + 'templates/email-parser/assessment.phtml',
+                    controller: 'CheckAssessmentController',
+                    controllerAs: 'CheckAssessmentCtrl',
+                    data: { pageTitle: 'Assessment' }
+                })
+				
+
 
     		$urlRouterProvider.otherwise('/all-jobs');
     

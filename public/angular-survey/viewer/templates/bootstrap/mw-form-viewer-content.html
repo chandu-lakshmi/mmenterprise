@@ -1,0 +1,65 @@
+<div class="mw-form-viewer-content">
+        <h1 class="form-title" ng-if="ctrl.formData.name">{{ctrl.formData.name}}</h1>
+        <!-- <pre>{{ctrl.responseData | json}}</pre> -->
+        <div class="mw-title-page" ng-if="!ctrl.currentPage && !ctrl.formSubmitted">
+
+            <div class="mw-form-description">
+                <p>Please give your information, we look forward to staying connected with you.</p>
+                <!-- <div ng-if="!ctrl.formData.isPasswordProtected" class="password-detection">
+                  <md-input-container class="md-block" style="margin-bottom:0">
+                    <label for="mmq_pass">PASSWORD*</label>
+                    <input type="password" id="mmq_pass" name="mmq_pass" ng-model="ctrl.attend_exam.mmq_pass" required ng-class="{'has-error-border':attend_exam.mmq_pass.$invalid && ctrl.login_show_error}">
+                    <div ng-if="attend_exam.mmq_pass.$error.required && homeCtrl.login_show_error" class="has-error-msg">Please enter Password.</div>
+                    <div ng-if="attend_exam.mmq_pass.$error && ctrl.login_show_error" class="has-error-msg">Please enter password.</div>
+                    </md-input-container>
+                </div> -->
+                {{ctrl.formData.description}}
+            </div>
+
+            <div class="questionnaire-footer" >
+                <span class="pull-left copy-right">Copyright &copy; mintmesh</span>
+                <md-button type="button" class="btn btn-default begin-response-button pull-right" ng-click="ctrl.beginResponse()" translate="mwForm.buttons.begin" ng-disabled="!ctrl.formData.pages.length">Rozpocznij</md-button>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <div class="mw-form-page" ng-if="ctrl.currentPage">
+            <div class="pull-left question-number">Question {{ctrl.currentPage.number}}</div>
+
+            <div class="pull-right time-left" ng-if="ctrl.formData.max_duration">Time left:
+              <span ng-if="ctrl.countdown>59">{{ctrl.countdown | secondsToDateTime | date:"mm:ss"}} Sec</span>
+              <span ng-if="ctrl.countdown<60">{{ctrl.countdown | secondsToDateTime | date:"HH:mm:ss"}} Sec</span>
+            </div>
+            <div class="clearfix"></div>
+
+            <h2 class="mw-page-title" ng-if="ctrl.currentPage.namedPage && ctrl.currentPage.name">{{ctrl.currentPage.name}}</h2>
+
+            <div class="mw-form-page-element-list">
+                <div class="mw-page-element animated fadeIn" ng-repeat="pageElement in ctrl.currentPage.elements" ng-switch="pageElement.type">
+
+                    <mw-form-question ng-switch-when="question" question="pageElement.question" question-response="ctrl.responseData[pageElement.question.id]" read-only="ctrl.readOnly" on-response-changed="ctrl.onResponseChanged(pageElement)"></mw-form-question>
+                    <div class="image-element" ng-switch-when="image">
+                        <figure ng-class="'align-'+pageElement.image.align">
+                            <img ng-src="{{pageElement.image.src}}" ng-attr-alt="pageElement.image.caption">
+                            <figcaption ng-if="pageElement.image.caption">{{pageElement.image.caption}}</figcaption>
+                        </figure>
+                    </div>
+                    <div ng-switch-when="paragraph">
+                        <p ng-bind-html="::ctrl.print(pageElement.paragraph.html)"></p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <mw-form-confirmation-page ng-if="ctrl.formSubmitted" confirmation-message="ctrl.formData.confirmationMessage" submit-status="ctrl.submitStatus"></mw-form-confirmation-page>
+
+
+        <div class="mw-form-action-list next-prev" ng-if="ctrl.buttons.prevPage.visible || ctrl.buttons.nextPage.visible || ctrl.buttons.submitForm.visible">
+            <md-button type="button"  ng-if="ctrl.buttons.prevPage.visible" class="btn btn-default prev-page-button" ng-click="ctrl.goToPrevPage()"><i class="fa fa-chevron-left"></i> <span translate="mwForm.buttons.back">Wstecz</span></md-button>
+            <md-button type="button" ng-disabled="ctrl.form.$invalid" ng-if="ctrl.buttons.nextPage.visible" class="btn btn-default next-page-button" ng-click="ctrl.goToNextPage()"><span translate="mwForm.buttons.next">Dalej</span> <i class="fa fa-chevron-right"></i></md-button>
+            <md-button type="submit" ng-disabled="ctrl.options.disableSubmit || ctrl.form.$invalid" ng-if="ctrl.buttons.submitForm.visible && !ctrl.readOnly" class="btn btn-default next-page-button" ng-click="ctrl.submitForm()"> <span translate="mwForm.buttons.submit">Submit</span></md-button>
+        </div>
+</div>

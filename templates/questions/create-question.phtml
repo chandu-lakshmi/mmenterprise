@@ -1,0 +1,154 @@
+<div class="questions test">
+	<div layout="column" class="container-box">
+		<div class="mm-spinner" ng-if="CreateQuestionCtrl.qestionViewEditInProgress">
+			<div>
+				<img src="public/images/loader/spin.gif" alt="loading">
+			</div>
+		</div>
+
+		<div class="create-question">
+
+			<div class="header">
+				<div class="container">
+					<div layout="row" ng-if="CreateQuestionCtrl.examDetails.exam_id">
+						<a ui-sref="app.campaigns.EditTest({id: CreateQuestionCtrl.examDetails.exam_id})"><img class="back" src="public/images/back.png" alt="back"></a>
+						<h4 class="title" flex ng-bind="CreateQuestionCtrl.examDetails.exam_name"></h4>
+               </div>
+               <div layout="row" ng-if="!CreateQuestionCtrl.examDetails.exam_id">
+						<a ui-sref="app.campaigns.QuestionsList"><img class="back" src="public/images/back.png" alt="back"></a>
+                  <h4 class="title" ng-if="!CreateQuestionCtrl.examDetails.exam_id" ng-bind="CreateQuestionCtrl.textMode"></h4>
+					</div>
+				</div>
+			</div>
+
+			<div class="section">
+				<form name="questionForm" class="container">
+					<div layout="row" class="list first">
+						<md-input-container flex="35" class="md-block hide-label select-box">
+							<span class="qst-label">Select a Question Type? *</span>
+							<label style="display:none">Please Select</label>
+							<md-select name="question_type" ng-model="CreateQuestionCtrl.questionObj.question_type" required ng-disabled="CreateQuestionCtrl.enableViewMode">
+								<md-option ng-repeat="type in CreateQuestionCtrl.questionTypesList" ng-value="type.id">{{type.name}}</md-option>
+							</md-select>
+							<div class="error-spacer"></div>
+							<div ng-if="questionForm.question_type.$error.required && CreateQuestionCtrl.postQuestionSubmitted"  class="has-error-msg">Please select Question Type.</div>
+						</md-input-container>
+					</div>
+					<div layout="row" class="list">
+						<div layout="column" flex>
+							<div layout="row">
+								<md-input-container flex class="md-block hide-label full-box">
+									<span class="qst-label">Question *</span>
+									<!-- <label>Question</label> -->
+									<input type="text" name="question" ng-model="CreateQuestionCtrl.questionObj.question" ng-disabled="CreateQuestionCtrl.enableViewMode" required maxlength="500" aria-label="qst">
+									<div class="error-spacer"></div>
+									<div ng-if="questionForm.question.$error.required && CreateQuestionCtrl.postQuestionSubmitted"  class="has-error-msg">Please enter Question.</div>
+								</md-input-container>
+							</div>
+							<div layout="row" class="question-desc">
+								<md-input-container flex class="md-block hide-label full-box">
+									<span class="qst-label">Question Description</span>
+									<!-- <label>Question Description</label> -->
+									<textarea name="question_notes"  aria-label="question_notes" ng-model="CreateQuestionCtrl.questionObj.question_notes" ng-disabled="CreateQuestionCtrl.enableViewMode" maxlength="500"></textarea>
+								</md-input-container>
+							</div>
+							<div layout="row" class="question-desc">
+								<md-input-container flex="35" class="md-block hide-label full-box">
+									<span class="qst-label">Score *</span>
+									<!-- <label>Score</label> -->
+									<input type="text" check-char-zero name="question_value" ng-pattern="/(^[^0]$)|(^[1-9]\d{0,}$)/" aria-label="score" maxlength="100" ng-disabled="CreateQuestionCtrl.enableViewMode" ng-model="CreateQuestionCtrl.questionObj.question_value" required>
+									<div ng-if="questionForm.question_value.$error.required && CreateQuestionCtrl.postQuestionSubmitted"  class="has-error-msg">Please enter Score.</div>
+									<div ng-if="questionForm.question_value.$error.pattern" class="has-error-msg">Score should not be zero.</div>
+								</md-input-container>
+							</div>
+							
+							<span class="qst-label" style="margin-top: 30px">Tags
+                        <img src="public/images/info.svg"  
+                           tooltip-class="mm-slide-l-r tabs-tooltip mm-width" 
+                           uib-tooltip="Add tags for better search and organization." 
+                           tooltip-placement="right" class="info">
+                     </span>
+							<div layout="row" class="tags">
+								<md-chips flex ng-model="CreateQuestionCtrl.questionObj.libraries" md-autocomplete-snap
+											md-removable="!CreateQuestionCtrl.enableViewMode"
+											ng-class="{'active' : (!!CreateQuestionCtrl.searchText.length)}"
+												>
+										<md-autocomplete
+											md-selected-item="CreateQuestionCtrl.selectedItem"
+											md-search-text="CreateQuestionCtrl.searchText"
+											md-items="item in CreateQuestionCtrl.tagsList"
+											md-item-text="item.library_name"
+											md-no-cache = "true"
+											ng-disabled="CreateQuestionCtrl.enableViewMode"
+											md-menu-class="autocomplete-attendees-template"
+										>
+										<md-item-template>
+											<span md-highlight-text="CreateQuestionCtrl.searchText">{{item.library_name}} </span>
+										</md-item-template>
+										<md-not-found>
+											<div class="not_found">No Tags found</div>
+										</md-not-found>
+
+									</md-autocomplete>
+									<md-chip-template>
+										<span>
+										<strong style="text-transform: capitalize">{{$chip.library_name}}</strong>
+										</span>
+									</md-chip-template>
+								</md-chips>
+							</div>
+
+						</div>
+						<i flex="5"></i>
+						<div layout="column" flex style="position:relative;margin-top: 22px;">
+							<div layout="row" ng-if="CreateQuestionCtrl.questionObj.question_type == 1">
+								<div class="mm-slide-left" flex>
+									<span class="text-opts">Answer Options</span>
+									<md-radio-group name="answer_options" ng-model="CreateQuestionCtrl.questionObj.answerOpts" flex>
+										<div layout="column">
+										
+											<div layout="row" class="animated" ng-repeat="data in CreateQuestionCtrl.questionObj.options track by $index" ng-class="{'slideInDown': $index > 3}" ng-init="CreateQuestionCtrl.getCorrectAnswer(data.is_correct_answer, $index)">
+												<img src="public/images/bin.png" class="bin"  alt="del" ng-if="($index > 3 && $last && !CreateQuestionCtrl.enableViewMode)" ng-click="CreateQuestionCtrl.trashAnswerOption($index)">
+												<div flex="10" class="left" ng-click="CreateQuestionCtrl.setCorrectAnswer($index)">
+													<md-radio-button aria-label="CreateQuestionCtrl.alphabet[$index]" ng-disabled="CreateQuestionCtrl.enableViewMode || !data.option" value="{{CreateQuestionCtrl.alphabet[$index]}}"> {{CreateQuestionCtrl.alphabet[$index]}}</md-radio-button>
+												</div>
+												<div flex="90">
+													<md-input-container flex class="md-block hide-label full-box">
+														<input class="hide-from-frm" type="text" ng-required="$index < 2" ng-change="CreateQuestionCtrl.removeSeletedOpt(data.option, $index)" aria-label="data.option" ng-disabled="CreateQuestionCtrl.enableViewMode" name="{{CreateQuestionCtrl.alphabet[$index]}}" ng-model="data.option">
+														<div class="error-spacer"></div>
+														<div ng-if="questionForm[CreateQuestionCtrl.alphabet[$index]].$error.required && CreateQuestionCtrl.postQuestionSubmitted" class="has-error-msg" style="margin-left: -52px">Please enter Answer Option.</div>
+													</md-input-container>
+												</div>
+											</div>
+											<div ng-if="!CreateQuestionCtrl.questionObj.answerOpts && CreateQuestionCtrl.postQuestionSubmitted" class="has-error-msg">Please Select Answer.</div>
+											<div layout="row" ng-if="!CreateQuestionCtrl.enableViewMode">
+												<md-button class="action-add-opts" ng-class="{ 'disable-cursor' : CreateQuestionCtrl.questionObj.options.length > 5}" ng-click="CreateQuestionCtrl.addAnswerOption()" ng-disabled="CreateQuestionCtrl.questionObj.options.length > 5">+ADD OPTION</md-button>
+											</div>
+
+										</div>
+									</md-radio-group>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+
+			<div class="footer" ng-if="!CreateQuestionCtrl.enableViewMode">
+				<div layout="row">
+					<i flex></i>
+					<md-button class="md-raised action" ng-disabled="CreateQuestionCtrl.postQuestionInProgressSave" ng-click="CreateQuestionCtrl.postQuestion(questionForm, 'goList')">
+						SAVE QUESTION
+						<img class="loader" ng-if="CreateQuestionCtrl.postQuestionInProgressSave" src="public/images/loader/dot.svg" alt="loading">
+					</md-button>
+					<span class="or"> or </span>
+					<md-button ng-disabled="CreateQuestionCtrl.postQuestionInProgressAdd" ng-click="CreateQuestionCtrl.postQuestion(questionForm, 'addAnother')" class="md-raised action add-add-new">
+						SAVE & ADD ANOTHER
+						<img class="loader" ng-if="CreateQuestionCtrl.postQuestionInProgressAdd" src="public/images/loader/dot.svg" alt="loading">
+					</md-button>
+					<i flex></i>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

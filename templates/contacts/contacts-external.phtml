@@ -3,7 +3,7 @@
 
         <div class="container-lt">
             <div class="dropdown" ng-show="{{::userPermissions.add_contacts == 1}}">
-                <button class="btn btn-primary mm-btn ripplelink dropdown-toggle" type="button" data-toggle="dropdown">+ NEW</button>
+                <button class="btn btn-primary mm-btn ripplelink dropdown-toggle" type="button" data-toggle="dropdown">+ ADD</button>
                 <ul class="dropdown-menu">
                     <li><a ng-click="ContactCtrl.contactModal()" ng-class="{ 'disable-cursor' : !ContactCtrl.bucketNames.length }">ADD CONTACT</a></li>
                     <li><a ng-click="ContactCtrl.createExternalBucket()" >CREATE COMMUNITY</a></li>
@@ -92,5 +92,13 @@
         <option value="Inactive" style="color:#888888">Inactive</option>
         <option value="Separated" style="color:#c46968">Separated</option>
         </select>
+    </script>
+
+    <script type="text/ng-template" id="details-view.html">
+        <div class="ui-grid-cell-contents text-center">
+            <a class="view" ui-sref="app.candidates.details({ type: 'contact', id: row.entity.record_id , stateFrom:'contactExternal'})">
+                <i class="material-icons">&#xE417;</i>
+            </a>
+        </div>
     </script>
 </div>

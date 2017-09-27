@@ -1,0 +1,663 @@
+<style type="text/css">
+/*.md-button:not([disabled]):hover {
+  background-color: transparent;
+}*/
+</style>
+
+<div class="candidate-details">
+    <div class="mm-spinner" ng-if="CandidateDetailsCtrl.inProgressCandidateDetails" ng-style="{opacity : CandidateDetailsCtrl.hasChangeReferral ? '0.5' : '1' }">
+        <div>
+            <img src="public/images/loader/spin.gif" alt="loading">
+        </div>
+    </div>
+	<div class="container">
+		<div class="head">
+            <a ng-click="CandidateDetailsCtrl.stateGoFrom()"><img src="public/images/back-arrow-grey.svg" alt="back"><span>CANDIDATE DETAILS</span></a>
+        </div>
+        <div class="section">
+        	<div layout="column">
+        		<div layout="row">
+        			<div flex="65">
+
+        				<md-card>
+        					<div class="title">
+        						<span flex>PERSONAL INFO</span>
+                                <span class="resume" ng-if="CandidateDetailsCtrl.details.document_id" title="{{CandidateDetailsCtrl.details.resume_name}}"
+                                 >
+                                    <a class="download" href="{{CandidateDetailsCtrl.downloadResume}}" download></a>
+                                    <md-button href="{{CandidateDetailsCtrl.viewResume}}" target="_blank">View Resume</md-button>
+                                </span>
+                                <span class="resume"
+                                 ng-if="!CandidateDetailsCtrl.details.document_id" title="{{CandidateDetailsCtrl.details.resume_name}}"
+                                 ng-class="{'disabled-element' : !CandidateDetailsCtrl.details.document_id}">
+                                    <a class="download" style="cursor:default" href="javascript:void(0)"></a>
+                                    <md-button style="cursor:default" target="_blank" ng-disabled="!CandidateDetailsCtrl.details.document_id">View Resume</md-button>
+                                </span>
+        					</div>
+        					<div layout="column" class="details">
+        						<div layout="row">
+        							<div flex class="list">
+        								<h5 class="name">CANDIDATE NAME</h5>
+                                        <md-menu class="talent" md-position-mode="target-left target">
+                                            <md-button ng-click="$mdOpenMenu($event)">
+                                               <span>{{CandidateDetailsCtrl.details.candidate_status.status_name || 'New Talent'}}
+                                                    <i class="material-icons">&#xE313;</i>
+                                               </span>
+                                            </md-button>
+                                            <md-menu-content width="3" class="talent-menu">
+                                                <span class="title">Choose Status</span>
+                                                <md-menu-item ng-repeat="newTalent in CandidateDetailsCtrl.newTalentList">
+                                                    <md-button
+                                                        ng-style="{background : CandidateDetailsCtrl.tempGetColor(newTalent.label, CandidateDetailsCtrl.details.candidate_status.status_name)}"
+                                                        ng-click="CandidateDetailsCtrl.postPersonalStatus(newTalent)"
+                                                        ng-bind="newTalent.label"
+                                                        aria-label="{{newTalent.label}}">
+                                                    </md-button>
+                                                </md-menu-item>
+                                            </md-menu-content>
+                                        </md-menu>
+        								<span class="bold" style="display:block" ng-bind="CandidateDetailsCtrl.details.name"></span>
+        							</div>
+        							<img class="pic" ng-if="CandidateDetailsCtrl.details.dp_path" ng-src="{{CandidateDetailsCtrl.details.dp_path}}" alt="candidate-pic">
+        							<h1 class="letter" ng-if="!CandidateDetailsCtrl.details.dp_path" ng-bind="CandidateDetailsCtrl.details.name.trim() | limitTo : 1"></h1>
+        						</div>
+        						<div layout="row">
+        							<div flex="50" class="list">
+        								<h5>MOBILE</h5>
+        								<span ng-bind="CandidateDetailsCtrl.details.phone" class="bolder"></span>
+                                        <i ng-if="!CandidateDetailsCtrl.details.phone">--</i>
+        							</div>
+        							<div flex class="list">
+        								<h5>EMAIL</h5>
+        								<span ng-bind="CandidateDetailsCtrl.details.emailid" class="bolder"></span>
+        							</div>
+        						</div>
+        						<div layout="row">
+        							<div flex="50" class="list">
+        								<h5>CITY/LOCATION</h5>
+        								<span ng-bind="CandidateDetailsCtrl.details.location"></span>
+                                        <span ng-if="!CandidateDetailsCtrl.details.location">Not Available</span>
+        							</div>
+        							<div flex class="list">
+        								<h5>SOCIAL CONNECT</h5>
+        								<social-sharing data-opts="CandidateDetailsCtrl.socialMedia" style="margin-top:10px;" data-path="templates/components"></social-sharing>
+        							</div>
+        						</div>
+
+        						<div layout="row">
+        							<div flex="50" class="list">
+        								<h5>APPLIED FOR</h5>
+        								<span class="bolder current-job">{{CandidateDetailsCtrl.details.referred_job}}, <i class="info">{{CandidateDetailsCtrl.details.referred_at}}</i></span>
+                                        <div class="other-job" ng-repeat="ref in CandidateDetailsCtrl.referralsList | filter: { reference_id : '!'+CandidateDetailsCtrl.referralId }">
+                                            <span class="bolder">{{ref.post_name}},
+                                                <i class="info" ng-bind="ref.referred_date"></i>
+                                            </span>
+                                        </div>
+        							</div>
+        							<div flex class="list">
+        								<h5>REFERRED BY</h5>
+        								<span ng-if="CandidateDetailsCtrl.details.referred_by" class="bolder" ng-bind="CandidateDetailsCtrl.details.referred_by"></span>
+                                        <span ng-if="!CandidateDetailsCtrl.details.referred_by">--</span>
+        							</div>
+        						</div>
+
+                                <div layout="row" class="add-tag">
+                                    <div class="attendees tag-job">
+                                        <md-chips ng-model="CandidateDetailsCtrl.details.candidate_tags" md-autocomplete-snap
+                                            md-require-match="true" class="sp" md-transform-chip="null" ng-class="{'disable-input':!CandidateDetailsCtrl.enableTagChips}" md-on-remove="CandidateDetailsCtrl.removeTag($chip)"
+                                              >
+                                            <md-autocomplete
+                                                md-selected-item-change="CandidateDetailsCtrl.addTag(item)"
+                                                md-selected-item="CandidateDetailsCtrl.selectedTagItem"
+                                                md-search-text="CandidateDetailsCtrl.searchTagText"
+                                                md-items="item in CandidateDetailsCtrl.querySearchAddTag(CandidateDetailsCtrl.searchTagText)"
+                                                md-item-text="item.tag_name"
+                                                md-no-cache = "true"
+                                                ng-disabled="!CandidateDetailsCtrl.enableTagChips"
+                                                md-menu-class="autocomplete-attendees-template"
+                                                md-input-id = "tagJob"
+                                                md-min-length="2"
+                                                placeholder = "Enter Tag"
+                                              >
+                                            <md-item-template>
+                                                <span md-highlight-text="CandidateDetailsCtrl.searchTagText">{{item.tag_name}} </span>
+                                            </md-item-template>
+                                            <md-not-found>
+                                                <div class="not_found">No Tags found</div>
+                                            </md-not-found>
+
+                                            </md-autocomplete>
+                                            <md-chip-template>
+                                              <span>
+                                                <strong title="{{$chip.tag_name}}" style="text-transform: capitalize">{{$chip.tag_name}}</strong>
+                                              </span>
+                                            </md-chip-template>
+                                        </md-chips>
+                                        <img class="loader" ng-if="CandidateDetailsCtrl.inProgressSearchTagJobs" src="public/images/loader/blue-loader.gif">
+                                    </div>
+                                    <md-button class="btn-add-tag" ng-if="!CandidateDetailsCtrl.enableTagChips" ng-click="CandidateDetailsCtrl.toggleAddTag()">Add Tag</md-button>
+                                </div>
+        					</div>
+        				</md-card>
+
+        				<md-card style="margin-top:20px">
+        					<div class="title info">
+        						EXPERIENCE
+        					</div>
+        					<div layout="column" class="details" ng-if="CandidateDetailsCtrl.details.current_company_name || CandidateDetailsCtrl.details.previous_company_name">
+        						<div layout="row" ng-if="CandidateDetailsCtrl.details.current_company_name">
+        							<div flex="50" class="list">
+        								<h5>CURRENT COMPANY</h5>
+        								<span ng-bind="CandidateDetailsCtrl.details.current_company_name"></span>
+        								<span class="info" ng-bind="CandidateDetailsCtrl.details.current_company_details"></span><br>
+        								<span class="info" ng-bind="CandidateDetailsCtrl.details.current_company_location"></span>
+        							</div>
+        							<div flex class="list">
+        								<h5>JOB/POSITION</h5>
+        								<span ng-bind="CandidateDetailsCtrl.details.current_company_position"></span>
+        							</div>
+        						</div>
+        						<div layout="row" ng-if="CandidateDetailsCtrl.details.previous_company_name">
+        							<div flex="50" class="list">
+        								<h5>PREV COMPANY</h5>
+        								<span ng-bind="CandidateDetailsCtrl.details.previous_company_name"></span>
+        								<span class="info" ng-bind="CandidateDetailsCtrl.details.previous_company_details"></span><br>
+        								<span class="info" ng-bind="CandidateDetailsCtrl.details.previous_company_location"></span>
+        							</div>
+        							<div flex class="list">
+        								<h5>JOB/POSITION</h5>
+        								<span ng-bind="CandidateDetailsCtrl.details.previous_company_position"></span>
+        							</div>
+        						</div>
+        					</div>
+        				</md-card>
+
+        				<md-card style="margin-top:20px">
+        					<div class="title skill">
+        						SKILLS
+        					</div>
+        					<div layout="column" class="details" ng-if="CandidateDetailsCtrl.details.skills.length">
+        						<div layout="row">
+        							<ul class="list">
+        								<li ng-repeat="skill in CandidateDetailsCtrl.details.skills track by $index" ng-bind="skill"></li>
+        							</ul>
+        						</div>
+        					</div>
+        				</md-card>
+
+        				<md-card style="margin-top:20px">
+        					<div class="title edu">
+        						EDUCATION
+        					</div>
+        					<div layout="column" class="details" ng-if="CandidateDetailsCtrl.details.qualification || CandidateDetailsCtrl.details.certification">
+        						<div layout="row" ng-if="CandidateDetailsCtrl.details.qualification">
+		    						<div class="list">
+										<h5>Qualification</h5>
+										<span ng-bind="CandidateDetailsCtrl.details.qualification"></span>
+									</div>
+        						</div>
+        						<div layout="row" ng-if="CandidateDetailsCtrl.details.certification">
+		    						<div class="list">
+										<h5>Certification</h5>
+										<span ng-bind="CandidateDetailsCtrl.details.certification"></span>
+									</div>
+        						</div>
+        					</div>
+        				</md-card>
+
+        			</div>
+        			<div flex="35">
+        				<md-card class="right">
+                            <md-menu class="status_change" md-position-mode="target-left target">
+                                <md-button ng-click="$mdOpenMenu($event)" ng-disabled="CandidateDetailsCtrl.inProgressUpdateReferralStatus">
+                                   <span title="{{CandidateDetailsCtrl.details.referral_status}}"> {{CandidateDetailsCtrl.details.referral_status}}</span>
+                                   <i class="material-icons">&#xE313;</i>
+                                   <img class="loader" ng-if="CandidateDetailsCtrl.inProgressUpdateReferralStatus" src="public/images/loader/dot.svg" alt="loading">
+                                </md-button>
+
+                                <md-menu-content width="3" class="talent-menu">
+                                    <md-menu-item ng-repeat="status in CandidateDetailsCtrl.referralStatusList">
+                                       <md-button aria-label="status" ng-bind="status"
+                                       ng-style="{background : CandidateDetailsCtrl.tempGetColor(status, CandidateDetailsCtrl.details.referral_status)}" ng-click="CandidateDetailsCtrl.changeReferralStatus(status)"></md-button>
+                                    </md-menu-item>
+                                </md-menu-content>
+                            </md-menu>
+                            <uib-tabset active="activeForm">
+
+                                <uib-tab class="timeline" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Timeline" tooltip-placement="left">
+                                    <div class="mm_down timeline_edit">
+                                        <h5>TIMELINE</h5>
+                                        <div class="timeline-container">
+                                            <div layout="column">
+                                                <div layout="row" class="list" ng-repeat="list in CandidateDetailsCtrl.candidateActivitiesList">
+                                                    <div class="lt">
+                                                        <img class="pending" ng-src="{{CandidateDetailsCtrl.getActivityPic(list)}}" alt="pending">
+                                                    </div>
+                                                    <div class="rt">
+                                                        <p ng-bind-html="list.activity_message" class="activity-message"></p>
+                                                        {{list.activity_by}}
+                                                        <span class="dot time">·</span>
+                                                        <span class="time"> {{list.activity_on.indexOf('hour') > -1 ? 'about ' : ''}} {{list.activity_on}}</span>
+                                                    </div>
+                                                </div>
+                                                <div ng-if="!CandidateDetailsCtrl.candidateActivitiesList.length" ng-bind="CandidateDetailsCtrl.responseMsgActivities" class="no-records animated fadeIn"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </uib-tab>
+
+                                <uib-tab class="comment" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Write Comment" tooltip-placement="left">
+                                    <div class="mm_down comment_edit">
+                                        <h5 ng-click="CandidateDetailsCtrl.toogleTabs('showCommentsTab')">WRITE YOUR COMMENT <i class="material-icons mm-arrow-spin" ng-class="{'rotate' : CandidateDetailsCtrl.showCommentsTab}">keyboard_arrow_down</i></h5>
+                                        <div class="box" id="showCommentsTab" style="border-bottom:1px solid #eaeaea">
+                                            <textarea rows="4" name="comment" ng-model="CandidateDetailsCtrl.comment"  maxlength="500"></textarea>
+                                            <div class="action">
+                                                <div class="pull-left" ng-if="CandidateDetailsCtrl.inProgressPostComment">
+                                                    <img src="public/images/loader/upload_file.gif" alt="sending">
+                                                    <span class="msg">Adding Comment</span>
+                                                </div>
+                                                <span class="msg response-msg" ng-bind="CandidateDetailsCtrl.responseMsgPostComment"></span>
+                                                <div ng-if="CandidateDetailsCtrl.comment.length == 500" class="has-error-msg ng-scope" style="">Comment must be no longer than 5000 characters.</div>
+                                                <md-button class="md-raised add pull-right" ng-click="CandidateDetailsCtrl.postComments()" ng-disabled="CandidateDetailsCtrl.inProgressPostComment || !CandidateDetailsCtrl.comment.length">Add Comment</md-button>
+                                            </div>
+                                        </div>
+                                        <div class="timeline-container">
+                                            <div layout="column">
+                                                <div layout="row" class="list" ng-repeat="list in CandidateDetailsCtrl.candidateCommentsList">
+                                                    <div class="lt">
+                                                        <img class="pending" src="public/images/comment.png" alt="comment">
+                                                    </div>
+                                                    <div class="rt">
+                                                        <p>{{list.created_by}} <span class="dot time">&middot;</span><span class="time" ng-bind="list.created_at"></span></p>
+                                                        <p class="text" ng-bind="list.comment"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </uib-tab>
+
+                                <uib-tab class="schedule" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Schedule Interview" tooltip-placement="left">
+                                    <uib-tab-heading class="mm-tip" tooltip-class="mm-slide-l-r" uib-tooltip="SCHEDULE" tooltip-placement="left">
+                                    </uib-tab-heading>
+                                    <form name="schedule_form" class="mm_down" novalidate>
+                                        <h5 ng-click="CandidateDetailsCtrl.toogleTabs('showScheduleTab')">SCHEDULE <i class="material-icons mm-arrow-spin" ng-class="{'rotate' : CandidateDetailsCtrl.showScheduleTab}">keyboard_arrow_down</i></h5>
+                                        <div class="box" id="showScheduleTab" >
+                                            <md-input-container class="md-block select-box">
+                                                <label style="display:none">SCHEDULE FOR *</label>
+                                                <md-select name="schedule_for" ng-model="CandidateDetailsCtrl.schedule.schedule_for" required ng-class="{'has-error-border': schedule_form.schedule_for.$invalid && CandidateDetailsCtrl.submittedSchedule}" data-md-container-class="schedule-for">
+                                                    <md-option ng-repeat="list in CandidateDetailsCtrl.scheduleForList" ng-value="list">{{list}}</md-option>
+                                                </md-select>
+                                                <div class="error-spacer"></div>
+                                                <div ng-if="schedule_form.schedule_for.$error.required && CandidateDetailsCtrl.submittedSchedule"  class="has-error-msg">Please select Schedule For.</div>
+                                            </md-input-container>
+
+                                            <div class="attendees">
+                                                <!--placeholder value in css please check if you want to change -->
+                                                <md-chips ng-model="CandidateDetailsCtrl.schedule.attendees" required md-autocomplete-snap
+                                                        md-require-match="true"
+                                                        ng-class="{'active' : (!!CandidateDetailsCtrl.schedule.attendees.length || !!CandidateDetailsCtrl.searchText.length), 'attendees-required' : !CandidateDetailsCtrl.schedule.attendees.length && CandidateDetailsCtrl.submittedSchedule }"
+                                                          >
+                                                    <md-autocomplete
+                                                        md-selected-item="CandidateDetailsCtrl.selectedItem"
+                                                        md-search-text="CandidateDetailsCtrl.searchText"
+                                                        md-items="item in CandidateDetailsCtrl.querySearchAttendees(CandidateDetailsCtrl.searchText)"
+                                                        md-item-text="item.emailid"
+                                                         md-no-cache = "true"
+                                                         md-min-length="2"
+                                                        md-menu-class="autocomplete-attendees-template"
+                                                      >
+                                                    <md-item-template>
+                                                        <div class="name">{{item.firstname +' '+ item.lastname}}</div>
+                                                        <span md-highlight-text="CandidateDetailsCtrl.searchText">{{item.emailid}} </span>
+                                                    </md-item-template>
+                                                    <md-not-found>
+                                                        <div class="not_found">No Attendees found</div>
+                                                    </md-not-found>
+
+                                                  </md-autocomplete>
+                                                  <md-chip-template>
+                                                    <span>
+                                                      <strong title="{{$chip.emailid}}" style="text-transform: capitalize">{{$chip.firstname +' '+ $chip.lastname}}</strong>
+                                                    </span>
+                                                  </md-chip-template>
+                                                </md-chips>
+                                                <div class="error-spacer"></div>
+                                                <div ng-if="!CandidateDetailsCtrl.schedule.attendees.length && CandidateDetailsCtrl.submittedSchedule"  class="has-error-msg">Please select Attendees.</div>
+                                                <img class="loader" ng-if="CandidateDetailsCtrl.inProgressAttendees" src="public/images/loader/blue-loader.gif">
+
+                                            </div>
+
+                                            <md-input-container class="md-block date-time">
+                                                <label>INTERVIEW DATE *</label>
+                                                <input type='text' name="interview_date" schedule-required id="interview_date" required class="form-control" ng-model="CandidateDetailsCtrl.schedule.interview_date" ng-class="{'has-error-border':CandidateDetailsCtrl.submittedSchedule && schedule_form.interview_date.$error.required}" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                                <div class="error-spacer"></div>
+                                                <div ng-show="CandidateDetailsCtrl.submittedSchedule && schedule_form.interview_date.$error.required" class="has-error-msg msg">Please select Interview Date.</div>
+                                            </md-input-container>
+                                            <div layout="column">
+                                                <div layout="row">
+                                                    <md-input-container class="md-block date-time">
+                                                        <label>FROM *</label>
+                                                        <input type='text' name="interview_from_time" schedule-required class="form-control" id='time_from' required ng-model="CandidateDetailsCtrl.schedule.interview_from_time" ng-class="{'has-error-border':CandidateDetailsCtrl.submittedSchedule && schedule_form.interview_from_time.$error.required}" ng-readonly="" />
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-time"></span>
+                                                        </span>
+                                                        <div class="error-spacer"></div>
+                                                        <div ng-show="CandidateDetailsCtrl.submittedSchedule && schedule_form.interview_from_time.$error.required" class="has-error-msg msg">Please select From.</div>
+                                                    </md-input-container>
+                                                    <i flex="5"></i>
+                                                    <md-input-container class="md-block date-time">
+                                                        <label>TO *</label>
+                                                        <input type='text' name="interview_to_time" schedule-required required class="form-control" ng-model="CandidateDetailsCtrl.schedule.interview_to_time"  id='time_to' ng-class="{'has-error-border':CandidateDetailsCtrl.submittedSchedule && schedule_form.interview_to_time.$error.required}" ng-readonly=""/>
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-time"></span>
+                                                        </span>
+                                                        <div class="error-spacer"></div>
+                                                        <div ng-show="CandidateDetailsCtrl.submittedSchedule && schedule_form.interview_to_time.$error.required" class="has-error-msg msg">Please select To.</div>
+                                                    </md-input-container>
+                                                </div>
+                                            </div>
+                                            <md-input-container class="time-zone md-block select-box">
+                                                <label style="display:none">TIME ZONE</label>
+                                                <md-select ng-model="CandidateDetailsCtrl.schedule.timeZone"
+                                                           md-on-close="clearSearchTerm()"
+                                                           data-md-container-class="timezone"
+                                                           name="interview_time_zone"
+                                                           >
+                                                    <md-select-header class="demo-select-header">
+                                                        <input flex ng-model="searchTerm" id="search" name="sp" type="text"
+                                                            placeholder="SEARCH FOR A TIME ZONE" class="demo-header-searchbox md-text">
+                                                    </md-select-header>
+                                                    <md-optgroup label="lists">
+                                                        <md-option ng-value="place.text" ng-repeat="place in CandidateDetailsCtrl.timeZone | filter: {text : searchTerm }">{{place.text}}</md-option>
+                                                    </md-optgroup>
+                                                </md-select>
+                                            </md-input-container>
+                                            <md-input-container class="md-block loc">
+                                                <label>LOCATION *</label>
+                                                <input type="text" name="interview_location" ng-model="CandidateDetailsCtrl.schedule.location" ng-autocomplete="geo_location" details="geo_details" options="geo_options" apiplaceholder="" required ng-class="{'has-error-border':schedule_form.interview_location.$invalid && CandidateDetailsCtrl.submittedSchedule }">
+                                                <div class="error-spacer"></div>
+                                                <div ng-if="schedule_form.interview_location.$error.required && CandidateDetailsCtrl.submittedSchedule"  class="has-error-msg">Please select Location.</div>
+                                            </md-input-container>
+
+
+                                            <div class="notes">
+                                                <span>NOTES</span>
+                                                <textarea rows="4" name="notes" ng-model="CandidateDetailsCtrl.schedule.notes"  maxlength="500"></textarea>
+                                                <div ng-if="CandidateDetailsCtrl.schedule.notes.length == 500" class="has-error-msg ng-scope" style="">Note must be no longer than 500 characters.</div>
+                                            </div>
+
+                                            <div class="action">
+                                                <div class="pull-left" ng-if="CandidateDetailsCtrl.inProgressSchedule">
+                                                    <img src="public/images/loader/upload_file.gif" alt="sending">
+                                                    <span class="msg">Sending Invitation</span>
+                                                </div>
+                                                <span class="msg response-msg" ng-bind="CandidateDetailsCtrl.responseMsgSchedule"></span>
+                                                <div style="clear:both;height:0;width:0;"></div>
+                                                <div class="button-container">
+                                                  <md-button class="md-primary" ng-click="CandidateDetailsCtrl.resetScheduleForm(schedule_form)">CANCEL</md-button>
+                                                  <md-button class="md-raised invitation pull-right"  ng-click="CandidateDetailsCtrl.postSchedule(schedule_form)" ng-disabled="CandidateDetailsCtrl.inProgressSchedule">SEND INVITATION</md-button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="send-mail">
+                                        <uib-accordion>
+                                            <div uib-accordion-group class="panel-default" is-open="status.isCustomHeaderOpen" ng-repeat="list in CandidateDetailsCtrl.candidateSchedulesList">
+                                              <uib-accordion-heading>
+                                                <div class="container-mail">
+                                                    <div class="lt">
+                                                        <img src="public/images/schedule.png" style="margin: 23px 16px;" alt="schedule">
+                                                    </div>
+                                                    <div class="rt" style="padding: 13px 14px">
+                                                        <div class="clear-fix">
+                                                            <div layout="column">
+                                                                <div layout="row">
+                                                                    Scheduled&nbsp;
+                                                                    <span class="head" style="color:initial" ng-bind="list.schedule_for+' Interview'"></span>
+                                                                    <i class="material-icons mm-arrow-spin" ng-class="{'rotate' : !status.isCustomHeaderOpen}">keyboard_arrow_down</i>
+                                                                </div>
+                                                                <div layout="row" class="to">
+                                                                    by <b>&nbsp;{{list.created_by}}&nbsp;</b>
+                                                                    <span class="dot time">·</span>
+                                                                    <span class="time" ng-bind="list.created_at"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                              </uib-accordion-heading>
+                                              <div class="container-mail body">
+                                                  <div class="lt">&nbsp;
+                                                  </div>
+                                                  <div class="rt">
+                                                    <ul class="params">
+                                                        <li>
+                                                            <span class="name">Schedule For: </span>
+                                                            <span ng-bind="list.schedule_for"></span>
+                                                        </li>
+                                                        <li>
+                                                            <img src="public/images/attendies.png" class="person" alt="person">
+                                                            <span class="name">Attendees: </span>
+                                                            <span ng-bind="list.attendees[0]"></span>
+                                                            <div style="text-align:right;line-height: 4px;" ng-if="list.attendees.length > 1" >
+                                                              <span class="mm-tip" style="color: #0ba082" tooltip-class="mm-slide-l-r" uib-tooltip="{{CandidateDetailsCtrl.getAttendeesTooltip(list.attendees).split(',').join('\n')}}" tooltip-placement="left">+{{list.attendees.length - 1}} more Attendees</span></div>
+                                                        </li>
+                                                        <li>
+                                                            <img src="public/images/schedule.png" class="person" alt="person">
+                                                            <span class="name">Interview Date: </span>
+                                                            <span ng-bind="list.interview_date"></span>
+                                                        </li>
+                                                        <li>
+                                                            <img src="public/images/clock_full.svg" style="top:12px" class="person" alt="person">
+                                                            <span class="name">Time: </span>
+                                                            <span ng-bind="list.interview_from_time + ' - ' + list.interview_to_time"></span>
+                                                        </li>
+                                                        <li>
+                                                            <img src="public/images/location.svg" class="person" alt="person">
+                                                            <span class="name">Location: </span>
+                                                            <span ng-bind="list.interview_location"></span>
+                                                        </li>
+                                                        <li ng-if="list.notes">
+                                                            <img src="public/images/note.png" class="person" alt="person">
+                                                            <span class="name">Notes: </span>
+                                                            <span ng-bind="list.notes"></span>
+                                                        </li>
+                                                    </ul>
+                                                  </div>
+                                              </div>
+                                            </div>
+                                        </uib-accordion>
+                                    </div>
+                                </uib-tab>
+
+                                <uib-tab class="mail" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Send Email" tooltip-placement="left">
+                                    <div class="mm_down">
+                                        <form name="write_mail_form" novalidate>
+                                            <h5 ng-click="CandidateDetailsCtrl.toogleTabs('showMailsTab')">SEND AN EMAIL <i class="material-icons mm-arrow-spin" ng-class="{'rotate' : CandidateDetailsCtrl.showMailsTab}">keyboard_arrow_down</i></h5>
+                                            <div id="showMailsTab">
+                                                <div class="box" >
+                                                    <md-input-container class="md-block">
+                                                        <label>TO</label>
+                                                        <input type="text" class="small-font" name="to" readonly ng-model="CandidateDetailsCtrl.writeMail.to">
+                                                    </md-input-container>
+
+                                                    <md-input-container class="md-block select-box">
+                                                        <label style="display:none">SUBJECT *</label>
+                                                        <md-select name="subject_id" ng-model="CandidateDetailsCtrl.writeMail.subjectId" data-md-container-class="email-subject" md-on-close="CandidateDetailsCtrl.changeMailSubject()" ng-class="{'has-error-border': write_mail_form.subject_id.$invalid && CandidateDetailsCtrl.submittedPostMail}" required>
+                                                            <md-option ng-repeat="list in CandidateDetailsCtrl.writeMailSubjectList" ng-value="list.id">{{list.subject}}</md-option>
+                                                        </md-select>
+                                                        <div class="error-spacer"></div>
+                                                        <div ng-if="write_mail_form.subject_id.$error.required && CandidateDetailsCtrl.submittedPostMail"  class="has-error-msg">Please select Subject.</div>
+                                                    </md-input-container>
+                                                    <md-input-container class="md-block animated slideInDown" style="margin-top: 18px" ng-if="CandidateDetailsCtrl.writeMail.subjectId == 1">
+                                                        <label>PLEASE ENTER SUBJECT</label>
+                                                        <input type="text" class="small-font" name="email_subject_custom" ng-model="CandidateDetailsCtrl.writeMail.subjectText" >
+                                                    </md-input-container>
+
+                                                </div>
+                                                <div class="comment_edit">
+                                                    <div class="box">
+                                                        <div text-angular class="mm-text-editor" name="email_body" ng-model="CandidateDetailsCtrl.writeMail.body" placeholder="Please enter message" ta-max-text="5000"  ta-toolbar="[]"></div>
+                                                        <div class="error-spacer"></div>
+                                                        <div ng-if="write_mail_form.email_body.$error.taMaxText" class="has-error-msg">Message must be no longer than 5000 characters.</div>
+                                                        <div class="action">
+                                                            <div class="pull-left" ng-if="CandidateDetailsCtrl.inProgressPostMail">
+                                                                <img src="public/images/loader/upload_file.gif" alt="sending">
+                                                                <span class="msg">Sending Email</span>
+                                                            </div>
+                                                            <span class="msg response-msg" ng-bind="CandidateDetailsCtrl.responseMsgPostMail"></span>
+                                                            <md-button class="md-raised add pull-right" ng-click="CandidateDetailsCtrl.postMail(write_mail_form)" ng-disabled="CandidateDetailsCtrl.inProgressPostMail">Send Email</md-button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <div class="send-mail">
+                                            <uib-accordion>
+                                                <div uib-accordion-group class="panel-default" is-open="status.isCustomHeaderOpen" ng-repeat="list in CandidateDetailsCtrl.candidateSendMailsList">
+                                                  <uib-accordion-heading>
+                                                    <div class="container-mail">
+                                                        <div class="lt">
+                                                            <img tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Sent Mail" tooltip-placement="right" src="public/images/mail.png" alt="mail">
+                                                        </div>
+                                                        <div class="rt">
+                                                            <div class="clear-fix">
+                                                                <div layout="column">
+                                                                    <div layout="row">
+                                                                        <span class="head" ng-bind="list.subject" title="{{list.subject}}">Application to EPI</span>
+                                                                         <i flex></i>
+                                                                         <!-- <span class="dot time">·</span> -->
+                                                                        <span class="time" ng-bind="list.created_at">5 hours ago</span>
+                                                                        <i class="material-icons mm-arrow-spin" ng-class="{'rotate' : !status.isCustomHeaderOpen}">keyboard_arrow_down</i>
+                                                                    </div>
+                                                                    <div layout="row" class="to">
+                                                                        <b
+                                                                            tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="{{list.from_emailid}}" tooltip-placement="right"
+                                                                            >
+                                                                            <span>From:</span>
+                                                                            <span class="ellipsis trunk">{{list.from_name}}</span>
+                                                                        </b>
+                                                                        <i flex></i>
+                                                                        <span class="to-mail"
+                                                                            tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="{{list.to_emailid}}" tooltip-placement="left"
+                                                                            ><span>To:</span>
+                                                                            <span class="ellipsis trunk">{{list.to_name}}</span>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                  </uib-accordion-heading>
+                                                  <div class="container-mail body">
+                                                      <div class="lt">&nbsp;
+                                                      </div>
+                                                      <div class="rt">
+                                                        <p ng-bind-html="list.body"></p>
+                                                      </div>
+                                                  </div>
+                                                </div>
+                                            </uib-accordion>
+                                        </div>
+                                    </div>
+                                </uib-tab>
+
+                                <uib-tab class="link" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Link Candidate To A Job" tooltip-placement="left">
+                                    <div class="mm_down timeline_edit">
+                                        <h5 ng-click="CandidateDetailsCtrl.toogleTabs('showLinkTab')">LINK CANDIDATE TO A JOB<i class="material-icons mm-arrow-spin" ng-class="{'rotate' : CandidateDetailsCtrl.showLinkTab}">keyboard_arrow_down</i></h5>
+                                        <div class="box" id="showLinkTab" style="border-bottom:1px solid #eaeaea">
+                                            <div class="attendees tag-job">
+                                                <!--placeholder value in css please check if you want to change -->
+                                                <md-chips ng-model="CandidateDetailsCtrl.selectedTagJobs" md-autocomplete-snap
+                                                          md-require-match="true" ng-class="{'active' : (!!CandidateDetailsCtrl.selectedTagJobs.length || !!CandidateDetailsCtrl.searchTextTagJob.length), 'attendees-required' : !CandidateDetailsCtrl.selectedTagJobs.length && CandidateDetailsCtrl.submittedTagJobs,'select-one' : CandidateDetailsCtrl.selectedTagJobs.length > 0  }">
+                                                    <md-autocomplete
+                                                      md-selected-item="CandidateDetailsCtrl.selectedTagJob"
+                                                      md-search-text="CandidateDetailsCtrl.searchTextTagJob"
+                                                      md-items="item in CandidateDetailsCtrl.querySearchTagJobs(CandidateDetailsCtrl.searchTextTagJob)"
+                                                      md-item-text="item.post_name"
+                                                      md-no-cache = "true"
+                                                      md-min-length="2"
+                                                      ng-disabled="CandidateDetailsCtrl.selectedTagJobs.length > 0"
+                                                      >
+                                                    <md-item-template>
+                                                        <span md-highlight-text="CandidateDetailsCtrl.searchTextTagJob">{{item.post_name}} </span>
+                                                        <i> ({{item.post_id}})</i>
+                                                    </md-item-template>
+                                                    <md-not-found>
+                                                        <div class="not_found">No Jobs found</div>
+                                                    </md-not-found>
+
+                                                  </md-autocomplete>
+                                                  <md-chip-template>
+                                                    <span>
+                                                      <strong title="{{$chip.post_name}}">{{$chip.post_name}}</strong>
+                                                    </span>
+                                                  </md-chip-template>
+                                                </md-chips>
+                                                <div class="error-spacer"></div>
+                                                <div ng-if="!CandidateDetailsCtrl.selectedTagJobs.length && CandidateDetailsCtrl.submittedTagJobs"  class="has-error-msg">Please choose a Job.</div>
+                                                <div ng-if="CandidateDetailsCtrl.errorResponseMsgTagJobs && CandidateDetailsCtrl.errorResponse && !CandidateDetailsCtrl.selectedTagJobs.length"  class="has-error-msg" ng-bind="CandidateDetailsCtrl.errorResponseMsgTagJobs"></div>
+                                                <img class="loader" ng-if="CandidateDetailsCtrl.inProgressJobsList" src="public/images/loader/blue-loader.gif">
+                                            </div>
+                                            <div class="action">
+                                                <div class="pull-left" ng-if="CandidateDetailsCtrl.inProgressTagJobs">
+                                                    <img src="public/images/loader/upload_file.gif" alt="sending">
+                                                    <span class="msg">Assigning a Job</span>
+                                                </div>
+                                                <span class="msg response-msg" ng-bind="CandidateDetailsCtrl.responseMsgTagJobs"></span>
+                                                <md-button class="md-raised add pull-right" ng-click="CandidateDetailsCtrl.postTagJobs()" ng-disabled="CandidateDetailsCtrl.inProgressTagJobs">ASSIGN A JOB</md-button>
+                                            </div>
+                                        </div>
+                                        <div class="timeline-container">
+                                            <div layout="column">
+                                                <div layout="row" class="list" ng-repeat="list in CandidateDetailsCtrl.referralsList">
+                                                    <div class="lt">
+                                                        <img class="pending" src="public/images/link.png" alt="comment">
+                                                    </div>
+                                                    <div class="rt">
+                                                        <p>Linked to {{list.post_name}}</p>
+                                                        <p class="text">by {{list.referred_by}}
+                                                            <span class="dot time">&middot;</span>
+                                                            <span class="time">{{list.referred_on}}</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </uib-tab>
+
+                                <uib-tab class="arrow" disable="true" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Assigned Jobs" tooltip-placement="left">
+                                    <uib-tab-heading>
+                                        <md-menu class="talent" md-position-mode="target-right target">
+                                           <md-button ng-click="$mdOpenMenu($event)">
+                                              <span>
+                                                   <i class="material-icons">&#xE313;</i>
+                                              </span>
+                                           </md-button>
+                                           <md-menu-content width="3" class="talent-menu">
+                                               <span class="title">Assigned Jobs</span>
+                                               <md-menu-item ng-repeat="referral in CandidateDetailsCtrl.referralsList">
+                                                   <md-button ng-style="{background : (referral.reference_id == CandidateDetailsCtrl.referralId) ? 'rgba(158,158,158,0.2)' : '' }"
+                                                       ng-click="CandidateDetailsCtrl.changeReferral(referral)"
+                                                       ng-bind="referral.post_name"
+                                                       aria-label="{{referral.reference_id}}">
+                                                   </md-button>
+                                               </md-menu-item>
+                                           </md-menu-content>
+                                       </md-menu>
+                                    </uib-tab-heading>
+                                </uib-tab>
+
+                            </uib-tabset>
+                        </md-card>
+        			</div>
+        		</div>
+        	</div>
+        </div>
+	</div>
+</div>

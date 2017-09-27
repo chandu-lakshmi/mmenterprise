@@ -47,8 +47,8 @@ angular.module('mwFormUtils.responseUtils', [])
                 questionResponse.selectedAnswers.forEach(function (answerId) {
                     result.selectedAnswers.push(offeredAnswerById[answerId]);
                 })
-            } else if (questionResponse.selectedAnswer) {
-                result.selectedAnswer = offeredAnswerById[questionResponse.selectedAnswer];
+            } else if (questionResponse.question_ans) {
+                result.question_ans = offeredAnswerById[questionResponse.question_ans];
             }
             if (questionResponse.other) {
                 result.other = questionResponse.other;
@@ -369,8 +369,8 @@ angular.module('mwFormUtils.responseUtils', [])
                             continue;
                         }
                         var cellVal = "";
-                        if (response.selectedAnswer) {
-                            cellVal = response.selectedAnswer.value;
+                        if (response.question_ans) {
+                            cellVal = response.question_ans.value;
                         }
 
                         if (response.other) {
@@ -387,11 +387,11 @@ angular.module('mwFormUtils.responseUtils', [])
                             continue;
                         }
                         var cellVal = "";
-                        response.selectedAnswers.forEach(function (selectedAnswer) {
+                        response.selectedAnswers.forEach(function (question_ans) {
                             if (cellVal) {
                                 cellVal += answerDelimiter;
                             }
-                            cellVal += selectedAnswer.value;
+                            cellVal += question_ans.value;
 
                         });
                         if (response.other) {

@@ -6,11 +6,13 @@
     angular
             .module('app.candidates', ['ui.grid', 'ui.grid.selection', 'angular-svg-round-progressbar', 'textAngular'])
             .controller('CandidateController', CandidateController)
+            .controller('CandidateDetailsController', CandidateDetailsController)
             .controller('ResumeRoomController', ResumeRoomController)
             .controller('UploadResumeController', UploadResumeController)
             .controller('FindResumeController', FindResumeController)
 
     CandidateController.$inject = ['App'];
+    CandidateDetailsController.$inject = ['$scope', '$state', '$http', '$q', '$timeout', '$window', '$stateParams', '$uibModal', '$mdToast', 'CONFIG', 'CompanyDetails', 'App'];
     ResumeRoomController.$inject = ['$state', '$window', '$uibModal', '$http', '$q', '$timeout', 'ajaxService', 'CompanyDetails', 'App'];
     UploadResumeController.$inject = ['$rootScope', '$scope', '$http', '$timeout', '$window', '$uibModal', 'App'];
     FindResumeController.$inject = ['$scope', '$http', '$q', '$timeout', '$filter', 'orderByFilter', '$window', 'CompanyDetails', 'App'];
@@ -26,7 +28,7 @@
         var vm = this, canceler,
                 gridApiCall = App.base_url + 'get_company_all_referrals';
 
-        // Multiple Select Search header 
+        // Multiple Select Search header
         /*$element.find('input').on('keydown', function(ev) {
          ev.stopPropagation();
          });*/
@@ -90,31 +92,31 @@
             enableHorizontalScrollbar: 0,
             enableSorting: true,
             enableColumnMenus: false,
-            enableRowSelection: true,
+            enableRowSelection: false,
             enableRowHeaderSelection: false,
-            enableFullRowSelection: false,
+            enableFullRowSelection: true,
             data: 'data',
             appScopeProvider: vm // bindin scope to grid
         };
 
         vm.gridOptions.columnDefs = [
-            {name: 'fullname', displayName: 'CANDIDATE NAME', headerTooltip: 'Candidate Name',
+            {name: 'fullname', displayName: 'CANDIDATE NAME', headerTooltip: 'Candidate Name', cellTemplate : 'candidate-details.html',
                 cellTooltip: function (row, col) {
                     return row.entity.fullname;
                 }
             },
-            {name: 'referred_by_name', displayName: 'REFERRED BY', headerTooltip: 'Referred By'},
-            {name: 'service_name', displayName: 'JOB/POSITION', headerTooltip: 'Job/Position'},
+            {name: 'referred_by_name', displayName: 'REFERRED BY', headerTooltip: 'Referred By', cellTemplate : 'referred-details.html'},
+            {name: 'service_name', displayName: 'JOB/POSITION', headerTooltip: 'Job/Position', cellTemplate : 'job-details.html'},
             {name: 'resume_name', displayName: 'RESUME', headerTooltip: 'RESUME',
                 cellTemplate: 'download-resume.html'
             },
-            {name: 'created_at', displayName: 'DATE', headerTooltip: 'DATE'},
+            {name: 'created_at', displayName: 'DATE', headerTooltip: 'DATE', cellTemplate : 'date-details.html'},
             {name: 'one_way_status', displayName: 'STATUS', headerTooltip: 'Status', cellTemplate: 'status-change.html', width: '14%'}
         ]
 
         vm.gridOptions.onRegisterApi = function (gridApi) {
             gridApi.selection.on.rowSelectionChanged(null, function (row) {
-                updateRowSelection(row)
+                updateRowSelection(row);
             });
 
             gridApi.selection.on.rowSelectionChangedBatch(null, function (rows) {
@@ -206,7 +208,7 @@
                             catch(err) {
                                 console.log("error in scroll");
                             }
-                            
+
                         }
                         else if (response.data.status_code == 403) {
                             vm.noCandidates = true;
@@ -238,14 +240,14 @@
          if(!filterIds.length){
          return;
          }
-         
+
          if(canceler){
          canceler.resolve();
          }
-         
+
          vm.loader = true;
          canceler = $q.defer();
-         
+
          $http({
          headers: {
          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -339,10 +341,10 @@
 
 
     function UploadResumeController($rootScope, $scope, $http, $timeout, $window, $uibModal, App) {
-        /*Note filesInQueue object status( 
-         1->qqUploading--valid file(progressbar(blue), crossMark) 
-         2-> s3Uploading--apiTriggering(progressbar(blue), loadingspinner), 
-         3->s3Uploaded--sucesss(serverMessage , deleteIcon) 
+        /*Note filesInQueue object status(
+         1->qqUploading--valid file(progressbar(blue), crossMark)
+         2-> s3Uploading--apiTriggering(progressbar(blue), loadingspinner),
+         3->s3Uploaded--sucesss(serverMessage , deleteIcon)
          4->failed(progressbar(red), crossMark);
          */
         var vm = this;
@@ -703,6 +705,880 @@
             });
             return filtered;
         }
+
+    }
+
+
+    function CandidateDetailsController($scope, $state, $http, $q, $timeout, $window, $stateParams, $uibModal, $mdToast, CONFIG, CompanyDetails, App) {
+
+        var vm = this,
+                cancelerAttendees,
+                cancelerTagJobs,
+                cancelerAddTag,
+                prevSearchValue,
+                prevSearchValueJobs,
+                prevSearchValueAddTag,
+                apiKeyType    = $stateParams.type,
+                candidateId   = $stateParams.id,
+                activitiesType = {
+                    candidate_emails    : "mail.png",
+                    candidate_status    : "pending.png",
+                    candidate_comments  : "comment.png",
+                    candidate_link_job  : "link.png",
+                    candidate_schedules : "schedule.png"
+                },
+                apiKeyCandidateDetails = { contact_id:candidateId };
+
+
+        vm.newTalentList      = [{ label:'New Talent'}, { label:'Great Fit' }, { label:'Good Fit' }, { label:'Not Suitable' }, { label:'Employed' }];
+        vm.referralStatusList = ["New", "Reviewed", "Shortlisted", "Scheduled for Interview", "Not Suitable", "Selected", "Offered", "Offer Accepted", "On Hold", "Offer Rejected", "Confirmed to Join", "Hired", "Not Joined", "Joined"];
+        vm.scheduleForList    = ["Face to Face", "Online Meeting", "Telephone"];
+        vm.referralId         = $stateParams.id;
+        vm.hasChangeReferral  = false;
+
+        vm.inProgressCandidateDetails     = true;
+        vm.inProgressUpdateReferralStatus = false;
+
+        vm.schedule = {
+            attendees : []
+        };
+        vm.selectedAttendees   = [];
+        vm.inProgressAttendees = false;
+        vm.inProgressSchedule  = false;
+        vm.submittedSchedule   = false;
+        vm.responseMsgSchedule = null;
+
+        vm.selectedTagJobs    = [];
+        vm.inProgressJobsList = false;
+        vm.inProgressTagJobs  = false;
+        vm.submittedTagJobs   = false;
+        vm.responseMsgTagJobs = null;
+
+        vm.inProgressPostComment  = false;
+        vm.responseMsgPostComment = null;
+
+        vm.writeMail           = {};
+        vm.inProgressPostMail  = false;
+        vm.submittedPostMail   = false;
+        vm.responseMsgPostMail = null;
+
+        vm.enableTagChips = false;
+        vm.inProgressSearchTagJobs = false;
+
+        vm.showCommentsTab = true;
+        vm.showScheduleTab = true;
+        vm.showMailsTab    = true;
+        vm.showLinkTab     = true;
+
+        vm.querySearchAttendees = function(searchText) {
+
+            if (prevSearchValue != searchText) {
+                if (cancelerAttendees) {
+                    cancelerAttendees.resolve();
+                }
+
+                cancelerAttendees      = $q.defer();
+                vm.inProgressAttendees = true;
+
+                return $http({
+                    headers : {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                    },
+                    method  : 'POST',
+                    data    : $.param({search: searchText}),
+                    url     : CONFIG.APP_DOMAIN + 'company_all_contacts',
+                    timeout : cancelerAttendees.promise
+                })
+                .then(function (response) {
+                    prevSearchValue        = searchText;
+                    vm.inProgressAttendees = false;
+                    return response.data.data;
+                })
+            } else{
+                prevSearchValue = null;
+                return setTimeout(function(){});
+            }
+
+        }
+
+        vm.querySearchTagJobs = function(searchText) {
+
+            if (prevSearchValueJobs != searchText) {
+                if (cancelerTagJobs) {
+                    cancelerTagJobs.resolve();
+                }
+
+                var apiKeys = $.param({
+                        reference_id : candidateId,
+                        candidate_id : vm.details.candidate_id,
+                        search : searchText,
+                    });
+
+                cancelerTagJobs       = $q.defer();
+                vm.inProgressJobsList = true;
+
+                return $http({
+                    headers : {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                    },
+                    method  : 'POST',
+                    data    : apiKeys,
+                    url     : CONFIG.APP_DOMAIN + 'get_candidate_tag_jobs_list',
+                    timeout : cancelerTagJobs.promise
+                })
+                .then(function (response) {
+                    prevSearchValueJobs        = searchText;
+                    vm.inProgressJobsList = false;
+                    return response.data.data;
+                })
+            } else{
+                prevSearchValueJobs = null;
+                return setTimeout(function(){});
+            }
+
+        }
+
+        vm.querySearchAddTag = function(searchText) {
+            if (prevSearchValueAddTag != searchText) {
+                if (cancelerAddTag) {
+                    cancelerAddTag.resolve();
+                }
+
+                cancelerAddTag = $q.defer();
+                vm.inProgressSearchTagJobs = true;
+
+                return $http({
+                    headers : {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                    },
+                    method  : 'POST',
+                    data    : $.param({tag_name: searchText}),
+                    url     : CONFIG.APP_DOMAIN + 'get_candidates_tags',
+                    timeout : cancelerAddTag.promise
+                })
+                .then(function (response) {
+                    prevSearchValueAddTag      = searchText;
+                    vm.inProgressSearchTagJobs = false;
+                    return response.data.data;
+                })
+            } else{
+                prevSearchValueAddTag = null;
+                return setTimeout(function(){});
+            }
+
+        }
+
+        vm.changeMailSubject = function() {
+
+            angular.forEach(vm.writeMailSubjectList, function(list) {
+                if(list.id == vm.writeMail.subjectId) {
+                    vm.writeMail.body = list.body;
+                    vm.writeMail.email_subject = list.subject;
+                }
+            })
+
+        }
+
+        vm.postSchedule = function(form) {
+
+            vm.submittedSchedule = true;
+            if(form.$valid) {
+              if(vm.schedule.attendees.length) {
+                var tempSelectedAttendee = [];
+                angular.forEach(vm.schedule.attendees, function(attendee){
+                    tempSelectedAttendee.push(attendee.emailid);
+                });
+
+                var apiKeys = $("form[name='schedule_form']").serialize() + '&' + $.param({reference_id : candidateId, candidate_id : vm.details.candidate_id, attendees : tempSelectedAttendee.toString() });
+
+                vm.inProgressSchedule  = true;
+
+                $http({
+                    headers : {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                    },
+                    method  : 'POST',
+                    url     : App.base_url + 'add_candidate_schedule',
+                    data    : apiKeys
+                })
+                .then(function (response) {
+
+                    if (response.data.status_code == 200) {
+                        vm.inProgressSchedule   = false;
+                        vm.submittedSchedule    = false;
+                        vm.responseMsgSchedule  = response.data.message.msg[0];
+                        vm.candidateSchedulesList.unshift(response.data.data.schedule);
+                        vm.candidateActivitiesList.unshift(response.data.data.timeline);
+                        $timeout(function(){
+                            vm.searchText = null;
+                            vm.schedule   = {
+                                attendees : []
+                            };
+                            vm.responseMsgSchedule = null;
+                        }, 2000);
+                    }
+                    else if (response.data.status_code == 400) {
+                        $window.location = App.base_url + 'logout';
+                    }
+                });
+            }
+          }
+        }
+
+        vm.resetScheduleForm = function(form) {
+
+          vm.inProgressPostComment  = false;
+          vm.submittedSchedule = false;
+
+          vm.schedule.attendees = [];
+          vm.schedule.schedule_for = {};
+
+          vm.schedule.interview_date = null;
+          vm.schedule.interview_from_time = null;
+          vm.schedule.interview_to_time = null;
+          // $('#interview_date').datetimepicker('setStartDate', new Date());
+
+          vm.schedule.timeZone = null;
+          vm.schedule.location = null;
+          vm.schedule.notes = null;
+        }
+
+        vm.postComments = function(form) {
+            var apiKeys = $.param({
+                    reference_id : candidateId,
+                    comment : vm.comment,
+                    candidate_id : vm.details.candidate_id
+                });
+
+            vm.inProgressPostComment  = true;
+            vm.comment = null;
+            $http({
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method  : 'POST',
+                url     : App.base_url + 'add_candidate_comment',
+                data    : apiKeys
+            })
+            .then(function (response) {
+                if (response.data.status_code == 200) {
+
+                    vm.inProgressPostComment  = false;
+                    vm.responseMsgPostComment = response.data.message.msg[0];
+                    vm.candidateCommentsList.unshift(response.data.data.comment);
+                    vm.candidateActivitiesList.unshift(response.data.data.timeline);
+
+                    $timeout(function(){
+                        vm.responseMsgPostComment = null;
+                    }, 2000);
+                }
+                else if (response.data.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+
+            });
+
+        }
+
+        vm.postMail = function(form) {
+
+            vm.submittedPostMail = true;
+
+            if(form.$valid) {
+
+                var apiKeys = $("form[name='write_mail_form']").serialize() + '&' + $.param({reference_id : candidateId, candidate_id : vm.details.candidate_id, email_subject : vm.writeMail.email_subject });
+
+                vm.inProgressPostMail  = true;
+
+                vm.writeMail.body = null;
+                vm.writeMail.subjectText = null;
+
+                $http({
+                    headers : {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                    },
+                    method  : 'POST',
+                    url     : App.base_url + 'add_candidate_email',
+                    data    : apiKeys
+                })
+                .then(function (response) {
+                    if (response.data.status_code == 200) {
+                        vm.writeMail.subjectId = null;
+                        vm.inProgressPostMail   = false;
+                        vm.submittedPostMail    = false;
+                        vm.candidateSendMailsList.unshift(response.data.data.email);
+                        vm.candidateActivitiesList.unshift(response.data.data.timeline);
+                        vm.responseMsgPostMail  = response.data.message.msg[0];
+                        $timeout(function(){
+                            vm.writeMail = { to:vm.details.emailid };
+                            vm.responseMsgPostMail = null;
+                        }, 2000);
+                    }
+                    else if (response.data.status_code == 400) {
+                        $window.location = App.base_url + 'logout';
+                    }
+
+                });
+            }
+
+        }
+
+        vm.postTagJobs = function() {
+
+            vm.errorResponse = false;
+            vm.submittedTagJobs = true;
+
+            if(vm.selectedTagJobs.length) {
+
+                var tempJobIds = [];
+                angular.forEach(vm.selectedTagJobs, function(attendee){
+                    tempJobIds.push(attendee.post_id);
+                });
+
+                var apiKeys = $.param({reference_id : candidateId, candidate_id : vm.details.candidate_id, job_ids : tempJobIds.toString()});
+
+                vm.inProgressTagJobs  = true;
+
+                $http({
+                    headers : {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                    },
+                    method  : 'POST',
+                    url     : App.base_url + 'add_candidate_tag_jobs',
+                    data    : apiKeys
+                })
+                .then(function (response) {
+                    if (response.data.status_code == 200) {
+                        vm.inProgressTagJobs   = false;
+                        vm.submittedTagJobs    = false;
+                        vm.referralsList.unshift(response.data.data.link_job);
+                        vm.candidateActivitiesList.unshift(response.data.data.timeline);
+                        vm.responseMsgTagJobs  = response.data.message.msg[0];
+                        $timeout(function(){
+                            vm.searchTextTagJob   = null;
+                            vm.selectedTagJobs    = [];
+                            vm.responseMsgTagJobs = null;
+                        }, 2000);
+
+                    }
+                    else if (response.data.status_code == 403) {
+                        vm.selectedTagJobs    = [];
+                        vm.submittedTagJobs   = false;
+                        vm.searchTextTagJob   = null;
+                        vm.errorResponse      = true;
+                        vm.inProgressTagJobs  = false;
+                        vm.errorResponseMsgTagJobs  = response.data.message.msg[0];
+                    }
+                    else if (response.data.status_code == 400) {
+                        $window.location = App.base_url + 'logout';
+                    }
+
+                });
+            }
+
+        }
+
+        vm.postPersonalStatus = function(talent) {
+
+            vm.details.candidate_status.status_name = talent.label;
+
+            var updatedInfo = '<md-toast class="mm-toast"><div class="md-toast-text" flex><i class="material-icons">done</i><div class="text"><div class="toast-succ">Success!</div><div class="succ-text">Status updated successfully</div></div></div></md-toast>',
+                apiKeys = $.param({
+                reference_id : candidateId,
+                candidate_id : vm.details.candidate_id,
+                status_name  : talent.label
+            });
+
+            $http({
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method  : 'POST',
+                url     : App.base_url + 'add_candidate_personal_status',
+                data    : apiKeys
+            })
+            .then(function (response) {
+
+                if (response.data.status_code == 200) {
+                    $mdToast.show({
+                       hideDelay: 3000,
+                       position: 'top right',
+                       template: updatedInfo
+                    });
+                }
+                else if (response.data.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+
+            });
+
+        }
+
+        vm.changeReferral = function(ref) {
+
+            if(ref.reference_id != candidateId) {
+
+                $state.transitionTo( 'app.candidates.details',
+                    { type:'cdt', id : ref.reference_id },
+                    { location: true, inherit: true, relative: $state.$current, notify: false }
+                );
+
+                apiKeyType    = $stateParams.type;
+                candidateId   = ref.reference_id;
+                vm.referralId = ref.reference_id;
+                apiKeyCandidateDetails = { contact_id:candidateId };
+
+                vm.inProgressCandidateDetails = true;
+                vm.hasChangeReferral = true;
+                vm.submittedSchedule = false;
+                vm.submittedPostMail = false;
+                vm.submittedTagJobs  = false;
+
+                vm.schedule = {
+                    attendees : []
+                };
+                vm.searchText       = null;
+                vm.comment          = null;
+                vm.writeMail        = {};
+                vm.searchTextTagJob = null;
+                vm.selectedTagJobs  = [];
+
+                vm.showCommentsTab = true;
+                vm.showScheduleTab = true;
+                vm.showMailsTab    = true;
+                vm.showLinkTab     = true;
+
+                vm.enableTagChips  = false;
+
+                init();
+            }
+
+        }
+
+        vm.getActivityPic = function(activity) {
+
+            return "public/images/" + activitiesType[activity.activity_type];
+
+        }
+
+        vm.tempGetColor = function(text, selected) {
+            if(!!text && !!selected){
+                if(text.toUpperCase()==selected.toUpperCase()){
+                    return 'rgba(158,158,158,0.2)';
+                }
+            }
+        }
+
+        vm.stateGoFrom = function() {
+
+            switch($stateParams.stateFrom) {
+                case "dashboard":
+                    $state.go('app.dashboard');
+                    break;
+                case "job":
+                    $state.go('app.engagement/contacts', { post_id :'ref', id : $stateParams.stateId });
+                    break;
+                case "contactInternal":
+                    $state.go('app.contact.Internal');
+                    break;
+                case "contactExternal":
+                    $state.go('app.contact.External');
+                    break;
+                default:
+                    $state.go('app.candidates.resumeRoom');
+            }
+
+        }
+
+        var referralStatusDialog,
+            tempReferralStatus;
+        vm.changeReferralStatus = function(status){
+            tempReferralStatus = status;
+            if(['Scheduled for Interview', 'Not Suitable', 'On Hold'].indexOf(status) > -1 ){
+                referralStatusDialog = $uibModal.open({
+                    animation: false,
+                    backdrop: 'static',
+                    keyboard: false,
+                    templateUrl: 'templates/candidates/dialog-update-referral_status.phtml',
+                    openedClass: "external-bucket",
+                    scope: $scope
+                });
+            } else{
+                vm.postReferralStatus(false);
+            }
+
+        }
+
+        vm.postReferralStatus = function(formDialog) {
+
+            if(formDialog){
+                vm.inProgressDialog = true;
+            } else{
+                vm.inProgressUpdateReferralStatus = true;
+            }
+
+            var updatedInfo = '<md-toast class="mm-toast"><div class="md-toast-text" flex><i class="material-icons">done</i><div class="text"><div class="toast-succ">Success!</div><div class="succ-text">Status updated successfully</div></div></div></md-toast>',
+                apiKeys = $.param({
+                    reference_id    : candidateId,
+                    candidate_id    : vm.details.candidate_id,
+                    referral_status : tempReferralStatus,
+                    referral_msg    : vm.referralStatusComment
+                });
+
+            $http({
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method  : 'POST',
+                url     : App.base_url + 'edit_candidate_referral_status',
+                data    : apiKeys
+            })
+            .then(function (response) {
+
+                if (response.data.status_code == 200) {
+                    vm.inProgressDialog          = false;
+                    vm.details.referral_status   = tempReferralStatus;
+                    vm.referralStatusComment     = '';
+                    //vm.responseMsgReferralStatus =  response.data.message.msg[0];
+                    vm.inProgressUpdateReferralStatus = false;
+                    $mdToast.show({
+                       hideDelay: 3000,
+                       position: 'top right',
+                       template: updatedInfo
+                    });
+                    vm.candidateActivitiesList.unshift(response.data.data.timeline);
+                    $timeout(function(){
+                        if(referralStatusDialog)
+                            referralStatusDialog.close();
+                        vm.responseMsgReferralStatus = null;
+                    });
+                }
+                else if (response.data.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+
+            });
+        }
+
+        vm.toggleAddTag = function() {
+            vm.enableTagChips = true;
+            setTimeout(function(){
+                $('#tagJob').focus();
+            })
+        }
+
+        vm.addTag = function(item) {
+            if(item){
+                vm.enableTagChips = false;
+                var hasTag = true;
+                angular.forEach(vm.details.candidate_tags, function(tag, index){
+                    if(tag.tag_id == item.tag_id) {
+                        hasTag = false;
+                    }
+                });
+                if(hasTag){
+                    postAddTags(item);
+                }
+            }
+        }
+
+        vm.removeTag = function(removedChip){
+
+            var updatedInfo = '<md-toast class="mm-toast"><div class="md-toast-text" flex><i class="material-icons">done</i><div class="text"><div class="toast-succ">Success!</div><div class="succ-text">Tag updated successfully</div></div></div></md-toast>',
+                apiKeys = $.param({
+                    reference_id : candidateId,
+                    candidate_id : vm.details.candidate_id,
+                    id : removedChip.id
+                });
+
+            $http({
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method  : 'POST',
+                url     : App.base_url + 'delete_candidate_tag',
+                data    : apiKeys
+            })
+            .then(function (response) {
+
+                if (response.data.status_code == 200) {
+                    $mdToast.show({
+                       hideDelay: 3000,
+                       position: 'top right',
+                       template: updatedInfo
+                    });
+                }
+                else if (response.data.status_code == 400) {
+                   $window.location = App.base_url + 'logout';
+                }
+
+            });
+
+        }
+
+        vm.toogleTabs = function (id) {
+            $("#" + id).slideToggle('slow');
+            vm[id] = !vm[id];
+        }
+
+        vm.getAttendeesTooltip = function(attendees) {
+            var data = angular.copy(attendees);
+            data.shift();
+            return data.toString();
+        }
+
+        function init() {
+
+            getCandidateDetails().then(function () {
+
+                vm.inProgressCandidateDetails = false;
+                vm.hasChangeReferral = false;
+
+                vm.writeMail.to   = vm.details.emailid;
+                vm.viewResume     = App.base_url + 'viewer?url=' + vm.details.resume_path;
+                vm.downloadResume = App.API_DOMAIN + "getResumeDownload?company_id=" + CompanyDetails.company_code + "&doc_id=" + vm.details.document_id;
+
+                getDropdownList();
+
+            });
+
+        }
+
+        function getCandidateDetails() {
+
+
+            if(apiKeyType == 'ref') {
+                apiKeyCandidateDetails = { candidate_id : candidateId };
+            }
+            else if(apiKeyType == 'cdt') {
+                apiKeyCandidateDetails = { reference_id : candidateId };
+            }
+
+            var candidateDetails = $http({
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method  : 'POST',
+                url     : App.base_url + 'get_candidate_details',
+                data    : $.param(apiKeyCandidateDetails)
+            });
+
+            var candidateActivities = $http({
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method  : 'POST',
+                url     : App.base_url + 'get_candidate_activities',
+                data    : $.param(apiKeyCandidateDetails)
+            });
+
+            return $q.all([candidateDetails, candidateActivities]).then(function (data) {
+
+                vm.details                 =  angular.copy(data[0].data.data);
+                vm.candidateActivitiesList =  angular.copy(data[1].data.data);
+                if(!data[1].data.data.length) {
+                    vm.responseMsgActivities = data[1].data.message.msg[0];
+                }
+            }, function() {
+                $window.location = App.base_url + 'logout';
+            });
+
+        }
+
+        function getDropdownList() {
+
+            $http({
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method  : 'GET',
+                url     : App.base_url + 'public/js/controllers/time-zone.json',
+            })
+            .then(function (response) {
+                if (response.status == 200) {
+                    vm.timeZone  = response.data;
+                }
+                else if (response.data.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+
+            });
+
+            $http({
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method  : 'POST',
+                url     : App.base_url + 'get_candidate_email_templates',
+                data    : $.param({ reference_id : candidateId, candidate_id : vm.details.candidate_id })
+            }).then(function (response) {
+                if (response.status == 200) {
+                    vm.writeMailSubjectList = angular.copy(response.data.data);
+                }
+                else if (response.data.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+            });
+
+            $http({
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method  : 'POST',
+                url     : App.base_url + 'get_candidate_referral_list',
+                data    : $.param({ reference_id : candidateId})
+            }).then(function (response) {
+                if (response.status == 200) {
+                    vm.referralsList = angular.copy(response.data.data);
+                }
+                else if (response.data.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+            });
+
+
+            $http({
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method  : 'POST',
+                url     : App.base_url + 'get_candidate_schedules',
+                data    : $.param({ reference_id : candidateId, candidate_id : vm.details.candidate_id })
+            }).then(function (response) {
+                if (response.status == 200) {
+                    vm.candidateSchedulesList = angular.copy(response.data.data);
+                }
+                else if (response.data.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+            });
+
+            $http({
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method  : 'POST',
+                url     : App.base_url + 'get_candidate_comments',
+                data    : $.param(apiKeyCandidateDetails)
+            })
+            .then(function (response) {
+                if (response.status == 200) {
+                    vm.candidateCommentsList   =  angular.copy(response.data.data);
+                }
+                else if (response.data.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+
+            });
+
+            $http({
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method  : 'POST',
+                url     : App.base_url + 'get_candidate_sent_emails',
+                data    : $.param(apiKeyCandidateDetails)
+            })
+            .then(function (response) {
+                if (response.status == 200) {
+                    vm.candidateSendMailsList  =  angular.copy(response.data.data);
+                }
+                else if (response.data.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+
+            });
+
+
+        }
+
+        function postAddTags(selectedTag) {
+
+            var successInfo = '<md-toast class="mm-toast"><div class="md-toast-text" flex><i class="material-icons">done</i><div class="text"><div class="toast-succ">Success!</div><div class="succ-text">Tag added successfully</div></div></div></md-toast>',
+                apiKeys = $.param({
+                    reference_id : candidateId,
+                    candidate_id : vm.details.candidate_id,
+                    tag_id       : selectedTag.tag_id,
+                    tag_name     : selectedTag.tag_name
+                });
+
+            $http({
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method  : 'POST',
+                url     : App.base_url + 'add_candidate_tags',
+                data    : apiKeys
+            })
+            .then(function (response) {
+
+                if (response.data.status_code == 200) {
+                    vm.details.candidate_tags.push(response.data.data);
+                    $mdToast.show({
+                       hideDelay: 3000,
+                       position: 'top right',
+                       template: successInfo
+                    });
+                }
+                else if (response.data.status_code == 400) {
+                   $window.location = App.base_url + 'logout';
+                }
+
+            });
+
+        }
+
+
+        setTimeout(function() {
+
+            $('#interview_date').datetimepicker({
+                minDate : new Date(),
+                ignoreReadonly: true,
+                format     : 'dddd, DD MMM YYYY',
+                sideBySide : true,
+                useCurrent :true
+            });
+
+            $('#time_from').datetimepicker({
+                ignoreReadonly: true,
+                format     : 'hh:mm A',
+                sideBySide : true,
+                useCurrent : true
+            });
+
+            $('#time_to').datetimepicker({
+                ignoreReadonly: true,
+                format     : 'hh:mm A',
+                sideBySide : true,
+                useCurrent : false
+            });
+
+            $("#time_from").on("dp.change", function (e) {
+                $('#time_to').data("DateTimePicker").minDate(e.date);
+            });
+            $("#time_to").on("dp.change", function (e) {
+                $('#time_from').data("DateTimePicker").maxDate(e.date);
+            });
+
+            $('#search').on('keydown', function(ev) {
+                if(ev.which != 40 && ev.which != 38){
+                    ev.stopPropagation();
+                }
+            });
+
+        });
+
+
+        $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+            if(referralStatusDialog)
+                referralStatusDialog.close();
+        })
+
+
+        init();
+
+
+
 
     }
 

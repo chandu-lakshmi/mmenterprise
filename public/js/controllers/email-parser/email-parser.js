@@ -12,6 +12,10 @@
             .controller('AllCampaignsController', AllCampaignsController)
             .controller('TalentCommunityController', TalentCommunityController)
 
+            //Candidate Write Exam
+            .controller('AssessmentController', AssessmentController)
+            .controller('CheckAssessmentController', CheckAssessmentController)
+
             .config(function ($translateProvider) {
                 $translateProvider.useStaticFilesLoader({
                     prefix: '../public/angular-survey/i18n/',
@@ -29,6 +33,8 @@
     AllCampaignsController.$inject = ['$scope', '$http', '$window', '$q', '$mdDialog', 'App', 'CampaignDetails', 'campaignJobDetails'];
     TalentCommunityController.$inject = ['$scope', '$http', '$timeout', '$uibModalInstance', 'ReferralDetails', 'CampaignDetails', 'formJobOrCampagin', 'App'];
 
+    AssessmentController.$inject = ['$state', '$stateParams', '$mdDialog', '$scope', '$http', '$timeout', 'App', 'candidateDetails', 'CampaignDetails'];
+    CheckAssessmentController.$inject = ['$scope', '$mdDialog'];
 
     function modalController($scope, $state, $stateParams, $uibModalInstance, App) {
 
@@ -54,7 +60,7 @@
     }
 
     function JobsController($scope, $state, $http, $uibModal, ReferralDetails, App) {
-        
+
         var vm = this,
                 copySearchOptions,
                 desc    = '',
@@ -72,7 +78,7 @@
         };
         copySearchOptions = angular.copy(this.searchOptions);
 
- 
+
         function init() {
 
             $http({
@@ -95,7 +101,7 @@
                     $('#logo img').attr('width', App.Components.aspectRatio({domTarget: $('#logo img')[0]}) + 'px');
                 },
                 onError: function () {
-                    
+
                 }
             });
 
@@ -111,13 +117,13 @@
                 socialIcons: ['facebook', 'twitter', 'linkedin', 'googlePlus'],
                 url: vm.shareUrl,
                 facebook: {
-                    post_title: 'These jobs are available in ' + toTitleCase(ReferralDetails.company_name),
+                    post_title: 'Please check out the new opportunities at ' + toTitleCase(ReferralDetails.company_name),
                     post_url: vm.shareUrl,
                     post_img: ReferralDetails.company_logo || '',
                     post_msg: desc
                 },
                 twitter: {
-                    text: 'These jobs are available in ' + toTitleCase(ReferralDetails.company_name) + '. ' + desc,
+                    text: 'Please check out the new opportunities at ' + toTitleCase(ReferralDetails.company_name) + '. ' + desc,
                     url: ReferralDetails.bittly_url,
                     hashtags: '',
                     via: ReferralDetails.company_name,
@@ -125,7 +131,7 @@
                 },
                 linkedin: {
                     url: ReferralDetails.bittly_url,
-                    title: 'These jobs are available in ' + toTitleCase(ReferralDetails.company_name),
+                    title: 'Please check out the new opportunities at ' + toTitleCase(ReferralDetails.company_name),
                     summary: desc,
                     source: ReferralDetails.company_name
                 },
@@ -152,10 +158,10 @@
                 if (hasEmptyFields) {
                     return;
                 } else{
-                    hasEmptyFields = true;        
+                    hasEmptyFields = true;
                 }
             } else{
-                hasEmptyFields = false;        
+                hasEmptyFields = false;
             }
 
             $scope.$broadcast('findJob' , {opts : vm.searchOptions});
@@ -200,9 +206,7 @@
     function AllJobsController($scope, $http, $stateParams, $q, $window, ReferralDetails, App) {
 
         $window.scrollTo(0, 0);
-        
-        
-        
+
         var vm = this,
                 canceler,
                 page_no     = 1,
@@ -230,7 +234,7 @@
                 return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
             });
         }
-        
+
         /*function load(url){
             App.Helpers.loadImage({
                 target: $('#logo'),
@@ -238,10 +242,10 @@
                 url_prefix: false,
                 url: url,
                 onComplete: function () {
-                    
+
                 },
                 onError: function () {
-                    
+
                 }
             });
         }*/
@@ -260,13 +264,13 @@
                 socialIcons: ['facebook', 'twitter', 'linkedin', 'googlePlus'],
                 url: vm.shareUrl,
                 facebook: {
-                    post_title: 'These jobs are available in ' + toTitleCase(vm.infiniteScroll.companyName),
+                    post_title: 'Please check out the new opportunities at ' + toTitleCase(vm.infiniteScroll.companyName),
                     post_url: vm.shareUrl,
                     post_img: vm.infiniteScroll.company_logo || '',
                     post_msg: desc
                 },
                 twitter: {
-                    text: 'These jobs are available in ' + toTitleCase(vm.infiniteScroll.companyName) + '. ' + desc,
+                    text: 'Please check out the new opportunities at ' + toTitleCase(vm.infiniteScroll.companyName) + '. ' + desc,
                     url: bitly || vm.shareUrl,
                     hashtags: '',
                     via: vm.infiniteScroll.companyName,
@@ -274,7 +278,7 @@
                 },
                 linkedin: {
                     url: bitly || vm.shareUrl,
-                    title: 'These jobs are available in ' + toTitleCase(vm.infiniteScroll.companyName),
+                    title: 'Please check out the new opportunities at ' + toTitleCase(vm.infiniteScroll.companyName),
                     summary: desc,
                     source: vm.infiniteScroll.companyName
                 },
@@ -339,7 +343,7 @@
             if (canceler) {
                 canceler.resolve();
             }
-            
+
             if (pageNo > 1) {
                 vm.loader = true;
             }
@@ -435,17 +439,17 @@
         $scope.$emit('resetFindJob');
 
         $scope.$on('findJob', function(event, data){
-            
+
             page_no = 1;
             jobFilterParams = data.opts;
-            
+
             vm.noLongerAvailable   = '';
             vm.infiniteScroll.busy = false;
 
             if (canceler) {
                 canceler.resolve();
             }
-            
+
             vm.infiniteScroll.nextPage();
         });
 
@@ -470,13 +474,13 @@
             if(str){
                 return str.replace(/\w\S*/g, function (txt) {
                     return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-                });    
+                });
             }
         }
 
         if(decryptDetails.post_type == 'campaign') {
             vm.isCampaignJob = true;
-        } 
+        }
         else{
             vm.isCampaignJob = false;
         }
@@ -562,7 +566,7 @@
             if(vm.isCampaignJob) {
                 campaignJobDetails.job_title = job.job_name;
                 campaignJobDetails.experience = job.experience;
-                campaignJobDetails.location = job.location;    
+                campaignJobDetails.location = job.location;
             }
         }
     }
@@ -574,12 +578,17 @@
         vm.backendMsg   = '';
         vm.backendError = '';
         vm.fileName        = 'Select a file to upload...';
-        vm.hasUploadResume = true; 
+        vm.hasUploadResume = true;
         vm.loader          = false;
-        vm.readOnlyEmail   = false; 
+        vm.readOnlyEmail   = false;
         vm.showJobDetails  = true;
-        vm.invalidFile     = false; 
+        vm.invalidFile     = false;
         vm.status = $location.search().flag;
+        vm.enableTestMode = false;
+
+        if (candidateDetails.hasOwnProperty('assessment_id') && !!candidateDetails.assessment_id){
+            vm.enableTestMode  = true;
+        }
 
         $("#can-mobile").intlTelInput({
             preferredCountries : ['us', 'in', 'gb'],
@@ -619,13 +628,13 @@
         if($stateParams.refrel != 0){
             vm.refParam = $stateParams.ref;
         }
-        
+
 
         var ref = $stateParams.ref;
         var apiCall = App.base_url + 'apply_job';
         if($stateParams.refrel != 0 && ($state.current.name == 'allJobs.candidateDetails' || $state.current.name == 'allCampaigns.candidateDetails')) {
             vm.referralDetails.emailid = candidateDetails.emailid;
-            vm.readOnlyEmail = true; 
+            vm.readOnlyEmail = true;
             apiCall = App.base_url + 'apply_job_ref';
         }
 
@@ -673,17 +682,21 @@
                             setTimeout(function () {
                                 $state.go('allJobs.all', {ref: ref, share_status: $stateParams.share_status, jc : 2});
                             }, 1000);
-                        } 
+                        }
                         else if($stateParams.refrel != 0 && $stateParams.jc == 1) {
                             setTimeout(function () {
-                                $state.go('allCampaigns.all', {ref: App.camp_ref, share_status: $stateParams.share_status});
+                                if (vm.enableTestMode) {
+                                    $state.go('candidateAssessment', { ref: App.camp_ref, share_status: $stateParams.share_status });
+                                } else{
+                                    $state.go('allCampaigns.all', {ref: App.camp_ref, share_status: $stateParams.share_status});
+                                }
                             }, 1000);
-                        } 
+                        }
                         else if($stateParams.jc == 0){
                             setTimeout(function () {
                                 $state.go('allJobs.all', {ref: ref, share_status: $stateParams.share_status, jc: $stateParams.jc});
                             }, 1000);
-                        } 
+                        }
                         else {
                             setTimeout(function () {
                                 $state.go('allCampaigns.all', {ref: App.camp_ref, share_status: $stateParams.share_status});
@@ -794,142 +807,15 @@
             }
         }
 
-        /*Form Viewer*/
-        this.showFormViewer = function(ev){
-            $mdDialog.show({
-                controller: FormViewerController,
-                controllerAs: 'FormViewerCtrl',
-                templateUrl: '../templates/campaigns/form-viewer.phtml',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                clickOutsideToClose: false,
-                fullscreen: false,
-                locals: {
-                    RefDetails: vm.referralDetails
-                }
-            })
-            .then(function (answer) {
-                vm.status = 'You said the information was "' + answer + '".';
-            }, function () {
-                vm.status = 'You cancelled the dialog.';
-            });
-        }
-        function FormViewerController($scope, $rootScope, $http, $timeout, $q, $uibModal, $state, RefDetails) {
-            
-            var vm = this;
-            vm.companyName = RefDetails.company_name;
-            vm.formOptions = {
-                autoStart: false,
-                disableSubmit: false
-            };
-            vm.formStatus = {};
-            vm.formViewer = {};
-            vm.viewerReadOnly = false;
-
-            vm.responseData = {};
-            /*$http.get('response-data.json')
-             .then(function (res) {
-             vm.responseData = res.data;
-             });*/
-
-            vm.formData = null;
-            $http.get('../mintmesh_survey.json')
-                    .then(function (res) {
-                        vm.formData = res.data;
-                    });
-
-            vm.templateData = null;
-            /*$http.get('template-data.json')
-             .then(function (res) {
-             vm.templateData = res.data;
-             });*/
-
-            vm.resetViewer = function () {
-                if (vm.formViewer.reset) {
-                    vm.formViewer.reset();
-                }
-
-            };
-
-            vm.showResponseRata = false;
-            vm.saveResponse = function () {
-                return $timeout(function(){
-                    vm.closeDialog();
-                    $state.go('allCampaigns.all', {ref: $rootScope.$root.camp_ref,share_status:$stateParams.share_status});
-                }, 3000);
-                /*var d = $q.defer();
-                var res = confirm("Response save success?");
-                if (res) {
-                    d.resolve(true);
-                } else {
-                    d.reject();
-                }
-                return d.promise;*/
-
-            };
-
-            vm.showResponseModal = showResponseModal;
-            function showResponseModal(flag) {
-                if (flag) {
-                    vm.modalInstance = $uibModal.open({
-                        animation: false,
-                        keyboard: false,
-                        backdrop: 'static',
-                        templateUrl: '../form_view_json.phtml',
-                        openedClass: "form-build",
-                        scope: $scope
-                    });
-                }
-            }
-
-            /*vm.changeLanguage = function (languageKey) {
-             $translate.use(languageKey);
-             };*/
-
-            vm.getMerged = function () {
-                return mwFormResponseUtils.mergeFormWithResponse(vm.formData, vm.responseData);
-            };
-
-            vm.getQuestionWithResponseList = function () {
-                return mwFormResponseUtils.getQuestionWithResponseList(vm.formData, vm.responseData);
-            };
-            vm.getResponseSheetRow = function () {
-                return mwFormResponseUtils.getResponseSheetRow(vm.formData, vm.responseData);
-            };
-            vm.getResponseSheetHeaders = function () {
-                return mwFormResponseUtils.getResponseSheetHeaders(vm.formData, vm.headersWithQuestionNumber);
-            };
-
-            vm.getResponseSheet = function () {
-                return mwFormResponseUtils.getResponseSheet(vm.formData, vm.responseData, vm.headersWithQuestionNumber);
-            };
-
-            vm.closeDialog = function(){
-                $mdDialog.hide();
-            }
-        }
-
-        /*Job Functions Dropdown*/
-        $http({
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-            },
-            method: 'GET',
-            url: App.base_url + 'get_job_functions'
-        })
-        .success(function (response) {
-            vm.jobFunctions = response.data.job_functions;
-        })
-
     }
 
     function CampaignsController($scope, $http, $uibModal, CampaignDetails, App) {
-        
+
         var vm = this,
                 copySearchOptions,
                 reg_exp        = new RegExp("^(http|https)://", "i"),
                 hasEmptyFields = true;
-        
+
         this.geo_location = '';
         this.geo_options  = '';
         this.geo_details  = '';
@@ -963,7 +849,7 @@
                     $('#logo img').attr('width', App.Components.aspectRatio({domTarget: $('#logo img')[0]}) + 'px');
                 },
                 onError: function () {
-                    
+
                 }
             });
 
@@ -974,7 +860,7 @@
             });
 
             vm.shareUrl = App.base_url + 'email/all-campaigns/share?ref=' + App.camp_ref;
-    
+
             vm.socialMedia = {
                 socialIcons: ['facebook', 'twitter', 'linkedin', 'googlePlus'],
                 url: vm.shareUrl,
@@ -1019,11 +905,11 @@
             if(str){
                 return str.replace(/\w\S*/g, function (txt) {
                     return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-                });    
+                });
             }
         }
 
-        
+
         vm.selectExperienc = function(exp) {
             this.experienceLabel    = exp.experience_name;
             this.searchOptions.search_experience = exp.experience_id;
@@ -1034,10 +920,10 @@
                 if (hasEmptyFields) {
                     return;
                 } else{
-                    hasEmptyFields = true;        
+                    hasEmptyFields = true;
                 }
             } else{
-                hasEmptyFields = false;        
+                hasEmptyFields = false;
             }
 
             $scope.$broadcast('findJob' , {opts : vm.searchOptions});
@@ -1076,6 +962,7 @@
             vm.socialMedia = angular.copy(data);
         });
 
+
         init();
     }
 
@@ -1086,7 +973,7 @@
 
         var vm = this,
             canceler,
-            page_no = 1, 
+            page_no = 1,
             total_pages = 1,
             campaignFilterParams = {
                 time_zone : new Date().getTimezoneOffset()
@@ -1103,7 +990,7 @@
         /*if (screen.width <= 480)
             vm.copyText = 'Copy'
         else
-            vm.copyText = 'COPY CAMPAIGN LINK'*/    
+            vm.copyText = 'COPY CAMPAIGN LINK'*/
 
         // capitalize string in javascript
         function toTitleCase(str) {
@@ -1155,7 +1042,7 @@
 
             $scope.$emit('socialMediaData', socialMedia);
         }
-        
+
         /*function load(url){
             App.Helpers.loadImage({
                 target: $('#logo'),
@@ -1163,10 +1050,10 @@
                 url_prefix: false,
                 url: url,
                 onComplete: function () {console.log('shiva')
-                    
+
                 },
                 onError: function () {
-                    
+
                 }
             });
         }*/
@@ -1210,10 +1097,10 @@
         }
 
         vm.infiniteScroll.loadApi = function (pageNo, searchVal, callBack) {
-            
+
             campaignFilterParams.page_no     = page_no;
             campaignFilterParams.campaign_id = CampaignDetails.campaign_id;
-            
+
             canceler = $q.defer();
             if(page_no > 1){
                 vm.inProgressInfinite = true;
@@ -1266,7 +1153,7 @@
         vm.infiniteScroll.nextPage();
 
         vm.findJobs = function() {
-            
+
         }
 
         vm.updateCampaignDetails = function(job) {
@@ -1279,7 +1166,7 @@
         $scope.$emit('resetFindJob');
 
         $scope.$on('findJob', function(event, data){
-            
+
             page_no = 1;
             vm.noLongerAvailable   = '';
             vm.infiniteScroll.busy = false;
@@ -1292,7 +1179,6 @@
 
         });
 
-        
     }
 
 
@@ -1300,9 +1186,9 @@
     function TalentCommunityController($scope, $http, $timeout, $uibModalInstance, ReferralDetails, CampaignDetails, formJobOrCampagin, App) {
 
         var vm = this,
-            details, 
+            details,
             colorPicker  = ["#5d80cd", "#e8655c", "#81a757", "#8b5eb2", "#e2a746", "#947956", "#a8a53d", "#607D8B", "#484848", "#3c8576"];
-        
+
         if(formJobOrCampagin == 'job') {
             details = ReferralDetails;
         }
@@ -1363,7 +1249,7 @@
         this.getColor = function (ind) {
             return colorPicker[String(ind).slice(-1)];
         }
-        
+
         this.addOrDeleteCommunity = function(CommunityId) {
             var pos = this.selectedCommunities.indexOf(CommunityId);
             $timeout(function(){
@@ -1371,12 +1257,12 @@
                     vm.selectedCommunities.push(CommunityId);
                 } else {
                     vm.selectedCommunities.splice(pos, 1);
-                }  
+                }
             }, 200)
         }
-        
+
         this.postAddContact = function(form) {
-            
+
             vm.submitted = true;
             vm.responseMsg = '';
             vm.errorMsg  = '';
@@ -1427,5 +1313,210 @@
 
     }
 
+    function AssessmentController($state, $stateParams, $mdDialog, $scope, $http, $timeout, App, candidateDetails, CampaignDetails) {
+
+            var vm = this;
+            /*Form Viewer*/
+            $mdDialog.show({
+                controller: FormViewerController,
+                controllerAs: 'FormViewerCtrl',
+                templateUrl: '../templates/campaigns/form-viewer.phtml',
+                parent: angular.element(document.body),
+                targetEvent: '',
+                clickOutsideToClose: false,
+                fullscreen: false,
+                escapeToClose: false,
+                locals: {
+                    RefDetails: vm.referralDetails
+                }
+            }).
+            then(function (answer) {
+                vm.status = 'You said the information was "' + answer + '".';
+            }, function () {
+                vm.status = 'You cancelled the dialog.';
+            });
+
+
+            $scope.$on('responseSubmitted', function (event, response) {
+                alert();
+                if (!response) {
+                    closeAssessment();
+                    return;
+                }
+                var apiKeys = angular.copy(response);
+                    angular.extend(apiKeys, {
+                        assessment_id: candidateDetails.assessment_id,
+                        got_referred_id: candidateDetails.got_referred_id,
+                        company_code: candidateDetails.company_code,
+                        emailid: candidateDetails.emailid,
+                        campaign_id : CampaignDetails.campaign_id
+                    });
+
+                $http({
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                    },
+                    method: 'POST',
+                    url: App.base_url + 'submit_assessment',
+                    data: $.param(apiKeys)
+                })
+                .then(function (response) {
+
+                    if (response.data.status_code == 200) {
+                        closeAssessment();
+                    } else if (response.data.status_code == 400) {
+                        $window.location = App.base_url + 'logout';
+                    }
+
+                });
+            });
+
+
+            function closeAssessment() {
+                $mdDialog.hide();
+                $state.go('allCampaigns.all', { ref: App.camp_ref, share_status: $stateParams.share_status });
+            }
+    }
+
     
+    function CheckAssessmentController($scope, $mdDialog) {
+
+        var vm = this;
+        /*Form Viewer*/
+        $mdDialog.show({
+            controller: FormViewerController,
+            controllerAs: 'FormViewerCtrl',
+            templateUrl: '../templates/campaigns/form-viewer.phtml',
+            parent: angular.element(document.body),
+            targetEvent: '',
+            clickOutsideToClose: false,
+            fullscreen: false,
+            escapeToClose: false,
+            locals: {
+                RefDetails: vm.referralDetails
+            }
+        }).
+        then(function (answer) {
+            vm.status = 'You said the information was "' + answer + '".';
+        }, function () {
+            vm.status = 'You cancelled the dialog.';
+        });
+
+        $scope.$on('responseSubmitted', function (event, response) {
+            $mdDialog.hide();
+        });
+    }
+
+
+    function FormViewerController($scope, $rootScope, $http, $timeout, $q, $uibModal, $mdDialog, $state, $stateParams, RefDetails, $window, candidateDetails, CampaignDetails, mmQuestionnaire, App) {
+     
+        var vm = this;
+        vm.formOptions = {
+            autoStart: false,
+            disableSubmit: false
+        };
+        vm.formStatus = {};
+        vm.formViewer = {};
+        vm.viewerReadOnly = false;
+
+        vm.responseData = {};
+        var apiKeys = $.param({
+            assessment_id: candidateDetails.assessment_id || $stateParams.assessmentId,
+            got_referred_id : candidateDetails.got_referred_id,
+            company_code : candidateDetails.company_code,
+            emailid     : candidateDetails.emailid,
+            campaign_id : CampaignDetails.campaign_id
+        });
+        vm.formData = null;
+        $http({
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
+            method: 'POST',
+            url: App.base_url + 'get_assessment',
+            data: apiKeys
+        })
+            .then(function (response) {
+
+                if (response.data.status_code == 200) {
+                    vm.formData = response.data.data;
+                } else if (response.data.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+
+            });
+
+        vm.templateData = null;
+        vm.resetViewer = function () {
+            if (vm.formViewer.reset) {
+                vm.formViewer.reset();
+            }
+
+        };
+
+        vm.showResponseRata = false;
+        vm.saveResponse = function () {
+            return $timeout(function () {
+                vm.closeDialog();
+                $state.go('allCampaigns.all', { ref: $rootScope.$root.camp_ref, share_status: $stateParams.share_status });
+            }, 3000);
+            /*var d = $q.defer();
+            var res = confirm("Response save success?");
+            if (res) {
+                d.resolve(true);
+            } else {
+                d.reject();
+            }
+            return d.promise;*/
+
+        };
+
+        vm.fullScreen = function () {
+            $(".angular-survey-template").toggleClass("full-screen")
+        }
+
+        vm.showResponseModal = showResponseModal;
+        function showResponseModal(flag) {
+            if (flag) {
+                vm.modalInstance = $uibModal.open({
+                    animation: false,
+                    keyboard: false,
+                    backdrop: 'static',
+                    templateUrl: 'form_view_json.phtml',
+                    openedClass: "form-build",
+                    scope: $scope
+                });
+            }
+        }
+
+        /*vm.changeLanguage = function (languageKey) {
+         $translate.use(languageKey);
+         };*/
+
+        vm.getMerged = function () {
+            return mwFormResponseUtils.mergeFormWithResponse(vm.formData, vm.responseData);
+        };
+
+        vm.getQuestionWithResponseList = function () {
+            return mwFormResponseUtils.getQuestionWithResponseList(vm.formData, vm.responseData);
+        };
+
+        vm.getResponseSheetRow = function () {
+            return mwFormResponseUtils.getResponseSheetRow(vm.formData, vm.responseData);
+        };
+
+        vm.getResponseSheetHeaders = function () {
+            return mwFormResponseUtils.getResponseSheetHeaders(vm.formData, vm.headersWithQuestionNumber);
+        };
+
+        vm.getResponseSheet = function () {
+            return mwFormResponseUtils.getResponseSheet(vm.formData, vm.responseData, vm.headersWithQuestionNumber);
+        };
+
+        vm.closeDialog = function () {
+            mmQuestionnaire.setResponseData(null);
+        }
+    }
+
+
 }());

@@ -1,5 +1,5 @@
 md-dialog {
-  max-width: 35%;
+  /*max-width: 35%;*/
   max-height: 60%; }
   md-dialog md-toolbar.md-default-theme:not(.md-menu-toolbar), md-dialog md-toolbar:not(.md-menu-toolbar) {
     background: #1c8f6e; }

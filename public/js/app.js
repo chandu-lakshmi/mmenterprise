@@ -6,7 +6,7 @@
         'app.components', 'app.helpers', 'app.services', 'app.constantKeys',
         'app.home', 'app.forgotPassword', 'app.company.profile', 'app.import.contacts', 'app.emails', 'app.dashboard',
         'app.engagement.contacts', 'app.post.job', 'app.job.search', 'app.job.details', 'app.rewards', 'app.edit.company', 'app.contact',
-        'app.candidates', 'app.campaigns', 'app.settings', 'app.license.management', 'app.analytics'
+        'app.candidates', 'app.campaigns', 'app.settings', 'app.license.management', 'app.analytics', 'app.assessment', 'app.questions'
     ])
 
             .constant('CONFIG', {
@@ -171,6 +171,24 @@
                     controller: 'CandidateController',
                     controllerAs: 'CandidateCtrl'
                 })
+                $stateProvider.state('app.candidates.details', {
+                    url: '^/candidates/details/:type/:id',
+                    templateUrl: App.base_url + 'templates/candidates/candidate-details.phtml',
+                    controller: 'CandidateDetailsController',
+                    controllerAs: 'CandidateDetailsCtrl',
+                    params : {
+                        stateFrom : null,
+                        stateId : null,
+                    }
+                })
+                /*.state('app.referralDetails', {
+                    url: '/referral-details/:share_status?ref&flag&jc',
+                    templateUrl: App.base_url + 'templates/email-parser/referral-details.phtml',
+                    controller: 'ApplyJobController',
+                    controllerAs: 'ApplyJobCtrl',
+                    data: {pageTitle: ''},
+                    params: {status: '', share_status: 'web', jc: '0'}
+                })*/
                 $stateProvider.state('app.candidates.resumeRoom', {
                     url: '^/candidates/resume-room',
                     templateUrl: App.base_url + 'templates/candidates/resume-room.phtml',
@@ -195,6 +213,8 @@
                     controller: 'NewCampaignController',
                     controllerAs: 'NewCampaignCtrl'
                 })
+
+
                 $stateProvider.state('app.campaigns', {
                     url: '^/campaigns',
                     templateUrl: App.base_url + 'templates/campaigns/campaigns.phtml',
@@ -221,18 +241,97 @@
                     controller: 'AllCampaignsController',
                     controllerAs: 'AllCampaignsCtrl'
                 })
-                $stateProvider.state('app.campaigns.editCampaigns', {
-                    url: '^/campaigns/edit-campaigns',
-                    templateUrl: App.base_url + 'templates/campaigns/edit-campaigns.phtml',
-                    controller: 'EditCampaignsController',
-                    controllerAs: 'EditCampaignsCtrl'
-                })
+
                 $stateProvider.state('app.campaigns.formBuilder', {
                     url: '^/campaigns/form-builder',
                     templateUrl: App.base_url + 'templates/campaigns/form-builder.phtml',
                     controller: 'FormBuilderController',
                     controllerAs: 'FormBuilderCtrl'
                 })
+
+                /* $stateProvider.state('app.campaigns.editCampaigns', {
+                    url: '^/campaigns/edit-campaigns',
+                    templateUrl: App.base_url + 'templates/campaigns/edit-campaigns.phtml',
+                    controller: 'EditCampaignsController',
+                    controllerAs: 'EditCampaignsCtrl'
+                }) */
+
+
+                /* campaign Detais & Candidates */
+                $stateProvider.state('app.campaignView', {
+                    url: '^/campaign-view',
+                    templateUrl: App.base_url + 'templates/campaigns/campaign-view/campaign-view.phtml',
+                    controller: 'CampaignViewController',
+                    controllerAs: 'CampaignViewCtrl'
+                })
+                $stateProvider.state('app.campaignView.editCampaign', {
+                    url: '^/campaign-view/edit-campaigns',
+                    templateUrl: App.base_url + 'templates/campaigns/campaign-view/edit-campaigns.phtml',
+                    controller: 'EditCampaignsController',
+                    controllerAs: 'EditCampaignsCtrl'
+                })
+                $stateProvider.state('app.campaignView.allCandidates', {
+                    url: '^/campaign-view/all-candidates',
+                    templateUrl: App.base_url + 'templates/campaigns/campaign-view/all-candidates.phtml',
+                    controller: 'CampaignAllCandidateController',
+                    controllerAs: 'CampaignAllCandidateCtrl'
+                })
+                $stateProvider.state('app.campaignView.screenedCandidates', {
+                    url: '^/campaign-view/screened-candidates',
+                    templateUrl: App.base_url + 'templates/campaigns/campaign-view/screened-candidates.phtml',
+                    controller: 'CampaignScreenedController',
+                    controllerAs: 'CampaignScreenedCtrl'
+                })
+
+                /* Assessment */
+                $stateProvider.state('app.campaigns.TestsList', {
+                    url: '^/assessment/tests-list',
+                    templateUrl: App.base_url + 'templates/assessment/tests-list.phtml',
+                    controller: 'TestsListController',
+                    controllerAs: 'TestsListCtrl'
+                })
+                $stateProvider.state('app.campaigns.CreateTest', {
+                    url: '^/assessment/add-edit-test/:examId',
+                    templateUrl: App.base_url + 'templates/assessment/create-test.phtml',
+                    controller: 'CreateTestController',
+                    controllerAs: 'CreateTestCtrl'
+                })
+                $stateProvider.state('app.campaigns.EditTest', {
+                    url: '^/assessment/edit-test/:id',
+                    templateUrl: App.base_url + 'templates/assessment/edit-test.phtml',
+                    controller: 'EditTestController',
+                    controllerAs: 'EditTestCtrl'
+                })
+                $stateProvider.state('app.campaigns.TestSettings', {
+                    url: '^/assessment/test-settings/:id',
+                    templateUrl: App.base_url + 'templates/assessment/test-settings.phtml',
+                    controller: 'TestSettingsController',
+                    controllerAs: 'TestSettingsCtrl'
+                })
+
+                /* Questions */
+                $stateProvider.state('app.campaigns.QuestionsList', {
+                    url: '^/questions/questions-list',
+                    templateUrl: App.base_url + 'templates/questions/questions-list.phtml',
+                    controller: 'QuestionsListController',
+                    controllerAs: 'QuestionsListCtrl'
+                })
+                $stateProvider.state('app.campaigns.QuestionAdd', {
+                    url: '^/questions/question-add/:examId',
+                    templateUrl: App.base_url + 'templates/questions/question-add.phtml',
+                    controller: 'QuestionAddController',
+                    controllerAs: 'QuestionAddCtrl'
+                })
+                $stateProvider.state('app.campaigns.CreateQuestion', {
+                    url: '^/questions/add-edit-question/:mode/:id',
+                    templateUrl: App.base_url + 'templates/questions/create-question.phtml',
+                    controller: 'CreateQuestionController',
+                    controllerAs: 'CreateQuestionCtrl',
+                    params: {
+                        examId: null
+                    }
+                })
+
                 $stateProvider.state('app.settings', {
                     url: '^/settings',
                     templateUrl: App.base_url + 'templates/settings/settings.phtml',
@@ -289,13 +388,13 @@
                 })
                 $stateProvider.state('app.analytics', {
                     url: '^/analytics',
-                    templateUrl: App.base_url + 'templates/analytics.phtml',
+                    templateUrl: App.base_url + 'templates/analytics/analytics.phtml',
                     controller: 'AnalyticsController',
                     controllerAs: 'AnalyticsCtrl'
                 })
                 $stateProvider.state('app.analyticsSearch', {
                     url: '^/analytics-search',
-                    templateUrl: App.base_url + 'templates/analytics-search.phtml',
+                    templateUrl: App.base_url + 'templates/analytics/analytics-search.phtml',
                     controller: 'AnalyticsSearchController',
                     controllerAs: 'AnalyticsSearchCtrl',
                     params : { searchVal : '' }
@@ -339,7 +438,7 @@
                 }
             ])
 
-            .run(function($window, $rootScope, $uibModal) {
+            .run(function($window, $rootScope) {
                 $rootScope.online = navigator.onLine;
                 $window.addEventListener("offline", function() {
                     $rootScope.$apply(function() {

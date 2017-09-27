@@ -1,0 +1,53 @@
+<div class="assessment">
+	<div layout="column" class="container-box">
+		<div class="tests-list">
+			<div class="header" style="border-color:transparent;background:#eeeff1">
+				<div class="container">
+					<div layout="row" >
+						<h4 class="title">ASSESSMENTS</h4>
+						<i flex></i>
+						<md-button ui-sref="app.campaigns.CreateTest({ examId:0 })" class="md-raised action">CREATE ASSESSMENT</md-button>
+					</div>
+				</div>
+			</div>	
+	
+			<div class="section container" layout="row" style="clear:both">
+				<div id="grid" ui-grid="TestsListCtrl.gridOptions" class="grid" ui-grid-selection>
+					
+					<div class="grid-msg-overlay" ng-if="TestsListCtrl.grid.inProgress"  style="margin-top: 8px">
+						<div class="msg">
+							<span>
+								<img src="public/images/loader/spin.gif" alt="loader" width="18%">
+							</span>
+						</div>
+					</div>
+
+					<div class="grid-msg-overlay" ng-if="!TestsListCtrl.gridOptions.data.length">
+						<div class="msg">
+							<span ng-bind="TestsListCtrl.grid.responseMsg"></span>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="container">
+				<div class="footer clearfix" layout="row">
+					<div class="paging col-sm-4 col-sm-offset-4 text-center">
+						<ul uib-pagination total-items="TestsListCtrl.grid.totalRecords" ng-model="TestsListCtrl.grid.pageNo" max-size="3" direction-links="false" force-ellipses="true" ng-change="TestsListCtrl.getTestList()" boundary-link-numbers="true" rotate="false"></ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<!-- Test Name -->
+<script type="text/ng-template" id="test-name.html">
+	<div class="ui-grid-cell-contents ui-grid-details">
+      <a ng-bind="COL_FIELD" ui-sref="app.campaigns.EditTest({ id: row.entity.idexam })" title="{{COL_FIELD}}" class="name ellipsis" ng-click="$event.stopPropagation()"></a>
+      <span ng-bind="row.entity.idexam_type + ', ' + row.entity.experience"></span>
+	</div>
+</script>

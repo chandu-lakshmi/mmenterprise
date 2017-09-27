@@ -1,32 +1,35 @@
 <div class="angular-survey-template">
     <div class="container">
         <div layout="row" class="head">
-            <span flex></span>
+
+            <!-- <button class="btn mm-btn" type="button" ng-click="FormBuilderCtrl.showFormViewer()">Questionnaire</button> -->
+
+            <!-- <span flex></span>
             <md-checkbox ng-model="FormBuilderCtrl.builderReadOnly" aria-label="Checkbox 1">Read only</md-checkbox>
-            <button class="btn mm-btn" type="button" ng-click="FormBuilderCtrl.resetBuilder()">Reset</button>
+            <button class="btn mm-btn" type="button" ng-click="FormBuilderCtrl.resetBuilder()">Reset</button> -->
         </div>
         <div class="clearfix"></div>
-        <mw-form-builder ng-if="FormBuilderCtrl.formData != null"
+        <!-- <mw-form-builder ng-if="FormBuilderCtrl.formData != null"
                          api="FormBuilderCtrl.formBuilder"
                          options="FormBuilderCtrl.optionsBuilder"
                          form-data="FormBuilderCtrl.formData"
                          form-status="FormBuilderCtrl.formStatus"
                          read-only="FormBuilderCtrl.builderReadOnly"
                          on-image-selection="FormBuilderCtrl.onImageSelection()">
-        </mw-form-builder>
-        <hr>
+        </mw-form-builder> -->
+        <!-- <hr>
         <div class="checkbox">
             <label>
                 <input type="checkbox" ng-model="FormBuilderCtrl.showResponseData" ng-click="FormBuilderCtrl.showResponseModal(FormBuilderCtrl.showResponseData)"> Show form data
             </label>
-        </div>
+        </div> -->
     </div>
 </div>
 
 
 <!-- Form Build Json -->
 <script type="text/ng-template" id="form_build_json.phtml">
-    <div class="modal-dialog">
+    <!-- <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" ng-click="$dismiss()">&times;</button>

@@ -314,6 +314,158 @@ return [
             'add_to_talentcommunity' =>[
                 'VERSION' => 'v1',
                 'ENDPOINT' => '/enterprise/add_to_talentcommunity'
+            ],
+            'get_candidate_email_templates' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_candidate_email_templates'
+            ],
+            'get_candidate_details' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_candidate_details'
+            ],
+            'get_company_employees' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_company_employees'
+            ],
+            'add_candidate_schedule' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/add_candidate_schedule'
+            ],
+            'add_candidate_email' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/add_candidate_email'
+            ],
+            'add_candidate_comment' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/add_candidate_comment'
+            ],
+            'get_candidate_activities' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_candidate_activities'
+            ],
+            'get_candidate_tag_jobs_list' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_candidate_tag_jobs_list'
+            ],
+            'add_candidate_tag_jobs' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/add_candidate_tag_jobs'
+            ],
+            'get_candidate_sent_emails' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_candidate_sent_emails'
+            ],
+            'get_candidate_comments' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_candidate_comments'
+            ],
+            'get_candidate_referral_list' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_candidate_referral_list'
+            ],
+            'get_candidate_schedules' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_candidate_schedules'
+            ],
+            'edit_candidate_referral_status' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/edit_candidate_referral_status'
+            ],
+            'get_candidates_tags' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_candidates_tags'
+            ],
+            'add_candidate_tags' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/add_candidate_tags'
+            ],
+            'get_candidate_tags' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_candidate_tags'
+            ],
+            'delete_candidate_tag' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/delete_candidate_tag'
+            ],
+            'add_candidate_personal_status' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/add_candidate_personal_status'
+            ],
+            'get_candidate_personal_status' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_candidate_personal_status'
+            ],
+            'get_question_types' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_question_types'
+            ],
+            'get_question_libraries' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_question_libraries'
+            ],
+            'add_question' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/add_question'
+            ],
+            'edit_question' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/edit_question'
+            ],
+            'view_question' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/view_question'
+            ],
+            'get_company_assessments_list' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_company_assessments_list'
+            ],
+            'get_exam_details' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_exam_details'
+            ],
+            'delete_question' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/delete_question'
+            ],
+            'get_company_assessments_all' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_company_assessments_all'
+            ],
+            'get_questions_list' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_questions_list'
+            ],
+            'add_edit_exam' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/add_edit_exam'
+            ],
+            'edit_exam_settings' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/edit_exam_settings'
+            ],
+            'view_exam_question' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/view_exam_question'
+            ],
+            'add_edit_exam_question' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/add_edit_exam_question'
+            ],
+            'get_assessment' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_assessment'
+            ],
+            'get_exam_details' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_exam_details'
+            ],
+            'submit_assessment' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/submit_assessment'
+            ],
+            'get_screened_candidates' =>[
+                'VERSION' => 'v1',
+                'ENDPOINT' => '/enterprise/get_screened_candidates'
             ]
     ];
         

@@ -10,7 +10,7 @@
             .directive('checkBucket', checkBucket)
             .service('buckets', buckets)
 
-    ContactsController.$inject = ['$scope', '$window', '$http', '$q', 'buckets', 'uiGridValidateService', '$uibModal', 'App', 'userPermissions', '$stateParams'];
+    ContactsController.$inject = ['$timeout', '$mdToast', '$scope', '$window', '$http', '$q', 'buckets', 'uiGridValidateService', '$uibModal', 'App', 'userPermissions', '$stateParams'];
     contactsInviteController.$inject = ['$scope', '$uibModalInstance', 'listContacts', '$http', '$window', 'userPermissions', 'App'];
     UploadContactsController.$inject = ['$scope', '$window', 'defaultFunction', 'getBuckets', '$uibModalInstance', '$state', '$http', '$uibModal', 'buckets', '$timeout', 'App'];
     UploadSingleContactController.$inject = ['$scope', '$window', 'defaultFunction', 'getBuckets', '$http', '$uibModalInstance', 'buckets', 'bucketType', 'App'];
@@ -62,7 +62,7 @@
     }
 
 
-    function ContactsController($scope, $window, $http, $q, buckets, uiGridValidateService, $uibModal, App, userPermissions, $stateParams) {
+    function ContactsController($timeout, $mdToast, $scope, $window, $http, $q, buckets, uiGridValidateService, $uibModal, App, userPermissions, $stateParams) {
 
         var scope = this,
                     edit_feature;
@@ -96,7 +96,7 @@
             })
             get_buckets.success(function (response) {
                 if (response.status_code == 200) {
-                    scope.bucketNames = response.data.buckets_list;
+                    scope.bucketNames  = response.data.buckets_list;
                     scope.totalRecords = response.data.total_count;
                     if (scope.activeBucket == 'ALL CONTACTS') {
                         scope.activeBucketCount = scope.totalRecords;
@@ -162,7 +162,7 @@
                     },
                     validators: {required: true, statusValidation: ''},
                     cellTemplate: 'ui-grid/cellTitleValidator'
-                }
+                },
             ]
         };
 
@@ -174,12 +174,13 @@
         if (edit_feature && $stateParams.bucketType == 1) {
             this.gridOptions.columnDefs.push(
                     {name: 'download_status', displayName: 'Download', enableCellEdit: false, headerTooltip: 'Download' , cellClass: 'grid-no-hover', width: '10%',
-                        cellTemplate: '<div class="ui-grid-cell-contents">{{ COL_FIELD == 1 ? "Yes" : "No"}}</div>',
+                        cellTemplate: '<div class="ui-grid-cell-contents text-center">{{ COL_FIELD == 1 ? "Yes" : "No"}}</div>',
                         //sortDirectionCycle: ['asc', 'desc', '']
                     }
             )
         }
 
+        this.gridOptions.columnDefs.push({name: 'id', displayName: '', enableCellEdit: false, cellClass: 'grid-no-hover', cellTemplate: 'details-view.html'});
 
         function gridValidtion(validatorName, regExp) {
             uiGridValidateService.setValidator(validatorName,
@@ -589,6 +590,13 @@
             })
             
             function deleteCallback(res){
+                $timeout(function(){
+                    $mdToast.show({
+                        hideDelay: 4000,
+                        position: 'top right',
+                        template: '<md-toast class="mm-toast"><div class="md-toast-text" flex><i class="material-icons">done</i><div class="text"><div class="toast-succ">Success!</div><div class="succ-text">' + res.message.msg[0] + '</div></div></div></md-toast>'
+                    }, 200);
+                });              
                 scope.getGridData('ALL CONTACTS', '0', '', '');
                 scope.getActiveBucketCount(-1);
                 scope.bucketNames.splice(bktIndex, 1);

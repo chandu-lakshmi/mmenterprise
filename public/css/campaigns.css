@@ -19,6 +19,8 @@ md-dialog md-dialog-actions button.md-primary {
   .campaigns .sub-header {
     background: #0e2d3f;
     height: 60px; }
+    .campaigns .sub-header .highlight {
+      color: #fff; }
     .campaigns .sub-header ul {
       list-style: none;
       margin: 0;
@@ -80,7 +82,39 @@ md-dialog md-dialog-actions button.md-primary {
             line-height: normal; }
             .campaigns .sub-header ul li:last-child a:hover:before {
               border: 0; }
-  .campaigns md-input-container .md-placeholder, .campaigns md-input-container label:not(.md-no-float):not(.md-container-ignore) {
+  .campaigns .screen-cdt {
+    height: 138px; }
+    .campaigns .screen-cdt .mm-column {
+      width: 100%; }
+      .campaigns .screen-cdt .mm-column .view-name {
+        color: #617d8b;
+        margin: 29px 0 2px 40px; }
+      .campaigns .screen-cdt .mm-column .link {
+        margin-bottom: 10px; }
+        .campaigns .screen-cdt .mm-column .link span {
+          font-size: 18px;
+          color: #fff;
+          margin-left: 10px;
+          vertical-align: middle; }
+      .campaigns .screen-cdt .mm-column .share {
+        line-height: 126px;
+        margin-right: 19px;
+        color: #8c9aa3; }
+      .campaigns .screen-cdt .mm-column .count {
+        width: 160px;
+        padding: 10px 18px;
+        text-align: center;
+        color: #4b7f9c;
+        margin: 0 0 12px 0;
+        border-radius: 4px;
+        background: #11415c;
+        -ms-transform: scale(0.92);
+        -webkit-transform: scale(0.92);
+        transform: scale(0.92); }
+        .campaigns .screen-cdt .mm-column .count h2 {
+          margin-top: 36px; }
+  .campaigns md-input-container .md-placeholder,
+  .campaigns md-input-container label:not(.md-no-float):not(.md-container-ignore) {
     -webkit-transform: translate3d(0, 35px, 0) scale(1);
     transform: translate3d(0, 35px, 0) scale(1);
     color: #767877; }
@@ -145,12 +179,12 @@ md-dialog md-dialog-actions button.md-primary {
     min-height: calc(100vh - 160px);
     font-size: 16px;
     /*.modal#no_edit{
-            .modal-header{text-align: center;}
-            .modal-body{height: 100px;}
-            .modal-footer{padding: 10px 15px;
-                    .btn{width: 80px;height: 40px;background: #1c8f6e;border-color: #1c8f6e;outline: none;color: #fff;}
-            }
-    }*/ }
+                              .modal-header{text-align: center;}
+                              .modal-body{height: 100px;}
+                              .modal-footer{padding: 10px 15px;
+                                      .btn{width: 80px;height: 40px;background: #1c8f6e;border-color: #1c8f6e;outline: none;color: #fff;}
+                              }
+                      }*/ }
     .campaigns .all-campaigns md-input-container.search {
       margin: 0; }
     .campaigns .all-campaigns .box {
@@ -200,7 +234,7 @@ md-dialog md-dialog-actions button.md-primary {
           .campaigns .all-campaigns .box .box-content .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell.first-col {
             font-weight: bold; }
         .campaigns .all-campaigns .box .box-content .grid .ui-grid-row:hover > [ui-grid-row] > .ui-grid-cell {
-          background-color: #f8fcff  !important;
+          background-color: #f8fcff !important;
           cursor: pointer; }
       .campaigns .all-campaigns .box .box-footer {
         background: #eeeff1;
@@ -243,31 +277,33 @@ md-dialog md-dialog-actions button.md-primary {
       .campaigns .edit-campaigns .box .content {
         color: #767877;
         /* .date{
-             p{margin: 0;}
-             md-input-container{
-                 label{left: 25px;}
-                 &.md-input-focused, &.md-input-has-value{
-                    label:not(.md-no-float){
-                         -webkit-transform: translate3d(0, 10px, 0) scale(0.87);
-                         transform: translate3d(0, 10px, 0) scale(0.87);
-                         color: #767877;
-                         margin-left: -25px;
-                         font-size: 18px;
+                     p{margin: 0;}
+                     md-input-container{
+                         label{left: 25px;}
+                         &.md-input-focused, &.md-input-has-value{
+                            label:not(.md-no-float){
+                                 -webkit-transform: translate3d(0, 10px, 0) scale(0.87);
+                                 transform: translate3d(0, 10px, 0) scale(0.87);
+                                 color: #767877;
+                                 margin-left: -25px;
+                                 font-size: 18px;
+                            }
+                            //label{display: none !important;}
+                        }
                     }
-                    //label{display: none !important;}
-                }
-            }
-            div.clearfix{position: relative;}
-            div.start{width: 45%;float: left;margin-right: 68px;}
-            div.ends{@extend div.start; margin: 0}
-            mdp-date-picker,mdp-time-picker{
-                &.has-error-border{
-                    .md-input{border-color: red;}
-                }
-            }
-            span.status{position: absolute;top: 36%;left: 101%;color: #d85c5e;}
-        } */ }
-        .campaigns .edit-campaigns .box .content md-input-container input, .campaigns .edit-campaigns .box .content md-input-container textarea, .campaigns .edit-campaigns .box .content md-input-container .md-select-value .md-text {
+                    div.clearfix{position: relative;}
+                    div.start{width: 45%;float: left;margin-right: 68px;}
+                    div.ends{@extend div.start; margin: 0}
+                    mdp-date-picker,mdp-time-picker{
+                        &.has-error-border{
+                            .md-input{border-color: red;}
+                        }
+                    }
+                    span.status{position: absolute;top: 36%;left: 101%;color: #d85c5e;}
+                } */ }
+        .campaigns .edit-campaigns .box .content md-input-container input,
+        .campaigns .edit-campaigns .box .content md-input-container textarea,
+        .campaigns .edit-campaigns .box .content md-input-container .md-select-value .md-text {
           font-size: 17px; }
         .campaigns .edit-campaigns .box .content .head-title {
           font-weight: 600;
@@ -382,12 +418,15 @@ md-dialog md-dialog-actions button.md-primary {
               top: 110%; }
           .campaigns .edit-campaigns .box .content .create-job .modern-select .has-error-border + .chosen-container {
             border-bottom: 1px solid red; }
-          .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container-active, .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container-has-value {
+          .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container-active,
+          .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container-has-value {
             border-bottom: 1px solid #208d6e; }
-            .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container-active label, .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container-has-value label {
+            .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container-active label,
+            .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container-has-value label {
               -webkit-transform: translate3d(0, -21px, 0) scale(0.85);
               transform: translate3d(0, -21px, 0) scale(0.85); }
-            .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container-active .chosen-choices, .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container-has-value .chosen-choices {
+            .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container-active .chosen-choices,
+            .campaigns .edit-campaigns .box .content .create-job .modern-select .chosen-container-has-value .chosen-choices {
               border: 0;
               width: 75%; }
         .campaigns .edit-campaigns .box .content .careers h5.sub-head {
@@ -579,7 +618,8 @@ md-dialog md-dialog-actions button.md-primary {
                 border-radius: 4px;
                 display: none;
                 cursor: pointer; }
-              .campaigns .edit-campaigns .box .content .upload-files .qq-uploader .qq-upload-drop-area .file-name:hover .overlay, .campaigns .edit-campaigns .box .content .upload-files .qq-uploader .qq-upload-drop-area .file-name:hover i.fa {
+              .campaigns .edit-campaigns .box .content .upload-files .qq-uploader .qq-upload-drop-area .file-name:hover .overlay,
+              .campaigns .edit-campaigns .box .content .upload-files .qq-uploader .qq-upload-drop-area .file-name:hover i.fa {
                 display: block; }
             .campaigns .edit-campaigns .box .content .upload-files .qq-uploader .qq-upload-list {
               z-index: -1;
@@ -649,5 +689,55 @@ md-dialog md-dialog-actions button.md-primary {
           text-transform: uppercase; }
     .campaigns .edit-campaigns .bucket-container .bucket-each {
       width: 13.5%; }
+  .campaigns .all-candidates {
+    min-height: calc(100vh - 238px);
+    font-size: 16px; }
+    .campaigns .all-candidates .flex-full {
+      width: 100%; }
+    .campaigns .all-candidates .box {
+      box-shadow: 0px 0px 5px #b7b7b7; }
+      .campaigns .all-candidates .box .header {
+        height: 70px;
+        line-height: 70px;
+        background: #fff;
+        padding: 0 22px; }
+        .campaigns .all-candidates .box .header md-input-container {
+          margin: 0;
+          width: 300px;
+          line-height: initial;
+          margin-top: 10px; }
+          .campaigns .all-candidates .box .header md-input-container md-select {
+            width: 60%;
+            margin: 0 auto;
+            font-size: 16px;
+            margin-top: 5px; }
+          .campaigns .all-candidates .box .header md-input-container .md-select-value {
+            padding-bottom: 5px;
+            color: #a9a9a9; }
+            .campaigns .all-candidates .box .header md-input-container .md-select-value > span:not(.md-select-icon) {
+              max-width: 100%;
+              -webkit-box-flex: 1;
+              -webkit-flex: 1 1 auto;
+              flex: 1 1 auto;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              overflow: hidden; }
+        .campaigns .all-candidates .box .header md-input-container.md-input-has-value md-select md-select-value span:not(.md-select-icon) {
+          color: initial; }
+        .campaigns .all-candidates .box .header div[data-epi-search] {
+          line-height: initial;
+          margin-top: 20px; }
+          .campaigns .all-candidates .box .header div[data-epi-search] input {
+            padding-left: 0; }
+            .campaigns .all-candidates .box .header div[data-epi-search] input.ng-not-empty + .search-icon {
+              display: none; }
+          .campaigns .all-candidates .box .header div[data-epi-search] .search-icon {
+            right: 0;
+            left: initial; }
+        .campaigns .all-candidates .box .header .count-cdt {
+          color: #80848c; }
+      .campaigns .all-candidates .box .grid {
+        border-right: 0 !important;
+        border-left: 0 !important; }
 
 /*# sourceMappingURL=campaigns.css.map */

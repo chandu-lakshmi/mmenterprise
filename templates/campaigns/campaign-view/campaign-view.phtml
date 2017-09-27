@@ -1,0 +1,38 @@
+<div class="campaigns">
+	<div class="sub-header screen-cdt">
+		<div class="container">
+         <div layout="column" class="mm-column">
+            <div layout="row">
+               <div flex="50">
+                  <div layout="column">
+                     <div layout="row">
+                        <h5 class="view-name" ng-bind="CampaignViewCtrl.campData.campaign_type"></h5>
+                     </div>
+                     <div layout="row">
+                        <a class="link" ui-sref="app.campaigns.allCampaigns"><img src="public/images/back-arrow.svg"> <span ng-bind="CampaignViewCtrl.campData.campaign_name"></span></a>
+                     </div>
+                     <div layout="row">
+                        <ul>
+                           <li><a ui-sref="^.campaignView.editCampaign" ui-sref-active="active"></span><span class="text">CAMPAIGN DETAILS</span></a></li>
+                           <li><a ui-sref="^.campaignView.allCandidates" ui-sref-active="active"></span><span class="text">ALL CANDIDATES</span></a></li>
+                           <li><a ui-sref="^.campaignView.screenedCandidates" ui-sref-active="active"><span class="text">SCREENED CANDIDATES</span></a></li>
+                           <li></li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+               <i flex></i>
+               <div class="count">
+                  <h2 ng-bind="CampaignViewCtrl.campData.all_candidates_count"></h2>
+                  <h5>All CANDIDATES</h5>
+               </div>
+               <div class="count">
+                  <h2 ng-bind="CampaignViewCtrl.campData.screened_candidates_count"></h2>
+                  <h5>SCREENED</h5>
+               </div>
+            </div>
+         </div>
+		</div>
+	</div>
+	<div ui-view class="animated fadeIn"></div>
+</div>

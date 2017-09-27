@@ -455,3 +455,70 @@ $app->post('/add_to_talentcommunity',function ($request, $response, $args) use (
      ));
      return checkJsonResult( $allJobs->loadCurl() );
 });
+
+
+$app->get('/email/campaign/candidate-assessment/{status}',function ($request, $response, $args) use ($app) {
+    // getting API endpoint from settings
+    $args = parserData($this->settings);
+    
+    if(!empty($_GET['refrel']) && isset($_GET['ref']) && isset($_GET['camp_ref'])){
+        #get candidate Details here
+        
+        $args['refrel']     = $_GET['refrel'];
+        $args['ref']        = $_GET['ref'];
+        $args['camp_ref']   = $_GET['camp_ref'];
+        $_POST['ref']       = $args['ref'];
+        $_POST['refrel']    = $args['refrel'];
+        $apiEndpoint = getapiEndpoint($this->settings, 'decrypt_mobile_ref');
+        $Details     = new Curl(array(
+            'url'           => $apiEndpoint,
+            'postData'      => $_POST
+        ));
+        $args['candidateDetails'] = checkJsonResult( $Details->loadCurl() );
+        #get referral details here
+        $_POST['ref']   = $args['ref'];
+        $apiEndpoint    = getapiEndpoint($this->settings, 'decrypt_ref');
+        $Details        = new Curl(array(
+            'url'           => $apiEndpoint,
+            'postData'      => $_POST
+        ));
+        $args['referralDetails'] = $decryptRefArr = checkJsonResult( $Details->loadCurl() );
+        #get campaign details here
+        $_POST['ref']   = $args['camp_ref'];
+        $apiEndpoint    = getapiEndpoint($this->settings, 'decrypt_campaign_ref');
+        $Details        = new Curl(array(
+            'url'           => $apiEndpoint,
+            'postData'      => $_POST
+        ));
+        $args['campaignDetails'] = checkJsonResult( $Details->loadCurl() );
+    }
+    
+    $args['campaignJobDetails'] = $decryptRefArr = checkJsonResult( $Details->loadCurl());
+    $checkResult['refDetails']  = json_decode(checkJsonResult( $Details->loadCurl()));
+    $args['decryptDetails']     = formatDecryptDetails($decryptRefArr);//default Details
+    // Render index view
+    if(!empty($checkResult['refDetails'])){
+        return $this->email_renderer->render($response, 'index.phtml', $args);
+    } else {
+        return $response->withRedirect($args['APP_DOMAIN'].'404');
+    } 
+
+});
+
+
+$app->post('/submit_assessment',function ($request, $response, $args) use ($app) {
+    
+    $apiEndpoint = getapiEndpoint($this->settings, 'submit_assessment');
+    $allJobs     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+     return checkJsonResult( $allJobs->loadCurl() );
+});
+
+$app->get('/email/candidate-assessment/{assessmentId}',function ($request, $response, $args) use ($app) {
+   // getting API endpoint from settings
+   $args = parserData($this->settings);    
+ 
+   return $this->email_renderer->render($response, 'index.phtml', $args);
+});

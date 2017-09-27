@@ -83,24 +83,29 @@
 
 
                                     <div class="pull-left" style="position: relative;padding-right: 10px" ng-init="getColor = DashCtrl.getColor(refList.status)">
-                                        <img ng-if="!(refList.referral_img == '' || refList.referral_img == null)" ng-src="{{refList.referral_img}}" class="pull-left img-responsive img-circle dp" ng-style="{'border': '2px solid {{refList.referral_img == '' ? 'transparent' : getColor}}'}">
+                                        
+                                        <a ui-sref="app.candidates.details({ type:'cdt', id: refList.id , stateFrom:'dashboard'})" ng-click="DashCtrl.setLocalStorage()">
+                                            <img ng-if="!(refList.referral_img == '' || refList.referral_img == null)" ng-src="{{refList.referral_img}}" class="pull-left img-responsive img-circle dp" ng-style="{'border': '2px solid {{refList.referral_img == '' ? 'transparent' : getColor}}'}">
 
-                                        <span ng-if="refList.referral_img == '' || refList.referral_img == null" ng-bind="refList.referral.trim() | limitTo : 1" class="letter" ng-style="{'background':DashCtrl.colorPicker($index, 1)}">
-                                        </span>
+                                            <span ng-if="refList.referral_img == '' || refList.referral_img == null" ng-bind="refList.referral.trim() | limitTo : 1" class="letter" ng-style="{'background':DashCtrl.colorPicker($index, 1)}"></span>
+                                        </a>
+                                        
+                                        <a href="javascript:void(0)" class="no-link">
+                                            <img ng-if="!(refList.referred_by_img == '' || refList.referred_by_img == null)" ng-src="{{refList.referred_by_img}}" class="img-responsive img-circle sub-img">
 
-                                        <img ng-if="!(refList.referred_by_img == '' || refList.referred_by_img == null)" ng-src="{{refList.referred_by_img}}" class="img-responsive img-circle sub-img">
-
-                                        <span ng-if="refList.referred_by_img == '' || refList.referred_by_img == null" ng-bind="refList.referred_by.trim() | limitTo : 1" class="letter-small letter" ng-style="{'background':DashCtrl.colorPicker($index, 0)}">
-                                        </span>
+                                            <span ng-if="refList.referred_by_img == '' || refList.referred_by_img == null" ng-bind="refList.referred_by.trim() | limitTo : 1" class="letter-small letter" ng-style="{'background':DashCtrl.colorPicker($index, 0)}">
+                                            </span>
+                                        </a>
+                                        
                                     </div>
                                     <div class="content">
                                         <span>
-                                            <strong ng-bind="refList.referral"></strong>
+                                            <a ui-sref="app.candidates.details({ type:'cdt', id:refList.id , stateFrom:'dashboard' })" ng-bind="refList.referral" ng-click="DashCtrl.setLocalStorage()"></a>
                                             was referred for 
                                             <strong ng-bind="refList.job_title"><md-tooltip>{{refList.job_title}}</md-tooltip></strong>
                                         </span>
                                         <br>
-                                        <span style="width: 208px;display: inline-block;vertical-align: middle;" class="ellipsis">by {{refList.referred_by}}</span>
+                                        <span style="width: 208px;display: inline-block;vertical-align: middle;" class="ellipsis">by <a href="javascript:void(0)" class="no-link">{{refList.referred_by}}</a></span>
                                         <span>
                                             <span class="vr"></span>
                                             <span ng-bind="refList.created_at"></span> 
@@ -141,24 +146,31 @@
                                         </span>
                                     </div>
                                     <div class="pull-left" style="position: relative;">
-                                        <img ng-if="!(hireList.referral_img == '' || hireList.referral_img == null)" ng-src="{{hireList.referral_img}}" class="pull-left img-responsive img-circle dp" ng-style="{'border': (hireList.referral_img == '' || hireList.referral_img == 'null') ? '' : '2px solid #468A25' }">
+                                        <a ui-sref="app.candidates.details({ type:'cdt', id: hireList.id })">
+                                            <img ng-if="!(hireList.referral_img == '' || hireList.referral_img == null)" ng-src="{{hireList.referral_img}}" class="pull-left img-responsive img-circle dp" ng-style="{'border': (hireList.referral_img == '' || hireList.referral_img == 'null') ? '' : '2px solid #468A25' }">
 
-                                        <span ng-if="hireList.referral_img == '' || hireList.referral_img == null" ng-bind="hireList.referral.trim() | limitTo : 1" class="letter" ng-style="{'background':DashCtrl.colorPicker($index + 5, 1)}">
-                                        </span>
+                                            <span ng-if="hireList.referral_img == '' || hireList.referral_img == null" ng-bind="hireList.referral.trim() | limitTo : 1" class="letter" ng-style="{'background':DashCtrl.colorPicker($index + 5, 1)}">
+                                            </span>
+                                        </a>
+                                        
+                                         <a href="javascript:void(0)" class="no-link">
+                                            <img ng-if="!(hireList.referred_by_img == '' || hireList.referred_by_img == null)" ng-src="{{hireList.referred_by_img}}" class="img-responsive img-circle sub-img">
 
-                                        <img ng-if="!(hireList.referred_by_img == '' || hireList.referred_by_img == null)" ng-src="{{hireList.referred_by_img}}" class="img-responsive img-circle sub-img">
-
-                                        <span ng-if="hireList.referred_by_img == '' || hireList.referred_by_img == null" ng-bind="hireList.referred_by.trim() | limitTo : 1" class="letter-small letter" ng-style="{'background':DashCtrl.colorPicker($index + 5, 0)}">
-                                        </span>
+                                            <span ng-if="hireList.referred_by_img == '' || hireList.referred_by_img == null" ng-bind="hireList.referred_by.trim() | limitTo : 1" class="letter-small letter" ng-style="{'background':DashCtrl.colorPicker($index + 5, 0)}">
+                                            </span>
+                                        </a>
 
                                         <div class="content">
                                             <span class="details">
-                                                <strong ng-bind="hireList.referral"></strong>
+                                                <a ui-sref="app.candidates.details({ type:'cdt', id: hireList.id })" ng-bind="hireList.referral"></a>
                                                 was referred by
                                             </span>
                                             <br>
                                             <span>
-                                                <i class="ellipsis">{{hireList.referred_by}}</i>
+                                                <i class="ellipsis">
+                                                    <a href="javascript:void(0)" class="no-link">{{hireList.referred_by}}
+                                                    </a>
+                                                </i>
                                             </span>
                                             <span class="vr"></span>
                                             <span ng-bind="hireList.created_at"></span> 
@@ -187,13 +199,16 @@
                     <div class="col-lg-4 col-md-6 col-sm-6" ng-if="!DashCtrl.top_referrals_empty" ng-repeat="topreferrals in DashCtrl.topReferralsList">
                         <div class="box clearfix">
                             <div class="pull-left" style="width:18%">
-                                <img ng-if="!(topreferrals.image == '' || topreferrals.image == null)" ng-src="{{topreferrals.image}}" class="img-responsive img-circle dp">
-                                <span ng-if="topreferrals.image == '' || topreferrals.image == null" ng-bind="topreferrals.name.trim() | limitTo : 1" class="letter" ng-style="{'background':DashCtrl.colorPicker($index + 3, 0)}">
-                                </span>
+                                <a  href="javascript:void(0)" class="no-link">
+                                    <img ng-if="!(topreferrals.image == '' || topreferrals.image == null)" ng-src="{{topreferrals.image}}" class="img-responsive img-circle dp">
+                                    <span ng-if="topreferrals.image == '' || topreferrals.image == null" ng-bind="topreferrals.name.trim() | limitTo : 1" class="letter" ng-style="{'background':DashCtrl.colorPicker($index + 3, 0)}">
+                                    </span>
+                                </a>
+
                             </div>
                             <div class="pull-left" style="padding:7px 10px;width:82%">
                                 <div class="top">
-                                    <span class="name elipsis" ng-bind="topreferrals.name" ng-style="{'line-height': topreferrals.designation ? 'normal' : '40px'}"></span>
+                                    <a href="javascript:void(0)" class="name elipsis no-link" ng-bind="topreferrals.name" ng-style="{'line-height': topreferrals.designation ? 'normal' : '40px'}"></a>
                                     <span ng-if="topreferrals.designation" ng-bind="topreferrals.designation" style="font-size:14px;" title="{{topreferrals.designation}}" class="elipsis"></span>
                                 </div>
                                 <div class="bottom">

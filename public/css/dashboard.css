@@ -471,7 +471,10 @@
     padding: 5px 0;
     line-height: 2em;
 }
-.referrals .content strong,.referrals-hires .ref-hire-list strong{
+.referrals .content strong,
+.referrals .content a,
+.referrals-hires .ref-hire-list strong, 
+.referrals-hires .ref-hire-list a{
     font-weight: 200;
     text-transform: capitalize;
     max-width: 140px;
@@ -481,7 +484,17 @@
     vertical-align: middle;
     white-space: nowrap;
     font-size: 14px;
+    color: #000;
+    transition: color .2s ease;
+    text-decoration: none; 
 }
+.referrals .content a:hover:not(.no-link), .referrals-hires .ref-hire-list a:hover:not(.no-link){
+    color: #0ba082 !important;
+}
+.no-link{
+    cursor: text !important;
+}
+
 .hires .content{
     display: inline-block;
     vertical-align: middle;
@@ -673,6 +686,8 @@ select:-moz-focusring {
 }
 .dashboard .top-contacts .container .box .name{
     color: #108bd5;
+    transition: color .2s ease;
+    text-decoration: none;
 }
 .dashboard .top-contacts .container .box .top{
     border-bottom:1px solid #cccccc;

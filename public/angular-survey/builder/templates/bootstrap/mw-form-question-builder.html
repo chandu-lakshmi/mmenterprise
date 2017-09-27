@@ -107,6 +107,7 @@
             </div>
 
         </div>
+        
         <div class="mw-preview" ng-if="ctrl.isPreview">
             <div class="mw-question-text">
                 {{ctrl.question.text}} <span ng-if="ctrl.question.required">*</span>
@@ -148,6 +149,7 @@
                             {{answer.value}}
                         </label>
                     </div>
+
                     <div class="radio" ng-if="ctrl.question.otherAnswer">
                         <label><input type="radio"><span translate="mwForm.question.preview.otherAnswer">Inna</span>:</label>
                         <span class="form-inline">

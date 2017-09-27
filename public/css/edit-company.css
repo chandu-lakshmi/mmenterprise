@@ -515,6 +515,13 @@ md-input-container md-select .md-select-value {
           vertical-align: middle;
           padding-left: 10px;
           width: 70%; }
+          .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .ui-grid-details .content a.link {
+            color: #000;
+            text-decoration: none;
+            font-size: larger;
+            transition: color .2s ease; }
+          .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .ui-grid-details .content a.link:hover:not(.no-link) {
+            color: #0ba082; }
         .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .ui-grid-status .pending {
           color: #50a28a; }
           .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .ui-grid-status .pending img {
@@ -577,6 +584,12 @@ md-input-container md-select .md-select-value {
           margin: 29px 0 !important; }
           .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .progress .progress-bar {
             color: #000; }
+        .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .details {
+          display: block;
+          transition: color .2s ease;
+          line-height: 50px; }
+          .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell .details:hover:not(.no-link) {
+            color: #0ba082; }
       .grid .ui-grid-viewport .ui-grid-row div[ui-grid-row='row'] {
         height: 100%; }
       .grid .ui-grid-viewport .ui-grid-row .ui-grid-cell {

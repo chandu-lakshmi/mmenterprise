@@ -81,4 +81,15 @@ $app->post('/url_shortner',function ($request, $response, $args) use ($app) {
     echo checkJsonResult( $getExp->loadCurl() );     
 });
 
+//get_assessment
+$app->post('/get_assessment',function ($request, $response, $args) use ($app) {
+    
+    // getting API endpoint from settings
+    $apiEndpoint = getapiEndpoint($this->settings, 'get_assessment');
+    $jobList     = new Curl(array(
+        'url'           => $apiEndpoint,
+        'postData'      => $_POST
+     ));
+    return checkJsonResult( $jobList->loadCurl() );
+});
 

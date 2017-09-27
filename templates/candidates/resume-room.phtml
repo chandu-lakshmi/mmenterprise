@@ -4,7 +4,7 @@
 			<div class="col-sm-12" style="padding-bottom:50px">
 				<div class="box">
 					<div class="box-header clearfix">
-							
+
 						<div class="col-sm-4">
 							<span>CANDIDATES ( <span ng-bind="ResumeRoomCtrl.totalRecords || 0"></span> ) </span>
 						</div>
@@ -56,7 +56,7 @@
 					        </md-input-container> -->
 						</div>
 						<div class="paging col-sm-4 text-center">
-							<div ng-if="ResumeRoomCtrl.totalRecords">												
+							<div ng-if="ResumeRoomCtrl.totalRecords">
 								<ul uib-pagination total-items="ResumeRoomCtrl.totalRecords" ng-model="ResumeRoomCtrl.pageNumber" max-size="3" direction-links="false" force-ellipses="true" ng-change="ResumeRoomCtrl.pageChanged(ResumeRoomCtrl.pageNumber, ResumeRoomCtrl.search_val)" boundary-link-numbers="true" rotate="false" ng-if="ResumeRoomCtrl.totalRecords > 10"></ul>
 							</div>
 						</div>
@@ -109,5 +109,37 @@
 			<div class="download"></div>
 		</a>
 		<span>{{COL_FIELD}}</span>
+	</div>
+</script>
+
+<script type="text/ng-template" id="candidate-details.html">
+	<div class="ui-grid-cell-contents ui-grid-download" ng-click="$event.stopPropagation()"  title="{{ COL_FIELD }}">
+		<a class="ui-grid-cell-contents details"  ui-sref="app.candidates.details({ type:'cdt', id:row.entity.id })">
+			{{ COL_FIELD }}
+		</a>
+	</div>
+</script>
+
+<script type="text/ng-template" id="referred-details.html">
+	<div class="ui-grid-cell-contents ui-grid-download" ng-click="$event.stopPropagation()" title="{{ COL_FIELD }}">
+		<a class="ui-grid-cell-contents details no-link" href="javascript:void(0)">
+			{{ COL_FIELD }}
+		</a>
+	</div>
+</script>
+
+<script type="text/ng-template" id="job-details.html">
+	<div class="ui-grid-cell-contents ui-grid-download" ng-click="$event.stopPropagation()" title="{{ COL_FIELD }}">
+		<a class="ui-grid-cell-contents details no-link" href="javascript:void(0)">
+			{{ COL_FIELD }}
+		</a>
+	</div>
+</script>
+
+<script type="text/ng-template" id="date-details.html">
+	<div class="ui-grid-cell-contents ui-grid-download" ng-click="$event.stopPropagation()" title="{{ COL_FIELD }}">
+		<a class="ui-grid-cell-contents details no-link" href="javascript:void(0)">
+			{{ COL_FIELD }}
+		</a>
 	</div>
 </script>

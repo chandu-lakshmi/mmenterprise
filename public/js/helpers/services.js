@@ -5,6 +5,7 @@
             .module('app.services', ['app.constants'])
             .service('pendingRequests', pendingRequests)
             .service('httpService', httpService)
+            .service('sharingDataService', sharingDataService)
 
     pendingRequests.$inject = [];
     httpService.$inject = ['$http', '$q', 'pendingRequests', 'App'];
@@ -66,6 +67,19 @@
             return getApiCall;
         }
 
+    }
+
+    function sharingDataService() {
+        
+        this.data;
+
+        this.set = function (data) {
+            this.data = data;
+        }
+
+        this.get = function () {
+            return this.data;
+        }
     }
 
 

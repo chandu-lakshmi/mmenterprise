@@ -1,16 +1,38 @@
-<md-dialog class="angular-survey-template">
+<style type="text/css">
+    /* Form view */
+
+      .full-screen {
+        width: 100%;
+        min-height: 100% !important;
+      }
+      .full-screen .container {
+        width: 100%;
+      }
+</style>
+<md-dialog class="angular-survey-template" ng-class="{'full-screen': FormViewerCtrl.formData.fullScreen}">
     <div class="container">
-        <h2 style="text-align: center;color: #24a678;text-transform: uppercase;margin: 0;padding: 24px 10px;background: #eeeeee;" ng-bind="FormViewerCtrl.companyName"></h2>
-        <img src="../public/images/cross_icon.png" alt="close" class="close" ng-click="FormViewerCtrl.closeDialog($event)">
-        <div layout="row" class="head">
+        <div class="container-header" ng-class="{'mmq-start': FormViewerCtrl.formData.pages[0].isFirst}">
+          <span class="questionnaire-name">{{FormViewerCtrl.formData.exam_name}} {{FormViewerCtrl.formData.pages[0].isFirst ? '' : '- Instructions'}}</span>
+          <div class="questionnaire-description">
+            <span class="total-question">Total Questions: {{FormViewerCtrl.formData.pages.length}}</span>
+            <span class="time-duration" ng-if="FormViewerCtrl.formData.max_duration">Time: {{FormViewerCtrl.formData.max_duration}} {{FormViewerCtrl.formData.max_duration > 1 ? 'Mins' : 'Min'}}</span>
+          </div>
+          <img src="../public/images/resize.svg" alt="fullscreen" class="fullscreen-icon" ng-click="FormViewerCtrl.fullScreen();" />
+
+          <img src="../public/images/cross-grey.svg" alt="close" class="close" ng-click="FormViewerCtrl.closeDialog($event)">
+        </div>
+
+
+        <!-- <div layout="row" class="head">
             <span flex></span>
             <md-checkbox ng-model="FormViewerCtrl.viewerReadOnly" aria-label="Checkbox 1">Read only</md-checkbox>
             <md-checkbox ng-model="FormViewerCtrl.formOptions.autoStart" aria-label="Checkbox 1">Autostart</md-checkbox>
             <button class="btn mm-btn" type="button" ng-click="FormViewerCtrl.resetViewer()">Reset</button>
-        </div>
+        </div> -->
+
         <mw-form-viewer ng-if="FormViewerCtrl.formData"
                         form-data="FormViewerCtrl.formData"
-                        template-data="FormViewerCtrl.templateData" 
+                        template-data="FormViewerCtrl.templateData"
                         form-status="FormViewerCtrl.formStatus"
                         options="FormViewerCtrl.formOptions"
                         api="FormViewerCtrl.formViewer"
@@ -18,17 +40,17 @@
                         read-only="FormViewerCtrl.viewerReadOnly"
                         on-submit="FormViewerCtrl.saveResponse()">
         </mw-form-viewer>
-        <hr>
+        <!-- <hr>
         <div class="checkbox">
             <label>
                 <input type="checkbox" ng-model="FormViewerCtrl.showResponseData" ng-click="FormViewerCtrl.showResponseModal(FormViewerCtrl.showResponseData)"> Show response data
             </label>
-        </div>
+        </div> -->
     </div>
 </md-dialog>
 
 <!-- Form Build Json -->
-<script type="text/ng-template" id="form_view_json.phtml">
+<!-- <script type="text/ng-template" id="form_view_json.phtml">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -43,4 +65,4 @@
             </div>
         </div>
     </div>
-</script>
+</script> -->
