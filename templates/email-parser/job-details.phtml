@@ -43,7 +43,7 @@
 						<div class="col-sm-3 labels col-xs-5">Location:</div>
 						<div class="col-sm-9 value col-xs-7" ng-bind="list.location"></div>
 					</div>
-					<div class="row job-desc"">
+					<div class="row job-desc">
 						<div class="col-sm-3 labels col-xs-5">Job Description:</div>
 						<div class="col-sm-9 value col-xs-7">
 							<pre ng-bind-html="list.job_description"></pre>
@@ -79,9 +79,9 @@
 				<copy-url url="{{JobDetailsCtrl.copyUrl}}"  btn-class="all-job-details" btn-text="{{JobDetailsCtrl.copyText}}"></copy-url>
 			</div>
 			<div class="drop-cv">
-				Refer friend for future openings here 
-				<md-button class="md-raised camp-btn" ng-if="JobDetailsCtrl.isCampaignJob" ui-sref="allCampaigns.referralDetails({ref: $root.ref,flag: 1,share_status:sh_cd})">Upload CV</md-button>
-				<md-button class="md-raised camp-btn" ng-if="!JobDetailsCtrl.isCampaignJob" ui-sref="allJobs.referralDetails({ref: $root.ref,flag: 1,share_status:sh_cd})">Upload CV</md-button>
+				Refer a friend for future openings here 
+				<md-button class="md-raised camp-btn" ng-if="JobDetailsCtrl.isCampaignJob" ui-sref="allCampaigns.referralDetails({ref: $root.ref,flag: 1,share_status:sh_cd})">REFER</md-button>
+				<md-button class="md-raised camp-btn" ng-if="!JobDetailsCtrl.isCampaignJob" ui-sref="allJobs.referralDetails({ref: $root.ref,flag: 1,share_status:sh_cd})">REFER</md-button>
 			</div>
 		</footer>
 	</div>

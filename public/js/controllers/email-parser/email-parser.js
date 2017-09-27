@@ -116,13 +116,13 @@
                 socialIcons: ['facebook', 'twitter', 'linkedin', 'googlePlus'],
                 url: vm.shareUrl,
                 facebook: {
-                    post_title: 'These jobs are available in ' + toTitleCase(ReferralDetails.company_name),
+                    post_title: 'Please check out the new opportunities at ' + toTitleCase(ReferralDetails.company_name),
                     post_url: vm.shareUrl,
                     post_img: ReferralDetails.company_logo || '',
                     post_msg: desc
                 },
                 twitter: {
-                    text: 'These jobs are available in ' + toTitleCase(ReferralDetails.company_name) + '. ' + desc,
+                    text: 'Please check out the new opportunities at ' + toTitleCase(ReferralDetails.company_name) + '. ' + desc,
                     url: ReferralDetails.bittly_url,
                     hashtags: '',
                     via: ReferralDetails.company_name,
@@ -130,7 +130,7 @@
                 },
                 linkedin: {
                     url: ReferralDetails.bittly_url,
-                    title: 'These jobs are available in ' + toTitleCase(ReferralDetails.company_name),
+                    title: 'Please check out the new opportunities at ' + toTitleCase(ReferralDetails.company_name),
                     summary: desc,
                     source: ReferralDetails.company_name
                 },
@@ -263,13 +263,13 @@
                 socialIcons: ['facebook', 'twitter', 'linkedin', 'googlePlus'],
                 url: vm.shareUrl,
                 facebook: {
-                    post_title: 'These jobs are available in ' + toTitleCase(vm.infiniteScroll.companyName),
+                    post_title: 'Please check out the new opportunities at ' + toTitleCase(vm.infiniteScroll.companyName),
                     post_url: vm.shareUrl,
                     post_img: vm.infiniteScroll.company_logo || '',
                     post_msg: desc
                 },
                 twitter: {
-                    text: 'These jobs are available in ' + toTitleCase(vm.infiniteScroll.companyName) + '. ' + desc,
+                    text: 'Please check out the new opportunities at ' + toTitleCase(vm.infiniteScroll.companyName) + '. ' + desc,
                     url: bitly || vm.shareUrl,
                     hashtags: '',
                     via: vm.infiniteScroll.companyName,
@@ -277,7 +277,7 @@
                 },
                 linkedin: {
                     url: bitly || vm.shareUrl,
-                    title: 'These jobs are available in ' + toTitleCase(vm.infiniteScroll.companyName),
+                    title: 'Please check out the new opportunities at ' + toTitleCase(vm.infiniteScroll.companyName),
                     summary: desc,
                     source: vm.infiniteScroll.companyName
                 },

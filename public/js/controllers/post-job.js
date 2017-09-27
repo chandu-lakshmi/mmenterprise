@@ -198,7 +198,7 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
         list  : [],
         selectedOne: [],
         newlySelectedBkts : [],
-        headerTxt : 'SELECT CONTACTS COMMUNITY TO PUBLISH CAMPAIGN'
+        headerTxt : 'SELECT CONTACTS COMMUNITY TO PUBLISH JOB'
     }
 
     scope.bucktesViewExternalOpts = {
@@ -206,7 +206,7 @@ angular.module('app.post.job', ['app.components', 'ngAutocomplete', 'angucomplet
         list  : [],
         selectedOne : [],
         newlySelectedBkts : [],
-        headerTxt : 'SELECT TALENT COMMUNITY TO PUBLISH CAMPAIGN'
+        headerTxt : 'SELECT TALENT COMMUNITY TO PUBLISH JOB'
     }
 
     scope.selectedBkts = '';
