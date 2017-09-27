@@ -24,8 +24,16 @@
                     label:not(.md-no-float):not(.md-container-ignore) {-webkit-transform: translate3d(10px, 42px, 0) scale(0.9); transform: translate3d(10px, 42px, 0) scale(0.9)}
                 }
             }
+            .mm-placehoder {
+                transform: translate3d(10px, 64px, 0) scale(0.9) !important;
+            }
+            &.md-input-has-value,
+            &.md-input-focused{  
+                .mm-placehoder{display: none !important}
+            }
         }
 
+        
         .hide-label {
             label {
 				display: none !important
@@ -212,7 +220,10 @@
                 .extra-opts{
                     .pwd-protection{margin-bottom: 10px}
                 }
-                textarea{border: 1px solid #e0e0e0;outline: none;width: 36%;min-height: 65px;margin: -18px 0px 22px 28px;padding:8px}
+                .disclaimer{
+                    textarea{border: 1px solid #e0e0e0;outline: none;width: 36%;min-height: 160px;margin: -18px 0px 0 28px;padding:8px;width:100%;overflow: auto;}
+                    .md-char-counter{margin-right: -24px;}
+                }
                 .footer{
                     .header{background: transparent;border-bottom: 0;}
                 }

@@ -3,7 +3,7 @@
 
         <div class="container-lt">
             <div class="dropdown" ng-show="{{::userPermissions.add_contacts == 1}}">
-                <button class="btn btn-primary mm-btn ripplelink dropdown-toggle" type="button" data-toggle="dropdown">+ NEW</button>
+                <button class="btn btn-primary mm-btn ripplelink dropdown-toggle" type="button" data-toggle="dropdown">+ ADD</button>
                 <ul class="dropdown-menu">
                     <li><a ng-click="ContactCtrl.contactModal()" ng-class="{ 'disable-cursor' : !ContactCtrl.bucketNames.length }">ADD CONTACT</a></li>
                     <li><a ng-click="ContactCtrl.createExternalBucket()" >CREATE COMMUNITY</a></li>

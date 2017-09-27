@@ -244,7 +244,11 @@
 				controller: 'CommonConfirmMessage',
 				controllerAs: 'CommonConfirmMsgCtrl'
 			})
-		}
+        }
+        
+        vm.setServieData = function() {
+            EditTestService.setData(vm.testDetails);
+        }
 
 		function init() {
 			/* var data = EditTestService.getData(); 
@@ -270,8 +274,7 @@
 			})
 			.then(function (response) {
 				if (response.data.status_code == 200) {
-					
-					EditTestService.setData(response.data.data);
+				
 					vm.testDetails = response.data.data 
 					vm.getTestDetailsInProgress = false;
 
@@ -294,11 +297,10 @@
 			angular.forEach(vm.testDetails.exam_question_list, function(element, index) {
 				if (response.data.id == element.exam_question_id) {
                     vm.testDetails.exam_question_list.splice(index, 1);
-                    EditTestService.getData().exam_question_list.splice(index, 1);
 				}	
 			});				
-		}
-
+        }
+        
 
 		init();
 	}

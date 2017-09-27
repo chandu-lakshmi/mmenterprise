@@ -1737,6 +1737,7 @@
         var vm = this;
 
         this.grid = {
+            recordsCount : 0, 
             inProgress: false,
             responseMsg: null
         };
@@ -1810,7 +1811,8 @@
             })
             .then(function (response) {
                 if (response.data.status_code == 200) {
-                    vm.gridOptions.data = response.data.data.candidates;
+                    vm.gridOptions.data  = response.data.data.candidates;
+                    vm.grid.recordsCount = response.data.data.total_recorders;
                 }
                 else if (response.data.status_code == 403) {
                     vm.gridOptions.data = [];
@@ -1819,8 +1821,7 @@
                 else if (response.data.status_code == 400) {
                     $window.location = App.base_url + 'logout';
                 }
-                vm.grid.inProgress = false;
-                vm.grid.totalRecords = vm.gridOptions.data.length;
+                vm.grid.inProgress   = false;
             });
 
         }
@@ -1833,6 +1834,7 @@
         var vm = this;
 
         this.grid = {
+            recordsCount :0,
             inProgress: false,
             responseMsg: null
         };
@@ -1907,6 +1909,7 @@
                 .then(function (response) {
                     if (response.data.status_code == 200) {
                         vm.gridOptions.data = response.data.data.candidates;
+                        vm.grid.recordsCount = response.data.data.total_recorders;
                     }
                     else if (response.data.status_code == 403) {
                         vm.gridOptions.data = [];

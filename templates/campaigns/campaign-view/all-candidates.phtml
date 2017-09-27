@@ -3,7 +3,7 @@
       <div class="box">
          <div class="header" layout="column">
             <div layout="row">
-               <span class="count-cdt" flex>CANDIDATES (112)</span>
+               <span class="count-cdt" flex>CANDIDATES ({{CampaignAllCandidateCtrl.grid.recordsCount}})</span>
                <md-input-container>
                   <label style="display:none !important">Filter By Status</label>
                   <md-select ng-model="CampaignAllCandidateCtrl.filterList" md-on-close="CampaignAllCandidateCtrl.applyFilter()"
