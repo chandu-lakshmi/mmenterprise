@@ -268,11 +268,17 @@
                     .prev-page-button{float: left;color: #fff;background: #31BE9E;padding: 1px 25px;border: 1px solid #3CAA92;
                         &:hover,&:active{background: transparent;outline:none;box-shadow: none}
                         i{/*display:none*/font-size: 11px;}
+                        &:disabled{
+                          opacity: 0.5;
+                        }
                     }
                     .prev-page-button:hover{
                         background:#359383 !important;
                     }
                     .next-page-button{float: right;background: #31BE9E;opacity: 1;color: #fff;border: 1px solid #3CAA92;
+                      &:disabled{
+                        opacity: 0.5;
+                      }
                         i{/*display:none*/font-size: 11px;}
                     }
                     .prev-page-button:hover, .next-page-button:hover{
