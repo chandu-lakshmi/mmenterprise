@@ -36,7 +36,7 @@
     CreateJobController.$inject = ['$scope', '$http', '$timeout', '$window', '$uibModalInstance', 'App'];
     SocialShareController.$inject = ['$scope', '$uibModalInstance', '$state', '$rootScope', 'CampaignsData', 'CompanyDetails', 'App']
     FormBuilderController.$inject = ['$scope', '$http', '$q', '$uibModal', '$mdDialog'];
-    
+
     CampaignViewController.$inject = ['CampaignsData'];
     CampaignAllCandidateController.$inject = ['$http', 'CampaignsData', 'App'];
     CampaignScreenedController.$inject = ['$http', 'CampaignsData', 'App'];
@@ -337,7 +337,7 @@
                     vm.inProgressQueryAssessmentList = false;
                     return response.data.data;
                 })
-            } 
+            }
             else {
                 prevAssessmentListSearchText = null;
                 return setTimeout(function () { });
@@ -345,7 +345,7 @@
         }
 
 
-        
+
         function init() {
             $http({
                 headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
@@ -461,11 +461,11 @@
 
             var frmData = $("form[name='campaignDetails'], form[name='schedule'] :not('.form-control'), form[name='careersPage'] :not('.rm'), form[name='manageContacts']").serialize(),
                 assessment_id;
-            
+
             if (vm.selectedAssessmentList.length){
                 assessment_id = vm.selectedAssessmentList[0].assessment_id;
             }
-           
+
             var newCampaign = $http({
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -1733,7 +1733,7 @@
     }
 
     function CampaignAllCandidateController($http, CampaignsData, App) {
-        
+
         var vm = this;
 
         this.grid = {
@@ -1782,7 +1782,7 @@
             complete: false,
             placeholder: 'Search',
             onSearch: function (val) {
-               
+
             },
             onClear: function () {
                 vm.search_val = "";
@@ -1796,7 +1796,7 @@
         function getCampaignCandidate(){
             var apiKeys = $.param({
                 screened_candidates: 0,
-                campaign_id: CampaignsData.getCampaigns().id 
+                campaign_id: CampaignsData.getCampaigns().id
             });
             vm.grid.inProgress = true;
 

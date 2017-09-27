@@ -154,7 +154,7 @@
       "confirmationPage":{
          "title":"Confirmation page",
          "customMessage":"Custom confirmation message",
-         "defaultMessage":"Successfully listed",
+         "defaultMessage":"Successfully Submitted",
          "timeupMessage":"Hold On!!! Your time’s up",
          "errorMessage":"Error! Your response has not been recorded",
          "pendingMessage":"Thanks for your info. Welcome to our talent Community."

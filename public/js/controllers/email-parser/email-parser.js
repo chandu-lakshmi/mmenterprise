@@ -1413,7 +1413,6 @@
 
         vm.showResponseRata = false;
         vm.saveResponse = function () {
-            console.log('response submitted');
             return $timeout(function () {
                 vm.closeDialog();
                 $state.go('allCampaigns.all', { ref: $rootScope.$root.camp_ref, share_status: $stateParams.share_status });
@@ -1458,9 +1457,11 @@
         vm.getQuestionWithResponseList = function () {
             return mwFormResponseUtils.getQuestionWithResponseList(vm.formData, vm.responseData);
         };
+
         vm.getResponseSheetRow = function () {
             return mwFormResponseUtils.getResponseSheetRow(vm.formData, vm.responseData);
         };
+
         vm.getResponseSheetHeaders = function () {
             return mwFormResponseUtils.getResponseSheetHeaders(vm.formData, vm.headersWithQuestionNumber);
         };

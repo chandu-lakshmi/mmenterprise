@@ -234,7 +234,7 @@
                                                         <img class="pending" ng-src="{{CandidateDetailsCtrl.getActivityPic(list)}}" alt="pending">
                                                     </div>
                                                     <div class="rt">
-                                                        <p ng-bind-html="list.activity_message"></p>
+                                                        <p ng-bind-html="list.activity_message" class="activity-message"></p>
                                                         {{list.activity_by}}
                                                         <span class="dot time">·</span>
                                                         <span class="time"> {{list.activity_on.indexOf('hour') > -1 ? 'about ' : ''}} {{list.activity_on}}</span>
@@ -246,7 +246,7 @@
                                     </div>
                                 </uib-tab>
 
-                                <uib-tab class="comment" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Comment" tooltip-placement="left">
+                                <uib-tab class="comment" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Write Comment" tooltip-placement="left">
                                     <div class="mm_down comment_edit">
                                         <h5 ng-click="CandidateDetailsCtrl.toogleTabs('showCommentsTab')">WRITE YOUR COMMENT <i class="material-icons mm-arrow-spin" ng-class="{'rotate' : CandidateDetailsCtrl.showCommentsTab}">keyboard_arrow_down</i></h5>
                                         <div class="box" id="showCommentsTab" style="border-bottom:1px solid #eaeaea">
@@ -257,6 +257,7 @@
                                                     <span class="msg">Adding Comment</span>
                                                 </div>
                                                 <span class="msg response-msg" ng-bind="CandidateDetailsCtrl.responseMsgPostComment"></span>
+                                                <div ng-if="CandidateDetailsCtrl.comment.length == 500" class="has-error-msg ng-scope" style="">Comment must be no longer than 5000 characters.</div>
                                                 <md-button class="md-raised add pull-right" ng-click="CandidateDetailsCtrl.postComments()" ng-disabled="CandidateDetailsCtrl.inProgressPostComment || !CandidateDetailsCtrl.comment.length">Add Comment</md-button>
                                             </div>
                                         </div>
@@ -386,6 +387,7 @@
                                             <div class="notes">
                                                 <span>NOTES</span>
                                                 <textarea rows="4" name="notes" ng-model="CandidateDetailsCtrl.schedule.notes"  maxlength="500"></textarea>
+                                                <div ng-if="CandidateDetailsCtrl.schedule.notes.length == 500" class="has-error-msg ng-scope" style="">Note must be no longer than 500 characters.</div>
                                             </div>
 
                                             <div class="action">

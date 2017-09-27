@@ -926,12 +926,24 @@
         }
 
         vm.resetScheduleForm = function(form) {
-          console.log(form);
-          // form.$setPristine();
+
+          vm.inProgressPostComment  = false;
+          vm.submittedSchedule = false;
+
+          vm.schedule.attendees = [];
+          vm.schedule.schedule_for = {};
+
+          vm.schedule.interview_date = null;
+          vm.schedule.interview_from_time = null;
+          vm.schedule.interview_to_time = null;
+          // $('#interview_date').datetimepicker('setStartDate', new Date());
+
+          vm.schedule.timeZone = '';
+          vm.schedule.location = '';
+          vm.schedule.notes = '';
         }
 
         vm.postComments = function(form) {
-
             var apiKeys = $.param({
                     reference_id : candidateId,
                     comment : vm.comment,
@@ -939,7 +951,7 @@
                 });
 
             vm.inProgressPostComment  = true;
-
+            vm.comment = null;
             $http({
                 headers : {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -949,14 +961,14 @@
                 data    : apiKeys
             })
             .then(function (response) {
-
                 if (response.data.status_code == 200) {
+
                     vm.inProgressPostComment  = false;
                     vm.responseMsgPostComment = response.data.message.msg[0];
                     vm.candidateCommentsList.unshift(response.data.data.comment);
-                    vm.candidateActivitiesList.unshift(response.data.data.timeline)
+                    vm.candidateActivitiesList.unshift(response.data.data.timeline);
+
                     $timeout(function(){
-                        vm.comment = null;
                         vm.responseMsgPostComment = null;
                     }, 2000);
                 }
@@ -978,6 +990,9 @@
 
                 vm.inProgressPostMail  = true;
 
+                vm.writeMail.body = null;
+                vm.writeMail.subjectText = null;
+
                 $http({
                     headers : {
                         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -987,8 +1002,8 @@
                     data    : apiKeys
                 })
                 .then(function (response) {
-
                     if (response.data.status_code == 200) {
+                        vm.writeMail.subjectId = null;
                         vm.inProgressPostMail   = false;
                         vm.submittedPostMail    = false;
                         vm.candidateSendMailsList.unshift(response.data.data.email);
@@ -1528,14 +1543,14 @@
                 ignoreReadonly: true,
                 format     : 'hh:mm A',
                 sideBySide : true,
-                useCurrent :true
+                useCurrent : true
             });
 
             $('#time_to').datetimepicker({
                 ignoreReadonly: true,
                 format     : 'hh:mm A',
                 sideBySide : true,
-                useCurrent :false
+                useCurrent : false
             });
 
             $('#search').on('keydown', function(ev) {

@@ -27,7 +27,10 @@
         <div class="mw-form-page" ng-if="ctrl.currentPage">
             <div class="pull-left question-number">Question {{ctrl.currentPage.number}}</div>
 
-            <div class="pull-right time-left" ng-if="ctrl.formData.max_duration">Time left: <span>{{ctrl.countdown | secondsToDateTime | date:"HH:mm:ss"}} Sec</span></div>
+            <div class="pull-right time-left" ng-if="ctrl.formData.max_duration">Time left:
+              <span ng-if="ctrl.countdown>59">{{ctrl.countdown | secondsToDateTime | date:"mm:ss"}} Sec</span>
+              <span ng-if="ctrl.countdown<60">{{ctrl.countdown | secondsToDateTime | date:"HH:mm:ss"}} Sec</span>
+            </div>
             <div class="clearfix"></div>
 
             <h2 class="mw-page-title" ng-if="ctrl.currentPage.namedPage && ctrl.currentPage.name">{{ctrl.currentPage.name}}</h2>
