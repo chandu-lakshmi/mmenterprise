@@ -16,10 +16,12 @@
 
 	function QuestionsListController($timeout, $mdToast, $uibModal, $http, $window, App) {
 		
-		var vm = this;
+        var vm = this
+        
+        this.selectedQuestions = [];
 
 		this.grid = {
-			pageNo      : 1,
+            pageNo      : 1,
 			inProgress  : false,
 			responseMsg : null
 		};
@@ -46,16 +48,31 @@
 
 		this.gridOptions.onRegisterApi = function (gridApi) {
 			
-			gridApi.selection.on.rowSelectionChanged(null, function (row) {
-
-			});
-
+            gridApi.selection.on.rowSelectionChanged(null, function (row) {
+                updateQuestionSelection(row);
+            });
+            
 			gridApi.selection.on.rowSelectionChangedBatch(null, function (rows) {
-
+                angular.forEach(rows, function(row){
+                    updateRowSelection(row)
+                });
 			});
-
+            
 			vm.gridApi = gridApi;
-		}
+        }
+        
+        function updateQuestionSelection(row) {
+            var index = vm.selectedQuestions.indexOf(row.entity.question_id);
+            if (row.isSelected) {
+                if (index == -1) {
+                    vm.selectedQuestions.push(row.entity.question_id);
+                }
+            } else {
+                if (index > -1) {
+                    vm.selectedQuestions.splice(index, 1);
+                }
+            }
+        }
 
 		this.deleteQuestion = function (id) {
 
@@ -69,8 +86,8 @@
 					paramsMdService: function () {
 						return {
 							firstMsg: 'Are you sure you want to ',
-							secondMsg: 'delete Question?',
-							params: { question_id: id },
+                            secondMsg: id ? 'delete Question?' : 'delete selected Questions?',
+                            params: { question_id: id ? id : vm.selectedQuestions },
 							apiEndPoint: 'delete_question',
 							callback: deleteQeustionCallback
 						};
@@ -116,6 +133,9 @@
 		}
 
 		function deleteQeustionCallback(response) {
+            vm.selectedQuestions = [];
+            vm.grid.pageNo = 1;
+            vm.getQuestionList();
 			$timeout(function () {
 				$mdToast.show({
 					hideDelay: 3000,
@@ -243,8 +263,6 @@
 			}
 		}
 
-		
-		
 
 		function init() {
 			getAPI();
@@ -372,12 +390,12 @@
 				if (response.data.status_code == 200) {
 
 					if (btnFrom == "goList") {
-						addQuestionExam(response.data.data.id, "EditTest");
+						addQuestionExam(response.data.data, "EditTest");
 					} else {
 						vm.postQuestionSubmitted = false;
 						vm.postQuestionInProgressSave = false;
 						vm.postQuestionInProgressAdd = false;
-						addQuestionExam(response.data.data.id, "createAnother");
+						addQuestionExam(response.data.data, "createAnother");
 						vm.searchText = null;
 						vm.questionObj = angular.copy(vm.copyQuestionObj);
 					}
@@ -389,11 +407,12 @@
 			});
 		}
 		
-		function addQuestionExam(questionId, stateGo) {
-			
+		function addQuestionExam(question, stateGo) {
+            
 			var apiKeys = $.param({
 				exam_id: $stateParams.examId,
-				question_id: questionId
+                question_id: question.id,
+                question_value : question.question_value
 			});
 			
 			$http({
