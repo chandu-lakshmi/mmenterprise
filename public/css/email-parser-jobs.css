@@ -539,7 +539,11 @@
           .angular-survey-template .container .mw-form-viewer .mw-form-page .time-left span {
             color: #a63936; }
     .angular-survey-template .container .mw-pending-message.mw-timeup-message {
-      color: red; }
+      color: red;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap; }
     .angular-survey-template .container .mw-pending-message {
       color: #9E9E9E;
       display: block;

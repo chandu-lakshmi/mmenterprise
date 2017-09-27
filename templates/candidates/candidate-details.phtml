@@ -396,8 +396,11 @@
                                                     <span class="msg">Sending Invitation</span>
                                                 </div>
                                                 <span class="msg response-msg" ng-bind="CandidateDetailsCtrl.responseMsgSchedule"></span>
-                                                <!-- <md-button class="md-primary" ng-click="CandidateDetailsCtrl.resetScheduleForm(schedule_form)">CANCEL</md-button> -->
-                                                <md-button class="md-raised invitation pull-right"  ng-click="CandidateDetailsCtrl.postSchedule(schedule_form)" ng-disabled="CandidateDetailsCtrl.inProgressSchedule">SEND INVITATION</md-button>
+                                                <div style="clear:both;height:0;width:0;"></div>
+                                                <div class="button-container">
+                                                  <md-button class="md-primary" ng-click="CandidateDetailsCtrl.resetScheduleForm(schedule_form)">CANCEL</md-button>
+                                                  <md-button class="md-raised invitation pull-right"  ng-click="CandidateDetailsCtrl.postSchedule(schedule_form)" ng-disabled="CandidateDetailsCtrl.inProgressSchedule">SEND INVITATION</md-button>
+                                                </div>
                                             </div>
                                         </div>
                                     </form>
@@ -440,7 +443,8 @@
                                                             <img src="public/images/attendies.png" class="person" alt="person">
                                                             <span class="name">Attendees: </span>
                                                             <span ng-bind="list.attendees[0]"></span>
-                                                            <div style="text-align:right;line-height: 4px;" ng-if="list.attendees.length > 1" ><span class="mm-tip" style="color: #0ba082" tooltip-class="mm-slide-l-r" uib-tooltip="{{CandidateDetailsCtrl.getAttendeesTooltip(list.attendees)}}" tooltip-placement="left">+{{list.attendees.length - 1}} more Attendees</span></div>
+                                                            <div style="text-align:right;line-height: 4px;" ng-if="list.attendees.length > 1" >
+                                                              <span class="mm-tip" style="color: #0ba082" tooltip-class="mm-slide-l-r" uib-tooltip="{{CandidateDetailsCtrl.getAttendeesTooltip(list.attendees).split(',').join('\n')}}" tooltip-placement="left">+{{list.attendees.length - 1}} more Attendees</span></div>
                                                         </li>
                                                         <li>
                                                             <img src="public/images/schedule.png" class="person" alt="person">

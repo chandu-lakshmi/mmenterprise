@@ -1007,6 +1007,8 @@
                               .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .container-mail.body .rt .params li span.name {
                                 color: #000;
                                 margin-left: 24px; }
+                              .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .container-mail.body .rt .params li span.mm-tip {
+                                word-wrap: breakword; }
                             .candidates .candidate-details .section md-card.right .tab-content .send-mail .panel-group .panel-default .container-mail.body .rt .params li:last-child {
                               line-height: 24px;
                               margin-top: 9px; }
@@ -1076,6 +1078,19 @@
                 font-size: 14px; }
               .candidates .candidate-details .section md-card.right .tab-content .action .response-msg {
                 color: #0ba082; }
+              .candidates .candidate-details .section md-card.right .tab-content .action .button-container .md-button {
+                margin-top: 0; }
+              .candidates .candidate-details .section md-card.right .tab-content .action .md-primary {
+                background: #fff;
+                border: 1px solid #ccc;
+                width: 150px;
+                height: 40px;
+                color: #333;
+                font-weight: bold;
+                box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26); }
+                .candidates .candidate-details .section md-card.right .tab-content .action .md-primary:hover {
+                  background-color: #e6e6e6;
+                  border-color: #adadad; }
           .candidates .candidate-details .section md-card.right .tabs-tooltip {
             font-size: 14px; }
             .candidates .candidate-details .section md-card.right .tabs-tooltip .tooltip-inner {
