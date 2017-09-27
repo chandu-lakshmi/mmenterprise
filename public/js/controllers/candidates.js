@@ -938,9 +938,9 @@
           vm.schedule.interview_to_time = null;
           // $('#interview_date').datetimepicker('setStartDate', new Date());
 
-          vm.schedule.timeZone = '';
-          vm.schedule.location = '';
-          vm.schedule.notes = '';
+          vm.schedule.timeZone = null;
+          vm.schedule.location = null;
+          vm.schedule.notes = null;
         }
 
         vm.postComments = function(form) {
@@ -1551,6 +1551,13 @@
                 format     : 'hh:mm A',
                 sideBySide : true,
                 useCurrent : false
+            });
+
+            $("#time_from").on("dp.change", function (e) {
+                $('#time_to').data("DateTimePicker").minDate(e.date);
+            });
+            $("#time_to").on("dp.change", function (e) {
+                $('#time_from').data("DateTimePicker").maxDate(e.date);
             });
 
             $('#search').on('keydown', function(ev) {
