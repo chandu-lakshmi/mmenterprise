@@ -42,16 +42,16 @@
 			<div class="container" ng-if="EditTestCtrl.testDetails.exam_question_list.length">
 				<div class="grid-view ">
 					<div layout="row" class="head">
-						<div flex="55">QUESTIONS</div>
-						<div flex="15">TYPE</div>
+						<div flex="50">QUESTIONS</div>
+						<div flex="20">TYPE</div>
 						<div flex="15">SCORE</div>
 						<div flex="15">ACTIONS</div>
 					</div>
 					<md-divider></md-divider>
 					<div class="list-container">
 						<div layout="row"  class="list" ng-repeat="list in EditTestCtrl.testDetails.exam_question_list">
-							<div flex="55" ng-bind="list.question" class="qst"></div>
-							<div flex="15" ng-bind="list.question_type"></div>
+							<div flex="50" ng-bind="list.question" class="qst"></div>
+							<div flex="20" ng-bind="list.question_type"></div>
 							<div flex="15" ng-bind="list.question_value"></div>
 							<div flex="15" class="action-view">
 								<a ui-sref="app.campaigns.CreateQuestion({ mode:'view', id: list.question_id, examId: EditTestCtrl.testDetails.exam_id})"><img src="public/images/eye.png" alt="view"></a>

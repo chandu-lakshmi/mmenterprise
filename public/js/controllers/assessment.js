@@ -34,8 +34,8 @@
 			enableSorting: true,
 			enableColumnMenus: false,
 			enableRowSelection: true,
-			enableRowHeaderSelection: true,
-			enableFullRowSelection: true,
+			enableRowHeaderSelection: false,
+			enableFullRowSelection: false,
 			data: [],
 			appScopeProvider: vm // bindin scope to grid
 		};
@@ -299,7 +299,7 @@
 			});				
 		}
 
-        
+
 		init();
 	}
 
