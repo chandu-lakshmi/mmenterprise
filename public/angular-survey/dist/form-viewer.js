@@ -224,7 +224,7 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", "$timeou
                 ctrl.submitStatus='TIME_UP';
                 ctrl.setCurrentPage(null);
                 $interval.cancel(intervalId);
-
+                mmQuestionnaire.setResponseData(null);
                 // return $timeout(function(){
                 //     ctrl.closeDialog();
                 // }, 3000);
@@ -254,8 +254,7 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", "$timeou
             };
 
             ctrl.closeDialog = function(){
-                $mdDialog.hide();
-                $state.go('allCampaigns.all', {ref: $rootScope.$root.camp_ref,share_status:$stateParams.share_status});
+                mmQuestionnaire.setResponseData(null);
             }
 
             ctrl.setCurrentPage = function (page) {

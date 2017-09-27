@@ -39,11 +39,11 @@
       color: #fff;
       transition: all .5s ease; }
       .questions .container-box .action:hover {
-        background: #359383; }
+        background: #359383 !important; }
       .questions .container-box .action.add-add-new, .questions .container-box .action.delete-all {
         background: #7791a5 !important; }
         .questions .container-box .action.add-add-new:hover, .questions .container-box .action.delete-all:hover {
-          background: #4b6477; }
+          background: #4b6477 !important; }
         .questions .container-box .action.add-add-new img.loader, .questions .container-box .action.delete-all img.loader {
           width: 180px; }
       .questions .container-box .action.delete-all {
@@ -112,98 +112,100 @@
       background: #eeeff1;
       border: 1px solid #c8d1d0;
       border-top: 0; }
-    .questions .container-box .create-question .section .list {
-      margin-top: 30px; }
-      .questions .container-box .create-question .section .list.first {
-        margin-top: 60px; }
-      .questions .container-box .create-question .section .list .text-opts {
-        position: absolute;
-        left: 0;
-        top: -24px;
-        color: #7e7f7f; }
-      .questions .container-box .create-question .section .list md-radio-group .left {
-        border: 1px solid #e0e0e0;
-        margin-right: -2px;
-        height: 44px;
-        line-height: 44px;
-        margin-top: 2px;
-        padding: 0 5px;
-        border-right: 0;
-        color: #868686;
-        background: #f7f8f9; }
-      .questions .container-box .create-question .section .list md-radio-group md-radio-button:not([disabled]) .md-on {
-        background: #0fb89b; }
-      .questions .container-box .create-question .section .list md-radio-group md-radio-button.md-checked .md-off {
-        border-color: #0fb89b; }
-      .questions .container-box .create-question .section .list md-radio-group md-radio-button .md-off {
-        border-color: #cacaca; }
-      .questions .container-box .create-question .section .list md-radio-group md-radio-button .md-ink-ripple {
-        color: rgba(15, 184, 155, 0.28); }
-      .questions .container-box .create-question .section .list md-radio-group md-radio-button[disabled] .md-on {
-        background: #0fb89b; }
-      .questions .container-box .create-question .section .list md-radio-group .animated {
-        position: relative; }
-      .questions .container-box .create-question .section .list md-radio-group .bin {
-        position: absolute;
-        left: -26px;
-        top: 14px; }
-      .questions .container-box .create-question .section .list .action-add-opts {
-        margin: 0;
-        color: #0fb89b; }
-      .questions .container-box .create-question .section .list .question-desc {
+    .questions .container-box .create-question {
+      margin-bottom: 24px; }
+      .questions .container-box .create-question .section .list {
         margin-top: 30px; }
-        .questions .container-box .create-question .section .list .question-desc textarea {
-          min-height: 90px;
-          max-height: 90px;
-          overflow: auto; }
-      .questions .container-box .create-question .section .list .tags .md-chips {
-        padding: 0 0 4px 3px;
-        border: 1px solid rgba(0, 0, 0, 0.12);
-        box-shadow: none; }
-        .questions .container-box .create-question .section .list .tags .md-chips.md-focused {
-          box-shadow: 0 0 #208d6e !important; }
-          .questions .container-box .create-question .section .list .tags .md-chips.md-focused:before {
-            content: ''; }
-        .questions .container-box .create-question .section .list .tags .md-chips .md-chip-input-container input {
-          height: 42px;
-          padding-left: 8px;
-          font-size: medium; }
-        .questions .container-box .create-question .section .list .tags .md-chips .md-chip-input-container {
-          margin: 0;
-          height: 38px; }
-      .questions .container-box .create-question .section .list .tags md-progress-linear {
-        display: none; }
-      .questions .container-box .create-question .section .list .tags md-chip {
-        background: #e8ebec;
-        color: #6c7478;
-        cursor: default;
-        height: 32px;
-        margin: 5px 3px 0px 8px;
-        padding: 0 28px 0 12px;
-        line-height: 30px;
-        float: left;
-        border: 1px solid #e0e0e0;
-        position: relative; }
-        .questions .container-box .create-question .section .list .tags md-chip .md-chip-content strong {
-          font-weight: normal;
-          color: #797979;
-          font-size: 14px; }
-        .questions .container-box .create-question .section .list .tags md-chip .md-chip-remove-container {
+        .questions .container-box .create-question .section .list.first {
+          margin-top: 60px; }
+        .questions .container-box .create-question .section .list .text-opts {
           position: absolute;
-          top: -1px;
-          right: 0; }
-          .questions .container-box .create-question .section .list .tags md-chip .md-chip-remove-container button {
-            border: 0;
-            background: transparent; }
-            .questions .container-box .create-question .section .list .tags md-chip .md-chip-remove-container button md-icon {
-              color: #858585;
-              width: 20px; }
-    .questions .container-box .create-question .footer {
-      margin: 30px 0; }
-      .questions .container-box .create-question .footer .action {
-        padding: 4px 20px; }
-      .questions .container-box .create-question .footer .or {
-        line-height: 56px;
-        color: #777; }
+          left: 0;
+          top: -24px;
+          color: #7e7f7f; }
+        .questions .container-box .create-question .section .list md-radio-group .left {
+          border: 1px solid #e0e0e0;
+          margin-right: -2px;
+          height: 44px;
+          line-height: 44px;
+          margin-top: 2px;
+          padding: 0 5px;
+          border-right: 0;
+          color: #868686;
+          background: #f7f8f9; }
+        .questions .container-box .create-question .section .list md-radio-group md-radio-button:not([disabled]) .md-on {
+          background: #0fb89b; }
+        .questions .container-box .create-question .section .list md-radio-group md-radio-button.md-checked .md-off {
+          border-color: #0fb89b; }
+        .questions .container-box .create-question .section .list md-radio-group md-radio-button .md-off {
+          border-color: #cacaca; }
+        .questions .container-box .create-question .section .list md-radio-group md-radio-button .md-ink-ripple {
+          color: rgba(15, 184, 155, 0.28); }
+        .questions .container-box .create-question .section .list md-radio-group md-radio-button[disabled] .md-on {
+          background: #0fb89b; }
+        .questions .container-box .create-question .section .list md-radio-group .animated {
+          position: relative; }
+        .questions .container-box .create-question .section .list md-radio-group .bin {
+          position: absolute;
+          left: -26px;
+          top: 14px; }
+        .questions .container-box .create-question .section .list .action-add-opts {
+          margin: 0;
+          color: #0fb89b; }
+        .questions .container-box .create-question .section .list .question-desc {
+          margin-top: 30px; }
+          .questions .container-box .create-question .section .list .question-desc textarea {
+            min-height: 90px;
+            max-height: 90px;
+            overflow: auto; }
+        .questions .container-box .create-question .section .list .tags .md-chips {
+          padding: 0 0 4px 3px;
+          border: 1px solid rgba(0, 0, 0, 0.12);
+          box-shadow: none; }
+          .questions .container-box .create-question .section .list .tags .md-chips.md-focused {
+            box-shadow: 0 0 #208d6e !important; }
+            .questions .container-box .create-question .section .list .tags .md-chips.md-focused:before {
+              content: ''; }
+          .questions .container-box .create-question .section .list .tags .md-chips .md-chip-input-container input {
+            height: 42px;
+            padding-left: 8px;
+            font-size: medium; }
+          .questions .container-box .create-question .section .list .tags .md-chips .md-chip-input-container {
+            margin: 0;
+            height: 38px; }
+        .questions .container-box .create-question .section .list .tags md-progress-linear {
+          display: none; }
+        .questions .container-box .create-question .section .list .tags md-chip {
+          background: #e8ebec;
+          color: #6c7478;
+          cursor: default;
+          height: 32px;
+          margin: 5px 3px 0px 8px;
+          padding: 0 28px 0 12px;
+          line-height: 30px;
+          float: left;
+          border: 1px solid #e0e0e0;
+          position: relative; }
+          .questions .container-box .create-question .section .list .tags md-chip .md-chip-content strong {
+            font-weight: normal;
+            color: #797979;
+            font-size: 14px; }
+          .questions .container-box .create-question .section .list .tags md-chip .md-chip-remove-container {
+            position: absolute;
+            top: -1px;
+            right: 0; }
+            .questions .container-box .create-question .section .list .tags md-chip .md-chip-remove-container button {
+              border: 0;
+              background: transparent; }
+              .questions .container-box .create-question .section .list .tags md-chip .md-chip-remove-container button md-icon {
+                color: #858585;
+                width: 20px; }
+      .questions .container-box .create-question .footer {
+        margin: 30px 0; }
+        .questions .container-box .create-question .footer .action {
+          padding: 4px 20px; }
+        .questions .container-box .create-question .footer .or {
+          line-height: 56px;
+          color: #777; }
 
 /*# sourceMappingURL=questions.css.map */

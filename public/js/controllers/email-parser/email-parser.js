@@ -32,7 +32,7 @@
     AllCampaignsController.$inject = ['$scope', '$http', '$window', '$q', '$mdDialog', 'App', 'CampaignDetails', 'campaignJobDetails'];
     TalentCommunityController.$inject = ['$scope', '$http', '$timeout', '$uibModalInstance', 'ReferralDetails', 'CampaignDetails', 'formJobOrCampagin', 'App'];
 
-    AssessmentController.$inject = ['$state', '$stateParams', '$mdDialog', '$scope', '$http', '$timeout', 'App', 'candidateDetails'];
+    AssessmentController.$inject = ['$state', '$stateParams', '$mdDialog', '$scope', '$http', '$timeout', 'App', 'candidateDetails', 'CampaignDetails'];
 
 
     function modalController($scope, $state, $stateParams, $uibModalInstance, App) {
@@ -1312,7 +1312,7 @@
 
     }
 
-    function AssessmentController($state, $stateParams, $mdDialog, $scope, $http, $timeout, App, candidateDetails) {
+    function AssessmentController($state, $stateParams, $mdDialog, $scope, $http, $timeout, App, candidateDetails, CampaignDetails) {
 
             var vm = this;
             /*Form Viewer*/
@@ -1337,13 +1337,17 @@
 
 
             $scope.$on('responseSubmitted', function (event, response) {
-
+                if (!response) {
+                    closeAssessment();
+                    return;
+                }
                 var apiKeys = angular.copy(response);
                     angular.extend(apiKeys, {
                         assessment_id: candidateDetails.assessment_id,
                         got_referred_id: candidateDetails.got_referred_id,
                         company_code: candidateDetails.company_code,
-                        emailid: candidateDetails.emailid
+                        emailid: candidateDetails.emailid,
+                        campaign_id : CampaignDetails.campaign_id
                     });
 
                 $http({
@@ -1357,17 +1361,23 @@
                 .then(function (response) {
 
                     if (response.data.status_code == 200) {
-                        $state.go('allCampaigns.all', { ref: App.camp_ref, share_status: $stateParams.share_status });
+                        closeAssessment();
                     } else if (response.data.status_code == 400) {
                         $window.location = App.base_url + 'logout';
                     }
 
                 });
             });
+
+
+            function closeAssessment() {
+                $mdDialog.hide();
+                $state.go('allCampaigns.all', { ref: App.camp_ref, share_status: $stateParams.share_status });
+            }
     }
 
-    function FormViewerController(App, $scope, $rootScope, $http, $timeout, $q, $uibModal, $mdDialog, $state, $stateParams, RefDetails, $window, candidateDetails) {
-
+    function FormViewerController($scope, $rootScope, $http, $timeout, $q, $uibModal, $mdDialog, $state, $stateParams, RefDetails, $window, candidateDetails, CampaignDetails, App) {
+     
         var vm = this;
         vm.formOptions = {
             autoStart: false,
@@ -1382,7 +1392,8 @@
             assessment_id: candidateDetails.assessment_id,
             got_referred_id : candidateDetails.got_referred_id,
             company_code : candidateDetails.company_code,
-            emailid     : candidateDetails.emailid
+            emailid     : candidateDetails.emailid,
+            campaign_id : CampaignDetails.campaign_id
         });
         vm.formData = null;
         $http({

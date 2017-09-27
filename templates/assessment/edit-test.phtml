@@ -19,13 +19,13 @@
 			<div class="section md-padding">
 				<div class="container">
 					<div layout="row" class="meta-data">
-						<div flex="30">
+						<div flex="30" class="ellipsis">
 							<span class="title">Role for the Assessment</span>
-							<span ng-bind="EditTestCtrl.testDetails.exam_type"></span>
+							<span ng-bind="EditTestCtrl.testDetails.exam_type" title="{{EditTestCtrl.testDetails.exam_type}}"></span>
 						</div>
-						<div flex="30">
+						<div flex="30" class="ellipsis">
 							<span class="title">Assessment Name</span>
-							<span ng-bind="EditTestCtrl.testDetails.exam_name"></span>
+							<span ng-bind="EditTestCtrl.testDetails.exam_name" title="{{EditTestCtrl.testDetails.exam_name}}"></span>
 						</div>
 						<div flex="25">
 							<span class="title">Work Experience</span>
@@ -42,16 +42,16 @@
 			<div class="container" ng-if="EditTestCtrl.testDetails.exam_question_list.length">
 				<div class="grid-view ">
 					<div layout="row" class="head">
-						<div flex="55">QUESTIONS</div>
-						<div flex="15">TYPE</div>
+						<div flex="50">QUESTIONS</div>
+						<div flex="20">TYPE</div>
 						<div flex="15">SCORE</div>
 						<div flex="15">ACTIONS</div>
 					</div>
 					<md-divider></md-divider>
 					<div class="list-container">
 						<div layout="row"  class="list" ng-repeat="list in EditTestCtrl.testDetails.exam_question_list">
-							<div flex="55" ng-bind="list.question" class="qst"></div>
-							<div flex="15" ng-bind="list.question_type"></div>
+							<div flex="50" ng-bind="list.question" class="qst"></div>
+							<div flex="20" ng-bind="list.question_type"></div>
 							<div flex="15" ng-bind="list.question_value"></div>
 							<div flex="15" class="action-view">
 								<a ui-sref="app.campaigns.CreateQuestion({ mode:'view', id: list.question_id, examId: EditTestCtrl.testDetails.exam_id})"><img src="public/images/eye.png" alt="view"></a>
@@ -72,9 +72,9 @@
 				</div>
 				<div layout="row">
 					<i flex></i>
-					<md-button ui-sref="app.campaigns.QuestionAdd({ examId: EditTestCtrl.testDetails.exam_id})" class="md-raised action">ADD QUESTIONS</md-button>
+					<md-button ui-sref="app.campaigns.QuestionAdd({ examId: EditTestCtrl.testDetails.exam_id})" ng-click="EditTestCtrl.setServieData()" class="md-raised action">ADD QUESTIONS</md-button>
 					<span class="or"> or </span>
-					<md-button ui-sref="app.campaigns.CreateQuestion({ mode:'add', id: 0, examId: EditTestCtrl.testDetails.exam_id})" class="md-raised action create-new">CREATE NEW QUESTION</md-button>
+					<md-button ui-sref="app.campaigns.CreateQuestion({ mode:'add', id: 0, examId: EditTestCtrl.testDetails.exam_id})" ng-click="EditTestCtrl.setServieData()" class="md-raised action create-new">CREATE NEW QUESTION</md-button>
 					<i flex></i>
 				</div>
 			</div>

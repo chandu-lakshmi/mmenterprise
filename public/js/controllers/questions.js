@@ -10,8 +10,8 @@
 
 
     QuestionsListController.$inject  = ['$timeout', '$mdToast','$uibModal', '$http', '$window', 'App'];
-	CreateQuestionController.$inject = ['$stateParams', '$timeout', '$state', '$http', '$window', '$mdToast', 'EditTestService', 'App'];
-	QuestionAddController.$inject = ['$stateParams', '$timeout', '$state', '$http', '$window', '$mdToast', 'EditTestService', 'App'];
+	CreateQuestionController.$inject = ['$scope', '$stateParams', '$timeout', '$state', '$http', '$window', '$mdToast', 'EditTestService', 'App'];
+	QuestionAddController.$inject = ['$scope', '$stateParams', '$timeout', '$state', '$http', '$window', '$mdToast', 'EditTestService', 'App'];
 
 
 	function QuestionsListController($timeout, $mdToast, $uibModal, $http, $window, App) {
@@ -75,6 +75,13 @@
         }
 
 		this.deleteQuestion = function (id) {
+            var textMsgSecond = "delete Question ?",
+                questionIds   = [id];
+
+            if(!id) {
+                textMsgSecond = "delete selected Questions?";
+                questionIds   = vm.selectedQuestions;
+            }
 
 			$uibModal.open({
 				animation: false,
@@ -86,8 +93,8 @@
 					paramsMdService: function () {
 						return {
 							firstMsg: 'Are you sure you want to ',
-                            secondMsg: id ? 'delete Question?' : 'delete selected Questions?',
-                            params: { question_id: id ? id : vm.selectedQuestions },
+                            secondMsg: textMsgSecond,
+                            params: { question_id: questionIds},
 							apiEndPoint: 'delete_question',
 							callback: deleteQeustionCallback
 						};
@@ -151,7 +158,7 @@
 	}
 
 
-	function CreateQuestionController($stateParams, $timeout, $state, $http, $window, $mdToast, EditTestService, App) {
+	function CreateQuestionController($scope, $stateParams, $timeout, $state, $http, $window, $mdToast, EditTestService, App) {
 		
 		var vm = this;
 
@@ -443,11 +450,15 @@
 			});
 		}
 
-		init();
+        init();
+        
+        $scope.$on('$destroy', function(){
+            EditTestService.setData(null);
+        });
 	}
 
 
-	function QuestionAddController($stateParams, $timeout, $state, $http, $window, $mdToast, EditTestService, App) {
+	function QuestionAddController($scope, $stateParams, $timeout, $state, $http, $window, $mdToast, EditTestService, App) {
 
 		var vm     = this,
 			examId = $stateParams.examId;
@@ -576,7 +587,12 @@
 		} else {
 			init();
 		}
-		
+        
+        
+        $scope.$on('$destroy', function () {
+            EditTestService.setData(null);
+        });
+
 	}
 
 }());

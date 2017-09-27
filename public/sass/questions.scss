@@ -12,9 +12,9 @@
             }
         }
         .action {background: #0fb89b !important;color: #fff;transition: all .5s ease;
-            &:hover { background: #359383}
+            &:hover { background: #359383 !important}
             &.add-add-new, &.delete-all{background: #7791a5 !important;
-            &:hover{background: #4b6477}
+            &:hover{background: #4b6477 !important}
                 img.loader{width: 180px}
             }
             &.delete-all{margin-right: 10px !important;width: 100px !important}
@@ -87,7 +87,7 @@
         }
 
         //create-Question
-        .create-question{
+        .create-question{margin-bottom: 24px;
             .section{
 				.list{margin-top: 30px;
 					&.first{margin-top: 60px}

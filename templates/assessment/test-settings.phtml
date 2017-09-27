@@ -141,7 +141,7 @@
                      </div>
                      <div layout="row" class="qualification switch">
                         <md-input-container flex="25" class="md-block full-box">
-                           <span class="qst-label">Keywords Matches</span>
+                           <span class="qst-label">Keyword Matches</span>
                            <input type="text" aria-label="Keywords Matches" name="keywords_matches" ng-model="TestSettingsCtrl.settingsObj.keywordsMatches">
                         </md-input-container>
                         <i class="gap"></i>
@@ -159,10 +159,14 @@
 						<div class="extra-opts">
 							<div class="pwd-protection"><md-checkbox name="enable_full_screen" ng-model="TestSettingsCtrl.settingsObj.enable_full_screen" aria-label="enableFullscreen" ng-true-value="1" ng-false-value="0"> Enable Full screen</div>
 							<div class="pwd-protection"><md-checkbox name="shuffle_questions" ng-model="TestSettingsCtrl.settingsObj.shuffle_questions" aria-label="shuffleQuestions" ng-true-value="1" ng-false-value="0"> Shuffle Questions</div>
-							<div class="pwd-protection"><md-checkbox name="reminder_emails" ng-model="TestSettingsCtrl.settingsObj.reminder_emails" aria-label="reminderMail" ng-true-value="1" ng-false-value="0"> Reminder EMail</div>
-							<div class="pwd-protection"><md-checkbox name="confirmation_email" ng-model="TestSettingsCtrl.settingsObj.confirmationMail" aria-label="confirmationMail" ng-true-value="1" ng-false-value="0"> Confirmation EMail</div>
+							<div class="pwd-protection"><md-checkbox name="reminder_emails" ng-model="TestSettingsCtrl.settingsObj.reminder_emails" aria-label="reminderMail" ng-true-value="1" ng-false-value="0"> Reminder Email</div>
+							<div class="pwd-protection"><md-checkbox name="confirmation_email" ng-model="TestSettingsCtrl.settingsObj.confirmationMail" aria-label="confirmationMail" ng-true-value="1" ng-false-value="0"> Confirmation Email</div>
 							<div class="pwd-protection"><md-checkbox name="disclaimer" ng-model="TestSettingsCtrl.settingsObj.disclaimer" aria-label="disclaimer" ng-true-value="1" ng-false-value="0"> Disclaimer</div>
-							<div ng-if="TestSettingsCtrl.settingsObj.disclaimer"><textarea class="mm-slide-left" name="disclaimer_text" ng-model="TestSettingsCtrl.settingsObj.disclaimerText" ></textarea></div>
+							<div class="disclaimer" ng-if="TestSettingsCtrl.settingsObj.disclaimer">
+                        <md-input-container class="md-block mm-slide-left" flex="40">
+          						<textarea name="disclaimer_text" ng-model="TestSettingsCtrl.settingsObj.disclaimer_text" md-maxlength="500" maxlength="500" ng-maxlength="500" style="max-height:106px"></textarea>
+                        </md-input-container>
+                     </div>
 						</div>
 
 						<md-divider></md-divider>
