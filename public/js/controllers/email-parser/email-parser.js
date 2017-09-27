@@ -14,6 +14,7 @@
 
             //Candidate Write Exam
             .controller('AssessmentController', AssessmentController)
+            .controller('CheckAssessmentController', CheckAssessmentController)
 
             .config(function ($translateProvider) {
                 $translateProvider.useStaticFilesLoader({
@@ -33,7 +34,7 @@
     TalentCommunityController.$inject = ['$scope', '$http', '$timeout', '$uibModalInstance', 'ReferralDetails', 'CampaignDetails', 'formJobOrCampagin', 'App'];
 
     AssessmentController.$inject = ['$state', '$stateParams', '$mdDialog', '$scope', '$http', '$timeout', 'App', 'candidateDetails', 'CampaignDetails'];
-
+    CheckAssessmentController.$inject = ['$scope', '$mdDialog'];
 
     function modalController($scope, $state, $stateParams, $uibModalInstance, App) {
 
@@ -1337,6 +1338,7 @@
 
 
             $scope.$on('responseSubmitted', function (event, response) {
+                alert();
                 if (!response) {
                     closeAssessment();
                     return;
@@ -1376,7 +1378,37 @@
             }
     }
 
-    function FormViewerController($scope, $rootScope, $http, $timeout, $q, $uibModal, $mdDialog, $state, $stateParams, RefDetails, $window, candidateDetails, CampaignDetails, App) {
+    
+    function CheckAssessmentController($scope, $mdDialog) {
+
+        var vm = this;
+        /*Form Viewer*/
+        $mdDialog.show({
+            controller: FormViewerController,
+            controllerAs: 'FormViewerCtrl',
+            templateUrl: '../templates/campaigns/form-viewer.phtml',
+            parent: angular.element(document.body),
+            targetEvent: '',
+            clickOutsideToClose: false,
+            fullscreen: false,
+            escapeToClose: false,
+            locals: {
+                RefDetails: vm.referralDetails
+            }
+        }).
+        then(function (answer) {
+            vm.status = 'You said the information was "' + answer + '".';
+        }, function () {
+            vm.status = 'You cancelled the dialog.';
+        });
+
+        $scope.$on('responseSubmitted', function (event, response) {
+            $mdDialog.hide();
+        });
+    }
+
+
+    function FormViewerController($scope, $rootScope, $http, $timeout, $q, $uibModal, $mdDialog, $state, $stateParams, RefDetails, $window, candidateDetails, CampaignDetails, mmQuestionnaire, App) {
      
         var vm = this;
         vm.formOptions = {
@@ -1389,7 +1421,7 @@
 
         vm.responseData = {};
         var apiKeys = $.param({
-            assessment_id: candidateDetails.assessment_id,
+            assessment_id: candidateDetails.assessment_id || $stateParams.assessmentId,
             got_referred_id : candidateDetails.got_referred_id,
             company_code : candidateDetails.company_code,
             emailid     : candidateDetails.emailid,
@@ -1482,8 +1514,7 @@
         };
 
         vm.closeDialog = function () {
-            $mdDialog.hide();
-            $state.go('allCampaigns.all', {ref: $rootScope.$root.camp_ref,share_status:$stateParams.share_status});
+            mmQuestionnaire.setResponseData(null);
         }
     }
 
