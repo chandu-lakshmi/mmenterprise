@@ -234,23 +234,17 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", "$timeou
             ctrl.submitForm = function(){
                 ctrl.formSubmitted=true;
                 ctrl.submitStatus='SUCCESS';
-
-                ctrl.setCurrentPage(null);
                 $interval.cancel(intervalId);
 
+                if(ctrl.currentPage) {
+                  ctrl.mmqResponse = {
+                    "candidate_emailid": ctrl.formData.emailid,
+                    "exam_id": ctrl.formData.exam_id,
+                    "exam_question_list": ctrl.responseData
+                  }
+                }
                 mmQuestionnaire.setResponseData(ctrl.mmqResponse);
-
-                // return $timeout(function() {
-                //     ctrl.closeDialog();
-                // }, 3000);
-
-                // var resultPromise = ctrl.onSubmit();
-                // resultPromise.then(function(){
-                //     ctrl.submitStatus='SUCCESS';
-                // }).catch(function(){
-                //     ctrl.submitStatus='ERROR';
-                // });
-
+                ctrl.setCurrentPage(null);
             };
 
             ctrl.closeDialog = function(){
@@ -374,22 +368,20 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", "$timeou
                 ctrl.currentPage.elements.forEach(function(element){
                     ctrl.updateNextPageBasedOnPageElementAnswers(element);
                 });
-
                 ctrl.buttons.submitForm.visible=!ctrl.nextPage;
                 ctrl.buttons.nextPage.visible=!!ctrl.nextPage;
             };
 
             ctrl.mmqResponse = {};
-            ctrl.mmqResponse.exam_question_list = {};
+            // ctrl.mmqResponse.exam_question_list = {};
             ctrl.answerList = [];
 
             ctrl.updateNextPageBasedOnPageElementAnswers = function (element) {
                 var question = element.question;
-
                 if (question && question.pageFlowModifier) {
                     question.offeredAnswers.forEach(function (answer) {
                         if (answer.pageFlow) {
-                            if(ctrl.responseData[question.id].question_ans == answer.id){
+                            if(ctrl.responseData[question.id].selectedAnswer == answer.id){
                                 if (answer.pageFlow.formSubmit) {
                                     ctrl.nextPage = null;
                                 } else if (answer.pageFlow.page) {
@@ -402,13 +394,11 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", "$timeou
             };
 
             ctrl.onResponseChanged = function(pageElement){
-
-                ctrl.mmqResponse = {
-                  "candidate_emailid": 'xyz@gmail.com',
-                  "exam_id": ctrl.formData.exam_id,
-                  "exam_question_list": ctrl.responseData
-                }
-
+                // ctrl.mmqResponse = {
+                //   "candidate_emailid": 'xyz@gmail.com',
+                //   "exam_id": ctrl.formData.exam_id,
+                //   "exam_question_list": ctrl.responseData
+                // }
                 ctrl.setDefaultNextPage();
                 ctrl.updateNextPageBasedOnAllAnswers();
             };
@@ -509,10 +499,9 @@ angular.module('mwFormViewer').factory("FormQuestionId", function(){
             this.$onInit = function() {
 
                 ctrl.id = FormQuestionId.next();
-
                 if(ctrl.question.type=='radio') {
-                    if(!ctrl.questionResponse.question_ans){
-                        ctrl.questionResponse.question_ans=null;
+                    if(!ctrl.questionResponse.selectedAnswer){
+                        ctrl.questionResponse.selectedAnswer=null;
                     }
                     if(ctrl.questionResponse.other){
                         ctrl.isOtherAnswer=true;
@@ -520,7 +509,7 @@ angular.module('mwFormViewer').factory("FormQuestionId", function(){
 
                 }else if(ctrl.question.type=='checkbox'){
                     if(ctrl.questionResponse.selectedAnswers && ctrl.questionResponse.selectedAnswers.length){
-                        ctrl.question_ans=true;
+                        ctrl.selectedAnswer=true;
                     }else{
                         ctrl.questionResponse.selectedAnswers=[];
                     }
@@ -573,9 +562,8 @@ angular.module('mwFormViewer').factory("FormQuestionId", function(){
 
             };
             ctrl.otherAnswerRadioChanged= function(){
-                console.log('otherAnswerRadioChanged');
                 if(ctrl.isOtherAnswer){
-                    ctrl.questionResponse.question_ans=null;
+                    ctrl.questionResponse.selectedAnswer=null;
                 }
                 ctrl.answerChanged();
             };
@@ -584,7 +572,7 @@ angular.module('mwFormViewer').factory("FormQuestionId", function(){
                 if(!ctrl.isOtherAnswer){
                     delete ctrl.questionResponse.other;
                 }
-                ctrl.question_ans = ctrl.questionResponse.selectedAnswers.length||ctrl.isOtherAnswer ? true:null ;
+                ctrl.selectedAnswer = ctrl.questionResponse.selectedAnswers.length||ctrl.isOtherAnswer ? true:null ;
                 ctrl.answerChanged();
             };
 
@@ -595,7 +583,7 @@ angular.module('mwFormViewer').factory("FormQuestionId", function(){
                 } else {
                     ctrl.questionResponse.selectedAnswers.splice(ctrl.questionResponse.selectedAnswers.indexOf(answer.id), 1);
                 }
-                ctrl.question_ans = ctrl.questionResponse.selectedAnswers.length||ctrl.isOtherAnswer ? true:null ;
+                ctrl.selectedAnswer = ctrl.questionResponse.selectedAnswers.length||ctrl.isOtherAnswer ? true:null ;
 
                 ctrl.answerChanged();
             };

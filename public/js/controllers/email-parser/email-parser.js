@@ -1338,7 +1338,6 @@
 
 
             $scope.$on('responseSubmitted', function (event, response) {
-                alert();
                 if (!response) {
                     closeAssessment();
                     return;
@@ -1439,7 +1438,9 @@
             .then(function (response) {
 
                 if (response.data.status_code == 200) {
+                    // console.log(response.data.data);
                     vm.formData = response.data.data;
+                    // console.log(vm.formData);
                     // if(vm.formData.enable_full_screen) {
                     //   vm.fullScreen();
                     // }

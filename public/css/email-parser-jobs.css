@@ -120,11 +120,10 @@
   .all-campaigns md-divider {
     border-color: #EFEFEF; }
   .all-campaigns header.logo {
-    padding: 0;
-    min-height: 82px;
-    line-height: 82px;
+    padding: 10px 0;
     width: 1041px;
-    margin: 0 auto; }
+    margin: 0 auto;
+    min-height: 80px; }
     .all-campaigns header.logo #logo .spinner .small {
       width: 25px;
       height: 25px; }
@@ -141,7 +140,8 @@
       transform: translateY(-50%);
       padding: 16px 15px;
       margin-left: 20px;
-      cursor: pointer; }
+      cursor: pointer;
+      top: 20px; }
       .all-campaigns header.logo .menu .tab:last-child {
         margin-left: 30px;
         border: 1px solid #24aa78;
@@ -149,6 +149,10 @@
         -webkit-border-radius: 3px;
         -moz-border-radius: 3px;
         -o-border-radius: 3px; }
+        .all-campaigns header.logo .menu .tab:last-child:hover {
+          background: #24aa78; }
+          .all-campaigns header.logo .menu .tab:last-child:hover a {
+            color: #fff; }
         .all-campaigns header.logo .menu .tab:last-child a {
           color: #24aa78; }
       .all-campaigns header.logo .menu .tab a {
@@ -182,6 +186,11 @@
           margin: 22px 0 20px 0; }
           .all-campaigns .filters .des h4.date img {
             margin-right: 5px; }
+          .all-campaigns .filters .des h4.date span {
+            background-image: url("../public/images/email-parser/sprite.png");
+            background-position: 0 -336px;
+            width: 26px;
+            height: 24px; }
         .all-campaigns .filters .des h4 i {
           vertical-align: middle;
           color: #00b98f; }
@@ -207,7 +216,11 @@
             padding-left: 46px;
             font-size: 16px;
             border-right: 0;
-            font-family: 'Lato', sans-serif; }
+            font-family: 'Lato', sans-serif;
+            border: 0; }
+            .all-campaigns .filters .user-inputs .search-container .search input::-webkit-input-placeholder {
+              /* WebKit, Blink, Edge */
+              color: #909; }
             .all-campaigns .filters .user-inputs .search-container .search input:focus {
               box-shadow: none;
               border-color: #ccc; }
