@@ -1378,7 +1378,7 @@
             }
     }
 
-    
+
     function CheckAssessmentController($scope, $mdDialog) {
 
         var vm = this;
@@ -1409,7 +1409,7 @@
 
 
     function FormViewerController($scope, $rootScope, $http, $timeout, $q, $uibModal, $mdDialog, $state, $stateParams, RefDetails, $window, candidateDetails, CampaignDetails, mmQuestionnaire, App) {
-     
+
         var vm = this;
         vm.formOptions = {
             autoStart: false,
@@ -1440,6 +1440,9 @@
 
                 if (response.data.status_code == 200) {
                     vm.formData = response.data.data;
+                    // if(vm.formData.enable_full_screen) {
+                    //   vm.fullScreen();
+                    // }
                 } else if (response.data.status_code == 400) {
                     $window.location = App.base_url + 'logout';
                 }

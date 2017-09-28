@@ -9,7 +9,7 @@
         width: 100%;
       }
 </style>
-<md-dialog class="angular-survey-template" ng-class="{'full-screen': FormViewerCtrl.formData.fullScreen}">
+<md-dialog class="angular-survey-template" ng-class="{'full-screen': FormViewerCtrl.formData.enable_full_screen}">
     <div class="container">
         <div class="container-header" ng-class="{'mmq-start': FormViewerCtrl.formData.pages[0].isFirst}">
           <span class="questionnaire-name">{{FormViewerCtrl.formData.exam_name}} {{FormViewerCtrl.formData.pages[0].isFirst ? '' : '- Instructions'}}</span>

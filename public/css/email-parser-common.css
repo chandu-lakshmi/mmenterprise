@@ -88,13 +88,17 @@ input::-webkit-input-placeholder {
       font-size: 18px;
       color: initial;
       color: #323232;
-      font-weight: 600;
+      /*font-weight: 600;*/
       transition: 0.5s all linear; }
+      .list .row .fields {
+        font-size: 15px;
+        line-height: 24px;
+      }
     .list .row .fields .labels {
       color: inherit;
       padding: 0; }
     .list .row .fields .value {
-      color: initial; }
+      color: #323232; }
     .list .row .buttons {
       text-align: right;
       position: absolute;
@@ -156,7 +160,10 @@ copy-url .link {
       border-color: #ddd;
       box-shadow: none;
       border-radius: 2px;
-      height: 36px; }
+      height: 50px;
+      color: #323232;
+      font-size: 15px;
+    }
   copy-url .link .btns {
     background: #198fcc;
     position: relative;
@@ -164,10 +171,14 @@ copy-url .link {
     float: left;
     text-align: center;
     color: #fff;
-    padding: 8px;
+    padding: 0 8px;
     margin-left: -2px;
     cursor: pointer;
-    outline: none; }
+    outline: none;
+    height: 50px;
+    line-height: 50px;
+    font-size: 15px;
+  }
 copy-url .copied::after {
   position: absolute;
   top: 16%;
