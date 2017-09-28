@@ -405,7 +405,7 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", "$timeou
 
             function sortPagesByNumber() {
                 ctrl.formData.pages.sort(function(a,b){
-                    return a.number - b.number;
+                    return a.sort_id - b.sort_id;
                 });
             }
 
