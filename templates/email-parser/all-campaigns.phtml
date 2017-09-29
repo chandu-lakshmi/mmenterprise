@@ -5,7 +5,7 @@
                 <div id="logo" flex="20" ng-hide="CampaignDetails.career_logo == ''">
                     <img ng-src="{{$root.url_spinner_small}}" class="spinner small img-thumbnail">
                 </div>
-                <span flex="20" ng-bind="CampaignDetails.company_name" class="company-name" ng-if="CampaignDetails.career_logo == ''"></span>         
+                <span flex="20" ng-bind="CampaignDetails.company_name" class="company-name" ng-if="CampaignDetails.career_logo == ''"></span>
                 <i flex></i>
                 <div class="menu">
                     <span class="tab" ng-repeat="link in CampaignDetails.career_links">
@@ -15,13 +15,13 @@
             </div>
         </div>
     </header>
-    <div class="filters" 
+    <div class="filters"
         ng-style="{'background':'transparent url('+CampaignDetails.career_heroshot_image+')'}"
         ng-class="{'add-image' : !CampaignDetails.career_heroshot_image}">
         <div class="container" ng-style="{'margin-top' : $state.current.name === 'allCampaigns.all' ? '0' : '54px'}">
             <div class="des">
                 <h3>
-                    <span ng-bind="CampaignDetails.campaign_heading"></span> 
+                    <span ng-bind="CampaignDetails.campaign_heading"></span>
                 </h3>
                 <h4 class="date">
                     <img src="../public/images/email-parser/calender.svg" alt="calander"/>
@@ -32,6 +32,7 @@
                     <span ng-bind="CampaignDetails.end_time"></span>
                 </h4>
                 <h4>
+                    <!-- <span class="location-image"></span> -->
                     <img src="../public/images/email-parser/location.svg" alt="location"/>
                     <span ng-bind="CampaignDetails .campaign_location"></span>
                 </h4>
@@ -41,10 +42,11 @@
                     <div layout="row" class="search-container">
                         <div class="form-group search">
                             <i class="material-icons">search</i>
-                            <input type="text" class="form-control" name="search-name" ng-model="CampaignsCtrl.searchOptions.search_name" tabindex="1" placeholder="I am looking for a job.." >
+                            <input type="text" class="form-control" name="search-name" ng-model="CampaignsCtrl.searchOptions.search_name" tabindex="1" placeholder="I am looking for jobs.." >
                         </div>
                         <div class="btn-group loc" uib-dropdown>
                             <input id="location" ng-model="CampaignsCtrl.searchOptions.search_location" name="location" ng-autocomplete="CampaignsCtrl.geo_location" details="CampaignsCtrl.geo_details" options="CampaignsCtrl.geo_options"  tabindex="2" apiplaceholder="Location">
+                            <!-- <img src="../public/images/arrow-dropdown.svg" /> -->
                         </div>
                         <div class="btn-group exp" uib-dropdown>
                             <button id="btn-append-to-single-button"  tabindex="3" type="button" class="btn btn-primary" uib-dropdown-toggle ng-style="{'color' : CampaignsCtrl.searchOptions.search_experience ? '#555' : ''}">
@@ -52,7 +54,7 @@
                             </button>
                             <ul class="dropdown-menu animated slideInUp" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-single-button" >
                                 <li role="menuitem" ng-repeat="exp in CampaignsCtrl.experiences">
-                                    <a href="#" ng-click="CampaignsCtrl.selectExperienc(exp)" 
+                                    <a href="#" ng-click="CampaignsCtrl.selectExperienc(exp)"
                                         ng-class="{'exp-active' : exp.experience_name == CampaignsCtrl.experienceLabel}">{{exp.experience_name}}
                                     </a>
                                 </li>
@@ -77,7 +79,7 @@
                         <div class="about-comp" ng-if="CampaignDetails.career_description.length">
                             <div class="box">
                                 <h4>About <span ng-bind="CampaignDetails.company_name"></span></h4>
-                                <span ng-text-truncate="CampaignDetails.career_description" ng-tt-chars-threshold="900">  
+                                <span ng-text-truncate="CampaignDetails.career_description" ng-tt-chars-threshold="900">
                                 </span>
                             </div>
                             <!-- <md-divider></md-divider>
@@ -96,7 +98,7 @@
                             <!-- social media share directive -->
                             <social-sharing data-opts="CampaignsCtrl.socialMedia" data-path="../templates/components" style="margin-top:10px;"></social-sharing>
                         </div>
-                        <b>Copy Campaign Link</b>
+                        <b class="campaign-link">Copy Campaign Link</b>
                         <copy-url url="{{CampaignDetails.bittly_url}}" btn-class="all-camp-copy" btn-text="COPY"></copy-url>
                     </div>
                 </div>

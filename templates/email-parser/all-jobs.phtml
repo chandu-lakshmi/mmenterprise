@@ -5,7 +5,7 @@
                 <div id="logo" flex="20" ng-hide="ReferralDetails.career_logo == ''">
                     <img ng-src="{{$root.url_spinner_small}}" class="spinner small img-thumbnail">
                 </div>
-                <span flex="20" ng-bind="ReferralDetails.company_name" class="company-name" ng-if="ReferralDetails.career_logo == ''"></span>         
+                <span flex="20" ng-bind="ReferralDetails.company_name" class="company-name" ng-if="ReferralDetails.career_logo == ''"></span>
                 <i flex></i>
                 <div class="menu">
                     <span class="tab" ng-repeat="link in ReferralDetails.career_links">
@@ -15,7 +15,7 @@
             </div>
         </div>
     </header>
-    <div class="filters" 
+    <div class="filters"
         ng-style="{'background':'transparent url('+ReferralDetails.career_heroshot_image+')'}"
         ng-class="{'add-image' : !ReferralDetails.career_heroshot_image}">
         <div class="container" ng-style="{'margin-top' : $state.current.name === 'allJobs.all' ? '0' : '54px'}">
@@ -35,7 +35,7 @@
                             </button>
                             <ul class="dropdown-menu animated slideInUp" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-single-button" >
                                 <li role="menuitem" ng-repeat="exp in JobsCtrl.experiences">
-                                    <a href="#" ng-click="JobsCtrl.selectExperienc(exp)" 
+                                    <a href="#" ng-click="JobsCtrl.selectExperienc(exp)"
                                         ng-class="{'exp-active' : exp.experience_name == JobsCtrl.experienceLabel}">{{exp.experience_name}}
                                     </a>
                                 </li>
@@ -60,7 +60,7 @@
                         <div class="about-comp" ng-if="ReferralDetails.career_description.length">
                             <div class="box">
                                 <h4>About <span ng-bind="ReferralDetails.company_name"></span></h4>
-                                <span ng-text-truncate="ReferralDetails.career_description" ng-tt-chars-threshold="900">  
+                                <span ng-text-truncate="ReferralDetails.career_description" ng-tt-chars-threshold="900">
                                 </span>
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                             <!-- social media share directive -->
                             <social-sharing data-opts="JobsCtrl.socialMedia" data-path="../templates/components" style="margin-top:10px;"></social-sharing>
                         </div>
-                        <b>Copy Jobs Link</b>
+                        <b class="campaign-link">Copy Jobs Link</b>
                         <copy-url url="{{ReferralDetails.bittly_url}}" btn-class="all-camp-copy" btn-text="COPY"></copy-url>
                     </div>
                 </div>

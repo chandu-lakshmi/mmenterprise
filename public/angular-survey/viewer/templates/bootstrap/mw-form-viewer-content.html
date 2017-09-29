@@ -4,7 +4,7 @@
         <div class="mw-title-page" ng-if="!ctrl.currentPage && !ctrl.formSubmitted">
 
             <div class="mw-form-description">
-                <p>Please give your information, we look forward to staying connected with you.</p>
+                <!-- <p>Please give your information, we look forward to staying connected with you.</p> -->
                 <!-- <div ng-if="!ctrl.formData.isPasswordProtected" class="password-detection">
                   <md-input-container class="md-block" style="margin-bottom:0">
                     <label for="mmq_pass">PASSWORD*</label>
@@ -13,7 +13,7 @@
                     <div ng-if="attend_exam.mmq_pass.$error && ctrl.login_show_error" class="has-error-msg">Please enter password.</div>
                     </md-input-container>
                 </div> -->
-                {{ctrl.formData.description}}
+                <p>{{ctrl.formData.disclaimer_text}}</p>
             </div>
 
             <div class="questionnaire-footer" >
@@ -25,7 +25,7 @@
         </div>
 
         <div class="mw-form-page" ng-if="ctrl.currentPage">
-            <div class="pull-left question-number">Question {{ctrl.currentPage.number}}</div>
+            <div class="pull-left question-number">Question {{ctrl.formData.pages.indexOf(ctrl.currentPage) + 1}}</div>
 
             <div class="pull-right time-left" ng-if="ctrl.formData.max_duration">Time left:
               <span ng-if="ctrl.countdown>59">{{ctrl.countdown | secondsToDateTime | date:"mm:ss"}} Sec</span>

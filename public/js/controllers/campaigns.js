@@ -1737,7 +1737,7 @@
         var vm = this;
 
         this.grid = {
-            recordsCount : 0, 
+            recordsCount : 0,
             inProgress: false,
             responseMsg: null
         };

@@ -1377,7 +1377,7 @@
             }
     }
 
-    
+
     function CheckAssessmentController($scope, $mdDialog) {
 
         var vm = this;
@@ -1408,7 +1408,7 @@
 
 
     function FormViewerController($scope, $rootScope, $http, $timeout, $q, $uibModal, $mdDialog, $state, $stateParams, RefDetails, $window, candidateDetails, CampaignDetails, mmQuestionnaire, App) {
-     
+
         var vm = this;
         vm.formOptions = {
             autoStart: false,
@@ -1427,10 +1427,12 @@
             campaign_id : CampaignDetails.campaign_id
         });
         vm.formData = null;
+
         $http({
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
             },
+            dataType: 'json',
             method: 'POST',
             url: App.base_url + 'get_assessment',
             data: apiKeys
@@ -1438,7 +1440,15 @@
             .then(function (response) {
 
                 if (response.data.status_code == 200) {
-                    vm.formData = response.data.data;
+                    var tempData = response.data.data;
+                    angular.forEach(tempData.pages, function(ques, index) {
+                      ques.sord_id = index+1;
+                    });
+                    vm.formData = tempData;
+
+                    // if(vm.formData.enable_full_screen) {
+                    //   vm.fullScreen();
+                    // }
                 } else if (response.data.status_code == 400) {
                     $window.location = App.base_url + 'logout';
                 }
