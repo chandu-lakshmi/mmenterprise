@@ -1,4 +1,56 @@
-<div class="questions">
+<div class="all-campaigns questions">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12" style="padding-bottom:50px;">
+                <div class="box">
+                    <div class="box-header clearfix">
+                        <div layout="row" >
+                           <h4 class="title">QUESTIONS</h4>
+                           <i flex></i>
+                           <md-button class="md-raised action delete-all mm-slide-left" ng-if="QuestionsListCtrl.selectedQuestions.length > 1" ng-click="QuestionsListCtrl.deleteQuestion()">DELETE</md-button>
+                        </div>
+                        <!-- <md-input-container class="filter">
+                            <label style="display:none !important">Filter By Status</label>
+                            <md-select ng-model="QuestionsListCtrl.filterList" md-on-close="QuestionsListCtrl.applyFilter()"
+                                       data-md-container-class="multiple-select" multiple placeholder="Filter by Status">
+                                <md-optgroup ng-repeat="parent in QuestionsListCtrl.filterOptions" label="{{parent.name}}">
+                                    <md-option ng-value="children.label" ng-repeat="children in parent.children">{{children.value}}</md-option>
+                                </md-optgroup>
+                            </md-select>
+                        </md-input-container>
+                        <div class="col-sm-3 pull-right">
+                            <div data-epi-search data-opts="QuestionsListCtrl.search_opts" data-path="templates/components/"></div>
+                        </div> -->
+                    </div>
+                    <div class="box-content questions-list">
+                        <div id="grid" ui-grid="QuestionsListCtrl.gridOptions" class="grid" ui-grid-selection style="border: 0;">
+                           <div class="grid-msg-overlay" ng-if="QuestionsListCtrl.grid.inProgress">
+                              <div class="msg">
+                                 <span>
+                                    <img src="public/images/loader/spin.gif" alt="loader" width="18%">
+                                 </span>
+                              </div>
+                           </div>
+                           <div class="grid-msg-overlay" ng-if="!QuestionsListCtrl.gridOptions.data.length && !QuestionsListCtrl.grid.inProgress">
+                              <div class="msg">
+                                 <span ng-bind="QuestionsListCtrl.grid.responseMsg"></span>
+                              </div>
+                           </div>	
+                        </div>
+                    </div>
+                    <div class="box-footer clearfix">
+                        <div class="paging col-sm-4 col-sm-offset-4 text-center" ng-if="QuestionsListCtrl.grid.totalRecords > 10">
+                            <ul uib-pagination total-items="QuestionsListCtrl.grid.totalRecords" ng-model="QuestionsListCtrl.grid.pageNo" max-size="3" direction-links="false" force-ellipses="true" ng-change="QuestionsListCtrl.getQuestionList()" boundary-link-numbers="true" rotate="false"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- <div class="questions">
 	<div layout="column" class="container-box">
 		<div class="questions-list">
 			<div class="header" style="border-color:transparent">
@@ -41,11 +93,11 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> -->
 
 
 
-<!-- Test Name -->
+<!-- Action -->
 <script type="text/ng-template" id="action.html">
 	<div class="ui-grid-cell-contents ui-grid-details">
       <a class="name" ui-sref="app.campaigns.CreateQuestion({mode:'view', id:COL_FIELD})" ng-click="$event.stopPropagation()"><img src="public/images/eye.png" alt="view"></a>

@@ -1338,7 +1338,6 @@
 
 
             $scope.$on('responseSubmitted', function (event, response) {
-                alert();
                 if (!response) {
                     closeAssessment();
                     return;

@@ -1,4 +1,64 @@
-<div class="questions">
+<div class="all-campaigns questions">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12" style="padding-bottom:50px;">
+                <div class="box questions-list">
+                    <div class="box-header header clearfix">
+                        <div layout="column">
+                           <div layout="row">
+                              <a class="link" ui-sref="app.campaigns.EditTest({id: QuestionAddCtrl.testDetails.exam_id})"><img class="back" src="public/images/back.png" alt="back"></a>
+                              <h4 class="title" flex ng-bind="QuestionAddCtrl.testDetails.exam_name"></h4>
+                              <span  ng-if="QuestionAddCtrl.selectedQuestionsId.length > 1">
+                                 <md-button class="md-raised action add delete-all mm-slide-left" ng-disabled="QuestionAddCtrl.addQuestionInProgress" ng-click="QuestionAddCtrl.addQuestion()">ADD SELECTED
+                                    <img class="loader" ng-if="QuestionAddCtrl.addQuestionInProgress" src="public/images/loader/dot.svg" alt="loading">
+                                 </md-button>
+                              </span>
+                           </div>
+                        </div>
+                        <!-- <md-input-container class="filter">
+                            <label style="display:none !important">Filter By Status</label>
+                            <md-select ng-model="QuestionAddCtrl.filterList" md-on-close="QuestionAddCtrl.applyFilter()"
+                                       data-md-container-class="multiple-select" multiple placeholder="Filter by Status">
+                                <md-optgroup ng-repeat="parent in QuestionAddCtrl.filterOptions" label="{{parent.name}}">
+                                    <md-option ng-value="children.label" ng-repeat="children in parent.children">{{children.value}}</md-option>
+                                </md-optgroup>
+                            </md-select>
+                        </md-input-container>
+                        <div class="col-sm-3 pull-right">
+                            <div data-epi-search data-opts="QuestionAddCtrl.search_opts" data-path="templates/components/"></div>
+                        </div> -->
+                    </div>
+                    <div class="box-content questions-list">
+                        <div id="grid" ui-grid="QuestionAddCtrl.gridOptions" class="grid" ui-grid-selection style="border: 0;">
+                           <div class="grid-msg-overlay" ng-if="QuestionAddCtrl.grid.inProgress">
+                              <div class="msg">
+                                 <span>
+                                    <img src="public/images/loader/spin.gif" alt="loader" width="18%">
+                                 </span>
+                              </div>
+                           </div>
+                           <div class="grid-msg-overlay" ng-if="!QuestionAddCtrl.gridOptions.data.length && !QuestionAddCtrl.grid.inProgress">
+                              <div class="msg">
+                                 <span ng-bind="QuestionAddCtrl.grid.responseMsg"></span>
+                              </div>
+                           </div>	
+                        </div>
+                    </div>
+                    <div class="box-footer clearfix">
+                        <div class="paging col-sm-4 col-sm-offset-4 text-center" ng-if="QuestionAddCtrl.grid.totalRecords > 10">
+                            <ul uib-pagination total-items="QuestionAddCtrl.grid.totalRecords" ng-model="QuestionAddCtrl.grid.pageNo" max-size="3" direction-links="false" force-ellipses="true" ng-change="QuestionAddCtrl.getQuestionList()" boundary-link-numbers="true" rotate="false"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- <div class="questions">
 	<div layout="column" class="container-box">
 		<div class="questions-list">
 			<div class="header" style="border-color:transparent">
@@ -41,7 +101,7 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> -->
 
 
 
@@ -54,3 +114,5 @@
 		<md-button class="add-qst" ng-disabled="grid.appScope.prevSelectedQuestions.indexOf(row.entity.question_id) == -1 ? false : true" ng-click="grid.appScope.addQuestion(row);$event.stopPropagation()">{{grid.appScope.prevSelectedQuestions.indexOf(row.entity.question_id) == -1 ? 'ADD' : 'ADDED'}}</md-button>
 	</div>
 </script>
+
+

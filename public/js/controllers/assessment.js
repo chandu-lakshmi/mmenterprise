@@ -11,12 +11,12 @@
 	  
 	.service('EditTestService', EditTestService)
 
-  	TestsListController.$inject    = ['$timeout', '$mdToast', '$uibModal', '$http', '$window', 'App'];
+  	TestsListController.$inject    = ['$state', '$timeout', '$mdToast', '$uibModal', '$http', '$window', 'App'];
 	CreateTestController.$inject   = ['$state', '$timeout', '$http', '$window', '$mdToast', 'CompanyDetails', 'App'];
 	EditTestController.$inject     = ['$stateParams', '$timeout', '$http', '$window', '$mdToast', '$uibModal', 'App', 'EditTestService'];
 	TestSettingsController.$inject = ['$state', '$stateParams', '$timeout', '$http', '$window', '$mdToast', 'App'];
 
-	function TestsListController($timeout, $mdToast, $uibModal, $http, $window, App) {
+	function TestsListController($state, $timeout, $mdToast, $uibModal, $http, $window, App) {
 
 		var vm = this;
 
@@ -35,7 +35,7 @@
 			enableColumnMenus: false,
 			enableRowSelection: true,
 			enableRowHeaderSelection: false,
-			enableFullRowSelection: false,
+			enableFullRowSelection: true,
 			data: [],
 			appScopeProvider: vm // bindin scope to grid
 		};
@@ -51,7 +51,7 @@
 
 		this.gridOptions.onRegisterApi = function (gridApi) {
 			gridApi.selection.on.rowSelectionChanged(null, function (row) {
-				
+                $state.go('app.campaigns.EditTest', { id: row.entity.idexam });
 			});
 
 			gridApi.selection.on.rowSelectionChangedBatch(null, function (rows) {
@@ -222,7 +222,43 @@
 		var vm = this;
 
 		this.getTestDetailsInProgress = true;
-		
+        
+        this.gridOptions = {
+            rowHeight: 70,
+            selectionRowHeaderWidth: 44,
+            enableHorizontalScrollbar: 0,
+            enableSorting: true,
+            enableColumnMenus: false,
+            enableRowSelection: false,
+            enableRowHeaderSelection: false,
+            enableFullRowSelection: false,
+            data: [],
+            appScopeProvider: vm // bindin scope to grid
+        };
+
+        this.gridOptions.columnDefs = [
+            { name: 'question', displayName: 'QUESTION', width: '52%' },
+            { name: 'question_type', displayName: 'TYPE' },
+            { name: 'question_value', displayName: 'SCORE', width: '10%' },
+            { name: 'exam_question_id', displayName: 'ACTIONS', width: '15%', cellTemplate: 'action.html', cellClass: 'action-view' }
+        ];
+
+        this.gridOptions.onRegisterApi = function (gridApi) {
+
+            gridApi.selection.on.rowSelectionChanged(null, function (row) {
+                updateQuestionSelection(row);
+            });
+
+            gridApi.selection.on.rowSelectionChangedBatch(null, function (rows) {
+                angular.forEach(rows, function (row) {
+                    updateRowSelection(row)
+                });
+            });
+
+            vm.gridApi = gridApi;
+        }
+
+        
 		this.deleteQuestion = function (id) {
 			$uibModal.open({
 				animation: false,
@@ -274,8 +310,8 @@
 			})
 			.then(function (response) {
 				if (response.data.status_code == 200) {
-				
-					vm.testDetails = response.data.data 
+                    vm.testDetails = response.data.data;
+                    vm.gridOptions.data = vm.testDetails.exam_question_list;
 					vm.getTestDetailsInProgress = false;
 
 				}
@@ -294,9 +330,9 @@
 					template: '<md-toast class="mm-toast"><div class="md-toast-text" flex><i class="material-icons">done</i><div class="text"><div class="toast-succ">Success!</div><div class="succ-text">' + response.message.msg[0] + '</div></div></div></md-toast>'
 				}, 200);
 			});
-			angular.forEach(vm.testDetails.exam_question_list, function(element, index) {
+            angular.forEach(vm.gridOptions.data, function(element, index) {
 				if (response.data.id == element.exam_question_id) {
-                    vm.testDetails.exam_question_list.splice(index, 1);
+                    vm.gridOptions.data.splice(index, 1);
 				}	
 			});				
         }
@@ -506,7 +542,7 @@
 	function EditTestService() {
 		
 		this.data;
-
+        
 		this.setData = function (data) {
 			this.data = angular.copy(data);
 		}

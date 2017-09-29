@@ -1,92 +1,90 @@
-<div class="assessment test">
+<div class="assessment vh">
 	<div class="mm-spinner" ng-if="CreateTestCtrl.getSettingsInProgress">
 		<div>
 			<img src="public/images/loader/spin.gif" alt="loading">
 		</div>
 	</div> 
 	<div layout="column" class="container-box">
-		<div class="create-test">
+		<div class="create-test container">
 			<div class="header">
-				<div class="container">
-					<div layout="row" ng-if="CreateTestCtrl.testId">
-						<a ui-sref="app.campaigns.EditTest({id: CreateTestCtrl.testId})"><img class="back" src="public/images/back.png" alt="back"></a>
-						<h4 class="title" flex ng-bind="CreateTestCtrl.testObj.exam_type"></h4>
-					</div>
-					<h4 ng-if="!CreateTestCtrl.testId" class="title">Create a New Assessment</h4>
+            <div layout="row" ng-if="CreateTestCtrl.testId">
+               <a ui-sref="app.campaigns.EditTest({id: CreateTestCtrl.testId})"><img class="back" src="public/images/back-arrow-black.svg" alt="back"></a>
+               <h2 class="title" ng-bind="CreateTestCtrl.testObj.exam_type"></h2>
+            </div>
+            <div layout="row" ng-if="!CreateTestCtrl.testId">
+               <a ui-sref="app.campaigns.TestsList"><img class="back" src="public/images/back-arrow-black.svg" alt="back"></a>
+               <h2 class="title">Create a New Assessment</h2>
 				</div>
-			</div>
+         </div>
 			<div class="section">
-				<div class="container">
-					<div class="test-pic"><img src="public/images/test_img.svg"></div>
-					<div layout="row">
-						<i flex></i>
-						<div flex="70">
-							<form name="createTestForm">
-								<div layout="column">
-									<div layout="row">
-										<md-input-container flex class="md-block full-box">
-											<span class="qst-label">What role is this Assessment for? *</span>
-											<!-- <label>What role is this test for? *</label> -->
-											<input type="text" name="exam_type" ng-change="CreateTestCtrl.setTestName()" ng-model="CreateTestCtrl.testObj.exam_type" required aria-label="role">
-											<div class="error-spacer"></div>
-											<div ng-if="createTestForm.exam_type.$error.required && CreateTestCtrl.postCreateTestSubmitted" class="has-error-msg">Please enter Job Role.</div>
-										</md-input-container>
-										<i flex="5"></i>
-										<md-input-container flex class="md-block select-box">
-											<span class="qst-label">Work Experience *</span>
-											<label style="display:none !important">Please Select</label>
-											<md-select name="work_experience" ng-model="CreateTestCtrl.testObj.work_experience" required>
-												<md-option ng-repeat="type in CreateTestCtrl.experienceList" ng-value="type.experience_id">{{type.experience_name}}</md-option>
-											</md-select>
-											<div class="error-spacer"></div>
-											<div ng-if="createTestForm.work_experience.$error.required && CreateTestCtrl.postCreateTestSubmitted"  class="has-error-msg">Please select Work Experience.</div>
-										</md-input-container> 
-									</div>
-									<div layout="row">
-										<md-input-container flex class="md-block full-box">
-											<span class="qst-label">Assessment Name </span>
-											<!-- <label>Test Name</label> -->
-											<input type="text" name="exam_name" readonly ng-model="CreateTestCtrl.testObj.exam_name" style="background: #f0f0f0" aria-label="exam_name">
-										</md-input-container>
-										<i flex="5"></i>
-										<md-input-container flex class="md-block full-box">
-											<span class="qst-label">Duration (mins)  </span>
-											<input type="text" check-char-zero ng-pattern="/(^[^0]$)|(^[1-9]\d{0,}$)/" name="max_duration" ng-model="CreateTestCtrl.testObj.max_duration" aria-label="due">
-											<!-- <div ng-if="createTestForm.max_duration.$error.required && CreateTestCtrl.postCreateTestSubmitted"  class="has-error-msg">Please enter Duration.</div> -->
-											<div ng-if="createTestForm.max_duration.$error.pattern" class="has-error-msg">Duration should not be zero.</div>
-										</md-input-container>
-									</div>
-									<div layout="row">
-										<md-input-container flex class="md-block full-box">
-                                 <span class="qst-label">Role/Job Description Link (Optional)</span>
-                                 <label class="mm-placehoder">Add an optional website/page link</label>
-											<input type="text" name="description_url" ng-model="CreateTestCtrl.testObj.description_url">
-										</md-input-container>
-										<i flex="5"></i>
-										<i flex></i>
-									</div>
-								</div>
-							</form>
-						</div>
-						<i flex></i>
-					</div>
-					<div layout="row" class="footer" ng-if="!CreateTestCtrl.testId">
-						<i flex></i>
-							<md-button ui-sref="app.campaigns.TestsList" class="cancel">Cancel</md-button>
-							<md-button class="md-raised action" ng-disabled="CreateTestCtrl.postCreateTestInProgress" ng-click="CreateTestCtrl.postCreateTest(createTestForm)">CREATE ASSESSMENT
-								<img class="loader-dot" ng-if="CreateTestCtrl.postCreateTestInProgress" src="public/images/loader/dot.svg" alt="loading">
-							</md-button>
-						<i flex></i>
-					</div>
-					<div layout="row" class="footer" ng-if="CreateTestCtrl.testId">
-						<i flex></i>
-							<md-button ui-sref="app.campaigns.EditTest({id: CreateTestCtrl.testId})" class="cancel">Cancel</md-button>
-							<md-button class="md-raised action" ng-disabled="CreateTestCtrl.postCreateTestInProgress" ng-click="CreateTestCtrl.postCreateTest(createTestForm)">UPDATE ASSESSMENT
-								<img class="loader-dot" ng-if="CreateTestCtrl.postCreateTestInProgress" src="public/images/loader/dot.svg" alt="loading">
-							</md-button>
-						<i flex></i>
-					</div>
-				</div>
+            <!-- <div class="test-pic"><img src="public/images/test_img.svg"></div> -->
+            <div layout="row">
+               <i flex></i>
+               <div flex="70">
+                  <form name="createTestForm">
+                     <div layout="column">
+                        <div layout="row">
+                           <md-input-container flex class="md-block full-box">
+                              <span class="qst-label">Assessment Name </span>
+                              <!-- <label>Test Name</label> -->
+                              <input type="text" name="exam_name" ng-model="CreateTestCtrl.testObj.exam_name" required aria-label="exam_name">
+                              <div class="error-spacer"></div>
+                              <div ng-if="createTestForm.exam_name.$error.required && CreateTestCtrl.postCreateTestSubmitted" class="has-error-msg">Please enter Assessment Name.</div>
+                           </md-input-container>
+
+                           <!-- <md-input-container flex class="md-block full-box">
+                              <span class="qst-label">What role is this Assessment for? *</span>
+                              <input type="text" name="exam_type" ng-change="CreateTestCtrl.setTestName()" ng-model="CreateTestCtrl.testObj.exam_type" required aria-label="role">
+                              <div class="error-spacer"></div>
+                              <div ng-if="createTestForm.exam_type.$error.required && CreateTestCtrl.postCreateTestSubmitted" class="has-error-msg">Please enter Job Role.</div>
+                           </md-input-container> -->
+
+                           <i flex="5"></i>
+                           <md-input-container flex class="md-block select-box">
+                              <span class="qst-label">Work Experience *</span>
+                              <label style="display:none !important">Please Select</label>
+                              <md-select name="work_experience" ng-model="CreateTestCtrl.testObj.work_experience" required>
+                                 <md-option ng-repeat="type in CreateTestCtrl.experienceList" ng-value="type.experience_id">{{type.experience_name}}</md-option>
+                              </md-select>
+                              <div class="error-spacer"></div>
+                              <div ng-if="createTestForm.work_experience.$error.required && CreateTestCtrl.postCreateTestSubmitted"  class="has-error-msg">Please select Work Experience.</div>
+                           </md-input-container> 
+                        </div>
+                        <div layout="row">
+                           <md-input-container flex class="md-block full-box">
+                              <span class="qst-label">Duration (mins)  </span>
+                              <input type="text" check-char-zero ng-pattern="/(^[^0]$)|(^[1-9]\d{0,}$)/" name="max_duration" ng-model="CreateTestCtrl.testObj.max_duration" aria-label="due">
+                              <!-- <div ng-if="createTestForm.max_duration.$error.required && CreateTestCtrl.postCreateTestSubmitted"  class="has-error-msg">Please enter Duration.</div> -->
+                              <div ng-if="createTestForm.max_duration.$error.pattern" class="has-error-msg">Duration should not be zero.</div>
+                           </md-input-container>
+                           <i flex="5"></i>
+                           <md-input-container flex class="md-block full-box">
+                              <span class="qst-label">Assessment Description</span>
+                              <label class="mm-placehoder">Add an optional website/page link</label>
+                              <input type="text" name="description_url" ng-model="CreateTestCtrl.testObj.description_url">
+                           </md-input-container>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+               <i flex></i>
+            </div>
+            <div layout="row" class="footer" ng-if="!CreateTestCtrl.testId">
+               <i flex></i>
+                  <!-- <md-button ui-sref="app.campaigns.TestsList" class="cancel">Cancel</md-button> -->
+                  <md-button class="md-raised action" ng-disabled="CreateTestCtrl.postCreateTestInProgress" ng-click="CreateTestCtrl.postCreateTest(createTestForm)">CREATE ASSESSMENT
+                     <img class="loader-dot" ng-if="CreateTestCtrl.postCreateTestInProgress" src="public/images/loader/dot.svg" alt="loading">
+                  </md-button>
+               <i flex></i>
+            </div>
+            <div layout="row" class="footer" ng-if="CreateTestCtrl.testId">
+               <i flex></i>
+                  <!-- <md-button ui-sref="app.campaigns.EditTest({id: CreateTestCtrl.testId})" class="cancel">Cancel</md-button> -->
+                  <md-button class="md-raised action" ng-disabled="CreateTestCtrl.postCreateTestInProgress" ng-click="CreateTestCtrl.postCreateTest(createTestForm)">UPDATE ASSESSMENT
+                     <img class="loader-dot" ng-if="CreateTestCtrl.postCreateTestInProgress" src="public/images/loader/dot.svg" alt="loading">
+                  </md-button>
+               <i flex></i>
+            </div>
 			</div>
 		</div>
 	</div>

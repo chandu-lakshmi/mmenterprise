@@ -53,11 +53,14 @@
             });
             
 			gridApi.selection.on.rowSelectionChangedBatch(null, function (rows) {
+                if (vm.grid.inProgress){
+                    return;
+                }
                 angular.forEach(rows, function(row){
-                    updateRowSelection(row)
+                    updateQuestionSelection(row)
                 });
 			});
-            
+
 			vm.gridApi = gridApi;
         }
         
@@ -121,6 +124,14 @@
             .then(function (response) {
                 if (response.data.status_code == 200) {
                     vm.gridOptions.data = response.data.data.questions_list;
+                    vm.gridApi.selection.clearSelectedRows();
+                    $timeout(function(){
+                        angular.forEach(vm.gridOptions.data, function (row, index) {
+                            if (vm.selectedQuestions.indexOf(row.question_id) > -1) {
+                                vm.gridApi.selection.selectRow(vm.gridOptions.data[index]);
+                            }
+                        });
+                    })
                 }
                 else if (response.data.status_code == 403) {
                     vm.gridOptions.data = [];
@@ -463,7 +474,9 @@
 		var vm     = this,
 			examId = $stateParams.examId;
 
-
+        this.selectedQuestionsId   = [];
+        this.selectedQuestionsArr  = [];
+        this.addQuestionInProgress = false;
 		this.testDetails = EditTestService.getData();
 		this.grid = {
 			pageNo: 1,
@@ -476,9 +489,9 @@
 			enableHorizontalScrollbar: 0,
 			enableSorting: true,
 			enableColumnMenus: false,
-			enableRowSelection: true,
-			enableRowHeaderSelection: false,
-			enableFullRowSelection: false,
+			enableRowSelection: false,
+			enableRowHeaderSelection: true,
+			enableFullRowSelection: true,
 			data: [],
 			appScopeProvider: vm // bindin scope to grid
 		};
@@ -489,28 +502,72 @@
 			{ name: 'question_id', displayName: 'ACTION', width: '15%', cellTemplate: 'action.html', cellClass: 'action-view' }
 		];
 
-		this.gridOptions.onRegisterApi = function (gridApi) {
+        this.gridOptions.onRegisterApi = function (gridApi) {
 
-			gridApi.selection.on.rowSelectionChanged(null, function (row) {
+            gridApi.selection.on.rowSelectionChanged(null, function (row) {
+              
+                updateQuestionSelection(row);
+            });
 
-			});
+            gridApi.selection.on.rowSelectionChangedBatch(null, function (rows) {
+                if (vm.grid.inProgress) {
+                    return;
+                }
+                angular.forEach(rows, function (row) {
+                    updateQuestionSelection(row)
+                });
+            });
 
-			gridApi.selection.on.rowSelectionChangedBatch(null, function (rows) {
+            vm.gridApi = gridApi;
+        }
 
-			});
+        this.gridOptions.isRowSelectable = function (row) {
+            return vm.prevSelectedQuestions.indexOf(row.entity.question_id) == -1;
+        }
 
-			vm.gridApi = gridApi;
-		}
+        function updateQuestionSelection(row) {
+
+            var index = vm.selectedQuestionsId.indexOf(row.entity.question_id);
+            if (row.isSelected) {
+                if (index == -1) {
+                    vm.selectedQuestionsId.push(row.entity.question_id);
+                    vm.selectedQuestionsArr.push(row.entity);
+                }
+            } else {
+                if (index > -1) {
+                    vm.selectedQuestionsId.splice(index, 1);
+                    vm.selectedQuestionsArr.splice(index, 1);
+                }
+            }
+        }
 
 		this.addQuestion = function(row) {
 			
-			vm.prevSelectedQuestions.push(row.entity.question_id);
+            
+            if(row) {
+                //single
+                vm.prevSelectedQuestions.push(row.entity.question_id);
+                var tempObj = {
+                    question_id: row.entity.question_id,
+                    question_value: row.entity.question_value
+                };
+                var apiKeys = $.param({ exam_id: examId, exam_question_arr: [tempObj] });
+            } 
+            else{ 
+                //multiple
+                vm.addQuestionInProgress = true;
+                vm.prevSelectedQuestions = vm.prevSelectedQuestions.concat(vm.selectedQuestionsId);
 
-			var apiKeys = $.param({ 
-                exam_id     : examId,
-				question_id : row.entity.question_id,
-                question_value : row.entity.question_value
-			});
+                var tempArr = [];
+                angular.forEach(vm.selectedQuestionsArr, function(row){
+                    var tempObj = {};
+                    tempObj.question_id = row.question_id;
+                    tempObj.question_value = row.question_value;
+                    tempArr.push(tempObj)
+                });
+                var apiKeys = $.param({ exam_id: examId, exam_question_arr : tempArr});
+            }
+			
 
 			$http({
 				headers: {
@@ -527,8 +584,11 @@
 						hideDelay: 3000,
 						position: 'top right',
 						template: '<md-toast class="mm-toast"><div class="md-toast-text" flex><i class="material-icons">done</i><div class="text"><div class="toast-succ">Success!</div><div class="succ-text">' + response.data.message.msg[0] + '</div></div></div></md-toast>'
-					});
-					
+                    });
+                    vm.addQuestionInProgress = false;
+                    vm.selectedQuestionsArr  = [];
+                    vm.selectedQuestionsId   = [];
+                    vm.gridApi.selection.clearSelectedRows();
 				}
 				else if (response.data.status_code == 400) {
 					$window.location = App.base_url + 'logout';
@@ -558,6 +618,14 @@
             .then(function (response) {
                 if (response.data.status_code == 200) {
                     vm.gridOptions.data = response.data.data.questions_list;
+                    vm.gridApi.selection.clearSelectedRows();
+                    $timeout(function () {
+                        angular.forEach(vm.gridOptions.data, function (row, index) {
+                            if (vm.selectedQuestionsId.indexOf(row.question_id) > -1) {
+                                vm.gridApi.selection.selectRow(vm.gridOptions.data[index]);
+                            }
+                        });
+                    })
                 }
                 else if (response.data.status_code == 403) {
                     vm.gridOptions.data = [];
@@ -579,7 +647,8 @@
 			vm.prevSelectedQuestions = [];
 			angular.forEach(vm.testDetails.exam_question_list, function (question) {
 				vm.prevSelectedQuestions.push(question.question_id);
-			});
+            });
+            
 		}
 
 		if (!vm.testDetails) {
@@ -596,3 +665,4 @@
 	}
 
 }());
+

@@ -148,7 +148,7 @@
                                         <img ng-hide="$first" ng-click="NewCampaignCtrl.closeTimeSheet(group)" class="closed" src="public/images/close-popup-red.svg" alt="close">
                                         <md-input-container flex="30" class="md-block date-time">
                                             <label>CAMPAIGN START DATE</label>
-                                            <input type='text' name="start{{$index}}" class="form-control" schedule-start ng-model="scheduleStart" id='dtPickerStart{{$index}}' required ng-class="{'has-error-border':NewCampaignCtrl.errCondschedule && schedule['start' + $index].$error.required}"/>
+                                            <input type='text' name="start{{$index}}" class="form-control picker-close" schedule-start ng-model="scheduleStart" id='dtPickerStart{{$index}}' required ng-class="{'has-error-border':NewCampaignCtrl.errCondschedule && schedule['start' + $index].$error.required}"/>
                                             <span class="input-group-addon">
                                                 <span class="glyphicon glyphicon-calendar"></span>
                                             </span>
@@ -162,7 +162,7 @@
                                     <div layout="row" class="sib">
                                         <md-input-container flex="30" class="md-block date-time">
                                             <label>CAMPAIGN END DATE</label>
-                                            <input type='text' class="form-control" name="end{{$index}}" required ng-model="scheduleEnd" schedule-end id='dtPickerEnd{{$index}}' ng-class="{'has-error-border':NewCampaignCtrl.errCondschedule && schedule['end' + $index].$error.required}"/>
+                                            <input type='text' class="form-control picker-close" name="end{{$index}}" required ng-model="scheduleEnd" schedule-end id='dtPickerEnd{{$index}}' ng-class="{'has-error-border':NewCampaignCtrl.errCondschedule && schedule['end' + $index].$error.required}"/>
                                             <span class="input-group-addon">
                                                 <span class="glyphicon glyphicon-calendar"></span>
                                             </span>

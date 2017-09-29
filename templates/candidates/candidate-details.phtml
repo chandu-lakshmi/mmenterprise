@@ -21,7 +21,7 @@
 
         				<md-card>
         					<div class="title">
-        						<span flex>PERSONAL INFO</span>
+        						<span flex>Personal Info</span>
                                 <span class="resume" ng-if="CandidateDetailsCtrl.details.document_id" title="{{CandidateDetailsCtrl.details.resume_name}}"
                                  >
                                     <a class="download" href="{{CandidateDetailsCtrl.downloadResume}}" download></a>
@@ -37,7 +37,7 @@
         					<div layout="column" class="details">
         						<div layout="row">
         							<div flex class="list">
-        								<h5 class="name">CANDIDATE NAME</h5>
+        								<h5 class="name">Name</h5>
                                         <md-menu class="talent" md-position-mode="target-left target">
                                             <md-button ng-click="$mdOpenMenu($event)">
                                                <span>{{CandidateDetailsCtrl.details.candidate_status.status_name || 'New Talent'}}
@@ -63,30 +63,30 @@
         						</div>
         						<div layout="row">
         							<div flex="50" class="list">
-        								<h5>MOBILE</h5>
+        								<h5>Phone</h5>
         								<span ng-bind="CandidateDetailsCtrl.details.phone" class="bolder"></span>
                                         <i ng-if="!CandidateDetailsCtrl.details.phone">--</i>
         							</div>
         							<div flex class="list">
-        								<h5>EMAIL</h5>
+        								<h5>Email</h5>
         								<span ng-bind="CandidateDetailsCtrl.details.emailid" class="bolder"></span>
         							</div>
         						</div>
         						<div layout="row">
         							<div flex="50" class="list">
-        								<h5>CITY/LOCATION</h5>
+        								<h5>City/Location</h5>
         								<span ng-bind="CandidateDetailsCtrl.details.location"></span>
                                         <span ng-if="!CandidateDetailsCtrl.details.location">Not Available</span>
         							</div>
         							<div flex class="list">
-        								<h5>SOCIAL CONNECT</h5>
+        								<h5>Social Connect</h5>
         								<social-sharing data-opts="CandidateDetailsCtrl.socialMedia" style="margin-top:10px;" data-path="templates/components"></social-sharing>
         							</div>
         						</div>
 
         						<div layout="row">
         							<div flex="50" class="list">
-        								<h5>APPLIED FOR</h5>
+        								<h5>Applied for</h5>
         								<span class="bolder current-job">{{CandidateDetailsCtrl.details.referred_job}}, <i class="info">{{CandidateDetailsCtrl.details.referred_at}}</i></span>
                                         <div class="other-job" ng-repeat="ref in CandidateDetailsCtrl.referralsList | filter: { reference_id : '!'+CandidateDetailsCtrl.referralId }">
                                             <span class="bolder">{{ref.post_name}},
@@ -95,7 +95,7 @@
                                         </div>
         							</div>
         							<div flex class="list">
-        								<h5>REFERRED BY</h5>
+        								<h5>Referred by</h5>
         								<span ng-if="CandidateDetailsCtrl.details.referred_by" class="bolder" ng-bind="CandidateDetailsCtrl.details.referred_by"></span>
                                         <span ng-if="!CandidateDetailsCtrl.details.referred_by">--</span>
         							</div>
@@ -142,30 +142,30 @@
 
         				<md-card style="margin-top:20px">
         					<div class="title info">
-        						EXPERIENCE
+        						Experience
         					</div>
         					<div layout="column" class="details" ng-if="CandidateDetailsCtrl.details.current_company_name || CandidateDetailsCtrl.details.previous_company_name">
         						<div layout="row" ng-if="CandidateDetailsCtrl.details.current_company_name">
         							<div flex="50" class="list">
-        								<h5>CURRENT COMPANY</h5>
+        								<h5>Current Company</h5>
         								<span ng-bind="CandidateDetailsCtrl.details.current_company_name"></span>
         								<span class="info" ng-bind="CandidateDetailsCtrl.details.current_company_details"></span><br>
         								<span class="info" ng-bind="CandidateDetailsCtrl.details.current_company_location"></span>
         							</div>
         							<div flex class="list">
-        								<h5>JOB/POSITION</h5>
+        								<h5>Job/Position</h5>
         								<span ng-bind="CandidateDetailsCtrl.details.current_company_position"></span>
         							</div>
         						</div>
         						<div layout="row" ng-if="CandidateDetailsCtrl.details.previous_company_name">
         							<div flex="50" class="list">
-        								<h5>PREV COMPANY</h5>
+        								<h5>Previous Company</h5>
         								<span ng-bind="CandidateDetailsCtrl.details.previous_company_name"></span>
         								<span class="info" ng-bind="CandidateDetailsCtrl.details.previous_company_details"></span><br>
         								<span class="info" ng-bind="CandidateDetailsCtrl.details.previous_company_location"></span>
         							</div>
         							<div flex class="list">
-        								<h5>JOB/POSITION</h5>
+        								<h5>Job/Position</h5>
         								<span ng-bind="CandidateDetailsCtrl.details.previous_company_position"></span>
         							</div>
         						</div>
@@ -174,7 +174,7 @@
 
         				<md-card style="margin-top:20px">
         					<div class="title skill">
-        						SKILLS
+        						Skills
         					</div>
         					<div layout="column" class="details" ng-if="CandidateDetailsCtrl.details.skills.length">
         						<div layout="row">
@@ -187,7 +187,7 @@
 
         				<md-card style="margin-top:20px">
         					<div class="title edu">
-        						EDUCATION
+        						Education
         					</div>
         					<div layout="column" class="details" ng-if="CandidateDetailsCtrl.details.qualification || CandidateDetailsCtrl.details.certification">
         						<div layout="row" ng-if="CandidateDetailsCtrl.details.qualification">
@@ -226,7 +226,7 @@
 
                                 <uib-tab class="timeline" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Timeline" tooltip-placement="left">
                                     <div class="mm_down timeline_edit">
-                                        <h5>TIMELINE</h5>
+                                        <h5>Timeline</h5>
                                         <div class="timeline-container">
                                             <div layout="column">
                                                 <div layout="row" class="list" ng-repeat="list in CandidateDetailsCtrl.candidateActivitiesList">
@@ -246,9 +246,9 @@
                                     </div>
                                 </uib-tab>
 
-                                <uib-tab class="comment" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Write Comment" tooltip-placement="left">
+                                <uib-tab class="comment" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Comments" tooltip-placement="left">
                                     <div class="mm_down comment_edit">
-                                        <h5 ng-click="CandidateDetailsCtrl.toogleTabs('showCommentsTab')">WRITE YOUR COMMENT <i class="material-icons mm-arrow-spin" ng-class="{'rotate' : CandidateDetailsCtrl.showCommentsTab}">keyboard_arrow_down</i></h5>
+                                        <h5 ng-click="CandidateDetailsCtrl.toogleTabs('showCommentsTab')">Comments <i class="material-icons mm-arrow-spin" ng-class="{'rotate' : CandidateDetailsCtrl.showCommentsTab}">keyboard_arrow_down</i></h5>
                                         <div class="box" id="showCommentsTab" style="border-bottom:1px solid #eaeaea">
                                             <textarea rows="4" name="comment" ng-model="CandidateDetailsCtrl.comment"  maxlength="500"></textarea>
                                             <div class="action">
@@ -281,10 +281,10 @@
                                     <uib-tab-heading class="mm-tip" tooltip-class="mm-slide-l-r" uib-tooltip="SCHEDULE" tooltip-placement="left">
                                     </uib-tab-heading>
                                     <form name="schedule_form" class="mm_down" novalidate>
-                                        <h5 ng-click="CandidateDetailsCtrl.toogleTabs('showScheduleTab')">SCHEDULE <i class="material-icons mm-arrow-spin" ng-class="{'rotate' : CandidateDetailsCtrl.showScheduleTab}">keyboard_arrow_down</i></h5>
+                                        <h5 ng-click="CandidateDetailsCtrl.toogleTabs('showScheduleTab')">Schedule <i class="material-icons mm-arrow-spin" ng-class="{'rotate' : CandidateDetailsCtrl.showScheduleTab}">keyboard_arrow_down</i></h5>
                                         <div class="box" id="showScheduleTab" >
                                             <md-input-container class="md-block select-box">
-                                                <label style="display:none">SCHEDULE FOR *</label>
+                                                <label style="display:none">Schedule for *</label>
                                                 <md-select name="schedule_for" ng-model="CandidateDetailsCtrl.schedule.schedule_for" required ng-class="{'has-error-border': schedule_form.schedule_for.$invalid && CandidateDetailsCtrl.submittedSchedule}" data-md-container-class="schedule-for">
                                                     <md-option ng-repeat="list in CandidateDetailsCtrl.scheduleForList" ng-value="list">{{list}}</md-option>
                                                 </md-select>
@@ -329,7 +329,7 @@
                                             </div>
 
                                             <md-input-container class="md-block date-time">
-                                                <label>INTERVIEW DATE *</label>
+                                                <label>Interview Date *</label>
                                                 <input type='text' name="interview_date" schedule-required id="interview_date" required class="form-control" ng-model="CandidateDetailsCtrl.schedule.interview_date" ng-class="{'has-error-border':CandidateDetailsCtrl.submittedSchedule && schedule_form.interview_date.$error.required}" />
                                                 <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-calendar"></span>
@@ -340,7 +340,7 @@
                                             <div layout="column">
                                                 <div layout="row">
                                                     <md-input-container class="md-block date-time">
-                                                        <label>FROM *</label>
+                                                        <label>From *</label>
                                                         <input type='text' name="interview_from_time" schedule-required class="form-control" id='time_from' required ng-model="CandidateDetailsCtrl.schedule.interview_from_time" ng-class="{'has-error-border':CandidateDetailsCtrl.submittedSchedule && schedule_form.interview_from_time.$error.required}" ng-readonly="" />
                                                         <span class="input-group-addon">
                                                             <span class="glyphicon glyphicon-time"></span>
@@ -350,7 +350,7 @@
                                                     </md-input-container>
                                                     <i flex="5"></i>
                                                     <md-input-container class="md-block date-time">
-                                                        <label>TO *</label>
+                                                        <label>To *</label>
                                                         <input type='text' name="interview_to_time" schedule-required required class="form-control" ng-model="CandidateDetailsCtrl.schedule.interview_to_time"  id='time_to' ng-class="{'has-error-border':CandidateDetailsCtrl.submittedSchedule && schedule_form.interview_to_time.$error.required}" ng-readonly=""/>
                                                         <span class="input-group-addon">
                                                             <span class="glyphicon glyphicon-time"></span>
@@ -361,7 +361,7 @@
                                                 </div>
                                             </div>
                                             <md-input-container class="time-zone md-block select-box">
-                                                <label style="display:none">TIME ZONE</label>
+                                                <label style="display:none">Time Zone</label>
                                                 <md-select ng-model="CandidateDetailsCtrl.schedule.timeZone"
                                                            md-on-close="clearSearchTerm()"
                                                            data-md-container-class="timezone"
@@ -377,7 +377,7 @@
                                                 </md-select>
                                             </md-input-container>
                                             <md-input-container class="md-block loc">
-                                                <label>LOCATION *</label>
+                                                <label>Location *</label>
                                                 <input type="text" name="interview_location" ng-model="CandidateDetailsCtrl.schedule.location" ng-autocomplete="geo_location" details="geo_details" options="geo_options" apiplaceholder="" required ng-class="{'has-error-border':schedule_form.interview_location.$invalid && CandidateDetailsCtrl.submittedSchedule }">
                                                 <div class="error-spacer"></div>
                                                 <div ng-if="schedule_form.interview_location.$error.required && CandidateDetailsCtrl.submittedSchedule"  class="has-error-msg">Please select Location.</div>
@@ -385,7 +385,7 @@
 
 
                                             <div class="notes">
-                                                <span>NOTES</span>
+                                                <span>Notes</span>
                                                 <textarea rows="4" name="notes" ng-model="CandidateDetailsCtrl.schedule.notes"  maxlength="500"></textarea>
                                                 <div ng-if="CandidateDetailsCtrl.schedule.notes.length == 500" class="has-error-msg ng-scope" style="">Note must be no longer than 500 characters.</div>
                                             </div>
@@ -477,16 +477,16 @@
                                 <uib-tab class="mail" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Send Email" tooltip-placement="left">
                                     <div class="mm_down">
                                         <form name="write_mail_form" novalidate>
-                                            <h5 ng-click="CandidateDetailsCtrl.toogleTabs('showMailsTab')">SEND AN EMAIL <i class="material-icons mm-arrow-spin" ng-class="{'rotate' : CandidateDetailsCtrl.showMailsTab}">keyboard_arrow_down</i></h5>
+                                            <h5 ng-click="CandidateDetailsCtrl.toogleTabs('showMailsTab')">Send an Email <i class="material-icons mm-arrow-spin" ng-class="{'rotate' : CandidateDetailsCtrl.showMailsTab}">keyboard_arrow_down</i></h5>
                                             <div id="showMailsTab">
                                                 <div class="box" >
                                                     <md-input-container class="md-block">
-                                                        <label>TO</label>
+                                                        <label>To</label>
                                                         <input type="text" class="small-font" name="to" readonly ng-model="CandidateDetailsCtrl.writeMail.to">
                                                     </md-input-container>
 
                                                     <md-input-container class="md-block select-box">
-                                                        <label style="display:none">SUBJECT *</label>
+                                                        <label style="display:none">Subject *</label>
                                                         <md-select name="subject_id" ng-model="CandidateDetailsCtrl.writeMail.subjectId" data-md-container-class="email-subject" md-on-close="CandidateDetailsCtrl.changeMailSubject()" ng-class="{'has-error-border': write_mail_form.subject_id.$invalid && CandidateDetailsCtrl.submittedPostMail}" required>
                                                             <md-option ng-repeat="list in CandidateDetailsCtrl.writeMailSubjectList" ng-value="list.id">{{list.subject}}</md-option>
                                                         </md-select>
@@ -494,7 +494,7 @@
                                                         <div ng-if="write_mail_form.subject_id.$error.required && CandidateDetailsCtrl.submittedPostMail"  class="has-error-msg">Please select Subject.</div>
                                                     </md-input-container>
                                                     <md-input-container class="md-block animated slideInDown" style="margin-top: 18px" ng-if="CandidateDetailsCtrl.writeMail.subjectId == 1">
-                                                        <label>PLEASE ENTER SUBJECT</label>
+                                                        <label>Please enter Subject</label>
                                                         <input type="text" class="small-font" name="email_subject_custom" ng-model="CandidateDetailsCtrl.writeMail.subjectText" >
                                                     </md-input-container>
 
@@ -566,9 +566,9 @@
                                     </div>
                                 </uib-tab>
 
-                                <uib-tab class="link" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Link Candidate To A Job" tooltip-placement="left">
+                                <uib-tab class="link" tooltip-class="mm-slide-l-r tabs-tooltip" uib-tooltip="Assign to a Job" tooltip-placement="left">
                                     <div class="mm_down timeline_edit">
-                                        <h5 ng-click="CandidateDetailsCtrl.toogleTabs('showLinkTab')">LINK CANDIDATE TO A JOB<i class="material-icons mm-arrow-spin" ng-class="{'rotate' : CandidateDetailsCtrl.showLinkTab}">keyboard_arrow_down</i></h5>
+                                        <h5 ng-click="CandidateDetailsCtrl.toogleTabs('showLinkTab')">Assign to a Job<i class="material-icons mm-arrow-spin" ng-class="{'rotate' : CandidateDetailsCtrl.showLinkTab}">keyboard_arrow_down</i></h5>
                                         <div class="box" id="showLinkTab" style="border-bottom:1px solid #eaeaea">
                                             <div class="attendees tag-job">
                                                 <!--placeholder value in css please check if you want to change -->
@@ -619,7 +619,7 @@
                                                         <img class="pending" src="public/images/link.png" alt="comment">
                                                     </div>
                                                     <div class="rt">
-                                                        <p>Linked to {{list.post_name}}</p>
+                                                        <p>Assigned to {{list.post_name}}</p>
                                                         <p class="text">by {{list.referred_by}}
                                                             <span class="dot time">&middot;</span>
                                                             <span class="time">{{list.referred_on}}</span>
