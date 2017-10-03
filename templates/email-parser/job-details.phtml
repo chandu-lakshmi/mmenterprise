@@ -3,10 +3,10 @@
 	<div class="container">
 		<section class="job-details">
 			<a class="back" ng-if="JobDetailsCtrl.isCampaignJob" ui-sref="allCampaigns.all({ref: $root.camp_ref, share_status:$stateParams.share_status})">
-				<img src="../public/images/email-parser/arrow-back.svg"><h4 class="job-count ng-binding">All JOBS</h4>
+				<img src="../public/images/email-parser/arrow-back.svg"><h4 class="job-count ng-binding">Back to All Jobs</h4>
 			</a>
 			<a class="back" ng-if="!JobDetailsCtrl.isCampaignJob" ui-sref="allJobs.all({ref: $root.ref, share_status: $stateParams.share_status})">
-				<img src="../public/images/email-parser/arrow-back.svg"><h4 class="job-count ng-binding">All JOBS</h4>
+				<img src="../public/images/email-parser/arrow-back.svg"><h4 class="job-count ng-binding">Back to All Jobs</h4>
 			</a>
 			<md-divider></md-divider>
 			<div class="email-parser-loader" ng-if="JobDetailsCtrl.job_details.loader">
@@ -47,7 +47,7 @@
 					<!-- </div> -->
 
 				</div>
-				<md-divider></md-divider>
+				<!-- <md-divider></md-divider> -->
 				<div class="job-params">
 					<div class="row">
 						<div class="col-sm-3 col-xs-5 labels">Job Function:</div>
