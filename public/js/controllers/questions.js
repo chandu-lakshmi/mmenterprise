@@ -66,19 +66,6 @@
 
 			vm.gridApi = gridApi;
         }
-        
-        function updateQuestionSelection(row) {
-            var index = vm.selectedQuestions.indexOf(row.entity.question_id);
-            if (row.isSelected) {
-                if (index == -1) {
-                    vm.selectedQuestions.push(row.entity.question_id);
-                }
-            } else {
-                if (index > -1) {
-                    vm.selectedQuestions.splice(index, 1);
-                }
-            }
-        }
 
 		this.deleteQuestion = function (id) {
             var textMsgSecond = "delete Question ?",
@@ -229,6 +216,18 @@
 			});
 		}
 
+        function updateQuestionSelection(row) {
+            var index = vm.selectedQuestions.indexOf(row.entity.question_id);
+            if (row.isSelected) {
+                if (index == -1) {
+                    vm.selectedQuestions.push(row.entity.question_id);
+                }
+            } else {
+                if (index > -1) {
+                    vm.selectedQuestions.splice(index, 1);
+                }
+            }
+        }
 
 		init();
 		
@@ -346,6 +345,12 @@
 				}
 			}
 		}
+
+        this.createTag = function (chip) {
+            if(typeof chip != 'object'){
+                return { library_id: null, library_name:chip }
+            }
+        }
 
 
 		function init() {

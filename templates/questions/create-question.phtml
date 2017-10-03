@@ -70,7 +70,8 @@
                      </span>
 							<div layout="row" class="tags">
 								<md-chips flex ng-model="CreateQuestionCtrl.questionObj.libraries" md-autocomplete-snap
-											md-removable="!CreateQuestionCtrl.enableViewMode"
+                                 md-removable="!CreateQuestionCtrl.enableViewMode"
+                                 md-transform-chip="CreateQuestionCtrl.createTag($chip)"
 											ng-class="{'active' : (!!CreateQuestionCtrl.searchText.length)}"
 												>
 										<md-autocomplete
