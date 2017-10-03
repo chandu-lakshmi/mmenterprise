@@ -48,6 +48,12 @@
                 </div>
             </div>
         </div>
+         <div ng-if="$state.current.name == 'allJobs.candidateDetails'">
+            JOB APPLIED FOR
+            <h3 ng-bind="ReferralDetails.job_title"></h3>
+            <h5 ng-bind="ReferralDetails.experience"></h5>
+            <h5 ng-bind="ReferralDetails.location"></h5>
+         </div>
     </div>
     <div class="content">
         <div class="container" >

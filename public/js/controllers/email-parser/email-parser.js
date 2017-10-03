@@ -613,11 +613,13 @@
         /*set with Job Details & referralDetails*/
         if($stateParams.jc == 1) {
             vm.jobDetails      = campaignJobDetails;
+            CampaignDetails.JobDetailsHeader = campaignJobDetails;
             vm.referralDetails = angular.copy(CampaignDetails);
         } else {
             vm.jobDetails      = ReferralDetails;
             vm.referralDetails = angular.copy(ReferralDetails);
         }
+
 
 
         if ($stateParams.share_status == 'share') {
@@ -947,7 +949,6 @@
                 controllerAs: 'TalentCommunityCtrl'
             });
         }
-
 
 
         $scope.$watch(function () {

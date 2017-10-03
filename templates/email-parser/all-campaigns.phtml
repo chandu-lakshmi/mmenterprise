@@ -29,7 +29,7 @@
                 <h4 class="date">
                     <img src="../public/images/email-parser/calender.svg" alt="calander"/>
                     <span ng-bind="CampaignDetails.start_date"></span>
-                    <span ng-bind="CampaignDetails .start_time"></span>
+                    <span ng-bind="CampaignDetails.start_time"></span>
                     &nbsp;to&nbsp;
                     <span ng-bind="CampaignDetails.end_date"></span>
                     <span ng-bind="CampaignDetails.end_time"></span>
@@ -68,6 +68,12 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div ng-if="$state.current.name == 'allCampaigns.candidateDetails'">
+               JOB APPLIED FOR
+               <h3 ng-bind="CampaignDetails.JobDetailsHeader.job_title"></h3>
+               <h5 ng-bind="CampaignDetails.JobDetailsHeader.experience"></h5>
+               <h5 ng-bind="CampaignDetails.JobDetailsHeader.location"></h5>
             </div>
         </div>
     </div>
