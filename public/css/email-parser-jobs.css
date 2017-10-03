@@ -127,7 +127,9 @@
   .all-campaigns.job-details-list h4 {
     margin-top: 3px; }
   .all-campaigns .divide-section {
-    margin: 18px 0 13px 0; }
+    margin: 18px auto 13px auto;
+    opacity: 0.3;
+    width: 60%; }
   .all-campaigns .job-applied {
     text-align: center;
     color: #fff;
@@ -384,7 +386,8 @@
             padding-left: 0;
             font-size: 16px; }
           .all-campaigns .content .campaign-details .left .drop-box .container .candidate-details .row {
-            margin: 0; }
+            margin: 0;
+            padding-bottom: 0; }
             .all-campaigns .content .campaign-details .left .drop-box .container .candidate-details .row .form-style {
               padding: 0px 20px; }
               .all-campaigns .content .campaign-details .left .drop-box .container .candidate-details .row .form-style .has-error-msg {
