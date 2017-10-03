@@ -31,7 +31,7 @@
     ApplyJobController.$inject = ['$rootScope', '$scope', '$state', '$stateParams', '$location', '$window', '$http', '$uibModal', '$mdDialog', 'App', 'ReferralDetails', 'CampaignDetails', 'campaignJobDetails', 'candidateDetails'];
     CampaignsController.$inject = ['$scope', '$http', '$uibModal', 'CampaignDetails', 'App'];
     AllCampaignsController.$inject = ['$scope', '$http', '$window', '$q', '$mdDialog', 'App', 'CampaignDetails', 'campaignJobDetails'];
-    TalentCommunityController.$inject = ['$scope', '$http', '$timeout', '$uibModalInstance', 'ReferralDetails', 'CampaignDetails', 'formJobOrCampagin', 'App'];
+    TalentCommunityController.$inject = ['$mdDialog', '$scope', '$http', '$timeout', '$uibModalInstance', 'ReferralDetails', 'CampaignDetails', 'formJobOrCampagin', 'App'];
 
     AssessmentController.$inject = ['$state', '$stateParams', '$mdDialog', '$scope', '$http', '$timeout', 'App', 'candidateDetails', 'CampaignDetails'];
     CheckAssessmentController.$inject = ['$scope', '$mdDialog'];
@@ -120,10 +120,10 @@
                     post_title: 'Please check out the new opportunities at ' + toTitleCase(ReferralDetails.company_name),
                     post_url: vm.shareUrl,
                     post_img: ReferralDetails.company_logo || '',
-                    post_msg: desc
+                    post_msg: ''
                 },
                 twitter: {
-                    text: 'Please check out the new opportunities at ' + toTitleCase(ReferralDetails.company_name) + '. ' + desc,
+                    text: 'Please check out the new opportunities at ' + toTitleCase(ReferralDetails.company_name) + '. ' + '',
                     url: ReferralDetails.bittly_url,
                     hashtags: '',
                     via: ReferralDetails.company_name,
@@ -132,7 +132,7 @@
                 linkedin: {
                     url: ReferralDetails.bittly_url,
                     title: 'Please check out the new opportunities at ' + toTitleCase(ReferralDetails.company_name),
-                    summary: desc,
+                    summary: '',
                     source: ReferralDetails.company_name
                 },
                 googlePlus: {
@@ -267,10 +267,10 @@
                     post_title: 'Please check out the new opportunities at ' + toTitleCase(vm.infiniteScroll.companyName),
                     post_url: vm.shareUrl,
                     post_img: vm.infiniteScroll.company_logo || '',
-                    post_msg: desc
+                    post_msg: ''
                 },
                 twitter: {
-                    text: 'Please check out the new opportunities at ' + toTitleCase(vm.infiniteScroll.companyName) + '. ' + desc,
+                    text: 'Please check out the new opportunities at ' + toTitleCase(vm.infiniteScroll.companyName) + '. ',
                     url: bitly || vm.shareUrl,
                     hashtags: '',
                     via: vm.infiniteScroll.companyName,
@@ -279,7 +279,7 @@
                 linkedin: {
                     url: bitly || vm.shareUrl,
                     title: 'Please check out the new opportunities at ' + toTitleCase(vm.infiniteScroll.companyName),
-                    summary: desc,
+                    summary: '',
                     source: vm.infiniteScroll.companyName
                 },
                 googlePlus: {
@@ -460,7 +460,9 @@
         var vm = this,
             ref = $stateParams.ref;
 
+        
         vm.isCampaignJob;
+        vm.urlParms = $stateParams;
         vm.shareUrl  = App.base_url + 'email/job-details/share?ref=' + ref;
 
         if (screen.width <= 480)
@@ -1183,7 +1185,7 @@
 
 
 
-    function TalentCommunityController($scope, $http, $timeout, $uibModalInstance, ReferralDetails, CampaignDetails, formJobOrCampagin, App) {
+    function TalentCommunityController($mdDialog, $scope, $http, $timeout, $uibModalInstance, ReferralDetails, CampaignDetails, formJobOrCampagin, App) {
 
         var vm = this,
             details,
@@ -1291,7 +1293,7 @@
                         vm.responseMsg = response.message.msg[0];
                         $timeout(function(){
                            vm.closeDialog();
-                        }, 2000);
+                        }, 6000);
                     }
                     else{
                         vm.errorMsg = response.message.msg[0];
@@ -1299,6 +1301,7 @@
                 })
             }
         }
+        
 
         $scope.$watch(function () {
             return vm.geo_details;

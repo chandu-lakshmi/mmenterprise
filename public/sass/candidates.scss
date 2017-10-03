@@ -304,7 +304,7 @@ $background : #eeeff1;
                         }
                     }
                 }
-                .details{padding: 16px 20px 0;
+                .details{padding: 16px 20px;
                     .list{margin-bottom: 28px;
                         h5{margin: 0 0 6px;color: #818e95;
                             &.name{display: inline;}
@@ -568,9 +568,9 @@ $background : #eeeff1;
                         }
 
                     }
-                    .loader{width: 20px;height: 20px;position: absolute;right: 6px;bottom: 10px;}
+                    .loader{width: 20px;height: 20px;position: absolute;right: 6px;bottom: 10px !important;}
                 }
-                .add-tag{
+                .add-tag{min-height: initial !important;
                     .attendees{margin: 0 !important;
                         .sp{
                             .md-chips:before{content: '' !important}

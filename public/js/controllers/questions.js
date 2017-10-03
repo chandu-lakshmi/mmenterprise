@@ -20,10 +20,6 @@
         
         this.selectedQuestions = [];
 
-        this.filterOptions = [
-            { name: 'Question Type', children: [{ label: 1, value: 'Multiple Choice Questions' }, { label: 0, value: 'Subjective type' }] }
-        ];
-
 		this.grid = {
             pageNo : 1,
             filter : [],
@@ -69,19 +65,6 @@
 			});
 
 			vm.gridApi = gridApi;
-        }
-        
-        function updateQuestionSelection(row) {
-            var index = vm.selectedQuestions.indexOf(row.entity.question_id);
-            if (row.isSelected) {
-                if (index == -1) {
-                    vm.selectedQuestions.push(row.entity.question_id);
-                }
-            } else {
-                if (index > -1) {
-                    vm.selectedQuestions.splice(index, 1);
-                }
-            }
         }
 
 		this.deleteQuestion = function (id) {
@@ -196,8 +179,29 @@
 
 
 		function init() {
+            getQuestionType();
 			vm.getQuestionList();
-		}
+        }
+        
+        function getQuestionType() {
+            $http({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'POST',
+                url: App.base_url + 'get_question_types',
+            })
+            .then(function (response) {
+                if (response.status == 200) {
+                    vm.filterOptions = [
+                        { name: 'Question Type', children: response.data.data }
+                    ];
+                }
+                else if (response.data.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+            });
+        }
 
 		function deleteQeustionCallback(response) {
             vm.selectedQuestions = [];
@@ -212,6 +216,18 @@
 			});
 		}
 
+        function updateQuestionSelection(row) {
+            var index = vm.selectedQuestions.indexOf(row.entity.question_id);
+            if (row.isSelected) {
+                if (index == -1) {
+                    vm.selectedQuestions.push(row.entity.question_id);
+                }
+            } else {
+                if (index > -1) {
+                    vm.selectedQuestions.splice(index, 1);
+                }
+            }
+        }
 
 		init();
 		
@@ -329,6 +345,12 @@
 				}
 			}
 		}
+
+        this.createTag = function (chip) {
+            if(typeof chip != 'object'){
+                return { library_id: null, library_name:chip }
+            }
+        }
 
 
 		function init() {

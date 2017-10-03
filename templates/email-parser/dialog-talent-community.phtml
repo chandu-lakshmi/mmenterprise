@@ -91,8 +91,8 @@
             <span class="pull-right" style="margin: 14px 8px;">creating</span>
         </span>
         <span class="msg pull-left" ng-bind="TalentCommunityCtrl.responseMsg"></span>
-        <span class="err msg pull-left" ng-bind="TalentCommunityCtrl.errorMsg"></span>
-        <md-button class="submit" ng-disabled="TalentCommunityCtrl.inProgress" ng-click="TalentCommunityCtrl.postAddContact(add_contact)">SUBMIT</md-button>
-        <span class="cancel" ng-click="TalentCommunityCtrl.closeDialog($event)">Cancel</span>
+        <span class="err msg pull-left" ng-if="TalentCommunityCtrl.errorMsg" ng-bind="TalentCommunityCtrl.errorMsg"></span>
+        <md-button ng-if="!TalentCommunityCtrl.responseMsg" class="submit" ng-disabled="TalentCommunityCtrl.inProgress" ng-click="TalentCommunityCtrl.postAddContact(add_contact)">SUBMIT</md-button>
+        <span ng-if="!TalentCommunityCtrl.responseMsg" class="cancel" ng-click="TalentCommunityCtrl.closeDialog($event)">Cancel</span>
     </footer>
 </div>
