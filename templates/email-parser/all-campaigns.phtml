@@ -22,8 +22,7 @@
     <div class="filters"
         ng-style="{'background':'transparent url('+CampaignDetails.career_heroshot_image+')'}"
         ng-class="{'add-image' : !CampaignDetails.career_heroshot_image, 'candidate-details-cover' : $state.current.name == 'allCampaigns.candidateDetails'}">
-        <div class="container" ng-style="{'margin-top' : $state.current.name === 'allCampaigns.all' ? '0' : '0'}">
-            <!-- 54px -->
+        <div class="container" ng-style="{'margin-top' : $state.current.name === 'allCampaigns.all' ? '0' : '54px'}" ng-class="{'referral-details' : $state.current.name == 'allCampaigns.candidateDetails' || $state.current.name == 'allCampaigns.referralDetails'}">
             <div class="des">
                 <h3>
                     <span ng-bind="CampaignDetails.campaign_heading"></span>
@@ -76,8 +75,9 @@
                     </div>
                 </div>
             </div>
-            <md-divider class="divide-section"></md-divider>
+            
             <div ng-if="$state.current.name == 'allCampaigns.candidateDetails' || $state.current.name == 'allCampaigns.referralDetails'" class="job-applied">
+                <md-divider class="divide-section"></md-divider>
                <p>JOB APPLY FOR</p>
                <h3 class="cnd-title" ng-bind="CampaignDetails.JobDetailsHeader.job_title"></h3>
                <h5 class="cnd-exp">Experience : {{CampaignDetails.JobDetailsHeader.experience}}</h5>

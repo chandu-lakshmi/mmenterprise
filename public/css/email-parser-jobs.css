@@ -217,6 +217,8 @@
     background-size: cover !important;
     background-position: 50% 50% !important;
     background-repeat: no-repeat !important; }
+    .all-campaigns .filters .referral-details {
+      margin-top: 0 !important; }
     .all-campaigns .filters.candidate-details-cover {
       padding-bottom: 20px; }
     .all-campaigns .filters.add-image {
@@ -386,14 +388,11 @@
             padding-left: 0;
             font-size: 16px; }
           .all-campaigns .content .campaign-details .left .drop-box .container .candidate-details .row {
-            margin: 0;
-            padding-bottom: 0; }
+            margin: 0; }
             .all-campaigns .content .campaign-details .left .drop-box .container .candidate-details .row .form-style {
               padding: 0px 20px; }
               .all-campaigns .content .campaign-details .left .drop-box .container .candidate-details .row .form-style .has-error-msg {
                 top: 65px; }
-                .all-campaigns .content .campaign-details .left .drop-box .container .candidate-details .row .form-style .has-error-msg.file-check {
-                  top: 74px; }
               .all-campaigns .content .campaign-details .left .drop-box .container .candidate-details .row .form-style.upload-button {
                 /*padding-right:0;*/ }
                 .all-campaigns .content .campaign-details .left .drop-box .container .candidate-details .row .form-style.upload-button .button_txt {
@@ -432,7 +431,7 @@
           margin-left: 3px; }
         .all-campaigns .content .campaign-details .left .list .row {
           border: 0;
-          border-bottom: 1px solid #ddd;
+          border-bottom: 1px solid #ebebeb;
           padding: 14px 0 20px 0;
           margin: 0;
           font-family: 'Lato', sans-serif; }

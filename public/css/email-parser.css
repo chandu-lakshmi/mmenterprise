@@ -204,7 +204,8 @@ font-family: 'Lato', sans-serif; }
               position: absolute;
               top: 47px;
               background: transparent !important;
-              color: red; }
+              color: red; 
+              display: none;}
               .drop-box .container section .row .form-style .file #upload-resume .qq-uploader .qq-upload-list .qq-upload-fail i {
                 display: none; }
             .drop-box .container section .row .form-style .file #upload-resume .qq-uploader .qq-upload-list li:not(.qq-upload-success) {
