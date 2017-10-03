@@ -85,7 +85,7 @@
         						</div>
 
         						<div layout="row">
-        							<div flex="50" class="list">
+        							<div flex="50" class="list" ng-if="CandidateDetailsCtrl.details.referred_job">
         								<h5>Applied for</h5>
         								<span class="bolder current-job">{{CandidateDetailsCtrl.details.referred_job}}, <i class="info">{{CandidateDetailsCtrl.details.referred_at}}</i></span>
                                         <div class="other-job" ng-repeat="ref in CandidateDetailsCtrl.referralsList | filter: { reference_id : '!'+CandidateDetailsCtrl.referralId }">
@@ -94,49 +94,49 @@
                                             </span>
                                         </div>
         							</div>
-        							<div flex class="list">
+        							<div flex class="list" ng-if="CandidateDetailsCtrl.details.referred_by">
         								<h5>Referred by</h5>
         								<span ng-if="CandidateDetailsCtrl.details.referred_by" class="bolder" ng-bind="CandidateDetailsCtrl.details.referred_by"></span>
                                         <span ng-if="!CandidateDetailsCtrl.details.referred_by">--</span>
         							</div>
         						</div>
 
-                                <div layout="row" class="add-tag">
-                                    <div class="attendees tag-job">
-                                        <md-chips ng-model="CandidateDetailsCtrl.details.candidate_tags" md-autocomplete-snap
-                                            md-require-match="true" class="sp" md-transform-chip="null" ng-class="{'disable-input':!CandidateDetailsCtrl.enableTagChips}" md-on-remove="CandidateDetailsCtrl.removeTag($chip)"
-                                              >
-                                            <md-autocomplete
-                                                md-selected-item-change="CandidateDetailsCtrl.addTag(item)"
-                                                md-selected-item="CandidateDetailsCtrl.selectedTagItem"
-                                                md-search-text="CandidateDetailsCtrl.searchTagText"
-                                                md-items="item in CandidateDetailsCtrl.querySearchAddTag(CandidateDetailsCtrl.searchTagText)"
-                                                md-item-text="item.tag_name"
-                                                md-no-cache = "true"
-                                                ng-disabled="!CandidateDetailsCtrl.enableTagChips"
-                                                md-menu-class="autocomplete-attendees-template"
-                                                md-input-id = "tagJob"
-                                                md-min-length="2"
-                                                placeholder = "Enter Tag"
-                                              >
-                                            <md-item-template>
-                                                <span md-highlight-text="CandidateDetailsCtrl.searchTagText">{{item.tag_name}} </span>
-                                            </md-item-template>
-                                            <md-not-found>
-                                                <div class="not_found">No Tags found</div>
-                                            </md-not-found>
+                        <div layout="row" class="add-tag">
+                           <div class="attendees tag-job">
+                                 <md-chips ng-model="CandidateDetailsCtrl.details.candidate_tags" md-autocomplete-snap
+                                    md-require-match="true" class="sp" md-transform-chip="null" ng-class="{'disable-input':!CandidateDetailsCtrl.enableTagChips}" md-on-remove="CandidateDetailsCtrl.removeTag($chip)"
+                                       >
+                                    <md-autocomplete
+                                       md-selected-item-change="CandidateDetailsCtrl.addTag(item)"
+                                       md-selected-item="CandidateDetailsCtrl.selectedTagItem"
+                                       md-search-text="CandidateDetailsCtrl.searchTagText"
+                                       md-items="item in CandidateDetailsCtrl.querySearchAddTag(CandidateDetailsCtrl.searchTagText)"
+                                       md-item-text="item.tag_name"
+                                       md-no-cache = "true"
+                                       ng-disabled="!CandidateDetailsCtrl.enableTagChips"
+                                       md-menu-class="autocomplete-attendees-template"
+                                       md-input-id = "tagJob"
+                                       md-min-length="2"
+                                       placeholder = "Enter Tag"
+                                       >
+                                    <md-item-template>
+                                       <span md-highlight-text="CandidateDetailsCtrl.searchTagText">{{item.tag_name}} </span>
+                                    </md-item-template>
+                                    <md-not-found>
+                                       <div class="not_found">No Tags found</div>
+                                    </md-not-found>
 
-                                            </md-autocomplete>
-                                            <md-chip-template>
-                                              <span>
-                                                <strong title="{{$chip.tag_name}}" style="text-transform: capitalize">{{$chip.tag_name}}</strong>
-                                              </span>
-                                            </md-chip-template>
-                                        </md-chips>
-                                        <img class="loader" ng-if="CandidateDetailsCtrl.inProgressSearchTagJobs" src="public/images/loader/blue-loader.gif">
-                                    </div>
-                                    <md-button class="btn-add-tag" ng-if="!CandidateDetailsCtrl.enableTagChips" ng-click="CandidateDetailsCtrl.toggleAddTag()">Add Tag</md-button>
-                                </div>
+                                    </md-autocomplete>
+                                    <md-chip-template>
+                                       <span>
+                                       <strong title="{{$chip.tag_name}}" style="text-transform: capitalize">{{$chip.tag_name}}</strong>
+                                       </span>
+                                    </md-chip-template>
+                                 </md-chips>
+                                 <img class="loader" ng-if="CandidateDetailsCtrl.inProgressSearchTagJobs" src="public/images/loader/blue-loader.gif">
+                           </div>
+                           <md-button class="btn-add-tag" ng-if="!CandidateDetailsCtrl.enableTagChips" ng-click="CandidateDetailsCtrl.toggleAddTag()">Add Tag</md-button>
+                        </div>
         					</div>
         				</md-card>
 
@@ -187,7 +187,7 @@
 
         				<md-card style="margin-top:20px">
         					<div class="title edu">
-        						Education
+        						Education & Certification
         					</div>
         					<div layout="column" class="details" ng-if="CandidateDetailsCtrl.details.qualification || CandidateDetailsCtrl.details.certification">
         						<div layout="row" ng-if="CandidateDetailsCtrl.details.qualification">

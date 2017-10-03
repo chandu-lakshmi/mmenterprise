@@ -12,7 +12,7 @@
                               <md-select ng-model="QuestionsListCtrl.grid.filter" md-on-close="QuestionsListCtrl.applyFilter()"
                                        data-md-container-class="multiple-select  multiple-select-assessment" multiple>
                                  <md-optgroup ng-repeat="parent in QuestionsListCtrl.filterOptions" label="{{parent.name}}">
-                                    <md-option ng-value="children.label" ng-repeat="children in parent.children">{{children.value}}</md-option>
+                                    <md-option ng-value="children.id" ng-repeat="children in parent.children">{{children.name}}</md-option>
                                  </md-optgroup>
                               </md-select>
                         </md-input-container>

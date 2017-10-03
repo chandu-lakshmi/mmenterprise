@@ -20,10 +20,6 @@
         
         this.selectedQuestions = [];
 
-        this.filterOptions = [
-            { name: 'Question Type', children: [{ label: 1, value: 'Multiple Choice Questions' }, { label: 0, value: 'Subjective type' }] }
-        ];
-
 		this.grid = {
             pageNo : 1,
             filter : [],
@@ -196,8 +192,29 @@
 
 
 		function init() {
+            getQuestionType();
 			vm.getQuestionList();
-		}
+        }
+        
+        function getQuestionType() {
+            $http({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'POST',
+                url: App.base_url + 'get_question_types',
+            })
+            .then(function (response) {
+                if (response.status == 200) {
+                    vm.filterOptions = [
+                        { name: 'Question Type', children: response.data.data }
+                    ];
+                }
+                else if (response.data.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+            });
+        }
 
 		function deleteQeustionCallback(response) {
             vm.selectedQuestions = [];
