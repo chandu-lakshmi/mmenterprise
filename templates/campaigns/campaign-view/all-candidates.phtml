@@ -27,7 +27,7 @@
                   </div>
                </div>
 
-               <div class="grid-msg-overlay" ng-if="!CampaignAllCandidateCtrl.gridOptions.data.length">
+               <div class="grid-msg-overlay" ng-if="!CampaignAllCandidateCtrl.gridOptions.data.length && !CampaignAllCandidateCtrl.grid.inProgress">
                   <div class="msg">
                      <span ng-bind="CampaignAllCandidateCtrl.grid.responseMsg"></span>
                   </div>

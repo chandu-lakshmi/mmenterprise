@@ -66,6 +66,26 @@ md-dialog.simple-dialog{
     }
 }
 
+/* Date picker close button  */
+.picker-close +.bootstrap-datetimepicker-widget{
+    table{width: 90%}
+    .list-unstyled{position: relative;
+        .picker-switch{
+            &.accordion-toggle{position: absolute;top: 4px;right:5px;
+                .glyphicon-remove{color:#000; text-align: right;width: 16px;display: inline-block;height: 16px;line-height: 16px;}
+            } 
+        }
+
+    }
+}
+.picker-full-close+.bootstrap-datetimepicker-widget {position: relative;
+    .picker-switch{
+        &.accordion-toggle{position: absolute;top: 12px;right:12px;
+            .glyphicon-remove{color: #000;text-align: right;width: 16px;display: inline-block;height: 16px;line-height: 16px;}
+        } 
+    }
+}
+
 
 /* Model for network error */
 #network-error{z-index: 999999;

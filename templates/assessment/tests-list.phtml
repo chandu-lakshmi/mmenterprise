@@ -53,7 +53,7 @@
 <script type="text/ng-template" id="test-name.html">
 	<div class="ui-grid-cell-contents ui-grid-details">
       <a ng-bind="COL_FIELD" ui-sref="app.campaigns.EditTest({ id: row.entity.idexam })" title="{{COL_FIELD}}" class="name ellipsis" ng-click="$event.stopPropagation()"></a>
-      <span ng-bind="row.entity.idexam_type + ', ' + row.entity.experience"></span>
+      <span ng-bind="row.entity.experience"></span>
 	</div>
 </script>
 
