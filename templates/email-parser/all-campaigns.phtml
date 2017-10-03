@@ -1,3 +1,4 @@
+
 <div class="all-campaigns" id="carrers_sc">
     <header class="logo container">
         <div layout="column">
@@ -5,34 +6,39 @@
                 <div id="logo" flex="20" ng-hide="CampaignDetails.career_logo == ''">
                     <img ng-src="{{$root.url_spinner_small}}" class="spinner small img-thumbnail">
                 </div>
-                <span flex="20" ng-bind="CampaignDetails.company_name" class="company-name" ng-if="CampaignDetails.career_logo == ''"></span>         
+                <span flex="20" ng-bind="CampaignDetails.company_name" class="company-name" ng-if="CampaignDetails.career_logo == ''"></span>
                 <i flex></i>
                 <div class="menu">
                     <span class="tab" ng-repeat="link in CampaignDetails.career_links">
                         <a href="{{link.url}}" target="_blank" ng-bind="link.label"></a>
                     </span>
+                    <span class="tab">
+                        <a ng-click="CampaignsCtrl.createCampaign()" target="_blank">join our talent network</a>
+                    </span>
                 </div>
             </div>
         </div>
     </header>
-    <div class="filters" 
+    <div class="filters"
         ng-style="{'background':'transparent url('+CampaignDetails.career_heroshot_image+')'}"
-        ng-class="{'add-image' : !CampaignDetails.career_heroshot_image}">
-        <div class="container" ng-style="{'margin-top' : $state.current.name === 'allCampaigns.all' ? '0' : '54px'}">
+        ng-class="{'add-image' : !CampaignDetails.career_heroshot_image, 'candidate-details-cover' : $state.current.name == 'allCampaigns.candidateDetails'}">
+        <div class="container" ng-style="{'margin-top' : $state.current.name === 'allCampaigns.all' ? '0' : '54px'}" ng-class="{'referral-details' : $state.current.name == 'allCampaigns.candidateDetails' || $state.current.name == 'allCampaigns.referralDetails'}">
             <div class="des">
                 <h3>
-                    <span ng-bind="CampaignDetails.campaign_heading"></span> 
+                    <span ng-bind="CampaignDetails.campaign_heading"></span>
                 </h3>
                 <h4 class="date">
-                    <img src="../public/images/email-parser/calender.svg" alt="calander"/>
+                    <span class="calendar-icon"></span>
+                    <!-- <img src="../public/images/email-parser/calender.svg" alt="calander"/> -->
                     <span ng-bind="CampaignDetails.start_date"></span>
-                    <span ng-bind="CampaignDetails .start_time"></span>
+                    <span ng-bind="CampaignDetails.start_time"></span>
                     &nbsp;to&nbsp;
                     <span ng-bind="CampaignDetails.end_date"></span>
                     <span ng-bind="CampaignDetails.end_time"></span>
                 </h4>
                 <h4>
-                    <img src="../public/images/email-parser/location.svg" alt="location"/>
+                    <span class="location-image"></span>
+                    <!-- <img src="../public/images/email-parser/location.svg" alt="location"/> -->
                     <span ng-bind="CampaignDetails .campaign_location"></span>
                 </h4>
             </div>
@@ -40,19 +46,24 @@
                 <div layout="column">
                     <div layout="row" class="search-container">
                         <div class="form-group search">
-                            <i class="material-icons">search</i>
-                            <input type="text" class="form-control" name="search-name" ng-model="CampaignsCtrl.searchOptions.search_name" tabindex="1" placeholder="I am looking for a job.." >
+                            <span class="search-icon"></span>
+                            <!-- <i class="material-icons">search</i> -->
+                            <input type="text" class="form-control" name="search-name" ng-model="CampaignsCtrl.searchOptions.search_name" tabindex="1" placeholder="I am looking for jobs.." >
                         </div>
                         <div class="btn-group loc" uib-dropdown>
                             <input id="location" ng-model="CampaignsCtrl.searchOptions.search_location" name="location" ng-autocomplete="CampaignsCtrl.geo_location" details="CampaignsCtrl.geo_details" options="CampaignsCtrl.geo_options"  tabindex="2" apiplaceholder="Location">
+                            <span class="down-arrow"></span>
+                            <!-- <img src="../public/images/arrow-dropdown.svg" /> -->
                         </div>
                         <div class="btn-group exp" uib-dropdown>
                             <button id="btn-append-to-single-button"  tabindex="3" type="button" class="btn btn-primary" uib-dropdown-toggle ng-style="{'color' : CampaignsCtrl.searchOptions.search_experience ? '#555' : ''}">
-                                {{CampaignsCtrl.experienceLabel}} <i class="material-icons animated fadeIn">keyboard_arrow_down</i>
+                                {{CampaignsCtrl.experienceLabel}} 
+                                <span class="down-arrow"></span>
+                                <!-- <i class="material-icons animated fadeIn">keyboard_arrow_down</i> -->
                             </button>
                             <ul class="dropdown-menu animated slideInUp" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-single-button" >
                                 <li role="menuitem" ng-repeat="exp in CampaignsCtrl.experiences">
-                                    <a href="#" ng-click="CampaignsCtrl.selectExperienc(exp)" 
+                                    <a href="#" ng-click="CampaignsCtrl.selectExperienc(exp)"
                                         ng-class="{'exp-active' : exp.experience_name == CampaignsCtrl.experienceLabel}">{{exp.experience_name}}
                                     </a>
                                 </li>
@@ -64,20 +75,32 @@
                     </div>
                 </div>
             </div>
+            
+            <div ng-if="$state.current.name == 'allCampaigns.candidateDetails' || $state.current.name == 'allCampaigns.referralDetails'" class="job-applied">
+                <md-divider class="divide-section"></md-divider>
+               <p>JOB APPLYING FOR</p>
+               <h3 class="cnd-title" ng-bind="CampaignDetails.JobDetailsHeader.job_title"></h3>
+               <h5 class="cnd-exp">Experience : {{CampaignDetails.JobDetailsHeader.experience}}</h5>
+               <h5 class="cnd-loc">Location: {{CampaignDetails.JobDetailsHeader.location}}</h5>
+            </div>
         </div>
     </div>
     <div class="content">
         <div class="container" >
             <div layout="column" class="campaign-details">
                 <div layout="row" flex>
-                    <div flex="70"class="left">
+                    <div flex="70" class="left">
                         <ui-view></ui-view>
                     </div>
                     <div flex="30" class="right">
+                        <div class="create-camp" ng-if="CampaignDetails.career_talent_network=='enable'" ng-click="CampaignsCtrl.createCampaign()">
+                            <div class="join-team">JOIN OUR TALENT NETWORK</div>
+                            <!-- <img src="../public/images/email-parser/arrows.png" alt="next"> -->
+                        </div>
                         <div class="about-comp" ng-if="CampaignDetails.career_description.length">
                             <div class="box">
                                 <h4>About <span ng-bind="CampaignDetails.company_name"></span></h4>
-                                <span ng-text-truncate="CampaignDetails.career_description" ng-tt-chars-threshold="900">  
+                                <span ng-text-truncate="CampaignDetails.career_description" ng-tt-chars-threshold="900">
                                 </span>
                             </div>
                             <!-- <md-divider></md-divider>
@@ -88,15 +111,13 @@
                                 </div>
                             </div> -->
                         </div>
-                        <div class="create-camp" ng-if="CampaignDetails.career_talent_network=='enable'" ng-click="CampaignsCtrl.createCampaign()">
-                            <div class="join-team">JOIN OUR TALENT COMMUNITY<img src="../public/images/email-parser/arrows.png" alt="next"></div>
-                        </div>
+                        
                         <div class="social-share">
                             <b>Share Campaign</b>
                             <!-- social media share directive -->
                             <social-sharing data-opts="CampaignsCtrl.socialMedia" data-path="../templates/components" style="margin-top:10px;"></social-sharing>
                         </div>
-                        <b>Copy Campaign Link</b>
+                        <b class="campaign-link">Copy Campaign Link</b>
                         <copy-url url="{{CampaignDetails.bittly_url}}" btn-class="all-camp-copy" btn-text="COPY"></copy-url>
                     </div>
                 </div>

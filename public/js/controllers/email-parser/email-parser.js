@@ -31,7 +31,7 @@
     ApplyJobController.$inject = ['$rootScope', '$scope', '$state', '$stateParams', '$location', '$window', '$http', '$uibModal', '$mdDialog', 'App', 'ReferralDetails', 'CampaignDetails', 'campaignJobDetails', 'candidateDetails'];
     CampaignsController.$inject = ['$scope', '$http', '$uibModal', 'CampaignDetails', 'App'];
     AllCampaignsController.$inject = ['$scope', '$http', '$window', '$q', '$mdDialog', 'App', 'CampaignDetails', 'campaignJobDetails'];
-    TalentCommunityController.$inject = ['$scope', '$http', '$timeout', '$uibModalInstance', 'ReferralDetails', 'CampaignDetails', 'formJobOrCampagin', 'App'];
+    TalentCommunityController.$inject = ['$mdDialog', '$scope', '$http', '$timeout', '$uibModalInstance', 'ReferralDetails', 'CampaignDetails', 'formJobOrCampagin', 'App'];
 
     AssessmentController.$inject = ['$state', '$stateParams', '$mdDialog', '$scope', '$http', '$timeout', 'App', 'candidateDetails', 'CampaignDetails'];
     CheckAssessmentController.$inject = ['$scope', '$mdDialog'];
@@ -120,10 +120,10 @@
                     post_title: 'Please check out the new opportunities at ' + toTitleCase(ReferralDetails.company_name),
                     post_url: vm.shareUrl,
                     post_img: ReferralDetails.company_logo || '',
-                    post_msg: desc
+                    post_msg: ''
                 },
                 twitter: {
-                    text: 'Please check out the new opportunities at ' + toTitleCase(ReferralDetails.company_name) + '. ' + desc,
+                    text: 'Please check out the new opportunities at ' + toTitleCase(ReferralDetails.company_name) + '. ' + '',
                     url: ReferralDetails.bittly_url,
                     hashtags: '',
                     via: ReferralDetails.company_name,
@@ -132,7 +132,7 @@
                 linkedin: {
                     url: ReferralDetails.bittly_url,
                     title: 'Please check out the new opportunities at ' + toTitleCase(ReferralDetails.company_name),
-                    summary: desc,
+                    summary: '',
                     source: ReferralDetails.company_name
                 },
                 googlePlus: {
@@ -267,10 +267,10 @@
                     post_title: 'Please check out the new opportunities at ' + toTitleCase(vm.infiniteScroll.companyName),
                     post_url: vm.shareUrl,
                     post_img: vm.infiniteScroll.company_logo || '',
-                    post_msg: desc
+                    post_msg: ''
                 },
                 twitter: {
-                    text: 'Please check out the new opportunities at ' + toTitleCase(vm.infiniteScroll.companyName) + '. ' + desc,
+                    text: 'Please check out the new opportunities at ' + toTitleCase(vm.infiniteScroll.companyName) + '. ',
                     url: bitly || vm.shareUrl,
                     hashtags: '',
                     via: vm.infiniteScroll.companyName,
@@ -279,7 +279,7 @@
                 linkedin: {
                     url: bitly || vm.shareUrl,
                     title: 'Please check out the new opportunities at ' + toTitleCase(vm.infiniteScroll.companyName),
-                    summary: desc,
+                    summary: '',
                     source: vm.infiniteScroll.companyName
                 },
                 googlePlus: {
@@ -460,7 +460,9 @@
         var vm = this,
             ref = $stateParams.ref;
 
+        
         vm.isCampaignJob;
+        vm.urlParms = $stateParams;
         vm.shareUrl  = App.base_url + 'email/job-details/share?ref=' + ref;
 
         if (screen.width <= 480)
@@ -611,11 +613,13 @@
         /*set with Job Details & referralDetails*/
         if($stateParams.jc == 1) {
             vm.jobDetails      = campaignJobDetails;
+            CampaignDetails.JobDetailsHeader = campaignJobDetails;
             vm.referralDetails = angular.copy(CampaignDetails);
         } else {
             vm.jobDetails      = ReferralDetails;
             vm.referralDetails = angular.copy(ReferralDetails);
         }
+
 
 
         if ($stateParams.share_status == 'share') {
@@ -947,7 +951,6 @@
         }
 
 
-
         $scope.$watch(function () {
             return vm.geo_details;
             }, function (location) {
@@ -1183,7 +1186,7 @@
 
 
 
-    function TalentCommunityController($scope, $http, $timeout, $uibModalInstance, ReferralDetails, CampaignDetails, formJobOrCampagin, App) {
+    function TalentCommunityController($mdDialog, $scope, $http, $timeout, $uibModalInstance, ReferralDetails, CampaignDetails, formJobOrCampagin, App) {
 
         var vm = this,
             details,
@@ -1291,7 +1294,7 @@
                         vm.responseMsg = response.message.msg[0];
                         $timeout(function(){
                            vm.closeDialog();
-                        }, 2000);
+                        }, 6000);
                     }
                     else{
                         vm.errorMsg = response.message.msg[0];
@@ -1299,6 +1302,7 @@
                 })
             }
         }
+        
 
         $scope.$watch(function () {
             return vm.geo_details;
@@ -1338,7 +1342,6 @@
 
 
             $scope.$on('responseSubmitted', function (event, response) {
-                alert();
                 if (!response) {
                     closeAssessment();
                     return;
@@ -1378,7 +1381,7 @@
             }
     }
 
-    
+
     function CheckAssessmentController($scope, $mdDialog) {
 
         var vm = this;
@@ -1409,7 +1412,7 @@
 
 
     function FormViewerController($scope, $rootScope, $http, $timeout, $q, $uibModal, $mdDialog, $state, $stateParams, RefDetails, $window, candidateDetails, CampaignDetails, mmQuestionnaire, App) {
-     
+
         var vm = this;
         vm.formOptions = {
             autoStart: false,
@@ -1428,10 +1431,12 @@
             campaign_id : CampaignDetails.campaign_id
         });
         vm.formData = null;
+
         $http({
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
             },
+            dataType: 'json',
             method: 'POST',
             url: App.base_url + 'get_assessment',
             data: apiKeys
@@ -1440,6 +1445,15 @@
 
                 if (response.data.status_code == 200) {
                     vm.formData = response.data.data;
+                    // var tempData = response.data.data;
+                    // angular.forEach(tempData.pages, function(ques, index) {
+                    //   ques.sord_id = index+1;
+                    // });
+                    // vm.formData = tempData;
+
+                    // if(vm.formData.enable_full_screen) {
+                    //   vm.fullScreen();
+                    // }
                 } else if (response.data.status_code == 400) {
                     $window.location = App.base_url + 'logout';
                 }

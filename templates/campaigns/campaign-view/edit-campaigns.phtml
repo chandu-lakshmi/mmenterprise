@@ -1,10 +1,7 @@
 <div class="edit-campaigns">
     <div class="container">
-        <div class="head">
-            <a ng-click="EditCampaignsCtrl.back()" title=""><img src="public/images/back-arrow-black.svg" alt="back"><span>BACK TO ALL CAMPAIGNS</span></a>
-            <span class="pull-right" ng-click="EditCampaignsCtrl.share()"><img src="public/images/material_icons/share.svg" alt=""></span>
-        </div>
-        <div class="box">
+         <div class="box">
+            <span class="share" ng-click="EditCampaignsCtrl.share()"><img src="public/images/material_icons/share.svg" alt=""></span>
             <div class="box-content">
                 <div class="row">
                     <div class="col-sm-12">
@@ -112,11 +109,11 @@
                                             <div flex="40" class="sib">
                                                 <md-input-container class="md-block date-time">
                                                     <label>CAMPAIGN START DATE</label>
-                                                    <input type='text' ng-disabled="group.status == 'CLOSED'" name="start{{$index}}" class="form-controls" schedule-start ng-model="scheduleStart" id='dtPickerStart{{$index}}' required ng-class="{'has-error-border':EditCampaignsCtrl.errCond && edit_campaigns_form['start'+$index].$error.required}"/>
+                                                    <input type='text' ng-disabled="group.status == 'CLOSED'" name="start{{$index}}" class="form-controls picker-full-close" schedule-start ng-model="scheduleStart" id='dtPickerStart{{$index}}' required ng-class="{'has-error-border':EditCampaignsCtrl.errCond && edit_campaigns_form['start'+$index].$error.required}"/>
                                                     <span class="input-group-addon">
                                                         <span class="glyphicon glyphicon-calendar"></span>
                                                     </span>
-
+ 
                                                     <input type="hidden" name="schedule[{{$index}}][start_on_date]" value="{{EditCampaignsCtrl.getScheduleDate('#dtPickerStart'+ $index)}}">
                                                     <input type="hidden" name="schedule[{{$index}}][start_on_time]" value="{{EditCampaignsCtrl.getScheduleTime('#dtPickerStart'+ $index)}}">
 
@@ -126,7 +123,7 @@
                                             <div flex="40" class="sib">
                                                 <md-input-container class="md-block date-time">
                                                     <label>CAMPAIGN END DATE</label>
-                                                    <input type='text' class="form-controls" name="end{{$index}}" required ng-model="scheduleEnd" schedule-end ng-disabled="group.status == 'CLOSED'" id='dtPickerEnd{{$index}}' ng-class="{'has-error-border':EditCampaignsCtrl.errCond && edit_campaigns_form['end'+$index].$error.required}"/>
+                                                    <input type='text' class="form-controls picker-full-close" name="end{{$index}}" required ng-model="scheduleEnd" schedule-end ng-disabled="group.status == 'CLOSED'" id='dtPickerEnd{{$index}}' ng-class="{'has-error-border':EditCampaignsCtrl.errCond && edit_campaigns_form['end'+$index].$error.required}"/>
                                                     <span class="input-group-addon">
                                                         <span class="glyphicon glyphicon-calendar"></span>
                                                     </span>

@@ -9,11 +9,65 @@ body.email-parser .modal .modal-body {
     margin: 0 0 20px; }
 
 .drop-box .container section {
-  width: 620px;
+  width: auto;
   min-height: 470px;
   margin: 0 auto;
   overflow: hidden;
-  padding-bottom: 120px; }
+  padding-bottom: 120px;
+font-family: 'Lato', sans-serif; }
+.backto-arrow {
+  background-image: url(../images/email-parser/sprite.png);
+    background-position: 0 -97px;
+    width: 22px;
+    height: 22px;
+    display: inline-block;
+    position: relative;
+    top: 5px;
+}
+.calendar-icon {
+  background-image: url(../images/email-parser/sprite.png) !important;
+    background-position: -6px -267px !important;
+    width: 29px !important;
+    height: 25px !important;
+    display: inline-block;
+    position: relative;
+    top: 8px;
+}
+.location-image  {
+  background-image: url(../images/email-parser/sprite.png) !important;
+    background-position: -6px -345px !important;
+    width: 16px !important;
+    height: 23px !important;
+    display: inline-block;
+    position: relative;
+    top: 8px;
+}
+.down-arrow {
+  background-image: url(../images/email-parser/sprite.png) !important;
+    background-position: 0px -145px !important;
+    width: 16px !important;
+    height: 23px !important;
+    display: inline-block;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
+.down-arrow.cnd-details {
+  top: 27px;
+}
+.search-icon {
+       background-image: url(../images/email-parser/sprite.png) !important;
+    background-position: 0px -193px !important;
+    width: 27px !important;
+    height: 33px !important;
+    display: inline-block;
+    position: absolute;
+    top: 8px;
+    left: 12px;
+}
+.filters>.container {
+  width: 880px;
+}
   .drop-box .container section .logo {
     text-align: center;
     margin: 0 auto;
@@ -28,7 +82,7 @@ body.email-parser .modal .modal-body {
     color: #00002e; }
   .drop-box .container section .referral-details h5 {
     color: #939393;
-    font-size: 16px; }
+    font-size: 14px; }
     .drop-box .container section .referral-details h5 .exp {
       padding-left: 7px; }
     .drop-box .container section .referral-details h5 .loc {
@@ -43,12 +97,18 @@ body.email-parser .modal .modal-body {
     .drop-box .container section .row .title {
       padding: 24px 14px;
       clear: both;
-      margin: 0; }
+      margin: 0; 
+    color: #323232;
+    font-size: 17px;}
     .drop-box .container section .row .title.candidate {
       border-top: 1px solid #e8e8e8;
       clear: both; }
     .drop-box .container section .row .form-style .form-group, .drop-box .container section .row .form-style .file {
       margin-bottom: 35px; }
+      .candidate-detail-input input {
+            b/*order: 2px solid #d2d2d2;
+    box-shadow: none;*/
+      }
       .drop-box .container section .row .form-style .form-group label, .drop-box .container section .row .form-style .file label {
         color: #5b5b5b;
         font-weight: initial;
@@ -62,7 +122,8 @@ body.email-parser .modal .modal-body {
         -webkit-appearance: none;
         -moz-appearance: none;
         font-size: 16px;
-        border-color: #b9b9b9; }
+        border-color: #b9b9b9;
+      font-family: 'Lato', sans-serif;}
       .drop-box .container section .row .form-style .form-group select::-ms-expand, .drop-box .container section .row .form-style .file select::-ms-expand {
         display: none; }
       .drop-box .container section .row .form-style .form-group select, .drop-box .container section .row .form-style .file select {
@@ -143,7 +204,8 @@ body.email-parser .modal .modal-body {
               position: absolute;
               top: 47px;
               background: transparent !important;
-              color: red; }
+              color: red; 
+              display: none;}
               .drop-box .container section .row .form-style .file #upload-resume .qq-uploader .qq-upload-list .qq-upload-fail i {
                 display: none; }
             .drop-box .container section .row .form-style .file #upload-resume .qq-uploader .qq-upload-list li:not(.qq-upload-success) {
@@ -189,18 +251,34 @@ body.email-parser .modal .modal-body {
           content: '';
           position: absolute;
           border: 1px solid #b9b9b9;
-          height: 45px;
-          width: 295px;
-          left: 1px;
-          top: 28px; }
+          height: 38px;
+          width: 100%;
+          left: 0;
+          top: 25px; }
       .drop-box .container section .row .form-style .file .file-name {
         position: absolute;
-        top: 40px;
+        top: 36px;
         left: 18px;
         max-width: 150px; }
   .drop-box .container section .footer {
     padding-top: 22px;
     font-size: 18px; }
+    .drop-box .container section .cand-details-footer {
+      padding-top: 18px;
+      font-size: 13px;
+    }
+    .drop-box .container section .cand-details-footer .pull-right .cancel {
+      text-transform: capitalize !important;
+      line-height: 35px !important;
+    }
+    .drop-box .container section .cand-details-footer .pull-right .submit {
+      padding: 9px 20px !important;
+      font-size: 13px !important;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -o-border-radius: 2px;
+    }
     .drop-box .container section .footer .pull-left .message {
       color: #e84949;
       font-size: 15px; }
@@ -240,5 +318,16 @@ body.email-parser .modal .modal-body {
   left: 16px;
   background: #fff;
   z-index: -1; }
-
+.campaign-details .left .drop-box .container .candidate-details .row .form-style .has-error-msg {
+  left: 20px;
+}
+.campaign-details .left .drop-box .container .candidate-details .row .form-style .file #upload-resume .qq-uploader .qq-upload-button {
+  right: 0px;
+  top: 1px;
+  height: 36px;
+  line-height: 36px;
+}
+.job-details-list {
+  padding-right: 15px;
+}
 /*# sourceMappingURL=email-parser.css.map */

@@ -263,17 +263,20 @@ md-dialog md-dialog-actions button.md-primary {
         .campaigns .edit-campaigns .head a span {
           vertical-align: middle;
           margin-left: 15px; }
-      .campaigns .edit-campaigns .head .pull-right {
-        outline: none; }
-        .campaigns .edit-campaigns .head .pull-right img {
-          width: 25px;
-          height: 25px; }
     .campaigns .edit-campaigns .box {
       border: 1px solid #cdcdcd;
       box-shadow: 1px 1px 10px #cdcdcd;
       -webkit-box-shadow: 1px 1px 10px #cdcdcd;
       background: #fff;
-      padding: 40px; }
+      padding: 40px;
+      position: relative; }
+      .campaigns .edit-campaigns .box .share {
+        position: absolute;
+        right: 40px;
+        top: 34px; }
+        .campaigns .edit-campaigns .box .share img {
+          width: 25px;
+          height: 25px; }
       .campaigns .edit-campaigns .box .content {
         color: #767877;
         /* .date{

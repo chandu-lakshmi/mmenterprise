@@ -11,20 +11,26 @@
 	  
 	.service('EditTestService', EditTestService)
 
-  	TestsListController.$inject    = ['$timeout', '$mdToast', '$uibModal', '$http', '$window', 'App'];
+  	TestsListController.$inject    = ['$q', '$state', '$timeout', '$mdToast', '$uibModal', '$http', '$window', 'App'];
 	CreateTestController.$inject   = ['$state', '$timeout', '$http', '$window', '$mdToast', 'CompanyDetails', 'App'];
 	EditTestController.$inject     = ['$stateParams', '$timeout', '$http', '$window', '$mdToast', '$uibModal', 'App', 'EditTestService'];
 	TestSettingsController.$inject = ['$state', '$stateParams', '$timeout', '$http', '$window', '$mdToast', 'App'];
 
-	function TestsListController($timeout, $mdToast, $uibModal, $http, $window, App) {
+	function TestsListController($q, $state, $timeout, $mdToast, $uibModal, $http, $window, App) {
 
-		var vm = this;
+        var vm = this;
+        
+        this.filterOptions = [
+            { name: 'Status', children: [{ label: 1, value: 'Active' }, { label: 0, value: 'Inactive' }] }
+        ];
 
 		this.grid = {
-			pageNo: 1,
-			inProgress: false,
-			responseMsg: null,
-			totalRecords : null
+            pageNo : 1,
+            filter : [],
+            search : null, 
+			inProgress   : false,
+			responseMsg  : null,
+			totalRecords : 0
 		};
 
 		this.gridOptions = {
@@ -35,7 +41,7 @@
 			enableColumnMenus: false,
 			enableRowSelection: true,
 			enableRowHeaderSelection: false,
-			enableFullRowSelection: false,
+			enableFullRowSelection: true,
 			data: [],
 			appScopeProvider: vm // bindin scope to grid
 		};
@@ -51,7 +57,7 @@
 
 		this.gridOptions.onRegisterApi = function (gridApi) {
 			gridApi.selection.on.rowSelectionChanged(null, function (row) {
-				
+                $state.go('app.campaigns.EditTest', { id: row.entity.idexam });
 			});
 
 			gridApi.selection.on.rowSelectionChangedBatch(null, function (rows) {
@@ -61,18 +67,31 @@
 			vm.gridApi = gridApi;
 		}
 
+        var canceler;
         this.getTestList =  function () {
+            
+            if (canceler) {
+                canceler.resolve();
+            }
 
-            var apiKeys = $.param({ page_no: vm.grid.pageNo });
+            canceler = $q.defer();
+
+            var apiKeys = $.param({ 
+                page_no : vm.grid.pageNo,
+                filter  : vm.grid.filter,
+                search  : vm.grid.search
+            });
+
             vm.grid.inProgress = true;
 
             $http({
-                headers: {
+                headers : {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                 },
-                method: 'POST',
-                data: apiKeys,
-                url: App.base_url + 'get_company_assessments_all',
+                method  : 'POST',
+                data  : apiKeys,
+                url   : App.base_url + 'get_company_assessments_all',
+                timeout : canceler.promise
             })
             .then(function (response) {
                 if (response.data.status_code == 200) {
@@ -90,6 +109,34 @@
             });
         }
 
+        var prevSelectedVal =[];
+        this.applyFilter = function() {
+            
+            if (prevSelectedVal.toString() == vm.grid.filter.toString()){
+                return;
+            }
+            prevSelectedVal = vm.grid.filter;
+            vm.getTestList();  
+
+        }
+
+        this.search_opts = {
+            delay: 500,
+            progress: false,
+            complete: false,
+            placeholder: 'Search by Assessment Name',
+            onSearch: function (val) {
+                vm.grid.search = val;
+                vm.getTestList();
+                vm.search_opts.progress = false;
+                vm.search_opts.complete = true;
+            },
+            onClear: function () {
+                vm.search_val = "";
+                vm.grid.search = null;
+                vm.getTestList();
+            }
+        }
 
 		function init() {
 			vm.getTestList();
@@ -222,7 +269,43 @@
 		var vm = this;
 
 		this.getTestDetailsInProgress = true;
-		
+        
+        this.gridOptions = {
+            rowHeight: 70,
+            selectionRowHeaderWidth: 44,
+            enableHorizontalScrollbar: 0,
+            enableSorting: true,
+            enableColumnMenus: false,
+            enableRowSelection: false,
+            enableRowHeaderSelection: false,
+            enableFullRowSelection: false,
+            data: [],
+            appScopeProvider: vm // bindin scope to grid
+        };
+
+        this.gridOptions.columnDefs = [
+            { name: 'question', displayName: 'QUESTION', width: '52%' },
+            { name: 'question_type', displayName: 'TYPE' },
+            { name: 'question_value', displayName: 'SCORE', width: '10%' },
+            { name: 'exam_question_id', displayName: 'ACTIONS', width: '15%', cellTemplate: 'action.html', cellClass: 'action-view' }
+        ];
+
+        this.gridOptions.onRegisterApi = function (gridApi) {
+
+            gridApi.selection.on.rowSelectionChanged(null, function (row) {
+                updateQuestionSelection(row);
+            });
+
+            gridApi.selection.on.rowSelectionChangedBatch(null, function (rows) {
+                angular.forEach(rows, function (row) {
+                    updateRowSelection(row)
+                });
+            });
+
+            vm.gridApi = gridApi;
+        }
+
+        
 		this.deleteQuestion = function (id) {
 			$uibModal.open({
 				animation: false,
@@ -274,8 +357,8 @@
 			})
 			.then(function (response) {
 				if (response.data.status_code == 200) {
-				
-					vm.testDetails = response.data.data 
+                    vm.testDetails = response.data.data;
+                    vm.gridOptions.data = vm.testDetails.exam_question_list;
 					vm.getTestDetailsInProgress = false;
 
 				}
@@ -294,9 +377,9 @@
 					template: '<md-toast class="mm-toast"><div class="md-toast-text" flex><i class="material-icons">done</i><div class="text"><div class="toast-succ">Success!</div><div class="succ-text">' + response.message.msg[0] + '</div></div></div></md-toast>'
 				}, 200);
 			});
-			angular.forEach(vm.testDetails.exam_question_list, function(element, index) {
+            angular.forEach(vm.gridOptions.data, function(element, index) {
 				if (response.data.id == element.exam_question_id) {
-                    vm.testDetails.exam_question_list.splice(index, 1);
+                    vm.gridOptions.data.splice(index, 1);
 				}	
 			});				
         }
@@ -506,7 +589,7 @@
 	function EditTestService() {
 		
 		this.data;
-
+        
 		this.setData = function (data) {
 			this.data = angular.copy(data);
 		}

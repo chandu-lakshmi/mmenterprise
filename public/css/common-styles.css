@@ -160,6 +160,37 @@ md-dialog.simple-dialog md-dialog-actions {
     color: #e66a6a;
     background: transparent !important; }
 
+/* Date picker close button  */
+.picker-close + .bootstrap-datetimepicker-widget table {
+  width: 90%; }
+.picker-close + .bootstrap-datetimepicker-widget .list-unstyled {
+  position: relative; }
+  .picker-close + .bootstrap-datetimepicker-widget .list-unstyled .picker-switch.accordion-toggle {
+    position: absolute;
+    top: 4px;
+    right: 5px; }
+    .picker-close + .bootstrap-datetimepicker-widget .list-unstyled .picker-switch.accordion-toggle .glyphicon-remove {
+      color: #000;
+      text-align: right;
+      width: 16px;
+      display: inline-block;
+      height: 16px;
+      line-height: 16px; }
+
+.picker-full-close + .bootstrap-datetimepicker-widget {
+  position: relative; }
+  .picker-full-close + .bootstrap-datetimepicker-widget .picker-switch.accordion-toggle {
+    position: absolute;
+    top: 12px;
+    right: 12px; }
+    .picker-full-close + .bootstrap-datetimepicker-widget .picker-switch.accordion-toggle .glyphicon-remove {
+      color: #000;
+      text-align: right;
+      width: 16px;
+      display: inline-block;
+      height: 16px;
+      line-height: 16px; }
+
 /* Model for network error */
 #network-error {
   z-index: 999999; }

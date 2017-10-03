@@ -1,5 +1,5 @@
 <h3  class="text-center animated slideInDown" ng-if="!!AllJobsCtrl.noLongerAvailable" style="color: rgba(0,0,0,.87); margin-top: 20%;" ng-bind="AllJobsCtrl.noLongerAvailable"></h3>
-<div class="all-jobs" ng-if="!AllJobsCtrl.noLongerAvailable">
+<div class="all-jobs job-lists" ng-if="!AllJobsCtrl.noLongerAvailable">
     <h4 class="job-count">{{AllJobsCtrl.infiniteScroll.total_count}} Job(s) found</h4>
     <md-divider></md-divider>
     <div style="position:relative">
@@ -32,7 +32,7 @@
             </div>
         </div>
         <div class="drop-cv">
-            Refer friend for future openings here<md-button class="md-raised camp-btn" ui-sref="allJobs.referralDetails({ref: $root.ref,flag: 1,share_status: $stateParams.share_status, jc:$stateParams.jc})">Upload CV</md-button>
+            Refer a friend for future openings here<md-button class="md-raised camp-btn" ui-sref="allJobs.referralDetails({ref: $root.ref,flag: 1,share_status: $stateParams.share_status, jc:$stateParams.jc})">REFER</md-button>
         </div>
     </div>
 </div>

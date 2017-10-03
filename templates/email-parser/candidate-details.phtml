@@ -1,12 +1,18 @@
 <div class="drop-box">
     <div class="container">
-        <section>
+        <section class="candidate-details">
+            <!-- <a class="back" ui-sref="allCampaigns.all({ref: $root.camp_ref, share_status:$stateParams.share_status})">
+                <span class="backto-arrow"></span><h4 class="job-count ng-binding">Back to Job Details</h4>
+                <img src="../public/images/email-parser/arrow-back.svg">
+                <!-- ui-sref="allCampaigns.jobDetails({ref: list.ref_code, flag: 0, status:list.status, jc: 1, share_status: sh_cd})" - ->
+            </a>
+            <md-divider></md-divider> -->
             <h1 class="logo">
                 <img ng-src="{{ApplyJobCtrl.referralDetails.company_logo}}" alt="company-logo" ng-if="ApplyJobCtrl.referralDetails.company_logo != ''"  draggable="false">
                 <span class="company-name" ng-if="ApplyJobCtrl.referralDetails.company_logo == ''">{{ApplyJobCtrl.referralDetails.company_name| uppercase}}</span>	
             </h1>
             <!-- <div class="title-underline"></div> -->
-            <div class="referral-details" ng-if="ApplyJobCtrl.showJobDetails">
+            <!-- <div class="referral-details" ng-if="ApplyJobCtrl.showJobDetails">
                 <h3 ng-bind="ApplyJobCtrl.jobDetails.job_title"></h3>
                 <h5>
                     <span>Experience: </span>
@@ -17,18 +23,18 @@
                     <span class="loc" ng-bind="ApplyJobCtrl.jobDetails.location"></span>
                 </h5>
                 <hr>
-            </div>
+            </div> -->
             <div class="row">
                 <form name="apply_form" autocomplete="off" novalidate>
                     <h3 class="title">Candidate Details</h3>
-                    <div class="col-sm-6 form-style">
+                    <div class="col-sm-6 form-style candidate-detail-input">
                         <div class="form-group">
                             <label for="fname">Full Name<sup>*</sup></label>
                             <input name="fullname" class="form-control input-lg"  required id="fname" type="text" maxlength="50" ng-model="fullname">
                             <span ng-show="apply_form.fullname.$error.required && ApplyJobCtrl.errorRequired" class="has-error-msg">Please enter Full Name.</span>
                         </div>
                     </div>
-                    <div class="col-sm-6 form-style" ng-init="readOnly = $state.params.share_status == 'share' ? 'false' : 'true'">
+                    <div class="col-sm-6 form-style candidate-detail-input" ng-init="readOnly = $state.params.share_status == 'share' ? 'false' : 'true'">
                         <div class="form-group">
                             <label for="email">Email<sup>*</sup></label>
 
@@ -41,13 +47,13 @@
                             <span ng-show="apply_form.emailid.$error.pattern && ApplyJobCtrl.errorRequired" class="has-error-msg">Please enter valid Email.</span>
                         </div>
                     </div>
-                    <div class="col-sm-6 form-style">
+                    <div class="col-sm-6 form-style candidate-detail-input">
                         <div class="form-group gap">
                             <label for="can-mobile">Phone Number</label>
                             <input name="phone_no" class="form-control input-lg" id="can-mobile" type="text" type="tel" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 0' maxlength="50" ng-model="values">
                         </div>
                     </div>
-                    <div class="col-sm-6 form-style">
+                    <div class="col-sm-6 form-style candidate-detail-input upload-button">
                         <div class="file">
                             <label for="can-upload">Upload CV<sup ng-if="ApplyJobCtrl.hasResumeUpload">*</sup></label>
                             <span class="file-name" ng-bind="ApplyJobCtrl.fileName" title="{{ApplyJobCtrl.fileName}}"></span>
@@ -58,7 +64,7 @@
                     </div>
                 </form>
             </div>
-            <div class="footer clearfix">
+            <div class="cand-details-footer footer clearfix">
                 <div class="pull-left">
                     <span style="line-height:50px;">
                         <span ng-if="ApplyJobCtrl.loader">

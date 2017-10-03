@@ -935,7 +935,7 @@
             list  : [],
             selectedOne: vm.campaignDetails.bucket_ids,
             newlySelectedBkts : [],
-            headerTxt : 'SELECT CONTACTS COMMUNITY TO PUBLISH CAMPAIGN'
+            headerTxt : 'SELECT COMMUNITY TO PUBLISH CAMPAIGN'
         }
 
         vm.bucktesViewExternalOpts = {
@@ -1737,7 +1737,7 @@
         var vm = this;
 
         this.grid = {
-            recordsCount : 0, 
+            recordsCount : 0,
             inProgress: false,
             responseMsg: null
         };
@@ -1813,6 +1813,7 @@
                 if (response.data.status_code == 200) {
                     vm.gridOptions.data  = response.data.data.candidates;
                     vm.grid.recordsCount = response.data.data.total_recorders;
+                    CampaignsData.getCampaigns().all_candidates_count = vm.grid.recordsCount;
                 }
                 else if (response.data.status_code == 403) {
                     vm.gridOptions.data = [];
@@ -1910,6 +1911,7 @@
                     if (response.data.status_code == 200) {
                         vm.gridOptions.data = response.data.data.candidates;
                         vm.grid.recordsCount = response.data.data.total_recorders;
+                        CampaignsData.getCampaigns().screened_candidates_count = vm.grid.recordsCount;
                     }
                     else if (response.data.status_code == 403) {
                         vm.gridOptions.data = [];

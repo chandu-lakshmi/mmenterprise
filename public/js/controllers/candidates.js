@@ -363,7 +363,7 @@
                 uploadButtonText: id == 'upload' ? "Choose file" : 'Change',
                 minSizeLimit: (1 * 1024),
                 size: (5 * 1024 * 1024),
-                allowedExtensions: ['doc', 'docx'],
+                allowedExtensions: ["doc", "pdf", "rtf", "docx"],
                 action: App.base_url + "resume_file_upload",
                 showFileInfo: false,
                 shortMessages: true,
@@ -730,7 +730,7 @@
                 apiKeyCandidateDetails = { contact_id:candidateId };
 
 
-        vm.newTalentList      = [{ label:'New Talent'}, { label:'Great Fit' }, { label:'Good Fit' }, { label:'Not Suitable' }, { label:'Employed' }];
+        vm.newTalentList      = [{ label:'New Talent'}, { label:'Great Hire' }, { label:'Good Hire' }, { label:'Not Suitable' }, { label:'Employee' }];
         vm.referralStatusList = ["New", "Reviewed", "Shortlisted", "Scheduled for Interview", "Not Suitable", "Selected", "Offered", "Offer Accepted", "On Hold", "Offer Rejected", "Confirmed to Join", "Hired", "Not Joined", "Joined"];
         vm.scheduleForList    = ["Face to Face", "Online Meeting", "Telephone"];
         vm.referralId         = $stateParams.id;
@@ -1316,6 +1316,14 @@
 
         }
 
+        vm.createTag = function(chip) {
+            if (typeof chip != 'object') {
+                vm.addTag({ tag_id: null, tag_name: chip });
+            }
+            vm.inProgressSearchTagJobs = false;
+            return null;
+        }
+
         vm.toogleTabs = function (id) {
             $("#" + id).slideToggle('slow');
             vm[id] = !vm[id];
@@ -1534,6 +1542,7 @@
             $('#interview_date').datetimepicker({
                 minDate : new Date(),
                 ignoreReadonly: true,
+                showClose  : true,
                 format     : 'dddd, DD MMM YYYY',
                 sideBySide : true,
                 useCurrent :true
@@ -1541,6 +1550,7 @@
 
             $('#time_from').datetimepicker({
                 ignoreReadonly: true,
+                showClose  : true,
                 format     : 'hh:mm A',
                 sideBySide : true,
                 useCurrent : true
@@ -1548,6 +1558,7 @@
 
             $('#time_to').datetimepicker({
                 ignoreReadonly: true,
+                showClose  : true,
                 format     : 'hh:mm A',
                 sideBySide : true,
                 useCurrent : false
@@ -1581,7 +1592,5 @@
 
 
     }
-
-
 
 }());

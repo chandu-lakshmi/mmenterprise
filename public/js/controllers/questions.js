@@ -9,21 +9,24 @@
     .controller('QuestionAddController', QuestionAddController)
 
 
-    QuestionsListController.$inject  = ['$timeout', '$mdToast','$uibModal', '$http', '$window', 'App'];
+    QuestionsListController.$inject  = ['$q', '$timeout', '$mdToast','$uibModal', '$http', '$window', 'App'];
 	CreateQuestionController.$inject = ['$scope', '$stateParams', '$timeout', '$state', '$http', '$window', '$mdToast', 'EditTestService', 'App'];
 	QuestionAddController.$inject = ['$scope', '$stateParams', '$timeout', '$state', '$http', '$window', '$mdToast', 'EditTestService', 'App'];
 
 
-	function QuestionsListController($timeout, $mdToast, $uibModal, $http, $window, App) {
+	function QuestionsListController($q, $timeout, $mdToast, $uibModal, $http, $window, App) {
 		
         var vm = this
         
         this.selectedQuestions = [];
 
 		this.grid = {
-            pageNo      : 1,
+            pageNo : 1,
+            filter : [],
+            search : null,
 			inProgress  : false,
-			responseMsg : null
+            responseMsg : null,
+            totalRecords: 0
 		};
 
 		this.gridOptions = {
@@ -53,25 +56,15 @@
             });
             
 			gridApi.selection.on.rowSelectionChangedBatch(null, function (rows) {
+                if (vm.grid.inProgress){
+                    return;
+                }
                 angular.forEach(rows, function(row){
-                    updateRowSelection(row)
+                    updateQuestionSelection(row)
                 });
 			});
-            
+
 			vm.gridApi = gridApi;
-        }
-        
-        function updateQuestionSelection(row) {
-            var index = vm.selectedQuestions.indexOf(row.entity.question_id);
-            if (row.isSelected) {
-                if (index == -1) {
-                    vm.selectedQuestions.push(row.entity.question_id);
-                }
-            } else {
-                if (index > -1) {
-                    vm.selectedQuestions.splice(index, 1);
-                }
-            }
         }
 
 		this.deleteQuestion = function (id) {
@@ -105,9 +98,21 @@
 			})
 		}
 
+        var canceler;
         this.getQuestionList = function () {
 
-            var apiKeys = $.param({ page_no: vm.grid.pageNo });
+            if (canceler) {
+                canceler.resolve();
+            }
+
+            canceler = $q.defer();
+
+            var apiKeys = $.param({
+                page_no: vm.grid.pageNo,
+                filter: vm.grid.filter,
+                search: vm.grid.search
+            });
+            
             vm.grid.inProgress = true;
 
             $http({
@@ -117,10 +122,19 @@
                 method: 'POST',
                 data: apiKeys,
                 url: App.base_url + 'get_questions_list',
+                timeout: canceler.promise
             })
             .then(function (response) {
                 if (response.data.status_code == 200) {
                     vm.gridOptions.data = response.data.data.questions_list;
+                    vm.gridApi.selection.clearSelectedRows();
+                    $timeout(function(){
+                        angular.forEach(vm.gridOptions.data, function (row, index) {
+                            if (vm.selectedQuestions.indexOf(row.question_id) > -1) {
+                                vm.gridApi.selection.selectRow(vm.gridOptions.data[index]);
+                            }
+                        });
+                    })
                 }
                 else if (response.data.status_code == 403) {
                     vm.gridOptions.data = [];
@@ -134,10 +148,60 @@
             });
         }
 
+        var prevSelectedVal = [];
+        this.applyFilter = function () {
+
+            if (prevSelectedVal.toString() == vm.grid.filter.toString()) {
+                return;
+            }
+            prevSelectedVal = vm.grid.filter;
+            vm.getQuestionList();
+
+        }
+
+        this.search_opts = {
+            delay: 500,
+            progress: false,
+            complete: false,
+            placeholder: 'Search by Question',
+            onSearch: function (val) {
+                vm.grid.search = val;
+                vm.getQuestionList();
+                vm.search_opts.progress = false;
+                vm.search_opts.complete = true;
+            },
+            onClear: function () {
+                vm.search_val = "";
+                vm.grid.search = null;
+                vm.getQuestionList();
+            }
+        }
+
 
 		function init() {
+            getQuestionType();
 			vm.getQuestionList();
-		}
+        }
+        
+        function getQuestionType() {
+            $http({
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                method: 'POST',
+                url: App.base_url + 'get_question_types',
+            })
+            .then(function (response) {
+                if (response.status == 200) {
+                    vm.filterOptions = [
+                        { name: 'Question Type', children: response.data.data }
+                    ];
+                }
+                else if (response.data.status_code == 400) {
+                    $window.location = App.base_url + 'logout';
+                }
+            });
+        }
 
 		function deleteQeustionCallback(response) {
             vm.selectedQuestions = [];
@@ -152,6 +216,18 @@
 			});
 		}
 
+        function updateQuestionSelection(row) {
+            var index = vm.selectedQuestions.indexOf(row.entity.question_id);
+            if (row.isSelected) {
+                if (index == -1) {
+                    vm.selectedQuestions.push(row.entity.question_id);
+                }
+            } else {
+                if (index > -1) {
+                    vm.selectedQuestions.splice(index, 1);
+                }
+            }
+        }
 
 		init();
 		
@@ -269,6 +345,12 @@
 				}
 			}
 		}
+
+        this.createTag = function (chip) {
+            if(typeof chip != 'object'){
+                return { library_id: null, library_name:chip }
+            }
+        }
 
 
 		function init() {
@@ -463,10 +545,12 @@
 		var vm     = this,
 			examId = $stateParams.examId;
 
-
+        this.selectedQuestionsId   = [];
+        this.selectedQuestionsArr  = [];
+        this.addQuestionInProgress = false;
 		this.testDetails = EditTestService.getData();
 		this.grid = {
-			pageNo: 1,
+            pageNo : 1,
 			inProgress: false,
 			responseMsg: null
 		};
@@ -476,9 +560,9 @@
 			enableHorizontalScrollbar: 0,
 			enableSorting: true,
 			enableColumnMenus: false,
-			enableRowSelection: true,
-			enableRowHeaderSelection: false,
-			enableFullRowSelection: false,
+			enableRowSelection: false,
+			enableRowHeaderSelection: true,
+			enableFullRowSelection: true,
 			data: [],
 			appScopeProvider: vm // bindin scope to grid
 		};
@@ -489,28 +573,72 @@
 			{ name: 'question_id', displayName: 'ACTION', width: '15%', cellTemplate: 'action.html', cellClass: 'action-view' }
 		];
 
-		this.gridOptions.onRegisterApi = function (gridApi) {
+        this.gridOptions.onRegisterApi = function (gridApi) {
 
-			gridApi.selection.on.rowSelectionChanged(null, function (row) {
+            gridApi.selection.on.rowSelectionChanged(null, function (row) {
+              
+                updateQuestionSelection(row);
+            });
 
-			});
+            gridApi.selection.on.rowSelectionChangedBatch(null, function (rows) {
+                if (vm.grid.inProgress) {
+                    return;
+                }
+                angular.forEach(rows, function (row) {
+                    updateQuestionSelection(row)
+                });
+            });
 
-			gridApi.selection.on.rowSelectionChangedBatch(null, function (rows) {
+            vm.gridApi = gridApi;
+        }
 
-			});
+        this.gridOptions.isRowSelectable = function (row) {
+            return vm.prevSelectedQuestions.indexOf(row.entity.question_id) == -1;
+        }
 
-			vm.gridApi = gridApi;
-		}
+        function updateQuestionSelection(row) {
+
+            var index = vm.selectedQuestionsId.indexOf(row.entity.question_id);
+            if (row.isSelected) {
+                if (index == -1) {
+                    vm.selectedQuestionsId.push(row.entity.question_id);
+                    vm.selectedQuestionsArr.push(row.entity);
+                }
+            } else {
+                if (index > -1) {
+                    vm.selectedQuestionsId.splice(index, 1);
+                    vm.selectedQuestionsArr.splice(index, 1);
+                }
+            }
+        }
 
 		this.addQuestion = function(row) {
 			
-			vm.prevSelectedQuestions.push(row.entity.question_id);
+            
+            if(row) {
+                //single
+                vm.prevSelectedQuestions.push(row.entity.question_id);
+                var tempObj = {
+                    question_id: row.entity.question_id,
+                    question_value: row.entity.question_value
+                };
+                var apiKeys = $.param({ exam_id: examId, exam_question_arr: [tempObj] });
+            } 
+            else{ 
+                //multiple
+                vm.addQuestionInProgress = true;
+                vm.prevSelectedQuestions = vm.prevSelectedQuestions.concat(vm.selectedQuestionsId);
 
-			var apiKeys = $.param({ 
-                exam_id     : examId,
-				question_id : row.entity.question_id,
-                question_value : row.entity.question_value
-			});
+                var tempArr = [];
+                angular.forEach(vm.selectedQuestionsArr, function(row){
+                    var tempObj = {};
+                    tempObj.question_id = row.question_id;
+                    tempObj.question_value = row.question_value;
+                    tempArr.push(tempObj)
+                });
+                var apiKeys = $.param({ exam_id: examId, exam_question_arr : tempArr});
+            }
+			
 
 			$http({
 				headers: {
@@ -527,8 +655,11 @@
 						hideDelay: 3000,
 						position: 'top right',
 						template: '<md-toast class="mm-toast"><div class="md-toast-text" flex><i class="material-icons">done</i><div class="text"><div class="toast-succ">Success!</div><div class="succ-text">' + response.data.message.msg[0] + '</div></div></div></md-toast>'
-					});
-					
+                    });
+                    vm.addQuestionInProgress = false;
+                    vm.selectedQuestionsArr  = [];
+                    vm.selectedQuestionsId   = [];
+                    vm.gridApi.selection.clearSelectedRows();
 				}
 				else if (response.data.status_code == 400) {
 					$window.location = App.base_url + 'logout';
@@ -558,6 +689,14 @@
             .then(function (response) {
                 if (response.data.status_code == 200) {
                     vm.gridOptions.data = response.data.data.questions_list;
+                    vm.gridApi.selection.clearSelectedRows();
+                    $timeout(function () {
+                        angular.forEach(vm.gridOptions.data, function (row, index) {
+                            if (vm.selectedQuestionsId.indexOf(row.question_id) > -1) {
+                                vm.gridApi.selection.selectRow(vm.gridOptions.data[index]);
+                            }
+                        });
+                    })
                 }
                 else if (response.data.status_code == 403) {
                     vm.gridOptions.data = [];
@@ -579,7 +718,8 @@
 			vm.prevSelectedQuestions = [];
 			angular.forEach(vm.testDetails.exam_question_list, function (question) {
 				vm.prevSelectedQuestions.push(question.question_id);
-			});
+            });
+            
 		}
 
 		if (!vm.testDetails) {
@@ -596,3 +736,4 @@
 	}
 
 }());
+

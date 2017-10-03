@@ -1,5 +1,5 @@
 <h3 class="text-center animated slideInDown" ng-if="!!AllCampaignsCtrl.noLongerAvailable" style="color: rgba(0,0,0,.87); margin-top: 20%;" ng-bind="AllCampaignsCtrl.noLongerAvailable"></h3>
-<div class="all-campaigns" ng-if="!AllCampaignsCtrl.noLongerAvailable">
+<div class="all-campaigns job-details-list" ng-if="!AllCampaignsCtrl.noLongerAvailable">
     <h4 class="job-count">{{AllCampaignsCtrl.infiniteScroll.headerDetails.count}} Job(s) found</h4>
     <md-divider></md-divider>
     <div style="position:relative">
@@ -31,6 +31,10 @@
                 </div>
                 <h4 ng-if="AllCampaignsCtrl.inProgressInfinite" class="loading-infinite">Loading...</h4>
             </div>
+        </div>
+        <p class="join-talent">Joining our Talent Network will enhance your job search and application process.</p>
+        <div class="join-talent-network create-camp" ng-if="CampaignDetails.career_talent_network=='enable'" ng-click="CampaignsCtrl.createCampaign()">
+            <div class="join-team">JOIN OUR TALENT NETWORK</div>
         </div>
     </div>
 </div>

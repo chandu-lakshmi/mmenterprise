@@ -57,6 +57,7 @@ return [
             'PASSWORD_GRANT'    => 'password',
 			 //qquploader path
             'PATH'    => '/xampp/htdocs/mintmesh_10/',
+            'PREVIEW_PATH'  => 'http://localhost/mintmesh/uploads/',
             //Version
             'APP_VERSION' => '1.2' 
         ],

@@ -207,12 +207,6 @@
                     controller: 'FindResumeController',
                     controllerAs: 'FindResumeCtrl'
                 })
-                $stateProvider.state('app.createCampaign', {
-                    url: '^/campaigns/create-campaign',
-                    templateUrl: App.base_url + 'templates/campaigns/create-campaign.phtml',
-                    controller: 'NewCampaignController',
-                    controllerAs: 'NewCampaignCtrl'
-                })
 
 
                 $stateProvider.state('app.campaigns', {
@@ -220,6 +214,12 @@
                     templateUrl: App.base_url + 'templates/campaigns/campaigns.phtml',
                     controller: 'CampaignsController',
                     controllerAs: 'CampaignsCtrl'
+                })
+                $stateProvider.state('app.campaigns.createCampaign', {
+                    url: '^/campaigns/create-campaign',
+                    templateUrl: App.base_url + 'templates/campaigns/create-campaign.phtml',
+                    controller: 'NewCampaignController',
+                    controllerAs: 'NewCampaignCtrl'
                 })
                 $stateProvider.state('app.campaigns.allCampaigns', {
                     url: '^/campaigns/all-campaigns',

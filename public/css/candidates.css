@@ -592,7 +592,7 @@
               .candidates .candidate-details .section md-card .title .resume a.download:hover {
                 opacity: 0.7; }
         .candidates .candidate-details .section md-card .details {
-          padding: 16px 20px 0; }
+          padding: 16px 20px; }
           .candidates .candidate-details .section md-card .details .list {
             margin-bottom: 28px; }
             .candidates .candidate-details .section md-card .details .list h5 {
@@ -1105,7 +1105,7 @@
         .candidates .candidate-details .section md-card .tag-job {
           margin: 12px 0 20px !important; }
           .candidates .candidate-details .section md-card .tag-job .md-chips:before {
-            content: 'CHOOSE A JOB*' !important; }
+            content: 'Choose a Job*' !important; }
           .candidates .candidate-details .section md-card .tag-job .select-one .md-chips {
             box-shadow: none; }
             .candidates .candidate-details .section md-card .tag-job .select-one .md-chips .md-chip-content {
@@ -1126,7 +1126,7 @@
                 transform: translate3d(-3px, -13px, 0) scale(0.85);
                 font-weight: 900; }
             .candidates .candidate-details .section md-card .attendees .md-chips:before {
-              content: 'ATTENDEES *';
+              content: 'Attendees *';
               position: absolute;
               padding-left: 3px;
               -webkit-transform: translate3d(-3px, 18px, 0) scale(1);
@@ -1140,7 +1140,7 @@
               -webkit-transform-origin: left top;
               transform-origin: left top; }
             .candidates .candidate-details .section md-card .attendees .md-chips .md-chip-input-container {
-              width: auto; }
+              width: 100%; }
               .candidates .candidate-details .section md-card .attendees .md-chips .md-chip-input-container input {
                 height: 34px;
                 font-size: 14px; }
@@ -1184,29 +1184,30 @@
             height: 20px;
             position: absolute;
             right: 6px;
-            bottom: 10px; }
-        .candidates .candidate-details .section md-card .add-tag .attendees {
-          margin: 0 !important; }
-          .candidates .candidate-details .section md-card .add-tag .attendees .sp .md-chips:before {
-            content: '' !important; }
-          .candidates .candidate-details .section md-card .add-tag .attendees .sp md-chips-wrap.md-chips {
-            box-shadow: none; }
-            .candidates .candidate-details .section md-card .add-tag .attendees .sp md-chips-wrap.md-chips.md-focused {
-              box-shadow: none !important; }
-              .candidates .candidate-details .section md-card .add-tag .attendees .sp md-chips-wrap.md-chips.md-focused .md-chip-input-container {
-                box-shadow: 0 1px #208d6e; }
-            .candidates .candidate-details .section md-card .add-tag .attendees .sp md-chips-wrap.md-chips .md-chip-input-container {
-              width: 200px !important;
-              box-shadow: 0 1px rgba(0, 0, 0, 0.12);
-              margin: 0; }
-            .candidates .candidate-details .section md-card .add-tag .attendees .sp md-chips-wrap.md-chips md-chip {
-              margin-top: 0;
-              margin-bottom: 10px; }
-          .candidates .candidate-details .section md-card .add-tag .attendees .disable-input .md-chip-input-container {
-            display: none; }
-        .candidates .candidate-details .section md-card .add-tag .loader {
-          bottom: 25px;
-          right: 0; }
+            bottom: 10px !important; }
+        .candidates .candidate-details .section md-card .add-tag {
+          min-height: initial !important; }
+          .candidates .candidate-details .section md-card .add-tag .attendees {
+            margin: 0 !important; }
+            .candidates .candidate-details .section md-card .add-tag .attendees .sp .md-chips:before {
+              content: '' !important; }
+            .candidates .candidate-details .section md-card .add-tag .attendees .sp md-chips-wrap.md-chips {
+              box-shadow: none; }
+              .candidates .candidate-details .section md-card .add-tag .attendees .sp md-chips-wrap.md-chips.md-focused {
+                box-shadow: none !important; }
+                .candidates .candidate-details .section md-card .add-tag .attendees .sp md-chips-wrap.md-chips.md-focused .md-chip-input-container {
+                  box-shadow: 0 1px #208d6e; }
+              .candidates .candidate-details .section md-card .add-tag .attendees .sp md-chips-wrap.md-chips .md-chip-input-container {
+                box-shadow: 0 1px rgba(0, 0, 0, 0.12);
+                margin: 0; }
+              .candidates .candidate-details .section md-card .add-tag .attendees .sp md-chips-wrap.md-chips md-chip {
+                margin-top: 0;
+                margin-bottom: 10px; }
+            .candidates .candidate-details .section md-card .add-tag .attendees .disable-input .md-chip-input-container {
+              display: none; }
+          .candidates .candidate-details .section md-card .add-tag .loader {
+            bottom: 25px;
+            right: 0; }
 
 .talent-menu {
   padding: 0;
