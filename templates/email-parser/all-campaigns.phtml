@@ -27,7 +27,8 @@
                     <span ng-bind="CampaignDetails.campaign_heading"></span>
                 </h3>
                 <h4 class="date">
-                    <img src="../public/images/email-parser/calender.svg" alt="calander"/>
+                    <span class="calendar-icon"></span>
+                    <!-- <img src="../public/images/email-parser/calender.svg" alt="calander"/> -->
                     <span ng-bind="CampaignDetails.start_date"></span>
                     <span ng-bind="CampaignDetails.start_time"></span>
                     &nbsp;to&nbsp;
@@ -35,8 +36,8 @@
                     <span ng-bind="CampaignDetails.end_time"></span>
                 </h4>
                 <h4>
-                    <!-- <span class="location-image"></span> -->
-                    <img src="../public/images/email-parser/location.svg" alt="location"/>
+                    <span class="location-image"></span>
+                    <!-- <img src="../public/images/email-parser/location.svg" alt="location"/> -->
                     <span ng-bind="CampaignDetails .campaign_location"></span>
                 </h4>
             </div>
@@ -44,16 +45,20 @@
                 <div layout="column">
                     <div layout="row" class="search-container">
                         <div class="form-group search">
-                            <i class="material-icons">search</i>
+                            <span class="search-icon"></span>
+                            <!-- <i class="material-icons">search</i> -->
                             <input type="text" class="form-control" name="search-name" ng-model="CampaignsCtrl.searchOptions.search_name" tabindex="1" placeholder="I am looking for jobs.." >
                         </div>
                         <div class="btn-group loc" uib-dropdown>
                             <input id="location" ng-model="CampaignsCtrl.searchOptions.search_location" name="location" ng-autocomplete="CampaignsCtrl.geo_location" details="CampaignsCtrl.geo_details" options="CampaignsCtrl.geo_options"  tabindex="2" apiplaceholder="Location">
+                            <span class="down-arrow"></span>
                             <!-- <img src="../public/images/arrow-dropdown.svg" /> -->
                         </div>
                         <div class="btn-group exp" uib-dropdown>
                             <button id="btn-append-to-single-button"  tabindex="3" type="button" class="btn btn-primary" uib-dropdown-toggle ng-style="{'color' : CampaignsCtrl.searchOptions.search_experience ? '#555' : ''}">
-                                {{CampaignsCtrl.experienceLabel}} <i class="material-icons animated fadeIn">keyboard_arrow_down</i>
+                                {{CampaignsCtrl.experienceLabel}} 
+                                <span class="down-arrow"></span>
+                                <!-- <i class="material-icons animated fadeIn">keyboard_arrow_down</i> -->
                             </button>
                             <ul class="dropdown-menu animated slideInUp" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-single-button" >
                                 <li role="menuitem" ng-repeat="exp in CampaignsCtrl.experiences">
