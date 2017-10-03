@@ -15,6 +15,56 @@ body.email-parser .modal .modal-body {
   overflow: hidden;
   padding-bottom: 120px;
 font-family: 'Lato', sans-serif; }
+.backto-arrow {
+  background-image: url(../images/email-parser/sprite.png);
+    background-position: 0 -97px;
+    width: 22px;
+    height: 22px;
+    display: inline-block;
+    position: relative;
+    top: 5px;
+}
+.calendar-icon {
+  background-image: url(../images/email-parser/sprite.png) !important;
+    background-position: -6px -267px !important;
+    width: 29px !important;
+    height: 25px !important;
+    display: inline-block;
+    position: relative;
+    top: 8px;
+}
+.location-image  {
+  background-image: url(../images/email-parser/sprite.png) !important;
+    background-position: -6px -345px !important;
+    width: 16px !important;
+    height: 23px !important;
+    display: inline-block;
+    position: relative;
+    top: 8px;
+}
+.down-arrow {
+  background-image: url(../images/email-parser/sprite.png) !important;
+    background-position: 0px -145px !important;
+    width: 16px !important;
+    height: 23px !important;
+    display: inline-block;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
+.search-icon {
+       background-image: url(../images/email-parser/sprite.png) !important;
+    background-position: 0px -193px !important;
+    width: 27px !important;
+    height: 33px !important;
+    display: inline-block;
+    position: absolute;
+    top: 8px;
+    left: 12px;
+}
+.filters>.container {
+  width: 880px;
+}
   .drop-box .container section .logo {
     text-align: center;
     margin: 0 auto;

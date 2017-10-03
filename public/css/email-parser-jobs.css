@@ -157,7 +157,7 @@
     padding: 10px 0;
     width: 880px;
     margin: 0 auto;
-    min-height: 68px; }
+    min-height: 80px; }
     .all-campaigns header.logo #logo .spinner .small {
       width: 25px;
       height: 25px; }
@@ -198,7 +198,7 @@
         .all-campaigns header.logo .menu .tab a:hover {
           color: #24aa78; }
   .all-campaigns .filters {
-    padding: 60px 0;
+    padding: 55px 0;
     min-height: 366px;
     background-size: cover !important;
     background-position: 50% 50% !important;
@@ -219,7 +219,7 @@
         margin: 0;
         font-size: 16px; }
         .all-campaigns .filters .des h4.date {
-          margin: 12px 0; }
+          margin: 5px 0 0 0; }
           .all-campaigns .filters .des h4.date img {
             margin-right: 5px; }
           .all-campaigns .filters .des h4.date span {
@@ -231,7 +231,7 @@
           vertical-align: middle;
           color: #00b98f; }
     .all-campaigns .filters .user-inputs {
-      padding-top: 65px;
+      padding-top: 55px;
       font-family: 'Lato', sans-serif; }
       .all-campaigns .filters .user-inputs .search-container {
         margin: 0 auto;
@@ -409,7 +409,7 @@
         .all-campaigns .content .campaign-details .left .back h4 {
           display: inline-block;
           font-family: 'Lato', sans-serif;
-          color: #24aa78;
+          color: #25c1a1;
           font-size: 14px;
           font-weight: normal;
           margin-left: 3px; }

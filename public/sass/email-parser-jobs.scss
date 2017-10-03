@@ -96,7 +96,7 @@
       }
     }
     md-divider {border-color: #EFEFEF;}
-    header.logo{padding: 10px 0;width:880px; margin: 0 auto;min-height: 68px;
+    header.logo{padding: 10px 0;width:880px; margin: 0 auto;min-height: 80px;
          #logo{
              .spinner{
                  .small{width: 25px;height: 25px;}
@@ -105,7 +105,7 @@
          }
          .company-name{font-size: 30px;color: #478e76;text-transform: uppercase;}
          .menu{
-            .tab{position: relative;-webkit-transform: translateY(-50%);-ms-transform: translateY(-50%);transform: translateY(-50%);padding: 11px 15px;margin-left: 20px;cursor: pointer;top: 20px;
+            .tab{position: relative;-webkit-transform: translateY(-50%);-ms-transform: translateY(-50%);transform: translateY(-50%);padding: 11px 15px;margin-left: 20px;cursor: pointer;top:20px;
                 &:last-child{margin-left: 30px;border: 1px solid #24aa78;border-radius: 3px;-webkit-border-radius: 3px;-moz-border-radius: 3px;-o-border-radius: 3px;
                   &:hover{
                     background: #24aa78;
@@ -121,13 +121,13 @@
             }
          }
     }
-    .filters{padding: 60px 0;min-height:366px;background-size: cover !important;background-position : 50% 50% !important;background-repeat: no-repeat !important;
+    .filters{padding: 55px 0;min-height:366px;background-size: cover !important;background-position : 50% 50% !important;background-repeat: no-repeat !important;
         &.add-image{background-image : url('../images/email-parser/banner_img.jpg') !important}
         .des{text-align: center;color: #fff;font-family: 'Lato', sans-serif;
             img{width: 26px;}
             h3{font-weight: normal;margin: 0; font-size: 30px;}
             h4{margin: 0;font-size:16px;
-               &.date{margin: 12px 0;
+               &.date{margin: 5px 0 0 0;
                  img {margin-right: 5px;}
                  span {
                    background-image: url("../public/images/email-parser/sprite.png");
@@ -139,7 +139,7 @@
                i{vertical-align: middle;color: #00b98f}
             }
         }
-        .user-inputs{padding-top:65px;font-family: 'Lato', sans-serif;
+        .user-inputs{padding-top:55px;font-family: 'Lato', sans-serif;
             .search-container{margin: 0 auto;width: 880px;
                 .search{width:38%;margin: 0;position: relative;
                     i{position: absolute;font-size: 36px;padding: 12px 10px;color: #b2b2b2;left: 0}
@@ -208,7 +208,7 @@
                 .job-count{color: #24aa78;font-family: 'Lato', sans-serif; font-size:16px;}
                 .back{
                     img{width: 26px;height: 20px;margin: -5px 0 0 -6px}
-                    h4{display: inline-block;font-family: 'Lato', sans-serif;color:#24aa78;font-size: 14px;font-weight: normal;margin-left: 3px;}
+                    h4{display: inline-block;font-family: 'Lato', sans-serif;color:#25c1a1;font-size: 14px;font-weight: normal;margin-left: 3px;}
                 }
                 .list {
                     .row{border: 0;border-bottom: 1px solid #ddd;padding: 14px 0 20px 0;margin: 0;font-family: 'Lato', sans-serif;
