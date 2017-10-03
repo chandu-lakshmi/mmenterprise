@@ -241,25 +241,6 @@
 }
 
 
-
-.picker-close +.bootstrap-datetimepicker-widget{
-    table{width: 90%}
-    .list-unstyled{position: relative;
-        .picker-switch{
-            &.accordion-toggle{position: absolute;top: 4px;right:5px;
-                .glyphicon-remove{text-align: right;width: 16px;display: inline-block;height: 16px;line-height: 16px;}
-            } 
-        }
-
-    }
-}
-.picker-full-close+.bootstrap-datetimepicker-widget {position: relative;
-    .picker-switch{
-        &.accordion-toggle{position: absolute;top: 12px;right:12px;
-            .glyphicon-remove{text-align: right;width: 16px;display: inline-block;height: 16px;line-height: 16px;}
-        } 
-    }
-}
 .multiple-select-assessment{
     md-select-menu{
         label.md-container-ignore{padding-top: 8px}

@@ -41,7 +41,7 @@
                         <div class="paging col-sm-4 col-sm-offset-4 text-center" ng-if="QuestionsListCtrl.grid.totalRecords > 10">
                               <ul uib-pagination total-items="QuestionsListCtrl.grid.totalRecords" ng-model="QuestionsListCtrl.grid.pageNo" max-size="3" direction-links="false" force-ellipses="true" ng-change="QuestionsListCtrl.getQuestionList()" boundary-link-numbers="true" rotate="false"></ul>
                         </div>
-                        <md-button class="md-raised action delete-all pull-right mm-slide-left" ng-if="QuestionsListCtrl.selectedQuestions.length > 1" ng-click="QuestionsListCtrl.deleteQuestion()">DELETE</md-button>
+                        <md-button class="md-raised action delete-all pull-right mm-slide-left" ng-if="QuestionsListCtrl.selectedQuestions.length > 1" ng-click="QuestionsListCtrl.deleteQuestion()">DLEETE SELECTED</md-button>
                      </div>
                   </div>
                </div>

@@ -51,8 +51,8 @@
       .questions .action.add-add-new img.loader, .questions .action.delete-all img.loader {
         width: 180px; }
     .questions .action.delete-all {
-      margin-right: 10px !important;
-      width: 100px !important; }
+      margin: 4px 0 0 0 !important;
+      width: 160px !important; }
   .questions md-input-container:not(.filter) {
     margin: 0; }
     .questions md-input-container:not(.filter) md-select-value {

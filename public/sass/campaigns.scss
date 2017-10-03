@@ -325,18 +325,11 @@ md-dialog {
                     margin-left: 15px
                 }
             }
-            .pull-right {
-                outline: none;
-                img {
-                    width: 25px;
-                    height: 25px;
-                }
-            }
         }
-        .box {
-            @include box();
-            background: #fff;
-            padding: 40px;
+        .box {@include box();background: #fff;padding: 40px;position: relative;
+            .share {position: absolute;right: 40px;top: 34px;
+                img {width: 25px;height: 25px;}
+            }
             .content {
                 color: #767877;
                 md-input-container input,
