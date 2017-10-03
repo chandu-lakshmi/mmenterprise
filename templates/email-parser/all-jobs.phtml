@@ -57,6 +57,11 @@
                         <ui-view></ui-view>
                     </div>
                     <div flex="30" class="right">
+                        <div class="create-camp" ng-if="ReferralDetails.career_talent_network=='enable'" ng-click="JobsCtrl.createCampaign()">
+                            <div class="join-team">JOIN OUR TALENT NETWORK</div>
+                            <!-- <img src="../public/images/email-parser/arrows.png" alt="next"> -->
+                        </div>
+
                         <div class="about-comp" ng-if="ReferralDetails.career_description.length">
                             <div class="box">
                                 <h4>About <span ng-bind="ReferralDetails.company_name"></span></h4>
@@ -64,9 +69,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="create-camp" ng-if="ReferralDetails.career_talent_network=='enable'" ng-click="JobsCtrl.createCampaign()">
-                            <div class="join-team">JOIN OUR TALENT COMMUNITY<img src="../public/images/email-parser/arrows.png" alt="next"></div>
-                        </div>
+                        
                         <div class="social-share">
                             <b>Share Jobs</b>
                             <!-- social media share directive -->

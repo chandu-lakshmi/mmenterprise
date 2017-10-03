@@ -1,6 +1,10 @@
 <div class="drop-box">
 	<div class="container">
-		<section>
+		<section class="candidate-details">
+            <a class="back" ui-sref="allCampaigns.all({ref: $root.camp_ref, share_status:$stateParams.share_status})">
+                <img src="../public/images/email-parser/arrow-back.svg"><h4 class="job-count ng-binding">Back to Job Details</h4>
+            </a>
+            <md-divider></md-divider>
 			<h1 class="logo">
 				<img ng-src="{{ApplyJobCtrl.referralDetails.company_logo}}" alt="company-logo" ng-if="ApplyJobCtrl.referralDetails.company_logo != ''"  draggable="false">
 				<span class="company-name" ng-if="ApplyJobCtrl.referralDetails.company_logo == ''">{{ApplyJobCtrl.referralDetails.company_name | uppercase}}</span>
@@ -60,7 +64,7 @@
 					      </select>
 					    </div>
 					</div>
-					<div class="col-sm-6 form-style" style="margin-bottom:38px">
+					<div class="col-sm-6 form-style upload-button" style="margin-bottom:38px">
 						<div class="file">
 						    <label for="can-upload">Upload CV<sup ng-if="ApplyJobCtrl.hasResumeUpload">*</sup></label>
 						    <span class="file-name" ng-bind="ApplyJobCtrl.fileName" title="{{ApplyJobCtrl.fileName}}"></span>
@@ -72,7 +76,7 @@
 					<input type="hidden" name="post_id" value="{{ApplyJobCtrl.referralDetails.post_id}}">
 				</form>
 			</div>
-			<div class="footer clearfix">
+			<div class="cand-details-footer footer clearfix">
 			    <div class="pull-left">
 			        <span style="line-height:50px;">
 			            <span ng-if="ApplyJobCtrl.loader">
