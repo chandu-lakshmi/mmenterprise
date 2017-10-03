@@ -4,7 +4,7 @@ angular.module('mwFormUtils.responseUtils', [])
 
         var service = {};
 
-        //Question types whose response can be extracted with the .answer property. 
+        //Question types whose response can be extracted with the .answer property.
         var questionTypesWithDefaultAnswer = [
             'text',
             'textarea',
@@ -47,8 +47,8 @@ angular.module('mwFormUtils.responseUtils', [])
                 questionResponse.selectedAnswers.forEach(function (answerId) {
                     result.selectedAnswers.push(offeredAnswerById[answerId]);
                 })
-            } else if (questionResponse.question_ans) {
-                result.question_ans = offeredAnswerById[questionResponse.question_ans];
+            } else if (questionResponse.selectedAnswer) {
+                result.selectedAnswer = offeredAnswerById[questionResponse.selectedAnswer];
             }
             if (questionResponse.other) {
                 result.other = questionResponse.other;
@@ -156,7 +156,7 @@ angular.module('mwFormUtils.responseUtils', [])
             return result;
         };
 
-        //Return the response data for the provided question. 
+        //Return the response data for the provided question.
         service.extractResponse = function (question, questionResponse) {
             if (questionTypesWithDefaultAnswer.indexOf(question.type) !== -1) {
                 return questionResponse.answer;
@@ -201,7 +201,7 @@ angular.module('mwFormUtils.responseUtils', [])
             return result;
         };
 
-        //Returns an array of all of the questions in the form. 
+        //Returns an array of all of the questions in the form.
         service.getQuestionList = function (formData, copy) {
             var result = [];
             formData.pages.forEach(function (page) {
@@ -222,7 +222,7 @@ angular.module('mwFormUtils.responseUtils', [])
             return result;
         };
 
-        //For each question, attempt to extract the response (if any), then return an array of question objects with that response appened. 
+        //For each question, attempt to extract the response (if any), then return an array of question objects with that response appened.
         service.getQuestionWithResponseList = function (formData, responseData) {
             var result = [];
             service.getQuestionList(formData, true).forEach(function (question) {
@@ -237,7 +237,7 @@ angular.module('mwFormUtils.responseUtils', [])
             return result;
         };
 
-        //Returns a formatted string with an optional question number and the text of the question. 
+        //Returns a formatted string with an optional question number and the text of the question.
         service.$$getHeader = function (number, questionText, subQuestionNumbers, subQuestionTexts, withQuestionNumber) {
             var result = '';
 
@@ -279,7 +279,7 @@ angular.module('mwFormUtils.responseUtils', [])
             return result;
         };
 
-        //Return an array which contains the text of each question. 
+        //Return an array which contains the text of each question.
         service.getResponseSheetHeaders = function (formData, withQuestionNumbers) {
 
             //Questions which require additional processing (for example sub elements)
@@ -339,7 +339,7 @@ angular.module('mwFormUtils.responseUtils', [])
             return result;
         };
 
-        //Get the answers for each question and return an arracy which contains the answer values. 
+        //Get the answers for each question and return an arracy which contains the answer values.
         service.getResponseSheetRow = function (formData, responseData) {
             var answerDelimiter = '; ';
             var result = [];
@@ -369,8 +369,8 @@ angular.module('mwFormUtils.responseUtils', [])
                             continue;
                         }
                         var cellVal = "";
-                        if (response.question_ans) {
-                            cellVal = response.question_ans.value;
+                        if (response.selectedAnswer) {
+                            cellVal = response.selectedAnswer.value;
                         }
 
                         if (response.other) {
@@ -387,11 +387,11 @@ angular.module('mwFormUtils.responseUtils', [])
                             continue;
                         }
                         var cellVal = "";
-                        response.selectedAnswers.forEach(function (question_ans) {
+                        response.selectedAnswers.forEach(function (selectedAnswer) {
                             if (cellVal) {
                                 cellVal += answerDelimiter;
                             }
-                            cellVal += question_ans.value;
+                            cellVal += selectedAnswer.value;
 
                         });
                         if (response.other) {

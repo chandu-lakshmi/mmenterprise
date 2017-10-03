@@ -12,7 +12,17 @@
 					<span ng-show="$state.current.controller == 'AllCampaignsController'">
 						<a ui-sref="^.createCampaign" class="mm-btn">CREATE NEW CAMPAIGN</a>
 					</span>
-				</li>
+            </li>
+            <li ng-if="$state.current.controller == 'TestsListController'">
+					<span>
+						<a ui-sref="app.campaigns.CreateTest({ examId:0 })" class="mm-btn">CREATE ASSESSMENT</a>
+					</span>
+            </li>
+            <li ng-if="$state.current.controller == 'QuestionsListController'">
+					<span>
+						<a ui-sref="app.campaigns.CreateQuestion({mode:'add', id:0})" class="mm-btn">CREATE QUESTION</a>
+					</span>
+            </li>
 			</ul>
 		</div>
 	</div>

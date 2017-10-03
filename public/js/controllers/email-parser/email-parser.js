@@ -1338,7 +1338,6 @@
 
 
             $scope.$on('responseSubmitted', function (event, response) {
-                alert();
                 if (!response) {
                     closeAssessment();
                     return;
@@ -1428,10 +1427,12 @@
             campaign_id : CampaignDetails.campaign_id
         });
         vm.formData = null;
+
         $http({
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
             },
+            dataType: 'json',
             method: 'POST',
             url: App.base_url + 'get_assessment',
             data: apiKeys
@@ -1439,8 +1440,13 @@
             .then(function (response) {
 
                 if (response.data.status_code == 200) {
-                    console.log(response.data.data);
                     vm.formData = response.data.data;
+                    // var tempData = response.data.data;
+                    // angular.forEach(tempData.pages, function(ques, index) {
+                    //   ques.sord_id = index+1;
+                    // });
+                    // vm.formData = tempData;
+
                     // if(vm.formData.enable_full_screen) {
                     //   vm.fullScreen();
                     // }

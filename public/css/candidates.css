@@ -1105,7 +1105,7 @@
         .candidates .candidate-details .section md-card .tag-job {
           margin: 12px 0 20px !important; }
           .candidates .candidate-details .section md-card .tag-job .md-chips:before {
-            content: 'CHOOSE A JOB*' !important; }
+            content: 'Choose a Job*' !important; }
           .candidates .candidate-details .section md-card .tag-job .select-one .md-chips {
             box-shadow: none; }
             .candidates .candidate-details .section md-card .tag-job .select-one .md-chips .md-chip-content {
@@ -1126,7 +1126,7 @@
                 transform: translate3d(-3px, -13px, 0) scale(0.85);
                 font-weight: 900; }
             .candidates .candidate-details .section md-card .attendees .md-chips:before {
-              content: 'ATTENDEES *';
+              content: 'Attendees *';
               position: absolute;
               padding-left: 3px;
               -webkit-transform: translate3d(-3px, 18px, 0) scale(1);

@@ -8,15 +8,15 @@
 
 		<div class="create-question">
 
-			<div class="header">
-				<div class="container">
+			<div class="container">
+				<div class="header">
 					<div layout="row" ng-if="CreateQuestionCtrl.examDetails.exam_id">
 						<a ui-sref="app.campaigns.EditTest({id: CreateQuestionCtrl.examDetails.exam_id})"><img class="back" src="public/images/back.png" alt="back"></a>
-						<h4 class="title" flex ng-bind="CreateQuestionCtrl.examDetails.exam_name"></h4>
+						<h2 class="title" flex ng-bind="CreateQuestionCtrl.examDetails.exam_name"></h2>
                </div>
                <div layout="row" ng-if="!CreateQuestionCtrl.examDetails.exam_id">
 						<a ui-sref="app.campaigns.QuestionsList"><img class="back" src="public/images/back.png" alt="back"></a>
-                  <h4 class="title" ng-if="!CreateQuestionCtrl.examDetails.exam_id" ng-bind="CreateQuestionCtrl.textMode"></h4>
+                  <h2 class="title" ng-if="!CreateQuestionCtrl.examDetails.exam_id" ng-bind="CreateQuestionCtrl.textMode"></h2>
 					</div>
 				</div>
 			</div>
@@ -114,7 +114,7 @@
 												</div>
 												<div flex="90">
 													<md-input-container flex class="md-block hide-label full-box">
-														<input class="hide-from-frm" type="text" ng-required="$index < 2" ng-change="CreateQuestionCtrl.removeSeletedOpt(data.option, $index)" aria-label="data.option" ng-disabled="CreateQuestionCtrl.enableViewMode" name="{{CreateQuestionCtrl.alphabet[$index]}}" ng-model="data.option">
+														<input class="hide-from-frm none" type="text" ng-required="$index < 2" ng-change="CreateQuestionCtrl.removeSeletedOpt(data.option, $index)" aria-label="data.option" ng-disabled="CreateQuestionCtrl.enableViewMode" name="{{CreateQuestionCtrl.alphabet[$index]}}" ng-model="data.option">
 														<div class="error-spacer"></div>
 														<div ng-if="questionForm[CreateQuestionCtrl.alphabet[$index]].$error.required && CreateQuestionCtrl.postQuestionSubmitted" class="has-error-msg" style="margin-left: -52px">Please enter Answer Option.</div>
 													</md-input-container>

@@ -730,7 +730,7 @@
                 apiKeyCandidateDetails = { contact_id:candidateId };
 
 
-        vm.newTalentList      = [{ label:'New Talent'}, { label:'Great Fit' }, { label:'Good Fit' }, { label:'Not Suitable' }, { label:'Employed' }];
+        vm.newTalentList      = [{ label:'New Talent'}, { label:'Great Hire' }, { label:'Good Hire' }, { label:'Not Suitable' }, { label:'Employee' }];
         vm.referralStatusList = ["New", "Reviewed", "Shortlisted", "Scheduled for Interview", "Not Suitable", "Selected", "Offered", "Offer Accepted", "On Hold", "Offer Rejected", "Confirmed to Join", "Hired", "Not Joined", "Joined"];
         vm.scheduleForList    = ["Face to Face", "Online Meeting", "Telephone"];
         vm.referralId         = $stateParams.id;
