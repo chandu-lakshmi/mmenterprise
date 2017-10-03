@@ -74,7 +74,7 @@
                     </div>
                 </div>
             </div>
-            <div ng-if="$state.current.name == 'allCampaigns.candidateDetails'">
+            <div ng-if="$state.current.name == 'allCampaigns.candidateDetails' || $state.current.name == 'allCampaigns.referralDetails'">
                JOB APPLIED FOR
                <h3 ng-bind="CampaignDetails.JobDetailsHeader.job_title"></h3>
                <h5 ng-bind="CampaignDetails.JobDetailsHeader.experience"></h5>
