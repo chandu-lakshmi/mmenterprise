@@ -23,15 +23,18 @@
                 <div layout="column">
                     <div layout="row" class="search-container">
                         <div class="form-group search">
-                            <i class="material-icons">search</i>
+                            <!-- <i class="material-icons">search</i> -->
+                            <span class="search-icon"></span>
                             <input type="text" class="form-control" name="search-name" ng-model="JobsCtrl.searchOptions.search_name" tabindex="1" placeholder="I am looking for a job.." >
                         </div>
                         <div class="btn-group loc" uib-dropdown>
                             <input id="location" ng-model="JobsCtrl.searchOptions.search_location" name="location" ng-autocomplete="JobsCtrl.geo_location" details="JobsCtrl.geo_details" options="JobsCtrl.geo_options"  tabindex="2" apiplaceholder="Location">
+                            <span class="down-arrow"></span>
                         </div>
                         <div class="btn-group exp" uib-dropdown>
                             <button id="btn-append-to-single-button"  tabindex="3" type="button" class="btn btn-primary" uib-dropdown-toggle ng-style="{'color' : JobsCtrl.searchOptions.search_experience ? '#555' : ''}">
-                                {{JobsCtrl.experienceLabel}} <i class="material-icons animated fadeIn">keyboard_arrow_down</i>
+                                {{JobsCtrl.experienceLabel}} <!-- <i class="material-icons animated fadeIn">keyboard_arrow_down</i> -->
+                                <span class="down-arrow"></span>
                             </button>
                             <ul class="dropdown-menu animated slideInUp" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-single-button" >
                                 <li role="menuitem" ng-repeat="exp in JobsCtrl.experiences">
@@ -48,11 +51,11 @@
                 </div>
             </div>
         </div>
-         <div ng-if="$state.current.name == 'allJobs.candidateDetails' || $state.current.name == 'allJobs.referralDetails'">
-            JOB APPLIED FOR
-            <h3 ng-bind="ReferralDetails.job_title"></h3>
-            <h5 ng-bind="ReferralDetails.experience"></h5>
-            <h5 ng-bind="ReferralDetails.location"></h5>
+         <div ng-if="$state.current.name == 'allJobs.candidateDetails' || $state.current.name == 'allJobs.referralDetails'" class="job-applied">
+            <p>JOB APPLY FOR</p>
+            <h3 class="cnd-title"  ng-bind="ReferralDetails.job_title"></h3>
+            <h5 class="cnd-exp">Experience : {{ReferralDetails.experience}}</h5>
+            <h5 class="cnd-loc">Location: {{ReferralDetails.location}}</h5>
          </div>
     </div>
     <div class="content">

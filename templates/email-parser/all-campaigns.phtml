@@ -1,3 +1,4 @@
+
 <div class="all-campaigns" id="carrers_sc">
     <header class="logo container">
         <div layout="column">
@@ -20,8 +21,9 @@
     </header>
     <div class="filters"
         ng-style="{'background':'transparent url('+CampaignDetails.career_heroshot_image+')'}"
-        ng-class="{'add-image' : !CampaignDetails.career_heroshot_image}">
-        <div class="container" ng-style="{'margin-top' : $state.current.name === 'allCampaigns.all' ? '0' : '54px'}">
+        ng-class="{'add-image' : !CampaignDetails.career_heroshot_image, 'candidate-details-cover' : $state.current.name == 'allCampaigns.candidateDetails'}">
+        <div class="container" ng-style="{'margin-top' : $state.current.name === 'allCampaigns.all' ? '0' : '0'}">
+            <!-- 54px -->
             <div class="des">
                 <h3>
                     <span ng-bind="CampaignDetails.campaign_heading"></span>
@@ -74,11 +76,12 @@
                     </div>
                 </div>
             </div>
-            <div ng-if="$state.current.name == 'allCampaigns.candidateDetails' || $state.current.name == 'allCampaigns.referralDetails'">
-               JOB APPLIED FOR
-               <h3 ng-bind="CampaignDetails.JobDetailsHeader.job_title"></h3>
-               <h5 ng-bind="CampaignDetails.JobDetailsHeader.experience"></h5>
-               <h5 ng-bind="CampaignDetails.JobDetailsHeader.location"></h5>
+            <md-divider class="divide-section"></md-divider>
+            <div ng-if="$state.current.name == 'allCampaigns.candidateDetails' || $state.current.name == 'allCampaigns.referralDetails'" class="job-applied">
+               <p>JOB APPLY FOR</p>
+               <h3 class="cnd-title" ng-bind="CampaignDetails.JobDetailsHeader.job_title"></h3>
+               <h5 class="cnd-exp">Experience : {{CampaignDetails.JobDetailsHeader.experience}}</h5>
+               <h5 class="cnd-loc">Location: {{CampaignDetails.JobDetailsHeader.location}}</h5>
             </div>
         </div>
     </div>

@@ -57,7 +57,8 @@
 					<div class="col-sm-6 form-style" ng-if="ApplyJobCtrl.status == 1">
 						<div class="form-group gap">
 					      <label for="can-dep">Career Track</label>
-					      <i class="fa fa-angle-down fa-feedback" style="color: #ccc"></i>
+					      <!-- <i class="fa fa-angle-down fa-feedback" style="color: #ccc"></i> -->
+					      <span class="down-arrow cnd-details"></span>
 					      <select name="department" class="form-control input-lg" id="can-dep" ng-model="ApplyJobCtrl.canDep">
 					      	<option value="" disabled >Select Career Track</option>
 					        <option ng-repeat="fun in ApplyJobCtrl.jobFunctions" value="{{fun.job_function_id}}">{{fun.job_function_name}}</option>

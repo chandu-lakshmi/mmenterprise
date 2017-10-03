@@ -52,6 +52,9 @@ font-family: 'Lato', sans-serif; }
     top: 8px;
     right: 8px;
 }
+.down-arrow.cnd-details {
+  top: 27px;
+}
 .search-icon {
        background-image: url(../images/email-parser/sprite.png) !important;
     background-position: 0px -193px !important;
