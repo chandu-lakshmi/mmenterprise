@@ -398,7 +398,7 @@ html.remove-scroll {
   .social-share .modal-dialog {
     width: 636px; } }
 .create-camp {
-  min-height: calc(100vh - 100px);
+  min-height: calc(100vh - 160px);
   background: #eeeff1; }
   .create-camp .steps {
     width: 100%;
@@ -418,14 +418,17 @@ html.remove-scroll {
       text-align: center;
       line-height: 34px;
       border-radius: 50%;
-      margin: 0 8px 0 22px; }
+      margin: 0 8px 0 22px;
+      transition: all .5s ease; }
     .create-camp .steps span {
       letter-spacing: 0.8px; }
     .create-camp .steps .active .no {
-      background: #0ba082;
+      background: #0ba082 !important;
       color: #fff; }
     .create-camp .steps .active span {
       color: #0ba082; }
+    .create-camp .steps div[flex="25"]:hover .no {
+      background: #359383; }
   .create-camp .steps-view {
     background: #fff;
     box-shadow: 0px 0px 2px 0 #888;

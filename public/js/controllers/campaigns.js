@@ -935,7 +935,7 @@
             list  : [],
             selectedOne: vm.campaignDetails.bucket_ids,
             newlySelectedBkts : [],
-            headerTxt : 'SELECT CONTACTS COMMUNITY TO PUBLISH CAMPAIGN'
+            headerTxt : 'SELECT COMMUNITY TO PUBLISH CAMPAIGN'
         }
 
         vm.bucktesViewExternalOpts = {

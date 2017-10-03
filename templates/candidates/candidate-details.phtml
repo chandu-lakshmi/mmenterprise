@@ -330,7 +330,7 @@
 
                                             <md-input-container class="md-block date-time">
                                                 <label>Interview Date *</label>
-                                                <input type='text' name="interview_date" schedule-required id="interview_date" required class="form-control" ng-model="CandidateDetailsCtrl.schedule.interview_date" ng-class="{'has-error-border':CandidateDetailsCtrl.submittedSchedule && schedule_form.interview_date.$error.required}" />
+                                                <input type='text' name="interview_date" schedule-required id="interview_date" required class="form-control picker-close" ng-model="CandidateDetailsCtrl.schedule.interview_date" ng-class="{'has-error-border':CandidateDetailsCtrl.submittedSchedule && schedule_form.interview_date.$error.required}" />
                                                 <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-calendar"></span>
                                                 </span>
@@ -341,7 +341,7 @@
                                                 <div layout="row">
                                                     <md-input-container class="md-block date-time">
                                                         <label>From *</label>
-                                                        <input type='text' name="interview_from_time" schedule-required class="form-control" id='time_from' required ng-model="CandidateDetailsCtrl.schedule.interview_from_time" ng-class="{'has-error-border':CandidateDetailsCtrl.submittedSchedule && schedule_form.interview_from_time.$error.required}" ng-readonly="" />
+                                                        <input type='text' name="interview_from_time" schedule-required class="form-control picker-close" id='time_from' required ng-model="CandidateDetailsCtrl.schedule.interview_from_time" ng-class="{'has-error-border':CandidateDetailsCtrl.submittedSchedule && schedule_form.interview_from_time.$error.required}" ng-readonly="" />
                                                         <span class="input-group-addon">
                                                             <span class="glyphicon glyphicon-time"></span>
                                                         </span>
@@ -351,7 +351,7 @@
                                                     <i flex="5"></i>
                                                     <md-input-container class="md-block date-time">
                                                         <label>To *</label>
-                                                        <input type='text' name="interview_to_time" schedule-required required class="form-control" ng-model="CandidateDetailsCtrl.schedule.interview_to_time"  id='time_to' ng-class="{'has-error-border':CandidateDetailsCtrl.submittedSchedule && schedule_form.interview_to_time.$error.required}" ng-readonly=""/>
+                                                        <input type='text' name="interview_to_time" schedule-required required class="form-control picker-close" ng-model="CandidateDetailsCtrl.schedule.interview_to_time"  id='time_to' ng-class="{'has-error-border':CandidateDetailsCtrl.submittedSchedule && schedule_form.interview_to_time.$error.required}" ng-readonly=""/>
                                                         <span class="input-group-addon">
                                                             <span class="glyphicon glyphicon-time"></span>
                                                         </span>

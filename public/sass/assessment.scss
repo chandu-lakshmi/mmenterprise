@@ -239,7 +239,10 @@
         opacity: 0;
     }
 }
-.picker-close+.bootstrap-datetimepicker-widget{
+
+
+
+.picker-close +.bootstrap-datetimepicker-widget{
     table{width: 90%}
     .list-unstyled{position: relative;
         .picker-switch{
@@ -250,7 +253,18 @@
 
     }
 }
-
+.picker-full-close+.bootstrap-datetimepicker-widget {position: relative;
+    .picker-switch{
+        &.accordion-toggle{position: absolute;top: 12px;right:12px;
+            .glyphicon-remove{text-align: right;width: 16px;display: inline-block;height: 16px;line-height: 16px;}
+        } 
+    }
+}
+.multiple-select-assessment{
+    md-select-menu{
+        label.md-container-ignore{padding-top: 8px}
+    }
+}
 .mm-width {
     width: 500px;
 }

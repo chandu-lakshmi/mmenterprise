@@ -9,7 +9,7 @@
 			<div class="header">
             <div layout="row" ng-if="CreateTestCtrl.testId">
                <a ui-sref="app.campaigns.EditTest({id: CreateTestCtrl.testId})"><img class="back" src="public/images/back-arrow-black.svg" alt="back"></a>
-               <h2 class="title" ng-bind="CreateTestCtrl.testObj.exam_type"></h2>
+               <h2 class="title" ng-bind="CreateTestCtrl.testObj.exam_name"></h2>
             </div>
             <div layout="row" ng-if="!CreateTestCtrl.testId">
                <a ui-sref="app.campaigns.TestsList"><img class="back" src="public/images/back-arrow-black.svg" alt="back"></a>
@@ -25,7 +25,7 @@
                      <div layout="column">
                         <div layout="row">
                            <md-input-container flex class="md-block full-box">
-                              <span class="qst-label">Assessment Name </span>
+                              <span class="qst-label">Assessment Name *</span>
                               <!-- <label>Test Name</label> -->
                               <input type="text" name="exam_name" ng-model="CreateTestCtrl.testObj.exam_name" required aria-label="exam_name">
                               <div class="error-spacer"></div>

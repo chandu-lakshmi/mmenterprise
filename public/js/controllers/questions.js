@@ -9,21 +9,28 @@
     .controller('QuestionAddController', QuestionAddController)
 
 
-    QuestionsListController.$inject  = ['$timeout', '$mdToast','$uibModal', '$http', '$window', 'App'];
+    QuestionsListController.$inject  = ['$q', '$timeout', '$mdToast','$uibModal', '$http', '$window', 'App'];
 	CreateQuestionController.$inject = ['$scope', '$stateParams', '$timeout', '$state', '$http', '$window', '$mdToast', 'EditTestService', 'App'];
 	QuestionAddController.$inject = ['$scope', '$stateParams', '$timeout', '$state', '$http', '$window', '$mdToast', 'EditTestService', 'App'];
 
 
-	function QuestionsListController($timeout, $mdToast, $uibModal, $http, $window, App) {
+	function QuestionsListController($q, $timeout, $mdToast, $uibModal, $http, $window, App) {
 		
         var vm = this
         
         this.selectedQuestions = [];
 
+        this.filterOptions = [
+            { name: 'Question Type', children: [{ label: 1, value: 'Multiple Choice Questions' }, { label: 0, value: 'Subjective type' }] }
+        ];
+
 		this.grid = {
-            pageNo      : 1,
+            pageNo : 1,
+            filter : [],
+            search : null,
 			inProgress  : false,
-			responseMsg : null
+            responseMsg : null,
+            totalRecords: 0
 		};
 
 		this.gridOptions = {
@@ -108,9 +115,21 @@
 			})
 		}
 
+        var canceler;
         this.getQuestionList = function () {
 
-            var apiKeys = $.param({ page_no: vm.grid.pageNo });
+            if (canceler) {
+                canceler.resolve();
+            }
+
+            canceler = $q.defer();
+
+            var apiKeys = $.param({
+                page_no: vm.grid.pageNo,
+                filter: vm.grid.filter,
+                search: vm.grid.search
+            });
+            
             vm.grid.inProgress = true;
 
             $http({
@@ -120,6 +139,7 @@
                 method: 'POST',
                 data: apiKeys,
                 url: App.base_url + 'get_questions_list',
+                timeout: canceler.promise
             })
             .then(function (response) {
                 if (response.data.status_code == 200) {
@@ -143,6 +163,35 @@
                 vm.grid.inProgress = false;
                 vm.grid.totalRecords = response.data.data.total_records;
             });
+        }
+
+        var prevSelectedVal = [];
+        this.applyFilter = function () {
+
+            if (prevSelectedVal.toString() == vm.grid.filter.toString()) {
+                return;
+            }
+            prevSelectedVal = vm.grid.filter;
+            vm.getQuestionList();
+
+        }
+
+        this.search_opts = {
+            delay: 500,
+            progress: false,
+            complete: false,
+            placeholder: 'Search by Question',
+            onSearch: function (val) {
+                vm.grid.search = val;
+                vm.getQuestionList();
+                vm.search_opts.progress = false;
+                vm.search_opts.complete = true;
+            },
+            onClear: function () {
+                vm.search_val = "";
+                vm.grid.search = null;
+                vm.getQuestionList();
+            }
         }
 
 
@@ -479,7 +528,7 @@
         this.addQuestionInProgress = false;
 		this.testDetails = EditTestService.getData();
 		this.grid = {
-			pageNo: 1,
+            pageNo : 1,
 			inProgress: false,
 			responseMsg: null
 		};

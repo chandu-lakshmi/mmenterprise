@@ -21,8 +21,8 @@
         &.delete-all{margin-right: 10px !important;width: 100px !important}
     }
     
-    md-input-container{margin:0;
-        md-select-value{border: 1px solid rgba(0, 0, 0, 0.12) !important;padding: 6px 6px 10px 10px !important;height: 28px !important;border-radius: 4px;color: #555;
+    md-input-container:not(.filter){margin:0;
+        md-select-value{border: 1px solid rgba(0, 0, 0, 0.12) !important;padding: 6px 6px 6px 10px !important;height: 28px !important;border-radius: 4px;color: #555;
             .md-select-icon{margin-top: -4px}
         }
         .md-select-value :first-child {-webkit-transform: translate3d(0, 0, 0);transform: translate3d(0, 0, 0);font-size: medium;}
@@ -41,6 +41,11 @@
             }
         }
         input.none {border-radius: 0px}
+    }
+    md-input-container{
+        &.filter{
+            md-select{width: 80% !important}
+        }
     }
     md-chips-wrap.md-focused{
         transition: 0.2s all linear;-webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(32, 141, 110, 0.6);box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(32, 141, 110, 0.6) !important;
@@ -86,6 +91,14 @@
             h2{text-align: center;width: 100%;line-height: 94px;}
         }
         .section{
+            &.view-mode {
+                md-input-container {
+                    input,
+                    md-select-value .md-text {
+                        color: #7b7d7c
+                    }
+                }
+            }
             .list{margin-top: 30px;
                 &.first{margin-top: 60px}
                 .text-opts{position: absolute;left: 0;top: -24px;color: #7e7f7f;}

@@ -8,7 +8,7 @@
         </div>
         <div class="step-container" style="min-height: 400px;">
             <!-- step one -->
-            <div layout="row" class="steps-view mm-slide-left" ng-show="NewCampaignCtrl.campaignDetails">
+            <div layout="row" class="steps-view" ng-show="NewCampaignCtrl.campaignDetails">
                 <form name="campaignDetails" flex novalidate>
                     <div layout="column">
                         <div layout="row" class="header">
@@ -133,7 +133,7 @@
 
 
             <!-- step two -->
-            <div layout="row" class="steps-view mm-slide-left" ng-show="NewCampaignCtrl.schedule">
+            <div layout="row" class="steps-view" ng-show="NewCampaignCtrl.schedule">
                 <form name="schedule" flex novalidate>
                     <div layout="column">
                         <div layout="row" class="header">
@@ -148,7 +148,7 @@
                                         <img ng-hide="$first" ng-click="NewCampaignCtrl.closeTimeSheet(group)" class="closed" src="public/images/close-popup-red.svg" alt="close">
                                         <md-input-container flex="30" class="md-block date-time">
                                             <label>CAMPAIGN START DATE</label>
-                                            <input type='text' name="start{{$index}}" class="form-control picker-close" schedule-start ng-model="scheduleStart" id='dtPickerStart{{$index}}' required ng-class="{'has-error-border':NewCampaignCtrl.errCondschedule && schedule['start' + $index].$error.required}"/>
+                                            <input type='text' name="start{{$index}}" class="form-control picker-full-close" schedule-start ng-model="scheduleStart" id='dtPickerStart{{$index}}' required ng-class="{'has-error-border':NewCampaignCtrl.errCondschedule && schedule['start' + $index].$error.required}"/>
                                             <span class="input-group-addon">
                                                 <span class="glyphicon glyphicon-calendar"></span>
                                             </span>
@@ -162,7 +162,7 @@
                                     <div layout="row" class="sib">
                                         <md-input-container flex="30" class="md-block date-time">
                                             <label>CAMPAIGN END DATE</label>
-                                            <input type='text' class="form-control picker-close" name="end{{$index}}" required ng-model="scheduleEnd" schedule-end id='dtPickerEnd{{$index}}' ng-class="{'has-error-border':NewCampaignCtrl.errCondschedule && schedule['end' + $index].$error.required}"/>
+                                            <input type='text' class="form-control picker-full-close" name="end{{$index}}" required ng-model="scheduleEnd" schedule-end id='dtPickerEnd{{$index}}' ng-class="{'has-error-border':NewCampaignCtrl.errCondschedule && schedule['end' + $index].$error.required}"/>
                                             <span class="input-group-addon">
                                                 <span class="glyphicon glyphicon-calendar"></span>
                                             </span>
@@ -203,7 +203,7 @@
 
 
             <!-- step three -->
-            <div layout="row" class="steps-view mm-slide-left" ng-show="NewCampaignCtrl.careersPage">
+            <div layout="row" class="steps-view" ng-show="NewCampaignCtrl.careersPage">
                 <form name="careersPage" flex novalidate>
                     <div layout="column">
                         <div layout="row" class="header">
@@ -269,7 +269,7 @@
 
 
             <!-- step four -->
-            <div layout="row" class="steps-view mm-slide-left" ng-show="NewCampaignCtrl.manageContacts">
+            <div layout="row" class="steps-view" ng-show="NewCampaignCtrl.manageContacts">
                 <form name="manageContacts" flex id="frm4" novalidate>
                     <div layout="column">
                         <div layout="row" class="header">

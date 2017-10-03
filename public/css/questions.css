@@ -53,40 +53,42 @@
     .questions .action.delete-all {
       margin-right: 10px !important;
       width: 100px !important; }
-  .questions md-input-container {
+  .questions md-input-container:not(.filter) {
     margin: 0; }
-    .questions md-input-container md-select-value {
+    .questions md-input-container:not(.filter) md-select-value {
       border: 1px solid rgba(0, 0, 0, 0.12) !important;
-      padding: 6px 6px 10px 10px !important;
+      padding: 6px 6px 6px 10px !important;
       height: 28px !important;
       border-radius: 4px;
       color: #555; }
-      .questions md-input-container md-select-value .md-select-icon {
+      .questions md-input-container:not(.filter) md-select-value .md-select-icon {
         margin-top: -4px; }
-    .questions md-input-container .md-select-value :first-child {
+    .questions md-input-container:not(.filter) .md-select-value :first-child {
       -webkit-transform: translate3d(0, 0, 0);
       transform: translate3d(0, 0, 0);
       font-size: medium; }
-    .questions md-input-container .md-input {
+    .questions md-input-container:not(.filter) .md-input {
       border: 1px solid rgba(0, 0, 0, 0.12) !important;
       height: 42px;
       padding: 6px 10px !important;
       font-size: medium;
       border-radius: 4px;
       color: #555; }
-    .questions md-input-container.full-box:not(.md-input-focused):not(.md-input-has-value) label:not(.md-no-float):not(.md-container-ignore) {
+    .questions md-input-container:not(.filter).full-box:not(.md-input-focused):not(.md-input-has-value) label:not(.md-no-float):not(.md-container-ignore) {
       -webkit-transform: translate3d(10px, 42px, 0) scale(0.9);
       transform: translate3d(10px, 42px, 0) scale(0.9); }
-    .questions md-input-container.md-input-focused input, .questions md-input-container.md-input-focused md-select-value, .questions md-input-container.md-input-focused textarea {
+    .questions md-input-container:not(.filter).md-input-focused input, .questions md-input-container:not(.filter).md-input-focused md-select-value, .questions md-input-container:not(.filter).md-input-focused textarea {
       height: 42px;
       outline: 0;
       transition: 0.2s all linear;
       -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(32, 141, 110, 0.6);
       box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(32, 141, 110, 0.6); }
-    .questions md-input-container.md-input-focused input.none {
+    .questions md-input-container:not(.filter).md-input-focused input.none {
       box-shadow: none !important; }
-    .questions md-input-container input.none {
+    .questions md-input-container:not(.filter) input.none {
       border-radius: 0px; }
+  .questions md-input-container.filter md-select {
+    width: 80% !important; }
   .questions md-chips-wrap.md-focused {
     transition: 0.2s all linear;
     -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(32, 141, 110, 0.6);
@@ -132,6 +134,9 @@
         text-align: center;
         width: 100%;
         line-height: 94px; }
+    .questions .create-question .section.view-mode md-input-container input,
+    .questions .create-question .section.view-mode md-input-container md-select-value .md-text {
+      color: #7b7d7c; }
     .questions .create-question .section .list {
       margin-top: 30px; }
       .questions .create-question .section .list.first {

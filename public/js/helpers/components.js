@@ -512,6 +512,8 @@
                 element.datetimepicker({
                     minDate : new Date(),
                     ignoreReadonly: true,
+                    showClose: true,
+                    toolbarPlacement: 'bottom',
                     format: 'MMM DD, YYYY  hh:mm A',
                     sideBySide : true,
                     useCurrent:true
@@ -542,6 +544,8 @@
                 element.datetimepicker({
                     minDate : new Date(),
                     ignoreReadonly: true,
+                    showClose: true,
+                    toolbarPlacement: 'bottom',
                     format: 'MMM DD, YYYY  hh:mm A',
                     sideBySide : true,
                     useCurrent : false

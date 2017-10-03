@@ -361,6 +361,22 @@
       height: 16px;
       line-height: 16px; }
 
+.picker-full-close + .bootstrap-datetimepicker-widget {
+  position: relative; }
+  .picker-full-close + .bootstrap-datetimepicker-widget .picker-switch.accordion-toggle {
+    position: absolute;
+    top: 12px;
+    right: 12px; }
+    .picker-full-close + .bootstrap-datetimepicker-widget .picker-switch.accordion-toggle .glyphicon-remove {
+      text-align: right;
+      width: 16px;
+      display: inline-block;
+      height: 16px;
+      line-height: 16px; }
+
+.multiple-select-assessment md-select-menu label.md-container-ignore {
+  padding-top: 8px; }
+
 .mm-width {
   width: 500px; }
 

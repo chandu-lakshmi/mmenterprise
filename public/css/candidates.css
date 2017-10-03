@@ -1140,7 +1140,7 @@
               -webkit-transform-origin: left top;
               transform-origin: left top; }
             .candidates .candidate-details .section md-card .attendees .md-chips .md-chip-input-container {
-              width: auto; }
+              width: 100%; }
               .candidates .candidate-details .section md-card .attendees .md-chips .md-chip-input-container input {
                 height: 34px;
                 font-size: 14px; }
@@ -1196,7 +1196,6 @@
               .candidates .candidate-details .section md-card .add-tag .attendees .sp md-chips-wrap.md-chips.md-focused .md-chip-input-container {
                 box-shadow: 0 1px #208d6e; }
             .candidates .candidate-details .section md-card .add-tag .attendees .sp md-chips-wrap.md-chips .md-chip-input-container {
-              width: 200px !important;
               box-shadow: 0 1px rgba(0, 0, 0, 0.12);
               margin: 0; }
             .candidates .candidate-details .section md-card .add-tag .attendees .sp md-chips-wrap.md-chips md-chip {

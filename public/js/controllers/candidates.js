@@ -1534,6 +1534,7 @@
             $('#interview_date').datetimepicker({
                 minDate : new Date(),
                 ignoreReadonly: true,
+                showClose  : true,
                 format     : 'dddd, DD MMM YYYY',
                 sideBySide : true,
                 useCurrent :true
@@ -1541,6 +1542,7 @@
 
             $('#time_from').datetimepicker({
                 ignoreReadonly: true,
+                showClose  : true,
                 format     : 'hh:mm A',
                 sideBySide : true,
                 useCurrent : true
@@ -1548,6 +1550,7 @@
 
             $('#time_to').datetimepicker({
                 ignoreReadonly: true,
+                showClose  : true,
                 format     : 'hh:mm A',
                 sideBySide : true,
                 useCurrent : false
@@ -1581,7 +1584,5 @@
 
 
     }
-
-
 
 }());
