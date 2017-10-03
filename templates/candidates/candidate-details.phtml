@@ -104,7 +104,7 @@
                         <div layout="row" class="add-tag">
                            <div class="attendees tag-job">
                                  <md-chips ng-model="CandidateDetailsCtrl.details.candidate_tags" md-autocomplete-snap
-                                    md-require-match="true" class="sp" md-transform-chip="null" ng-class="{'disable-input':!CandidateDetailsCtrl.enableTagChips}" md-on-remove="CandidateDetailsCtrl.removeTag($chip)"
+                                    class="sp" md-transform-chip="CandidateDetailsCtrl.createTag($chip)" ng-class="{'disable-input':!CandidateDetailsCtrl.enableTagChips}" md-on-remove="CandidateDetailsCtrl.removeTag($chip)"
                                        >
                                     <md-autocomplete
                                        md-selected-item-change="CandidateDetailsCtrl.addTag(item)"

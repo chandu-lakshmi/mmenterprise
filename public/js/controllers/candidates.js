@@ -1316,6 +1316,14 @@
 
         }
 
+        vm.createTag = function(chip) {
+            if (typeof chip != 'object') {
+                vm.addTag({ tag_id: null, tag_name: chip });
+            }
+            vm.inProgressSearchTagJobs = false;
+            return null;
+        }
+
         vm.toogleTabs = function (id) {
             $("#" + id).slideToggle('slow');
             vm[id] = !vm[id];
