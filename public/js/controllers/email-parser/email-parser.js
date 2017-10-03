@@ -456,11 +456,13 @@
     }
 
     function JobDetailsController($http, $stateParams, $window, campaignJobDetails, decryptDetails, App) {
-
+        console.log($stateParams);
         var vm = this,
             ref = $stateParams.ref;
 
+        
         vm.isCampaignJob;
+        vm.urlParms = $stateParams;
         vm.shareUrl  = App.base_url + 'email/job-details/share?ref=' + ref;
 
         if (screen.width <= 480)
