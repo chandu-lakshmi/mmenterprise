@@ -11,6 +11,9 @@
                     <span class="tab" ng-repeat="link in CampaignDetails.career_links">
                         <a href="{{link.url}}" target="_blank" ng-bind="link.label"></a>
                     </span>
+                    <span class="tab">
+                        <a ng-click="CampaignsCtrl.createCampaign()" target="_blank">join our talent network</a>
+                    </span>
                 </div>
             </div>
         </div>
@@ -32,6 +35,7 @@
                     <span ng-bind="CampaignDetails.end_time"></span>
                 </h4>
                 <h4>
+                    <!-- <span class="location-image"></span> -->
                     <img src="../public/images/email-parser/location.svg" alt="location"/>
                     <span ng-bind="CampaignDetails .campaign_location"></span>
                 </h4>
@@ -75,6 +79,10 @@
                         <ui-view></ui-view>
                     </div>
                     <div flex="30" class="right">
+                        <div class="create-camp" ng-if="CampaignDetails.career_talent_network=='enable'" ng-click="CampaignsCtrl.createCampaign()">
+                            <div class="join-team">JOIN OUR TALENT NETWORK</div>
+                            <!-- <img src="../public/images/email-parser/arrows.png" alt="next"> -->
+                        </div>
                         <div class="about-comp" ng-if="CampaignDetails.career_description.length">
                             <div class="box">
                                 <h4>About <span ng-bind="CampaignDetails.company_name"></span></h4>
@@ -89,9 +97,7 @@
                                 </div>
                             </div> -->
                         </div>
-                        <div class="create-camp" ng-if="CampaignDetails.career_talent_network=='enable'" ng-click="CampaignsCtrl.createCampaign()">
-                            <div class="join-team">JOIN OUR TALENT COMMUNITY<img src="../public/images/email-parser/arrows.png" alt="next"></div>
-                        </div>
+                        
                         <div class="social-share">
                             <b>Share Campaign</b>
                             <!-- social media share directive -->

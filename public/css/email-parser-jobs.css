@@ -120,11 +120,10 @@
   .all-campaigns md-divider {
     border-color: #EFEFEF; }
   .all-campaigns header.logo {
-    padding: 0;
-    min-height: 82px;
-    line-height: 82px;
+    padding: 10px 0;
     width: 1041px;
-    margin: 0 auto; }
+    margin: 0 auto;
+    min-height: 80px; }
     .all-campaigns header.logo #logo .spinner .small {
       width: 25px;
       height: 25px; }
@@ -139,9 +138,10 @@
       -webkit-transform: translateY(-50%);
       -ms-transform: translateY(-50%);
       transform: translateY(-50%);
-      padding: 16px 15px;
+      padding: 10px 15px;
       margin-left: 20px;
-      cursor: pointer; }
+      cursor: pointer;
+      top: 20px; }
       .all-campaigns header.logo .menu .tab:last-child {
         margin-left: 30px;
         border: 1px solid #24aa78;
@@ -149,13 +149,18 @@
         -webkit-border-radius: 3px;
         -moz-border-radius: 3px;
         -o-border-radius: 3px; }
+        .all-campaigns header.logo .menu .tab:last-child:hover {
+          background: #24aa78; }
+          .all-campaigns header.logo .menu .tab:last-child:hover a {
+            color: #fff; }
         .all-campaigns header.logo .menu .tab:last-child a {
           color: #24aa78; }
       .all-campaigns header.logo .menu .tab a {
         color: #323232;
         text-decoration: none;
         text-transform: uppercase;
-        font-family: 'Lato', sans-serif; }
+        font-family: 'Lato', sans-serif;
+        font-size: 13px; }
         .all-campaigns header.logo .menu .tab a:hover {
           color: #24aa78; }
   .all-campaigns .filters {
@@ -182,6 +187,11 @@
           margin: 22px 0 20px 0; }
           .all-campaigns .filters .des h4.date img {
             margin-right: 5px; }
+          .all-campaigns .filters .des h4.date span {
+            background-image: url("../public/images/email-parser/sprite.png");
+            background-position: 0 -336px;
+            width: 26px;
+            height: 24px; }
         .all-campaigns .filters .des h4 i {
           vertical-align: middle;
           color: #00b98f; }
@@ -207,7 +217,11 @@
             padding-left: 46px;
             font-size: 16px;
             border-right: 0;
-            font-family: 'Lato', sans-serif; }
+            font-family: 'Lato', sans-serif;
+            border: 0; }
+            .all-campaigns .filters .user-inputs .search-container .search input::-webkit-input-placeholder {
+              /* WebKit, Blink, Edge */
+              color: #909; }
             .all-campaigns .filters .user-inputs .search-container .search input:focus {
               box-shadow: none;
               border-color: #ccc; }
@@ -291,7 +305,7 @@
       margin: 0 auto; }
       .all-campaigns .content .campaign-details .campaign-link {
         font-family: 'Lato', sans-serif;
-        font-size: 15px;
+        font-size: 14px;
         color: #818785;
         font-weight: normal; }
       .all-campaigns .content .campaign-details .camp-btn {
@@ -339,83 +353,84 @@
             padding-right: 0; }
           .all-campaigns .content .campaign-details .left .list .row a .col-sm-7 {
             padding: 0; }
-      .all-campaigns .content .campaign-details .right .about-comp {
-        border: 1px solid #e0e0e0;
-        font-family: 'Lato', sans-serif;
-        background: #fff;
-        border-radius: 3px;
-        -webkit-border-radius: 3px;
-        -moz-border-radius: 3px;
-        -o-border-radius: 3px; }
-        .all-campaigns .content .campaign-details .right .about-comp .box {
-          padding: 0 0 40px 0; }
-          .all-campaigns .content .campaign-details .right .about-comp .box .ngTruncateToggleText {
-            color: #24be9a; }
-          .all-campaigns .content .campaign-details .right .about-comp .box h4 {
-            font-weight: 600;
-            color: #323232;
-            margin: 0 0 15px 0;
-            text-transform: uppercase;
-            font-size: 16px;
-            padding: 18px 15px;
-            border-bottom: 1px solid #e0e0e0; }
-          .all-campaigns .content .campaign-details .right .about-comp .box span[ng-text-truncate] {
-            word-wrap: break-word;
-            color: #323232;
-            padding: 0 15px;
-            display: block;
-            font-size: 15px;
-            line-height: 24px; }
-          .all-campaigns .content .campaign-details .right .about-comp .box h5 {
-            color: #24be9a; }
-        .all-campaigns .content .campaign-details .right .about-comp .suscribe {
-          background: #f7f9f8;
-          color: #4b4d4c;
-          padding: 14px; }
-          .all-campaigns .content .campaign-details .right .about-comp .suscribe .action {
-            padding: 0; }
-            .all-campaigns .content .campaign-details .right .about-comp .suscribe .action button {
-              padding: 8px;
-              font-weight: 400;
-              margin-top: 3px;
-              font-size: 13px; }
-      .all-campaigns .content .campaign-details .right .create-camp {
-        position: relative;
-        background: url("../images/email-parser/bg_img.png") no-repeat;
-        background-size: cover;
-        background-position: 50% 50%;
-        height: 150px;
-        margin-top: 30px;
-        cursor: pointer; }
-        .all-campaigns .content .campaign-details .right .create-camp .join-team {
-          height: 48px;
-          width: 100%;
-          background: rgba(22, 131, 188, 0.92);
-          position: absolute;
-          bottom: 0;
-          line-height: 48px;
-          text-align: center;
-          color: #fff;
-          font-size: 16px;
-          font-weight: bold;
-          font-family: 'Lato', sans-serif; }
-          .all-campaigns .content .campaign-details .right .create-camp .join-team img {
-            margin-left: 10px; }
-      .all-campaigns .content .campaign-details .right .social-share {
-        padding: 30px 0;
-        font-family: 'Lato', sans-serif; }
-        .all-campaigns .content .campaign-details .right .social-share b {
+      .all-campaigns .content .campaign-details .right {
+        /*position:relative;background: url("../images/email-parser/bg_img.png") no-repeat;background-size: cover;background-position: 50% 50%;height: 150px;*/ }
+        .all-campaigns .content .campaign-details .right .about-comp {
+          border: 1px solid #e0e0e0;
           font-family: 'Lato', sans-serif;
-          font-size: 15px;
-          color: #818785;
-          font-weight: normal; }
-      .all-campaigns .content .campaign-details .right .link {
-        margin-top: 8px; }
-        .all-campaigns .content .campaign-details .right .link input {
-          border-color: #e6e6e6; }
-        .all-campaigns .content .campaign-details .right .link .btns {
-          background: #198fcc;
+          background: #fff;
+          border-radius: 3px;
+          -webkit-border-radius: 3px;
+          -moz-border-radius: 3px;
+          -o-border-radius: 3px; }
+          .all-campaigns .content .campaign-details .right .about-comp .box {
+            padding: 0 0 40px 0; }
+            .all-campaigns .content .campaign-details .right .about-comp .box .ngTruncateToggleText {
+              color: #24be9a; }
+            .all-campaigns .content .campaign-details .right .about-comp .box h4 {
+              font-weight: 600;
+              color: #323232;
+              margin: 0 0 15px 0;
+              text-transform: uppercase;
+              font-size: 16px;
+              padding: 18px 15px;
+              border-bottom: 1px solid #e0e0e0; }
+            .all-campaigns .content .campaign-details .right .about-comp .box span[ng-text-truncate] {
+              word-wrap: break-word;
+              color: #323232;
+              padding: 0 15px;
+              display: block;
+              font-size: 15px;
+              line-height: 24px; }
+            .all-campaigns .content .campaign-details .right .about-comp .box h5 {
+              color: #24be9a; }
+          .all-campaigns .content .campaign-details .right .about-comp .suscribe {
+            background: #f7f9f8;
+            color: #4b4d4c;
+            padding: 14px; }
+            .all-campaigns .content .campaign-details .right .about-comp .suscribe .action {
+              padding: 0; }
+              .all-campaigns .content .campaign-details .right .about-comp .suscribe .action button {
+                padding: 8px;
+                font-weight: 400;
+                margin-top: 3px;
+                font-size: 13px; }
+        .all-campaigns .content .campaign-details .right .create-camp {
+          margin-top: 39px;
+          cursor: pointer;
+          /*position: absolute;bottom: 0;*/ }
+          .all-campaigns .content .campaign-details .right .create-camp .join-team {
+            height: 52px;
+            border-radius: 3px;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            -o-border-radius: 3px;
+            width: 100%;
+            background: #24a678;
+            line-height: 52px;
+            text-align: center;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            font-family: 'Lato', sans-serif;
+            margin-bottom: 20px; }
+            .all-campaigns .content .campaign-details .right .create-camp .join-team img {
+              margin-left: 10px; }
+        .all-campaigns .content .campaign-details .right .social-share {
+          padding: 30px 0;
           font-family: 'Lato', sans-serif; }
+          .all-campaigns .content .campaign-details .right .social-share b {
+            font-family: 'Lato', sans-serif;
+            font-size: 15px;
+            color: #818785;
+            font-weight: normal; }
+        .all-campaigns .content .campaign-details .right .link {
+          margin-top: 8px; }
+          .all-campaigns .content .campaign-details .right .link input {
+            border-color: #e6e6e6; }
+          .all-campaigns .content .campaign-details .right .link .btns {
+            background: #198fcc;
+            font-family: 'Lato', sans-serif; }
 
 /* Form view */
 .angular-survey-template {
